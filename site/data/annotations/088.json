@@ -1,0 +1,4867 @@
+{
+  "record_id": "annotation:088:r3",
+  "paper_record_id": "088",
+  "paper_version_id": "paper-version:088:sha256-2760728d6af1",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "088controller",
+    "088twin",
+    "088risk"
+  ],
+  "system_composition_ids": [
+    "088system"
+  ],
+  "world_type_ids": [
+    "WT_EHR"
+  ],
+  "profile_ids": [
+    "BP_COMPONENT"
+  ],
+  "entities": [
+    {
+      "id": "paper:088",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "088",
+        "title": "PRIME-Care: A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertainty in Telemedicine",
+        "authors": [
+          "Mazyar Taghavi",
+          "Mina Mohammadi",
+          "Ihsan Ullah",
+          "Javad Vahidi"
+        ],
+        "publication_status": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+        "membership_review": {
+          "legacy_membership": "Include – core world model",
+          "status": "provisional_legacy_membership_retained",
+          "verified_core_membership": "unknown",
+          "reason": "Patient-state simulation and learned control are reported. The fitted or learned patient-transition component is insufficiently identified. Controller, value-function and feasibility-operator learning cannot substitute for transition learning."
+        }
+      },
+      "provenance_evidence_ids": [
+        "088e01",
+        "088e02",
+        "088e10",
+        "088e16"
+      ]
+    },
+    {
+      "id": "paper-version:088:sha256-2760728d6af1",
+      "class_id": "PaperVersion",
+      "properties": {
+        "source_path": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+        "sha256": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+        "hash_provenance": "Supplied source record; not recomputed.",
+        "physical_pages": 42,
+        "version": "Research Square v2",
+        "posted_date": "2026-01-07",
+        "doi": "https://doi.org/10.21203/rs.3.rs-8390633/v2",
+        "registry_url_as_supplied": "https://doi.org/10.21203/rs.3.rs-8390633/v1",
+        "filename_year": "2025",
+        "manuscript_license": "Creative Commons Attribution 4.0 International",
+        "pagination": "One-based physical PDF pages; physical page 2 is printed manuscript page 1.",
+        "access": "Complete supplied text and earlier automated image-review notes. This synthesis did not directly inspect images."
+      },
+      "provenance_evidence_ids": [
+        "088e01",
+        "088e02"
+      ]
+    },
+    {
+      "id": "088controller",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "PRIME-Care reported controller",
+        "version_boundary": "Manuscript configuration, not an identified checkpoint.",
+        "mechanism": "RL policy and conservative value learning coupled to constrained action optimization.",
+        "demonstrated_scope": "Reported simulator-coupled decision experiments and operator ablation.",
+        "limits": "Optional MPC is not confirmed as the experimental controller. Network, losses, solver and training schedule are incomplete."
+      },
+      "provenance_evidence_ids": [
+        "088e05",
+        "088e07",
+        "088e08",
+        "088e25"
+      ]
+    },
+    {
+      "id": "088twin",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Reported patient digital twin",
+        "coordinate": "Sequential patient-treatment decision index",
+        "clinical_cadence": "not_reported",
+        "state": "Clinical/physiological state; latent embeddings and belief distributions are proposed.",
+        "transition": "Action-conditioned patient-state evolution",
+        "learned_transition_status": "unknown",
+        "parameterization_boundary": "Clinical-distribution parameterization and expert calibration are stated, but fitted transition quantities, objective and estimation procedure are unidentified.",
+        "prediction_boundary": "Transition NLL and progression concordance are reported without adequate successor/reference, horizon or test-provenance specifications."
+      },
+      "provenance_evidence_ids": [
+        "088e03",
+        "088e04",
+        "088e09",
+        "088e10",
+        "088e16"
+      ]
+    },
+    {
+      "id": "088risk",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Section 7 risk-prediction reporting scope",
+        "identity_boundary": "Reporting-scope identifier, not a claim that a separately trained checkpoint exists.",
+        "relationship_to_twin_controller": "unknown",
+        "task": "Binary-outcome discrimination, probability calibration, robustness, subgroup analysis and decision curves.",
+        "clinical_target_and_horizon": "not_reported",
+        "transfer_boundary": "These results do not validate patient transitions or trajectory uncertainty."
+      },
+      "provenance_evidence_ids": [
+        "088e19",
+        "088e20",
+        "088e21",
+        "088e22",
+        "088e23"
+      ]
+    },
+    {
+      "id": "088system",
+      "class_id": "SystemComposition",
+      "properties": {
+        "reported_flow": "State estimation → RL proposal → constrained action optimization → simulated patient response → reward/policy update.",
+        "environment": "Digital-twin research simulation",
+        "implementation_limit": "Algorithm 1 does not explicitly pass the RL proposal or uncertainty quantifier into its displayed action optimization.",
+        "profile_rationale": "BP_COMPONENT retains constrained-policy and assurance contributions without certifying core WM identity or operational readiness."
+      },
+      "provenance_evidence_ids": [
+        "088e07",
+        "088e08",
+        "088e09",
+        "088e10"
+      ]
+    },
+    {
+      "id": "088actor",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "responsibility": "Treatment proposals and simulator-coupled policy learning",
+        "inputs": "Patient-state estimates and feasibility feedback",
+        "outputs": "Action proposals and treatment-policy trajectories",
+        "boundary": "Not complete M8 interface conformance."
+      },
+      "provenance_evidence_ids": [
+        "088e05",
+        "088e08",
+        "088e25"
+      ]
+    },
+    {
+      "id": "088guard",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "responsibility": "Modify actions using modeled constraints and feed feasibility information into learning",
+        "limits": "Solver, uncertainty-set coverage, numerical clinical limits and infeasibility fallback are insufficiently specified.",
+        "safety_boundary": "Reported violations are nonzero."
+      },
+      "provenance_evidence_ids": [
+        "088e07",
+        "088e14",
+        "088e25"
+      ]
+    },
+    {
+      "id": "088use",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "purpose": "Individualized chronic-care treatment-planning research",
+        "intended_setting": "Telemedicine/chronic care",
+        "intended_users": "Healthcare professionals",
+        "actual_environment": "Reported simulation; Section 7 data provenance unresolved",
+        "population_eligibility": "not_reported",
+        "authority": "No actual clinical execution authorization established"
+      },
+      "provenance_evidence_ids": [
+        "088e09",
+        "088e10",
+        "088e12",
+        "088e26",
+        "088e33"
+      ]
+    },
+    {
+      "id": "088data6",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "reported_source": "Unnamed regional multicenter chronic-care program",
+        "reported_size": "Approximately 19,000 patient trajectories",
+        "reported_variables": "Demographics, laboratory results, severity indices, interventions and adverse-event markers",
+        "version_dates_sites": "not_reported",
+        "deidentification": "Author statement; operational procedure not_reported"
+      },
+      "provenance_evidence_ids": [
+        "088e10"
+      ]
+    },
+    {
+      "id": "088cohort6",
+      "class_id": "Cohort",
+      "properties": {
+        "dataset_id": "088data6",
+        "reported_size": "Approximately 19,000 patient trajectories",
+        "unique_people": "not_reported",
+        "held_out_actual_clinical_partition": "unknown"
+      },
+      "provenance_evidence_ids": [
+        "088e10",
+        "088e13"
+      ]
+    },
+    {
+      "id": "088cohort7",
+      "class_id": "Cohort",
+      "properties": {
+        "reported_samples": 12450,
+        "sample_unit": "not_reported",
+        "reported_split": "70% / 10% / 20%",
+        "partition_unit": "not_reported",
+        "positive_prevalence": "28.4%",
+        "age": "58.7 ± 12.1 years, mean ± SD",
+        "sex": "54% Female / 46% Male",
+        "missingness": "6.3%",
+        "Cohen_kappa": "0.87; task and raters unspecified",
+        "relationship_to_19000": "unknown",
+        "actual_human_holdout_provenance": "unknown"
+      },
+      "provenance_evidence_ids": [
+        "088e19",
+        "088e20",
+        "088e27"
+      ]
+    },
+    {
+      "id": "088hospitalB",
+      "class_id": "Cohort",
+      "properties": {
+        "reported_label": "Hospital B",
+        "reported_samples": 3100,
+        "sample_unit": "not_reported",
+        "included_in_12450": "unknown",
+        "external_performance_adaptation_overlap_controls": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "088e19"
+      ]
+    },
+    {
+      "id": "088eval6",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "design": "Reported hybrid digital-twin comparative study",
+        "comparators_named": [
+          "DQN",
+          "SAC",
+          "CPO",
+          "NMPC"
+        ],
+        "environment": "Simulation reportedly enriched by clinical data",
+        "horizon": "not_reported",
+        "uncertainty": "5,000 bootstrap resamples claimed; numerical intervals and resampling units not displayed."
+      },
+      "provenance_evidence_ids": [
+        "088e10",
+        "088e13",
+        "088e14",
+        "088e16"
+      ]
+    },
+    {
+      "id": "088eval7",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "model_id": "088risk",
+        "reported_validation": "Five-fold CV and independent held-out test set",
+        "hardware": "NVIDIA A100 GPU",
+        "batch_size": 64,
+        "tuning": "Bayesian optimization",
+        "actual_human_holdout": "unknown",
+        "horizon": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "088e19",
+        "088e20"
+      ]
+    },
+    {
+      "id": "088ablation",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "model_id": "088controller",
+        "reported_controls": "Same dataset and policy architecture, varying learning operator",
+        "comparators": [
+          "CQL+Lagrangian",
+          "Shielded RL",
+          "PRIME-Care without bilevel coupling"
+        ],
+        "data_environment_and_linkage": "Insufficiently identified",
+        "horizon_runs_intervals": "not_reported",
+        "study_counting": "Separate reporting scope, not established independent replication."
+      },
+      "provenance_evidence_ids": [
+        "088e25"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "088a001",
+      "subject_id": "088twin",
+      "feature_id": "data.provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "dataset_version_id": "088data6"
+      },
+      "evidence_ids": [
+        "088e10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Source categories do not establish variable-level units, times, transformations and versions."
+    },
+    {
+      "id": "088a002",
+      "subject_id": "088twin",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Irregular source sampling does not establish retention of actual timestamps."
+    },
+    {
+      "id": "088a003",
+      "subject_id": "088twin",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Collection and information-release times are not operationally distinguished."
+    },
+    {
+      "id": "088a004",
+      "subject_id": "088twin",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e08",
+        "088e10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Missingness claims do not specify measured/missing/invalid model inputs."
+    },
+    {
+      "id": "088a005",
+      "subject_id": "088twin",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No per-variable freshness representation."
+    },
+    {
+      "id": "088a006",
+      "subject_id": "088twin",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e03",
+        "088e10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Decision indices and generic differential equations do not establish actual irregular-time prediction."
+    },
+    {
+      "id": "088a007",
+      "subject_id": "088twin",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e12",
+        "088e30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Diagnostic scheduling and state inference do not specify observation-generation dynamics."
+    },
+    {
+      "id": "088a008",
+      "subject_id": "088twin",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No target/grid-specific witness-preservation audit; clock regime remains unresolved."
+    },
+    {
+      "id": "088a009",
+      "subject_id": "088twin",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "dataset_version_id": "088data6"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No traceable terminology or unit-conversion mappings."
+    },
+    {
+      "id": "088a010",
+      "subject_id": "088twin",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e10",
+        "088e13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No-leakage/CV statements lack availability, partition-unit and preprocessing audits."
+    },
+    {
+      "id": "088a011",
+      "subject_id": "088system",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Multicenter sourcing and cloud/edge labels are not a federated protocol."
+    },
+    {
+      "id": "088a012",
+      "subject_id": "088twin",
+      "feature_id": "perception.encoder",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e04",
+        "088e08",
+        "088e16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Embeddings/filtering are discussed, but the executed observation-to-state mapping is unidentified."
+    },
+    {
+      "id": "088a013",
+      "subject_id": "088twin",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No used pretrained checkpoint or adaptation protocol."
+    },
+    {
+      "id": "088a014",
+      "subject_id": "088twin",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No target-representation prediction objective."
+    },
+    {
+      "id": "088a015",
+      "subject_id": "088twin",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Predictive representation objective and anti-collapse design are unspecified; inapplicability is not established."
+    },
+    {
+      "id": "088a016",
+      "subject_id": "088twin",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Reconstruction wording does not define an observation reconstruction loss."
+    },
+    {
+      "id": "088a017",
+      "subject_id": "088twin",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e10",
+        "088e26"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No operational multimodal fusion; imaging/genomic integration is future work."
+    },
+    {
+      "id": "088a018",
+      "subject_id": "088twin",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No availability/quality/recency-conditioned fusion rule."
+    },
+    {
+      "id": "088a019",
+      "subject_id": "088twin",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "088twin",
+        "evaluation_run_id": "088eval6",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "088e03",
+        "088e08",
+        "088e09",
+        "088e10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reported simulator execution carries patient states through sequential treatment cycles; learning is separate."
+    },
+    {
+      "id": "088a020",
+      "subject_id": "088twin",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e04",
+        "088e08",
+        "088e30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Observation-conditioned hidden-state distribution p(s_t|z_t) is specified."
+      ],
+      "criteria_missing": [
+        "History-conditioned posterior update and executed distribution family."
+      ],
+      "rationale": "Kalman filtering is an example, not the identified experimental estimator."
+    },
+    {
+      "id": "088a021",
+      "subject_id": "088twin",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No distinct propagation/correction and missing-observation correction rules."
+    },
+    {
+      "id": "088a022",
+      "subject_id": "088twin",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "088e08",
+        "088e09"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Repeated estimation is not distinguished from state recomputation or policy training."
+    },
+    {
+      "id": "088a023",
+      "subject_id": "088twin",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e10",
+        "088e32"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No individual transition-parameter fitting rule; policy/operator updates are different quantities."
+    },
+    {
+      "id": "088a024",
+      "subject_id": "088twin",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e16",
+        "088e20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No identified shared state/checkpoint across typed tasks; Section 7 linkage unresolved."
+    },
+    {
+      "id": "088a025",
+      "subject_id": "088twin",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Operator ablation is not state/history-variable sufficiency testing."
+    },
+    {
+      "id": "088a026",
+      "subject_id": "088twin",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e04",
+        "088e31"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Treatment history and responses are specified as state contents; encoding and predictive value remain unresolved."
+    },
+    {
+      "id": "088a027",
+      "subject_id": "088twin",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e15",
+        "088e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Plan similarity does not isolate correct individual information against matched prior/swap/withhold controls."
+    },
+    {
+      "id": "088a028",
+      "subject_id": "088twin",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No identity/entity-preservation mechanism."
+    },
+    {
+      "id": "088a029",
+      "subject_id": "088twin",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e04",
+        "088e22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Named candidate inputs and SHAP do not provide an inspectable executed-state semantic mapping."
+    },
+    {
+      "id": "088a030",
+      "subject_id": "088twin",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e04",
+        "088e31"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No memory mechanism beyond history potentially included in supplied state."
+    },
+    {
+      "id": "088a031",
+      "subject_id": "088twin",
+      "feature_id": "action.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "088twin",
+        "evaluation_run_id": "088eval6",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "088e03",
+        "088e08",
+        "088e09",
+        "088e12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Selected interventions enter the reported simulator separately from state."
+    },
+    {
+      "id": "088a032",
+      "subject_id": "088controller",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "088controller"
+      },
+      "evidence_ids": [
+        "088e12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Medication, diagnostic scheduling and lifestyle classes are distinguished in prose."
+      ],
+      "criteria_missing": [
+        "Operational role typing and modeled effect-channel mappings."
+      ],
+      "rationale": "Reviewer role/channel interpretation is not an implemented typed interface."
+    },
+    {
+      "id": "088a033",
+      "subject_id": "088controller",
+      "feature_id": "action.parameterized",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088controller"
+      },
+      "evidence_ids": [
+        "088e03",
+        "088e12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Generic operation classes and a_t do not specify encoded intervention coordinates, doses, units, route or duration."
+    },
+    {
+      "id": "088a034",
+      "subject_id": "088controller",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088controller"
+      },
+      "evidence_ids": [
+        "088e03",
+        "088e07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Abstract indexing lacks clinical cadence, event timing and duration/dose semantics."
+    },
+    {
+      "id": "088a035",
+      "subject_id": "088controller",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088controller"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No joint-component or inherited-setting update semantics."
+    },
+    {
+      "id": "088a036",
+      "subject_id": "088guard",
+      "feature_id": "action.constraints",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "module_implementation_id": "088guard",
+        "evaluation_run_id": "088eval6",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "088e07",
+        "088e08",
+        "088e14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Constrained action selection and comparative residual violations are reported; clinical threshold validity is unresolved."
+    },
+    {
+      "id": "088a037",
+      "subject_id": "088controller",
+      "feature_id": "action.grounding",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Recognizable operations and advisory-board mapping are reported."
+      ],
+      "criteria_missing": [
+        "Reproducible variable-to-operation mapping, executable parameters and mapping-validation results."
+      ],
+      "rationale": "Class-level semantics do not establish executable alignment."
+    },
+    {
+      "id": "088a038",
+      "subject_id": "088guard",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "088guard"
+      },
+      "evidence_ids": [
+        "088e06"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No estimated/tested contextual support criterion for queried alternatives."
+    },
+    {
+      "id": "088a039",
+      "subject_id": "088twin",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e13",
+        "088e14",
+        "088e15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Shared baseline histories and aggregate policy metrics do not document specified same-origin successor alternatives."
+    },
+    {
+      "id": "088a040",
+      "subject_id": "088controller",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No reversibility or residual-harm assessment."
+    },
+    {
+      "id": "088a041",
+      "subject_id": "088twin",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "088twin",
+        "evaluation_run_id": "088eval6",
+        "environment_kind": "in_silico",
+        "time_horizon": "Patient decision index; physical cadence not_reported"
+      },
+      "evidence_ids": [
+        "088e03",
+        "088e09",
+        "088e10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reported simulator advances patient state; policy-update iterations are a separate coordinate."
+    },
+    {
+      "id": "088a042",
+      "subject_id": "088twin",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin",
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e10",
+        "088e16",
+        "088e32",
+        "088e34"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Parameterization/calibration is stated without identifiable fitted transition quantities or procedure. Policy/value/operator learning is insufficient."
+    },
+    {
+      "id": "088a043",
+      "subject_id": "088twin",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "088twin",
+        "evaluation_run_id": "088eval6",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "088e03",
+        "088e08",
+        "088e09",
+        "088e12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Selected actions drive the simulator; action-specific predictive validation and causal identification remain separate."
+    },
+    {
+      "id": "088a044",
+      "subject_id": "088twin",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e03",
+        "088e34"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Random disturbances and stochastic transitions are specified; executed randomness is unresolved."
+    },
+    {
+      "id": "088a045",
+      "subject_id": "088twin",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e09",
+        "088e10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Named PK/progression models lack instantiated operative equations. Controller constraints are not automatically transition priors."
+    },
+    {
+      "id": "088a046",
+      "subject_id": "088twin",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e10",
+        "088e16",
+        "088e32"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Fixed, fitted and learned transition quantities and their coupling are unidentified."
+    },
+    {
+      "id": "088a047",
+      "subject_id": "088twin",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e13",
+        "088e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Shared-simulator baselines/operator ablations are not compatible-backend integration tests."
+    },
+    {
+      "id": "088a048",
+      "subject_id": "088twin",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No cross-scale state exchange or mapping."
+    },
+    {
+      "id": "088a049",
+      "subject_id": "088twin",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e08",
+        "088e16",
+        "088e32"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Cumulative policy reward is not a specified multistep dynamics loss."
+    },
+    {
+      "id": "088a050",
+      "subject_id": "088controller",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088controller"
+      },
+      "evidence_ids": [
+        "088e05",
+        "088e07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Bilevel optimization is not an option/event-duration temporal hierarchy."
+    },
+    {
+      "id": "088a051",
+      "subject_id": "088twin",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No defined internal-state-to-observable emission mapping."
+    },
+    {
+      "id": "088a052",
+      "subject_id": "088twin",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e13",
+        "088e16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Progression readout and C-index reported."
+      ],
+      "criteria_missing": [
+        "Clinical endpoint, head mapping, horizon and measurement semantics."
+      ],
+      "rationale": "Limited readout evidence, not a fully typed clinical head."
+    },
+    {
+      "id": "088a053",
+      "subject_id": "088twin",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "088eval6",
+        "time_horizon": "Successor displacement unspecified"
+      },
+      "evidence_ids": [
+        "088e03",
+        "088e13",
+        "088e16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Reported state-transition NLL beyond a proposed training loss."
+      ],
+      "criteria_missing": [
+        "Identified successor/reference construction, displacement and clinical/synthetic test linkage."
+      ],
+      "rationale": "Incomplete protocol prevents full successor-prediction certification."
+    },
+    {
+      "id": "088a054",
+      "subject_id": "088twin",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e08",
+        "088e16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Sequential control does not document free-running predictive evaluation with generated intermediate states."
+    },
+    {
+      "id": "088a055",
+      "subject_id": "088twin",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Intermediate reference-feedback protocol unspecified."
+    },
+    {
+      "id": "088a056",
+      "subject_id": "088twin",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e08",
+        "088e09"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Simulated feedback is not demonstrated newly measured clinical/physical correction."
+    },
+    {
+      "id": "088a057",
+      "subject_id": "088twin",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Symbolic H/T and Figure 5's hours do not establish maximum evaluated forecast extent."
+    },
+    {
+      "id": "088a058",
+      "subject_id": "088twin",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e16",
+        "088e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Perturbation deterioration is not free-running error versus forecast depth."
+    },
+    {
+      "id": "088a059",
+      "subject_id": "088twin",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No horizon curve with tolerance, uncertainty and action support."
+    },
+    {
+      "id": "088a060",
+      "subject_id": "088twin",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e03",
+        "088e30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No reported coherent conditional future samples or joint forecast output."
+    },
+    {
+      "id": "088a061",
+      "subject_id": "088system",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No horizon-dependent rejection, disclosed truncation or escalation."
+    },
+    {
+      "id": "088a062",
+      "subject_id": "088controller",
+      "feature_id": "planning.model_use",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "088eval6",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "088e08",
+        "088e09",
+        "088e10",
+        "088e14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Simulated patient responses feed policy learning/evaluation; learned WM identity and latent imagination are not inferred."
+    },
+    {
+      "id": "088a063",
+      "subject_id": "088controller",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "088eval6",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "088e07",
+        "088e08",
+        "088e14",
+        "088e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Policy plus feasibility optimization and decision results reported. The patient-model identity remains separately unresolved."
+    },
+    {
+      "id": "088a064",
+      "subject_id": "088controller",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088controller"
+      },
+      "evidence_ids": [
+        "088e07",
+        "088e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Optional MPC does not establish measured-feedback replanning with planning/execution horizons."
+    },
+    {
+      "id": "088a065",
+      "subject_id": "088twin",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e03",
+        "088e07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Separate symbols do not specify inference-time objective changes with fixed learned dynamics."
+    },
+    {
+      "id": "088a066",
+      "subject_id": "088guard",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "088guard"
+      },
+      "evidence_ids": [
+        "088e07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Robust projection across U changes admissible actions; executed U and solver remain unresolved."
+    },
+    {
+      "id": "088a067",
+      "subject_id": "088controller",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e13",
+        "088e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No explicit optimized-plan model-error/reward-exploitation test under independent or mismatched dynamics."
+    },
+    {
+      "id": "088a068",
+      "subject_id": "088actor",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "088actor"
+      },
+      "evidence_ids": [
+        "088e06",
+        "088e07",
+        "088e12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "State-conditioned RL proposal and feasibility processing identify candidate source."
+      ],
+      "criteria_missing": [
+        "Action inventory, eligibility/support estimation, coverage and information-availability checks."
+      ],
+      "rationale": "Partial construction provenance only."
+    },
+    {
+      "id": "088a069",
+      "subject_id": "088controller",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088controller"
+      },
+      "evidence_ids": [
+        "088e05",
+        "088e07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No options/goals with duration or termination; bilevel correction is insufficient."
+    },
+    {
+      "id": "088a070",
+      "subject_id": "088controller",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "088eval6",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "088e08",
+        "088e09",
+        "088e12",
+        "088e14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Reported actions affect the simulator and feedback subsequent decisions; no patient-connected loop inferred."
+    },
+    {
+      "id": "088a071",
+      "subject_id": "088twin",
+      "feature_id": "uq.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e03",
+        "088e30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "State distributions have specified uncertainty semantics; fitting/calibration not established."
+    },
+    {
+      "id": "088a072",
+      "subject_id": "088twin",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e03",
+        "088e30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Named uncertainty sources lack separate aleatoric/epistemic estimation procedures."
+    },
+    {
+      "id": "088a073",
+      "subject_id": "088twin",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Transition NLL/concordance are not reliability/coverage comparisons; risk calibration is separate."
+    },
+    {
+      "id": "088a074",
+      "subject_id": "088twin",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No joint or horizon-indexed trajectory reliability."
+    },
+    {
+      "id": "088a075",
+      "subject_id": "088twin",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No declared calibration tolerance and matching uncertainty-qualified acceptance result."
+    },
+    {
+      "id": "088a076",
+      "subject_id": "088system",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "evidence_ids": [
+        "088e06",
+        "088e22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Stress tests/support penalties do not establish an operational detector and response."
+    },
+    {
+      "id": "088a077",
+      "subject_id": "088system",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No conformal score, calibration split or coverage assumptions."
+    },
+    {
+      "id": "088a078",
+      "subject_id": "088twin",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e10",
+        "088e34"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No jointly specified intervention alternatives, population, outcome, horizon and causal contrast."
+    },
+    {
+      "id": "088a079",
+      "subject_id": "088twin",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e03",
+        "088e10",
+        "088e34"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No estimand-linked identification argument; action conditioning and offline RL are insufficient."
+    },
+    {
+      "id": "088a080",
+      "subject_id": "088twin",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Optimization/projection assumptions are not estimand-linked causal assumptions."
+    },
+    {
+      "id": "088a081",
+      "subject_id": "088twin",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e13",
+        "088e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Generic parameter/noise robustness is not identification-assumption sensitivity."
+    },
+    {
+      "id": "088a082",
+      "subject_id": "088twin",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e10",
+        "088e16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No defined action-effect predictions compared with known potential outcomes or interventional references."
+    },
+    {
+      "id": "088a083",
+      "subject_id": "088twin",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e03",
+        "088e09",
+        "088e10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "PK/progression model names do not identify a documented calibrated intervention mechanism and applicability range."
+    },
+    {
+      "id": "088a084",
+      "subject_id": "088twin",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "088use",
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Joint estimand, identification/grounding, support, validation and sensitivity evidence is insufficient."
+    },
+    {
+      "id": "088a085",
+      "subject_id": "088guard",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "module_implementation_id": "088guard",
+        "evaluation_run_id": "088ablation"
+      },
+      "evidence_ids": [
+        "088e07",
+        "088e08",
+        "088e14",
+        "088e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Pre-action projection and operator ablation reported."
+      ],
+      "criteria_missing": [
+        "Defined failure/infeasibility behavior and adequate constraint/solver/uncertainty specification."
+      ],
+      "rationale": "Improvements coexist with residual violations; no clinical safety guarantee."
+    },
+    {
+      "id": "088a086",
+      "subject_id": "088guard",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "088guard"
+      },
+      "evidence_ids": [
+        "088e07",
+        "088e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Projection is not a specified withhold/defer/fallback route."
+    },
+    {
+      "id": "088a087",
+      "subject_id": "088system",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "evidence_ids": [
+        "088e12",
+        "088e18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Advisory involvement and retrospective ratings are not triggered operational escalation."
+    },
+    {
+      "id": "088a088",
+      "subject_id": "088guard",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "088guard"
+      },
+      "evidence_ids": [
+        "088e08",
+        "088e23"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No defined online hazard-detection signal and protective response."
+    },
+    {
+      "id": "088a089",
+      "subject_id": "088system",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No specified/tested stop or fallback; research status does not establish inapplicability."
+    },
+    {
+      "id": "088a090",
+      "subject_id": "088system",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "evidence_ids": [
+        "088e22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "FGSM naming lacks assets, adversary capabilities and interface/trajectory attack paths."
+    },
+    {
+      "id": "088a091",
+      "subject_id": "088controller",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e13",
+        "088e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Controller perturbations lack a defined fault protocol and endpoint; risk-model FGSM is separate."
+    },
+    {
+      "id": "088a092",
+      "subject_id": "088data6",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "dataset_version_id": "088data6"
+      },
+      "evidence_ids": [
+        "088e10",
+        "088e28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "De-identified is a source description, not an operational privacy-control specification."
+    },
+    {
+      "id": "088a093",
+      "subject_id": "088twin",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No copying, membership, re-identification or attribute-disclosure test."
+    },
+    {
+      "id": "088a094",
+      "subject_id": "088system",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No enforced external identity/operation permissions."
+    },
+    {
+      "id": "088a095",
+      "subject_id": "088system",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "evidence_ids": [
+        "088e18",
+        "088e22",
+        "088e23"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Explanations do not establish a reliance/override protocol or measured over-trust mitigation."
+    },
+    {
+      "id": "088a096",
+      "subject_id": "088system",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "evidence_ids": [
+        "088e09",
+        "088e10",
+        "088e12",
+        "088e26",
+        "088e33"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Treatment-planning purpose, broad chronic-care/telemedicine setting, clinician recipients and simulation research environment."
+      ],
+      "criteria_missing": [
+        "Disease eligibility, operational decision timing, permitted clinical autonomy and complete use limits."
+      ],
+      "rationale": "Not a deployment contract."
+    },
+    {
+      "id": "088a097",
+      "subject_id": "088system",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No report pins trained artifacts, data versions, assets and capability boundaries."
+    },
+    {
+      "id": "088a098",
+      "subject_id": "088system",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "evidence_ids": [
+        "088e26"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No post-release signals, cadence, responsible owner and response/revalidation plan."
+    },
+    {
+      "id": "088a099",
+      "subject_id": "088system",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "evidence_ids": [
+        "088e08",
+        "088e32"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Learning updates lack versioned approval, revalidation and rollback criteria."
+    },
+    {
+      "id": "088a100",
+      "subject_id": "paper-version:088:sha256-2760728d6af1",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "evidence_ids": [
+        "088e19",
+        "088e24"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": [
+        "TRIPOD+AI",
+        "CONSORT-AI",
+        "SPIRIT-AI",
+        "STARD-AI",
+        "DECIDE-AI",
+        "MI-CLAIM",
+        "CLEAR",
+        "CHART",
+        "TRIPOD-LLM",
+        "FAIR"
+      ],
+      "rationale": "Named reporting frameworks/principles only; self-declarations are not verified compliance or authorization."
+    },
+    {
+      "id": "088a101",
+      "subject_id": "088system",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "evidence_ids": [
+        "088e24"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No jurisdiction/product/use-specific requirement and compliance/authorization dossier."
+    },
+    {
+      "id": "088a102",
+      "subject_id": "paper-version:088:sha256-2760728d6af1",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval7"
+      },
+      "evidence_ids": [
+        "088e10",
+        "088e18",
+        "088e19",
+        "088e27"
+      ],
+      "verification_status": "disputed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Generic IRB and no-human-participation statements have unreconciled scopes. Secondary data and recruitment can differ; nonapproval is not inferred."
+    },
+    {
+      "id": "088a103",
+      "subject_id": "088actor",
+      "feature_id": "agent.role",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "module_implementation_id": "088actor",
+        "evaluation_run_id": "088ablation"
+      },
+      "evidence_ids": [
+        "088e05",
+        "088e08",
+        "088e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "RL treatment proposer/policy learner is operationally described; no LLM role inferred."
+    },
+    {
+      "id": "088a104",
+      "subject_id": "088system",
+      "feature_id": "agent.multiple",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "088controller"
+      },
+      "evidence_ids": [
+        "088e05",
+        "088e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Inspected configuration is one RL agent plus an optimization module, not multiple communicating agents."
+    },
+    {
+      "id": "088a105",
+      "subject_id": "088actor",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "088actor"
+      },
+      "evidence_ids": [
+        "088e08",
+        "088e32"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Policy training/external projection do not specify an agent critique-and-revision protocol."
+    },
+    {
+      "id": "088a106",
+      "subject_id": "088actor",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "088actor"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Simulator use is not specified as an external API with permissions and operation scope."
+    },
+    {
+      "id": "088a107",
+      "subject_id": "088system",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "evaluation_run_id": "088eval6",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "088e08",
+        "088e09",
+        "088e12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Policy proposes, optimization selects/modifies, simulator receives actions. Authority applies only to simulation."
+    },
+    {
+      "id": "088a108",
+      "subject_id": "088system",
+      "feature_id": "release.code",
+      "assessment_state": "present",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "model_version_id": "088controller"
+      },
+      "evidence_ids": [
+        "088e28",
+        "088e29"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Public availability explicitly claimed; repository, contents and version correspondence not checked."
+    },
+    {
+      "id": "088a109",
+      "subject_id": "088system",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "evidence_ids": [
+        "088e28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No identified trained-weight release."
+    },
+    {
+      "id": "088a110",
+      "subject_id": "088system",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "evidence_ids": [
+        "088e28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Manuscript CC BY does not establish separate code, weights and data terms."
+    },
+    {
+      "id": "088a111",
+      "subject_id": "088system",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "evidence_ids": [
+        "088e29"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Availability and reproducibility aspirations are not independent execution."
+    },
+    {
+      "id": "088a112",
+      "subject_id": "088twin",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e13",
+        "088e16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Comparative state-transition NLL reported."
+      ],
+      "criteria_missing": [
+        "Exact successor variables, reference construction, displacement and test-data provenance."
+      ],
+      "rationale": "Preserves reported prediction results without certifying an adequately specified fidelity protocol."
+    },
+    {
+      "id": "088a113",
+      "subject_id": "088twin",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No multiple-horizon sequence fidelity or recursive/block protocol."
+    },
+    {
+      "id": "088a114",
+      "subject_id": "088twin",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No generated-versus-reference distribution comparison."
+    },
+    {
+      "id": "088a115",
+      "subject_id": "088guard",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "088eval6",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "088e07",
+        "088e13",
+        "088e14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Constraint classes and comparative violations reported."
+      ],
+      "criteria_missing": [
+        "Evaluated functions, thresholds, clinical sources and counting denominator."
+      ],
+      "rationale": "Limited modeled-constraint assessment, not clinical plausibility acceptance."
+    },
+    {
+      "id": "088a116",
+      "subject_id": "088twin",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No transition/trajectory reliability or coverage evaluation."
+    },
+    {
+      "id": "088a117",
+      "subject_id": "088twin",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e12",
+        "088e16",
+        "088e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No controlled same-context action-input response test."
+    },
+    {
+      "id": "088a118",
+      "subject_id": "088twin",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e10",
+        "088e16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No estimand-specific counterfactual/interventional reference and result."
+    },
+    {
+      "id": "088a119",
+      "subject_id": "088twin",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e15",
+        "088e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Plan concordance is not matched correct-history versus swap/withhold/prior testing."
+    },
+    {
+      "id": "088a120",
+      "subject_id": "088controller",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "088eval6",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "088e08",
+        "088e13",
+        "088e14",
+        "088e15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Simulator-coupled policy constraints and plan-concordance endpoints reported; no patient benefit or validated OPE inferred."
+    },
+    {
+      "id": "088a121",
+      "subject_id": "088controller",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e09",
+        "088e10",
+        "088e33"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Clinical-data simulator parameterization is not matched simulated-versus-actual policy agreement."
+    },
+    {
+      "id": "088a122",
+      "subject_id": "088controller",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "088eval6",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "088e13",
+        "088e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Parameter/missingness/noise perturbations and comparative declines reported."
+      ],
+      "criteria_missing": [
+        "Defined performance endpoint and reproducible perturbation protocol."
+      ],
+      "rationale": "Limited robustness experiment, not demonstrated near-optimality or transfer."
+    },
+    {
+      "id": "088a123",
+      "subject_id": "088twin",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "dataset_version_id": "088data6"
+      },
+      "evidence_ids": [
+        "088e10",
+        "088e13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Irregularity/missingness tests are not temporal witness-preservation audits."
+    },
+    {
+      "id": "088a124",
+      "subject_id": "088controller",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e12",
+        "088e18",
+        "088e27"
+      ],
+      "verification_status": "disputed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Actual-clinician plan ratings are explicitly reported, not simulated feedback. Participation scope and review protocol remain unresolved against the declarations."
+    },
+    {
+      "id": "088a125",
+      "subject_id": "088controller",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088controller"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Conflicting asymptotic bounds are not measured efficiency."
+    },
+    {
+      "id": "088a126",
+      "subject_id": "088system",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "evaluation_run_id": "088eval6",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "088e09",
+        "088e12",
+        "088e33"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "This evaluation is explicitly simulated without direct clinical involvement; it therefore is not a real-care/workflow utility study. This scoped absence does not adjudicate future studies."
+    },
+    {
+      "id": "088a127",
+      "subject_id": "088twin",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e04",
+        "088e16",
+        "088e30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Optional embeddings/reconstruction/beliefs do not identify the executed propagated representation."
+    },
+    {
+      "id": "088a128",
+      "subject_id": "088twin",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e08",
+        "088e32"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Value/policy learning does not establish reward/value-preserving transition-state training."
+    },
+    {
+      "id": "088a129",
+      "subject_id": "088twin",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e08",
+        "088e16",
+        "088e30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Executed distribution versus point estimate unresolved; partial specification does not establish implementation."
+    },
+    {
+      "id": "088a130",
+      "subject_id": "088twin",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e04",
+        "088e13",
+        "088e31"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Experimental histories are named without specifying their incorporation into the executed forecast/state."
+    },
+    {
+      "id": "088a131",
+      "subject_id": "088twin",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e10",
+        "088e13",
+        "088e16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Process randomness is not distinguished operationally from parameter uncertainty, observation noise and stress injection."
+    },
+    {
+      "id": "088a132",
+      "subject_id": "088twin",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6",
+        "time_horizon": "Action-specific predictive validation"
+      },
+      "evidence_ids": [
+        "088e13",
+        "088e16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Aggregate NLL lacks tested-regime and action-conditioned prediction protocol; simulator implementation is separate."
+    },
+    {
+      "id": "088a133",
+      "subject_id": "088guard",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6",
+        "module_implementation_id": "088guard"
+      },
+      "evidence_ids": [
+        "088e07",
+        "088e08",
+        "088e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Experimental U/solver unidentified; Algorithm 1 omits the robust quantifier."
+    },
+    {
+      "id": "088a134",
+      "subject_id": "088twin",
+      "feature_id": "uq.explicit",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e16",
+        "088e30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Fitted distribution, inference procedure and twin uncertainty output unresolved."
+    },
+    {
+      "id": "088a135",
+      "subject_id": "088risk",
+      "feature_id": "data.provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval7",
+        "cohort_id": "088cohort7"
+      },
+      "evidence_ids": [
+        "088e19",
+        "088e27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Cohort summaries/Hospital B lack versioned variable provenance and Section 6 linkage."
+    },
+    {
+      "id": "088a136",
+      "subject_id": "088risk",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval7"
+      },
+      "evidence_ids": [
+        "088e19",
+        "088e20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Split/CV/tuning statements omit partition, availability and preprocessing boundaries."
+    },
+    {
+      "id": "088a137",
+      "subject_id": "088risk",
+      "feature_id": "perception.encoder",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval7"
+      },
+      "evidence_ids": [
+        "088e20",
+        "088e22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Scores/explanations do not specify the input-to-representation mapping."
+    },
+    {
+      "id": "088a138",
+      "subject_id": "088risk",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval7"
+      },
+      "evidence_ids": [
+        "088e22",
+        "088e23"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Input explanations do not establish interpretable maintained-state coordinates."
+    },
+    {
+      "id": "088a139",
+      "subject_id": "088risk",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "088eval7"
+      },
+      "evidence_ids": [
+        "088e19",
+        "088e20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Evaluated binary probability readout reported."
+      ],
+      "criteria_missing": [
+        "Clinical target, state mapping, horizon and twin linkage."
+      ],
+      "rationale": "Separate incompletely typed prediction readout."
+    },
+    {
+      "id": "088a140",
+      "subject_id": "088risk",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval7"
+      },
+      "evidence_ids": [
+        "088e20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Undefined target time prevents interpreting discrimination as successor prediction."
+    },
+    {
+      "id": "088a141",
+      "subject_id": "088risk",
+      "feature_id": "uq.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "088eval7"
+      },
+      "evidence_ids": [
+        "088e20",
+        "088e21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Binary probability output reported, not a calibrated twin-state posterior."
+    },
+    {
+      "id": "088a142",
+      "subject_id": "088risk",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "088eval7"
+      },
+      "evidence_ids": [
+        "088e19",
+        "088e20",
+        "088e21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "ECE/Brier, reliability curves and held-out-test statement."
+      ],
+      "criteria_missing": [
+        "Clinical event/horizon, metric details and unambiguous configuration/sample linkage."
+      ],
+      "rationale": "Calibration analysis exists, but complete target/metric/sample qualification is missing."
+    },
+    {
+      "id": "088a143",
+      "subject_id": "088risk",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval7"
+      },
+      "evidence_ids": [
+        "088e20",
+        "088e21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "ECE 0.021 and near-perfect wording do not define an acceptance tolerance."
+    },
+    {
+      "id": "088a144",
+      "subject_id": "088risk",
+      "feature_id": "safety.red_team",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "088eval7"
+      },
+      "evidence_ids": [
+        "088e22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "FGSM condition and comparative signed AUC changes."
+      ],
+      "criteria_missing": [
+        "Attack budget/access, reproducible protocol and trajectory/planner/safety-output linkage."
+      ],
+      "rationale": "Limited prediction attack test, not controller red-teaming."
+    },
+    {
+      "id": "088a145",
+      "subject_id": "088risk",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval7"
+      },
+      "evidence_ids": [
+        "088e20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No successor/reference or temporal displacement; neither static-only nor temporal capability inferred."
+    },
+    {
+      "id": "088a146",
+      "subject_id": "088risk",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "088eval7"
+      },
+      "evidence_ids": [
+        "088e19",
+        "088e20",
+        "088e21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Probability reliability/calibration scores and held-out-test claim."
+      ],
+      "criteria_missing": [
+        "Clinical target/horizon and reconciled validation configuration/cohort."
+      ],
+      "rationale": "Not transition or trajectory-distribution calibration."
+    },
+    {
+      "id": "088a147",
+      "subject_id": "088risk",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "088eval7",
+        "cohort_id": "088cohort7"
+      },
+      "evidence_ids": [
+        "088e20",
+        "088e22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": [
+        "Feature noise (+10%)",
+        "Missingness (10%)",
+        "Distribution shift",
+        "FGSM",
+        "Sex, age and comorbidity subgroup AUC"
+      ],
+      "rationale": "Explicit stress/subgroup results establish evaluation existence, not fairness or external validation."
+    },
+    {
+      "id": "088a148",
+      "subject_id": "088risk",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval7",
+        "cohort_id": "088hospitalB"
+      },
+      "evidence_ids": [
+        "088e19",
+        "088e20",
+        "088e22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No Hospital-B-attributed results, adaptation or overlap controls."
+    },
+    {
+      "id": "088a149",
+      "subject_id": "088risk",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval7"
+      },
+      "evidence_ids": [
+        "088e22",
+        "088e23",
+        "088e27"
+      ],
+      "verification_status": "disputed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Clinician-rationale comparison and manual error review lack reviewer/protocol and reconciled participation scope."
+    },
+    {
+      "id": "088a150",
+      "subject_id": "088risk",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval7"
+      },
+      "evidence_ids": [
+        "088e20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "A100/batch size are setup details, not measured efficiency."
+    },
+    {
+      "id": "088a151",
+      "subject_id": "088guard",
+      "feature_id": "action.constraints",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "088ablation",
+        "module_implementation_id": "088guard",
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [
+        "088e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Table 13 reports residual violations under a separately reported ablation; do not merge with Table 4."
+    },
+    {
+      "id": "088a152",
+      "subject_id": "088guard",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "088ablation"
+      },
+      "evidence_ids": [
+        "088e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Ablated modeled safety violations reported."
+      ],
+      "criteria_missing": [
+        "Clinical constraint definitions, denominator and Section 6 linkage."
+      ],
+      "rationale": "Separate limited constraint assessment."
+    },
+    {
+      "id": "088a153",
+      "subject_id": "088controller",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "088ablation",
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [
+        "088e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Operator-ablation decision endpoints reported; precision, independence and actual-care effectiveness not established."
+    },
+    {
+      "id": "088a154",
+      "subject_id": "088system",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "088use",
+        "environment_kind": "prospective_workflow"
+      },
+      "evidence_ids": [
+        "088e26",
+        "088e33"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Future clinical approval/execution/override boundaries unspecified; simulation authority does not transfer."
+    },
+    {
+      "id": "088a155",
+      "subject_id": "088twin",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e09",
+        "088e10",
+        "088e16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Executed intervention mechanism and calibrated parameter artifact are unidentified."
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "088r01",
+      "subject_id": "paper:088",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:088:sha256-2760728d6af1",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "effective_date": "2026-01-07"
+      },
+      "evidence_ids": [
+        "088e01",
+        "088e02"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Source identity uses the supplied hash and version metadata, not a recomputed hash."
+    },
+    {
+      "id": "088r02",
+      "subject_id": "paper-version:088:sha256-2760728d6af1",
+      "predicate_id": "reportsModel",
+      "object_id": "088controller",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "088controller"
+      },
+      "evidence_ids": [
+        "088e08",
+        "088e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "088r03",
+      "subject_id": "paper-version:088:sha256-2760728d6af1",
+      "predicate_id": "reportsModel",
+      "object_id": "088twin",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e09",
+        "088e10",
+        "088e16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "088r04",
+      "subject_id": "paper-version:088:sha256-2760728d6af1",
+      "predicate_id": "reportsModel",
+      "object_id": "088risk",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "088risk"
+      },
+      "evidence_ids": [
+        "088e20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Reporting scope, not proof of a distinct trained checkpoint."
+    },
+    {
+      "id": "088r05",
+      "subject_id": "088system",
+      "predicate_id": "composesModel",
+      "object_id": "088twin",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "evaluation_run_id": "088eval6",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "088e09",
+        "088e10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "088r06",
+      "subject_id": "088system",
+      "predicate_id": "hasUseContext",
+      "object_id": "088use",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "evidence_ids": [
+        "088e09",
+        "088e12",
+        "088e26"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "088r07",
+      "subject_id": "088system",
+      "predicate_id": "hasModule",
+      "object_id": "088actor",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "module_implementation_id": "088actor"
+      },
+      "evidence_ids": [
+        "088e08",
+        "088e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "088r08",
+      "subject_id": "088actor",
+      "predicate_id": "realizesModule",
+      "object_id": "M8",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "088actor"
+      },
+      "evidence_ids": [
+        "088e08",
+        "088e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Simulator-coupled policy subresponsibility only, not complete M8 conformance."
+    },
+    {
+      "id": "088r09",
+      "subject_id": "088system",
+      "predicate_id": "hasModule",
+      "object_id": "088guard",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "module_implementation_id": "088guard"
+      },
+      "evidence_ids": [
+        "088e07",
+        "088e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "088r10",
+      "subject_id": "088guard",
+      "predicate_id": "realizesModule",
+      "object_id": "M9",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "088guard"
+      },
+      "evidence_ids": [
+        "088e07",
+        "088e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Modeled action-constraint enforcement."
+      ],
+      "criteria_missing": [
+        "Defined fail behavior and complete applicable assurance responsibilities."
+      ]
+    },
+    {
+      "id": "088r11",
+      "subject_id": "088twin",
+      "predicate_id": "modelsWorld",
+      "object_id": "WT_EHR",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "evidence_ids": [
+        "088e03",
+        "088e10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Patient clinical trajectory; not proof of core membership."
+    },
+    {
+      "id": "088r12",
+      "subject_id": "paper-version:088:sha256-2760728d6af1",
+      "predicate_id": "claimsCapability",
+      "object_id": "L4",
+      "assessment_state": "present",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "model_version_id": "088controller"
+      },
+      "evidence_ids": [
+        "088e05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Ontology mapping of claimed adaptive policy optimization, not a demonstrated-capability relation."
+    },
+    {
+      "id": "088r13",
+      "subject_id": "088system",
+      "predicate_id": "hasReadinessEvidence",
+      "object_id": "R1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "088eval6",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "088e09",
+        "088e10",
+        "088e14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "088r14",
+      "subject_id": "088system",
+      "predicate_id": "hasReadinessEvidence",
+      "object_id": "R2",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval7",
+        "cohort_id": "088cohort7"
+      },
+      "evidence_ids": [
+        "088e10",
+        "088e19",
+        "088e20",
+        "088e27"
+      ],
+      "verification_status": "disputed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Held-out testing is stated, but actual human/clinical validation provenance and linkage are unresolved; synthetic holdouts cannot establish R2."
+    },
+    {
+      "id": "088r15",
+      "subject_id": "088system",
+      "predicate_id": "hasReadinessEvidence",
+      "object_id": "R4",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_ids": [
+        "088e18",
+        "088e27"
+      ],
+      "verification_status": "disputed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Preserve actual-clinician rating report; participation scope and protocol remain unresolved. Independent human verification is not claimed."
+    },
+    {
+      "id": "088r16",
+      "subject_id": "088system",
+      "predicate_id": "hasProfile",
+      "object_id": "BP_COMPONENT",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "evidence_ids": [
+        "088e07",
+        "088e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Reusable constrained-policy/assurance contribution without verified learned patient-transition membership."
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "088e01",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Cover"
+      },
+      "content": "Posted Date: January 7th, 2026\nDOI: https://doi.org/10.21203/rs.3.rs-8390633/v2",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e02",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 2,
+        "section_or_table": "Byline"
+      },
+      "content": "Mazyar Taghavi1,2*, Mina Mohammadi 3*, Ihsan Ullah 4*\nand Javad Vahidi 2*",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e03",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Section 3.2"
+      },
+      "content": "The state transitions accordin g\nto a function f , which encapsulates the patient’s response to the treatment:\nst+1 = f (st, at, ξt)\nHere, st+1 is the state at the next time step, at is the action taken at time t,\nand ξt ∼ D represents the random variable associated with uncertainty",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e04",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "Section 4.2"
+      },
+      "content": "The patient state st often includes vitals,\nlaboratory values, treatment history, and latent disease progression ind icators, and\nis potentially augmented through learned or mechanistic latent embedd ings. Because\nclinical observations are commonly incomplete or noisy, PRIME-Care allo ws for par-\ntially observable variants wherein belief states or ﬁltering distr ibutions replace fully\nobservable states.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e05",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "Section 4.1"
+      },
+      "content": "The second layer is a sequential adaptation modul e parameterized\nby an RL agent, which is responsible for modeling the long-term conseq uences of\ntreatment decisions, learning patient-speciﬁc value functions an d producing high-level\ntherapeutic recommendations that optimize expected outcomes.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e06",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 11,
+        "section_or_table": "Section 4.2"
+      },
+      "content": "where ϕ(a′) is a support-distance penalty and α > 0 controls conservativeness.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e07",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 12,
+        "section_or_table": "Section 4.3.1"
+      },
+      "content": "a⋆t = arg mina∈A ∥a − aRLt ∥2 subject to gi(st, a, u) ≤ 0 for all i, u ∈ U .\nThis projection problem identiﬁes the closest safe action to the RL proposal with\nrespect to a predeﬁned norm, often Euclidean but potentially weigh ted according to\nclinical priorities. More sophisticated formulations may incorporate a short-horizon\ncost function, for instance via a model-predictive control (MPC) s ubproblem:",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e08",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 14,
+        "section_or_table": "Algorithm 1"
+      },
+      "content": "3: Repeat for each patient treatment cycle:\n4: 1. Observe partial state ˆst\n5: 2. Estimate true state st using a ﬁltering method (e.g., Kalman ﬁlter)\n6: 3. Solve optimization layer: Find a∗t that satisﬁes safety constraints:\na∗t = arg minat c(st, at) subject to g(st, at) ≤ 0\n7: 4. Apply action a∗t to patient and observe reward rt\n8: 5. Update RL policy using feedback:\nπθ = πθ + ηRL∇θJ(πθ)\n9: 6. Re-evaluate optimization model to ensure feasibility under new p atient data\n10: End Repeat",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e09",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 13,
+        "section_or_table": "Section 5.2"
+      },
+      "content": "The Digital Twin serves as a virtual representation of patients, simu lating their\nresponses to various treatment actions. This environment allows for testing PRIME-\nCare without direct clinical involvement, providing insights into the potential outcomes\nunder various clinical scenarios.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e10",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 16,
+        "section_or_table": "Section 6.1"
+      },
+      "content": "The PRIME-Care experiments relied on two complementary data sourc es. The ﬁrst\ndataset consisted of longitudinal, de-identiﬁed electronic health r ecords (EHR) from a\nregional multicenter chronic-care program, comprising approximately 19,000 patient\ntrajectories with irregular time sampling and heterogeneous covariat es. The dataset\nincluded demographic attributes, laboratory results, clinician-re corded disease severity\nindices, administered interventions, and adverse-event marker s. Because PRIME-Care\nexplicitly models uncertainty propagation, the irregularity and incompleteness\nof the trajectories provided a realistic testbed for evaluating th e eﬀectiveness of the\nframework’s probabilistic state estimators, which were designed to handle missingness\nwithout information leakage.\nThe second data source consisted of high-ﬁdelity digital-twin simul ation environ-\nments parameterized by the real clinical data distribution. These simulators were\ndeveloped using physiologically meaningful nonlinear dynamics relate d to chronic dis-\nease progression and were validated through expert-driven calibration p rocedures.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e12",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 17,
+        "section_or_table": "Section 6.1 continuation"
+      },
+      "content": "All experiments were conducted under a sequential decision-maki ng setting in\nwhich PRIME-Care determined individualized intervention seq uences such as med-\nication titration, scheduling of diagnostic assessments, and lifesty le adjustment\nrecommendations. A clinical advisory board oversaw the mapping betwe en algorithm\noutputs and clinically feasible actions, ensuring that the simulati on does not include\nunrealistic therapeutic choices.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e13",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 17,
+        "section_or_table": "Sections 6.2–6.3"
+      },
+      "content": "Each baseline was executed using identical patient histories, cov ariate representa-\ntions, and digital-twin dynamics. Hyperparameters and training sched ules were tuned\nthrough systematic cross-validation to prevent confounding performan ce diﬀerences\ndue to suboptimal conﬁgurations. This comparative setup allowed for an un biased\nassessment of the hybrid RL optimization structure in PRIME-Care, isolating con-\ntributions from constraint feasibility modeling, belief-state un certainty handling, and\nthe bilevel decision structure.\n6.3 Evaluation Metrics\nThe evaluation protocol was designed to assess four principal dimension s of algorithmic\nand clinical performance: patient safety, personalization ﬁdelity, p redictive accuracy,\nand robustness under perturbation. Safety was quantiﬁed through the f requency of\nconstraint violations involving medically deﬁned thresholds for adve rse biomarkers or\ntreatment toxicity. Personalization quality was assessed via traje ctory similarity analy-\nsis, measuring the alignment between algorithm-generated plans and ex pert-annotated\nindividualized strategies. Predictive accuracy was evaluated usin g the negative log-\nlikelihood of state-transition predictions and the concordance inde x for longitudinal\nprogression forecasting.\nRobustness was measured by evaluating the stability of treatment dec isions under\nperturbations to model parameters, missingness patterns, and stoc hastic noise within\nthe digital twin. PRIME-Care’s probabilistic formulation permitte d uncertainty-aware\nvariants of these metrics, enabling direct comparisons with uncert ainty-agnostic RL\nbaselines. All metrics were reported with conﬁdence intervals de rived from 5,000\nbootstrap resamples to ensure statistical reliability.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e14",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "table",
+        "page": 18,
+        "section_or_table": "Table 4"
+      },
+      "content": "Approach Violations (%) Improvement (%)\nPRIME-Care (Proposed) 5.2 N/A\nCPO 7.8 34\nVanilla RL (DQN) 17.4 70.1",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e15",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "table",
+        "page": 19,
+        "section_or_table": "Table 5"
+      },
+      "content": "Approach Similarity (%) Improvement (%)\nPRIME-Care (Proposed) 92.4 N/A\nVanilla RL (DQN) 65.3 18\nSafe RL 71.1 27",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e16",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 19,
+        "section_or_table": "Section 6.4.3 and Table 6"
+      },
+      "content": "The probabilistic latent-state reconstru ction used in PRIME-\nCare allowed for a better alignment with actual patient trajectories, enhancing\npredictive accuracy.\nTable 6 presents the comparative performance of PRIME-Care and baseline\nmethods in terms of NLL and C-index.\nT able 6 Predictive Performance: Negative\nLog-Likelihood and Concordance Index\nApproach NLL C-index\nPRIME-Care (Proposed) 0.214 0.85\nVanilla RL (DQN) 0.324 0.75\nSafe RL 0.296 0.77",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e17",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "table",
+        "page": 19,
+        "section_or_table": "Table 7"
+      },
+      "content": "Approach Performance Decline Under Perturbations\nPRIME-Care (Proposed) 9.1%\nVanilla RL (DQN) 32.7%\nSAC 42.4%",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e18",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 20,
+        "section_or_table": "Section 6.4.5"
+      },
+      "content": "Expert reviewers—comprising clinicians—rated the PRIM E-Care-generated\nplans as being more aligned with standard-of-care guidelines and signiﬁc antly eas-\nier to explain than the black-box outputs of traditional RL models.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e19",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 20,
+        "section_or_table": "Section 7.1 and Table 8"
+      },
+      "content": "All analyses comply with F AIR principles and instit utional IRB\napproval.\nT able 8 Dataset characteristics, following TRIPOD+AI\nrecommendations.\nCharacteristic V alue\nTotal samples (N) 12,450\nTraining / Validation / Test split 70% / 10% / 20%\nOutcome prevalence (positive class) 28.4%\nAge (mean ± SD) 58 .7 ± 12.1 years\nSex (Female / Male) 54% / 46%\nMissing data proportion 6.3%\nInter-rater reliability (Cohen’s κ) 0.87\nExternal validation source Hospital B (N=3,100)",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e20",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 21,
+        "section_or_table": "Sections 7.2–7.3.2 and Table 9"
+      },
+      "content": "All models were trained on an NVIDIA A100 GPU with batch size 64. Hyper-\nparameters were tuned using Bayesian optimization. For fairness, su bgroup analyses\nincluded sex, age ( <60 vs. ≥60), and comorbidity index.\nCross-validation was performed using 5-fold CV; performance metrics we re\nreported on the independent held-out test set only .\n7.3 Results and Analysis\nThis subsection follows TRIPOD+AI’s required structure: (i) m odel performance, (ii)\ncalibration, (iii) robustness, (iv) fairness, (v) interpretabil ity, (vi) clinical utility, and\n(vii) failure analysis. Quantitative and qualitative ﬁndings are repor ted to maximize\ntransparency.\n7.3.1 Model Performance\nTable 9 presents primary and secondary metrics on the held-out test set.\nT able 9 Model performance on the held-out test set. 95% CIs via\nbootstrapping.\nMetric PRIME-Care LR Score DQN\nAUC-ROC 0.921 0.842 0.801 0.874\nAUPRC 0.781 0.611 0.570 0.694\nSensitivity @ 90% speciﬁcity 0.79 0.63 0.57 0.70\nF1-score 0.77 0.66 0.61 0.71\nBrier score ↓ 0.092 0.141 0.163 0.115\nCalibration ECE ↓ 0.021 0.067 0.081 0.044\n7.3.2 Calibration and Uncertainty\nCalibration analysis, required under TRIPOD+AI, is shown in Fig. 2. PRIME-Care\ndemonstrates near-perfect alignment between predicted probabili ties and observed\noutcomes.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e21",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 22,
+        "section_or_table": "Figures 1–2 and Section 7.3.4"
+      },
+      "content": "PRIME-Care (AUC = 0.92)\nPPO (AUC = 0.86)\nBCQ (AUC = 0.83)\nDQN (AUC = 0.78)\nRandom Guess\nFig. 1 ROC curves for PRIME-Care and baseline models, demonstrati ng superior discriminative\ncapability.\n0 0 .1 0 .2 0 .3 0 .4 0 .5 0 .6 0 .7 0 .8 0 .9 10\n0.2\n0.4\n0.6\n0.8\n1\nPredicted Probability\nObserved Outcome Frequency\nPerfect Calibration\nPRIME-Care\nPPO\nBCQ\nDQN\nFig. 2 Calibration curves demonstrating PRIME-Care’s superior p robability alignment compared\nto baseline models.\n7.3.4 F airness and Bias Auditing\nFollowing responsible AI guidelines, we report subgroup performance (Table 11).\nDemographic parity diﬀerence for PRIME-Care was 0.03, indicating low di sparity.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e22",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 23,
+        "section_or_table": "Tables 10–11 and explanation bullets"
+      },
+      "content": "T able 10 Robustness evaluation: percent drop in AUC under\nperturbations (lower is better).\nPerturbation Type PRIME-Care LR DQN\nFeature noise (+10%) -2.1% -6.7% -4.9%\nMissingness (10%) -1.4% -5.3% -3.2%\nDistribution shift -3.0% -8.2% -6.0%\nAdversarial FGSM -4.3% -11.5% -7.6%\nT able 11 Subgroup AUCs for bias auditing.\nSubgroup PRIME-Care LR DQN\nMale 0.918 0.836 0.870\nFemale 0.923 0.848 0.879\nAge ¡ 60 0.915 0.831 0.866\nAge ≥ 60 0.926 0.847 0.879\nHigh comorbidity 0.911 0.822 0.862\nLow comorbidity 0.929 0.851 0.885\n• SHAP values were used to quantify global feature importance.\n• Attention heatmaps highlighted clinically relevant patterns.\n• Local explanations were compared with clinician rationales.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e23",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 24,
+        "section_or_table": "Sections 7.3.6–7.3.7"
+      },
+      "content": "Decision Curve Analysis (DCA), shown in Fig. 4, demonstrates that PRIME-Care\nachieves higher net beneﬁt across all clinically relevant threshold s.\n7.3.7 F ailure Analysis\nAs recommended by DECIDE-AI, failure cases were manually reviewed.\n• 47 misclassiﬁed cases were examined.\n• Most failures corresponded to atypical clinical presentations.\n• Heatmap analyses conﬁrmed no reliance on spurious correlations.\nExamples are shown in Fig. 5.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e24",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "table",
+        "page": 25,
+        "section_or_table": "Table 12"
+      },
+      "content": "Guideline Compliance\nTRIPOD+AI Y es\nCONSORT-AI/SPIRIT-AI Yes (for protocol structure)\nSTARD-AI Yes (diagnostic tasks)\nDECIDE-AI Y es(early clinical evaluation)\nMI-CLAIM Yes (explainability + reproducibility)\nCLEAR Yes (dataset transparency)\nCHART / TRIPOD-LLM Not applicable (non-generative model)",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e25",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "table",
+        "page": 27,
+        "section_or_table": "Table 13"
+      },
+      "content": "Learning Operator Safety Personalization Robustness F air ness\n(% Viol.) (% Match) (% AUC Drop) (AUC Diﬀ.)\nPRIME-Care (Full) 2.3 91.4 3.1 0.03\nCQL+Lagrangian 7.9 84.1 7.8 0.11\nShielded RL 6.5 83.5 8.5 0.09\nPRIME-Care w/o Bilevel 5.2 86.7 5.9 0.06",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e26",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 29,
+        "section_or_table": "Discussion limitations"
+      },
+      "content": "Nevertheless, challenges remain for real-world deployment. PRIME -Care relies\non access to high-quality, patient-speciﬁc data, motivating future r esearch on data-\neﬃcient learning strategies such as transfer and semi-supervised learning. In addition,\nfurther evaluation in highly dynamic, real-time clinical settings w ith complex decision\ndependencies is required to fully assess its operational readines s.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e27",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 30,
+        "section_or_table": "Ethics declaration"
+      },
+      "content": "The research did not invol ve the use of\nhuman participants or animals in any form. The study was conducted in accor dance\nwith ethical research standards, and no experiments, procedures , or data collection\ninvolved human or animal subjects.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e28",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 30,
+        "section_or_table": "Data/Code availability"
+      },
+      "content": "The data that support the ﬁndings of this study are openly\navailable in GitHub at https://github.com/mazyartaghavi/PRIME Care.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e29",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Abstract continuation"
+      },
+      "content": "All\ncode implementations are publicly available to ensure full repro ducibility and\nfacilitate further research in this domain.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e30",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 37,
+        "section_or_table": "Appendix B.1"
+      },
+      "content": "The patient state, st, is typically not observed directly, and instead, it is inferred\nthrough noisy measurements. This introduces a state uncertainty w hich is modeled as\na probability distribution p(st|zt), where zt represents the available observations at\ntime t.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e31",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 38,
+        "section_or_table": "Appendix B.3"
+      },
+      "content": "The state\nspace St is thus personalized for each patient, incorporating not only their cur rent\nmedical status but also historical treatment responses, genetic inf ormation, and even\nsocial determinants of health, where available.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e32",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 40,
+        "section_or_table": "Appendix C.1.2"
+      },
+      "content": "Parameters ϕ are updated to minimize empirical constraint\nviolations across the oﬄine dataset.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e33",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 29,
+        "section_or_table": "Section 9"
+      },
+      "content": "Prospective clinical trials are planned to assess real-world imp act and workﬂow",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "088e34",
+      "source_ref": "Papers/088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+      "source_version": "paper-version:088:sha256-2760728d6af1",
+      "source_hash": "2760728d6af175f0db79269db631c58b9d99a418fb57cf56287818a91fa9d1dc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 36,
+        "section_or_table": "Appendix A.0.1"
+      },
+      "content": "• P (s′|s, a) is the unknown transition probability distribution,",
+      "verification_status": "entailment_reviewed"
+    }
+  ],
+  "metric_results": [
+    {
+      "id": "088metric4",
+      "metric": "Critical-constraint violations and source-reported improvements",
+      "value": {
+        "violations_percent": {
+          "PRIME-Care": 5.2,
+          "CPO": 7.8,
+          "DQN": 17.4
+        },
+        "reported_improvement_percent": {
+          "CPO_row": 34,
+          "DQN_row": 70.1
+        }
+      },
+      "unit_or_scale": "Percent; denominator and improvement formula insufficiently specified",
+      "direction": "context_dependent",
+      "task": "Table 4 simulated policy constraints; lower violations preferred",
+      "cohort_id": "088cohort6",
+      "split_role": "not_reported",
+      "horizon": "not_reported",
+      "model_version_id": "088controller",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "088e14"
+      ]
+    },
+    {
+      "id": "088metric5",
+      "metric": "Clinician-plan trajectory similarity and reported improvement",
+      "value": {
+        "similarity_percent": {
+          "PRIME-Care": 92.4,
+          "DQN": 65.3,
+          "Safe RL": 71.1
+        },
+        "reported_improvement_percent": {
+          "DQN_row": 18,
+          "Safe_RL_row": 27
+        }
+      },
+      "unit_or_scale": "Percent; similarity/improvement definitions unspecified",
+      "direction": "higher_better",
+      "task": "Table 5 plan concordance, not individual-history audit",
+      "cohort_id": "088cohort6",
+      "split_role": "not_reported",
+      "horizon": "not_reported",
+      "model_version_id": "088controller",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "088e15"
+      ]
+    },
+    {
+      "id": "088metric6n",
+      "metric": "State-transition negative log-likelihood",
+      "value": {
+        "PRIME-Care": 0.214,
+        "DQN": 0.324,
+        "Safe RL": 0.296
+      },
+      "unit_or_scale": "NLL; likelihood normalization/units unspecified",
+      "direction": "lower_better",
+      "task": "Table 6; successor/reference and model-free comparator prediction heads unresolved",
+      "cohort_id": "088cohort6",
+      "split_role": "Actual-clinical versus synthetic test provenance unresolved",
+      "horizon": "not_reported",
+      "model_version_id": "088twin",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "088e13",
+        "088e16"
+      ]
+    },
+    {
+      "id": "088metric6c",
+      "metric": "Progression-forecast concordance index",
+      "value": {
+        "PRIME-Care": 0.85,
+        "DQN": 0.75,
+        "Safe RL": 0.77
+      },
+      "unit_or_scale": "Dimensionless",
+      "direction": "higher_better",
+      "task": "Table 6 progression forecasting; endpoint/censoring unspecified",
+      "cohort_id": "088cohort6",
+      "split_role": "Test provenance unresolved",
+      "horizon": "not_reported",
+      "model_version_id": "088twin",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "088e16"
+      ]
+    },
+    {
+      "id": "088metric7",
+      "metric": "Performance decline under perturbations",
+      "value": {
+        "PRIME-Care": "9.1%",
+        "DQN": "32.7%",
+        "SAC": "42.4%"
+      },
+      "unit_or_scale": "Percent; endpoint/change definition unspecified",
+      "direction": "lower_better",
+      "task": "Table 7; not equated with Tables 10/13 AUC changes",
+      "cohort_id": "088cohort6",
+      "split_role": "Perturbation experiment",
+      "horizon": "not_reported",
+      "model_version_id": "088controller",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "088e17"
+      ]
+    },
+    {
+      "id": "088metric9",
+      "metric": "Table 9 binary prediction metrics",
+      "value": {
+        "column_order": [
+          "PRIME-Care",
+          "LR",
+          "Score",
+          "DQN"
+        ],
+        "AUC_ROC": [
+          0.921,
+          0.842,
+          0.801,
+          0.874
+        ],
+        "AUPRC": [
+          0.781,
+          0.611,
+          0.57,
+          0.694
+        ],
+        "sensitivity_at_90_percent_specificity": [
+          0.79,
+          0.63,
+          0.57,
+          0.7
+        ],
+        "F1": [
+          0.77,
+          0.66,
+          0.61,
+          0.71
+        ],
+        "Brier_lower_better": [
+          0.092,
+          0.141,
+          0.163,
+          0.115
+        ],
+        "ECE_lower_better": [
+          0.021,
+          0.067,
+          0.081,
+          0.044
+        ]
+      },
+      "unit_or_scale": "Dimensionless; sensitivity is a proportion; ECE binning unspecified",
+      "direction": "context_dependent",
+      "task": "Undefined binary clinical outcome; not patient-transition validation",
+      "cohort_id": "088cohort7",
+      "split_role": "Author-described independent held-out test set",
+      "horizon": "not_reported",
+      "model_version_id": "088risk",
+      "uncertainty_status": "not_reported",
+      "uncertainty": "Caption claims 95% bootstrap CIs; intervals not displayed.",
+      "source_evidence_ids": [
+        "088e20"
+      ]
+    },
+    {
+      "id": "088metricf1",
+      "metric": "Figure 1 legend AUC",
+      "value": {
+        "PRIME-Care": 0.92,
+        "PPO": 0.86,
+        "BCQ": 0.83,
+        "DQN": 0.78
+      },
+      "unit_or_scale": "Dimensionless",
+      "direction": "higher_better",
+      "task": "ROC plot; configuration linkage to Table 9 unresolved",
+      "cohort_id": "088cohort7",
+      "split_role": "Not specified in caption",
+      "horizon": "not_reported",
+      "model_version_id": "088risk",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "088e21"
+      ]
+    },
+    {
+      "id": "088metric10",
+      "metric": "Table 10 signed AUC changes",
+      "value": {
+        "column_order": [
+          "PRIME-Care",
+          "LR",
+          "DQN"
+        ],
+        "Feature noise (+10%)": [
+          "-2.1%",
+          "-6.7%",
+          "-4.9%"
+        ],
+        "Missingness (10%)": [
+          "-1.4%",
+          "-5.3%",
+          "-3.2%"
+        ],
+        "Distribution shift": [
+          "-3.0%",
+          "-8.2%",
+          "-6.0%"
+        ],
+        "Adversarial FGSM": [
+          "-4.3%",
+          "-11.5%",
+          "-7.6%"
+        ]
+      },
+      "unit_or_scale": "Signed percentages as printed; relative versus percentage-point change unresolved",
+      "direction": "context_dependent",
+      "task": "Risk robustness; negative entries and lower-is-better percent-drop wording unreconciled",
+      "cohort_id": "088cohort7",
+      "split_role": "Exact perturbation partition not_reported",
+      "horizon": "not_reported",
+      "model_version_id": "088risk",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "088e22"
+      ]
+    },
+    {
+      "id": "088metric11",
+      "metric": "Table 11 subgroup AUC",
+      "value": {
+        "column_order": [
+          "PRIME-Care",
+          "LR",
+          "DQN"
+        ],
+        "Male": [
+          0.918,
+          0.836,
+          0.87
+        ],
+        "Female": [
+          0.923,
+          0.848,
+          0.879
+        ],
+        "Age ¡ 60": [
+          0.915,
+          0.831,
+          0.866
+        ],
+        "Age ≥ 60": [
+          0.926,
+          0.847,
+          0.879
+        ],
+        "High comorbidity": [
+          0.911,
+          0.822,
+          0.862
+        ],
+        "Low comorbidity": [
+          0.929,
+          0.851,
+          0.885
+        ]
+      },
+      "unit_or_scale": "Dimensionless; subgroup counts/comorbidity cutoff unspecified",
+      "direction": "higher_better",
+      "task": "Subgroup discrimination; malformed age label preserved, Section 7.2 states <60 versus ≥60",
+      "cohort_id": "088cohort7",
+      "split_role": "Subgroup analysis",
+      "horizon": "not_reported",
+      "model_version_id": "088risk",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "088e20",
+        "088e22"
+      ]
+    },
+    {
+      "id": "088metricparity",
+      "metric": "Demographic parity difference",
+      "value": 0.03,
+      "unit_or_scale": "Difference; groups, threshold and sign convention unspecified",
+      "direction": "lower_better",
+      "task": "Section 7 fairness summary; not equated with Table 13 AUC disparity",
+      "cohort_id": "088cohort7",
+      "split_role": "Fairness analysis",
+      "horizon": "not_reported",
+      "model_version_id": "088risk",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "088e21"
+      ]
+    },
+    {
+      "id": "088metric13",
+      "metric": "Table 13 learning-operator ablation endpoints",
+      "value": {
+        "column_order": [
+          "Full PRIME-Care",
+          "CQL+Lagrangian",
+          "Shielded RL",
+          "PRIME-Care w/o Bilevel"
+        ],
+        "safety_percent_violations_lower_better": [
+          2.3,
+          7.9,
+          6.5,
+          5.2
+        ],
+        "personalization_percent_match_higher_better": [
+          91.4,
+          84.1,
+          83.5,
+          86.7
+        ],
+        "robustness_percent_AUC_drop_lower_better": [
+          3.1,
+          7.8,
+          8.5,
+          5.9
+        ],
+        "fairness_AUC_difference_lower_better": [
+          0.03,
+          0.11,
+          0.09,
+          0.06
+        ]
+      },
+      "unit_or_scale": "As labeled per endpoint; denominator/aggregation definitions incomplete",
+      "direction": "context_dependent",
+      "task": "Same-data/policy-architecture operator comparison claimed; not pooled with Tables 4–7",
+      "cohort_id": "088cohort7",
+      "split_role": "Ablation partition/cohort linkage unresolved",
+      "horizon": "not_reported",
+      "model_version_id": "088controller",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "088e25"
+      ]
+    }
+  ],
+  "capability_assessments": [
+    {
+      "subject_id": "088controller",
+      "level": "unknown",
+      "scope": {
+        "model_version_id": "088controller",
+        "evaluation_run_id": "088eval6",
+        "environment_kind": "in_silico"
+      },
+      "evidence_assertion_ids": [
+        "088a019",
+        "088a041",
+        "088a042",
+        "088a062",
+        "088a063",
+        "088a120"
+      ],
+      "rationale": "Simulator-coupled optimization/policy and decision results are reported. Whether the coupled patient simulator satisfies implemented learned/hybrid WM identity remains unresolved. L4-like controller functionality is retained, but no verified healthcare-WM L4 assertion is made."
+    },
+    {
+      "subject_id": "088twin",
+      "level": "unknown",
+      "scope": {
+        "model_version_id": "088twin",
+        "evaluation_run_id": "088eval6"
+      },
+      "evidence_assertion_ids": [
+        "088a042",
+        "088a053",
+        "088a112",
+        "088a132"
+      ],
+      "rationale": "Reported transition prediction is preserved, but learned-transition identity and scope-qualified successor/action-specific predictive evaluation are incomplete. Neither absence of capability nor a certified L1/L2 is inferred."
+    },
+    {
+      "subject_id": "088risk",
+      "level": "unknown",
+      "scope": {
+        "model_version_id": "088risk",
+        "evaluation_run_id": "088eval7"
+      },
+      "evidence_assertion_ids": [
+        "088a139",
+        "088a140",
+        "088a145"
+      ],
+      "rationale": "Undefined clinical outcome, temporal target and architecture do not establish evolving-state or WM-inspired representation capability."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "088system",
+      "facets": [
+        "R1"
+      ],
+      "environment_kind": "in_silico",
+      "scope": {
+        "evaluation_run_id": "088eval6",
+        "boundary": "Reported technical simulation experiments only.",
+        "unresolved_facets": {
+          "R2": "Actual held-out human/clinical validation provenance unresolved.",
+          "R3": "Hospital B lacks adequately attributed independent evaluation and adaptation/overlap controls.",
+          "R4": "Clinician ratings reported; participation scope/protocol unresolved.",
+          "R5": "Prospective silent system use not_reported.",
+          "R6": "Prospective actual-human intervention not_reported; trials planned.",
+          "R7": "Comparative real-care effectiveness not_reported.",
+          "R8": "Use/version-specific authorization and monitoring not_reported."
+        }
+      },
+      "evidence_ids": [
+        "088e09",
+        "088e10",
+        "088e14",
+        "088e19",
+        "088e27",
+        "088e33"
+      ],
+      "legacy_highest_label": null
+    }
+  ],
+  "gate_assessments": [
+    {
+      "gate_id": "G01",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "rationale": "Provenance, availability semantics, split units and leakage audits insufficient; cohort descriptions unreconciled.",
+      "supporting_assertion_ids": [
+        "088a001",
+        "088a010",
+        "088a135",
+        "088a136"
+      ]
+    },
+    {
+      "gate_id": "G02",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "088twin",
+        "evaluation_run_id": "088eval6"
+      },
+      "rationale": "Reported state evolution does not resolve learned-transition identity or successor/reference protocol.",
+      "supporting_assertion_ids": [
+        "088a019",
+        "088a041",
+        "088a042",
+        "088a053",
+        "088a112"
+      ]
+    },
+    {
+      "gate_id": "G03",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "rationale": "Maximum/effective horizons, drift curves, cadence and feedback protocol unestablished.",
+      "supporting_assertion_ids": [
+        "088a054",
+        "088a057",
+        "088a058",
+        "088a059"
+      ]
+    },
+    {
+      "gate_id": "G04",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "rationale": "Risk ECE/Brier does not establish trajectory calibration or justified acceptance tolerance.",
+      "supporting_assertion_ids": [
+        "088a073",
+        "088a074",
+        "088a075",
+        "088a142",
+        "088a143"
+      ]
+    },
+    {
+      "gate_id": "G05",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "088twin"
+      },
+      "rationale": "Action units/schedules/bundles, support and evaluated action-specific prediction/comparison incomplete.",
+      "supporting_assertion_ids": [
+        "088a033",
+        "088a034",
+        "088a035",
+        "088a038",
+        "088a039",
+        "088a132"
+      ]
+    },
+    {
+      "gate_id": "G06",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "088use",
+        "population": "Intended therapeutic-effect interpretation"
+      },
+      "rationale": "No jointly sufficient estimand, identification/grounding, assumptions, support, validation and sensitivity evidence.",
+      "supporting_assertion_ids": [
+        "088a078",
+        "088a079",
+        "088a080",
+        "088a081",
+        "088a082",
+        "088a084"
+      ]
+    },
+    {
+      "gate_id": "G07",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "088controller"
+      },
+      "rationale": "Policy results exist; utilities, action coverage, mismatch and exploitation testing insufficient.",
+      "supporting_assertion_ids": [
+        "088a062",
+        "088a063",
+        "088a067",
+        "088a120",
+        "088a153"
+      ]
+    },
+    {
+      "gate_id": "G08",
+      "status": "unresolved",
+      "scope": {
+        "module_implementation_id": "088guard"
+      },
+      "rationale": "Partial guard with residual violations; missing infeasibility/fail behavior, abstention and justified clinical thresholds.",
+      "supporting_assertion_ids": [
+        "088a036",
+        "088a085",
+        "088a086",
+        "088a087",
+        "088a089",
+        "088a151"
+      ]
+    },
+    {
+      "gate_id": "G09",
+      "status": "unresolved",
+      "scope": {
+        "evaluation_run_id": "088eval7",
+        "cohort_id": "088hospitalB"
+      },
+      "rationale": "Stress/subgroup tests do not resolve independent external evaluation, adaptation, overlap or composition transfer.",
+      "supporting_assertion_ids": [
+        "088a147",
+        "088a148"
+      ]
+    },
+    {
+      "gate_id": "G10",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "rationale": "Actual human-review scope/protocol and matched sim-to-real evidence unresolved.",
+      "supporting_assertion_ids": [
+        "088a121",
+        "088a124",
+        "088a149"
+      ]
+    },
+    {
+      "gate_id": "G11",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "088use",
+        "population": "Proposed future clinical workflow"
+      },
+      "rationale": "No qualifying prospective utility/harms evidence. Simulated evaluation lacks real-care utility; DCA does not substitute.",
+      "supporting_assertion_ids": [
+        "088a096",
+        "088a126"
+      ]
+    },
+    {
+      "gate_id": "G12",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "088use"
+      },
+      "rationale": "Restricted to the reported offline/simulation research use, not an identified operational clinical release. Code availability is separately assessed; future operational release requires a new governance assessment."
+    }
+  ],
+  "legacy_cells": {
+    "A": "088",
+    "B": "PRIME-Care: A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertainty in Telemedicine",
+    "C": "Mazyar Taghavi; Mina Mohammadi; Ihsan Ullah; Javad Vahidi",
+    "D": "2026",
+    "E": "Research Square",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://doi.org/10.21203/rs.3.rs-8390633/v2",
+    "H": "Papers (numbered 001–099)",
+    "I": "088_2025_PRIME-Care A Unified Reinforcement Learning and Mathematical Optimization Framework for Personalized Treatment Planning Under Clinical Uncertaint.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not applicable (included)",
+    "N": "Multi-specialty / general medicine",
+    "O": "Chronic disease progression (no specific disease named)",
+    "P": "Outpatient / chronic care",
+    "Q": "Patient clinical trajectory (EHR)",
+    "R": "Treatment recommendation / planning",
+    "S": "Can the framework plan individualized interventions while predicting patient-state progression and respecting safety constraints?",
+    "T": "Approximately 19,000 de-identified patient trajectories from a regional multicenter chronic-care program; further inclusion criteria not reported.",
+    "U": "Healthcare professionals / clinicians",
+    "V": "Selection of individualized therapeutic interventions subject to clinical safety constraints",
+    "W": "Not reported",
+    "X": "F5 Mechanistic / hybrid digital twin",
+    "Y": "Hybrid mechanistic–learned",
+    "Z": "L4 Planning / control",
+    "AA": "L4 Planning / control",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "Yes",
+    "AE": "Not reported",
+    "AF": "Not reported",
+    "AG": "Not reported",
+    "AH": "Not reported",
+    "AI": "Not reported",
+    "AJ": "Not reported",
+    "AK": "Not reported",
+    "AL": "Not reported",
+    "AM": "Not reported",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Belief distribution / posterior",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Conditioning on patient history",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Mixed",
+    "BC": "Not reported",
+    "BD": "Not reported",
+    "BE": "Not reported",
+    "BF": "State/action constraints include toxicity limits, dosage ceilings, cumulative burden and physiologically motivated safety boundaries; action projection enforces feasibility under uncertainty.",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "PRIME-Care",
+    "BJ": "Not reported",
+    "BK": "Fixed discrete steps",
+    "BL": "Not reported",
+    "BM": "Yes",
+    "BN": "PK/PD and physiological constraints; toxicity bounds and robust feasibility constraints under uncertainty.",
+    "BO": "Not reported",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Predicted patient-state transitions / disease progression forecasts.",
+    "BT": "State-transition prediction (negative log-likelihood) and longitudinal disease-progression forecasting (concordance index); treatment-plan safety and clinician-plan similarity are also evaluated.",
+    "BU": "Expected clinical reward for symptom reduction, drug efficacy, or avoidance of adverse events; safety constraints restrict feasible actions.",
+    "BV": "Not reported",
+    "BW": "Not reported",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "Not reported",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "Not reported",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Not reported",
+    "CL": "Yes",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Stochastic latent",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "Associational action-conditioning",
+    "CU": "Not reported",
+    "CV": "Not reported",
+    "CW": "Yes",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Single agent",
+    "DB": "N/A",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "A2 Recommendation – clinician decides",
+    "DH": "Not reported",
+    "DI": "Clinical",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Not reported",
+    "DN": "Not reported",
+    "DO": "Not reported",
+    "DP": "Not reported",
+    "DQ": "Not reported",
+    "DR": "Not reported",
+    "DS": "Not reported",
+    "DT": "Not reported",
+    "DU": "Not reported",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "Not reported",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "Not reported",
+    "FD": "Not reported",
+    "FE": "Not reported",
+    "FF": "Not reported",
+    "FG": "Not reported",
+    "FH": "Not reported",
+    "FI": "Not reported",
+    "FJ": "Not reported",
+    "FK": "Not reported",
+    "FL": "Not reported",
+    "FM": "Not reported",
+    "FN": "Reported results (source excerpt): Spec iﬁcally, it reduces critical constraint violations by over 70%, exhibits superior trajectory alignment to clinician-curated plans, and provides more stable, tem porally consistent disease forecasts.",
+    "FO": "Not reported",
+    "FP": "Not reported",
+    "FQ": "Not reported",
+    "FR": "Not reported",
+    "FS": "Reviewer mapping: M3 Belief-state service; M4 Action service; M5 Dynamics adapter; M7 Outcome & causal layer; M8 Planner; M9 Safety & governance",
+    "FT": "Reviewer lesson: Keep the learned patient/scene simulator separate from the planner objective; constrain candidate actions and report closed-loop decision quality alongside model fidelity.",
+    "FU": "Reviewer mapping (KB §20): Causal-validity benchmarks",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Complete 42-page extracted PDF text inspected (cover/title and abstract; §§1–9 including Methods/Algorithms §§3–5, datasets and experiments §§6–7, all extracted results tables/figures, Discussion, Conclusion/Future Work, declarations, and Appendices A–C; PDF pages 1–42). Particular evidence review: PDF pp. 2, 9–12, 16–29, 34–41. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "A:I left for parent; no PDF contradiction to prefilled metadata identified. The main methods and result claims support a patient-state transition and a planning/control task, but implementation details are thin and several reporting elements are internally inconsistent: §6.1 reports approximately 19,000 trajectories while Table 8 reports N=12,450; statements claim clinical datasets/results, but Declarations say no human participants or data collection. Tables 8 and 13 have scrambled column/value alignment in extracted text. Results are simulation/retrospective claims; future prospective trials are planned. Action-conditioned transitions and simulated counterfactual scenarios do not establish causal identification; no causal identification assumptions/method or counterfactual validation are reported. No clinical deployment/readiness is evidenced. Evidence QA: 23/37 populated fields had a <=25-word quotation matching extracted PDF text (62.2%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 36 prior populated fields have a located source quotation; 2 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "Automated model review, not independent human verification, experimental replication or clinical authorization.",
+    "This synthesis read the supplied complete text and earlier automated image-review findings for all 42 physical pages. It did not receive page images directly. Earlier chunk-local access disclaimers describe those calls, not missing pages in the combined input.",
+    "Source hash and API receipts are supplied provenance, not recomputed or independently authenticated. No filesystem, repository, publisher site or cited study was accessed.",
+    "Historical core/L4 cells remain unchanged. Verified core membership and healthcare-WM capability remain unresolved; simulator-coupled policy/control results are preserved rather than discarded.",
+    "Approximately 19,000 trajectories, 12,450 samples and Hospital B N=3,100 are separately retained. Units, overlap, actual-human holdout provenance, partitioning and inter-section linkage remain unresolved.",
+    "Clinical-data, IRB and clinician-review statements require scope reconciliation with the declarations. Secondary human data, recruitment and clinician research participation are not interchangeable.",
+    "R1 is the only assigned readiness facet. Synthetic holdouts cannot establish R2; an external-source label cannot establish R3; actual clinician review is reported but insufficiently resolved for confirmed R4 here.",
+    "All numerical source values are retained as reported. Table 4 versus Table 13 and Table 9 versus Figure 1 are not pooled or silently reconciled. No reviewer-derived replacement percentages or curve coordinates are entered as measurements.",
+    "Unspecified action units/schedules/bundles, support, simulator equations, losses, architectures, solver and uncertainty sets prevent strong implementation, causal or safety conclusions.",
+    "No empirical effective horizon, free-running drift curve, measured clinical re-assimilation or verified receding-horizon control is established. Clinical decision indices and policy-update iterations remain distinct.",
+    "Risk-classification reliability is not twin-transition or joint-trajectory calibration. No uncertainty decomposition or clinical acceptance tolerance is inferred.",
+    "The theorem sketch does not establish its broad convergence, stochastic safety and positive fairness-improvement claims. Mathematical regularity, uncertainty coverage and clinical applicability require further evidence.",
+    "SHAP/heatmaps do not establish internal-state interpretability, causal explanation or absence of spurious correlations. Clinician-plan concordance is not a matched individual-history audit.",
+    "Decision curves and clinician preference are not realized patient/workflow benefit. Prospective trials, expanded multimodal integration and workflow deployment remain future work.",
+    "Manuscript licensing is distinct from software/model/data licensing. Code availability remains an author claim; trained weights, repository contents and independent reproducibility were not checked.",
+    "References and appendices were considered, including incomplete bibliographic entries and apparent duplicated CPO citations; cited capabilities are not inherited.",
+    "No executable JSON Schema validation, scope/reference validator, graph rebuild or regression test was run."
+  ],
+  "notes": "Assertions 088a001–088a128 cover the complete feature catalogue in its supplied order; 088a129–088a155 preserve additional necessary reporting and stage scopes. Empty evidence arrays on not_reported assertions do not imply absence. Evidence content is contiguous supplied-source text, retaining extraction typography without appended commentary. Raw legacy cells are preserved, not endorsed. Files were not saved and canonical admission is not claimed."
+}

@@ -1,0 +1,3857 @@
+{
+  "record_id": "annotation:B100:r1",
+  "paper_record_id": "B100",
+  "paper_version_id": "paper-version:B100:sha256-567d1ec3f3dd",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:B100:ac-jepa-encoder:v1",
+    "model:B100:sup:v1",
+    "model:B100:naive:v1",
+    "model:B100:probe:v1"
+  ],
+  "system_composition_ids": [
+    "system:B100:ac-cardiac-world-model:v1"
+  ],
+  "world_type_ids": [
+    "WT_ORGAN"
+  ],
+  "profile_ids": [
+    "BP_FORECAST"
+  ],
+  "entities": [
+    {
+      "id": "paper:B100",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "B100",
+        "title": "Beyond Patient Invariance: Learning Cardiac Dynamics via Action-Conditioned JEPAs",
+        "year": 2026,
+        "doi": "https://arxiv.org/abs/2604.22618"
+      }
+    },
+    {
+      "id": "paper-version:B100:sha256-567d1ec3f3dd",
+      "class_id": "PaperVersion",
+      "properties": {
+        "sha256": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd",
+        "source_path": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+        "pdf_pages": 12,
+        "version_basis": "PDF identified by SHA-256 against assignments.json; title page read."
+      }
+    },
+    {
+      "id": "study:B100:ac-cardiac-jepa",
+      "class_id": "Study",
+      "properties": {
+        "description": "Action-conditioned JEPA pretraining on longitudinal ECG pairs with disease transitions as actions, evaluated by downstream diagnosis.",
+        "independent_study_claim": "single group; own pipeline"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B100:0001",
+        "evidence:B100:0004"
+      ]
+    },
+    {
+      "id": "system:B100:ac-cardiac-world-model:v1",
+      "class_id": "SystemComposition",
+      "properties": {
+        "description": "xResNet1d50 encoder and residual MLP latent predictor conditioned on a label-difference transition vector, with SIGReg, then evaluated as a classifier encoder.",
+        "implementation_stage": "evaluation (retrospective)",
+        "world_model_status": "supporting component"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B100:0001",
+        "evidence:B100:0007",
+        "evidence:B100:0008"
+      ]
+    },
+    {
+      "id": "model:B100:ac-jepa-encoder:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "xResNet1d50 encoder pretrained with action-conditioned latent prediction and SIGReg, then finetuned",
+        "world_model_status": "supporting component"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B100:0008",
+        "evidence:B100:0009"
+      ]
+    },
+    {
+      "id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "population": "hospital patients with 12-lead ECGs",
+        "user": "not reported",
+        "decision": "diagnostic triage and monitoring labels",
+        "autonomy": "research only"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B100:0002"
+      ]
+    },
+    {
+      "id": "cohort:B100:mimic-iv-ecg",
+      "class_id": "Cohort",
+      "properties": {
+        "description": "MIMIC-IV-ECG, about 800k records from about 160k patients, circulatory ICD-10 labels"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B100:0012"
+      ]
+    },
+    {
+      "id": "evalrun:B100:mimic-iv-ecg-triage-monitoring",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "description": "Macro-AUROC for Triage and Monitoring tasks with 1,000-sample bootstrap intervals and data fraction ablations",
+        "split_role": "official patient-stratified folds"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B100:0013",
+        "evidence:B100:0014"
+      ]
+    },
+    {
+      "id": "model:B100:sup:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "Supervised end-to-end xResNet1d50 baseline",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B100:0014"
+      ]
+    },
+    {
+      "id": "model:B100:naive:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "Naive patient-invariance SSL baseline",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B100:0014"
+      ]
+    },
+    {
+      "id": "model:B100:probe:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "Action-conditioned model with linear probe",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B100:0014"
+      ]
+    },
+    {
+      "id": "metric:B100:0001",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Macro-AUROC, Triage, finetuned = 0.742"
+      }
+    },
+    {
+      "id": "metric:B100:0002",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Macro-AUROC, Monitoring, finetuned = 0.786"
+      }
+    },
+    {
+      "id": "metric:B100:0003",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Macro-AUROC, Triage, linear probe = 0.725"
+      }
+    },
+    {
+      "id": "metric:B100:0004",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Macro-AUROC, Monitoring, linear probe = 0.744"
+      }
+    },
+    {
+      "id": "metric:B100:0005",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Macro-AUROC, Triage = 0.735"
+      }
+    },
+    {
+      "id": "metric:B100:0006",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Macro-AUROC, Monitoring = 0.786"
+      }
+    },
+    {
+      "id": "metric:B100:0007",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Macro-AUROC, Triage, finetuned = 0.679"
+      }
+    },
+    {
+      "id": "metric:B100:0008",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Macro-AUROC, Monitoring, finetuned = 0.726"
+      }
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:B100:0001",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "data.provenance",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B100:0012",
+        "evidence:B100:0013"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "MIMIC-IV-ECG, label processing and pair construction are described, with statistics in the appendix.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B100:0002",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read, and the elapsed time between paired recordings is not an input.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0003",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read, and the elapsed time between paired recordings is not an input.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0004",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read, and the elapsed time between paired recordings is not an input.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0005",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read, and the elapsed time between paired recordings is not an input.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0006",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read, and the elapsed time between paired recordings is not an input.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0007",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read, and the elapsed time between paired recordings is not an input.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0008",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read, and the elapsed time between paired recordings is not an input.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0009",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read, and the elapsed time between paired recordings is not an input.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0010",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B100:0013"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Official patient-stratified folds are used.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B100:0011",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read, and the elapsed time between paired recordings is not an input.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0012",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:B100:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "An xResNet1d50 encodes the 12-lead ECG waveform.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B100:0013",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No pretrained foundation model is reused.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0014",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:B100:0007",
+        "evidence:B100:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The training objective predicts the next latent state.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B100:0015",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:B100:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "SIGReg guards against representation collapse.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B100:0016",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No reconstruction objective is used.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0017",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Single modality.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0018",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not applicable to a single modality in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0019",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "state.persistent",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:B100:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "A latent state predicted from one recording to the next in training pairs"
+      ],
+      "criteria_missing": [
+        "A state carried across several steps at inference"
+      ],
+      "rationale": "Pairs only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B100:0020",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0021",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0022",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0023",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0024",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0025",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0026",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:B100:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "The predictor conditions on the current recording and the transition vector"
+      ],
+      "criteria_missing": [
+        "Conditioning on earlier history"
+      ],
+      "rationale": "Pairs only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B100:0027",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0028",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0029",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0030",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0031",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "action.explicit",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:B100:0005",
+        "evidence:B100:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "A transition vector defined as the label difference between consecutive recordings"
+      ],
+      "criteria_missing": [
+        "An action that is chosen independently of the outcome label"
+      ],
+      "rationale": "The action is derived from the next recording label.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B100:0032",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0033",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "action.parameterized",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:B100:0021"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Three-valued onset, resolution and stability entries"
+      ],
+      "criteria_missing": [
+        "Magnitude or timing of change"
+      ],
+      "rationale": "Aliased by the authors.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B100:0034",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0035",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0036",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0037",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0038",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0039",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0040",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "partial",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:B100:0023",
+        "evidence:B100:0022"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Discussion of irreversible conditions such as myocardial infarction"
+      ],
+      "criteria_missing": [
+        "An implemented irreversibility constraint"
+      ],
+      "rationale": "Future work.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B100:0041",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:B100:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "A predictor maps the current latent and action to the next latent.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B100:0042",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:B100:0007",
+        "evidence:B100:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The transition is learned from data.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B100:0043",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:B100:0007",
+        "evidence:B100:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Predictor conditioned on the transition vector"
+      ],
+      "criteria_missing": [
+        "Any evaluation of predicted next latent states or action sensitivity"
+      ],
+      "rationale": "No ablation without action conditioning but with labels.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B100:0044",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "The predictor is deterministic.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0045",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0046",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0047",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0048",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0049",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0050",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0051",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0052",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0053",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Predicted next latent states are not evaluated and only downstream classification is scored.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0054",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No rollout is evaluated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0055",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No rollout is evaluated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0056",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No rollout is evaluated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0057",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No rollout is evaluated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0058",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No rollout is evaluated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0059",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No rollout is evaluated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0060",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No rollout is evaluated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0061",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No rollout is evaluated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0062",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "planning.model_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B100:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B100:0063",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B100:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B100:0064",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B100:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B100:0065",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B100:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B100:0066",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B100:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B100:0067",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B100:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B100:0068",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B100:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B100:0069",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B100:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B100:0070",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B100:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B100:0071",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "uq.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported, apart from bootstrap intervals on AUROC.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0072",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported, apart from bootstrap intervals on AUROC.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0073",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported, apart from bootstrap intervals on AUROC.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0074",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported, apart from bootstrap intervals on AUROC.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0075",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported, apart from bootstrap intervals on AUROC.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0076",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported, apart from bootstrap intervals on AUROC.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0077",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported, apart from bootstrap intervals on AUROC.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0078",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No causal estimand is stated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0079",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0080",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0081",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0082",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0083",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0084",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "partial",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B100:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Counterfactual simulation is described as future work"
+      ],
+      "criteria_missing": [
+        "A gate restricting causal language"
+      ],
+      "rationale": "Counterfactual aim stated for the future.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B100:0085",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0086",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0087",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0088",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0089",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0090",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0091",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0092",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0093",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0094",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0095",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0096",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "partial",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B100:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Triage and monitoring in acute care"
+      ],
+      "criteria_missing": [
+        "Intended user, decision point and permitted autonomy specified"
+      ],
+      "rationale": "Aim only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B100:0097",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0098",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0099",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0100",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0101",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0102",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0103",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "agent.role",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B100:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B100:0104",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B100:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B100:0105",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B100:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B100:0106",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B100:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B100:0107",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B100:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B100:0108",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No statement was found in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0109",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No statement was found in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0110",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No statement was found in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0111",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No statement was found in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0112",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No next-state prediction fidelity is reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0113",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0114",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0115",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0116",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0117",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0118",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0119",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0120",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0121",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0122",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B100:0017",
+        "evidence:B100:0018",
+        "evidence:B100:0019"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Data fraction experiments at 10 and 1 percent"
+      ],
+      "criteria_missing": [
+        "Transfer to other datasets or sites"
+      ],
+      "rationale": "Within one dataset.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B100:0123",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0124",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0125",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B100:0026"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "A single consumer GPU is used"
+      ],
+      "criteria_missing": [
+        "Computational cost measures"
+      ],
+      "rationale": "Hardware only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B100:0126",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B100:0127",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:B100:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The transition acts in latent space.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B100:0128",
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:B100:0001",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "Adapting the LeJEPA framework to physiological time-series",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0002",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "critical triage task",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0003",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "0.05 AUROC",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0004",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 2,
+        "section_or_table": "1"
+      },
+      "content": "our model explicitly treats disease onset as an action",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0005",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "3"
+      },
+      "content": "not as the static label, but as the transition vector describing the pathological",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0006",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "3"
+      },
+      "content": "denotes disease onset",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0007",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "3"
+      },
+      "content": "a residual MLP, then estimates the future representation",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0008",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "3"
+      },
+      "content": "implemented as an xResNet1d50",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0009",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "3"
+      },
+      "content": "We instead employ Sketched Isotropic Gaussian Regularization (SIGReg) from",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0010",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "3"
+      },
+      "content": "we freeze the encoder and train a linear head",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0011",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "3"
+      },
+      "content": "we utilize the Asymmetric Loss to handle the extreme class imbalance",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0012",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "4"
+      },
+      "content": "We evaluate our approach on the MIMIC-IV-ECG dataset",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0013",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "4"
+      },
+      "content": "We utilize the official",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0014",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "table",
+        "page": 6,
+        "section_or_table": "Table 1"
+      },
+      "content": "[paraphrase of Table 1, p. 6] Macro-AUROC with 95 percent bootstrap intervals, Triage (first ECG) / Monitoring (all ECGs). Supervised end-to-end 0.735 [0.727, 0.751] / 0.786 [0.776, 0.797]. Naive patient-invariance SSL, linear probe 0.666 / 0.698 and finetuned 0.679 / 0.726. Action-conditioned dynamics model, linear probe 0.725 [0.714, 0.742] / 0.744 [0.734, 0.755] and finetuned 0.742 [0.733, 0.756] / 0.786 [0.777, 0.794]. The supervised baseline uses labels only, the naive SSL baseline uses patient identity only, and the dynamics model uses both.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0015",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "4"
+      },
+      "content": "We implement the latter by mapping",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0016",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "4"
+      },
+      "content": "outperforms the Supervised baseline on the critical Triage task",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0017",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "4"
+      },
+      "content": "As illustrated in Figure 4, the Supervised model suffers catastrophic",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0018",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "4"
+      },
+      "content": "Conversely, our Dynamics model maintains robustness",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0019",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "4"
+      },
+      "content": "At 1% data, we observe a capability collapse where both models degrade",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0020",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "4"
+      },
+      "content": "pretrain with this restriction as our approach requires the label.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0021",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "5"
+      },
+      "content": "it encodes only the fact of a transition, not its clinical magnitude",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0022",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "5"
+      },
+      "content": "Disease progression is fundamentally entropic and temporally directed",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0023",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "5"
+      },
+      "content": "reversal is physically inadmissible for irreversible conditions",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0024",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "5"
+      },
+      "content": "the precise onset of even acute",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0025",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "5"
+      },
+      "content": "Leveraging the geometry enforced by SIGReg, we aim to deploy the",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0026",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 11,
+        "section_or_table": "A"
+      },
+      "content": "All experiments were conducted on a single node equipped with",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    },
+    {
+      "id": "evidence:B100:0027",
+      "source_ref": "Papers/Expanded_Collection/B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+      "source_version": "paper-version:B100:sha256-567d1ec3f3dd",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 11,
+        "section_or_table": "A"
+      },
+      "content": "Stable Pairs (Identity)",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "567d1ec3f3dd0c68d8cec1f81db7a4207151c8047326ee54a23af9c39fca4dfd"
+    }
+  ],
+  "metric_results": [
+    {
+      "id": "metric:B100:0001",
+      "metric": "Macro-AUROC, Triage, finetuned",
+      "value": 0.742,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "diagnosis triage",
+      "cohort_id": "cohort:B100:mimic-iv-ecg",
+      "split_role": "official folds",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B100:ac-jepa-encoder:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.742",
+      "source_evidence_ids": [
+        "evidence:B100:0014"
+      ]
+    },
+    {
+      "id": "metric:B100:0002",
+      "metric": "Macro-AUROC, Monitoring, finetuned",
+      "value": 0.786,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "diagnosis monitoring",
+      "cohort_id": "cohort:B100:mimic-iv-ecg",
+      "split_role": "official folds",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B100:ac-jepa-encoder:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.786",
+      "source_evidence_ids": [
+        "evidence:B100:0014"
+      ]
+    },
+    {
+      "id": "metric:B100:0003",
+      "metric": "Macro-AUROC, Triage, linear probe",
+      "value": 0.725,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "diagnosis triage",
+      "cohort_id": "cohort:B100:mimic-iv-ecg",
+      "split_role": "official folds",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B100:probe:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.725",
+      "source_evidence_ids": [
+        "evidence:B100:0014"
+      ]
+    },
+    {
+      "id": "metric:B100:0004",
+      "metric": "Macro-AUROC, Monitoring, linear probe",
+      "value": 0.744,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "diagnosis monitoring",
+      "cohort_id": "cohort:B100:mimic-iv-ecg",
+      "split_role": "official folds",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B100:probe:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.744",
+      "source_evidence_ids": [
+        "evidence:B100:0014"
+      ]
+    },
+    {
+      "id": "metric:B100:0005",
+      "metric": "Macro-AUROC, Triage",
+      "value": 0.735,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "diagnosis triage",
+      "cohort_id": "cohort:B100:mimic-iv-ecg",
+      "split_role": "official folds",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B100:sup:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.735",
+      "source_evidence_ids": [
+        "evidence:B100:0014"
+      ]
+    },
+    {
+      "id": "metric:B100:0006",
+      "metric": "Macro-AUROC, Monitoring",
+      "value": 0.786,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "diagnosis monitoring",
+      "cohort_id": "cohort:B100:mimic-iv-ecg",
+      "split_role": "official folds",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B100:sup:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.786",
+      "source_evidence_ids": [
+        "evidence:B100:0014"
+      ]
+    },
+    {
+      "id": "metric:B100:0007",
+      "metric": "Macro-AUROC, Triage, finetuned",
+      "value": 0.679,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "diagnosis triage",
+      "cohort_id": "cohort:B100:mimic-iv-ecg",
+      "split_role": "official folds",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B100:naive:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.679",
+      "source_evidence_ids": [
+        "evidence:B100:0014"
+      ]
+    },
+    {
+      "id": "metric:B100:0008",
+      "metric": "Macro-AUROC, Monitoring, finetuned",
+      "value": 0.726,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "diagnosis monitoring",
+      "cohort_id": "cohort:B100:mimic-iv-ecg",
+      "split_role": "official folds",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B100:naive:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.726",
+      "source_evidence_ids": [
+        "evidence:B100:0014"
+      ]
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:B100:0001",
+      "subject_id": "paper:B100",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:B100:sha256-567d1ec3f3dd",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring"
+      },
+      "evidence_ids": [
+        "evidence:B100:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B100:0002",
+      "subject_id": "paper-version:B100:sha256-567d1ec3f3dd",
+      "predicate_id": "reportsStudy",
+      "object_id": "study:B100:ac-cardiac-jepa",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring"
+      },
+      "evidence_ids": [
+        "evidence:B100:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B100:0003",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "predicate_id": "hasUseContext",
+      "object_id": "use:B100:ecg-diagnosis-triage-and-monitoring",
+      "assessment_state": "present",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring"
+      },
+      "evidence_ids": [
+        "evidence:B100:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B100:0004",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "predicate_id": "hasProfile",
+      "object_id": "BP_FORECAST",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring"
+      },
+      "evidence_ids": [
+        "evidence:B100:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Latent next-state prediction is a pretraining objective, with evaluation by static diagnosis classification and no forecasting or decision claim."
+    },
+    {
+      "id": "relation:B100:0005",
+      "subject_id": "paper-version:B100:sha256-567d1ec3f3dd",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B100:ac-jepa-encoder:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B100:ac-jepa-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:B100:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B100:0006",
+      "subject_id": "paper-version:B100:sha256-567d1ec3f3dd",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B100:sup:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B100:sup:v1"
+      },
+      "evidence_ids": [
+        "evidence:B100:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B100:0007",
+      "subject_id": "paper-version:B100:sha256-567d1ec3f3dd",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B100:naive:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B100:naive:v1"
+      },
+      "evidence_ids": [
+        "evidence:B100:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B100:0008",
+      "subject_id": "paper-version:B100:sha256-567d1ec3f3dd",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B100:probe:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B100:probe:v1"
+      },
+      "evidence_ids": [
+        "evidence:B100:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B100:0009",
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "predicate_id": "composesModel",
+      "object_id": "model:B100:ac-jepa-encoder:v1",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B100:ac-jepa-encoder:v1",
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring"
+      },
+      "evidence_ids": [
+        "evidence:B100:0001",
+        "evidence:B100:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "relation:B100:0010",
+      "subject_id": "evalrun:B100:mimic-iv-ecg-triage-monitoring",
+      "predicate_id": "evaluatesOnCohort",
+      "object_id": "cohort:B100:mimic-iv-ecg",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B100:mimic-iv-ecg-triage-monitoring"
+      },
+      "evidence_ids": [
+        "evidence:B100:0013"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B100:0011",
+      "subject_id": "paper-version:B100:sha256-567d1ec3f3dd",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M2",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring"
+      },
+      "evidence_ids": [
+        "evidence:B100:0008",
+        "evidence:B100:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reviewer mapping: ECG encoder and a latent transition predictor used for pretraining."
+    },
+    {
+      "id": "relation:B100:0012",
+      "subject_id": "paper-version:B100:sha256-567d1ec3f3dd",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M5",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring"
+      },
+      "evidence_ids": [
+        "evidence:B100:0008",
+        "evidence:B100:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reviewer mapping: ECG encoder and a latent transition predictor used for pretraining."
+    },
+    {
+      "id": "relation:B100:0013",
+      "subject_id": "evalrun:B100:mimic-iv-ecg-triage-monitoring",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B100:0001",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B100:mimic-iv-ecg-triage-monitoring"
+      },
+      "evidence_ids": [
+        "evidence:B100:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B100:0014",
+      "subject_id": "evalrun:B100:mimic-iv-ecg-triage-monitoring",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B100:0002",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B100:mimic-iv-ecg-triage-monitoring"
+      },
+      "evidence_ids": [
+        "evidence:B100:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B100:0015",
+      "subject_id": "evalrun:B100:mimic-iv-ecg-triage-monitoring",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B100:0003",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B100:mimic-iv-ecg-triage-monitoring"
+      },
+      "evidence_ids": [
+        "evidence:B100:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B100:0016",
+      "subject_id": "evalrun:B100:mimic-iv-ecg-triage-monitoring",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B100:0004",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B100:mimic-iv-ecg-triage-monitoring"
+      },
+      "evidence_ids": [
+        "evidence:B100:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B100:0017",
+      "subject_id": "evalrun:B100:mimic-iv-ecg-triage-monitoring",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B100:0005",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B100:mimic-iv-ecg-triage-monitoring"
+      },
+      "evidence_ids": [
+        "evidence:B100:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B100:0018",
+      "subject_id": "evalrun:B100:mimic-iv-ecg-triage-monitoring",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B100:0006",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B100:mimic-iv-ecg-triage-monitoring"
+      },
+      "evidence_ids": [
+        "evidence:B100:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B100:0019",
+      "subject_id": "evalrun:B100:mimic-iv-ecg-triage-monitoring",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B100:0007",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B100:mimic-iv-ecg-triage-monitoring"
+      },
+      "evidence_ids": [
+        "evidence:B100:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B100:0020",
+      "subject_id": "evalrun:B100:mimic-iv-ecg-triage-monitoring",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B100:0008",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B100:mimic-iv-ecg-triage-monitoring"
+      },
+      "evidence_ids": [
+        "evidence:B100:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    }
+  ],
+  "capability_assessments": [
+    {
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "level": "not_world_model",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring"
+      },
+      "evidence_assertion_ids": [
+        "assertion:B100:0019",
+        "assertion:B100:0041",
+        "assertion:B100:0042",
+        "assertion:B100:0053"
+      ],
+      "rationale": "Downgraded from L0 to not_world_model because core persistent state (state.persistent) is only partial (assertion:B100:0019): pretraining pairs single waveforms (X_t, X_{t+1}) using the next recording's label difference a_t = y_{t+1} - y_t, and at inference the dynamics predictor is discarded so only a static single-ECG classifier encoder is evaluated (Tables 1-3). Next-latent prediction and action sensitivity are never evaluated; accordingly, the system is classed as a supporting component (not_world_model)."
+    },
+    {
+      "subject_id": "model:B100:ac-jepa-encoder:v1",
+      "level": "not_world_model",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring"
+      },
+      "evidence_assertion_ids": [
+        "assertion:B100:0019",
+        "assertion:B100:0041",
+        "assertion:B100:0042",
+        "assertion:B100:0053"
+      ],
+      "rationale": "Downgraded from L0 to not_world_model because core persistent state (state.persistent) is only partial (assertion:B100:0019): pretraining pairs single waveforms (X_t, X_{t+1}) using the next recording's label difference a_t = y_{t+1} - y_t, and at inference the dynamics predictor is discarded so only a static single-ECG classifier encoder is evaluated (Tables 1-3). Next-latent prediction and action sensitivity are never evaluated; accordingly, the system is classed as a supporting component (not_world_model)."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "system:B100:ac-cardiac-world-model:v1",
+      "facets": [
+        "R2"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring"
+      },
+      "evidence_ids": [
+        "evidence:B100:0013",
+        "evidence:B100:0014"
+      ],
+      "legacy_highest_label": "R2 Retrospective internal validation"
+    }
+  ],
+  "gate_assessments": [
+    {
+      "gate_id": "G01",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring"
+      },
+      "rationale": "Official patient-stratified MIMIC-IV-ECG folds are used, but pretraining uses future recording labels a_t = y_{t+1} - y_t, retrospective ICD-10 code assignment creates temporal availability ambiguity (acknowledged on p. 8), and feature availability times and unit provenance are not audited.",
+      "supporting_assertion_ids": [
+        "assertion:B100:0001",
+        "assertion:B100:0010"
+      ]
+    },
+    {
+      "gate_id": "G02",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring"
+      },
+      "rationale": "Next-latent prediction is not evaluated, so the prediction gate cannot be assessed.",
+      "supporting_assertion_ids": [
+        "assertion:B100:0053"
+      ]
+    },
+    {
+      "gate_id": "G03",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring"
+      },
+      "rationale": "No multi-step prediction is claimed.",
+      "supporting_assertion_ids": [
+        "assertion:B100:0054"
+      ]
+    },
+    {
+      "gate_id": "G05",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B100:ecg-diagnosis-triage-and-monitoring"
+      },
+      "rationale": "No intervention or decision comparison is evaluated.",
+      "supporting_assertion_ids": [
+        "assertion:B100:0039"
+      ]
+    }
+  ],
+  "legacy_cells": {
+    "A": "B100",
+    "B": "Beyond Patient Invariance: Learning Cardiac Dynamics via Action-Conditioned JEPAs",
+    "C": "Jose Geraldo Fernandes; Luiz Facury; Pedro Robles Dutenhefner; Wagner Meira Jr.",
+    "D": "2026",
+    "E": "ICLR 2026, 2nd Workshop on World Models",
+    "F": "Workshop paper",
+    "G": "https://arxiv.org/abs/2604.22618",
+    "H": "Papers/Expanded_Collection (B)",
+    "I": "B100_Beyond_Patient_Invariance_Learning_Cardiac_Dynamics_via_Action_Conditioned_JEPAs.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not reported",
+    "N": "Cardiology / cardiovascular",
+    "O": "Circulatory diseases, including hypertension, ischemic heart disease, atrial fibrillation/flutter, and heart failure",
+    "P": "Not reported",
+    "Q": "Tissue / organ",
+    "R": "Representation learning / diagnosis",
+    "S": "Does ECG-derived cardiac latent representation support multi-label diagnosis, including classification of a patient's first ECG for triage?",
+    "T": "Patients in MIMIC-IV-ECG with longitudinal ECG recordings and ICD-10 diagnoses; the dataset has 161,352 unique patients.",
+    "U": "Not reported",
+    "V": "Experimental multi-label cardiac diagnosis on a patient's first ECG (triage) and on all ECGs (monitoring).",
+    "W": "World model",
+    "X": "F4 Physiological signals & interventions",
+    "Y": "Predictive-latent (JEPA-style)",
+    "Z": "L0 State representation only",
+    "AA": "L2 Action-conditioned prediction",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "Yes",
+    "AE": "No",
+    "AF": "Not reported",
+    "AG": "No",
+    "AH": "Serial pipeline",
+    "AI": "12-lead ECG waveforms; ICD-10 diagnosis-transition vector",
+    "AJ": "xResNet1d50 ECG encoder; three-layer MLP action projector; residual MLP latent-dynamics predictor",
+    "AK": "Not reported",
+    "AL": "Not reported",
+    "AM": "Not reported",
+    "AN": "Not reported",
+    "AO": "No",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Continuous latent vector",
+    "AS": "256 dimensions",
+    "AT": "No filtering/update rule reported; each ECG is encoded to its latent state before next-state prediction.",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Not reported",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Not reported",
+    "BC": "Discrete token / category",
+    "BD": "Sparse per-diagnosis transition vector with entries −1 (resolution), 0 (stable), or 1 (onset); 76 cardiac clusters",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "Action-Conditioned Cardiac World Model",
+    "BJ": "Other",
+    "BK": "Visit / event index",
+    "BL": "Consecutive ECG-recording pairs (t to t+1); elapsed time between recordings is not an input.",
+    "BM": "No",
+    "BN": "Not reported",
+    "BO": "None (Markov)",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Predicted next latent state ĥ(t+1)",
+    "BT": "Multi-label diagnosis classifier, evaluated with linear probing and fine-tuning",
+    "BU": "Not reported",
+    "BV": "Latent prediction loss (squared distance between predicted and target next-state embeddings) plus SIGReg embedding-geometry regularization; downstream Asymmetric Loss for classification",
+    "BW": "No",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "Not reported",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "None",
+    "CI": "Not applicable",
+    "CJ": "Not applicable",
+    "CK": "Not applicable",
+    "CL": "Not applicable",
+    "CM": "Not applicable",
+    "CN": "Not reported",
+    "CO": "Not applicable",
+    "CP": "Deterministic (none)",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "Associational action-conditioning",
+    "CU": "Not reported",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not applicable",
+    "DB": "Not applicable",
+    "DC": "Not applicable",
+    "DD": "Not applicable",
+    "DE": "Not applicable",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Yes",
+    "DN": "MIMIC-IV-ECG diagnostic matched subset",
+    "DO": "Not reported",
+    "DP": "Not reported",
+    "DQ": "800,035 ECG records; 161,352 unique patients; 638,683 consecutive ECG pairs",
+    "DR": "Not reported",
+    "DS": "Real-world data",
+    "DT": "Not reported",
+    "DU": "Patient-level split",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "At 10% training data (approximately ~4k patients), reported triage AUROC was 0.69 for the dynamics model versus 0.64 for supervised learning; at 1%, the fine-tuned dynamics model reached 0.510 triage AUROC.",
+    "EH": "Not reported",
+    "EI": "Supervised baseline: macro-AUROC 0.735 triage / 0.786 monitoring; naive patient-invariance SSL: 0.666 / 0.698 linear probe and 0.679 / 0.726 fine-tuned; ours: 0.725 / 0.744 linear probe and 0.742 / 0.786 fine-tuned (Table 1).",
+    "EJ": "Not reported",
+    "EK": "Compared SIGReg with VICReg (Table 3); compared linear probing with fine-tuning in the 1% data regime (Table 2).",
+    "EL": "At 1% data, full-parameter fine-tuning collapsed to near-random classification (triage AUROC 0.510); authors attribute it to adaptation gradients overwriting learned features.",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "R2 Retrospective internal validation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Yes – public repository",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not applicable",
+    "FA": "Not reported",
+    "FB": "ECG waveform encoded as a 256-dimensional latent cardiac/electrophysiological state; ICD-10 diagnosis-label transitions form a separate conditioning vector.",
+    "FC": "0 – absent",
+    "FD": "0 – absent",
+    "FE": "1 – minimal",
+    "FF": "0 – absent",
+    "FG": "Yes",
+    "FH": "No",
+    "FI": "Not applicable",
+    "FJ": "Yes",
+    "FK": "Yes",
+    "FL": "12-lead ECG → xResNet1d50 encoder → 256-dimensional latent state; diagnosis-transition vector → MLP projector; residual MLP predicts the next latent state; a diagnosis classifier is trained/evaluated by linear probe or fine-tuning. No planner is implemented.",
+    "FM": "Authors propose LeJEPA-based action-conditioned latent cardiac dynamics, treating changes in diagnosis labels as transition vectors, and report downstream diagnosis performance and low-data sample-efficiency results.",
+    "FN": "On the full dataset, fine-tuned model macro-AUROC was 0.742 triage versus 0.735 supervised, and 0.786 monitoring versus 0.786 supervised. At 10% data, authors report approximately 0.69 versus 0.64 triage AUROC. At 1%, linear probing retained higher signal than fine-tuning (0.563 versus 0.510 triage AUROC).",
+    "FO": "Authors identify limitations: action vectors encode transition occurrence but not clinical magnitude; chronic conditions change slowly and yield weak transition signals; ICD-10 onset timing is ambiguous; the 1% fine-tuning regime collapses; only circulatory-system labels truncated to three digits are used.",
+    "FP": "Authors propose learned continuous action embeddings, conditioning on elapsed time, expanding labels to the full ICD-10 ontology, improving low-data learning, and future patient-specific counterfactual simulation.",
+    "FQ": "Authors argue patient-invariance objectives can suppress transient disease signals and that existing physiological JEPA work is passive/autoregressive rather than explicitly conditioned on disease transitions.",
+    "FR": "The reported evaluation establishes downstream diagnosis representation performance, not direct future-state forecast accuracy, multi-step rollout fidelity, counterfactual validity, treatment-effect identification, planning/control, external validation, or prospective clinical benefit. The modeled actions are diagnosis-label transitions, not prescribed treatments.",
+    "FS": "Reviewer mapping: M2 Encoders; M3 Belief-state service; M7 Outcome & causal layer",
+    "FT": "Reviewer lesson: Expose the learned representation through a modality encoder/state interface, then independently validate next-state prediction before using it for simulation or control.",
+    "FU": "Reviewer mapping (KB §20): Incomplete multimodal state construction",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Full extracted PDF text, all 12 pages: title/abstract and introduction (pp. 1–2); related work (pp. 2–3); methods, equations, architecture, and Figure 1 (pp. 3–5); experiments/results and Tables 1–2 (pp. 5–7); conclusion, limitations, and future work (pp. 7–8); references (pp. 8–9); Appendix A dataset characterization and Figures 5–6 (pp. 10–11); Appendix B experimental setup and Table 3 (pp. 11–12). Tables and figures' extracted text were readable. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Low",
+    "FZ": "No A:I workbook field is changed because no direct contradiction was found; E/F are supplied only because the PDF identifies the workshop venue/status and E was blank in the metadata. The demonstrated results are downstream diagnosis classification metrics, not direct dynamics-rollout or counterfactual validation. Disease-label transitions are modeled as actions but are not prescribed treatment actions and do not establish causal identification. The paper states code is on GitHub but supplies no exact repository URL in the extracted text. The M1–M10 blueprint module definitions referenced by the rubric were not among the declared inputs, so FS is omitted rather than guessed. No unreadable table or text extraction issue was observed. Evidence QA: 51/70 populated fields had a <=25-word quotation matching extracted PDF text (72.9%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 60 prior populated fields have a located source quotation; 12 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "All 12 PDF pages were read as extracted text (including Appendix B, Figure 6, and Table 3 VICReg vs SIGReg ablation on p. 12), and rendered page images were visually inspected for pages 4, 5, 6, 7, 8, 11, and 12 (Figs. 1-6, Tables 1-3).",
+    "The legacy row was read from the root workbook (read only). Saved API drafts for B100 were not opened.",
+    "Schema validity and quote occurrence do not establish semantic correctness. One reviewer pass, no independent human review."
+  ],
+  "notes": "The paper pretrains an xResNet1d50 ECG encoder with a JEPA-style next-latent predictor conditioned on a label-difference vector and SIGReg, then evaluates it for diagnosis. Finetuned macro-AUROC is 0.742 for Triage and 0.786 for Monitoring against 0.735 and 0.786 for supervised, with overlapping intervals on Triage. At 10 percent data, 0.69 versus 0.64 for supervised, and at 1 percent both collapse. Next-latent prediction and action sensitivity are not evaluated, and the dynamics model uses labels that the invariance baseline does not. Classified L0, supporting component, R2. Source points: action defined from the next label, label-use confound, overlapping intervals."
+}

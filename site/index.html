@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Healthcare World Model KG — Interactive 3D Sphere Explorer</title>
+  <link rel="stylesheet" href="./css/styles.css?v=public1" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./vendor/three/three.module.min.js",
+        "three/addons/": "./vendor/three/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <!-- Top Bar -->
+    <header class="top-bar" role="banner">
+      <div class="top-brand">
+        <button id="btn-toggle-left" class="icon-btn" title="Toggle Filters Panel" aria-label="Toggle Filters Panel" aria-expanded="true">☰</button>
+        <div class="brand-text">
+          <h1>Healthcare World Model KG</h1>
+          <span id="snapshot-meta" class="meta-pill">Loading snapshot…</span>
+        </div>
+      </div>
+
+      <div class="top-search" role="search">
+        <label for="global-search" class="sr-only">Search graph nodes</label>
+        <input id="global-search" type="search" placeholder="Search 40,000+ nodes: paper ID (B016, A20, 091), title, model, feature, evidence… (/)" autocomplete="off" />
+        <div id="search-results" class="search-dropdown hidden" role="listbox" aria-label="Search results"></div>
+      </div>
+
+      <div class="top-actions">
+        <div id="loading-pill" class="status-pill status-loading" aria-live="polite">Initializing…</div>
+        <div id="header-counts" class="counts-pill" title="Loaded graph totals">—</div>
+        <button id="btn-table-mode" class="btn btn-ghost" title="Switch between 3D Sphere and Searchable Table">Table View</button>
+        <button id="btn-interpret" class="btn btn-accent" title="Scientific interpretation safeguards">How to Interpret</button>
+        <button id="btn-toggle-right" class="icon-btn" title="Toggle Inspector Panel" aria-label="Toggle Inspector Panel" aria-expanded="true">◨</button>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <div class="workspace">
+      <!-- Left Collapsible Panel: Filters & Controls -->
+      <aside id="left-panel" class="side-panel left-panel" aria-label="Filters and Display Controls">
+        <div class="panel-scroll">
+          <!-- View Mode -->
+          <section class="control-section">
+            <h2 class="section-title">View Mode</h2>
+            <div class="segmented-grid" role="group" aria-label="Layout view mode">
+              <button class="seg-btn active" data-view-mode="full">Full Sphere</button>
+              <button class="seg-btn" data-view-mode="paper">Paper-Centered</button>
+              <button class="seg-btn" data-view-mode="architecture">Architecture</button>
+              <button class="seg-btn" data-view-mode="neighborhood">Neighborhood</button>
+            </div>
+            <div id="neighborhood-depth-row" class="inline-row hidden">
+              <label for="hop-depth">Expansion depth:</label>
+              <select id="hop-depth">
+                <option value="1" selected>1-hop neighbors</option>
+                <option value="2">2-hop neighbors</option>
+              </select>
+            </div>
+            <p class="hint-note">
+              Position and distance on the sphere aid navigation only — they are not measured scientific similarity or evidence strength.
+            </p>
+          </section>
+
+          <!-- Filters -->
+          <section class="control-section">
+            <div class="section-header-row">
+              <h2 class="section-title">Filters</h2>
+              <button id="btn-reset-filters" class="btn-link">Reset all</button>
+            </div>
+
+            <div class="filter-group">
+              <label for="filter-paper">Paper (211 versions)</label>
+              <select id="filter-paper"><option value="">All papers</option></select>
+            </div>
+
+            <div class="filter-group">
+              <label for="filter-module">Architecture Module</label>
+              <select id="filter-module"><option value="">All modules (M1–M10)</option></select>
+            </div>
+
+            <div class="filter-group">
+              <label for="filter-feature">Feature ID (128 features)</label>
+              <select id="filter-feature"><option value="">All features</option></select>
+            </div>
+
+            <div class="filter-group">
+              <label for="filter-state">Assessment State</label>
+              <select id="filter-state"><option value="">All states (incl. unknown/negative)</option></select>
+            </div>
+
+            <div class="filter-group">
+              <label for="filter-stage">Evidence Stage</label>
+              <select id="filter-stage"><option value="">All stages</option></select>
+            </div>
+
+            <div class="filter-row-2">
+              <div class="filter-group">
+                <label for="filter-capability">Capability Level</label>
+                <select id="filter-capability"><option value="">All (L0–L4)</option></select>
+              </div>
+              <div class="filter-group">
+                <label for="filter-readiness">Readiness Facet</label>
+                <select id="filter-readiness"><option value="">All (R0–R8)</option></select>
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <label for="filter-worldtype">World Type</label>
+              <select id="filter-worldtype"><option value="">All world types</option></select>
+            </div>
+
+            <div class="filter-group">
+              <label for="filter-predicate">Relationship Predicate</label>
+              <select id="filter-predicate"><option value="">All predicates</option></select>
+            </div>
+
+            <div class="filter-group">
+              <div class="section-header-row">
+                <label>Entity Classes</label>
+                <span class="mini-actions">
+                  <button id="btn-classes-all" class="btn-link">All</button> ·
+                  <button id="btn-classes-core" class="btn-link">Core</button>
+                </span>
+              </div>
+              <div id="class-filter-list" class="checkbox-list"></div>
+            </div>
+          </section>
+
+          <!-- Display & Performance -->
+          <section class="control-section">
+            <h2 class="section-title">Display &amp; Performance</h2>
+            <label class="toggle-row">
+              <input id="chk-all-edges" type="checkbox" />
+              <span>Show all relationships (may reduce FPS)</span>
+            </label>
+            <label class="toggle-row">
+              <input id="chk-include-kg-edges" type="checkbox" />
+              <span>Include <code>kg:</code> serialization links</span>
+            </label>
+            <div class="slider-row">
+              <div class="slider-head"><span>Edge density</span><span id="val-edge-density">35%</span></div>
+              <input id="rng-edge-density" type="range" min="5" max="100" step="5" value="35" />
+            </div>
+            <div class="slider-row">
+              <div class="slider-head"><span>Edge opacity</span><span id="val-edge-opacity">0.28</span></div>
+              <input id="rng-edge-opacity" type="range" min="0.05" max="1" step="0.05" value="0.28" />
+            </div>
+            <div class="slider-row">
+              <div class="slider-head"><span>Node size</span><span id="val-node-size">1.0×</span></div>
+              <input id="rng-node-size" type="range" min="0.5" max="2.5" step="0.1" value="1.0" />
+            </div>
+            <label class="toggle-row">
+              <input id="chk-reduced-detail" type="checkbox" />
+              <span>Reduced-detail mode</span>
+            </label>
+            <label class="toggle-row">
+              <input id="chk-autorotate" type="checkbox" />
+              <span>Auto-rotate sphere</span>
+            </label>
+            <div class="btn-row">
+              <button id="btn-clear-cache" class="btn btn-sm btn-ghost">Clear Worker Cache</button>
+            </div>
+          </section>
+
+          <!-- Connection Path Finder -->
+          <section class="control-section">
+            <h2 class="section-title">Connection Path</h2>
+            <p class="hint-note">Shortest undirected graph path between two nodes. Connectivity does not imply causality.</p>
+            <div class="path-slot">
+              <span class="slot-label">From (A):</span>
+              <span id="path-node-a" class="slot-val">None</span>
+              <button id="btn-set-path-a" class="btn btn-xs btn-ghost">Use Selected</button>
+            </div>
+            <div class="path-slot">
+              <span class="slot-label">To (B):</span>
+              <span id="path-node-b" class="slot-val">None</span>
+              <button id="btn-set-path-b" class="btn btn-xs btn-ghost">Use Selected</button>
+            </div>
+            <div class="btn-row">
+              <button id="btn-find-path" class="btn btn-sm btn-accent">Find Path</button>
+              <button id="btn-clear-path" class="btn btn-sm btn-ghost">Clear</button>
+            </div>
+            <div id="path-result" class="path-result hidden"></div>
+          </section>
+
+          <!-- Saved Views & Export -->
+          <section class="control-section">
+            <h2 class="section-title">Saved Views &amp; Export</h2>
+            <div class="inline-form">
+              <input id="preset-name" type="text" placeholder="Preset name…" aria-label="Preset name" />
+              <button id="btn-save-preset" class="btn btn-sm btn-ghost">Save</button>
+            </div>
+            <div id="preset-list" class="preset-list"></div>
+            <div class="btn-row">
+              <button id="btn-export-png" class="btn btn-sm btn-ghost">Export PNG</button>
+              <button id="btn-export-json" class="btn btn-sm btn-ghost">Export Subgraph JSON</button>
+            </div>
+          </section>
+        </div>
+      </aside>
+
+      <!-- Center Viewport -->
+      <main id="viewport" class="viewport" role="main">
+        <div id="canvas-host" class="canvas-host">
+          <canvas id="sphere-canvas" tabindex="0" aria-label="Interactive 3D Healthcare World Model Knowledge Graph Sphere"></canvas>
+          <div id="hover-label" class="floating-label hidden" aria-hidden="true"></div>
+          <div id="selected-label" class="floating-label selected-label hidden" aria-hidden="true"></div>
+
+          <!-- Controls Hint -->
+          <div class="nav-hint" aria-hidden="true">
+            Drag: Rotate · Right-drag / Shift-drag: Pan · Scroll: Zoom · Click: Inspect · Double-click: Focus
+          </div>
+        </div>
+
+        <!-- Searchable Table Fallback / Alternate View -->
+        <div id="table-view" class="table-view hidden" aria-label="Searchable Graph Table View">
+          <div class="table-toolbar">
+            <div class="table-tabs" role="tablist">
+              <button class="tab-btn active" data-table-tab="nodes" role="tab" aria-selected="true">Nodes</button>
+              <button class="tab-btn" data-table-tab="edges" role="tab" aria-selected="false">Relationships</button>
+              <button class="tab-btn" data-table-tab="papers" role="tab" aria-selected="false">211 Papers</button>
+            </div>
+            <div id="table-status" class="table-status"></div>
+            <div class="table-pager">
+              <button id="btn-table-prev" class="btn btn-xs btn-ghost">← Prev</button>
+              <span id="table-page-info">Page 1</span>
+              <button id="btn-table-next" class="btn btn-xs btn-ghost">Next →</button>
+            </div>
+          </div>
+          <div class="table-scroll">
+            <table class="data-table">
+              <thead id="table-head"></thead>
+              <tbody id="table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Overlay: Loading / Empty / Error -->
+        <div id="state-overlay" class="state-overlay">
+          <div class="state-card">
+            <div id="state-spinner" class="spinner"></div>
+            <h2 id="state-title">Loading Healthcare World Model KG</h2>
+            <p id="state-message">Reading local snapshot and building Web Worker indexes…</p>
+            <div class="progress-track"><div id="state-progress" class="progress-fill" style="width: 8%"></div></div>
+            <div id="state-actions" class="btn-row hidden"></div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Right Inspector Drawer -->
+      <aside id="right-panel" class="side-panel right-panel" aria-label="Entity and Relationship Inspector">
+        <div class="inspector-header">
+          <div id="inspector-badge-row" class="badge-row"></div>
+          <h2 id="inspector-title" class="inspector-title">Select a node or edge</h2>
+          <div id="inspector-subtitle" class="inspector-subtitle">Click any point or relationship on the sphere, or search above.</div>
+          <div id="inspector-quick-actions" class="btn-row hidden">
+            <button id="btn-insp-focus" class="btn btn-xs btn-accent">Focus</button>
+            <button id="btn-insp-1hop" class="btn btn-xs btn-ghost">1-Hop</button>
+            <button id="btn-insp-2hop" class="btn btn-xs btn-ghost">2-Hop</button>
+            <button id="btn-insp-paper-view" class="btn btn-xs btn-ghost hidden">Center Paper</button>
+          </div>
+        </div>
+
+        <div class="inspector-tabs" role="tablist">
+          <button class="tab-btn active" data-insp-tab="details" role="tab" aria-selected="true">Details</button>
+          <button class="tab-btn" data-insp-tab="connections" role="tab" aria-selected="false">Connections</button>
+          <button class="tab-btn" data-insp-tab="paper" role="tab" aria-selected="false">Paper Dossier</button>
+          <button class="tab-btn" data-insp-tab="raw" role="tab" aria-selected="false">Raw JSON</button>
+        </div>
+
+        <div id="inspector-body" class="panel-scroll inspector-body">
+          <div class="empty-inspector">
+            <p>Explore the complete Healthcare World Model Knowledge Graph:</p>
+            <ul>
+              <li><strong>211 paper versions</strong> anchored around the sphere</li>
+              <li><strong>Shared ontology concepts</strong> on the inner core shell</li>
+              <li><strong>Assertions, evidence, models, and metrics</strong> near their owning papers</li>
+            </ul>
+            <p class="hint-note">Try searching for <code>B016</code>, <code>A20</code>, <code>091</code>, or <code>B066</code> to inspect ambiguity, image-only OCR receipts, unavailable supplements, and configuration-scoped assessments.</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Bottom Strip -->
+    <footer class="bottom-bar" role="contentinfo">
+      <div id="legend-strip" class="legend-strip" aria-label="Entity class legend"></div>
+      <div class="bottom-right">
+        <span id="visible-counts" class="visible-counts">Visible: —</span>
+        <button id="btn-reset-camera" class="btn btn-xs btn-ghost" title="Reset Camera (R)">Reset Camera</button>
+        <button id="btn-focus-selected" class="btn btn-xs btn-ghost" title="Focus Selection (F)">Focus</button>
+        <button id="btn-clear-selection" class="btn btn-xs btn-ghost" title="Clear Selection (Esc)">Clear</button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Modal: How to Interpret This Graph -->
+  <div id="modal-interpret" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-interpret-title">
+    <div class="modal-backdrop" data-close-modal="modal-interpret"></div>
+    <div class="modal-card modal-lg">
+      <div class="modal-head">
+        <h2 id="modal-interpret-title">How to Interpret This Knowledge Graph</h2>
+        <button class="icon-btn" data-close-modal="modal-interpret" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="safeguard-grid">
+          <div class="safeguard-item">
+            <h3>1. Connectivity ≠ Causality</h3>
+            <p>A visual edge or shortest connection path between two entities represents graph connectivity only. It does <strong>not</strong> establish causal identification, counterfactual validity, or clinical efficacy.</p>
+          </div>
+          <div class="safeguard-item">
+            <h3>2. Position ≠ Scientific Similarity</h3>
+            <p>Spherical layout coordinates are deterministic navigation anchors (211 paper versions on the sphere, ontology concepts in the core). Spatial proximity is not a measured similarity score or evidence strength.</p>
+          </div>
+          <div class="safeguard-item">
+            <h3>3. Claims vs. Demonstration</h3>
+            <p>Author claims (<code>claim</code>), method specifications (<code>specification</code>), implementations (<code>implementation</code>), and evaluations (<code>evaluation</code>) are tracked separately. An evaluation stage does not imply a passed test.</p>
+          </div>
+          <div class="safeguard-item">
+            <h3>4. Scoped Capability &amp; Readiness</h3>
+            <p>Capability levels (<code>L0–L4</code>) and readiness facets (<code>R0–R8</code>) are independent and scoped to specific models, configurations, or studies. Differing configurations are never collapsed to a single maximum label.</p>
+          </div>
+          <div class="safeguard-item">
+            <h3>5. Surveys Do Not Inherit Cited Systems</h3>
+            <p>Survey or review papers do not inherit the capabilities, evaluations, or readiness levels of the external systems they cite.</p>
+          </div>
+          <div class="safeguard-item">
+            <h3>6. Evidence &amp; Verification Provenance</h3>
+            <p>Quote occurrence does not establish entailment. Literal quotations are distinguished from explicitly recorded visual paraphrases and OCR drafts (e.g., image-only paper <code>A20</code>).</p>
+          </div>
+          <div class="safeguard-item">
+            <h3>7. Negative, Unknown &amp; Unassessed States</h3>
+            <p><code>absent</code>, <code>unknown</code>, <code>not_reported</code>, <code>not_applicable</code>, <code>not_assessed</code>, and <code>conflicting</code> assessments remain visible and filterable. Canonical annotations and coverage sidecars take precedence over stale registry strings.</p>
+          </div>
+          <div class="safeguard-item">
+            <h3>8. Scientific vs. <code>kg:</code> Serialization Links</h3>
+            <p>Edges prefixed with <code>kg:</code> (such as <code>kg:subject</code>, <code>kg:feature</code>, <code>kg:evidence</code>) are property-graph export metadata, not scientific ontology predicates.</p>
+          </div>
+        </div>
+        <div class="reference-links" id="reference-docs-links">
+          <h3>Local Snapshot Reference Documents</h3>
+          <div id="doc-links-list" class="doc-chips"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Embedded PDF Reader -->
+  <div id="modal-pdf" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-pdf-title">
+    <div class="modal-backdrop" data-close-modal="modal-pdf"></div>
+    <div class="modal-card modal-xl">
+      <div class="modal-head">
+        <div>
+          <h2 id="modal-pdf-title">Source PDF Viewer</h2>
+          <div id="modal-pdf-subtitle" class="inspector-subtitle"></div>
+        </div>
+        <div class="btn-row">
+          <a id="modal-pdf-newtab" class="btn btn-sm btn-accent" href="#" target="_blank" rel="noopener">Open in New Tab</a>
+          <button class="icon-btn" data-close-modal="modal-pdf" aria-label="Close">✕</button>
+        </div>
+      </div>
+      <div class="modal-body modal-pdf-body">
+        <div id="modal-pdf-notice" class="notice-banner hidden"></div>
+        <iframe id="modal-pdf-frame" class="pdf-iframe" title="Source PDF Document"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

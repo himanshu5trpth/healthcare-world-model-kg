@@ -1,0 +1,3029 @@
+{
+  "record_id": "annotation:051:r1",
+  "paper_record_id": "051",
+  "paper_version_id": "paper-version:051:sha256-a7c432204b4c",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:051:cnn-blstm:v1"
+  ],
+  "system_composition_ids": [],
+  "world_type_ids": [],
+  "profile_ids": [],
+  "entities": [
+    {
+      "id": "paper:051",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_paper_id": "051",
+        "membership": "excluded_static_prediction",
+        "verified_world_model": false
+      },
+      "provenance_evidence_ids": [
+        "evidence:051:0001"
+      ]
+    },
+    {
+      "id": "paper-version:051:sha256-a7c432204b4c",
+      "class_id": "PaperVersion",
+      "properties": {
+        "title": "End-To-End Prediction of Emotion from Heartbeat Data Collected by a Consumer Fitness Tracker",
+        "version": "arXiv1907.07327v1,16July2019;ACII2019proceedings header",
+        "source_sha256": "a7c432204b4c9971aaf1c4a99562faa9c247a458a25df246c1c51fa7cebfe860"
+      },
+      "provenance_evidence_ids": [
+        "evidence:051:0011"
+      ]
+    },
+    {
+      "id": "model:051:cnn-blstm:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "architecture": "CNN+bidirectionalLSTM,MCdropout,dense valence regression/thresholded classification",
+        "prediction_target": "Valence of input stimulus-linked IBIclip;not future state",
+        "state_boundary": "Recurrent features within an observed clip, no state carried across patient prediction/assimilation queries."
+      },
+      "provenance_evidence_ids": [
+        "evidence:051:0001",
+        "evidence:051:0003"
+      ]
+    },
+    {
+      "id": "dataset:051:ppg",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "participants": 17,
+        "female": 5,
+        "male": 12,
+        "stimuli": 24,
+        "device": "GarminVivosmart3",
+        "split": "10random leave-one-subject-out iterations, not necessarily all17unique heldouts"
+      },
+      "provenance_evidence_ids": [
+        "evidence:051:0005",
+        "evidence:051:0003"
+      ]
+    },
+    {
+      "id": "dataset:051:amigos",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "participants": 40,
+        "role": "ECG training augmentation orECG-onlytraining;PPG remains testtarget",
+        "not_independent_external_validation": "Independent dataset is training source, not external target validation."
+      },
+      "provenance_evidence_ids": [
+        "evidence:051:0008"
+      ]
+    },
+    {
+      "id": "metric:051:peak",
+      "class_id": "MetricResult",
+      "properties": {
+        "subject_id": "model:051:cnn-blstm:v1",
+        "metric": "F1",
+        "value": 0.7,
+        "alpha": 0.95,
+        "scope": "PPG-only model,17volunteers,10random LOSOiterations,PPGheldout subject;selective classifications only",
+        "coverage": "reduced;exact value not numerically reported;not digitized"
+      },
+      "provenance_evidence_ids": [
+        "evidence:051:0007",
+        "evidence:051:0003"
+      ]
+    },
+    {
+      "id": "metric:051:transfer",
+      "class_id": "MetricResult",
+      "properties": {
+        "subject_id": "model:051:cnn-blstm:v1",
+        "metric": "MannWhitney p",
+        "value": 0.16,
+        "alpha": 0.5,
+        "scope": "10F1scores;PPG-only vsPPG+AMIGOS-ECG training,PPG test",
+        "interpretation": "nonsignificant;not equivalence"
+      },
+      "provenance_evidence_ids": [
+        "evidence:051:0008"
+      ]
+    },
+    {
+      "id": "metric:051:chance",
+      "class_id": "MetricResult",
+      "properties": {
+        "subject_id": "model:051:cnn-blstm:v1",
+        "metric": "chanceF1",
+        "value": 0.57,
+        "scope": "ECG-onlytraining→PPGtest performs no better thanchance"
+      },
+      "provenance_evidence_ids": [
+        "evidence:051:0008"
+      ]
+    },
+    {
+      "id": "metric:051:svm",
+      "class_id": "MetricResult",
+      "properties": {
+        "subject_id": "model:051:cnn-blstm:v1",
+        "metric": "accuracy",
+        "value": 0.7,
+        "scope": "IBI source discriminationECGvsPPG;rbfSVM,C1,10fold;not emotion classifier"
+      },
+      "provenance_evidence_ids": [
+        "evidence:051:0009"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:051:0001",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "data.provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0006",
+        "evidence:051:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "GarminPPG andAMIGOSECG source methods and normalization recorded;variable-level provenance/availability metadata incomplete.",
+      "criteria_met": [
+        "Device/source and transformations identified."
+      ],
+      "criteria_missing": [
+        "Complete variable-level acquisition/availability lineage not specified."
+      ]
+    },
+    {
+      "id": "assertion:051:0002",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "data.native_time",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Stimulus synchronization and IBIinterval values retained;native absolute sample/acquisition timestamps at modeling input not described.",
+      "criteria_met": [
+        "Stimulus timing synchronized;IBIinterval information retained."
+      ],
+      "criteria_missing": [
+        "Native per-sample timestamp retention unresolved."
+      ]
+    },
+    {
+      "id": "assertion:051:0003",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Information-availability time: PPGclip classifier uses normalized/padded IBI sequences(p5);acquisition app syncs stimulus times(p3), but this criterion is not specified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0004",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Missingness and validity masks: PPGclip classifier uses normalized/padded IBI sequences(p5);acquisition app syncs stimulus times(p3), but this criterion is not specified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0005",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Measurement freshness: PPGclip classifier uses normalized/padded IBI sequences(p5);acquisition app syncs stimulus times(p3), but this criterion is not specified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0006",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Irregular-time handling: PPGclip classifier uses normalized/padded IBI sequences(p5);acquisition app syncs stimulus times(p3), but this criterion is not specified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0007",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Observation-process model: PPGclip classifier uses normalized/padded IBI sequences(p5);acquisition app syncs stimulus times(p3), but this criterion is not specified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0008",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Observation-clock evidence audit: PPGclip classifier uses normalized/padded IBI sequences(p5);acquisition app syncs stimulus times(p3), but this criterion is not specified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0009",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Semantic and unit harmonization: PPGclip classifier uses normalized/padded IBI sequences(p5);acquisition app syncs stimulus times(p3), but this criterion is not specified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0010",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0003",
+        "evidence:051:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Subject-wise holdout and longesttraining-sample padding specified;normalization-fit boundaries,subject repetition across10randomiterations and validation/tuning isolation unclear.",
+      "criteria_met": [
+        "Held-out subject separated from training.",
+        "Padding length derived from training."
+      ],
+      "criteria_missing": [
+        "Normalization fit scope and tuning isolation not stated.",
+        "Random iteration unique heldout count not specified."
+      ]
+    },
+    {
+      "id": "assertion:051:0011",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Federated learning/data access: PPGclip classifier uses normalized/padded IBI sequences(p5);acquisition app syncs stimulus times(p3), but this criterion is not specified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0012",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Parallel CNN/BLSTM maps IBI sequence to192features then densevalence."
+    },
+    {
+      "id": "assertion:051:0013",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Foundation encoder reuse: Architecture is unimodal parallelCNN/BLSTM feature extraction(p4);this criterion is not established by two streams of the same IBI input.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0014",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Predictive-latent representation objective: Architecture is unimodal parallelCNN/BLSTM feature extraction(p4);this criterion is not established by two streams of the same IBI input.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0015",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Representation-collapse prevention: Architecture is unimodal parallelCNN/BLSTM feature extraction(p4);this criterion is not established by two streams of the same IBI input.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0016",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Observation reconstruction objective: Architecture is unimodal parallelCNN/BLSTM feature extraction(p4);this criterion is not established by two streams of the same IBI input.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0017",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "perception.fusion",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0006",
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Two streams share unimodal IBI;face video explicitly not incorporated."
+    },
+    {
+      "id": "assertion:051:0018",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Availability-aware fusion: Architecture is unimodal parallelCNN/BLSTM feature extraction(p4);this criterion is not established by two streams of the same IBI input.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0019",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "state.persistent",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Complete architecture independently maps observed clip tovalence;within-clip LSTM is not carried worldstate across predictions."
+    },
+    {
+      "id": "assertion:051:0020",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Belief over partially observed state: Within-clip recurrent features support valence classification(p4);no online patient state service is described for this criterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0021",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Propagation/correction separation: Within-clip recurrent features support valence classification(p4);no online patient state service is described for this criterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0022",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Assimilation of arriving evidence: Within-clip recurrent features support valence classification(p4);no online patient state service is described for this criterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0023",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Patient-specific parameter adaptation: Within-clip recurrent features support valence classification(p4);no online patient state service is described for this criterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0024",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Shared state reused across tasks: Within-clip recurrent features support valence classification(p4);no online patient state service is described for this criterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0025",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "State-sufficiency assessment: Within-clip recurrent features support valence classification(p4);no online patient state service is described for this criterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0026",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Observed earlier/later IBIs within clip affect encoding throughBLSTM;no forecasting interpretation."
+    },
+    {
+      "id": "assertion:051:0027",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Personalization beyond generic priors: Within-clip recurrent features support valence classification(p4);no online patient state service is described for this criterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0028",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Identity/anatomical consistency mechanism: Within-clip recurrent features support valence classification(p4);no online patient state service is described for this criterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0029",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Inspectable state semantics: Within-clip recurrent features support valence classification(p4);no online patient state service is described for this criterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0030",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "BidirectionalLSTM32units retains within-clip sequence context;not persistent patient rollout state."
+    },
+    {
+      "id": "assertion:051:0031",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "action.explicit",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Explicit action input: Valence classifier has no settable intervention inputs;stimulus videos collect labels,not action-conditioned world transitions."
+    },
+    {
+      "id": "assertion:051:0032",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Typed action roles/effect channels: Valence classifier has no settable intervention inputs;stimulus videos collect labels,not action-conditioned world transitions."
+    },
+    {
+      "id": "assertion:051:0033",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "action.parameterized",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Action attributes and units: Valence classifier has no settable intervention inputs;stimulus videos collect labels,not action-conditioned world transitions."
+    },
+    {
+      "id": "assertion:051:0034",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Time-indexed action schedule: Valence classifier has no settable intervention inputs;stimulus videos collect labels,not action-conditioned world transitions."
+    },
+    {
+      "id": "assertion:051:0035",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Coherent treatment-bundle representation: Valence classifier has no settable intervention inputs;stimulus videos collect labels,not action-conditioned world transitions."
+    },
+    {
+      "id": "assertion:051:0036",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Action constraints/contraindications: Valence classifier has no settable intervention inputs;stimulus videos collect labels,not action-conditioned world transitions."
+    },
+    {
+      "id": "assertion:051:0037",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Executable/semantic action grounding: Valence classifier has no settable intervention inputs;stimulus videos collect labels,not action-conditioned world transitions."
+    },
+    {
+      "id": "assertion:051:0038",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "action.support",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Historical/mechanistic action support: Valence classifier has no settable intervention inputs;stimulus videos collect labels,not action-conditioned world transitions."
+    },
+    {
+      "id": "assertion:051:0039",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Matched alternative-action prediction comparison: Valence classifier has no settable intervention inputs;stimulus videos collect labels,not action-conditioned world transitions."
+    },
+    {
+      "id": "assertion:051:0040",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Action reversibility assessment: Valence classifier has no settable intervention inputs;stimulus videos collect labels,not action-conditioned world transitions."
+    },
+    {
+      "id": "assertion:051:0041",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Dense output estimates clipvalence;no modeled successor coordinate or future-state target."
+    },
+    {
+      "id": "assertion:051:0042",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Learned classifier parameters do not constitute learned state-transition parameters;complete target is valence."
+    },
+    {
+      "id": "assertion:051:0043",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Action-conditioned transition: Model maps observed IBIclip to contemporaneous valence(p4);no successor state simulator is defined.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0044",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Stochastic transitions: Model maps observed IBIclip to contemporaneous valence(p4);no successor state simulator is defined.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0045",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Mechanistic/structural inductive bias: Model maps observed IBIclip to contemporaneous valence(p4);no successor state simulator is defined.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0046",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Mechanistic–learned hybrid: Model maps observed IBIclip to contemporaneous valence(p4);no successor state simulator is defined.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0047",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Interchangeable dynamics behind a common contract: Model maps observed IBIclip to contemporaneous valence(p4);no successor state simulator is defined.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0048",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Coupled multiscale dynamics: Model maps observed IBIclip to contemporaneous valence(p4);no successor state simulator is defined.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0049",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Multi-step dynamics training objective: Model maps observed IBIclip to contemporaneous valence(p4);no successor state simulator is defined.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0050",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Temporal abstraction/hierarchy: Model maps observed IBIclip to contemporaneous valence(p4);no successor state simulator is defined.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0051",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Observation/emission decoder: Model maps observed IBIclip to contemporaneous valence(p4);no successor state simulator is defined.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0052",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Typed task/outcome readouts: Model maps observed IBIclip to contemporaneous valence(p4);no successor state simulator is defined.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0053",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Future-state prediction evaluated: No generated future-state sequence or forecast coordinate;CNN/BLSTM processes observed clip for valence."
+    },
+    {
+      "id": "assertion:051:0054",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Free-running multi-step rollout: No generated future-state sequence or forecast coordinate;CNN/BLSTM processes observed clip for valence."
+    },
+    {
+      "id": "assertion:051:0055",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Teacher-forced evaluation: No generated future-state sequence or forecast coordinate;CNN/BLSTM processes observed clip for valence."
+    },
+    {
+      "id": "assertion:051:0056",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Rollout with real-observation re-assimilation: No generated future-state sequence or forecast coordinate;CNN/BLSTM processes observed clip for valence."
+    },
+    {
+      "id": "assertion:051:0057",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Declared maximum evaluated horizon: No generated future-state sequence or forecast coordinate;CNN/BLSTM processes observed clip for valence."
+    },
+    {
+      "id": "assertion:051:0058",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Error versus horizon / compounding error: No generated future-state sequence or forecast coordinate;CNN/BLSTM processes observed clip for valence."
+    },
+    {
+      "id": "assertion:051:0059",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Empirically justified usable horizon: No generated future-state sequence or forecast coordinate;CNN/BLSTM processes observed clip for valence."
+    },
+    {
+      "id": "assertion:051:0060",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Multiple future trajectories: No generated future-state sequence or forecast coordinate;CNN/BLSTM processes observed clip for valence."
+    },
+    {
+      "id": "assertion:051:0061",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Supported-horizon enforcement: No generated future-state sequence or forecast coordinate;CNN/BLSTM processes observed clip for valence."
+    },
+    {
+      "id": "assertion:051:0062",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "planning.model_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Predictions used for decisions or policy learning: Uncertainty-based classification abstention is not a future-grounded action optimizer or control loop."
+    },
+    {
+      "id": "assertion:051:0063",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Optimizer or learned policy using the WM: Uncertainty-based classification abstention is not a future-grounded action optimizer or control loop."
+    },
+    {
+      "id": "assertion:051:0064",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Receding-horizon replanning: Uncertainty-based classification abstention is not a future-grounded action optimizer or control loop."
+    },
+    {
+      "id": "assertion:051:0065",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Dynamics separated from objectives: Uncertainty-based classification abstention is not a future-grounded action optimizer or control loop."
+    },
+    {
+      "id": "assertion:051:0066",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Uncertainty affects planning: Uncertainty-based classification abstention is not a future-grounded action optimizer or control loop."
+    },
+    {
+      "id": "assertion:051:0067",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Planner exploitation stress test: Uncertainty-based classification abstention is not a future-grounded action optimizer or control loop."
+    },
+    {
+      "id": "assertion:051:0068",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Candidate-set provenance: Uncertainty-based classification abstention is not a future-grounded action optimizer or control loop."
+    },
+    {
+      "id": "assertion:051:0069",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Hierarchical decision policy: Uncertainty-based classification abstention is not a future-grounded action optimizer or control loop."
+    },
+    {
+      "id": "assertion:051:0070",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Closed-loop control evaluated: Uncertainty-based classification abstention is not a future-grounded action optimizer or control loop."
+    },
+    {
+      "id": "assertion:051:0071",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "uq.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "MCdropout with1000testpasses approximates predictive output posterior."
+    },
+    {
+      "id": "assertion:051:0072",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Aleatoric/epistemic separation: MCdropout posterior classification threshold is evaluated(p4–6), but this criterion needs additional evidence beyond selectiveF1.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0073",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Calibration evaluated: MCdropout posterior classification threshold is evaluated(p4–6), but this criterion needs additional evidence beyond selectiveF1.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0074",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Trajectory-level calibration evaluated: MCdropout posterior classification threshold is evaluated(p4–6), but this criterion needs additional evidence beyond selectiveF1.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0075",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Calibration acceptance tolerance met: MCdropout posterior classification threshold is evaluated(p4–6), but this criterion needs additional evidence beyond selectiveF1.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0076",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "OOD/distribution-shift detector: MCdropout posterior classification threshold is evaluated(p4–6), but this criterion needs additional evidence beyond selectiveF1.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0077",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Conformal calibration: MCdropout posterior classification threshold is evaluated(p4–6), but this criterion needs additional evidence beyond selectiveF1.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0078",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Declared causal estimand: Source-distribution comparisons and valence classification define no treatment-effect estimand or intervention-effect model."
+    },
+    {
+      "id": "assertion:051:0079",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Identification strategy: Source-distribution comparisons and valence classification define no treatment-effect estimand or intervention-effect model."
+    },
+    {
+      "id": "assertion:051:0080",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Identification assumptions stated: Source-distribution comparisons and valence classification define no treatment-effect estimand or intervention-effect model."
+    },
+    {
+      "id": "assertion:051:0081",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Causal sensitivity assessment: Source-distribution comparisons and valence classification define no treatment-effect estimand or intervention-effect model."
+    },
+    {
+      "id": "assertion:051:0082",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Counterfactual validation design: Source-distribution comparisons and valence classification define no treatment-effect estimand or intervention-effect model."
+    },
+    {
+      "id": "assertion:051:0083",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Mechanistic intervention semantics: Source-distribution comparisons and valence classification define no treatment-effect estimand or intervention-effect model."
+    },
+    {
+      "id": "assertion:051:0084",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Causal-effect claim justified for scope: Source-distribution comparisons and valence classification define no treatment-effect estimand or intervention-effect model."
+    },
+    {
+      "id": "assertion:051:0085",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Hard safety/constraint guard: Offline valence classifier has selective prediction, but no additional operational safety/security protocol for this criterion is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0086",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "safety.abstention",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Model withholds classification unless sufficient posterior mass above/below midpoint;selectiveF1/coverage evaluated."
+    },
+    {
+      "id": "assertion:051:0087",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Operational human escalation: Offline valence classifier has selective prediction, but no additional operational safety/security protocol for this criterion is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0088",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Runtime failure monitor: Offline valence classifier has selective prediction, but no additional operational safety/security protocol for this criterion is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0089",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Safe stop and fallback: Offline valence classifier has selective prediction, but no additional operational safety/security protocol for this criterion is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0090",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "World-model threat model: Offline valence classifier has selective prediction, but no additional operational safety/security protocol for this criterion is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0091",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Adversarial/failure-injection evaluation: Offline valence classifier has selective prediction, but no additional operational safety/security protocol for this criterion is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0092",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Implemented privacy controls: Offline valence classifier has selective prediction, but no additional operational safety/security protocol for this criterion is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0093",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Disclosure/memorization audit: Offline valence classifier has selective prediction, but no additional operational safety/security protocol for this criterion is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0094",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Permissioned external actions: Offline valence classifier has selective prediction, but no additional operational safety/security protocol for this criterion is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0095",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Automation-bias mitigation: Offline valence classifier has selective prediction, but no additional operational safety/security protocol for this criterion is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0096",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Intended use/user specified: Mental-health applications are prospective discussion(p7);no deployed clinical workflow/product specification for this criterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0097",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Versioned model/system reporting card: Mental-health applications are prospective discussion(p7);no deployed clinical workflow/product specification for this criterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0098",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Post-release monitoring plan: Mental-health applications are prospective discussion(p7);no deployed clinical workflow/product specification for this criterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0099",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Change, revalidation and rollback: Mental-health applications are prospective discussion(p7);no deployed clinical workflow/product specification for this criterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0100",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Regulatory/reporting framework mentioned: Mental-health applications are prospective discussion(p7);no deployed clinical workflow/product specification for this criterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0101",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Scoped compliance/authorization evidence: Mental-health applications are prospective discussion(p7);no deployed clinical workflow/product specification for this criterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0102",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Ethics/IRB/informed-consent documentation: Mental-health applications are prospective discussion(p7);no deployed clinical workflow/product specification for this criterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0103",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "agent.role",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Explicit LLM/agent role: CNN/BLSTM classifier has no decision-making software agent, external operational tools or autonomous clinical actions."
+    },
+    {
+      "id": "assertion:051:0104",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Interacting multi-agent architecture: CNN/BLSTM classifier has no decision-making software agent, external operational tools or autonomous clinical actions."
+    },
+    {
+      "id": "assertion:051:0105",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Agent reflection/refinement loop: CNN/BLSTM classifier has no decision-making software agent, external operational tools or autonomous clinical actions."
+    },
+    {
+      "id": "assertion:051:0106",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "External tool/system calls: CNN/BLSTM classifier has no decision-making software agent, external operational tools or autonomous clinical actions."
+    },
+    {
+      "id": "assertion:051:0107",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomy specified for actual environment: CNN/BLSTM classifier has no decision-making software agent, external operational tools or autonomous clinical actions."
+    },
+    {
+      "id": "assertion:051:0108",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Code availability: TensorFlow/sklearn and prior model reference are named;release of this paper’s code/weights/licenses/replication is not established.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0109",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Weight availability: TensorFlow/sklearn and prior model reference are named;release of this paper’s code/weights/licenses/replication is not established.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0110",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "License/access conditions: TensorFlow/sklearn and prior model reference are named;release of this paper’s code/weights/licenses/replication is not established.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0111",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Independent reproduction: TensorFlow/sklearn and prior model reference are named;release of this paper’s code/weights/licenses/replication is not established.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0112",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "One-step fidelity: Selective valenceF1,source distribution tests andECG→PPG transfer are evaluated, but this specific evaluation criterion is not reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0113",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Multi-step rollout fidelity: Selective valenceF1,source distribution tests andECG→PPG transfer are evaluated, but this specific evaluation criterion is not reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0114",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Distributional realism: Selective valenceF1,source distribution tests andECG→PPG transfer are evaluated, but this specific evaluation criterion is not reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0115",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Physical/clinical plausibility: Selective valenceF1,source distribution tests andECG→PPG transfer are evaluated, but this specific evaluation criterion is not reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0116",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Calibration and uncertainty: Selective valenceF1,source distribution tests andECG→PPG transfer are evaluated, but this specific evaluation criterion is not reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0117",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Action sensitivity: Selective valenceF1,source distribution tests andECG→PPG transfer are evaluated, but this specific evaluation criterion is not reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0118",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Counterfactual/causal validity: Selective valenceF1,source distribution tests andECG→PPG transfer are evaluated, but this specific evaluation criterion is not reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0119",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Personalization evidence: Selective valenceF1,source distribution tests andECG→PPG transfer are evaluated, but this specific evaluation criterion is not reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0120",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Decision quality: Selective valenceF1,source distribution tests andECG→PPG transfer are evaluated, but this specific evaluation criterion is not reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0121",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Sim-to-real agreement: Selective valenceF1,source distribution tests andECG→PPG transfer are evaluated, but this specific evaluation criterion is not reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0122",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "confidence": "medium",
+      "rationale": "ECG-onlytraining transfers poorly toPPGtest;addingECG not significant atalpha0.5.Explicit transfer negative result,not independent clinical external validation."
+    },
+    {
+      "id": "assertion:051:0123",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Observation-process audit: Selective valenceF1,source distribution tests andECG→PPG transfer are evaluated, but this specific evaluation criterion is not reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0124",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Human/expert evaluation: Selective valenceF1,source distribution tests andECG→PPG transfer are evaluated, but this specific evaluation criterion is not reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0125",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Efficiency: Selective valenceF1,source distribution tests andECG→PPG transfer are evaluated, but this specific evaluation criterion is not reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0126",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Clinical/workflow utility: Selective valenceF1,source distribution tests andECG→PPG transfer are evaluated, but this specific evaluation criterion is not reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0127",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Dynamics computed in internal representation: Model maps observed IBIclip to contemporaneous valence(p4);no successor state simulator is defined.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:051:0128",
+      "subject_id": "model:051:cnn-blstm:v1",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Value/reward-equivalent dynamics: Model maps observed IBIclip to contemporaneous valence(p4);no successor state simulator is defined.",
+      "missingness_reason": "paper_silent_after_review"
+    }
+  ],
+  "relation_assertions": [],
+  "evidence_fragments": [
+    {
+      "id": "evidence:051:0001",
+      "source_ref": "Papers/051_2019_End-To-End Prediction of Emotion from Heartbeat Data Collected by a Consumer Fitness Tracker.pdf",
+      "source_version": "paper-version:051:sha256-a7c432204b4c",
+      "source_hash": "a7c432204b4c9971aaf1c4a99562faa9c247a458a25df246c1c51fa7cebfe860",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "IV-A/Figure3"
+      },
+      "content": "[paraphrase]Four CNN layers(128 filters, windows8→2) and bidirectional LSTM(32units eachdirection) concatenate192features and dense valence regression output;MCdropout supplies approximate predictive posterior.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:051:0002",
+      "source_ref": "Papers/051_2019_End-To-End Prediction of Emotion from Heartbeat Data Collected by a Consumer Fitness Tracker.pdf",
+      "source_version": "paper-version:051:sha256-a7c432204b4c",
+      "source_hash": "a7c432204b4c9971aaf1c4a99562faa9c247a458a25df246c1c51fa7cebfe860",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "IV-B"
+      },
+      "content": "If this is not the case, no prediction is made",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:051:0003",
+      "source_ref": "Papers/051_2019_End-To-End Prediction of Emotion from Heartbeat Data Collected by a Consumer Fitness Tracker.pdf",
+      "source_version": "paper-version:051:sha256-a7c432204b4c",
+      "source_hash": "a7c432204b4c9971aaf1c4a99562faa9c247a458a25df246c1c51fa7cebfe860",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "VI-C"
+      },
+      "content": "[paraphrase]10iterations leave-one-subject-out; each iteration randomly holds one subject as test;N=1000stochastic forward passes;F1computed only on attempted classifications.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:051:0004",
+      "source_ref": "Papers/051_2019_End-To-End Prediction of Emotion from Heartbeat Data Collected by a Consumer Fitness Tracker.pdf",
+      "source_version": "paper-version:051:sha256-a7c432204b4c",
+      "source_hash": "a7c432204b4c9971aaf1c4a99562faa9c247a458a25df246c1c51fa7cebfe860",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "VI-A"
+      },
+      "content": "[paraphrase]IBIPPG z-score normalized and zero-padded to longest training sample;AMIGOS IBI extracted using adaptive threshold then normalized and padded/cut.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:051:0005",
+      "source_ref": "Papers/051_2019_End-To-End Prediction of Emotion from Heartbeat Data Collected by a Consumer Fitness Tracker.pdf",
+      "source_version": "paper-version:051:sha256-a7c432204b4c",
+      "source_hash": "a7c432204b4c9971aaf1c4a99562faa9c247a458a25df246c1c51fa7cebfe860",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 2,
+        "section_or_table": "III-A"
+      },
+      "content": "The experiment involved 17 study\nparticipants (5 female; 12 male).",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:051:0006",
+      "source_ref": "Papers/051_2019_End-To-End Prediction of Emotion from Heartbeat Data Collected by a Consumer Fitness Tracker.pdf",
+      "source_version": "paper-version:051:sha256-a7c432204b4c",
+      "source_hash": "a7c432204b4c9971aaf1c4a99562faa9c247a458a25df246c1c51fa7cebfe860",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "III-C/D"
+      },
+      "content": "[paraphrase]Android app records IBIs locally, synchronizes stimulus timing and sends files to cloud after session;face videos recorded but unused in classifier.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:051:0007",
+      "source_ref": "Papers/051_2019_End-To-End Prediction of Emotion from Heartbeat Data Collected by a Consumer Fitness Tracker.pdf",
+      "source_version": "paper-version:051:sha256-a7c432204b4c",
+      "source_hash": "a7c432204b4c9971aaf1c4a99562faa9c247a458a25df246c1c51fa7cebfe860",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "VII-B"
+      },
+      "content": "When α = 0.95, our model achieved a peak F1 score of 0.7",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:051:0008",
+      "source_ref": "Papers/051_2019_End-To-End Prediction of Emotion from Heartbeat Data Collected by a Consumer Fitness Tracker.pdf",
+      "source_version": "paper-version:051:sha256-a7c432204b4c",
+      "source_hash": "a7c432204b4c9971aaf1c4a99562faa9c247a458a25df246c1c51fa7cebfe860",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "VII-C"
+      },
+      "content": "[paraphrase]PPG+ECG versusPPG-only training: p=0.16 Mann-Whitney on10F1scores atalpha0.5;ECG-only→PPG test no better thanchanceF1=0.57.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:051:0009",
+      "source_ref": "Papers/051_2019_End-To-End Prediction of Emotion from Heartbeat Data Collected by a Consumer Fitness Tracker.pdf",
+      "source_version": "paper-version:051:sha256-a7c432204b4c",
+      "source_hash": "a7c432204b4c9971aaf1c4a99562faa9c247a458a25df246c1c51fa7cebfe860",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "VII-A/TableIII"
+      },
+      "content": "[paraphrase]IBI source SVM rbf,C=1,10fold accuracy70%;Mann-WhitneyTableIII:HF0.22,LF0.22,VLF<0.001,LF/HF0.22,mean0.27,median0.26,SDSD/NN20/pNN20/rMSSD/multiscaleentropy<0.001.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:051:0010",
+      "source_ref": "Papers/051_2019_End-To-End Prediction of Emotion from Heartbeat Data Collected by a Consumer Fitness Tracker.pdf",
+      "source_version": "paper-version:051:sha256-a7c432204b4c",
+      "source_hash": "a7c432204b4c9971aaf1c4a99562faa9c247a458a25df246c1c51fa7cebfe860",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Discussion"
+      },
+      "content": "clinical triaging is possible, where uncertain model predictions are sent",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:051:0011",
+      "source_ref": "Papers/051_2019_End-To-End Prediction of Emotion from Heartbeat Data Collected by a Consumer Fitness Tracker.pdf",
+      "source_version": "paper-version:051:sha256-a7c432204b4c",
+      "source_hash": "a7c432204b4c9971aaf1c4a99562faa9c247a458a25df246c1c51fa7cebfe860",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Version"
+      },
+      "content": "arXiv:1907.07327v1",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    }
+  ],
+  "metric_results": [],
+  "capability_assessments": [],
+  "readiness_assessments": [
+    {
+      "subject_id": "model:051:cnn-blstm:v1",
+      "facets": [
+        "R2"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "model_version_id": "model:051:cnn-blstm:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "17 laboratory volunteers; held-out participant IBI sequences; no patient deployment"
+      },
+      "evidence_ids": [
+        "evidence:051:0003",
+        "evidence:051:0005",
+        "evidence:051:0007"
+      ]
+    }
+  ],
+  "gate_assessments": [],
+  "legacy_cells": {
+    "A": "051",
+    "B": "End-To-End Prediction of Emotion from Heartbeat Data Collected by a Consumer Fitness Tracker",
+    "C": "Ross Harper; Joshua Southern",
+    "D": "2019",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://doi.org/10.1109/acii.2019.8925520",
+    "H": "Papers (numbered 001–099)",
+    "I": "051_2019_End-To-End Prediction of Emotion from Heartbeat Data Collected by a Consumer Fitness Tracker.pdf",
+    "J": "Out of scope – static prediction",
+    "K": "Not reported",
+    "L": "Exclude",
+    "M": "Static prediction – no state evolution",
+    "N": "Not reported",
+    "O": "Not reported",
+    "P": "Not reported",
+    "Q": "Not reported",
+    "R": "Other",
+    "S": "Not reported",
+    "T": "Not reported",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "Other",
+    "X": "Not a world model",
+    "Y": "Not reported",
+    "Z": "Not a world model",
+    "AA": "Not reported",
+    "AB": "Not reported",
+    "AC": "Not reported",
+    "AD": "Not reported",
+    "AE": "Not reported",
+    "AF": "Not reported",
+    "AG": "Not reported",
+    "AH": "Not reported",
+    "AI": "Inter-beat interval (IBI) time series from consumer PPG (Garmin vívosmart 3) and ECG-derived IBI (AMIGOS) in additional training comparisons",
+    "AJ": "Four stacked 1D convolutional layers in one stream and a bidirectional LSTM with 32 hidden units in the other; concatenate to a 192-length vector before a dense valence output layer",
+    "AK": "Not reported",
+    "AL": "Not reported",
+    "AM": "Not applicable",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Not reported",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Not reported",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "None (no actions)",
+    "BC": "Not applicable",
+    "BD": "Not reported",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "Not reported",
+    "BJ": "Not reported",
+    "BK": "Not reported",
+    "BL": "Not reported",
+    "BM": "Not reported",
+    "BN": "Not reported",
+    "BO": "Not reported",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Not reported",
+    "BT": "Dense regression output for valence, thresholded into high/low valence classes",
+    "BU": "Not reported",
+    "BV": "Not reported",
+    "BW": "Not reported",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "Not reported",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "Not reported",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Not reported",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Yes",
+    "CO": "Not reported",
+    "CP": "MC dropout",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "Not reported",
+    "CU": "Not reported",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not reported",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Yes",
+    "DN": "Newly collected consumer-PPG IBI dataset and the AMIGOS ECG dataset",
+    "DO": "Not reported",
+    "DP": "Not reported",
+    "DQ": "17 study participants for the new PPG dataset, and 40 healthy participants in AMIGOS",
+    "DR": "Not reported",
+    "DS": "Not reported",
+    "DT": "Not reported",
+    "DU": "Patient-level split",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "Not reported",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "Not reported",
+    "FD": "Not reported",
+    "FE": "Not reported",
+    "FF": "Not reported",
+    "FG": "Not reported",
+    "FH": "Not reported",
+    "FI": "Not reported",
+    "FJ": "Not reported",
+    "FK": "Not reported",
+    "FL": "IBI time series → parallel 1D convolutional and bidirectional-LSTM temporal feature streams → concatenated 192-length vector → dense valence regression output; Monte Carlo dropout supplies stochastic predictions. No state-transition or planning module is described.",
+    "FM": "Applied an existing Bayesian deep-learning emotion classifier to consumer fitness-tracker PPG-derived heartbeat intervals, collected a new dataset, and compared PPG- and ECG-derived IBI properties and training conditions.",
+    "FN": "At α = 0.95, peak F1 was 0.7. Adding AMIGOS ECG training data to PPG training produced no significant performance difference (p = 0.16). Training on ECG alone performed no better than chance (chance F1 = 0.57).",
+    "FO": "Not reported",
+    "FP": "The authors identify future work comparing facial and physiological signals for emotion prediction using the recorded facial video.",
+    "FQ": "The authors state that emotion recognition using consumer-fitness-tracker PPG-derived inter-beat intervals had not been explored.",
+    "FR": "The evidence is for laboratory-collected emotional-valence classification from 17 participants with internal leave-one-subject-out cross-validation. It does not demonstrate a persistent patient/world state, state-transition rollouts, treatment effects, clinical mental-health outcomes, or prospective clinical utility; the abstract's real-world relevance is an author claim.",
+    "FS": "Not applicable",
+    "FT": "Report the confidence–coverage trade-off alongside predictive performance when using uncertainty thresholds to abstain.",
+    "FU": "Not applicable",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Read the complete extracted text for all 7 PDF pages: title/abstract and introduction (p. 1); related work and experimental protocol, stimuli, PPG acquisition, and facial-video methods (p. 2); stimuli table and model architecture (pp. 3–4); external dataset, preprocessing, training, evaluation, and results (p. 5); results and discussion (p. 6); concluding discussion and references (p. 7). Table III on p. 5 has misaligned extracted rows, so its individual cells were not used; the textual results on p. 6 were readable. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "Title capitalization in B is corrected to match the PDF title. A:I otherwise left unchanged. The paper reports a time-series classifier with recurrent feature extraction, not a defined persistent healthcare state and transition model. Table III's extracted layout is misaligned; result values were taken from the readable prose rather than that table. Evidence QA: 13/26 populated fields had a <=25-word quotation matching extracted PDF text (50%). Confidence is conservative; review this row where exact quote checks were incomplete. Schema normalization (source details retained): DU normalized to 'Patient-level split'; source detail: 10 iterations of leave-one-subject-out cross-validation Codex audit: 25 prior populated fields have a located source quotation; 2 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "17participants only;10random LOSOiterations need not cover all17participants.",
+    "F1=0.7 atalpha0.95 is selective,not allsampleF1;exactcoverage notnumericallyreported.",
+    "No uncertainty calibration/clinical effectiveness study;triage is future possibility.",
+    "ECGvsPPG compares separate cohorts/devices/stimuli,so distribution differences not identified causal sensor effects.",
+    "No ethical approval number,data privacy protocol,release repository orweights reported in readPDF.",
+    "Methods references priorpaper for additional modeldetails;review limited to this7pageversion."
+  ],
+  "notes": "Excluded static time-series valence predictor; supporting reusable MCdropout abstention/encoder ideas. NoL0–L4 because no healthcare-worldtransition. R2 applies only offline subject-heldout classification of laboratory volunteer records;R4not assigned:participants supply labels,not scored model-use/readerstudy. Prospective data collection is not prospective systemuse. No empirical probability/interval calibration inferred from confidence–coverageF1tradeoff."
+}

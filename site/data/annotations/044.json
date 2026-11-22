@@ -1,0 +1,3384 @@
+{
+  "record_id": "annotation:044:r1",
+  "paper_record_id": "044",
+  "paper_version_id": "paper-version:044:sha256-7fae27646d29",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:044:lbs-medical:v1"
+  ],
+  "system_composition_ids": [],
+  "world_type_ids": [
+    "WT_EHR"
+  ],
+  "profile_ids": [
+    "BP_FORECAST"
+  ],
+  "entities": [
+    {
+      "id": "paper:044",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "044",
+        "title": "LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting"
+      },
+      "provenance_evidence_ids": [
+        "evidence:044:0001"
+      ]
+    },
+    {
+      "id": "paper-version:044:sha256-7fae27646d29",
+      "class_id": "PaperVersion",
+      "properties": {
+        "version": "arXiv2510.20952v1,23October2025",
+        "pages": 15
+      },
+      "provenance_evidence_ids": [
+        "evidence:044:0001"
+      ]
+    },
+    {
+      "id": "model:044:lbs-medical:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "LBS default LLaMA3.1-8B/GRU medical configuration",
+        "membership": "core_world_model",
+        "healthcare_scope": true,
+        "transition_coordinate": "Daily clinical observation index",
+        "state_dimension": 16,
+        "architecture": "GaussianGRUprior ->LLM8summarytoken+numericMLPposterior ->samplelatent ->numericMLPandsharedLoRAtextdecoder",
+        "raw_reported_medical_results": {
+          "source_page": 15,
+          "metric": "TestRMSE",
+          "direction": "lowerbetter",
+          "horizons_days": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "split": "Temporal80/10/10withinTTC-MEDICAL",
+          "cohort_n": 73,
+          "unit": "RMSEonbenchmarkheart-ratevalues;normalization/outcomeunitsnotexplicit",
+          "uncertainty": "Notreported",
+          "LBS_multimodal": [
+            3.583,
+            4.268,
+            4.721,
+            5.043,
+            5.296,
+            5.487
+          ],
+          "LBS_unimodal": [
+            3.91,
+            4.598,
+            5.047,
+            5.268,
+            5.473,
+            5.654
+          ],
+          "PatchTST": [
+            5.735,
+            6.757,
+            7.35,
+            7.687,
+            7.996,
+            8.47
+          ],
+          "NLinear": [
+            5.195,
+            5.279,
+            5.275,
+            5.406,
+            5.562,
+            5.875
+          ],
+          "NLinearText": [
+            5.117,
+            5.143,
+            5.106,
+            5.3,
+            5.492,
+            5.759
+          ],
+          "TSFLib": [
+            6.767,
+            7.066,
+            7.427,
+            7.05,
+            7.165,
+            7.21
+          ],
+          "TT2TT": [
+            6.689,
+            6.432,
+            6.022,
+            6.483,
+            6.747,
+            6.731
+          ],
+          "HybridMMF": [
+            5.202,
+            5.472,
+            6.62,
+            6.269,
+            8.673,
+            8.454
+          ]
+        },
+        "reported_table1_medical_averages": {
+          "source_page": 7,
+          "LBSunimodal": 4.992,
+          "LBSmultimodal": 4.733,
+          "relative_improvement_percent": 5.41,
+          "scope_note": "Keepasreported;notrecomputedfromTable2."
+        }
+      },
+      "provenance_evidence_ids": [
+        "evidence:044:0002",
+        "evidence:044:0004",
+        "evidence:044:0009",
+        "evidence:044:0020"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:044:0001",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0004",
+        "evidence:044:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "PretrainedLLM compressescurrenttext tosummarytokensandMLP forposterior."
+    },
+    {
+      "id": "assertion:044:0002",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "LLaMA3.1-8B defaultwithLoRA;scalingotherfamiliesonlyclimate."
+    },
+    {
+      "id": "assertion:044:0003",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "ELBO optimizes numericandtextlikelihood reconstruction."
+    },
+    {
+      "id": "assertion:044:0004",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0011"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "KLfree-nats2.5annealedtozero encourageslatentcapacity."
+    },
+    {
+      "id": "assertion:044:0005",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "perception.fusion",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Numericvalue,currenttextsummaryandrecurrentpriorjointlydefineposterior."
+    },
+    {
+      "id": "assertion:044:0006",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0021",
+        "evidence:044:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Latentstateandrecurrenthiddenpassedsequentially."
+    },
+    {
+      "id": "assertion:044:0007",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0003",
+        "evidence:044:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Gaussianpriorandvariationalposteriorwithmean/diagonalcovarianceconditionedhistory."
+    },
+    {
+      "id": "assertion:044:0008",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0004",
+        "evidence:044:0021"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Algorithm1separatesGRUpriorevolutionfromobservation-conditionedposteriorcorrection."
+    },
+    {
+      "id": "assertion:044:0009",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Atmethodslevelsequentiallyupdatebeliefusingcurrentvalueandtext;notclinicaldeployment."
+    },
+    {
+      "id": "assertion:044:0010",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0021",
+        "evidence:044:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Priorlatentandhiddenretainpreviousnumeric/textobservations."
+    },
+    {
+      "id": "assertion:044:0011",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0021"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "RecurrentGRUhiddenandstatecarrypastcontext."
+    },
+    {
+      "id": "assertion:044:0012",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "state.reusable",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0010",
+        "evidence:044:0018"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Samestatefeedsnumericemissionandtextreadout."
+    },
+    {
+      "id": "assertion:044:0013",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0002",
+        "evidence:044:0021"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "GRUstateevolvesacrossclinicaldayindex."
+    },
+    {
+      "id": "assertion:044:0014",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0002",
+        "evidence:044:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "LearnedGRUtransitionandELBOend-to-endweights."
+    },
+    {
+      "id": "assertion:044:0015",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "NonndegenerateGaussiantransitionwithlearnedmean/diagonalvariance."
+    },
+    {
+      "id": "assertion:044:0016",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0002",
+        "evidence:044:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "16dimlatenttransitionisrecursivelymodeled."
+    },
+    {
+      "id": "assertion:044:0017",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0010",
+        "evidence:044:0018"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "MLPnumericandLLMtextemissionsfromsharedstate."
+    },
+    {
+      "id": "assertion:044:0018",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "MedicalH1futureheart-rateRMSE3.583reported."
+    },
+    {
+      "id": "assertion:044:0019",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "ClinicalforecasttestedtoH6dailyobservations;climateH7separate."
+    },
+    {
+      "id": "assertion:044:0020",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "uq.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0003",
+        "evidence:044:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "LatentGaussianprior/posteriorhasexplicitpredictiveuncertaintysemantics;calibrationnotestablished."
+    },
+    {
+      "id": "assertion:044:0021",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "agent.role",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0008",
+        "evidence:044:0018"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "LLMroleistextencoderandstate-conditionedtextdecoder,notautonomousplanner."
+    },
+    {
+      "id": "assertion:044:0022",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0015",
+        "evidence:044:0020"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "NumericfuturepredictionRMSEforH1evaluatedontemporalholdout."
+    },
+    {
+      "id": "assertion:044:0023",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0002",
+        "evidence:044:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Autonomousp(x_t|x_t-1)containsnosettabletreatmentaction;notescanmentioncarebutarenotinterventionqueries."
+    },
+    {
+      "id": "assertion:044:0024",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0005",
+        "evidence:044:0013"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Statefulsingle-stepbatchtraining;multi-steploss/overshootingexplicitlyfuture."
+    },
+    {
+      "id": "assertion:044:0025",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0010",
+        "evidence:044:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "CompleteELBOusesobservationlikelihoodandKL;nofuturelatent-targetpredictionobjective."
+    },
+    {
+      "id": "assertion:044:0026",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0002",
+        "evidence:044:0020"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "MultiplefuturehorizonsH1–6testedandlatentautoregressivetransitiondefined,buttest-loopteacherforcing/generated-historydetailnotfullyspecified;donotcertifyfree-runningtrajectoryreliability.",
+      "criteria_met": [
+        "SharedLBSmodeltestedatmultipleclinicalforecastdepths"
+      ],
+      "criteria_missing": [
+        "Explicitrecursiveforecastandintermediateobservationreplacementprotocol"
+      ]
+    },
+    {
+      "id": "assertion:044:0027",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0002",
+        "evidence:044:0020"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "MultiplefuturehorizonsH1–6testedandlatentautoregressivetransitiondefined,buttest-loopteacherforcing/generated-historydetailnotfullyspecified;donotcertifyfree-runningtrajectoryreliability.",
+      "criteria_met": [
+        "SharedLBSmodeltestedatmultipleclinicalforecastdepths"
+      ],
+      "criteria_missing": [
+        "Explicitrecursiveforecastandintermediateobservationreplacementprotocol"
+      ]
+    },
+    {
+      "id": "assertion:044:0028",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0002",
+        "evidence:044:0020"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "MultiplefuturehorizonsH1–6testedandlatentautoregressivetransitiondefined,buttest-loopteacherforcing/generated-historydetailnotfullyspecified;donotcertifyfree-runningtrajectoryreliability.",
+      "criteria_met": [
+        "SharedLBSmodeltestedatmultipleclinicalforecastdepths"
+      ],
+      "criteria_missing": [
+        "Explicitrecursiveforecastandintermediateobservationreplacementprotocol"
+      ]
+    },
+    {
+      "id": "assertion:044:0029",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "data.provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0006",
+        "evidence:044:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "TTC73patients/mean104daysandmodalitiesreported;sourcecohort,site,unitsandnotereleasetimeunreported.",
+      "criteria_met": [
+        "Benchmarkidentity,patientcount,dailycadence"
+      ],
+      "criteria_missing": [
+        "NativeEHRsource/version,clinicalunitsandavailabilityprovenance"
+      ]
+    },
+    {
+      "id": "assertion:044:0030",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Temporal80/10/10perbenchmarkstated;notetimestampavailabilityandpatientsplit/transformfittingnotaudited.",
+      "criteria_met": [
+        "Chronologicalheldoutvalidation/testboundaries"
+      ],
+      "criteria_missing": [
+        "Nursingnoteinformationavailability,patientoverlapandtrain-onlypreprocessingaudit"
+      ]
+    },
+    {
+      "id": "assertion:044:0031",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0006",
+        "evidence:044:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Generalclinicalnumeric/textforecastingresearch;clinicaldecisionpoint,userandcareworkflowunspecified.",
+      "criteria_met": [
+        "Clinicalforecastingpurposeandbenchmarkpopulation"
+      ],
+      "criteria_missing": [
+        "Clinicalworkflow,userauthorityandpermitteddecisionuse"
+      ]
+    },
+    {
+      "id": "assertion:044:0032",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Broaderimpactrecognizesauthoritativetexthazard,recommendshumanoversightandfactchecks;noimplementedUI/humanfactorstest.",
+      "criteria_met": [
+        "Over-trust/misinformationriskandoversightrecommendation"
+      ],
+      "criteria_missing": [
+        "Operationaloverride/interfaceandmeasuredover-trustmitigation"
+      ]
+    },
+    {
+      "id": "assertion:044:0033",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0006",
+        "evidence:044:0007",
+        "evidence:044:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Retrospectivetime-seriesbenchmarkonly;noclinicaldecision/controlorpatientutilitystudy."
+    },
+    {
+      "id": "assertion:044:0034",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "data.federation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0035",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "action.explicit",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0036",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0037",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "action.parameterized",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0038",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0039",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0040",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0041",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0042",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "action.support",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0043",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0044",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0045",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0046",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0047",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "planning.model_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0048",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0049",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0050",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0051",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0052",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0053",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0054",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0055",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0056",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0057",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0058",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0059",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0060",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0061",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0062",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0063",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0064",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0065",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0066",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0067",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0068",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0069",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0070",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0071",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0072",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomousretrospectiveforecastinghasnosettableintervention,mechanisticcausalmodel,policy/controlorautonomousagent. Currentnotes/covariatesarenotactions;noeffectidentificationorclinicaloptimizationclaimedbyimplementedmethod."
+    },
+    {
+      "id": "assertion:044:0073",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0074",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0075",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0076",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0077",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0078",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0079",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0080",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0081",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0082",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0083",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0084",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0085",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0086",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0087",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0088",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0089",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0090",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0091",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0092",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0093",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0094",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0095",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0096",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0097",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0098",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0099",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0100",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0101",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0102",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0103",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0104",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0105",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0106",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0107",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0108",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0109",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0110",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0111",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0112",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0113",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0114",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0115",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0116",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0117",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0118",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0119",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0120",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0121",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0122",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0123",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0124",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0125",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0126",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0127",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:044:0128",
+      "subject_id": "model:044:lbs-medical:v1",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All15pagesincludingreferences10–12,appendices13–15,8figures/2tables/Algorithm1reviewed. Criterion-specificevidenceunreported. Climate-onlyuncertainty/seasonality/textillustrationsnottransferredtoclinicalcalibrationorhumaninterpretability.",
+      "missingness_reason": "paper_silent_after_review"
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:044:0001",
+      "subject_id": "paper:044",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:044:sha256-7fae27646d29",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Pinnedpreprint"
+    },
+    {
+      "id": "relation:044:0002",
+      "subject_id": "paper-version:044:sha256-7fae27646d29",
+      "predicate_id": "reportsModel",
+      "object_id": "model:044:lbs-medical:v1",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0008",
+        "evidence:044:0002",
+        "evidence:044:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Ownclinicalconfiguration"
+    },
+    {
+      "id": "relation:044:0003",
+      "subject_id": "model:044:lbs-medical:v1",
+      "predicate_id": "modelsWorld",
+      "object_id": "WT_EHR",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0006",
+        "evidence:044:0021"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Dailyclinicalheart-rateandnotetrajectory"
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:044:0001",
+      "source_ref": "Papers/044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+      "source_version": "paper-version:044:sha256-7fae27646d29",
+      "source_hash": "7fae27646d293d0dc8b49ee300f325a0085f258b2cfca52a8a05224e9d014096",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Version"
+      },
+      "content": "arXiv:2510.20952v1",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:044:0002",
+      "source_ref": "Papers/044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+      "source_version": "paper-version:044:sha256-7fae27646d29",
+      "source_hash": "7fae27646d293d0dc8b49ee300f325a0085f258b2cfca52a8a05224e9d014096",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "3.2"
+      },
+      "content": "state transition model",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:044:0003",
+      "source_ref": "Papers/044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+      "source_version": "paper-version:044:sha256-7fae27646d29",
+      "source_hash": "7fae27646d293d0dc8b49ee300f325a0085f258b2cfca52a8a05224e9d014096",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "3.2"
+      },
+      "content": "multivariate Gaussian",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:044:0004",
+      "source_ref": "Papers/044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+      "source_version": "paper-version:044:sha256-7fae27646d29",
+      "source_hash": "7fae27646d293d0dc8b49ee300f325a0085f258b2cfca52a8a05224e9d014096",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Algorithm1"
+      },
+      "content": "Get posterior",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:044:0005",
+      "source_ref": "Papers/044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+      "source_version": "paper-version:044:sha256-7fae27646d29",
+      "source_hash": "7fae27646d293d0dc8b49ee300f325a0085f258b2cfca52a8a05224e9d014096",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Training"
+      },
+      "content": "single-step batches",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:044:0006",
+      "source_ref": "Papers/044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+      "source_version": "paper-version:044:sha256-7fae27646d29",
+      "source_hash": "7fae27646d293d0dc8b49ee300f325a0085f258b2cfca52a8a05224e9d014096",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 14,
+        "section_or_table": "Dataset"
+      },
+      "content": "73 patients",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:044:0007",
+      "source_ref": "Papers/044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+      "source_version": "paper-version:044:sha256-7fae27646d29",
+      "source_hash": "7fae27646d293d0dc8b49ee300f325a0085f258b2cfca52a8a05224e9d014096",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 14,
+        "section_or_table": "Dataset"
+      },
+      "content": "first 80%",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:044:0008",
+      "source_ref": "Papers/044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+      "source_version": "paper-version:044:sha256-7fae27646d29",
+      "source_hash": "7fae27646d293d0dc8b49ee300f325a0085f258b2cfca52a8a05224e9d014096",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Setup"
+      },
+      "content": "LLaMA3.1-8B",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:044:0009",
+      "source_ref": "Papers/044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+      "source_version": "paper-version:044:sha256-7fae27646d29",
+      "source_hash": "7fae27646d293d0dc8b49ee300f325a0085f258b2cfca52a8a05224e9d014096",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 14,
+        "section_or_table": "Models"
+      },
+      "content": "both equal to 16",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:044:0010",
+      "source_ref": "Papers/044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+      "source_version": "paper-version:044:sha256-7fae27646d29",
+      "source_hash": "7fae27646d293d0dc8b49ee300f325a0085f258b2cfca52a8a05224e9d014096",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "ELBO"
+      },
+      "content": "reconstruct both the",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:044:0011",
+      "source_ref": "Papers/044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+      "source_version": "paper-version:044:sha256-7fae27646d29",
+      "source_hash": "7fae27646d293d0dc8b49ee300f325a0085f258b2cfca52a8a05224e9d014096",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "Optimization"
+      },
+      "content": "free nats",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:044:0012",
+      "source_ref": "Papers/044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+      "source_version": "paper-version:044:sha256-7fae27646d29",
+      "source_hash": "7fae27646d293d0dc8b49ee300f325a0085f258b2cfca52a8a05224e9d014096",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Uncertainty"
+      },
+      "content": "10 states sampled",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:044:0013",
+      "source_ref": "Papers/044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+      "source_version": "paper-version:044:sha256-7fae27646d29",
+      "source_hash": "7fae27646d293d0dc8b49ee300f325a0085f258b2cfca52a8a05224e9d014096",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "Limitations"
+      },
+      "content": "multi-step training strategies",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:044:0014",
+      "source_ref": "Papers/044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+      "source_version": "paper-version:044:sha256-7fae27646d29",
+      "source_hash": "7fae27646d293d0dc8b49ee300f325a0085f258b2cfca52a8a05224e9d014096",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "BroaderImpact"
+      },
+      "content": "misinterpreted as authoritative or factual",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:044:0015",
+      "source_ref": "Papers/044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+      "source_version": "paper-version:044:sha256-7fae27646d29",
+      "source_hash": "7fae27646d293d0dc8b49ee300f325a0085f258b2cfca52a8a05224e9d014096",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "Table2medical"
+      },
+      "content": "3.583",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:044:0016",
+      "source_ref": "Papers/044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+      "source_version": "paper-version:044:sha256-7fae27646d29",
+      "source_hash": "7fae27646d293d0dc8b49ee300f325a0085f258b2cfca52a8a05224e9d014096",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "Table2medical"
+      },
+      "content": "5.487",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:044:0017",
+      "source_ref": "Papers/044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+      "source_version": "paper-version:044:sha256-7fae27646d29",
+      "source_hash": "7fae27646d293d0dc8b49ee300f325a0085f258b2cfca52a8a05224e9d014096",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Table1"
+      },
+      "content": "4.733",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:044:0018",
+      "source_ref": "Papers/044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+      "source_version": "paper-version:044:sha256-7fae27646d29",
+      "source_hash": "7fae27646d293d0dc8b49ee300f325a0085f258b2cfca52a8a05224e9d014096",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 14,
+        "section_or_table": "Prompt"
+      },
+      "content": "Given this belief state, generate a textual forecast.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:044:0019",
+      "source_ref": "Papers/044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+      "source_version": "paper-version:044:sha256-7fae27646d29",
+      "source_hash": "7fae27646d293d0dc8b49ee300f325a0085f258b2cfca52a8a05224e9d014096",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Figures6/7"
+      },
+      "content": "[paraphrase from visually inspected Figures6–7] Climate-only one-step prior-sample variance shading and training t-SNE seasonality visualization; no nominal coverage/calibration metric, no medical uncertainty test.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:044:0020",
+      "source_ref": "Papers/044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+      "source_version": "paper-version:044:sha256-7fae27646d29",
+      "source_hash": "7fae27646d293d0dc8b49ee300f325a0085f258b2cfca52a8a05224e9d014096",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "Table2"
+      },
+      "content": "[paraphrase from Table2] TTC-MEDICAL RMSE arrays at daily H1–6 are stored as structured raw results. No outcome-unit normalization or uncertainty intervals are reported. Climate results are separate and do not validate clinical uncertainty/text.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:044:0021",
+      "source_ref": "Papers/044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+      "source_version": "paper-version:044:sha256-7fae27646d29",
+      "source_hash": "7fae27646d293d0dc8b49ee300f325a0085f258b2cfca52a8a05224e9d014096",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Algorithm1"
+      },
+      "content": "Previous state and hidden",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    }
+  ],
+  "metric_results": [],
+  "capability_assessments": [
+    {
+      "subject_id": "model:044:lbs-medical:v1",
+      "level": "L1",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_assertion_ids": [
+        "assertion:044:0006",
+        "assertion:044:0013",
+        "assertion:044:0014",
+        "assertion:044:0018"
+      ],
+      "rationale": "LearnedstochasticlatentdailyclinicalforecastingwithH1–6numericresults.Noactions,causalityorplanner."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "model:044:lbs-medical:v1",
+      "facets": [
+        "R2"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "model_version_id": "model:044:lbs-medical:v1",
+        "environment_kind": "retrospective_human_records",
+        "population": "TTC-MEDICAL73hospitalizedpatients,dailyheart-rateandnursingnotes",
+        "time_horizon": "Forecast1–6daily steps;state16dimensions"
+      },
+      "evidence_ids": [
+        "evidence:044:0006",
+        "evidence:044:0007",
+        "evidence:044:0020"
+      ]
+    }
+  ],
+  "gate_assessments": [],
+  "legacy_cells": {
+    "A": "044",
+    "B": "LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting",
+    "C": "Sungjun Cho, Changho Shin, Suenggwan Jo, Xinya Yan, Shourjo Aditya Chaudhuri, Frederic Sala",
+    "D": "2025",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://doi.org/10.48550/arxiv.2510.20952",
+    "H": "Papers (numbered 001–099)",
+    "I": "044_2025_LLM-Integrated Bayesian State Space Models for Multimodal Time-Series Forecasting.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not reported",
+    "N": "Not reported",
+    "O": "Not reported",
+    "P": "Inpatient ward",
+    "Q": "Patient clinical trajectory (EHR)",
+    "R": "Other",
+    "S": "Forecast future daily heart-rate measurements and corresponding nursing-note text for hospitalized patients.",
+    "T": "73 hospitalized patients; each patient's data spans an average of 104 days.",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "Other",
+    "X": "F2 EHR / ICU event & latent patient dynamics",
+    "Y": "Probabilistic graphical / Bayesian",
+    "Z": "L1 Temporal prediction",
+    "AA": "L1 Temporal prediction",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "No",
+    "AE": "Yes",
+    "AF": "No",
+    "AG": "No",
+    "AH": "Shared state-space",
+    "AI": "Daily numerical heart-rate measurements; nursing-note text (medical); daily temperature measurements; textual weather descriptions (climate)",
+    "AJ": "Single-layer GRU SSM; pretrained LLM text encoder/decoder; MLP posterior and numeric emission; linear projection of latent states to LLM prefix tokens",
+    "AK": "LLaMA3.1-8B (default); LLaMA3 1B/3B/8B and Qwen2.5 0.5B/1.5B/3B/7B evaluated",
+    "AL": "Not reported",
+    "AM": "Text is compressed to summary tokens and projected to latent dimension; numeric value, summary, and prior state feed Gaussian posterior inference; shared latent state also conditions text generation.",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Continuous latent vector",
+    "AS": "16 dimensions",
+    "AT": "Deep Kalman filtering: recurrent prior from previous state; Gaussian posterior conditioned on current value and text-summary vector; sample posterior state by reparameterization.",
+    "AU": "Yes",
+    "AV": "Not reported",
+    "AW": "Not reported",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "None (no actions)",
+    "BC": "Not reported",
+    "BD": "Not reported",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "LLM-Integrated Bayesian State Space Model (LBS)",
+    "BJ": "RNN / GRU / LSTM",
+    "BK": "Fixed discrete steps",
+    "BL": "Daily observations; maximum forecast horizon 7 steps for climate and 6 steps for medical data.",
+    "BM": "Yes",
+    "BN": "Not reported",
+    "BO": "Recurrent hidden state",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Future numerical values and state-conditioned textual forecasts",
+    "BT": "Numeric-value MLP emission and LLM text-generation decoder conditioned on latent state",
+    "BU": "Not reported",
+    "BV": "Negative multimodal ELBO: numeric-value likelihood, text likelihood, and KL temporal regularization; appendix weights value=1.0, KL=1.0, text=0.1.",
+    "BW": "No",
+    "BX": "Not reported",
+    "BY": "Default LLM is LLaMA3.1-8B; tested LLM sizes range from Qwen2.5-0.5B to LLaMA3-8B.",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "Not reported",
+    "CD": "7 daily steps (TTC-CLIMATE); 6 daily steps (TTC-MEDICAL)",
+    "CE": "Not reported",
+    "CF": "Yes",
+    "CG": "Not reported",
+    "CH": "Not reported",
+    "CI": "Not applicable",
+    "CJ": "Not applicable",
+    "CK": "Not applicable",
+    "CL": "Not applicable",
+    "CM": "Not applicable",
+    "CN": "Not reported",
+    "CO": "Not applicable",
+    "CP": "Bayesian / posterior",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "None (predictive only)",
+    "CU": "Not reported",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Other",
+    "DA": "Not applicable",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not applicable",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "A0 Offline analysis (no autonomy)",
+    "DH": "Not reported",
+    "DI": "None",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Yes",
+    "DN": "TextTimeCorpus (TTC); TTC-CLIMATE; TTC-MEDICAL",
+    "DO": "Hospital EHR",
+    "DP": "Not reported",
+    "DQ": "73 patients (TTC-MEDICAL); average patient data length 104 days",
+    "DR": "Not reported",
+    "DS": "Real-world data",
+    "DT": "Not reported",
+    "DU": "Temporal split",
+    "DV": "No",
+    "DW": "Not reported",
+    "DX": "TTC-MEDICAL test RMSE at H=1: LBS multimodal 3.583, LBS unimodal 3.910; TTC-CLIMATE: 4.117 and 4.224, respectively.",
+    "DY": "TTC-MEDICAL test RMSE at H=6: LBS multimodal 5.487, unimodal 5.654; TTC-CLIMATE at H=7: 6.133 and 6.473, respectively.",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Compared with PatchTST, NLinear, NLinear-Text, TSFLib, TT2TT, and HybridMMF; LBS multimodal test RMSE is 3.583 at medical H=1 and 5.487 at H=6.",
+    "EJ": "Not reported",
+    "EK": "Compared LBS multimodal with unimodal LBS; also evaluated LLM scaling across LLaMA3 and Qwen2.5 sizes.",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Broader impact notes risk that plausible LLM-generated forecasts may be misinterpreted as authoritative or factual and contribute to misinformation.",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "R2 Retrospective internal validation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "Not reported",
+    "FD": "Not reported",
+    "FE": "Not reported",
+    "FF": "Not reported",
+    "FG": "Not reported",
+    "FH": "Not reported",
+    "FI": "Not reported",
+    "FJ": "Not reported",
+    "FK": "Not reported",
+    "FL": "Not reported",
+    "FM": "Introduces LBS, integrating a probabilistic SSM and pretrained LLM for joint numerical/text forecasting, text-conditioned posterior estimation, and state-conditioned text generation.",
+    "FN": "On TTC, LBS improves best baseline performance by 5.13% on climate and 21.28% on medical on average; the paper also reports lower multimodal than unimodal RMSE.",
+    "FO": "Authors state that training uses single-step batches; multi-step training (e.g., backpropagation through time or latent overshooting) may improve performance but presents computational/DeepSpeed compatibility challenges; Mamba integration is future work.",
+    "FP": "Future work includes multi-step training strategies and integration with newer state-space architectures such as Mamba.",
+    "FQ": "Authors identify the lack of integration between pretrained LLMs and probabilistic state-space models for joint numerical/text forecasting.",
+    "FR": "Evidence supports retrospective forecasting of a medical time series, not action-conditioned treatment response, identified counterfactuals, or decision/control utility; reported clinical test data use a temporal split within one benchmark.",
+    "FS": "Reviewer mapping: M3 Belief-state service; M5 Dynamics adapter; M6 Rollout service; M7 Outcome & causal layer",
+    "FT": "Reviewer lesson: Expose future-state forecasts through a time-aware dynamics interface and validate error versus horizon; treatment actions need separate evidence before intervention simulation.",
+    "FU": "Reviewer mapping (KB §20): Multiscale / continuous-time states",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "PDF pp. 1–15: title and abstract; introduction and related work; preliminaries and complete methods; experimental setup/results and figures; conclusions, limitations, and broader impact; appendices covering datasets, prompts, models, optimization, and full result tables. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Low",
+    "FZ": "All extracted pages and tables were readable. This is a general multimodal forecasting method evaluated on a clinical time-series benchmark, not an intervention or clinical decision system. The PDF byline directly contradicts the prefilled author field, so column C is corrected; all other prefilled A:I fields are preserved. Evidence QA: 46/65 populated fields had a <=25-word quotation matching extracted PDF text (70.8%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 55 prior populated fields have a located source quotation; 11 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "Noindependenthumanreview,codereproductionorbenchmarksourcepaperinspection.",
+    "Clinicaldatasetprovenance,clinicalunits,notereleasetimeandpatient/timeleakagecontrolsinsufficientlyreported.",
+    "Explicitmultistepteacherforcing/recursiveprotocolunclear;H6testedextentnotvalidatedeffectivehorizon.",
+    "Priorvarianceillustrationandtextqualityexamplesareclimate-only;nominalcoverage/calibrationandclinicaltextfidelityunreported.",
+    "Numericprincipalresultsstructuredassourcetableswithunreporteduncertainty,notrecomputedimprovementclaims."
+  ]
+}

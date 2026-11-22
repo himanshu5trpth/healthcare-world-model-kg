@@ -1,0 +1,3961 @@
+{
+  "record_id": "annotation:B050:r1",
+  "paper_record_id": "B050",
+  "paper_version_id": "paper-version:B050:sha256-377f5cdf14cf",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:B050:main:v1"
+  ],
+  "system_composition_ids": [
+    "system:B050:main:v1"
+  ],
+  "world_type_ids": [
+    "WT_PROCEDURE"
+  ],
+  "profile_ids": [
+    "BP_COMPONENT"
+  ],
+  "entities": [
+    {
+      "id": "paper:B050",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "B050",
+        "title": "Failure Detection for Surgical Robot Imitation Policies via Flow-Matching World Modeling",
+        "authors": [
+          "Zhefeng Huang",
+          "Yilin Cai",
+          "Ankit Patel",
+          "Mohammad Hajiha",
+          "Brendan Browne",
+          "Yue Chen"
+        ],
+        "canonical_url": "https://arxiv.org/abs/2607.27511"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B050:identity",
+        "evidence:B050:imprint"
+      ]
+    },
+    {
+      "id": "paper-version:B050:sha256-377f5cdf14cf",
+      "class_id": "PaperVersion",
+      "properties": {
+        "arxiv_id": "2607.27511v1",
+        "version_date": "2026-07-29",
+        "publication_status": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+        "source_path": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+        "pdf_sha256": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19",
+        "physical_pdf_pages": 9,
+        "hash_basis": "Supplied source record; not recomputed.",
+        "review_access": "Full nine-page text and earlier API page-image review notes; this synthesis received no images directly.",
+        "supplements": "No separate supplement supplied."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B050:imprint",
+        "evidence:B050:submission-notice"
+      ]
+    },
+    {
+      "id": "study:B050:main",
+      "class_id": "Study",
+      "properties": {
+        "design": "Offline failure-detector evaluation on recorded policy executions.",
+        "tasks": [
+          "Needle Pickup",
+          "Ring over Post",
+          "Tissue Retraction",
+          "Shunt Insertion"
+        ],
+        "membership_assessment": "Implemented persistent scene history and learned procedural-world transition satisfy core-method identity. The evaluated application is a supporting monitoring component.",
+        "clinical_boundary": "Simulation and physical dVRK manipulation, not established human clinical validation."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B050:platforms",
+        "evidence:B050:data-roles",
+        "evidence:B050:offline"
+      ]
+    },
+    {
+      "id": "model:B050:main:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "FoMo-FD",
+        "identity_boundary": "Reported method/configuration across task-specific experiments, not an identified single shared weights artifact. Exact task-specific checkpoint identities are not reported.",
+        "encoder": "Frozen DINOv2 followed by frozen per-view feature-space beta-VAE posterior means.",
+        "latent_shape_per_view": [
+          16,
+          16,
+          8
+        ],
+        "state": "Ordered L=4 visual-latent history.",
+        "transition": "Conditional flow-matching endpoint distribution given visual history and intervening commanded actions.",
+        "backbone": "View-specific spatiotemporal transformer branches; shared action conditioner.",
+        "action_conditioning": [
+          "Action-token cross-attention",
+          "Global adaptive modulation"
+        ],
+        "K": 4,
+        "H": 8,
+        "lambda_FM": 1.0,
+        "lambda_aux": 0.5,
+        "world_coordinate": "Robot observation/action timestep t.",
+        "transport_coordinate": "Generative transport coordinate tau, distinct from robot or clinical time.",
+        "prediction_fidelity_results": "not_reported",
+        "recursive_rollout": "The described endpoint operation is explicitly non-autoregressive."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B050:encoding",
+        "evidence:B050:freeze",
+        "evidence:B050:endpoint",
+        "evidence:B050:conditioning",
+        "evidence:B050:configuration"
+      ]
+    },
+    {
+      "id": "system:B050:main:v1",
+      "class_id": "SystemComposition",
+      "properties": {
+        "flow": "Images → DINOv2 → per-view VAE means → latent history plus commanded-action chunk → inverse transport of observed endpoint → normalized base-space score → per-view conformal threshold → alarm.",
+        "views": "Independently scored fixed and wrist views; no demonstrated alarm fusion.",
+        "host_policy": "Separate imitation-trained ACT policy per task.",
+        "policy_coupling": "FoMo-FD monitors executions; no world-model-based action optimization or host-policy training is reported.",
+        "execution": "Offline detector evaluation without online intervention."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B050:inverse",
+        "evidence:B050:views",
+        "evidence:B050:host-policy",
+        "evidence:B050:offline"
+      ]
+    },
+    {
+      "id": "use:B050:offline-monitor:v1",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "purpose": "Research evaluation of low-level surgical-robot execution inconsistency detection.",
+        "population": "Recorded task-specific policy executions; not an identified patient cohort.",
+        "environment": "Isaac Sim and physical dVRK manipulation setups.",
+        "decision_point": "After observing the endpoint of a visual-action window.",
+        "authority": "Offline alarm classification; no remedial action execution.",
+        "human_recipient": "not_reported",
+        "excluded_interpretations": [
+          "Identified intervention effects",
+          "Procedural correctness",
+          "Demonstrated harm prevention",
+          "Clinical authorization"
+        ]
+      },
+      "provenance_evidence_ids": [
+        "evidence:B050:target",
+        "evidence:B050:platforms",
+        "evidence:B050:offline",
+        "evidence:B050:scope"
+      ]
+    },
+    {
+      "id": "module:B050:encoder",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "responsibility": "Selected M2 encoding/compression functions.",
+        "input": "Fixed and wrist images resized to 224×224.",
+        "output": "Per-view continuous visual latent tensors.",
+        "completeness": "No complete interface-conformance claim."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B050:encoding",
+        "evidence:B050:preprocessing"
+      ]
+    },
+    {
+      "id": "module:B050:dynamics",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "responsibility": "Selected M5 conditional endpoint-dynamics functions.",
+        "input": "Latent history, commanded-action chunk, transport state and transport coordinate.",
+        "output": "Conditional transport velocity defining an endpoint distribution.",
+        "boundary": "Direct endpoint prediction, not recursive procedure simulation."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B050:endpoint",
+        "evidence:B050:flow",
+        "evidence:B050:conditioning"
+      ]
+    },
+    {
+      "id": "module:B050:monitor",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "responsibility": "Selected M9 scoring, calibration and alarm functions.",
+        "score": "Squared norm of the inverse-transported endpoint normalized by Gaussian-base scale.",
+        "threshold": "Per-view conformal order statistic of successful-episode maximum scores.",
+        "boundary": "Alarm discrimination is evaluated; live protective response is not."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B050:inverse",
+        "evidence:B050:quantile",
+        "evidence:B050:table-I",
+        "evidence:B050:offline"
+      ]
+    },
+    {
+      "id": "dataset:B050:rollouts:v1",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "name": "Task-specific expert demonstrations and recorded ACT-policy rollouts",
+        "version": "As described in the pinned preprint; immutable data release not identified.",
+        "training": "Successful teleoperated expert demonstrations.",
+        "calibration": "19 successful policy rollouts per task.",
+        "evaluation": "320 failed and 80 successful policy rollouts.",
+        "expert_demonstration_count": "not_reported",
+        "operator_session_overlap": "not_reported",
+        "material_provenance": "not_reported",
+        "actual_human_clinical_data": "not_established",
+        "release": "Announced upon acceptance."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B050:host-policy",
+        "evidence:B050:data-roles",
+        "evidence:B050:calibration",
+        "evidence:B050:counts",
+        "evidence:B050:release"
+      ]
+    },
+    {
+      "id": "cohort:B050:evaluation",
+      "class_id": "Cohort",
+      "properties": {
+        "unit": "Robot-policy rollout, not patient.",
+        "failed_rollouts": 320,
+        "successful_rollouts": 80,
+        "failure_modes": 20,
+        "failed_rollouts_per_simulated_mode": 20,
+        "failed_rollouts_per_physical_mode": 10,
+        "successful_evaluation_rollouts_per_task": 20,
+        "calibration_overlap": "Explicitly disjoint."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B050:calibration",
+        "evidence:B050:counts",
+        "evidence:B050:faults"
+      ]
+    },
+    {
+      "id": "protocol:B050:alarms",
+      "class_id": "EvaluationProtocol",
+      "properties": {
+        "FDR": "Failure detection rate: fraction of failed rollouts with at least one threshold exceedance.",
+        "FAR": "False alarm rate: fraction of successful rollouts with at least one threshold exceedance.",
+        "calibration": "N=19 successful rollouts per task; alpha=0.05; episode maxima; independent views.",
+        "comparators": [
+          "WM-PE",
+          "logpZO",
+          "RND"
+        ],
+        "controls": "Same compressed features, calibration protocol and evaluation splits.",
+        "selection_independence": "not_reported",
+        "confidence_intervals": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B050:calibration",
+        "evidence:B050:counts",
+        "evidence:B050:baselines"
+      ]
+    },
+    {
+      "id": "evaluation:B050:main",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "model_version_id": "model:B050:main:v1",
+        "cohort_id": "cohort:B050:evaluation",
+        "protocol_id": "protocol:B050:alarms",
+        "endpoint": "Offline alarm discrimination, not forecast-state fidelity or intervention utility.",
+        "aggregation": "Pooled task-specific experiments, reported separately by camera."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B050:counts",
+        "evidence:B050:table-I",
+        "evidence:B050:offline"
+      ]
+    },
+    {
+      "id": "evaluation:B050:ablations",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "configurations": {
+          "conditioning": [
+            "NoAct",
+            "Tok",
+            "Mod",
+            "Tok+Mod"
+          ],
+          "K": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "endpoint": "FDR/FAR, not matched alternative-command successor predictions.",
+        "artifact_identity": "Separate ablation configurations; exact trained checkpoints not reported."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B050:action-ablation",
+        "evidence:B050:horizon-ablation"
+      ]
+    },
+    {
+      "id": "evaluation:B050:throughput",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "measurement": "Visual encoding plus inverse ODE scoring.",
+        "frequency": "13.98 Hz",
+        "hardware": "Intel Core Ultra 9 285K CPU; NVIDIA RTX 5090 GPU; 64 GB RAM.",
+        "reference_loop": "10 Hz physical policy/observation loop.",
+        "batch_load_and_variability": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B050:throughput"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:B050:f001",
+      "subject_id": "dataset:B050:rollouts:v1",
+      "feature_id": "data.provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "dataset_version_id": "dataset:B050:rollouts:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:platforms",
+        "evidence:B050:preprocessing",
+        "evidence:B050:data-roles"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Platforms, camera sources, preprocessing and data roles are described."
+      ],
+      "criteria_missing": [
+        "Variable-level times, command units, record-level lineage and immutable data identity."
+      ],
+      "rationale": "Unreported provenance is not assumed discarded."
+    },
+    {
+      "id": "assertion:B050:f002",
+      "subject_id": "dataset:B050:rollouts:v1",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "dataset_version_id": "dataset:B050:rollouts:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Step indexing and nominal 10 Hz operation do not establish retained acquisition timestamps."
+    },
+    {
+      "id": "assertion:B050:f003",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:inverse"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "The endpoint must be observed, but acquisition, delivery and information-release times are not separately audited."
+    },
+    {
+      "id": "assertion:B050:f004",
+      "subject_id": "module:B050:encoder",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B050:encoder"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Occlusion/freezing challenges do not establish explicit missing/invalid input indicators."
+    },
+    {
+      "id": "assertion:B050:f005",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No per-channel elapsed time since a true observation is specified."
+    },
+    {
+      "id": "assertion:B050:f006",
+      "subject_id": "module:B050:dynamics",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B050:dynamics"
+      },
+      "evidence_ids": [
+        "evidence:B050:endpoint"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Unequal elapsed robot-time inputs are not reported; transport integration is not irregular-time handling."
+    },
+    {
+      "id": "assertion:B050:f007",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Predicting visual endpoints does not model when, whether or why measurements occur."
+    },
+    {
+      "id": "assertion:B050:f008",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:ablations"
+      },
+      "evidence_ids": [
+        "evidence:B050:horizon-ablation"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Changing K is not a resampling witness-preservation audit."
+    },
+    {
+      "id": "assertion:B050:f009",
+      "subject_id": "dataset:B050:rollouts:v1",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "dataset_version_id": "dataset:B050:rollouts:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:preprocessing"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Image resizing is not traceable semantic, command-unit or coordinate harmonization."
+    },
+    {
+      "id": "assertion:B050:f010",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main",
+        "dataset_version_id": "dataset:B050:rollouts:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:data-roles",
+        "evidence:B050:calibration"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Training versus policy-calibration/evaluation roles distinguished.",
+        "Calibration/evaluation rollouts explicitly disjoint."
+      ],
+      "criteria_missing": [
+        "Operator/session/material overlap checks, availability-time audit and independent model-selection split."
+      ],
+      "rationale": "Incomplete reporting does not prove leakage."
+    },
+    {
+      "id": "assertion:B050:f011",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "dataset_version_id": "dataset:B050:rollouts:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No federated exchange/aggregation protocol is reported."
+    },
+    {
+      "id": "assertion:B050:f012",
+      "subject_id": "module:B050:encoder",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B050:encoder"
+      },
+      "evidence_ids": [
+        "evidence:B050:encoding",
+        "evidence:B050:freeze",
+        "evidence:B050:preprocessing"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "DINOv2 plus per-view VAEs operationally encode observations; separate representation-quality validation is not inferred."
+    },
+    {
+      "id": "assertion:B050:f013",
+      "subject_id": "module:B050:encoder",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B050:encoder"
+      },
+      "evidence_ids": [
+        "evidence:B050:encoding",
+        "evidence:B050:freeze"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Named pretrained DINOv2 features are used; freezing and downstream VAE adaptation are described."
+      ],
+      "criteria_missing": [
+        "Exact backbone variant/checkpoint/version identity is not reported."
+      ],
+      "rationale": "Actual reuse is supported, but the version-pinned checkpoint criterion is incomplete."
+    },
+    {
+      "id": "assertion:B050:f014",
+      "subject_id": "module:B050:dynamics",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B050:dynamics"
+      },
+      "evidence_ids": [
+        "evidence:B050:auxiliary"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Auxiliary next-latent regression predicts a target representation. It is not JEPA encoder pretraining or an evaluated forecasting result."
+    },
+    {
+      "id": "assertion:B050:f015",
+      "subject_id": "module:B050:encoder",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B050:encoder"
+      },
+      "evidence_ids": [
+        "evidence:B050:channel-utilization",
+        "evidence:B050:freeze"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Channel-utilization regularization addresses concentration, and representations are frozen before dynamics training. A mechanism/property specifically preventing trivial predictive representations is not sufficiently established."
+    },
+    {
+      "id": "assertion:B050:f016",
+      "subject_id": "module:B050:encoder",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B050:encoder"
+      },
+      "evidence_ids": [
+        "evidence:B050:vae-objective"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Feature-space VAE reconstruction against DINOv2 patch features."
+      ],
+      "criteria_missing": [
+        "Reconstruction of original observed camera pixels or other original measured values."
+      ],
+      "rationale": "Feature reconstruction is not promoted to pixel reconstruction."
+    },
+    {
+      "id": "assertion:B050:f017",
+      "subject_id": "module:B050:dynamics",
+      "feature_id": "perception.fusion",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B050:dynamics"
+      },
+      "evidence_ids": [
+        "evidence:B050:action-pathways",
+        "evidence:B050:action-ablation"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Visual and commanded-action streams interact through cross-attention/modulation. This is visual–action fusion, not fixed/wrist observation or alarm fusion."
+    },
+    {
+      "id": "assertion:B050:f018",
+      "subject_id": "module:B050:dynamics",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B050:dynamics"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Missing-input behavior and availability/quality/recency conditioning are not specified."
+    },
+    {
+      "id": "assertion:B050:f019",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B050:main:v1",
+        "time_horizon": "L=4 observed scene-history steps."
+      },
+      "evidence_ids": [
+        "evidence:B050:flow",
+        "evidence:B050:conditioning",
+        "evidence:B050:configuration"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "An ordered history is carried into successor-endpoint inference; this is not merely an isolated embedding."
+    },
+    {
+      "id": "assertion:B050:f020",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:freeze",
+        "evidence:B050:inverse"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The inference history uses deterministic VAE modes, not a hidden-current-state filtering distribution. Future endpoint uncertainty is a different object."
+    },
+    {
+      "id": "assertion:B050:f021",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:endpoint",
+        "evidence:B050:inverse"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The specified encoder/endpoint/inverse-score algorithm has no observation correction of a propagated prior."
+    },
+    {
+      "id": "assertion:B050:f022",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B050:main:v1",
+        "environment_kind": "Offline sequential replay."
+      },
+      "evidence_ids": [
+        "evidence:B050:inverse",
+        "evidence:B050:offline"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "New observed frames refresh sequential scene histories without retraining. This satisfies the broad evidence-update criterion, not Bayesian correction or demonstrated live operation."
+    },
+    {
+      "id": "assertion:B050:f023",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:platforms"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "This feature concerns fitting patient parameters from patient measurements; the scoped model monitors robot scenes.",
+      "rationale": "Task fitting and alarm calibration are not patient adaptation."
+    },
+    {
+      "id": "assertion:B050:f024",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "A shared trained state serving distinct typed tasks without separate state-model fitting is not established."
+    },
+    {
+      "id": "assertion:B050:f025",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:ablations"
+      },
+      "evidence_ids": [
+        "evidence:B050:action-ablation",
+        "evidence:B050:table-I"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Action removal and camera-representation comparisons assess conditioning information against detection. They do not prove state sufficiency or adequate history."
+    },
+    {
+      "id": "assertion:B050:f026",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:flow",
+        "evidence:B050:conditioning",
+        "evidence:B050:configuration"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Temporal attention consumes ordered scene-history latents."
+    },
+    {
+      "id": "assertion:B050:f027",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:ablations",
+        "population": "Scene execution histories."
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No matched correct/swapped/withheld scene-history or generic-prior control is reported."
+    },
+    {
+      "id": "assertion:B050:f028",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No designated entity/anatomy identity-preservation mechanism is reported."
+    },
+    {
+      "id": "assertion:B050:f029",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Score/frame examples do not establish inspectable semantic mappings for latent coordinates."
+    },
+    {
+      "id": "assertion:B050:f030",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B050:main:v1",
+        "time_horizon": "L=4 observation steps."
+      },
+      "evidence_ids": [
+        "evidence:B050:conditioning",
+        "evidence:B050:configuration"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Fixed attention history is specified; K ablation does not evaluate history length or long-delay memory."
+    },
+    {
+      "id": "assertion:B050:f031",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "action.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:endpoint",
+        "evidence:B050:action-pathways"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Commanded actions are separated inputs, not generated action labels or immutable covariates."
+    },
+    {
+      "id": "assertion:B050:f032",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Broad procedural semantics are recoverable, but operational role/effect-channel typing is not reported."
+    },
+    {
+      "id": "assertion:B050:f033",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "action.parameterized",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:flow",
+        "evidence:B050:configuration",
+        "evidence:B050:throughput"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Ordered robot-command chunk, K and physical-loop cadence are specified."
+      ],
+      "criteria_missing": [
+        "Command components, units, frames, actuator mapping and valid ranges."
+      ],
+      "rationale": "Temporal structure does not complete an executable action contract."
+    },
+    {
+      "id": "assertion:B050:f034",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "action.schedule",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B050:main:v1",
+        "time_horizon": "Intervening K=4 robot-command steps."
+      },
+      "evidence_ids": [
+        "evidence:B050:flow",
+        "evidence:B050:configuration"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "An explicitly indexed command sequence is represented; no schedule optimization is inferred."
+    },
+    {
+      "id": "assertion:B050:f035",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Temporal chunking does not establish coherent joint-component update/inheritance semantics."
+    },
+    {
+      "id": "assertion:B050:f036",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No candidate-command restriction is reported; completed-window thresholding is not an action constraint."
+    },
+    {
+      "id": "assertion:B050:f037",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "action.grounding",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:platforms",
+        "evidence:B050:host-policy",
+        "evidence:B050:endpoint"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Inputs are robot commands associated with executed ACT-policy rollouts."
+      ],
+      "criteria_missing": [
+        "Calibrated command units, coordinate/actuator mapping and dedicated grounding validation."
+      ],
+      "rationale": "Not ungrounded latent actions; also not a complete reproducible grounding contract."
+    },
+    {
+      "id": "assertion:B050:f038",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Successful-only training and conformal alarms are not context-conditioned action-coverage/overlap estimation."
+    },
+    {
+      "id": "assertion:B050:f039",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "action.comparison",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "evaluation_run_id": [
+          "evaluation:B050:main",
+          "evaluation:B050:ablations"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:B050:inverse",
+        "evidence:B050:baselines",
+        "evidence:B050:action-ablation",
+        "evidence:B050:horizon-ablation"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The documented protocol scores factual command/endpoint windows and varies architectures, scores, views or K, not matched alternative commands."
+    },
+    {
+      "id": "assertion:B050:f040",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No reversibility/residual-harm assessment is reported."
+    },
+    {
+      "id": "assertion:B050:f041",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B050:main:v1",
+        "time_horizon": "Direct t+K endpoint; main K=4 robot steps."
+      },
+      "evidence_ids": [
+        "evidence:B050:endpoint",
+        "evidence:B050:flow",
+        "evidence:B050:configuration"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Scene history advances to a subsequent endpoint distribution; transport tau is not the world-time coordinate."
+    },
+    {
+      "id": "assertion:B050:f042",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:flow",
+        "evidence:B050:auxiliary",
+        "evidence:B050:data-roles"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Conditional neural transport is learned from successful demonstrations; the learned branch of this criterion is met."
+    },
+    {
+      "id": "assertion:B050:f043",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:endpoint",
+        "evidence:B050:action-pathways",
+        "evidence:B050:action-ablation"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Commands enter the transition; detection ablations do not themselves establish specified-action forecast fidelity or L2."
+    },
+    {
+      "id": "assertion:B050:f044",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:flow",
+        "evidence:B050:inverse"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Gaussian-base flow matching defines a conditional endpoint distribution. Main inference inverse-scores an observation without sampling futures."
+    },
+    {
+      "id": "assertion:B050:f045",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No anatomy, object, conservation, monotonicity or symbolic world constraint is reported. Generic transport ODEs are not tissue mechanics."
+    },
+    {
+      "id": "assertion:B050:f046",
+      "subject_id": "module:B050:dynamics",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:B050:dynamics"
+      },
+      "evidence_ids": [
+        "evidence:B050:flow",
+        "evidence:B050:auxiliary",
+        "evidence:B050:platforms"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The specified neural endpoint operator has no coupled mechanistic world component. Isaac Sim is an environment/data source, not such a component."
+    },
+    {
+      "id": "assertion:B050:f047",
+      "subject_id": "module:B050:dynamics",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B050:dynamics"
+      },
+      "evidence_ids": [
+        "evidence:B050:baselines"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Scoring variants and retrained ablations do not establish semantically interchangeable dynamics backends."
+    },
+    {
+      "id": "assertion:B050:f048",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Multiple views, attention dimensions and K settings are not explicit cross-scale state mappings."
+    },
+    {
+      "id": "assertion:B050:f049",
+      "subject_id": "module:B050:dynamics",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B050:dynamics"
+      },
+      "evidence_ids": [
+        "evidence:B050:endpoint",
+        "evidence:B050:flow",
+        "evidence:B050:auxiliary"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Direct K-step endpoint supervision plus auxiliary one-step regression does not traverse two predicted world transitions. Legacy BW has a broader rule."
+    },
+    {
+      "id": "assertion:B050:f050",
+      "subject_id": "module:B050:dynamics",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:B050:dynamics"
+      },
+      "evidence_ids": [
+        "evidence:B050:endpoint",
+        "evidence:B050:configuration"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The specified primitive fixed-step windows have no coordinated options, events or variable-duration hierarchy."
+    },
+    {
+      "id": "assertion:B050:f051",
+      "subject_id": "module:B050:dynamics",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:B050:dynamics"
+      },
+      "evidence_ids": [
+        "evidence:B050:endpoint",
+        "evidence:B050:inverse",
+        "evidence:B050:vae-objective"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The predictive path emits latents/scores, not world observations. The representation-training decoder reconstructs features, not predicted camera images."
+    },
+    {
+      "id": "assertion:B050:f052",
+      "subject_id": "module:B050:monitor",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "module_implementation_id": "module:B050:monitor",
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "evidence_ids": [
+        "evidence:B050:target",
+        "evidence:B050:inverse",
+        "evidence:B050:counts",
+        "evidence:B050:table-I"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "A specified procedural-task readout maps completed-window latents to a dimensionless score and binary alarm, not a clinical outcome or causal effect."
+    },
+    {
+      "id": "assertion:B050:f053",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "evidence_ids": [
+        "evidence:B050:auxiliary",
+        "evidence:B050:baselines",
+        "evidence:B050:table-I"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "WM-PE uses endpoint error as an alarm score but reports detection rates, not successor-state fidelity. The auxiliary predictor is training-only."
+    },
+    {
+      "id": "assertion:B050:f054",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:endpoint",
+        "evidence:B050:inverse"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The explicitly non-autoregressive endpoint operation does not feed generated states through successive world transitions."
+    },
+    {
+      "id": "assertion:B050:f055",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "evidence_ids": [
+        "evidence:B050:endpoint"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No successive predictive intermediate states exist in the endpoint operation.",
+      "rationale": "Observed prefixes are not teacher forcing of a generated sequence."
+    },
+    {
+      "id": "assertion:B050:f056",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "evidence_ids": [
+        "evidence:B050:inverse",
+        "evidence:B050:offline"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No imagined trajectory or model-derived plan is propagated and corrected before another forecast.",
+      "rationale": "Observed-history refresh is separately scoped under state.online_assimilation."
+    },
+    {
+      "id": "assertion:B050:f057",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:ablations",
+        "time_horizon": "Largest tested endpoint gap K=4 robot steps."
+      },
+      "evidence_ids": [
+        "evidence:B050:horizon-ablation",
+        "evidence:B050:configuration",
+        "evidence:B050:throughput"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "value": {
+        "K_tested": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "L_main": 4,
+        "H_main": 8,
+        "physical_loop": "10 Hz",
+        "simulation_cadence": "not_reported"
+      },
+      "rationale": "Extent of endpoint-detector testing, not a recursive or effective forecast horizon."
+    },
+    {
+      "id": "assertion:B050:f058",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:ablations"
+      },
+      "evidence_ids": [
+        "evidence:B050:horizon-ablation"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Detection rates across endpoint gaps are not free-running forecast error or compounding drift."
+    },
+    {
+      "id": "assertion:B050:f059",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:horizon-ablation"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Selected K=4 lacks an uncertainty-qualified tolerance and support argument defining a usable prediction limit."
+    },
+    {
+      "id": "assertion:B050:f060",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:flow",
+        "evidence:B050:inverse",
+        "evidence:B050:baselines"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "An explicit conditional future-endpoint distribution is defined."
+      ],
+      "criteria_missing": [
+        "Several generated conditional futures or a joint multi-time forecast distribution."
+      ],
+      "rationale": "The main score samples no future; WM-PE uses deterministic endpoint prediction."
+    },
+    {
+      "id": "assertion:B050:f061",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:configuration"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The fixed-window monitor accepts no user-requested forecast horizon.",
+      "rationale": "Fixed K is not supported-horizon enforcement."
+    },
+    {
+      "id": "assertion:B050:f062",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "planning.model_use",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:host-policy",
+        "evidence:B050:inverse",
+        "evidence:B050:offline"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The specified pathway produces alarms from recorded executions, not action ranking, search or policy learning from modeled consequences."
+    },
+    {
+      "id": "assertion:B050:f063",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:host-policy",
+        "evidence:B050:inverse",
+        "evidence:B050:offline"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The complete composition has no optimizer/policy using FoMo-FD dynamics. The host ACT policy is separately imitation-trained."
+    },
+    {
+      "id": "assertion:B050:f064",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:offline"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No WM-coupled plan is executed and recomputed.",
+      "rationale": "Sliding scoring windows are not replanning."
+    },
+    {
+      "id": "assertion:B050:f065",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:inverse"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No action selection under changeable utilities/constraints is performed.",
+      "rationale": "An alarm threshold is not a planning utility."
+    },
+    {
+      "id": "assertion:B050:f066",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:inverse"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "There is no WM-coupled action-selection process to modify using uncertainty.",
+      "rationale": "Alarm calibration is assessed separately."
+    },
+    {
+      "id": "assertion:B050:f067",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:offline"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "There are no model-optimized plans to stress-test for exploitation.",
+      "rationale": "Execution-mismatch detection is not optimizer-exploitation testing."
+    },
+    {
+      "id": "assertion:B050:f068",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:inverse"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No candidate-action set is constructed for selection.",
+      "rationale": "Recorded commands are monitor inputs."
+    },
+    {
+      "id": "assertion:B050:f069",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:scope"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "FoMo-FD is not a model-coupled goal/option policy.",
+      "rationale": "Cited hierarchical systems and proposed task-monitor integration are not implemented hierarchy."
+    },
+    {
+      "id": "assertion:B050:f070",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "evidence_ids": [
+        "evidence:B050:offline"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Online intervention is explicitly excluded. Host-policy robot execution is not detector-coupled control."
+    },
+    {
+      "id": "assertion:B050:f071",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "uq.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B050:dynamics"
+      },
+      "evidence_ids": [
+        "evidence:B050:flow"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The conditional endpoint distribution has stated semantics; its probability correctness is not validated."
+    },
+    {
+      "id": "assertion:B050:f072",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:B050:dynamics"
+      },
+      "evidence_ids": [
+        "evidence:B050:flow",
+        "evidence:B050:inverse",
+        "evidence:B050:freeze"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The specified mechanism supplies one conditional distribution and scalar score, not separately estimated aleatoric/epistemic components."
+    },
+    {
+      "id": "assertion:B050:f073",
+      "subject_id": "module:B050:monitor",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "module_implementation_id": "module:B050:monitor",
+        "evaluation_run_id": "evaluation:B050:main",
+        "time_horizon": "Episode-wide any-alarm event."
+      },
+      "evidence_ids": [
+        "evidence:B050:calibration",
+        "evidence:B050:counts",
+        "evidence:B050:table-I"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "value": {
+        "nominal_alpha": 0.05,
+        "N_per_task": 19,
+        "fixed_FAR_percent": 10.0,
+        "wrist_FAR_percent": 1.3
+      },
+      "rationale": "Nominal alarm error control is compared with held-out episode frequencies. Mixed describes view-dependent observations, not a formal calibration acceptance verdict."
+    },
+    {
+      "id": "assertion:B050:f074",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:B050:dynamics",
+        "time_horizon": "Generated future-state trajectory coverage."
+      },
+      "evidence_ids": [
+        "evidence:B050:endpoint",
+        "evidence:B050:inverse"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The predictive output is one endpoint, not a generated multi-time trajectory.",
+      "rationale": "Episode-maximum alarm calibration is not generated future-path calibration."
+    },
+    {
+      "id": "assertion:B050:f075",
+      "subject_id": "module:B050:monitor",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main",
+        "time_horizon": "Episode-level alarm calibration."
+      },
+      "evidence_ids": [
+        "evidence:B050:calibration",
+        "evidence:B050:table-I",
+        "evidence:B050:limitations"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No uncertainty-qualified acceptance analysis. Wrist FAR below 5% does not prove validity; finite-sample fixed FAR above 5% alone does not refute a probabilistic guarantee."
+    },
+    {
+      "id": "assertion:B050:f076",
+      "subject_id": "module:B050:monitor",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main",
+        "environment_kind": "in_silico",
+        "population": "Needle Pickup OOD Initial Condition challenge."
+      },
+      "evidence_ids": [
+        "evidence:B050:inverse",
+        "evidence:B050:calibration",
+        "evidence:B050:table-details"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "value": {
+        "fixed": "1/20",
+        "wrist": "20/20",
+        "response": "Offline failure alarm"
+      },
+      "rationale": "Bounded OOD challenge detection, not universal shift recognition or action-overlap estimation."
+    },
+    {
+      "id": "assertion:B050:f077",
+      "subject_id": "module:B050:monitor",
+      "feature_id": "uq.conformal",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "evidence_ids": [
+        "evidence:B050:inverse",
+        "evidence:B050:quantile",
+        "evidence:B050:calibration",
+        "evidence:B050:limitations",
+        "evidence:B050:table-I"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Nonconformity, calibration split, order statistic, alpha and exchangeability are described. Presence does not verify exchangeability or clinical safety."
+    },
+    {
+      "id": "assertion:B050:f078",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "causal.estimand",
+      "assessment_state": "absent",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:target",
+        "evidence:B050:scope"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The formulated output is conditional endpoint consistency/deviation, not a causal intervention contrast."
+    },
+    {
+      "id": "assertion:B050:f079",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:target",
+        "evidence:B050:scope"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No intervention-effect estimand is specified for this alarm output.",
+      "rationale": "Action conditioning is not identification."
+    },
+    {
+      "id": "assertion:B050:f080",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:target",
+        "evidence:B050:limitations"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "There is no causal estimand to which identification assumptions attach.",
+      "rationale": "Conformal exchangeability is distinct from treatment-confounding exchangeability."
+    },
+    {
+      "id": "assertion:B050:f081",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:target"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The scoped output is not a causal effect estimate.",
+      "rationale": "Architecture/K ablations are not causal sensitivity analyses."
+    },
+    {
+      "id": "assertion:B050:f082",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:target",
+        "evidence:B050:counts"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Realized failure detection, not action-effect or potential-outcome prediction, is evaluated.",
+      "rationale": "Simulation is not automatically counterfactual ground truth."
+    },
+    {
+      "id": "assertion:B050:f083",
+      "subject_id": "module:B050:dynamics",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B050:dynamics"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No calibrated physical intervention mechanism is reported for the learned operator."
+    },
+    {
+      "id": "assertion:B050:f084",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:scope",
+        "evidence:B050:target"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No identified therapeutic or robot-intervention effect interpretation is asserted for this alarm.",
+      "rationale": "A later causal use would require new evidence."
+    },
+    {
+      "id": "assertion:B050:f085",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B050:monitor"
+      },
+      "evidence_ids": [
+        "evidence:B050:offline"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No action/output blocking or fail behavior is reported. An alarm alone is not a hard guard."
+    },
+    {
+      "id": "assertion:B050:f086",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B050:monitor"
+      },
+      "evidence_ids": [
+        "evidence:B050:offline"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No trigger-linked withholding, fallback or review route is described."
+    },
+    {
+      "id": "assertion:B050:f087",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B050:monitor"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Demonstration teleoperation is not an operational alarm recipient/response workflow."
+    },
+    {
+      "id": "assertion:B050:f088",
+      "subject_id": "module:B050:monitor",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main",
+        "environment_kind": "Offline recorded simulation and physical dVRK executions."
+      },
+      "evidence_ids": [
+        "evidence:B050:inverse",
+        "evidence:B050:table-I",
+        "evidence:B050:throughput",
+        "evidence:B050:offline"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Sequential window scoring and threshold alarms evaluated.",
+        "Scoring throughput measured."
+      ],
+      "criteria_missing": [
+        "Live-stream operation, specified protective response and failure-onset-relative delay."
+      ],
+      "rationale": "Offline-evaluated runtime-oriented monitoring, not a complete online protective loop."
+    },
+    {
+      "id": "assertion:B050:f089",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B050:monitor"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No detector-coupled stop/fallback or residual-effects assessment is reported."
+    },
+    {
+      "id": "assertion:B050:f090",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Failure modes are not an explicit adversary/assets/attack-path analysis."
+    },
+    {
+      "id": "assertion:B050:f091",
+      "subject_id": "module:B050:monitor",
+      "feature_id": "safety.red_team",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "evidence_ids": [
+        "evidence:B050:faults",
+        "evidence:B050:counts",
+        "evidence:B050:table-details"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Defined sensing, actuation and manipulation fault challenges have measured detection counts."
+      ],
+      "criteria_missing": [
+        "Which faults were injected, injection settings and onset timing are not sufficiently specified."
+      ],
+      "rationale": "Bounded fault-challenge evidence, not a complete reproducible injection/security protocol."
+    },
+    {
+      "id": "assertion:B050:f092",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "dataset_version_id": "dataset:B050:rollouts:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No operational privacy mechanism is reported; bench/simulation use is not a privacy guarantee."
+    },
+    {
+      "id": "assertion:B050:f093",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No copying, membership, re-identification or attribute-disclosure test is reported."
+    },
+    {
+      "id": "assertion:B050:f094",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Identity, access authorization and operation-scope enforcement are not reported."
+    },
+    {
+      "id": "assertion:B050:f095",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No reliance/override protocol or human-factors assessment is reported."
+    },
+    {
+      "id": "assertion:B050:f096",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:target",
+        "evidence:B050:platforms",
+        "evidence:B050:offline",
+        "evidence:B050:scope"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Purpose, completed-window decision point, technical environments and offline authority boundary."
+      ],
+      "criteria_missing": [
+        "Human recipient and eventual live response/fallback responsibilities."
+      ],
+      "rationale": "Scoped technical research use is not a complete operational intended-use contract."
+    },
+    {
+      "id": "assertion:B050:f097",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No organized card pins trained artifacts, data versions, asset terms and evidence boundaries."
+    },
+    {
+      "id": "assertion:B050:f098",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Execution monitoring is not post-release surveillance of the monitor; lifecycle ownership/triggers are not reported."
+    },
+    {
+      "id": "assertion:B050:f099",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No update approval, versioned revalidation or rollback process is reported."
+    },
+    {
+      "id": "assertion:B050:f100",
+      "subject_id": "paper-version:B050:sha256-377f5cdf14cf",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "effective_date": "2026-07-29"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No regulatory/reporting framework is reported; IEEE submission/copyright is not medical-device regulation."
+    },
+    {
+      "id": "assertion:B050:f101",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "effective_date": "2026-07-29"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No scoped applicability, compliance, authorization or denial evidence is supplied."
+    },
+    {
+      "id": "assertion:B050:f102",
+      "subject_id": "study:B050:main",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Approval/exemption, consent and material provenance are insufficiently reported; inapplicability is not assumed."
+    },
+    {
+      "id": "assertion:B050:f103",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "agent.role",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main",
+        "population": "Host ACT policy, not an LLM."
+      },
+      "evidence_ids": [
+        "evidence:B050:host-policy",
+        "evidence:B050:data-roles"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "An acting policy generates rollout commands. This agency does not imply model-coupled planning."
+    },
+    {
+      "id": "assertion:B050:f104",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "agent.multiple",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main",
+        "population": "Each task-specific configuration."
+      },
+      "evidence_ids": [
+        "evidence:B050:host-policy",
+        "evidence:B050:views",
+        "evidence:B050:offline"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "One acting policy plus ordinary monitor modules; camera branches/task fits are not interacting agents."
+    },
+    {
+      "id": "assertion:B050:f105",
+      "subject_id": "module:B050:monitor",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:B050:monitor"
+      },
+      "evidence_ids": [
+        "evidence:B050:inverse",
+        "evidence:B050:offline"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The monitor produces no action proposal to critique/revise.",
+      "rationale": "Repeated scoring is not reflection."
+    },
+    {
+      "id": "assertion:B050:f106",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Platform names do not establish agent-facing API/tool invocation with specified access scope."
+    },
+    {
+      "id": "assertion:B050:f107",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:offline"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "value": "A0 Offline analysis (no autonomy)",
+      "rationale": "The evaluated detector has no online intervention authority; host-policy authority is not inherited."
+    },
+    {
+      "id": "assertion:B050:f108",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "effective_date": "2026-07-29"
+      },
+      "evidence_ids": [
+        "evidence:B050:release"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "value": "Future release upon acceptance announced; accessible release not established.",
+      "rationale": "No repository was identified or externally checked; future release is not present availability."
+    },
+    {
+      "id": "assertion:B050:f109",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "effective_date": "2026-07-29"
+      },
+      "evidence_ids": [
+        "evidence:B050:release"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "value": "Future trained-model release announced; FoMo-FD checkpoints not established accessible.",
+      "rationale": "DINOv2 reuse does not establish FoMo-FD weight release."
+    },
+    {
+      "id": "assertion:B050:f110",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B050:main:v1",
+        "dataset_version_id": "dataset:B050:rollouts:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Separate code, weight and data terms are not supplied; publication copyright is not an asset license."
+    },
+    {
+      "id": "assertion:B050:f111",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No independent pinned replication is reported; this automated review is not replication."
+    },
+    {
+      "id": "assertion:B050:f112",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "evidence_ids": [
+        "evidence:B050:baselines",
+        "evidence:B050:table-I"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Prediction-error-derived alarm rates are not reported successor-state error/fidelity values."
+    },
+    {
+      "id": "assertion:B050:f113",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:ablations"
+      },
+      "evidence_ids": [
+        "evidence:B050:endpoint",
+        "evidence:B050:horizon-ablation"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No recursive or block-generated future sequence exists in this evaluated endpoint operation.",
+      "rationale": "Separate K-step endpoint targets are not multi-time sequence fidelity."
+    },
+    {
+      "id": "assertion:B050:f114",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No generated-versus-reference distributional realism comparison is reported."
+    },
+    {
+      "id": "assertion:B050:f115",
+      "subject_id": "module:B050:dynamics",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B050:dynamics",
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Failure discrimination does not evaluate predicted-state adherence to specified physical/anatomical constraints."
+    },
+    {
+      "id": "assertion:B050:f116",
+      "subject_id": "module:B050:monitor",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main",
+        "time_horizon": "Episode-wide alarm error control."
+      },
+      "evidence_ids": [
+        "evidence:B050:calibration",
+        "evidence:B050:counts",
+        "evidence:B050:table-I"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Nominal alpha and held-out successful-rollout FAR are reported. This assesses alarms, not endpoint probabilities or joint future-state coverage."
+    },
+    {
+      "id": "assertion:B050:f117",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:ablations"
+      },
+      "evidence_ids": [
+        "evidence:B050:action-ablation"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Changing conditioning architectures is not controlled action-input perturbation in a fixed model with matched history."
+    },
+    {
+      "id": "assertion:B050:f118",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:target",
+        "evidence:B050:scope"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The assessed alarm is not a causal contrast or individual counterfactual estimate.",
+      "rationale": "Simulation and command conditioning do not establish causal validation."
+    },
+    {
+      "id": "assertion:B050:f119",
+      "subject_id": "model:B050:main:v1",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:ablations",
+        "population": "Scene execution histories."
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No analogous matched scene-history swap/withhold or generic-prior control is reported."
+    },
+    {
+      "id": "assertion:B050:f120",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main",
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:offline",
+        "evidence:B050:table-I"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No task success, regret, value or utility following a model-informed action/stop/handoff is reported; alarm discrimination is retained separately."
+    },
+    {
+      "id": "assertion:B050:f121",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "evidence_ids": [
+        "evidence:B050:platforms",
+        "evidence:B050:table-details"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Different tasks are tested in simulation and hardware; no matched task/policy agreement comparison appears in the documented protocol."
+    },
+    {
+      "id": "assertion:B050:f122",
+      "subject_id": "module:B050:monitor",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main",
+        "population": "OOD and task-specific sensing/actuation/interaction challenges."
+      },
+      "evidence_ids": [
+        "evidence:B050:faults",
+        "evidence:B050:table-details"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Bounded shift/fault robustness is evaluated with camera-dependent misses. No independent clinical/site transfer or demographic fairness is established."
+    },
+    {
+      "id": "assertion:B050:f123",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No target-specific timing/resampling evidence-retention audit is reported."
+    },
+    {
+      "id": "assertion:B050:f124",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Expert teleoperation collects data; no human review/use study of detector outputs with participant outcomes is reported."
+    },
+    {
+      "id": "assertion:B050:f125",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:throughput"
+      },
+      "evidence_ids": [
+        "evidence:B050:throughput"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "End-to-end 13.98 Hz scoring and CPU/GPU/RAM context are reported."
+      ],
+      "criteria_missing": [
+        "Batch, load/concurrency and variability context."
+      ],
+      "rationale": "Hardware-specific computational feasibility is not worst-case timing or successful live intervention."
+    },
+    {
+      "id": "assertion:B050:f126",
+      "subject_id": "system:B050:main:v1",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "evidence_ids": [
+        "evidence:B050:platforms",
+        "evidence:B050:counts",
+        "evidence:B050:offline"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The complete documented study is offline manipulation monitoring without intervention, not a real-care utility/harms study."
+    },
+    {
+      "id": "assertion:B050:f127",
+      "subject_id": "module:B050:dynamics",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B050:dynamics"
+      },
+      "evidence_ids": [
+        "evidence:B050:encoding",
+        "evidence:B050:endpoint",
+        "evidence:B050:inverse"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Internal visual endpoint dynamics are operationally used for alarms, not merely as an encoder bottleneck."
+    },
+    {
+      "id": "assertion:B050:f128",
+      "subject_id": "module:B050:dynamics",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:B050:dynamics"
+      },
+      "evidence_ids": [
+        "evidence:B050:flow",
+        "evidence:B050:auxiliary",
+        "evidence:B050:host-policy"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The full objective predicts visual latents, not rewards, values or policies under a value-equivalence contract."
+    },
+    {
+      "id": "assertion:B050:f129",
+      "subject_id": "module:B050:dynamics",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B050:dynamics",
+        "evaluation_run_id": "evaluation:B050:main",
+        "time_horizon": "Calibration of the future endpoint-latent distribution."
+      },
+      "evidence_ids": [
+        "evidence:B050:flow",
+        "evidence:B050:table-I"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No endpoint probability/set reliability is reported. Positive alarm-calibration evidence is not transferred to this distinct target."
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:B050:version",
+      "subject_id": "paper:B050",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:B050:sha256-377f5cdf14cf",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "effective_date": "2026-07-29"
+      },
+      "evidence_ids": [
+        "evidence:B050:identity",
+        "evidence:B050:imprint"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B050:study",
+      "subject_id": "paper-version:B050:sha256-377f5cdf14cf",
+      "predicate_id": "reportsStudy",
+      "object_id": "study:B050:main",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "evidence_ids": [
+        "evidence:B050:counts",
+        "evidence:B050:table-I"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B050:model",
+      "subject_id": "paper-version:B050:sha256-377f5cdf14cf",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B050:main:v1",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:endpoint",
+        "evidence:B050:configuration",
+        "evidence:B050:data-roles"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B050:composition",
+      "subject_id": "system:B050:main:v1",
+      "predicate_id": "composesModel",
+      "object_id": "model:B050:main:v1",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:inverse"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B050:world",
+      "subject_id": "model:B050:main:v1",
+      "predicate_id": "modelsWorld",
+      "object_id": "WT_PROCEDURE",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:platforms",
+        "evidence:B050:endpoint"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The evolving world is a procedural robot scene, not disease progression or acquisition-pose navigation."
+    },
+    {
+      "id": "relation:B050:use",
+      "subject_id": "system:B050:main:v1",
+      "predicate_id": "hasUseContext",
+      "object_id": "use:B050:offline-monitor:v1",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:target",
+        "evidence:B050:offline",
+        "evidence:B050:scope"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B050:has-encoder",
+      "subject_id": "system:B050:main:v1",
+      "predicate_id": "hasModule",
+      "object_id": "module:B050:encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B050:encoder"
+      },
+      "evidence_ids": [
+        "evidence:B050:encoding",
+        "evidence:B050:preprocessing"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B050:has-dynamics",
+      "subject_id": "system:B050:main:v1",
+      "predicate_id": "hasModule",
+      "object_id": "module:B050:dynamics",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B050:dynamics"
+      },
+      "evidence_ids": [
+        "evidence:B050:flow",
+        "evidence:B050:conditioning"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B050:has-monitor",
+      "subject_id": "system:B050:main:v1",
+      "predicate_id": "hasModule",
+      "object_id": "module:B050:monitor",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B050:monitor"
+      },
+      "evidence_ids": [
+        "evidence:B050:inverse",
+        "evidence:B050:quantile"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B050:M2",
+      "subject_id": "module:B050:encoder",
+      "predicate_id": "realizesModule",
+      "object_id": "M2",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:B050:encoder"
+      },
+      "evidence_ids": [
+        "evidence:B050:encoding"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Selected encoding responsibilities, not complete M2 conformance."
+    },
+    {
+      "id": "relation:B050:M5",
+      "subject_id": "module:B050:dynamics",
+      "predicate_id": "realizesModule",
+      "object_id": "M5",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:B050:dynamics"
+      },
+      "evidence_ids": [
+        "evidence:B050:endpoint",
+        "evidence:B050:flow"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Conditional endpoint operator, not validated recursive simulation."
+    },
+    {
+      "id": "relation:B050:M9",
+      "subject_id": "module:B050:monitor",
+      "predicate_id": "realizesModule",
+      "object_id": "M9",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:B050:monitor",
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "evidence_ids": [
+        "evidence:B050:inverse",
+        "evidence:B050:table-I",
+        "evidence:B050:offline"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Selected scoring/calibration/alarm functions; no complete protective-assurance layer."
+    },
+    {
+      "id": "relation:B050:profile",
+      "subject_id": "system:B050:main:v1",
+      "predicate_id": "hasProfile",
+      "object_id": "BP_COMPONENT",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:offline",
+        "evidence:B050:scope"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The selected use is a monitoring component despite implemented core-method identity."
+    },
+    {
+      "id": "relation:B050:claimed-L2",
+      "subject_id": "paper-version:B050:sha256-377f5cdf14cf",
+      "predicate_id": "claimsCapability",
+      "object_id": "L2",
+      "assessment_state": "present",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "evidence_ids": [
+        "evidence:B050:prediction-claim"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reviewer mapping of the authors' action-conditioned endpoint-prediction claim, not an author-used L label or demonstrated forecasting result."
+    },
+    {
+      "id": "relation:B050:R1",
+      "subject_id": "system:B050:main:v1",
+      "predicate_id": "hasReadinessEvidence",
+      "object_id": "R1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main",
+        "environment_kind": "mixed"
+      },
+      "evidence_ids": [
+        "evidence:B050:platforms",
+        "evidence:B050:counts",
+        "evidence:B050:table-I",
+        "evidence:B050:offline"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Preclinical simulation/hardware feasibility, not patient or clinical validation."
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:B050:identity",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Title and byline"
+      },
+      "content": "Failure Detection for Surgical Robot Imitation Policies via\nFlow-Matching World Modeling\nZhefeng Huang 1, Yilin Cai 1, Ankit Patel 2, Mohammad Hajiha 3, Brendan Browne 3, Yue Chen 4",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:imprint",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "arXiv imprint"
+      },
+      "content": "arXiv:2607.27511v1  [cs.RO]  29 Jul 2026",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:submission-notice",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Publication notice"
+      },
+      "content": "This work has been submitted to the IEEE for possible publication.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:release",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "Source code, trained models, and processed\ndatasets will be released upon acceptance.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:prediction-claim",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 2,
+        "section_or_table": "Introduction"
+      },
+      "content": "Rather than recursively predicting\nthe next frame, FoMo-FD predicts the endpoint latent of\na short observation window conditioned on the preceding\nobservation history and the intervening robot actions.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:target",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "II. Problem Formulation"
+      },
+      "content": "The goal is to learn a runtime failure detector that monitors\nexecution and raises an alarm when behavior deviates from\nnominal successful execution.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:encoding",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "III.A"
+      },
+      "content": "Following VFMF, we compress the\nDINOv2 patch feature with an offline-trained variational\nautoencoder (V AE) and train the flow-matching world model\non the resulting compact latent tensor.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:freeze",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "III.A, after Equation (2)"
+      },
+      "content": "After training,\nthe V AE is frozen, and we use the deterministic posterior\nmode",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:channel-utilization",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "III.A"
+      },
+      "content": "This regularizer discourages information from\nconcentrating in only a few latent channels.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:vae-objective",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "III.A, Equation (2)"
+      },
+      "content": "[paraphrase of Equation (2)] The feature-space VAE objective combines squared reconstruction error against DINOv2 features, beta-weighted Gaussian KL regularization and gamma-weighted channel-utilization regularization.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:endpoint",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "III.A"
+      },
+      "content": "First, we condition the flow-matching backbone on the\nintervening robot actions. Second, instead of autoregressively\npredicting future latents, we predict the endpoint latent of a\nshort execution window. This endpoint formulation captures\nvisual-action consistency over the window with a single\nprediction for each nonconformity score.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:flow",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "III.A, Equations (3)–(5)"
+      },
+      "content": "[paraphrase of Equations (3)–(5)] Each view's nominal endpoint distribution is conditioned on L observed visual latents and actions from t through t+K−1. A Gaussian base is linearly interpolated to the observed t+K endpoint using transport coordinate tau. Squared vector-field error against endpoint-minus-base velocity trains the conditional flow.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:conditioning",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "III.A, continuation"
+      },
+      "content": "and processes them with a transformer backbone using\ntemporal attention over the history dimension and spatial\nattention over the latent tensor. The visual branches are view-\nspecific, while the action conditioner is shared across views.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:action-pathways",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "III.A, action conditioning"
+      },
+      "content": "provides action tokens for cross-\nattention and a global action embedding for adaptive mod-\nulation.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:auxiliary",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "III.A, Equations (6)–(7)"
+      },
+      "content": "[paraphrase of Equations (6)–(7) and their adjacent description] The full dynamics objective combines endpoint flow matching and an auxiliary squared-error next-latent prediction loss. The auxiliary head is used only during training, not for test-time nonconformity scoring.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:inverse",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "III.B, Equations (8)–(9)"
+      },
+      "content": "[paraphrase of the contiguous scoring specification, Equations (8)–(9)] The observed endpoint at t is inverse-transported from tau=1 to tau=0 under the context ending at t−K. The score is the squared norm of the recovered base variable after division by sigma. No sampled future prediction is required.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:views",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "III.B"
+      },
+      "content": "In our\nimplementation, scores are computed separately for each\nview and monitored independently.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:quantile",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "III.B, Equation (10)"
+      },
+      "content": "[paraphrase of Equation (10) and its adjacent calibration specification] Successful-episode peak scores are sorted separately by view. The threshold uses index ceil((N+1)(1−alpha)); a score strictly greater than the view-specific threshold raises an alarm.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:platforms",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "IV.A, Tasks and platforms"
+      },
+      "content": "The needle-pickup and ring-over-\npost experiments are conducted in NVIDIA Isaac Sim using\nanatomically realistic organ scenes adapted from the SuFIA-\nBC environment [30]. During demonstration collection, a\nphysical dVRK master tool manipulator (MTM) is used to\nteleoperate the simulated patient-side manipulator (PSM).\nThe tissue-retraction and shunt-insertion experiments are\nconducted on a physical dVRK.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:host-policy",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "IV.A, Policy and detector training"
+      },
+      "content": "For each task, we train a\nseparate Action Chunking Transformer (ACT) policy [31]\nfrom teleoperated expert demonstrations.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:preprocessing",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "IV.A, preprocessing and VAE settings"
+      },
+      "content": "[paraphrase of the contiguous preprocessing/VAE-training passage] Images are resized to 224×224. View-specific VAEs use DINOv2 features from the expert demonstrations with beta=0.01 and channel-utilization weight gamma=0.5. They are frozen before deterministic posterior-mode encoding.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:configuration",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "IV.A continuation; latent-shape equality begins at end of physical page 4"
+      },
+      "content": "[paraphrase of the configuration passage continued from physical page 4] Per-view latent height and width are 16 with 8 channels. Main history length L=4 and endpoint gap K=4 give H=8 monitored steps. Loss weights are lambda_FM=1.0 and lambda_aux=0.5.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:data-roles",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "IV.A"
+      },
+      "content": "After training both the policy\nand the world model, we evaluate the detector on policy\nrollouts: successful policy rollouts are split into a calibration\nset and a held-out set for FAR evaluation, while failed\npolicy rollouts are reserved for FDR evaluation. Thus, policy\nrollouts are used for threshold calibration and evaluation, not\nfor training the world model.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:calibration",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "IV.A, calibration protocol"
+      },
+      "content": "For each task, we useN= 19successful policy rollouts\nfor conformal calibration and setα= 0.05for all detector\nconfigurations. The calibration rollouts are disjoint from\nthe evaluation rollouts.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:counts",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "IV.A, evaluation denominators and outcomes"
+      },
+      "content": "For rollout-level evaluation, each\nsimulated task includes 20 failed policy rollouts per failure\nmode and 20 held-out successful policy rollouts. Each real-\nworld task includes 10 failed policy rollouts per failure\nmode and 20 held-out successful policy rollouts. In total, the\nevaluation set contains 320 failed rollouts and 80 successful\nrollouts. A failed rollout is counted as detected if the score\nfor the evaluated view exceeds its calibrated threshold at least\nonce during the rollout; a successful rollout is counted as a\nfalse alarm under the same criterion.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:offline",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "IV.A"
+      },
+      "content": "However, the results reported here are computed\noffline and do not involve online intervention.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:throughput",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "IV.A, computational feasibility"
+      },
+      "content": "On a desktop workstation with an Intel\nCore Ultra 9 285K CPU, an NVIDIA RTX 5090 GPU, and\n64 GB RAM, the detector processes scoring windows at\n13.98 Hz. This exceeds the 10 Hz policy and observation\nloop used in the real-world experiments, suggesting that\nthe scoring pipeline is computationally feasible for online\nmonitoring.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:baselines",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "IV.A, Baselines"
+      },
+      "content": "[paraphrase of the Baselines paragraph] WM-NC uses inverse-base-space distance; WM-PE uses the same world model with deterministic endpoint prediction error. Adapted logpZO and RND use the same VAE-compressed visual features. Detector configurations share conformal calibration and evaluation rollout splits.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:table-I",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "table",
+        "page": 5,
+        "section_or_table": "Table I, aggregate rows"
+      },
+      "content": "[paraphrase of Table I aggregate rows] Column order is WM-NC fixed/wrist, logpZO fixed/wrist, RND fixed/wrist, WM-PE fixed/wrist. Overall FAR percentages: 10.0, 1.3, 0.0, 3.8, 0.0, 1.3, 3.8, 7.5. Overall FDR percentages: 45.9, 96.6, 34.4, 45.3, 37.8, 42.8, 16.9, 52.2.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:table-details",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "table",
+        "page": 5,
+        "section_or_table": "Table I, task labels and selected rows"
+      },
+      "content": "[paraphrase of Table I] Needle Pickup and Ring Over Post are simulated; Tissue Retraction and Shunt Insertion are physical experiments. WM-NC fixed/wrist detections are 1/20 and 20/20 for Needle Pickup OOD Initial Condition, 1/20 and 20/20 for Execution Mismatch, 1/20 and 16/20 for needle Insecure Grasp, 0/20 and 17/20 for Post Misalignment, 6/10 and 9/10 for Shunt Disturbance, and 10/10 and 9/10 for Camera Freeze. Successful shunt rollouts have 6/20 fixed and 0/20 wrist false alarms.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:faults",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "IV.A, failure-mode categories"
+      },
+      "content": "The evaluation\ncontains 20 task-specific failure modes spanning four broad\ncategories:",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:action-ablation",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "figure",
+        "page": 7,
+        "section_or_table": "Figure 5; V.A"
+      },
+      "content": "Wrist-view FDR improves\nfrom87.2%without action conditioning to88.8%with\naction-token cross-attention and90.6%with global action\nmodulation, and then increases further to96.6%when both\nmechanisms are used.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:horizon-ablation",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "figure",
+        "page": 7,
+        "section_or_table": "Figure 6; V.B"
+      },
+      "content": "[paraphrase of V.B and Figure 6] K is varied over 1, 2, 3 and 4 while other architecture, calibration protocol and evaluation episodes are kept fixed. Wrist FDR is 42.2% at K=1 and 96.6% at K=4. Fixed-view FDR increases through K=3, then decreases slightly at K=4.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:limitations",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "VI, limitations"
+      },
+      "content": "These rollouts cali-\nbrate thresholds under the deployment policy distribution and\nsupport the exchangeability assumption used by conformal\nprediction. Second, we use an episode-level threshold rather\nthan a time-varying conformal band as in FAILDetect [13].",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    },
+    {
+      "id": "evidence:B050:scope",
+      "source_ref": "Papers/Expanded_Collection/B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+      "source_version": "paper-version:B050:sha256-377f5cdf14cf",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "VI, scope"
+      },
+      "content": "Rather than reasoning about\ntask progress, surgical intent, or procedural correctness, the\nproposed world-model score detects local inconsistencies\nbetween commanded actions and observed visual dynam-\nics.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "377f5cdf14cf89e5486b03031d9eb2be1bc88bf1f5ca81c76550787114a98e19"
+    }
+  ],
+  "metric_results": [
+    {
+      "id": "metric:B050:FDR",
+      "metric": "Rollout-level failure detection rate",
+      "value": {
+        "fixed_view": 45.9,
+        "wrist_view": 96.6
+      },
+      "unit_or_scale": "percent of failed evaluation rollouts",
+      "direction": "higher_better",
+      "task": "WM-NC alarm discrimination pooled across four tasks and twenty failure modes.",
+      "cohort_id": "cohort:B050:evaluation",
+      "split_role": "320 failed evaluation rollouts, not world-model training/calibration.",
+      "horizon": "Any alarm during a rollout using main L=4, K=4, H=8 windows; failure-onset-relative delay not reported.",
+      "model_version_id": "model:B050:main:v1",
+      "uncertainty_status": "not_reported",
+      "baseline_id": null,
+      "raw_reported_value": "WM-NC fixed 45.9%; wrist 96.6%.",
+      "source_evidence_ids": [
+        "evidence:B050:table-I",
+        "evidence:B050:counts"
+      ]
+    },
+    {
+      "id": "metric:B050:FAR",
+      "metric": "Rollout-level false alarm rate",
+      "value": {
+        "fixed_view": 10.0,
+        "wrist_view": 1.3
+      },
+      "unit_or_scale": "percent of successful evaluation rollouts",
+      "direction": "lower_better",
+      "task": "WM-NC any-alarm event in successful executions; separate camera detectors.",
+      "cohort_id": "cohort:B050:evaluation",
+      "split_role": "80 held-out successful evaluation rollouts, disjoint from calibration.",
+      "horizon": "Episode-wide event using main H=8 windows; nominal calibration alpha=0.05.",
+      "model_version_id": "model:B050:main:v1",
+      "uncertainty_status": "not_reported",
+      "baseline_id": null,
+      "raw_reported_value": "WM-NC fixed 10.0%; wrist 1.3%.",
+      "source_evidence_ids": [
+        "evidence:B050:table-I",
+        "evidence:B050:counts",
+        "evidence:B050:calibration"
+      ]
+    },
+    {
+      "id": "metric:B050:frequency",
+      "metric": "End-to-end scoring frequency",
+      "value": 13.98,
+      "unit_or_scale": "Hz",
+      "direction": "higher_better",
+      "task": "Visual encoding plus inverse ODE scoring on Intel Core Ultra 9 285K, NVIDIA RTX 5090, 64 GB RAM.",
+      "cohort_id": "cohort:B050:evaluation",
+      "split_role": "Computational feasibility benchmark; timing sample count and workload not reported.",
+      "horizon": "Main detector configuration; physical policy/observation comparison loop 10 Hz.",
+      "model_version_id": "model:B050:main:v1",
+      "uncertainty_status": "not_reported",
+      "baseline_id": null,
+      "raw_reported_value": "13.98 Hz",
+      "source_evidence_ids": [
+        "evidence:B050:throughput",
+        "evidence:B050:offline"
+      ]
+    }
+  ],
+  "capability_assessments": [
+    {
+      "subject_id": "model:B050:main:v1",
+      "level": "unknown",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main",
+        "time_horizon": "Direct K=4 endpoint, not recursive rollout."
+      },
+      "evidence_assertion_ids": [
+        "assertion:B050:f019",
+        "assertion:B050:f041",
+        "assertion:B050:f042",
+        "assertion:B050:f043",
+        "assertion:B050:f053",
+        "assertion:B050:f063",
+        "assertion:B050:f112"
+      ],
+      "rationale": "Implemented health-procedure dynamics satisfy core-method identity. Results demonstrate alarm discrimination, not reported future-state fidelity supporting L1/L2. No separate representation-quality evaluation establishes L0, matched alternative-command comparison establishes L3, or model-coupled optimizer establishes L4. Unknown is not a finding that this is not a world model."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "system:B050:main:v1",
+      "facets": [
+        "R1"
+      ],
+      "environment_kind": "mixed",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main",
+        "population": "Recorded robot-policy executions.",
+        "simulation_tasks": [
+          "Needle Pickup",
+          "Ring over Post"
+        ],
+        "physical_tasks": [
+          "Tissue Retraction",
+          "Shunt Insertion"
+        ],
+        "material_provenance": "not_reported",
+        "boundary": "No established held-out actual human/clinical validation; detection is offline."
+      },
+      "evidence_ids": [
+        "evidence:B050:platforms",
+        "evidence:B050:counts",
+        "evidence:B050:offline",
+        "evidence:B050:table-I"
+      ],
+      "legacy_highest_label": "R2 Retrospective internal validation"
+    }
+  ],
+  "gate_assessments": [
+    {
+      "gate_id": "G01",
+      "status": "unresolved",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "rationale": "Source/preprocessing roles and calibration-test disjointness are partly documented; variable-level provenance and dependence/model-selection audits are incomplete.",
+      "supporting_assertion_ids": [
+        "assertion:B050:f001",
+        "assertion:B050:f010"
+      ]
+    },
+    {
+      "gate_id": "G02",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "rationale": "Implemented persistent learned transitions are supported; future-state fidelity results are not reported.",
+      "supporting_assertion_ids": [
+        "assertion:B050:f019",
+        "assertion:B050:f041",
+        "assertion:B050:f042",
+        "assertion:B050:f053"
+      ]
+    },
+    {
+      "gate_id": "G03",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "rationale": "This operation produces a single endpoint per window, not a multi-time generated trajectory. Separate K configurations do not establish sequence rollout.",
+      "supporting_assertion_ids": [
+        "assertion:B050:f054",
+        "assertion:B050:f113"
+      ]
+    },
+    {
+      "gate_id": "G04",
+      "status": "unresolved",
+      "scope": {
+        "module_implementation_id": "module:B050:monitor"
+      },
+      "rationale": "Alarm calibration/FAR is evaluated, but uncertainty-qualified acceptance and transfer exchangeability are unresolved. Endpoint-distribution calibration is separately unreported.",
+      "supporting_assertion_ids": [
+        "assertion:B050:f073",
+        "assertion:B050:f075",
+        "assertion:B050:f077",
+        "assertion:B050:f129"
+      ]
+    },
+    {
+      "gate_id": "G05",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B050:main:v1"
+      },
+      "rationale": "Commands condition dynamics; action contract/support and specified-action prediction fidelity remain insufficient.",
+      "supporting_assertion_ids": [
+        "assertion:B050:f031",
+        "assertion:B050:f033",
+        "assertion:B050:f038",
+        "assertion:B050:f043",
+        "assertion:B050:f053"
+      ]
+    },
+    {
+      "gate_id": "G06",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "rationale": "No identified intervention-effect interpretation is made for the scoped alarm.",
+      "supporting_assertion_ids": [
+        "assertion:B050:f078",
+        "assertion:B050:f084"
+      ]
+    },
+    {
+      "gate_id": "G07",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "rationale": "No model-coupled optimizer/policy is implemented; ACT is separately imitation-trained.",
+      "supporting_assertion_ids": [
+        "assertion:B050:f062",
+        "assertion:B050:f063"
+      ]
+    },
+    {
+      "gate_id": "G08",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "rationale": "For the proposed safety-monitoring purpose, alarms are evaluated but hard blocking, abstention and response/fallback evidence remain unestablished.",
+      "supporting_assertion_ids": [
+        "assertion:B050:f085",
+        "assertion:B050:f086",
+        "assertion:B050:f088",
+        "assertion:B050:f089"
+      ]
+    },
+    {
+      "gate_id": "G09",
+      "status": "unresolved",
+      "scope": {
+        "evaluation_run_id": "evaluation:B050:main"
+      },
+      "rationale": "Bounded OOD/fault testing does not establish independent clinical/site/camera transfer or validated alarm fusion.",
+      "supporting_assertion_ids": [
+        "assertion:B050:f076",
+        "assertion:B050:f122"
+      ]
+    },
+    {
+      "gate_id": "G10",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "rationale": "No measured human usability or matched sim-to-real agreement claim is made in this scope. Physical hardware contributes R1, not those distinct outcomes.",
+      "supporting_assertion_ids": [
+        "assertion:B050:f121",
+        "assertion:B050:f124"
+      ]
+    },
+    {
+      "gate_id": "G11",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "rationale": "The assessed use explicitly excludes online intervention and does not claim measured prospective patient/workflow benefit.",
+      "supporting_assertion_ids": [
+        "assertion:B050:f070",
+        "assertion:B050:f126"
+      ]
+    },
+    {
+      "gate_id": "G12",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B050:offline-monitor:v1"
+      },
+      "rationale": "No defined operational release is documented; future research-asset release is not operational deployment.",
+      "supporting_assertion_ids": [
+        "assertion:B050:f108",
+        "assertion:B050:f109"
+      ]
+    }
+  ],
+  "legacy_cells": {
+    "A": "B050",
+    "B": "Failure Detection for Surgical Robot Imitation Policies via Flow-Matching World Modeling",
+    "C": "Huang, Zhefeng, Cai, Yilin, Patel, Ankit, Hajiha, Mohammad, Browne, Brendan, Chen, Yue",
+    "D": "2026",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://arxiv.org/abs/2607.27511",
+    "H": "Papers/Expanded_Collection (B)",
+    "I": "B050_Failure_Detection_for_Surgical_Robot_Imitation_Policies_via_Flow_Matching_World_Modeling.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – component / supporting",
+    "M": "Not reported",
+    "N": "Surgery (general / robotic)",
+    "O": "Not reported",
+    "P": "Not reported",
+    "Q": "Procedure / scene (surgery, acquisition)",
+    "R": "Policy evaluation / failure detection",
+    "S": "Does a short observed visual-action window match nominal surgical-robot execution, or should a failure alarm be raised?",
+    "T": "Not reported",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "World model",
+    "X": "F8 Surgical simulation & world-action models",
+    "Y": "Other",
+    "Z": "L2 Action-conditioned prediction",
+    "AA": "L2 Action-conditioned prediction",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "Yes",
+    "AE": "No",
+    "AF": "No",
+    "AG": "No",
+    "AH": "Serial pipeline",
+    "AI": "Multi-view visual observations; commanded robot action chunks",
+    "AJ": "Frozen DINOv2 visual backbone; per-view β-VAE encoder; transformer flow-matching dynamics backbone",
+    "AK": "DINOv2",
+    "AL": "β-VAE reconstruction loss, KL-divergence regularization, and channel-utilization regularizer",
+    "AM": "View-specific visual branches with a shared action conditioner; fixed and wrist views scored independently",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Continuous latent vector",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Not reported",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Surgical instrument / robot command",
+    "BC": "Not reported",
+    "BD": "Not reported",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "FoMo-FD (Flow-Matching World Model for Failure Detection)",
+    "BJ": "Other",
+    "BK": "Fixed discrete steps",
+    "BL": "History length L=4 steps; endpoint horizon K=4 steps; monitored window H=8 steps; real-world policy/observation loop 10 Hz",
+    "BM": "Yes",
+    "BN": "Not reported",
+    "BO": "Attention context window",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Predicted endpoint visual latent; inverse-transport nonconformity score and thresholded failure alarm",
+    "BT": "Auxiliary next-latent prediction head (training only); window-level nonconformity score and thresholded failure detector",
+    "BU": "Not reported",
+    "BV": "Conditional flow-matching vector-field loss plus auxiliary one-step latent prediction loss; β-VAE reconstruction, KL-divergence, and channel-utilization losses",
+    "BW": "Yes",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "Not reported",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "Not reported",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Not reported",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Generative sampling (diffusion / flow)",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "Associational action-conditioning",
+    "CU": "None",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not applicable",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Yes",
+    "DN": "NVIDIA Isaac Sim; SuFIA-BC environment; da Vinci Research Kit (dVRK)",
+    "DO": "Multiple",
+    "DP": "Not reported",
+    "DQ": "320 failed policy rollouts and 80 successful policy rollouts in evaluation (400 total rollouts)",
+    "DR": "Not reported",
+    "DS": "Both",
+    "DT": "Retrospective",
+    "DU": "Not reported",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Action-conditioning ablation: wrist-view FDR was 87.2% with no action conditioning, 88.8% with action-token cross-attention, 90.6% with global action modulation, and 96.6% with both; FAR remained low.",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Scoring frequency 13.98 Hz on a desktop workstation; the paper reports this exceeds the 10 Hz policy/observation loop.",
+    "EH": "Not reported",
+    "EI": "Compared against observation-level anomaly baselines logpZO and RND; the paper reports FoMo-FD's WM-NC score outperformed both.",
+    "EJ": "WM-PE uses the same world model but scores endpoint prediction error; the paper reports the proposed inverse-transport WM-NC score performed substantially better.",
+    "EK": "Ablations varied action-conditioning mode (none, global modulation, action-token cross-attention, both) and endpoint horizon K∈{1,2,3,4}.",
+    "EL": "Twenty task-specific failure modes were evaluated, including needle drop/slippage, insecure grasp, blood occlusion, ring drop, tissue grasp loss/disturbance, needle intrusion, insertion misalignment, and camera freeze.",
+    "EM": "Runtime failure monitoring with view-specific nonconformity scores and conformal thresholds calibrated on successful executions; alarms are raised when the score exceeds the threshold.",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Yes",
+    "ET": "R2 Retrospective internal validation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Announced, not yet released",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "2 – moderate",
+    "FD": "1 – minimal",
+    "FE": "1 – minimal",
+    "FF": "0 – absent",
+    "FG": "Yes",
+    "FH": "Yes",
+    "FI": "Not applicable",
+    "FJ": "No",
+    "FK": "Yes",
+    "FL": "Frozen DINOv2 encodes fixed- and wrist-camera observations; per-view β-VAEs compress features into latent tensors; a transformer flow-matching model predicts an endpoint latent conditioned on latent history and the intervening robot action chunk; inverse transport scores the realized endpoint and conformal thresholds produce failure alarms. No planner is implemented.",
+    "FM": "Introduces FoMo-FD, an action-conditioned flow-matching model of nominal short-horizon surgical visual dynamics and a conformally calibrated window-level failure detector trained without failure demonstrations.",
+    "FN": "Across four manipulation tasks and 20 failure modes, wrist-view WM-NC achieved 96.6% failure detection rate at 1.3% false alarm rate; scoring frequency was 13.98 Hz.",
+    "FO": "Successful policy rollouts are still required for conformal calibration; the study uses an episode-level rather than time-varying conformal threshold.",
+    "FP": "Future work includes progress- or state-conditioned calibration, combining local and global visual alarms, and integration with task-level monitors.",
+    "FQ": "Existing visual anomaly scores assess individual frames/embeddings rather than whether a short observation sequence evolves consistently with commanded actions; action-only signals can miss visual or execution mismatch failures.",
+    "FR": "Demonstrates offline failure detection on simulated and physical dVRK robot rollouts, not prospective clinical monitoring or online intervention; action conditioning and failure alarms do not establish causal treatment effects or safe autonomous control.",
+    "FS": "Reviewer mapping: M5 Dynamics adapter; M6 Rollout service; M9 Safety & governance",
+    "FT": "Reviewer lesson: Calibrate nominal visual-action nonconformity on successful executions and expose task-specific alarms to a runtime safety gate.",
+    "FU": "Reviewer mapping (KB §20): Sim-to-real",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Read all extracted PDF pages (pp. 1–9): title and abstract; Introduction; Problem Formulation; Methods (latent visual state, flow-matching dynamics, conformal scoring); Experimental Setup, Table I and results; action-conditioning and endpoint-horizon ablations; Discussion, limitations, future work, conclusion, and references. Table I text extraction has imperfect row/column alignment; I did not transcribe ambiguous baseline numbers. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "A:I left untouched. Metadata and prior screening notes were used only as context. Table I text extraction has imperfect row/column alignment; summary metrics explicitly repeated in the abstract/body were used, and ambiguous table values were not transcribed. Action conditioning supports predictive L2 only; no causal identification, counterfactual comparison, planning, prospective clinical intervention, or safe autonomous control is demonstrated. Evidence QA: 22/70 populated fields had a <=25-word quotation matching extracted PDF text (31.4%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 66 prior populated fields have a located source quotation; 5 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "Automated model review, not independent human verification, replication, clinical validation or authorization.",
+    "All nine text pages and earlier API image-review notes were supplied. Earlier page calls received images; this synthesis did not inspect images directly.",
+    "Source path/hash are supplied provenance, not recomputed or checked on disk. No external bibliographic, repository or release check was performed.",
+    "All 128 feature definitions received dispositions, with a separate endpoint-calibration scope. Programmatic schema/reference/KG validation was not executed.",
+    "The model ID denotes the reported experimental configuration, not an exact shared weights artifact. Task-specific checkpoint identities and exact DINOv2 variant are unreported.",
+    "Learned procedural endpoint dynamics are implemented, but future-state fidelity results and a separate L0 representation evaluation are not reported. Demonstrated L-level remains unknown.",
+    "Direct K-step endpoint supervision is not recursive rollout or traversal-based multi-step training. Legacy BW uses a broader target-based rule.",
+    "Robot timestep t, endpoint gap K, history L, window H and generative transport tau are distinct. No physical window duration or reciprocal latency was calculated.",
+    "Alarm scoring requires a completed observed window. Failure-onset-relative delay, early warning, live response and harm prevention are not reported.",
+    "Inverse-base distance is a nonconformity score, not an established clinical failure probability or exact conditional log likelihood.",
+    "Episode-maximum conformal alarm calibration is not calibration of endpoint probabilities or generated future-state trajectories. Aleatoric/epistemic components are not separated.",
+    "Nominal alpha=0.05 differs from observed FAR 10.0% fixed and 1.3% wrist. No uncertainty-qualified acceptance analysis establishes a general calibration pass/fail.",
+    "Fixed and wrist detectors are independent; joint guarantees, alarm fusion and clinical/camera/policy transfer are not established.",
+    "Expert-demonstration counts, command dimensions/units/frames, operator/session/material dependence, model size, solver settings and training compute are insufficiently reported.",
+    "The same evaluation episodes are used across K settings; independence of architecture/horizon selection is unreported.",
+    "Different simulated and physical tasks do not establish matched sim-to-real agreement. Physical material is not classified as human, animal, ex-vivo or a specific phantom type without provenance.",
+    "Held-out robot executions support R1, not R2 actual human/clinical validation. Expert teleoperation is not a human reader/use evaluation.",
+    "Fault challenges reveal missed detections and false alarms but do not establish exhaustive hazard coverage, a fully specified injection protocol or a security threat model.",
+    "Pooled rates mix task sample sizes. Detector comparisons do not uniformly match observed FAR; fixed WM-NC improves FDR over fixed RND while also having higher FAR.",
+    "The independently imitation-trained ACT host does not establish WM-coupled control, detector autonomy or evaluated intervention utility.",
+    "Hard guards, abstention, stop, escalation, privacy/security controls, ethics documentation and operational lifecycle governance remain insufficiently reported.",
+    "Assets are promised upon acceptance; actual accessibility, separate licenses and independent reproduction are not established.",
+    "References [1]–[31] were read as bibliography/context, not retrieved primary studies. Their planning, human-study and clinical capabilities are not inherited.",
+    "Earlier image notes contain chunk-local unavailable-page caveats; those do not describe the combined nine-page input.",
+    "Approximate graph readings and reviewer arithmetic in earlier notes are not promoted to source-reported metrics. Table paraphrases rely on the supplied prior image transcription plus full text."
+  ],
+  "notes": "Raw legacy cells are unchanged. Proposed revisions are separate in submission.legacy_disagreements. Evidence content is either one contiguous verbatim passage, retaining supplied layout where useful, or an explicitly marked genuine equation/table paraphrase. The flagged conditioning fragment was replaced by a shorter contiguous source passage; action pathways have their own fragment. Entailment review means automated contextual comparison, not independent human review. No files were written or canonical graph admission performed."
+}

@@ -1,0 +1,3989 @@
+{
+  "record_id": "annotation:B098:r1",
+  "paper_record_id": "B098",
+  "paper_version_id": "paper-version:B098:sha256-4ddbc05e976d",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:B098:mlp-transition-branch:v1",
+    "model:B098:bilstm:v1",
+    "model:B098:logreg:v1"
+  ],
+  "system_composition_ids": [
+    "system:B098:ad-digital-twin:v1"
+  ],
+  "world_type_ids": [
+    "WT_PHYSIOLOGY"
+  ],
+  "profile_ids": [
+    "BP_FORECAST"
+  ],
+  "entities": [
+    {
+      "id": "paper:B098",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "B098",
+        "title": "Transition-Based Digital Twin Modelling for Alzheimer's Disease under Sparse Longitudinal Data",
+        "year": 2026,
+        "doi": "https://arxiv.org/abs/2606.09671"
+      }
+    },
+    {
+      "id": "paper-version:B098:sha256-4ddbc05e976d",
+      "class_id": "PaperVersion",
+      "properties": {
+        "sha256": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf",
+        "source_path": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+        "pdf_pages": 13,
+        "version_basis": "PDF identified by SHA-256 against assignments.json; title page read."
+      }
+    },
+    {
+      "id": "study:B098:ad-digital-twin",
+      "class_id": "Study",
+      "properties": {
+        "description": "Two-branch digital twin framework for Alzheimer's disease forecasting from ADNI with what-if covariate perturbation.",
+        "independent_study_claim": "single group; own pipeline"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B098:0001",
+        "evidence:B098:0003"
+      ]
+    },
+    {
+      "id": "system:B098:ad-digital-twin:v1",
+      "class_id": "SystemComposition",
+      "properties": {
+        "description": "A transition MLP for next-visit prediction and a BiLSTM-Attention branch with MC dropout intervals and covariate what-if analysis.",
+        "implementation_stage": "evaluation (retrospective)",
+        "world_model_status": "supporting component"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B098:0001",
+        "evidence:B098:0008",
+        "evidence:B098:0009"
+      ]
+    },
+    {
+      "id": "model:B098:mlp-transition-branch:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "MLP over adjacent-visit pairs with mRMR features",
+        "world_model_status": "supporting component"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B098:0008"
+      ]
+    },
+    {
+      "id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "population": "ADNI participants with cognitive, clinical and MRI features",
+        "user": "not reported",
+        "decision": "forecasting and monitoring, not prescriptive",
+        "autonomy": "research only"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B098:0001",
+        "evidence:B098:0020"
+      ]
+    },
+    {
+      "id": "cohort:B098:adni-760-subjects",
+      "class_id": "Cohort",
+      "properties": {
+        "description": "ADNI, 760 subjects and 2801 records at six-month intervals to 60 months"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B098:0005"
+      ]
+    },
+    {
+      "id": "evalrun:B098:adni-held-out-test",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "description": "Held-out subject-level test of both branches, 76 subjects",
+        "split_role": "70/20/10 subject-level split"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B098:0012",
+        "evidence:B098:0013",
+        "evidence:B098:0016"
+      ]
+    },
+    {
+      "id": "model:B098:bilstm:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "BiLSTM-Attention sequence branch with MC dropout intervals",
+        "world_model_status": "branch or baseline"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B098:0016"
+      ]
+    },
+    {
+      "id": "model:B098:logreg:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "Multinomial logistic regression on the mRMR feature space",
+        "world_model_status": "branch or baseline"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B098:0016"
+      ]
+    },
+    {
+      "id": "metric:B098:0001",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "MMSE RMSE, next visit = 2.149"
+      }
+    },
+    {
+      "id": "metric:B098:0002",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "MMSE MAE, next visit = 1.529"
+      }
+    },
+    {
+      "id": "metric:B098:0003",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Diagnosis accuracy, next visit = 0.906"
+      }
+    },
+    {
+      "id": "metric:B098:0004",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Diagnosis macro AUC, next visit = 0.976"
+      }
+    },
+    {
+      "id": "metric:B098:0005",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Diagnosis macro-F1, next visit = 0.908"
+      }
+    },
+    {
+      "id": "metric:B098:0006",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "MMSE RMSE, 24-month endpoint = 2.687"
+      }
+    },
+    {
+      "id": "metric:B098:0007",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "MMSE MAE, 24-month endpoint = 1.926"
+      }
+    },
+    {
+      "id": "metric:B098:0008",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Diagnosis accuracy, 24-month endpoint = 0.806"
+      }
+    },
+    {
+      "id": "metric:B098:0009",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Diagnosis macro AUC, 24-month endpoint = 0.928"
+      }
+    },
+    {
+      "id": "metric:B098:0010",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Diagnosis macro-F1, 24-month endpoint = 0.798"
+      }
+    },
+    {
+      "id": "metric:B098:0011",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Multiclass Brier score = 0.1423"
+      }
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:B098:0001",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "data.provenance",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0005",
+        "evidence:B098:0012",
+        "evidence:B098:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "ADNI sources, harmonisation by subject identifier and cohort size are described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0002",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "data.native_time",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0005",
+        "evidence:B098:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Visits are on six-month intervals up to 60 months.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B098:0003",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0004",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0005",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0006",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0006",
+        "evidence:B098:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Linear interpolation to a regular grid for the sequence branch"
+      ],
+      "criteria_missing": [
+        "Modelling of irregular timing"
+      ],
+      "rationale": "Interpolation introduces artificial regularity, as the authors state.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B098:0007",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0008",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0009",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "data.harmonization",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Clinical, cognitive and FreeSurfer features are joined by subject identifier.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B098:0010",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0012",
+        "evidence:B098:0014",
+        "evidence:B098:0002",
+        "evidence:B098:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Subject-level splits and train-only preprocessing.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0011",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Single cohort.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0012",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "perception.encoder",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] Inputs are tabular cognitive, clinical and MRI-derived features with no learned encoder.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0013",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] Inputs are tabular cognitive, clinical and MRI-derived features with no learned encoder.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0014",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] Inputs are tabular cognitive, clinical and MRI-derived features with no learned encoder.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0015",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] Inputs are tabular cognitive, clinical and MRI-derived features with no learned encoder.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0016",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] Inputs are tabular cognitive, clinical and MRI-derived features with no learned encoder.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0017",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] Inputs are tabular cognitive, clinical and MRI-derived features with no learned encoder.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0018",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] Inputs are tabular cognitive, clinical and MRI-derived features with no learned encoder.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0019",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "state.persistent",
+      "assessment_state": "partial",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0022"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "A subject-specific representation said to be updated with observations"
+      ],
+      "criteria_missing": [
+        "A carried state implemented and evaluated"
+      ],
+      "rationale": "Claim only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B098:0020",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0021",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0022",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0023",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0024",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0025",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0026",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0009",
+        "evidence:B098:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The sequence branch uses visits up to m18 and the transition branch uses the current visit.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0027",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0028",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0029",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0030",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "BiLSTM-Attention over aligned visits"
+      ],
+      "criteria_missing": [
+        "A carried memory across forecasts"
+      ],
+      "rationale": "Sequence encoder only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B098:0031",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "action.explicit",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0011",
+        "evidence:B098:0023"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] No treatment or intervention input. What-if analyses perturb observed covariates at the forecast origin.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0032",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0011",
+        "evidence:B098:0023"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] No treatment or intervention input. What-if analyses perturb observed covariates at the forecast origin.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0033",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "action.parameterized",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0011",
+        "evidence:B098:0023"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] No treatment or intervention input. What-if analyses perturb observed covariates at the forecast origin.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0034",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0011",
+        "evidence:B098:0023"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] No treatment or intervention input. What-if analyses perturb observed covariates at the forecast origin.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0035",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0011",
+        "evidence:B098:0023"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] No treatment or intervention input. What-if analyses perturb observed covariates at the forecast origin.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0036",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0011",
+        "evidence:B098:0023"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] No treatment or intervention input. What-if analyses perturb observed covariates at the forecast origin.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0037",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0011",
+        "evidence:B098:0023"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] No treatment or intervention input. What-if analyses perturb observed covariates at the forecast origin.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0038",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "action.support",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0011",
+        "evidence:B098:0023"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] No treatment or intervention input. What-if analyses perturb observed covariates at the forecast origin.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0039",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0011",
+        "evidence:B098:0023"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] No treatment or intervention input. What-if analyses perturb observed covariates at the forecast origin.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0040",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0011",
+        "evidence:B098:0023"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] No treatment or intervention input. What-if analyses perturb observed covariates at the forecast origin.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0041",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0008",
+        "evidence:B098:0009",
+        "evidence:B098:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Next-visit transitions and sequence forecasts are modelled.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0042",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0008",
+        "evidence:B098:0009",
+        "evidence:B098:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Models are learned from data.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0043",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0011",
+        "evidence:B098:0023"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Covariate perturbations at the forecast origin"
+      ],
+      "criteria_missing": [
+        "Treatment or action conditioning"
+      ],
+      "rationale": "Observational perturbation of covariates, not an action.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B098:0044",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Repeated stochastic passes with dropout form predictive intervals.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B098:0045",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0046",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0047",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0048",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0049",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0050",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0051",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0052",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Regression and classification heads predict MMSE and diagnosis.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0053",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0016",
+        "evidence:B098:0012"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Next-visit MMSE and diagnosis are scored on held-out subjects.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0054",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0016",
+        "evidence:B098:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "A 24-month endpoint is predicted from visits up to m18, with longer forecasts shown only in case studies.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B098:0055",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0056",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Assimilation of new visits is stated as possible and no experiment is reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0057",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "24-month endpoint evaluated, with 12-month forecasts in case studies"
+      ],
+      "criteria_missing": [
+        "A declared supported horizon"
+      ],
+      "rationale": "Evaluated length.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B098:0058",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No error versus horizon analysis is reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0059",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not stated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0060",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Repeated dropout passes sample forecasts.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B098:0061",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0062",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "planning.model_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0063",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0064",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0065",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0066",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0067",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0068",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0069",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0070",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0071",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "uq.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Monte Carlo dropout forms predictive intervals.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0072",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0073",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0019"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Brier score and expected calibration error are reported for the top-1 diagnosis of the MLP only.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0074",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Coverage of the predictive intervals is not reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0075",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0076",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0077",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0078",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No causal analysis is described, and the authors state the what-if analysis is observational.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0079",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No causal analysis is described, and the authors state the what-if analysis is observational.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0080",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No causal analysis is described, and the authors state the what-if analysis is observational.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0081",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No causal analysis is described, and the authors state the what-if analysis is observational.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0082",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No causal analysis is described, and the authors state the what-if analysis is observational.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0083",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No causal analysis is described, and the authors state the what-if analysis is observational.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0084",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "present",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0023",
+        "evidence:B098:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The authors state the framework is not a causal simulator.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0085",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0086",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0087",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0088",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0089",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0090",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0091",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0092",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0093",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0094",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0095",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0096",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "partial",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0020"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Forecasting and monitoring in neurodegenerative disorders, not prescriptive"
+      ],
+      "criteria_missing": [
+        "Intended user, decision point and permitted autonomy specified"
+      ],
+      "rationale": "Aim only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B098:0097",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0098",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0099",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0100",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0101",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0102",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0103",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "agent.role",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0104",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0105",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0106",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0107",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0108",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "release.code",
+      "assessment_state": "partial",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Code stated to be publicly available"
+      ],
+      "criteria_missing": [
+        "Inspection of the repository"
+      ],
+      "rationale": "Not inspected.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B098:0109",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No statement was found in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0110",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No statement was found in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0111",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No statement was found in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0112",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Next-visit regression and classification are scored on held-out subjects.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B098:0113",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0016",
+        "evidence:B098:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "A 24-month endpoint is scored for the sequence branch.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B098:0114",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0115",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0116",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0019"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Calibration is reported for the MLP diagnosis output.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B098:0117",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0021"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Covariate perturbations producing subtle changes"
+      ],
+      "criteria_missing": [
+        "A systematic sensitivity test"
+      ],
+      "rationale": "Three case studies.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B098:0118",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Stated as observational rather than causal.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0119",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B098:0020"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Three representative patient personas"
+      ],
+      "criteria_missing": [
+        "Quantified personalization evidence"
+      ],
+      "rationale": "Illustrations.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B098:0120",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No decision task is evaluated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0121",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0122",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Single cohort and no transfer test.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0123",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0124",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No human review.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0125",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0126",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No clinical or workflow outcome is reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0127",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B098:0128",
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:B098:0001",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "we present a personalised digital twin",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0002",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "on leak-free subject-level splits",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0003",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "may be more data-efficient under the present data constraints",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0004",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "3"
+      },
+      "content": "The code developed for this study is publicly available",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0005",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "3.1"
+      },
+      "content": "the working dataset contained 2801 records across 760 unique subjects",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0006",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "3.1"
+      },
+      "content": "linearly interpolated after train-only preprocessing",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0007",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "3.1"
+      },
+      "content": "sequence model performance under idealised regularity",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0008",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "3.2"
+      },
+      "content": "is an MLP-based transition model that operates on adjacent visit",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0009",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "3.2"
+      },
+      "content": "The model uses observations up to m18 to predict the",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0010",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "3.2"
+      },
+      "content": "dropout remains active at test time and repeated",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0011",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "3.2"
+      },
+      "content": "clinically meaningful covariates are perturbed at the forecast origin while all remaining inputs are fixed",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0012",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "3.3"
+      },
+      "content": "subject-level leak-free splits of 70%/20%/10% for train/validation/test",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0013",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "3.3"
+      },
+      "content": "corresponding to 532, 152, and 76 subjects",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0014",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "3.3"
+      },
+      "content": "All preprocessing transformations",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0015",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "3.3"
+      },
+      "content": "obtained by subject-level bootstrapping on the held-out test set",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0016",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "table",
+        "page": 5,
+        "section_or_table": "Table 1"
+      },
+      "content": "[paraphrase of Table 1 and text, pp. 5-6] Held-out test, 76 subjects. MLP transition branch: MMSE RMSE 2.149, MAE 1.529; diagnosis ACC 0.906, macro AUC 0.976, macro-F1 0.908. BiLSTM-Attention branch: RMSE 2.687, MAE 1.926; ACC 0.806, macro AUC 0.928, macro-F1 0.798.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0017",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "3.3"
+      },
+      "content": "resulting in 696 usable sequence samples",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0018",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "4"
+      },
+      "content": "Logistic regression remains highly competitive in the reduced feature",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0019",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "4"
+      },
+      "content": "The multiclass Brier score was",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0020",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "4.3"
+      },
+      "content": "three representative patient-level personas are examined",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0021",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "4.3"
+      },
+      "content": "produce subtle but directionally consistent changes that remain close to the baseline forecast",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0022",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "4.3"
+      },
+      "content": "visits to be assimilated for updated forecasts and uncertainty estimates over",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0023",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 11,
+        "section_or_table": "5"
+      },
+      "content": "what-if analyses remain observational rather than causal",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0024",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 11,
+        "section_or_table": "5"
+      },
+      "content": "The study uses a single longitudinal cohort",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0025",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 11,
+        "section_or_table": "5"
+      },
+      "content": "rather than a causal simulator",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    },
+    {
+      "id": "evidence:B098:0026",
+      "source_ref": "Papers/Expanded_Collection/B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+      "source_version": "paper-version:B098:sha256-4ddbc05e976d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 11,
+        "section_or_table": "5"
+      },
+      "content": "the evaluation is retrospective and limited to a single cohort",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4ddbc05e976d3b16d8ee3ba7e3048499c8cacc7295b075b522eeee9e57d4faaf"
+    }
+  ],
+  "metric_results": [
+    {
+      "id": "metric:B098:0001",
+      "metric": "MMSE RMSE, next visit",
+      "value": 2.149,
+      "unit_or_scale": "MMSE points",
+      "direction": "lower_better",
+      "task": "next-visit MMSE regression",
+      "cohort_id": "cohort:B098:adni-760-subjects",
+      "split_role": "held-out test (76 subjects)",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B098:mlp-transition-branch:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "2.149",
+      "source_evidence_ids": [
+        "evidence:B098:0016"
+      ]
+    },
+    {
+      "id": "metric:B098:0002",
+      "metric": "MMSE MAE, next visit",
+      "value": 1.529,
+      "unit_or_scale": "MMSE points",
+      "direction": "lower_better",
+      "task": "next-visit MMSE regression",
+      "cohort_id": "cohort:B098:adni-760-subjects",
+      "split_role": "held-out test (76 subjects)",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B098:mlp-transition-branch:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "1.529",
+      "source_evidence_ids": [
+        "evidence:B098:0016"
+      ]
+    },
+    {
+      "id": "metric:B098:0003",
+      "metric": "Diagnosis accuracy, next visit",
+      "value": 0.906,
+      "unit_or_scale": "fraction",
+      "direction": "higher_better",
+      "task": "next-visit diagnosis",
+      "cohort_id": "cohort:B098:adni-760-subjects",
+      "split_role": "held-out test (76 subjects)",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B098:mlp-transition-branch:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.906",
+      "source_evidence_ids": [
+        "evidence:B098:0016"
+      ]
+    },
+    {
+      "id": "metric:B098:0004",
+      "metric": "Diagnosis macro AUC, next visit",
+      "value": 0.976,
+      "unit_or_scale": "AUC",
+      "direction": "higher_better",
+      "task": "next-visit diagnosis",
+      "cohort_id": "cohort:B098:adni-760-subjects",
+      "split_role": "held-out test (76 subjects)",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B098:mlp-transition-branch:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.976",
+      "source_evidence_ids": [
+        "evidence:B098:0016"
+      ]
+    },
+    {
+      "id": "metric:B098:0005",
+      "metric": "Diagnosis macro-F1, next visit",
+      "value": 0.908,
+      "unit_or_scale": "F1",
+      "direction": "higher_better",
+      "task": "next-visit diagnosis",
+      "cohort_id": "cohort:B098:adni-760-subjects",
+      "split_role": "held-out test (76 subjects)",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B098:mlp-transition-branch:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.908",
+      "source_evidence_ids": [
+        "evidence:B098:0016"
+      ]
+    },
+    {
+      "id": "metric:B098:0006",
+      "metric": "MMSE RMSE, 24-month endpoint",
+      "value": 2.687,
+      "unit_or_scale": "MMSE points",
+      "direction": "lower_better",
+      "task": "24-month MMSE regression",
+      "cohort_id": "cohort:B098:adni-760-subjects",
+      "split_role": "held-out test (76 subjects)",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B098:bilstm:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "2.687",
+      "source_evidence_ids": [
+        "evidence:B098:0016"
+      ]
+    },
+    {
+      "id": "metric:B098:0007",
+      "metric": "MMSE MAE, 24-month endpoint",
+      "value": 1.926,
+      "unit_or_scale": "MMSE points",
+      "direction": "lower_better",
+      "task": "24-month MMSE regression",
+      "cohort_id": "cohort:B098:adni-760-subjects",
+      "split_role": "held-out test (76 subjects)",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B098:bilstm:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "1.926",
+      "source_evidence_ids": [
+        "evidence:B098:0016"
+      ]
+    },
+    {
+      "id": "metric:B098:0008",
+      "metric": "Diagnosis accuracy, 24-month endpoint",
+      "value": 0.806,
+      "unit_or_scale": "fraction",
+      "direction": "higher_better",
+      "task": "24-month diagnosis",
+      "cohort_id": "cohort:B098:adni-760-subjects",
+      "split_role": "held-out test (76 subjects)",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B098:bilstm:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.806",
+      "source_evidence_ids": [
+        "evidence:B098:0016"
+      ]
+    },
+    {
+      "id": "metric:B098:0009",
+      "metric": "Diagnosis macro AUC, 24-month endpoint",
+      "value": 0.928,
+      "unit_or_scale": "AUC",
+      "direction": "higher_better",
+      "task": "24-month diagnosis",
+      "cohort_id": "cohort:B098:adni-760-subjects",
+      "split_role": "held-out test (76 subjects)",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B098:bilstm:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.928",
+      "source_evidence_ids": [
+        "evidence:B098:0016"
+      ]
+    },
+    {
+      "id": "metric:B098:0010",
+      "metric": "Diagnosis macro-F1, 24-month endpoint",
+      "value": 0.798,
+      "unit_or_scale": "F1",
+      "direction": "higher_better",
+      "task": "24-month diagnosis",
+      "cohort_id": "cohort:B098:adni-760-subjects",
+      "split_role": "held-out test (76 subjects)",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B098:bilstm:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.798",
+      "source_evidence_ids": [
+        "evidence:B098:0016"
+      ]
+    },
+    {
+      "id": "metric:B098:0011",
+      "metric": "Multiclass Brier score",
+      "value": 0.1423,
+      "unit_or_scale": "score",
+      "direction": "lower_better",
+      "task": "calibration of top-1 diagnosis",
+      "cohort_id": "cohort:B098:adni-760-subjects",
+      "split_role": "held-out test (76 subjects)",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B098:mlp-transition-branch:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.1423",
+      "source_evidence_ids": [
+        "evidence:B098:0019"
+      ]
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:B098:0001",
+      "subject_id": "paper:B098",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:B098:sha256-4ddbc05e976d",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B098:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B098:0002",
+      "subject_id": "paper-version:B098:sha256-4ddbc05e976d",
+      "predicate_id": "reportsStudy",
+      "object_id": "study:B098:ad-digital-twin",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B098:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B098:0003",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "predicate_id": "hasUseContext",
+      "object_id": "use:B098:ad-cognitive-and-diagnosis-forecasting",
+      "assessment_state": "present",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B098:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B098:0004",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "predicate_id": "hasProfile",
+      "object_id": "BP_FORECAST",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B098:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Next-visit and 24-month forecasts of cognition and diagnosis, with covariate perturbations that are not treatments."
+    },
+    {
+      "id": "relation:B098:0005",
+      "subject_id": "paper-version:B098:sha256-4ddbc05e976d",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B098:mlp-transition-branch:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B098:mlp-transition-branch:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B098:0006",
+      "subject_id": "paper-version:B098:sha256-4ddbc05e976d",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B098:bilstm:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B098:bilstm:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B098:0007",
+      "subject_id": "paper-version:B098:sha256-4ddbc05e976d",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B098:logreg:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B098:logreg:v1"
+      },
+      "evidence_ids": [
+        "evidence:B098:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B098:0008",
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "predicate_id": "composesModel",
+      "object_id": "model:B098:mlp-transition-branch:v1",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B098:mlp-transition-branch:v1",
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B098:0001",
+        "evidence:B098:0008",
+        "evidence:B098:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "relation:B098:0009",
+      "subject_id": "evalrun:B098:adni-held-out-test",
+      "predicate_id": "evaluatesOnCohort",
+      "object_id": "cohort:B098:adni-760-subjects",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B098:adni-held-out-test"
+      },
+      "evidence_ids": [
+        "evidence:B098:0012"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B098:0010",
+      "subject_id": "paper-version:B098:sha256-4ddbc05e976d",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M5",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B098:0008",
+        "evidence:B098:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reviewer mapping: learned next-visit transition and a short multi-visit forecast."
+    },
+    {
+      "id": "relation:B098:0011",
+      "subject_id": "paper-version:B098:sha256-4ddbc05e976d",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M6",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B098:0008",
+        "evidence:B098:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reviewer mapping: learned next-visit transition and a short multi-visit forecast."
+    },
+    {
+      "id": "relation:B098:0012",
+      "subject_id": "evalrun:B098:adni-held-out-test",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B098:0001",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B098:adni-held-out-test"
+      },
+      "evidence_ids": [
+        "evidence:B098:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B098:0013",
+      "subject_id": "evalrun:B098:adni-held-out-test",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B098:0002",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B098:adni-held-out-test"
+      },
+      "evidence_ids": [
+        "evidence:B098:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B098:0014",
+      "subject_id": "evalrun:B098:adni-held-out-test",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B098:0003",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B098:adni-held-out-test"
+      },
+      "evidence_ids": [
+        "evidence:B098:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B098:0015",
+      "subject_id": "evalrun:B098:adni-held-out-test",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B098:0004",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B098:adni-held-out-test"
+      },
+      "evidence_ids": [
+        "evidence:B098:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B098:0016",
+      "subject_id": "evalrun:B098:adni-held-out-test",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B098:0005",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B098:adni-held-out-test"
+      },
+      "evidence_ids": [
+        "evidence:B098:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B098:0017",
+      "subject_id": "evalrun:B098:adni-held-out-test",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B098:0006",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B098:adni-held-out-test"
+      },
+      "evidence_ids": [
+        "evidence:B098:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B098:0018",
+      "subject_id": "evalrun:B098:adni-held-out-test",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B098:0007",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B098:adni-held-out-test"
+      },
+      "evidence_ids": [
+        "evidence:B098:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B098:0019",
+      "subject_id": "evalrun:B098:adni-held-out-test",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B098:0008",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B098:adni-held-out-test"
+      },
+      "evidence_ids": [
+        "evidence:B098:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B098:0020",
+      "subject_id": "evalrun:B098:adni-held-out-test",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B098:0009",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B098:adni-held-out-test"
+      },
+      "evidence_ids": [
+        "evidence:B098:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B098:0021",
+      "subject_id": "evalrun:B098:adni-held-out-test",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B098:0010",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B098:adni-held-out-test"
+      },
+      "evidence_ids": [
+        "evidence:B098:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B098:0022",
+      "subject_id": "evalrun:B098:adni-held-out-test",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B098:0011",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B098:adni-held-out-test"
+      },
+      "evidence_ids": [
+        "evidence:B098:0019"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    }
+  ],
+  "capability_assessments": [
+    {
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "level": "not_world_model",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting"
+      },
+      "evidence_assertion_ids": [
+        "assertion:B098:0019",
+        "assertion:B098:0041",
+        "assertion:B098:0042",
+        "assertion:B098:0053"
+      ],
+      "rationale": "Downgraded from L1 to not_world_model because persistent evolving state (state.persistent) is not implemented (assertion:B098:0019 is partial/claim only): the MLP branch predicts next-visit MMSE and diagnosis directly from the current observed visit without carrying a full state vector across steps, and the BiLSTM-Attention branch is evaluated quantitatively only on a single 24-month endpoint without an evaluated recurrent state-update loop. Accordingly, the system is retained as a supporting component even though held-out next-visit and 24-month forecasts are evaluated (Table 1) and observational covariate perturbations are illustrated (Fig. 5)."
+    },
+    {
+      "subject_id": "model:B098:mlp-transition-branch:v1",
+      "level": "not_world_model",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting"
+      },
+      "evidence_assertion_ids": [
+        "assertion:B098:0019",
+        "assertion:B098:0041",
+        "assertion:B098:0042",
+        "assertion:B098:0053"
+      ],
+      "rationale": "Downgraded from L1 to not_world_model because persistent evolving state (state.persistent) is not implemented (assertion:B098:0019 is partial/claim only): the MLP branch predicts next-visit MMSE and diagnosis directly from the current observed visit without carrying a full state vector across steps, and the BiLSTM-Attention branch is evaluated quantitatively only on a single 24-month endpoint without an evaluated recurrent state-update loop. Accordingly, the system is retained as a supporting component even though held-out next-visit and 24-month forecasts are evaluated (Table 1) and observational covariate perturbations are illustrated (Fig. 5)."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "system:B098:ad-digital-twin:v1",
+      "facets": [
+        "R2"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B098:0012",
+        "evidence:B098:0013",
+        "evidence:B098:0016"
+      ],
+      "legacy_highest_label": "R2 Retrospective internal validation"
+    }
+  ],
+  "gate_assessments": [
+    {
+      "gate_id": "G01",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting"
+      },
+      "rationale": "Subject-level 70/20/10 splits and train-only preprocessing/mRMR are implemented, but feature availability times are not reported (data.availability_time), ADNI release version and predictor units are not fully documented, and linear interpolation introduces artificial regularity in the sequence branch (p. 3).",
+      "supporting_assertion_ids": [
+        "assertion:B098:0001",
+        "assertion:B098:0003",
+        "assertion:B098:0010"
+      ]
+    },
+    {
+      "gate_id": "G02",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting"
+      },
+      "rationale": "Next-visit MMSE and diagnosis predictions are evaluated on 76 held-out subjects (Table 1), but persistent evolving state (state.persistent) is not implemented or evaluated, preventing a G02 pass.",
+      "supporting_assertion_ids": [
+        "assertion:B098:0019",
+        "assertion:B098:0041",
+        "assertion:B098:0053"
+      ]
+    },
+    {
+      "gate_id": "G03",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting"
+      },
+      "rationale": "One 24-month endpoint is evaluated and no error against horizon is reported.",
+      "supporting_assertion_ids": [
+        "assertion:B098:0054",
+        "assertion:B098:0058"
+      ]
+    },
+    {
+      "gate_id": "G05",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B098:ad-cognitive-and-diagnosis-forecasting"
+      },
+      "rationale": "No actions are modelled.",
+      "supporting_assertion_ids": [
+        "assertion:B098:0031"
+      ]
+    }
+  ],
+  "legacy_cells": {
+    "A": "B098",
+    "B": "Transition-Based Digital Twin Modelling for Alzheimer's Disease under Sparse Longitudinal Data",
+    "C": "Huang, Yinyu, Zhang, Yilin, Michopoulou, Sofia, Kipps, Christopher, Attar, Rahman",
+    "D": "2026",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://arxiv.org/abs/2606.09671",
+    "H": "Papers/Expanded_Collection (B)",
+    "I": "B098_Transition_Based_Digital_Twin_Modelling_for_Alzheimer_s_Disease_under_Sparse_Longitudinal_Data.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not applicable",
+    "N": "Neurology / neuro-oncology",
+    "O": "Alzheimer’s disease",
+    "P": "Not reported",
+    "Q": "Patient clinical trajectory (EHR)",
+    "R": "Disease progression forecasting",
+    "S": "Whether adjacent-visit and longitudinal multimodal patient data can forecast future MMSE and diagnostic category, including subject-level trajectories.",
+    "T": "ADNI longitudinal cohort; 760 participants after exclusions; targets include cognitively normal, mild cognitive impairment, and Alzheimer’s disease categories.",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "Digital twin",
+    "X": "F3 Longitudinal imaging & treatment response",
+    "Y": "Not reported",
+    "Z": "L1 Temporal prediction",
+    "AA": "L2 Action-conditioned prediction",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "Not reported",
+    "AE": "Not reported",
+    "AF": "Not reported",
+    "AG": "Not reported",
+    "AH": "Not reported",
+    "AI": "Clinical variables; cognitive assessments/scores (including MMSE and diagnosis); FreeSurfer-derived MRI structural phenotypes",
+    "AJ": "Not reported",
+    "AK": "Not reported",
+    "AL": "Not reported",
+    "AM": "Not reported",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Not reported",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Not reported",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Not reported",
+    "BC": "Not reported",
+    "BD": "Not reported",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "Not reported",
+    "BJ": "Not reported",
+    "BK": "Fixed discrete steps",
+    "BL": "Six-month visit intervals; adjacent-visit transition predicts the next six-month visit; follow-up aligned from baseline to 60 months.",
+    "BM": "Not reported",
+    "BN": "Not reported",
+    "BO": "Not reported",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Predicted MMSE scores; diagnosis categories/probabilities; sequence-branch predictive intervals and what-if trajectories.",
+    "BT": "MMSE regression head and diagnosis (DX) classification head.",
+    "BU": "Not reported",
+    "BV": "BiLSTM-Attention branch: SmoothL1 loss for MMSE regression and focal loss for DX classification.",
+    "BW": "Not reported",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "Not reported",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "Not reported",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Not reported",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "MC dropout",
+    "CQ": "Not reported",
+    "CR": "Held-out test-set DX calibration: multiclass Brier score 0.1423, Top-1 ECE 0.0185, and macro class-wise ECE 0.0177.",
+    "CS": "Not reported",
+    "CT": "None (predictive only)",
+    "CU": "None",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not reported",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Not reported",
+    "DN": "Not reported",
+    "DO": "Not reported",
+    "DP": "Not reported",
+    "DQ": "Not reported",
+    "DR": "Not reported",
+    "DS": "Not reported",
+    "DT": "Not reported",
+    "DU": "Not reported",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "R2 Retrospective internal validation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "Not reported",
+    "FD": "Not reported",
+    "FE": "Not reported",
+    "FF": "Not reported",
+    "FG": "Not reported",
+    "FH": "Not reported",
+    "FI": "Not reported",
+    "FJ": "Not reported",
+    "FK": "Not reported",
+    "FL": "Not reported",
+    "FM": "Not reported",
+    "FN": "The local-transition MLP achieved MMSE RMSE 2.149 and MAE 1.529; diagnosis accuracy 0.906, AUC 0.976 and macro-F1 0.908. BiLSTM-attention values were RMSE 2.687, MAE 1.926, accuracy 0.806, AUC 0.928 and F1 0.798; sample construction and horizons differ, limiting direct architectural conclusions.",
+    "FO": "Not reported",
+    "FP": "Not reported",
+    "FQ": "Not reported",
+    "FR": "Not reported",
+    "FS": "Reviewer mapping: M3 Belief-state service; M5 Dynamics adapter; M7 Outcome & causal layer",
+    "FT": "Reviewer lesson: Expose future-state forecasts through a time-aware dynamics interface and validate error versus horizon; treatment actions need separate evidence before intervention simulation.",
+    "FU": "Reviewer mapping (KB §20): Multiscale / continuous-time states",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "PDF title and abstract, pp. 1–2; Introduction, pp. 2–3; Methods §§2.1–2.3, pp. 3–5; Results §§3.1–3.5 and Tables 1–3, pp. 5–10; Discussion, p. 11; Conclusion, p. 12; References, pp. 12–13. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "A:I were left unchanged; no direct PDF contradiction requiring correction was found. M is not applicable because the paper is included. The paper demonstrates predictive adjacent-visit transitions and sequence forecasts, but feature perturbations are not identified treatment actions or causal counterfactuals; AA records the authors’ stated what-if capability separately. Figure 5 extraction has scrambled layout/text, so no figure-derived quantitative details were entered; table values used are readable. Evidence QA: 20/24 populated fields had a <=25-word quotation matching extracted PDF text (83.3%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 23 prior populated fields have a located source quotation; 1 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "All 13 PDF pages were read as extracted text (including Conclusion and References on pp. 12-13) and rendered page images were visually inspected for pages 4, 6, 7, 8, and 10 (Figs. 1-5, Tables 1-3).",
+    "The legacy row was read from the root workbook (read only). Saved API drafts for B098 were not opened.",
+    "The repository was not inspected.",
+    "Schema validity and quote occurrence do not establish semantic correctness. One reviewer pass, no independent human review."
+  ],
+  "notes": "Two-branch AD digital twin on ADNI (760 subjects, 76 held-out). The MLP next-visit transition model reaches MMSE RMSE 2.149 and diagnosis ACC 0.906, and the BiLSTM-Attention 24-month branch reaches RMSE 2.687 and ACC 0.806, with MC dropout intervals and covariate what-if cases. The branches differ in horizon and sample construction, so the claim that transition modelling is more data-efficient is confounded. What-if analysis is observational. Classified L1, supporting component, R2. Source points: single cohort, interpolation to a regular grid, no interval coverage."
+}

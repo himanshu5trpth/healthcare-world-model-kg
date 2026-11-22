@@ -1,0 +1,4788 @@
+{
+  "record_id": "annotation:A02:r1",
+  "paper_record_id": "A02",
+  "paper_version_id": "paper-version:A02:sha256-4155d093e27f",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:A02:clarity-actor:v1",
+    "model:A02:huatuo:v1",
+    "model:A02:gpt5:v1",
+    "model:A02:mewm:v1",
+    "model:A02:survtrace:v1",
+    "model:A02:deepsurv:v1"
+  ],
+  "system_composition_ids": [
+    "system:A02:clarity:v1"
+  ],
+  "world_type_ids": [
+    "WT_PROCEDURE"
+  ],
+  "profile_ids": [
+    "BP_CONTROLLER"
+  ],
+  "entities": [
+    {
+      "id": "paper:A02",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "A02",
+        "title": "CLARITY: Medical World Model for Guiding Treatment Decisions by Simulating Context-Aware Disease Trajectories",
+        "year": "2026 (first preprint 2025)",
+        "doi": "https://arxiv.org/abs/2512.08029v3"
+      }
+    },
+    {
+      "id": "paper-version:A02:sha256-4155d093e27f",
+      "class_id": "PaperVersion",
+      "properties": {
+        "sha256": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658",
+        "source_path": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+        "pdf_pages": 24,
+        "version_basis": "PDF identified by SHA-256 against assignments.json; title page read."
+      }
+    },
+    {
+      "id": "study:A02:clarity",
+      "class_id": "Study",
+      "properties": {
+        "description": "Latent treatment-conditioned MRI world model with a language-model therapy proposer and survival-aware iterative refinement, evaluated on glioma and breast cancer MRI cohorts.",
+        "independent_study_claim": "single group; own pipeline"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A02:0001",
+        "evidence:A02:0004"
+      ]
+    },
+    {
+      "id": "system:A02:clarity:v1",
+      "class_id": "SystemComposition",
+      "properties": {
+        "description": "Frozen MRI-CORE encoder with LoRA, a GPT-5 therapy policy agent, a text encoder, and an Actor that predicts post-treatment latents and survival risk, iterated K times to select a regimen.",
+        "implementation_stage": "evaluation (retrospective with blinded expert assessment)",
+        "world_model_status": "core"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A02:0001",
+        "evidence:A02:0005",
+        "evidence:A02:0039"
+      ]
+    },
+    {
+      "id": "model:A02:clarity-actor:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "Post-treatment latent transformer predictor with a cross-attention survival head trained with latent, contrastive, Brier and Cox losses",
+        "world_model_status": "core"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A02:0012",
+        "evidence:A02:0013",
+        "evidence:A02:0039"
+      ]
+    },
+    {
+      "id": "use:A02:oncology-treatment-planning-support",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "population": "patients with glioma or breast cancer who have longitudinal MRI",
+        "user": "not reported",
+        "decision": "treatment regimen selection support",
+        "autonomy": "research only"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A02:0002",
+        "evidence:A02:0043"
+      ]
+    },
+    {
+      "id": "cohort:A02:mu-glioma-post",
+      "class_id": "Cohort",
+      "properties": {
+        "description": "MU-Glioma-Post, 203 patients and 654 MRI follow-ups, patient-level 75/15/15 split with 5-fold cross-validation"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A02:0018",
+        "evidence:A02:0019"
+      ]
+    },
+    {
+      "id": "cohort:A02:ucsf-alptdg",
+      "class_id": "Cohort",
+      "properties": {
+        "description": "UCSF-ALPTDG, 298 patients, zero-shot external evaluation"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A02:0020"
+      ]
+    },
+    {
+      "id": "cohort:A02:ispy-2",
+      "class_id": "Cohort",
+      "properties": {
+        "description": "I-SPY 2 breast cancer MRI cohort, 985 patients, model trained separately"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A02:0021"
+      ]
+    },
+    {
+      "id": "evalrun:A02:glioma-zero-shot-and-ispy2",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "description": "Regimen agreement metrics, survival C-index, ablations and a blinded two-expert assessment of 40 cases",
+        "split_role": "patient-level split plus zero-shot external cohort"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A02:0019",
+        "evidence:A02:0024",
+        "evidence:A02:0030"
+      ]
+    },
+    {
+      "id": "model:A02:huatuo:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "Huatuo-Vision medical multimodal baseline",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A02:0024"
+      ]
+    },
+    {
+      "id": "model:A02:gpt5:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "GPT-5 prompted baseline",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A02:0024"
+      ]
+    },
+    {
+      "id": "model:A02:mewm:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "MeWM-style diffusion predictor re-implemented on MRI",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A02:0024"
+      ]
+    },
+    {
+      "id": "model:A02:survtrace:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "SurvTRACE survival baseline",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A02:0024"
+      ]
+    },
+    {
+      "id": "model:A02:deepsurv:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "DeepSurv survival baseline",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A02:0024"
+      ]
+    },
+    {
+      "id": "metric:A02:0001",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "F1, therapy recommendation against recorded regimen, MU-Glioma-Post = 57.1"
+      }
+    },
+    {
+      "id": "metric:A02:0002",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "F1, therapy recommendation, UCSF-ALPTDG zero-shot (table value) = 50.2"
+      }
+    },
+    {
+      "id": "metric:A02:0003",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "F1, therapy recommendation, I-SPY 2 = 53.9"
+      }
+    },
+    {
+      "id": "metric:A02:0004",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "C-index, MU-Glioma-Post = 0.794"
+      }
+    },
+    {
+      "id": "metric:A02:0005",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "C-index, MU-Glioma-Post = 0.713"
+      }
+    },
+    {
+      "id": "metric:A02:0006",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "C-index, MU-Glioma-Post = 0.664"
+      }
+    },
+    {
+      "id": "metric:A02:0007",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "F1, therapy recommendation, MU-Glioma-Post = 43.6"
+      }
+    },
+    {
+      "id": "metric:A02:0008",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "F1, therapy recommendation, MU-Glioma-Post = 46.4"
+      }
+    },
+    {
+      "id": "metric:A02:0009",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "F1, therapy recommendation, MU-Glioma-Post = 50.0"
+      }
+    },
+    {
+      "id": "metric:A02:0010",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Expert assessment, equivalent or non-inferior to recorded regimen = 60.0"
+      }
+    },
+    {
+      "id": "metric:A02:0011",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Expert assessment, CLARITY regimen preferred = 35.0"
+      }
+    },
+    {
+      "id": "metric:A02:0012",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Expert assessment, recorded regimen preferred = 5.0"
+      }
+    },
+    {
+      "id": "metric:A02:0013",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "F1 at K iterations, K=3 = 57.1"
+      }
+    },
+    {
+      "id": "metric:A02:0014",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Decoded latent PSNR = 27.91"
+      }
+    },
+    {
+      "id": "human-study:A02:blinded-expert-assessment",
+      "class_id": "HumanStudy",
+      "properties": {
+        "subject_id": "system:A02:clarity:v1",
+        "actual_human_participants": true,
+        "participant_type": "medical experts (clinician raters)",
+        "participant_count": 2,
+        "case_count": 40,
+        "cohort_id": "cohort:A02:mu-glioma-post",
+        "study_design": "Blinded two-expert retrospective comparison of CLARITY therapy recommendations vs recorded physician-administered regimens on 40 held-out MU-Glioma-Post cases (60.0% equivalent/non-inferior, 35.0% CLARITY preferred, 5.0% physician preferred; inter-rater agreement not reported).",
+        "prospective": false,
+        "interventional": false,
+        "comparative_effectiveness": false
+      },
+      "provenance_evidence_ids": [
+        "evidence:A02:0028",
+        "evidence:A02:0029",
+        "evidence:A02:0030"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:A02:0001",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "data.provenance",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0018",
+        "evidence:A02:0020",
+        "evidence:A02:0021"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Cohorts, sizes and splits are described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0002",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "data.native_time",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Follow-up time gaps are encoded.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0003",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0004",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0005",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0006",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Sinusoidal embeddings of the time gap handle irregular follow-up.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0007",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0008",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0009",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0010",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0019",
+        "evidence:A02:0032"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Patient-level split and 5-fold cross-validation"
+      ],
+      "criteria_missing": [
+        "Evidence that hyperparameters such as K were not chosen on the test split"
+      ],
+      "rationale": "Selection data not stated.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0011",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0012",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0008",
+        "evidence:A02:0037"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "A frozen 3D MRI foundation model with LoRA encodes the pre-treatment scan.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0013",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0008",
+        "evidence:A02:0037"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "A pretrained MRI foundation model is reused with LoRA.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0014",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0012"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The post-treatment latent is predicted directly.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0015",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0016",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0036"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "An auxiliary diffusion decoder used as an analysis probe"
+      ],
+      "criteria_missing": [
+        "Reconstruction inside the model"
+      ],
+      "rationale": "Probe only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0017",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "perception.fusion",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0011"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Image latent, clinical, time and therapy embeddings are concatenated.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0018",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0019",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0017",
+        "evidence:A02:0016",
+        "evidence:A02:0031",
+        "evidence:A02:0046"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The predicted latent state is carried to the next step in the rollout.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0020",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No belief over a hidden state is maintained.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0021",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0022",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0023",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0024",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0025",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0026",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0042"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Therapy history in the clinical context and history-aware planning rules"
+      ],
+      "criteria_missing": [
+        "Evaluation of history use"
+      ],
+      "rationale": "Rules only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0027",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0028",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0029",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "state.interpretability",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0035",
+        "evidence:A02:0036"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Decoded latents compared with MRI by PSNR, SSIM, FID and LPIPS"
+      ],
+      "criteria_missing": [
+        "Interpretation of the state in clinical terms"
+      ],
+      "rationale": "Qualitative and image-quality probes.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0030",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0031",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "action.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0006",
+        "evidence:A02:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Therapy actions are explicit structured combinations of chemotherapy, radiotherapy, brachytherapy, immunotherapy and supportive items.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0032",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0006",
+        "evidence:A02:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Actions are typed by modality.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0033",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "action.parameterized",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Drug type, dose and schedule are parameters.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0034",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "action.schedule",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0014",
+        "evidence:A02:0017"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Treatment schedules over decision steps and arbitrary time points are evaluated.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0035",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "action.bundle",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0007",
+        "evidence:A02:0040"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Therapies are proposed as combinations with compatibility rules.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0036",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "action.constraints",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0006",
+        "evidence:A02:0040",
+        "evidence:A02:0041"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Incompatible pairs are blocked and doses are clipped to guideline ranges.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0037",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "action.grounding",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Therapy text encoded to embeddings"
+      ],
+      "criteria_missing": [
+        "Verification of executed regimens"
+      ],
+      "rationale": "Text encoding only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0038",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No overlap or support analysis of proposed regimens against training data is reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0039",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "action.comparison",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0024",
+        "evidence:A02:0031",
+        "evidence:A02:0030"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Alternative regimens are compared by predicted risk and against the recorded regimen.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0040",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0041",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0010",
+        "evidence:A02:0039",
+        "evidence:A02:0024",
+        "evidence:A02:0031",
+        "evidence:A02:0046"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "A transformer predicts the post-treatment latent from the pre-treatment latent and the time gap.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0042",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0009",
+        "evidence:A02:0012",
+        "evidence:A02:0024",
+        "evidence:A02:0031",
+        "evidence:A02:0046"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Dynamics are learned from paired MRIs.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0043",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0031",
+        "evidence:A02:0011"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Therapy embeddings condition the transition, with ablations of components and feedback.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0044",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "The Actor is a deterministic predictor and exploration comes from the language model.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0045",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0046",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0047",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0048",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0049",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0050",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0051",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0036"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "An auxiliary decoder probe"
+      ],
+      "criteria_missing": [
+        "A decoder inside the prediction path"
+      ],
+      "rationale": "Analysis only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0052",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0013"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "A survival head outputs one-year survival probability and risk.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0053",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0034",
+        "evidence:A02:0026"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Predicted post-treatment latents are compared with ground-truth latents and survival is scored.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0054",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0017"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Recursive rollout over several therapy steps"
+      ],
+      "criteria_missing": [
+        "Validation of intermediate predicted states"
+      ],
+      "rationale": "No intermediate imaging is used.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0055",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0056",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0057",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0058",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0059",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0060",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Candidate therapy trajectories sampled from the language model policy"
+      ],
+      "criteria_missing": [
+        "Sampled futures from the Actor"
+      ],
+      "rationale": "Candidates only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0061",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0062",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "planning.model_use",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0017",
+        "evidence:A02:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Imagined latent rollouts supply the survival risk used for selection.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0063",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0004",
+        "evidence:A02:0015",
+        "evidence:A02:0014",
+        "evidence:A02:0024",
+        "evidence:A02:0031",
+        "evidence:A02:0030",
+        "evidence:A02:0047"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "The iterative Inverse Survival Evaluation feedback loop (GPT-5 Therapy Policy Agent + Actor latent risk scoring) is evaluated across MU-Glioma-Post (F1 57.1%), UCSF-ALPTDG zero-shot (Table 1: 50.2%, text: 48.9%), I-SPY 2 (53.9%), ablated over feedback and K=1..4 iterations in Table 4 (F1 rises from 52.8% without feedback to 57.1% at K=3, dropping to 55.4% at K=4), and compared in a blinded two-expert review of 40 cases (Table 3). Outcome is mixed due to retrospective agreement-only ground truth, Actor self-scoring, and text/table discrepancy.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0064",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0065",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0004",
+        "evidence:A02:0027"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "A language-model proposer and an Actor scorer"
+      ],
+      "criteria_missing": [
+        "An independent outcome measure for the selected regimens"
+      ],
+      "rationale": "Selected regimens are scored against recorded regimens.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0066",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0014",
+        "evidence:A02:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Entropy regularization of the trajectory distribution"
+      ],
+      "criteria_missing": [
+        "Use of predictive uncertainty from the Actor"
+      ],
+      "rationale": "Exploration only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0067",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No test is reported of whether selected regimens exploit Actor errors.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0068",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0007",
+        "evidence:A02:0038"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Candidates come from guideline-informed prompts to GPT-5.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0069",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0070",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0031",
+        "evidence:A02:0032"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Iteration count ablation K from 1 to 4"
+      ],
+      "criteria_missing": [
+        "Closed-loop evaluation with real outcomes"
+      ],
+      "rationale": "Offline iteration only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0071",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "uq.explicit",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0013",
+        "evidence:A02:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "One-year survival probability and entropy-based exploration"
+      ],
+      "criteria_missing": [
+        "Predictive uncertainty on trajectories"
+      ],
+      "rationale": "Probability only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0072",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0073",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0013"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "A Brier loss and Brier values in the encoder comparison"
+      ],
+      "criteria_missing": [
+        "Calibration curves or ECE"
+      ],
+      "rationale": "Brier only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0074",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0075",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0076",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0077",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0078",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No causal estimand is stated although counterfactual simulation is claimed.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0079",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0080",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0081",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0082",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0083",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0084",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0085",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0040",
+        "evidence:A02:0041"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Prompt-level compatibility rules and dose clipping"
+      ],
+      "criteria_missing": [
+        "An evaluation of rule coverage or violations"
+      ],
+      "rationale": "Specified, not evaluated.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0086",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0087",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0088",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0089",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0090",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0091",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0092",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0093",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0094",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0095",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0096",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "partial",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Treatment planning decision support"
+      ],
+      "criteria_missing": [
+        "Intended user, decision point and permitted autonomy specified"
+      ],
+      "rationale": "Aim only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0097",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0098",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0099",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0100",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0101",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0102",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0103",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "agent.role",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The language model acts as the Therapy Policy Agent.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0104",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "A single agent is used.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0105",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "agent.reflection",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Risk scores are fed back to refine proposals.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0106",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0038"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "A hosted language model generates candidate actions.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0107",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Iterative loop with a language-model proposer"
+      ],
+      "criteria_missing": [
+        "A stated autonomy level and permissions"
+      ],
+      "rationale": "Not stated.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0108",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No code or weight statement was found in the text read, apart from a project page link on page 1.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0109",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No code or weight statement was found in the text read, apart from a project page link on page 1.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0110",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No code or weight statement was found in the text read, apart from a project page link on page 1.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0111",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No code or weight statement was found in the text read, apart from a project page link on page 1.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0112",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0034",
+        "evidence:A02:0035"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Latent agreement and decoded image quality are reported.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0113",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No multi-step rollout fidelity is reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0114",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0035"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "FID of decoded latents"
+      ],
+      "criteria_missing": [
+        "A distributional realism test"
+      ],
+      "rationale": "Probe only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0115",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0116",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0013"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Brier score for one-year survival"
+      ],
+      "criteria_missing": [
+        "Calibration of trajectories"
+      ],
+      "rationale": "Brier only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0117",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0118",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0119",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0120",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0024",
+        "evidence:A02:0030",
+        "evidence:A02:0027"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Regimen agreement with recorded care and a blinded expert comparison are reported.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0121",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0122",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0020",
+        "evidence:A02:0021",
+        "evidence:A02:0024"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "A zero-shot external glioma cohort and a separately trained breast cohort are reported.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A02:0123",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0124",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0028",
+        "evidence:A02:0029",
+        "evidence:A02:0030"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Two blinded experts assessed 40 held-out cases.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0125",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A02:0033"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Compute and time are compared against diffusion.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0126",
+      "subject_id": "system:A02:clarity:v1",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A02:0127",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0012",
+        "evidence:A02:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The transition acts in latent space.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A02:0128",
+      "subject_id": "model:A02:clarity-actor:v1",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:A02:0001",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "a medical world model that enables counterfactual simulation of treatment",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0002",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "entropy-regularized, computationally efficient long-horizon",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0003",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "three cancer datasets, including two brain tumor cohorts",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0004",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "3"
+      },
+      "content": "these scores are fed back to the agent to iteratively refine therapy proposals",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0005",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "3"
+      },
+      "content": "serves as the Therapy Policy Agent",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0006",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "3"
+      },
+      "content": "produces structured therapy actions that satisfy medical safety constraints",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0007",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "3"
+      },
+      "content": "The generation process follows guideline-informed prompting templates to ensure clinical validity",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0008",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "3"
+      },
+      "content": "we apply Low-Rank Adaptation (LoRA) [20] to the frozen backbone",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0009",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "3"
+      },
+      "content": "paired pre- and post-treatment MRIs allow the model to learn treatment-conditioned transitions",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0010",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "3"
+      },
+      "content": "This continuous temporal encoding allows the Actor to model treatment-conditioned disease",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0011",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "3"
+      },
+      "content": "We concatenate these information input",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0012",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "3"
+      },
+      "content": "optimized with a latent consistency loss and a soft contrastive regularization",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0013",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "3"
+      },
+      "content": "a one-year survival probability for calibrated outcome estimation and a continuous risk score for survival ranking",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0014",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "3"
+      },
+      "content": "Rather than selecting a single intervention greedily, the framework evaluates entire treatment schedules",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0015",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "3"
+      },
+      "content": "This loop effectively performs approximate entropy-regularized policy improvement",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0016",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "3"
+      },
+      "content": "autoregressively generating a sequence of visual states",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0017",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "3"
+      },
+      "content": "This recursive rollout allows CLARITY to simulate disease trajectories under arbitrary policies without requiring paired imaging at intermediate steps",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0018",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "4"
+      },
+      "content": "contains 203 patients and 654 MRI follow-ups",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0019",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "4"
+      },
+      "content": "using 75% of patients",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0020",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "4"
+      },
+      "content": "The model is trained solely on MU-Glioma-Post and evaluated on",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0021",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "4"
+      },
+      "content": "This cohort contains 985 patients",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0022",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "4"
+      },
+      "content": "our model achieves 48.9% F1",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0023",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "4"
+      },
+      "content": "substantial 9.2% absolute improvement over the strongest medical-specific baseline",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0024",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "table",
+        "page": 11,
+        "section_or_table": "Table 1"
+      },
+      "content": "[paraphrase of Table 1, p. 11] Precision / recall / F1 / Jaccard, percent. MU-Glioma-Post: our approach 61.3 / 53.5 / 57.1 / 39.9, Huatuo-Vision 52.3 / 46.8 / 46.4 / 30.2, MeWM re-implemented 45.2 / 42.1 / 43.6 / 27.9, GPT-5 49.3 / 50.7 / 50.0 / 33.3. UCSF-ALPTDG zero-shot: our approach 52.6 / 48.0 / 50.2 / 33.5, Huatuo-Vision F1 44.1. ISPY-2 (trained separately): our approach 56.2 / 51.8 / 53.9 / 36.8, Huatuo-Vision F1 48.7.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0025",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 11,
+        "section_or_table": "4"
+      },
+      "content": "we re-implemented a MeWM-style diffusion predictor",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0026",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "table",
+        "page": 11,
+        "section_or_table": "Table 2"
+      },
+      "content": "[paraphrase of Table 2, p. 11] C-index on MU-Glioma-Post: DeepSurv 0.664, RSF 0.672, SurvTRACE 0.713, re-implemented MeWM 0.701, CLARITY 0.794 with a stated spread of 0.02.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0027",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 12,
+        "section_or_table": "4"
+      },
+      "content": "We report exact-match accuracy against the recorded regimen",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0028",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 12,
+        "section_or_table": "4"
+      },
+      "content": "assessment on 40 held-out cases",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0029",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 12,
+        "section_or_table": "4"
+      },
+      "content": "Two medical experts were presented with the",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0030",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "table",
+        "page": 13,
+        "section_or_table": "Table 3"
+      },
+      "content": "[paraphrase of Table 3 and text, pp. 12-13] Blinded expert assessment on 40 held-out cases: equivalent or non-inferior 60.0 percent, CLARITY preferred 35.0 percent, recorded physician regimen preferred 5.0 percent.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0031",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "table",
+        "page": 14,
+        "section_or_table": "Table 4"
+      },
+      "content": "[paraphrase of Table 4, p. 14] MU-Glioma-Post F1 percent by component: diffusion-based 43.6, latent-based 52.4, latent with context 52.8, latent with feedback (K=3) and no context 54.0, full model 57.1. By iteration count K: 1 gives 53.1, 2 gives 53.4, 3 gives 57.1, 4 gives 55.4. C-index by loss combination: 76.1, 76.8, 77.3 for hard contrastive and 79.4 for soft contrastive.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0032",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 14,
+        "section_or_table": "4"
+      },
+      "content": "we adopt K=3 as the optimal trade-off",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0033",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "4"
+      },
+      "content": "requiring up to 61.3 TFLOPs and 38.6 seconds for a single simulation",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0034",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "4"
+      },
+      "content": "diffusion-based reconstruction leads",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0035",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "table",
+        "page": 20,
+        "section_or_table": "Appendix"
+      },
+      "content": "[paraphrase of Table 7 and text, pp. 20-21] Auxiliary decoder probe on MU-Glioma-Post: PSNR 27.91 dB, SSIM 0.890, FID 0.710, LPIPS 0.672.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0036",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 20,
+        "section_or_table": "Appendix"
+      },
+      "content": "we trained an auxiliary diffusion-based decoder purely as an analytical probe",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0037",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 19,
+        "section_or_table": "Appendix"
+      },
+      "content": "12-layer Vision Transformer Base (ViT-B) architecture",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0038",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 19,
+        "section_or_table": "Appendix"
+      },
+      "content": "We employ GPT-5 to generate candidate actions",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0039",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 19,
+        "section_or_table": "Appendix"
+      },
+      "content": "N = 4 self-attention layers as its Post-Treatment Latent Predictor",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0040",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 22,
+        "section_or_table": "Appendix"
+      },
+      "content": "The policy cannot propose incompatible drug pairs",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0041",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 22,
+        "section_or_table": "Appendix"
+      },
+      "content": "are clipped to",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0042",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 22,
+        "section_or_table": "Appendix"
+      },
+      "content": "History-aware rules prevent conflicts with prior lines of therapy",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0043",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 22,
+        "section_or_table": "Appendix"
+      },
+      "content": "clinical centers or significantly altered imaging protocols",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0044",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 22,
+        "section_or_table": "Appendix"
+      },
+      "content": "would require substantial representation realignment",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0045",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 13,
+        "section_or_table": "4"
+      },
+      "content": "does not simply imitate historical physician decisions",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658"
+    },
+    {
+      "id": "evidence:A02:0046",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "Section 4.6 Table 6"
+      },
+      "content": "Keeping the encoder and survival head identical to ensure a fair comparison, we measure the cosine distance to the ground-truth post-treatment latent. As shown in Tab. 6, diffusion-based reconstruction leads to nearly 2× higher representation drift. This indicates that the intermediate pixel-generation step introduces substantial noise, whereas our direct latent prediction maintains the stability required for downstream survival evaluation.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:A02:0047",
+      "source_ref": "Papers/Recommended_Additions/A02_CLARITY.pdf",
+      "source_version": "paper-version:A02:sha256-4155d093e27f",
+      "source_hash": "4155d093e27f633d783513738c9d02755a971cfa8f27b6147df3eea731367658",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 13,
+        "section_or_table": "Section 4.6 Ablation Study"
+      },
+      "content": "The feedback loop (# 4 & 5) drives performance to a peak F1-score of 57.1% (# 5). This validates that iteratively refining therapies via survival feedback is essential for optimized decision-making.",
+      "verification_status": "entailment_reviewed"
+    }
+  ],
+  "metric_results": [
+    {
+      "id": "metric:A02:0001",
+      "metric": "F1, therapy recommendation against recorded regimen, MU-Glioma-Post",
+      "value": 57.1,
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "regimen recommendation",
+      "cohort_id": "cohort:A02:mu-glioma-post",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A02:clarity-actor:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "57.1",
+      "source_evidence_ids": [
+        "evidence:A02:0024"
+      ]
+    },
+    {
+      "id": "metric:A02:0002",
+      "metric": "F1, therapy recommendation, UCSF-ALPTDG zero-shot (table value)",
+      "value": 50.2,
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "regimen recommendation",
+      "cohort_id": "cohort:A02:ucsf-alptdg",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A02:clarity-actor:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "50.2",
+      "source_evidence_ids": [
+        "evidence:A02:0024"
+      ]
+    },
+    {
+      "id": "metric:A02:0003",
+      "metric": "F1, therapy recommendation, I-SPY 2",
+      "value": 53.9,
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "regimen recommendation",
+      "cohort_id": "cohort:A02:ispy-2",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A02:clarity-actor:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "53.9",
+      "source_evidence_ids": [
+        "evidence:A02:0024"
+      ]
+    },
+    {
+      "id": "metric:A02:0004",
+      "metric": "C-index, MU-Glioma-Post",
+      "value": 0.794,
+      "unit_or_scale": "C-index",
+      "direction": "higher_better",
+      "task": "survival prediction",
+      "cohort_id": "cohort:A02:mu-glioma-post",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A02:clarity-actor:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.794",
+      "source_evidence_ids": [
+        "evidence:A02:0026"
+      ]
+    },
+    {
+      "id": "metric:A02:0005",
+      "metric": "C-index, MU-Glioma-Post",
+      "value": 0.713,
+      "unit_or_scale": "C-index",
+      "direction": "higher_better",
+      "task": "survival prediction",
+      "cohort_id": "cohort:A02:mu-glioma-post",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A02:survtrace:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.713",
+      "source_evidence_ids": [
+        "evidence:A02:0026"
+      ]
+    },
+    {
+      "id": "metric:A02:0006",
+      "metric": "C-index, MU-Glioma-Post",
+      "value": 0.664,
+      "unit_or_scale": "C-index",
+      "direction": "higher_better",
+      "task": "survival prediction",
+      "cohort_id": "cohort:A02:mu-glioma-post",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A02:deepsurv:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.664",
+      "source_evidence_ids": [
+        "evidence:A02:0026"
+      ]
+    },
+    {
+      "id": "metric:A02:0007",
+      "metric": "F1, therapy recommendation, MU-Glioma-Post",
+      "value": 43.6,
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "regimen recommendation",
+      "cohort_id": "cohort:A02:mu-glioma-post",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A02:mewm:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "43.6",
+      "source_evidence_ids": [
+        "evidence:A02:0024"
+      ]
+    },
+    {
+      "id": "metric:A02:0008",
+      "metric": "F1, therapy recommendation, MU-Glioma-Post",
+      "value": 46.4,
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "regimen recommendation",
+      "cohort_id": "cohort:A02:mu-glioma-post",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A02:huatuo:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "46.4",
+      "source_evidence_ids": [
+        "evidence:A02:0024"
+      ]
+    },
+    {
+      "id": "metric:A02:0009",
+      "metric": "F1, therapy recommendation, MU-Glioma-Post",
+      "value": 50.0,
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "regimen recommendation",
+      "cohort_id": "cohort:A02:mu-glioma-post",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A02:gpt5:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "50.0",
+      "source_evidence_ids": [
+        "evidence:A02:0024"
+      ]
+    },
+    {
+      "id": "metric:A02:0010",
+      "metric": "Expert assessment, equivalent or non-inferior to recorded regimen",
+      "value": 60.0,
+      "unit_or_scale": "percent of 40 cases",
+      "direction": "higher_better",
+      "task": "expert review",
+      "cohort_id": "cohort:A02:mu-glioma-post",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A02:clarity-actor:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "60.0",
+      "source_evidence_ids": [
+        "evidence:A02:0030"
+      ]
+    },
+    {
+      "id": "metric:A02:0011",
+      "metric": "Expert assessment, CLARITY regimen preferred",
+      "value": 35.0,
+      "unit_or_scale": "percent of 40 cases",
+      "direction": "higher_better",
+      "task": "expert review",
+      "cohort_id": "cohort:A02:mu-glioma-post",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A02:clarity-actor:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "35.0",
+      "source_evidence_ids": [
+        "evidence:A02:0030"
+      ]
+    },
+    {
+      "id": "metric:A02:0012",
+      "metric": "Expert assessment, recorded regimen preferred",
+      "value": 5.0,
+      "unit_or_scale": "percent of 40 cases",
+      "direction": "lower_better",
+      "task": "expert review",
+      "cohort_id": "cohort:A02:mu-glioma-post",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A02:clarity-actor:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "5.0",
+      "source_evidence_ids": [
+        "evidence:A02:0030"
+      ]
+    },
+    {
+      "id": "metric:A02:0013",
+      "metric": "F1 at K iterations, K=3",
+      "value": 57.1,
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "iteration ablation",
+      "cohort_id": "cohort:A02:mu-glioma-post",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A02:clarity-actor:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "57.1",
+      "source_evidence_ids": [
+        "evidence:A02:0031"
+      ]
+    },
+    {
+      "id": "metric:A02:0014",
+      "metric": "Decoded latent PSNR",
+      "value": 27.91,
+      "unit_or_scale": "dB",
+      "direction": "higher_better",
+      "task": "latent probe",
+      "cohort_id": "cohort:A02:mu-glioma-post",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A02:clarity-actor:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "27.91",
+      "source_evidence_ids": [
+        "evidence:A02:0035"
+      ]
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:A02:0001",
+      "subject_id": "paper:A02",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:A02:sha256-4155d093e27f",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support"
+      },
+      "evidence_ids": [
+        "evidence:A02:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:A02:0002",
+      "subject_id": "paper-version:A02:sha256-4155d093e27f",
+      "predicate_id": "reportsStudy",
+      "object_id": "study:A02:clarity",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support"
+      },
+      "evidence_ids": [
+        "evidence:A02:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:A02:0003",
+      "subject_id": "system:A02:clarity:v1",
+      "predicate_id": "hasUseContext",
+      "object_id": "use:A02:oncology-treatment-planning-support",
+      "assessment_state": "present",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support"
+      },
+      "evidence_ids": [
+        "evidence:A02:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A02:0004",
+      "subject_id": "system:A02:clarity:v1",
+      "predicate_id": "hasProfile",
+      "object_id": "BP_CONTROLLER",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support"
+      },
+      "evidence_ids": [
+        "evidence:A02:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "A language-model proposer and a learned latent simulator iterate to select treatment regimens."
+    },
+    {
+      "id": "relation:A02:0005",
+      "subject_id": "paper-version:A02:sha256-4155d093e27f",
+      "predicate_id": "reportsModel",
+      "object_id": "model:A02:clarity-actor:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:A02:clarity-actor:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0024"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:A02:0006",
+      "subject_id": "paper-version:A02:sha256-4155d093e27f",
+      "predicate_id": "reportsModel",
+      "object_id": "model:A02:huatuo:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:A02:huatuo:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0024"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:A02:0007",
+      "subject_id": "paper-version:A02:sha256-4155d093e27f",
+      "predicate_id": "reportsModel",
+      "object_id": "model:A02:gpt5:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:A02:gpt5:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0024"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:A02:0008",
+      "subject_id": "paper-version:A02:sha256-4155d093e27f",
+      "predicate_id": "reportsModel",
+      "object_id": "model:A02:mewm:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:A02:mewm:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0024"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:A02:0009",
+      "subject_id": "paper-version:A02:sha256-4155d093e27f",
+      "predicate_id": "reportsModel",
+      "object_id": "model:A02:survtrace:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:A02:survtrace:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0024"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:A02:0010",
+      "subject_id": "paper-version:A02:sha256-4155d093e27f",
+      "predicate_id": "reportsModel",
+      "object_id": "model:A02:deepsurv:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:A02:deepsurv:v1"
+      },
+      "evidence_ids": [
+        "evidence:A02:0024"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:A02:0011",
+      "subject_id": "system:A02:clarity:v1",
+      "predicate_id": "composesModel",
+      "object_id": "model:A02:clarity-actor:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:A02:clarity-actor:v1",
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support"
+      },
+      "evidence_ids": [
+        "evidence:A02:0001",
+        "evidence:A02:0039",
+        "evidence:A02:0024",
+        "evidence:A02:0031"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "relation:A02:0012",
+      "subject_id": "evalrun:A02:glioma-zero-shot-and-ispy2",
+      "predicate_id": "evaluatesOnCohort",
+      "object_id": "cohort:A02:mu-glioma-post",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A02:glioma-zero-shot-and-ispy2"
+      },
+      "evidence_ids": [
+        "evidence:A02:0019",
+        "evidence:A02:0020",
+        "evidence:A02:0021"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:A02:0013",
+      "subject_id": "evalrun:A02:glioma-zero-shot-and-ispy2",
+      "predicate_id": "evaluatesOnCohort",
+      "object_id": "cohort:A02:ucsf-alptdg",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A02:glioma-zero-shot-and-ispy2"
+      },
+      "evidence_ids": [
+        "evidence:A02:0019",
+        "evidence:A02:0020",
+        "evidence:A02:0021"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:A02:0014",
+      "subject_id": "evalrun:A02:glioma-zero-shot-and-ispy2",
+      "predicate_id": "evaluatesOnCohort",
+      "object_id": "cohort:A02:ispy-2",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A02:glioma-zero-shot-and-ispy2"
+      },
+      "evidence_ids": [
+        "evidence:A02:0019",
+        "evidence:A02:0020",
+        "evidence:A02:0021"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:A02:0015",
+      "subject_id": "paper-version:A02:sha256-4155d093e27f",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M3",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support"
+      },
+      "evidence_ids": [
+        "evidence:A02:0005",
+        "evidence:A02:0013",
+        "evidence:A02:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reviewer mapping: latent state, therapy action service, learned transition, rollout, survival outcome head and iterative planner."
+    },
+    {
+      "id": "relation:A02:0016",
+      "subject_id": "paper-version:A02:sha256-4155d093e27f",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M4",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support"
+      },
+      "evidence_ids": [
+        "evidence:A02:0005",
+        "evidence:A02:0013",
+        "evidence:A02:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reviewer mapping: latent state, therapy action service, learned transition, rollout, survival outcome head and iterative planner."
+    },
+    {
+      "id": "relation:A02:0017",
+      "subject_id": "paper-version:A02:sha256-4155d093e27f",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M5",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support"
+      },
+      "evidence_ids": [
+        "evidence:A02:0005",
+        "evidence:A02:0013",
+        "evidence:A02:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reviewer mapping: latent state, therapy action service, learned transition, rollout, survival outcome head and iterative planner."
+    },
+    {
+      "id": "relation:A02:0018",
+      "subject_id": "paper-version:A02:sha256-4155d093e27f",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M6",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support"
+      },
+      "evidence_ids": [
+        "evidence:A02:0005",
+        "evidence:A02:0013",
+        "evidence:A02:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reviewer mapping: latent state, therapy action service, learned transition, rollout, survival outcome head and iterative planner."
+    },
+    {
+      "id": "relation:A02:0019",
+      "subject_id": "paper-version:A02:sha256-4155d093e27f",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M7",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support"
+      },
+      "evidence_ids": [
+        "evidence:A02:0005",
+        "evidence:A02:0013",
+        "evidence:A02:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reviewer mapping: latent state, therapy action service, learned transition, rollout, survival outcome head and iterative planner."
+    },
+    {
+      "id": "relation:A02:0020",
+      "subject_id": "paper-version:A02:sha256-4155d093e27f",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M8",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support"
+      },
+      "evidence_ids": [
+        "evidence:A02:0005",
+        "evidence:A02:0013",
+        "evidence:A02:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reviewer mapping: latent state, therapy action service, learned transition, rollout, survival outcome head and iterative planner."
+    },
+    {
+      "id": "relation:A02:0021",
+      "subject_id": "evalrun:A02:glioma-zero-shot-and-ispy2",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A02:0001",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A02:glioma-zero-shot-and-ispy2"
+      },
+      "evidence_ids": [
+        "evidence:A02:0024"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A02:0022",
+      "subject_id": "evalrun:A02:glioma-zero-shot-and-ispy2",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A02:0002",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A02:glioma-zero-shot-and-ispy2"
+      },
+      "evidence_ids": [
+        "evidence:A02:0024"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A02:0023",
+      "subject_id": "evalrun:A02:glioma-zero-shot-and-ispy2",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A02:0003",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A02:glioma-zero-shot-and-ispy2"
+      },
+      "evidence_ids": [
+        "evidence:A02:0024"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A02:0024",
+      "subject_id": "evalrun:A02:glioma-zero-shot-and-ispy2",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A02:0004",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A02:glioma-zero-shot-and-ispy2"
+      },
+      "evidence_ids": [
+        "evidence:A02:0026"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A02:0025",
+      "subject_id": "evalrun:A02:glioma-zero-shot-and-ispy2",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A02:0005",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A02:glioma-zero-shot-and-ispy2"
+      },
+      "evidence_ids": [
+        "evidence:A02:0026"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A02:0026",
+      "subject_id": "evalrun:A02:glioma-zero-shot-and-ispy2",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A02:0006",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A02:glioma-zero-shot-and-ispy2"
+      },
+      "evidence_ids": [
+        "evidence:A02:0026"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A02:0027",
+      "subject_id": "evalrun:A02:glioma-zero-shot-and-ispy2",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A02:0007",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A02:glioma-zero-shot-and-ispy2"
+      },
+      "evidence_ids": [
+        "evidence:A02:0024"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A02:0028",
+      "subject_id": "evalrun:A02:glioma-zero-shot-and-ispy2",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A02:0008",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A02:glioma-zero-shot-and-ispy2"
+      },
+      "evidence_ids": [
+        "evidence:A02:0024"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A02:0029",
+      "subject_id": "evalrun:A02:glioma-zero-shot-and-ispy2",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A02:0009",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A02:glioma-zero-shot-and-ispy2"
+      },
+      "evidence_ids": [
+        "evidence:A02:0024"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A02:0030",
+      "subject_id": "evalrun:A02:glioma-zero-shot-and-ispy2",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A02:0010",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A02:glioma-zero-shot-and-ispy2"
+      },
+      "evidence_ids": [
+        "evidence:A02:0030"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A02:0031",
+      "subject_id": "evalrun:A02:glioma-zero-shot-and-ispy2",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A02:0011",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A02:glioma-zero-shot-and-ispy2"
+      },
+      "evidence_ids": [
+        "evidence:A02:0030"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A02:0032",
+      "subject_id": "evalrun:A02:glioma-zero-shot-and-ispy2",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A02:0012",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A02:glioma-zero-shot-and-ispy2"
+      },
+      "evidence_ids": [
+        "evidence:A02:0030"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A02:0033",
+      "subject_id": "evalrun:A02:glioma-zero-shot-and-ispy2",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A02:0013",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A02:glioma-zero-shot-and-ispy2"
+      },
+      "evidence_ids": [
+        "evidence:A02:0031"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A02:0034",
+      "subject_id": "evalrun:A02:glioma-zero-shot-and-ispy2",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A02:0014",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A02:glioma-zero-shot-and-ispy2"
+      },
+      "evidence_ids": [
+        "evidence:A02:0035"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    }
+  ],
+  "capability_assessments": [
+    {
+      "subject_id": "system:A02:clarity:v1",
+      "level": "L4",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support"
+      },
+      "evidence_assertion_ids": [
+        "assertion:A02:0019",
+        "assertion:A02:0041",
+        "assertion:A02:0042",
+        "assertion:A02:0063",
+        "assertion:A02:0120"
+      ],
+      "rationale": "The full CLARITY system composes the Actor latent world model (model:A02:clarity-actor:v1, implementing persistent latent state, temporal transitions, and learned dynamics: 0019, 0041, 0042) with the GPT-5 Therapy Policy Agent in an iterative Inverse Survival Evaluation loop evaluated via regimen agreement, K=1..4 feedback ablations, and a blinded two-expert comparison on 40 cases (0063, 0120), supporting retrospective L4. Evidence remains offline/retrospective without counterfactual ground truth or prospective clinical outcome verification."
+    },
+    {
+      "subject_id": "model:A02:clarity-actor:v1",
+      "level": "L3",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support"
+      },
+      "evidence_assertion_ids": [
+        "assertion:A02:0019",
+        "assertion:A02:0041",
+        "assertion:A02:0042",
+        "assertion:A02:0039",
+        "assertion:A02:0043",
+        "assertion:A02:0053"
+      ],
+      "rationale": "Downgraded standalone model:A02:clarity-actor:v1 from L4 to L3: the Actor (Diseases Evolution Model) implements persistent latent state and learned time- and therapy-conditioned dynamics (0019, 0041, 0042, 0043, 0053) and evaluates/compares alternative candidate regimens from the same pre-treatment latent z_pre in Direct Survival Evaluation (0039; Fig. 2, Table 4 #2-#3), whereas iterative L4 policy optimization (Inverse Survival Evaluation) requires the composed GPT-5 Therapy Policy Agent in system:A02:clarity:v1."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "system:A02:clarity:v1",
+      "facets": [
+        "R4"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support"
+      },
+      "evidence_ids": [
+        "evidence:A02:0030",
+        "evidence:A02:0029",
+        "evidence:A02:0028"
+      ],
+      "legacy_highest_label": "R4 Expert / reader evaluation"
+    },
+    {
+      "subject_id": "system:A02:clarity:v1",
+      "facets": [
+        "R3"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support"
+      },
+      "evidence_ids": [
+        "evidence:A02:0020",
+        "evidence:A02:0024"
+      ],
+      "legacy_highest_label": "R4 Expert / reader evaluation"
+    }
+  ],
+  "gate_assessments": [
+    {
+      "gate_id": "G01",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support"
+      },
+      "rationale": "A patient-level split and cross-validation are described, but the data used to choose K and loss weights is not stated.",
+      "supporting_assertion_ids": [
+        "assertion:A02:0010"
+      ]
+    },
+    {
+      "gate_id": "G02",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support"
+      },
+      "rationale": "Downgraded from pass to unresolved: although one-step post-treatment latent cosine drift (Table 6: 0.0084 vs 0.0174), decoded MRI probe metrics (Table 7: PSNR 27.91, SSIM 0.890, LPIPS 0.672), and survival C-index (0.794) are reported, non-leaky reference/split hygiene is unresolved (G01: stated 75%/15%/15% split sums to 105% and tuning split for K/loss weights is unstated), no acceptance tolerance is defined for latent drift, and state.persistent/dynamics.temporal lack standalone multi-step transition evaluation (G03 unresolved).",
+      "supporting_assertion_ids": [
+        "assertion:A02:0019",
+        "assertion:A02:0041",
+        "assertion:A02:0053",
+        "assertion:A02:0112"
+      ]
+    },
+    {
+      "gate_id": "G03",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support"
+      },
+      "rationale": "Multi-step rollouts run without intermediate imaging, so intermediate states are not validated.",
+      "supporting_assertion_ids": [
+        "assertion:A02:0054"
+      ]
+    },
+    {
+      "gate_id": "G05",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support"
+      },
+      "rationale": "No overlap or support analysis of proposed regimens is reported.",
+      "supporting_assertion_ids": [
+        "assertion:A02:0038"
+      ]
+    },
+    {
+      "gate_id": "G07",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support"
+      },
+      "rationale": "The Actor both scores and selects regimens, selection is judged against recorded regimens, and no exploitation test is reported.",
+      "supporting_assertion_ids": [
+        "assertion:A02:0067",
+        "assertion:A02:0120"
+      ]
+    },
+    {
+      "gate_id": "G08",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:A02:oncology-treatment-planning-support"
+      },
+      "rationale": "Compatibility rules and dose clipping are specified but no violation rate or guard evaluation is reported.",
+      "supporting_assertion_ids": [
+        "assertion:A02:0085"
+      ]
+    }
+  ],
+  "legacy_cells": {
+    "A": "A02",
+    "B": "CLARITY: Medical World Model for Guiding Treatment Decisions by Simulating Context-Aware Disease Trajectories",
+    "C": "Not reported",
+    "D": "2026",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://arxiv.org/abs/2512.08029v3",
+    "H": "Papers/Recommended_Additions (A)",
+    "I": "A02_CLARITY.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not reported",
+    "N": "Oncology",
+    "O": "Glioma / brain tumors; breast cancer",
+    "P": "Not reported",
+    "Q": "Tissue / organ",
+    "R": "Treatment recommendation / planning",
+    "S": "How candidate therapy schedules alter predicted latent disease states and survival risk for an MRI-imaged patient.",
+    "T": "MU-Glioma-Post: 203 patients; UCSF-ALPTDG: 298 patients; ISPY-2: 985 patients.",
+    "U": "Clinicians (clinical decision support)",
+    "V": "Select a candidate treatment regimen or schedule with lower predicted survival risk.",
+    "W": "World model",
+    "X": "F3 Longitudinal imaging & treatment response",
+    "Y": "Predictive-latent (JEPA-style)",
+    "Z": "L4 Planning / control",
+    "AA": "L4 Planning / control",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "Yes",
+    "AE": "Yes",
+    "AF": "Yes",
+    "AG": "Yes",
+    "AH": "Closed-loop simulator",
+    "AI": "3D multi-sequence MRI; structured clinical variables; therapy descriptions; elapsed-time intervals",
+    "AJ": "MRI-CORE 12-layer ViT-B adapted with LoRA; MedGemma text encoder plus clinical MLP; pretrained text encoder for therapy descriptions; four-layer self-attention Transformer transition and four-layer bidirectional cross-attention survival predictor",
+    "AK": "MRI-CORE; MedGemma",
+    "AL": "Not reported",
+    "AM": "Concatenation of pre-treatment visual latent, clinical embedding, elapsed-time embedding and therapy embedding",
+    "AN": "Not reported",
+    "AO": "Yes",
+    "AP": "Yes",
+    "AQ": "Not assessed",
+    "AR": "Continuous latent vector",
+    "AS": "768 dimensions (MRI visual latent)",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Conditioning on patient history",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Auxiliary diffusion decoder probes predicted latents; qualitative MRI visualizations and reported reconstruction/perceptual measures are used to inspect anatomy and pathology representation.",
+    "BA": "Latent consistency loss: L1 distance between predicted and ground-truth post-treatment latent states.",
+    "BB": "Mixed",
+    "BC": "Text / language",
+    "BD": "Therapy components include chemotherapy, external radiotherapy, brachytherapy, immunotherapy and supportive strategies; generated descriptions specify drug type, dose and schedule.",
+    "BE": "Yes",
+    "BF": "Rules prohibit specified incompatible drug pairs; dose/cycle and radiation dose/fraction ranges are constrained; history-aware rules prevent conflicting repeated modalities.",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "CLARITY; Actor module (Diseases Evolution Model)",
+    "BJ": "Transformer (autoregressive)",
+    "BK": "Irregular timestamps (Δt as input)",
+    "BL": "Elapsed interval Δt = tpost − tpre; transitions also use arbitrary discrete time points, with no fixed step size reported.",
+    "BM": "Not reported",
+    "BN": "Not reported",
+    "BO": "Not reported",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Predicted post-treatment latent state; one-year survival probability; continuous survival risk score. An auxiliary decoder maps predicted latents to MRI for analysis.",
+    "BT": "Post-treatment latent predictor; survival predictor producing one-year survival probability and continuous risk score.",
+    "BU": "Cumulative discounted predicted survival risk J over a treatment trajectory; maximizes negative expected J plus an entropy term τH(q).",
+    "BV": "Weighted total objective combines latent L1 consistency, soft contrastive treatment-similarity loss, one-year Brier loss and Cox partial-likelihood loss.",
+    "BW": "Not reported",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "Open-loop multi-step",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "Proposal + simulation + scoring pipeline",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Not reported",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Not reported",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "Associational action-conditioning",
+    "CU": "None",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Agent / planner",
+    "DA": "Single agent",
+    "DB": "N/A",
+    "DC": "Not reported",
+    "DD": "Yes",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "A2 Recommendation – clinician decides",
+    "DH": "Not reported",
+    "DI": "Clinical",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Yes",
+    "DN": "MU-Glioma-Post; UCSF-ALPTDG; ISPY-2",
+    "DO": "Multiple",
+    "DP": "Not reported",
+    "DQ": "MU-Glioma-Post: 203 patients and 654 MRI follow-ups; UCSF-ALPTDG: 298 patients; ISPY-2: 985 patients.",
+    "DR": "Not reported",
+    "DS": "Real-world data",
+    "DT": "Retrospective",
+    "DU": "Multiple",
+    "DV": "Yes",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Blinded expert comparison on 40 held-out cases: CLARITY recommendation rated equivalent/non-inferior in 60.0%, preferred in 35.0%, and physician regimen preferred in 5.0%.",
+    "ED": "Not reported",
+    "EE": "Blinded assessment on 40 held-out cases: two candidate regimens (CLARITY recommendation and physician-administered regimen) were compared; raters could mark one preferred or clinically equivalent.",
+    "EF": "Two medical experts",
+    "EG": "Latent simulation: 4.21 TFLOPs and 0.341 s; diffusion baselines required up to 61.3 TFLOPs and 38.6 s for a simulation.",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Compared with the MeWM-style diffusion predictor (MeWM*); paper text reports F1 57.1% for CLARITY versus 43.6% for MeWM* on MU-Glioma-Post.",
+    "EK": "Ablated latent versus diffusion dynamics, clinical context, inverse-survival feedback, iteration count K, loss combinations and visual encoders.",
+    "EL": "At K=4 performance slightly declined; authors state excessive iterations may introduce noise and report diminishing returns.",
+    "EM": "Guideline-informed candidate prompts; incompatible-regimen restrictions; dose/cycle and radiation ranges; history-aware therapy constraints.",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Yes",
+    "ET": "R4 Expert / reader evaluation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Yes",
+    "FA": "Not reported",
+    "FB": "A 768-dimensional MRI-derived visual latent zpre is the initial disease state; clinical, elapsed-time and therapy embeddings condition state transitions.",
+    "FC": "1 – minimal",
+    "FD": "0 – absent",
+    "FE": "1 – minimal",
+    "FF": "2 – moderate",
+    "FG": "Yes",
+    "FH": "No",
+    "FI": "Yes",
+    "FJ": "Yes",
+    "FK": "Yes",
+    "FL": "MRI-CORE ViT-B encoder adapted with LoRA yields a 768-dimensional visual state; clinical and therapy text embeddings plus elapsed-time embedding condition a Transformer latent transition; predicted post-treatment latent feeds cross-attention survival/risk heads; GPT-5 therapy-policy agent proposes regimens, receives predicted-risk feedback and iteratively refines candidates.",
+    "FM": "Authors contribute treatment-conditioned latent disease transitions; explicit temporal and patient-clinical conditioning; and inverse-survival evaluation integrating imagined rollouts with iterative therapy proposal refinement.",
+    "FN": "Reported: C-index 0.794 on MU-Glioma-Post; treatment-exploration F1 57.1% on MU-Glioma-Post; expert comparison on 40 cases rated 60.0% equivalent/non-inferior, 35.0% CLARITY-preferred and 5.0% physician-preferred; latent simulation 0.341 s and 4.21 TFLOPs.",
+    "FO": "Authors note need for multi-institutional validation across unseen centers/protocols; MRI dependence and need for representation realignment/retraining for other modalities such as CT; and risk that incomplete medical-rule constraints produce suboptimal or miss novel/off-label therapies.",
+    "FP": "Not reported",
+    "FQ": "Authors argue existing medical generative methods focus on pixel-space synthesis or single future states and lack explicit treatment-conditioned latent dynamics integrated with long-horizon therapy planning.",
+    "FR": "Evidence is retrospective and model-based; treatment conditioning and simulated alternative regimens do not establish causal treatment effects or identified counterfactuals. Expert review is not prospective clinical benefit; the paper reports no prospective clinical study or deployment.",
+    "FS": "Reviewer mapping: M3 Belief-state service; M4 Action service; M5 Dynamics adapter; M6 Rollout service; M7 Outcome & causal layer; M8 Planner; M9 Safety & governance",
+    "FT": "Reviewer lesson: Keep the learned patient/scene simulator separate from the planner objective; constrain candidate actions and report closed-loop decision quality alongside model fidelity.",
+    "FU": "Reviewer mapping (KB §20): Causal-validity benchmarks",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "PDF pages 1–24: title/abstract; Introduction and Related Works; Methods §§3.1–3.7; Experiments §§4.1–4.6 and Tables 1–6; Conclusion; implementation and loss details §§6–7; interpretability and clinical case §§8–9; prompt/safety §10; Limitations §11. Table 7 extraction layout is partially garbled and was not used for numeric extraction. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Low",
+    "FZ": "A:I were left untouched as requested. Demonstrated L4 reflects offline iterative proposal/simulation/scoring with reported decision-related evaluation; it does not establish identified causal counterfactual effects or prospective clinical benefit. Table 7 was text-extracted with broken row/column alignment, so its numerical metrics were omitted. Evidence QA: 53/93 populated fields had a <=25-word quotation matching extracted PDF text (57%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 82 prior populated fields have a located source quotation; 11 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "All 24 physical pages were read as extracted text (pp. 16-18 references and p. 24 Fig. 9 prompt template completed in Phase E repair). Inventoried pages 2, 5, 9, 11, 13, 14, and 20 (Figs. 1, 2, 4, 6; Tables 1, 2, 3, 4, 7) were directly inspected as rendered images; remaining uninventoried appendix figures/tables (e.g., Tables 5-6, Figs. 3, 5, 7, 8, 9) were read from extracted text only.",
+    "The legacy row was read from the root workbook (read only). Saved API drafts for A02 were not opened.",
+    "Schema validity and quote occurrence do not establish semantic correctness. One reviewer pass, no independent human review."
+  ],
+  "notes": "CLARITY encodes a pre-treatment MRI with a LoRA-adapted foundation model and uses an Actor transformer conditioned on clinical context, time gap and a therapy embedding to predict post-treatment latents and survival risk. A GPT-5 agent proposes regimens and receives risk feedback for K iterations. On MU-Glioma-Post it reports F1 57.1 against recorded regimens, C-index 0.794 and a blinded two-expert review on 40 cases (equivalent 60 percent, preferred 35 percent, physician 5 percent). Classified L4, core, R4 retrospective. Source points: text and table disagree on UCSF F1 (48.9 vs 50.2), the 9.2 point gain statement, undefined F1 for regimens, tuning of K, and unsupported counterfactual claims."
+}

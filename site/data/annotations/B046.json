@@ -1,0 +1,4162 @@
+{
+  "record_id": "annotation:B046:r3",
+  "paper_record_id": "B046",
+  "paper_version_id": "paper-version:B046:sha256-44a7cc6c3bc7",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:B046:Clin-JEPA:frozen-checkpoint"
+  ],
+  "system_composition_ids": [
+    "system:B046:editing-audit"
+  ],
+  "world_type_ids": [
+    "WT_EHR"
+  ],
+  "profile_ids": [
+    "BP_COMPONENT"
+  ],
+  "entities": [
+    {
+      "id": "paper:B046",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "B046",
+        "title": "Intervention Granularity Matters: Coherent Treatment Bundles in Counterfactual Simulation with Clinical World Models",
+        "authors": [
+          "Fangzhou Wang",
+          "Yixuan Yang",
+          "Camilla Balzarotti",
+          "Rishikesan Kamaleswaran"
+        ],
+        "equal_contributors": [
+          "Fangzhou Wang",
+          "Yixuan Yang"
+        ],
+        "affiliation": "Duke University",
+        "contribution_type": "Evaluation / audit / benchmark",
+        "inclusion": "Include – component / supporting",
+        "inclusion_rationale": "The principal contribution is an intervention-construction audit. Its reused predictive artifact independently meets the implemented state/learned-transition criteria described here; paper contribution, model identity and independence are separate judgments.",
+        "url": "https://arxiv.org/abs/2609.21906"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B046:01",
+        "evidence:B046:02",
+        "evidence:B046:04",
+        "evidence:B046:14"
+      ]
+    },
+    {
+      "id": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "class_id": "PaperVersion",
+      "properties": {
+        "source_path": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+        "source_reported_identifier": "arXiv:2609.21906v1 [cs.LG]",
+        "source_reported_date": "2026-09-18",
+        "publication_status": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+        "physical_pdf_pages": 10,
+        "pdf_sha256": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+        "hash_provenance": "Supplied source record; not recomputed in this pass.",
+        "page_convention": "One-based physical PDF pages.",
+        "review_material": "Complete supplied text and upstream automated text/image-review notes for all ten pages. This synthesis received no images directly."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B046:01",
+        "evidence:B046:02"
+      ]
+    },
+    {
+      "id": "study:B046:intervention-granularity",
+      "class_id": "Study",
+      "properties": {
+        "design": "Retrospective treatment-documentation audit and paired treatment-text perturbation experiment.",
+        "primary_endpoint": "Displacement between next-hour latent predictions under edited and recorded treatment text.",
+        "dependence": "Multiple targets can occur within a stay; references are reused. Patient/stay/reference-cluster uncertainty handling is insufficiently reported."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B046:03",
+        "evidence:B046:10",
+        "evidence:B046:16",
+        "evidence:B046:17",
+        "evidence:B046:24"
+      ]
+    },
+    {
+      "id": "lineage:B046:Clin-JEPA-reuse",
+      "class_id": "StudyLineage",
+      "properties": {
+        "relation_type": "Explicit checkpoint reuse and source-reported use of its test partition.",
+        "cited_source": "Clin-JEPA, arXiv:2605.10840, reference [27].",
+        "related_project_record": "B010",
+        "registry_mapping_basis": "Supplied project references associate that identifier with B010.",
+        "boundary": "Not a duplicate-result determination, independent replication or verified exact checkpoint/cohort merge."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B046:03",
+        "evidence:B046:04",
+        "evidence:B046:22"
+      ]
+    },
+    {
+      "id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Clin-JEPA",
+        "artifact_identity": "Released checkpoint used without retraining; exact revision and weight hash not reported.",
+        "encoder": "Qwen3-8B with LoRA adapters",
+        "embedding_dimension": 4096,
+        "predictor": "92M-parameter transformer",
+        "history": "Previous 24 clinical hours of interleaved state and treatment embeddings.",
+        "transition_coordinate": "Hourly patient clinical-record time.",
+        "output": "Next-state embedding.",
+        "core_method_assessment": "Persistent clinical history and an executed learned action-conditioned successor mapping are directly documented.",
+        "membership_counting": "A reused core-method artifact within an audit paper; do not count as a newly independent model or import other Clin-JEPA capabilities.",
+        "evaluation_boundary": "Matched alternative-input sensitivity, not accuracy against observed successor states."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B046:04",
+        "evidence:B046:05",
+        "evidence:B046:06",
+        "evidence:B046:10",
+        "evidence:B046:12"
+      ]
+    },
+    {
+      "id": "system:B046:editing-audit",
+      "class_id": "SystemComposition",
+      "properties": {
+        "flow": "Hourly history → text embeddings → reference matching and treatment-text construction → frozen next-state prediction → latent-distance comparison.",
+        "purpose": "Offline research audit of intervention granularity.",
+        "planning": "No optimizer, learned treatment policy or utility-based clinical action selection in the documented workflow.",
+        "authority": "Hypothetical queries only; outputs explicitly excluded from individual treatment decisions."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B046:05",
+        "evidence:B046:09",
+        "evidence:B046:10",
+        "evidence:B046:15"
+      ]
+    },
+    {
+      "id": "use:B046:research-audit",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "population": "MIMIC-IV invasive-ventilation onset targets meeting the reported washout, history, future-availability and persistence criteria.",
+        "setting": "Offline retrospective ICU-record analysis.",
+        "purpose": "Assess how treatment-text edit granularity changes a model's predicted representation.",
+        "user": "Specific intended user role not explicitly identified.",
+        "limits": "Research tools, not clinically validated; no individual treatment decisions or intubation benefit/harm inference."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B046:08",
+        "evidence:B046:14",
+        "evidence:B046:15"
+      ]
+    },
+    {
+      "id": "module:B046:text-encoder",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "operation": "Qwen3-8B with LoRA maps state and treatment texts to 4096-dimensional embeddings.",
+        "boundary": "Original training losses and collapse controls are not specified here."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B046:05",
+        "evidence:B046:10"
+      ]
+    },
+    {
+      "id": "module:B046:bundle-editor",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "operation": "Keep invasive status and non-ventilation treatment fragments; replace the ventilation description with one or all eligible settings documented for the reference.",
+        "reference_rule": "Highest mean hourly state-embedding cosine similarity over the pre-onset window, excluding the same stay.",
+        "settings": [
+          "ventilator mode",
+          "FiO2",
+          "PEEP",
+          "set respiratory rate",
+          "set tidal volume"
+        ],
+        "excluded_readouts": [
+          "plateau pressure",
+          "minute volume"
+        ],
+        "boundary": "All documented reference settings need not include all five. Donor observation does not establish recipient-specific support or safety. Unreported handling of omitted settings must not be assumed to preserve a recipient's previous configuration."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B046:07",
+        "evidence:B046:09",
+        "evidence:B046:10"
+      ]
+    },
+    {
+      "id": "module:B046:latent-transition",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "operation": "Frozen transformer predicts a successor clinical-state embedding from historical representations and the specified treatment-text condition.",
+        "boundary": "Executed one-hour sensitivity pathway, not validated accurate clinical simulation."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B046:05",
+        "evidence:B046:10",
+        "evidence:B046:12"
+      ]
+    },
+    {
+      "id": "module:B046:response-analysis",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "operation": "Paired latent-response differences, 5,000 bootstrap resamples and linear/quadratic edit-distance adjustment.",
+        "boundary": "Uncertainty in estimated group-response contrasts is not calibrated uncertainty about an individual patient's future."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B046:10",
+        "evidence:B046:11",
+        "evidence:B046:12",
+        "evidence:B046:13"
+      ]
+    },
+    {
+      "id": "state:B046:hourly-history",
+      "class_id": "StateSpec",
+      "properties": {
+        "form": "4096-dimensional hourly state embeddings in a 24-hour interleaved state–treatment context.",
+        "inputs": "Vital signs, laboratory results and scores written as text.",
+        "successor": "Predicted next-state embedding.",
+        "belief_semantics": "Not reported."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B046:05"
+      ]
+    },
+    {
+      "id": "action:B046:ventilation-edit",
+      "class_id": "ActionSpec",
+      "properties": {
+        "role_types": [
+          "therapeutic"
+        ],
+        "intended_effect_channel": "Physiological respiratory support.",
+        "evaluated_effect": "Model latent displacement only.",
+        "representation": "Treatment text with invasive status and documented clinician-controlled ventilator settings.",
+        "authority": "hypothetical_query",
+        "not_compared": "Intubation versus no intubation.",
+        "missing_contract": "Complete units, ranges, duration semantics, omitted-setting clinical meaning and exact treatment/state alignment."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B046:07",
+        "evidence:B046:10",
+        "evidence:B046:15"
+      ]
+    },
+    {
+      "id": "regime:B046:single",
+      "class_id": "ActionRegime",
+      "properties": {
+        "definition": "At the onset-hour query, keep invasive status and copy one eligible reference setting; keep non-ventilation treatment fragments.",
+        "boundary": "An experimental text condition, not a fully specified sustained clinical regimen."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B046:10"
+      ]
+    },
+    {
+      "id": "regime:B046:bundle",
+      "class_id": "ActionRegime",
+      "properties": {
+        "definition": "At the onset-hour query, keep invasive status and copy every eligible setting documented by the reference; keep non-ventilation treatment fragments.",
+        "boundary": "Single-hour experimental condition; subsequent treatment choices are unspecified."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B046:10",
+        "evidence:B046:11"
+      ]
+    },
+    {
+      "id": "dataset:B046:MIMIC-IV:test",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "name": "MIMIC-IV",
+        "partition": "Clin-JEPA test split, as reported.",
+        "kind": "Actual retrospective human clinical records.",
+        "version_limit": "Exact database release, extraction snapshot and patient-level partition protocol not reported here.",
+        "governance_statement": "De-identified database used under its data use agreement; not independently verified."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B046:03",
+        "evidence:B046:15"
+      ]
+    },
+    {
+      "id": "cohort:B046:audit",
+      "class_id": "Cohort",
+      "properties": {
+        "unique_patient_hours": 945707,
+        "stays": 12631,
+        "blood_pressure_management_hours": 146829,
+        "dialysis_hours": 40604,
+        "count_boundary": "Stay-hours and stays are not unique-patient counts."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B046:03",
+        "evidence:B046:19",
+        "evidence:B046:23",
+        "evidence:B046:26"
+      ]
+    },
+    {
+      "id": "cohort:B046:onsets",
+      "class_id": "Cohort",
+      "properties": {
+        "raw_transitions": 3553,
+        "raw_transition_stays": 2903,
+        "eligible_targets": 1089,
+        "eligible_stays": 788,
+        "analyzed_targets": 1019,
+        "excluded_unusable_reference_bundles": 70,
+        "configuration_bank_hours": 229037,
+        "configuration_bank_stays": 4031,
+        "configuration_bank_status_only_percent": 66.4,
+        "configuration_bank_all_five_percent": 16.5,
+        "reference_candidate_onsets": 1130,
+        "eligibility": "12-hour invasive-ventilation washout; complete 24-hour history; at least 12 further stay-hours; ventilation persists at least two hours.",
+        "limits": "Reference eligibility is incompletely explained. Different-stay matching need not exclude the same patient. Eligibility uses post-decision information."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B046:07",
+        "evidence:B046:08",
+        "evidence:B046:09",
+        "evidence:B046:16",
+        "evidence:B046:25"
+      ]
+    },
+    {
+      "id": "protocol:B046:paired-edits",
+      "class_id": "EvaluationProtocol",
+      "properties": {
+        "endpoint": "d_z = ||z_hat_edit - z_hat_rec||_2 / ||z_hat_rec||_2",
+        "edit_magnitude": "d_a = ||u_edit - u_rec||_2",
+        "comparison": "Bundle versus each single-setting condition on the same targets and unchanged historical context.",
+        "reference": "Prediction under recorded treatment, not an observed successor.",
+        "uncertainty": "95% bootstrap intervals using 5,000 resamples; Figure 2 specifies target-level resampling.",
+        "adjustment": "Linear d_a adjustment, with a quadratic d_a term as sensitivity analysis.",
+        "horizon": "Next clinical hour only.",
+        "clinical_acceptance_tolerance": "Not reported."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B046:06",
+        "evidence:B046:10",
+        "evidence:B046:11",
+        "evidence:B046:24"
+      ]
+    },
+    {
+      "id": "evaluation:B046:paired-edits",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "cohort_id": "cohort:B046:onsets",
+        "protocol_id": "protocol:B046:paired-edits",
+        "environment": "Actual retrospective clinical records with offline hypothetical model queries.",
+        "result": "Positive setting-specific mean bundle-minus-single latent-response differences.",
+        "boundary": "No observed-future fidelity, identified treatment-effect accuracy or clinical-utility endpoint."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B046:12",
+        "evidence:B046:13",
+        "evidence:B046:14",
+        "evidence:B046:25"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:B046:f001",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "data.provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "dataset_version_id": "dataset:B046:MIMIC-IV:test",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:03",
+        "evidence:B046:05",
+        "evidence:B046:10",
+        "evidence:B046:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Source/partition, stay-hour units, text embedding and reference-edit transformations are described."
+      ],
+      "criteria_missing": [
+        "Exact data/checkpoint revisions, variable-level mappings, units and acquisition/availability provenance."
+      ],
+      "rationale": "Partial operational provenance, not a complete variable-level contract."
+    },
+    {
+      "id": "assertion:B046:f002",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Hourly indexing does not establish retained or reversibly available native observation timestamps."
+    },
+    {
+      "id": "assertion:B046:f003",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Collection, documentation and release times are not distinguished. Future-based eligibility does not alone establish predictor-input leakage."
+    },
+    {
+      "id": "assertion:B046:f004",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Documented-setting subsets and descriptive non-imputation do not establish model-input measured/missing/invalid indicators."
+    },
+    {
+      "id": "assertion:B046:f005",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No per-variable time-since-observation mechanism is specified."
+    },
+    {
+      "id": "assertion:B046:f006",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Hourly inputs are described; treatment of unequal source-observation intervals is not sufficiently specified."
+    },
+    {
+      "id": "assertion:B046:f007",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Documentation counts do not specify a conditional model or rule for when, whether or why measurements occur."
+    },
+    {
+      "id": "assertion:B046:f008",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Component co-occurrence and matching-window sensitivity do not test evidence preservation under temporal resampling."
+    },
+    {
+      "id": "assertion:B046:f009",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "dataset_version_id": "dataset:B046:MIMIC-IV:test"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Recomputing derived summaries is recommended; executed terminology/unit mappings and traceable conversions are not specified."
+    },
+    {
+      "id": "assertion:B046:f010",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits",
+        "dataset_version_id": "dataset:B046:MIMIC-IV:test"
+      },
+      "evidence_ids": [
+        "evidence:B046:04",
+        "evidence:B046:08",
+        "evidence:B046:09"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Frozen checkpoint; reference similarity excludes treatment embeddings, post-onset states and the target stay."
+      ],
+      "criteria_missing": [
+        "Patient-level partition independence, training-only preprocessing, availability-time audit and precise treatment/state alignment."
+      ],
+      "rationale": "Specific safeguards are reported, but neither comprehensive leakage control nor a prospective information boundary is established."
+    },
+    {
+      "id": "assertion:B046:f011",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No federated training or query protocol is reported."
+    },
+    {
+      "id": "assertion:B046:f012",
+      "subject_id": "module:B046:text-encoder",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "module_implementation_id": "module:B046:text-encoder"
+      },
+      "evidence_ids": [
+        "evidence:B046:05",
+        "evidence:B046:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "A named, used encoder maps specified texts into predictor inputs."
+    },
+    {
+      "id": "assertion:B046:f013",
+      "subject_id": "module:B046:text-encoder",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "module_implementation_id": "module:B046:text-encoder"
+      },
+      "evidence_ids": [
+        "evidence:B046:04",
+        "evidence:B046:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Qwen3-8B with LoRA is operationally described within the reused checkpoint. Exact artifact revision and adaptation effectiveness are not established."
+    },
+    {
+      "id": "assertion:B046:f014",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Latent successor inference is implemented, but a representation-target training loss is not specified here. The JEPA name is insufficient."
+    },
+    {
+      "id": "assertion:B046:f015",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No anti-collapse mechanism or proved property is specified."
+    },
+    {
+      "id": "assertion:B046:f016",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "The original objective is not fully supplied, so reconstruction use or exclusion is unresolved."
+    },
+    {
+      "id": "assertion:B046:f017",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "State and treatment texts are semantic streams; fusion of separately identified modalities is not established."
+    },
+    {
+      "id": "assertion:B046:f018",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No availability-, quality- or recency-conditioned multimodal fusion rule is specified."
+    },
+    {
+      "id": "assertion:B046:f019",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:05",
+        "evidence:B046:10",
+        "evidence:B046:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Defined state–treatment history is carried into a subsequent clinical-state prediction. Recursive generated-state feedback is not inferred."
+    },
+    {
+      "id": "assertion:B046:f020",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No posterior/filtering distribution semantics are stated. Bootstrap intervals are not patient belief states."
+    },
+    {
+      "id": "assertion:B046:f021",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Separate prior propagation and observation correction are not specified."
+    },
+    {
+      "id": "assertion:B046:f022",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No sequential arriving-observation update is demonstrated. Fixed experimental histories do not establish global inability to update."
+    },
+    {
+      "id": "assertion:B046:f023",
+      "subject_id": "module:B046:latent-transition",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "module_implementation_id": "module:B046:latent-transition",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:04",
+        "evidence:B046:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "This executed path uses the same frozen predictor without patient-specific fitting. Input changes are not parameter adaptation."
+    },
+    {
+      "id": "assertion:B046:f024",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Matching and displacement calculations do not establish two typed predictive readouts using the same state."
+    },
+    {
+      "id": "assertion:B046:f025",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Window masking changes donor matching, not predictor history followed by a sufficiency evaluation against prediction or decision targets."
+    },
+    {
+      "id": "assertion:B046:f026",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:05",
+        "evidence:B046:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The target's previous state and treatment embeddings condition the executed prediction; personalized predictive value is a separate question."
+    },
+    {
+      "id": "assertion:B046:f027",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No correct-history versus swapped/withheld/population-prior forecasting control is reported."
+    },
+    {
+      "id": "assertion:B046:f028",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No mechanism specifically targeting identity persistence through predicted transitions is described."
+    },
+    {
+      "id": "assertion:B046:f029",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Named input variables do not provide an inspectable physiological mapping for latent coordinates."
+    },
+    {
+      "id": "assertion:B046:f030",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": "24-hour interleaved transformer context.",
+      "rationale": "A specified context retains past observations/actions; delayed-effect usefulness is not validated."
+    },
+    {
+      "id": "assertion:B046:f031",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "action.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:07",
+        "evidence:B046:10",
+        "evidence:B046:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Specified ventilator-setting inputs are separated from state and change predicted successors. No clinical accuracy threshold is tested."
+    },
+    {
+      "id": "assertion:B046:f032",
+      "subject_id": "module:B046:bundle-editor",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B046:bundle-editor",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:07",
+        "evidence:B046:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Respiratory-support intervention is named; clinician-controlled settings are separated from measured readouts and other treatments."
+      ],
+      "criteria_missing": [
+        "Explicit general role/effect-channel contract for the broader action vocabulary."
+      ],
+      "rationale": "Partial recoverable semantics, not a demonstrated general clinical action ontology."
+    },
+    {
+      "id": "assertion:B046:f033",
+      "subject_id": "module:B046:bundle-editor",
+      "feature_id": "action.parameterized",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B046:bundle-editor",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:07",
+        "evidence:B046:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Named intervention, identified settings, documented donor values and hourly query event."
+      ],
+      "criteria_missing": [
+        "Complete units/ranges, duration semantics, omitted-setting clinical interpretation and unambiguous treatment/state alignment."
+      ],
+      "rationale": "The perturbation can be understood as a text experiment, not as a complete executable treatment contract."
+    },
+    {
+      "id": "assertion:B046:f034",
+      "subject_id": "module:B046:bundle-editor",
+      "feature_id": "action.schedule",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B046:bundle-editor",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:08",
+        "evidence:B046:10",
+        "evidence:B046:11",
+        "evidence:B046:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "A treatment edit is attached to a documented onset hour on an hourly sequence."
+      ],
+      "criteria_missing": [
+        "Precise treatment/target alignment and treatment continuation/cessation semantics."
+      ],
+      "rationale": "A single event can be a schedule, but its complete temporal semantics remain unresolved."
+    },
+    {
+      "id": "assertion:B046:f035",
+      "subject_id": "module:B046:bundle-editor",
+      "feature_id": "action.bundle",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "module_implementation_id": "module:B046:bundle-editor",
+        "evaluation_run_id": "evaluation:B046:paired-edits",
+        "action_regime_id": "regime:B046:bundle"
+      },
+      "evidence_ids": [
+        "evidence:B046:07",
+        "evidence:B046:10",
+        "evidence:B046:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The bundle arm jointly copies documented reference settings and explicitly keeps status and other treatment fragments. This establishes bundle-aware text construction, not recipient-specific clinical coherence, conditional support or valid numerical defaults for undocumented fields."
+    },
+    {
+      "id": "assertion:B046:f036",
+      "subject_id": "module:B046:bundle-editor",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Observed donor configurations and field eligibility do not establish recipient-dependent bounds or contraindication checks."
+    },
+    {
+      "id": "assertion:B046:f037",
+      "subject_id": "module:B046:bundle-editor",
+      "feature_id": "action.grounding",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B046:bundle-editor",
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:07",
+        "evidence:B046:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Inputs map semantically to known clinical ventilator settings, rather than uninterpreted latent actions. Device actuation and executable treatment validation are not established."
+    },
+    {
+      "id": "assertion:B046:f038",
+      "subject_id": "module:B046:bundle-editor",
+      "feature_id": "action.support",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits",
+        "dataset_version_id": "dataset:B046:MIMIC-IV:test"
+      },
+      "evidence_ids": [
+        "evidence:B046:09",
+        "evidence:B046:14",
+        "evidence:B046:17",
+        "evidence:B046:19",
+        "evidence:B046:23"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Component containment is audited; observed donor configurations and matching similarity/sensitivity are documented."
+      ],
+      "criteria_missing": [
+        "Recipient-conditioned joint/value support for each query, training-split support and a direct supported-versus-unsupported evaluation."
+      ],
+      "rationale": "The source expressly distinguishes granularity from empirical support. Containment is not mutual component dependence or proof of causal positivity."
+    },
+    {
+      "id": "assertion:B046:f039",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "action.comparison",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:10",
+        "evidence:B046:12",
+        "evidence:B046:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "value": {
+        "comparison_type": "Same-origin one-step alternatives",
+        "alternatives": [
+          "Recorded treatment text",
+          "Reference-derived single-setting text",
+          "Reference-derived bundle text"
+        ],
+        "fixed_context": "Same target history and non-ventilation treatments",
+        "endpoint": "Next-hour latent prediction displacement"
+      },
+      "rationale": "Meets the functional matched-alternative criterion, without establishing successor fidelity or identified clinical effects."
+    },
+    {
+      "id": "assertion:B046:f040",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The composition performs hypothetical text edits only and explicitly excludes individual treatment decisions; no intervention is delivered.",
+      "rationale": "This does not characterize real intubation or ventilation as reversible."
+    },
+    {
+      "id": "assertion:B046:f041",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:05",
+        "evidence:B046:10",
+        "evidence:B046:11",
+        "evidence:B046:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": "Hourly clinical-history-to-successor-embedding transition.",
+      "rationale": "The coordinate is patient-record time, not optimization time. Exact action/target input indexing still needs clarification."
+    },
+    {
+      "id": "assertion:B046:f042",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:04",
+        "evidence:B046:05",
+        "evidence:B046:10",
+        "evidence:B046:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": "Reused learned 92M-parameter transformer transition.",
+      "rationale": "Freezing learned parameters does not make the transition hand-written. Original training details and mechanistic hybridization are not inferred."
+    },
+    {
+      "id": "assertion:B046:f043",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:05",
+        "evidence:B046:10",
+        "evidence:B046:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Settable treatment texts condition the successor predictor and produce reported differences; clinical response accuracy is not tested."
+    },
+    {
+      "id": "assertion:B046:f044",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No conditional transition distribution or sampling procedure is specified; bootstrap resampling is not transition stochasticity."
+    },
+    {
+      "id": "assertion:B046:f045",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Bundle construction does not establish physiological, conservation, symbolic or monotonicity constraints on the frozen transition."
+    },
+    {
+      "id": "assertion:B046:f046",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No operationally coupled mechanistic component is specified."
+    },
+    {
+      "id": "assertion:B046:f047",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:04",
+        "evidence:B046:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The fully described experimental configuration uses one frozen predictor. Alternative text inputs are not interchangeable dynamics implementations."
+    },
+    {
+      "id": "assertion:B046:f048",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Different protocol intervals and variables do not establish coupled dynamical scales."
+    },
+    {
+      "id": "assertion:B046:f049",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No retraining occurs; the checkpoint's original loss and multistep gradient/teacher-forcing behavior are not specified."
+    },
+    {
+      "id": "assertion:B046:f050",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No coordinated options, variable-duration transitions or temporal hierarchy is specified."
+    },
+    {
+      "id": "assertion:B046:f051",
+      "subject_id": "module:B046:latent-transition",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:B046:latent-transition",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:05",
+        "evidence:B046:06",
+        "evidence:B046:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The specified audit path ends in latent predictions and displacement, without observable-state decoding. This is scoped non-use, not global absence from all Clin-JEPA versions."
+    },
+    {
+      "id": "assertion:B046:f052",
+      "subject_id": "module:B046:latent-transition",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:B046:latent-transition",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:06",
+        "evidence:B046:12",
+        "evidence:B046:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The executed path uses latent distance post-processing, not a typed clinical-outcome head. Other checkpoint readouts are not assessed."
+    },
+    {
+      "id": "assertion:B046:f053",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:06",
+        "evidence:B046:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No reported prediction-error comparison uses an observed or independently justified successor target. The recorded-condition prediction is a sensitivity reference, not successor ground truth."
+    },
+    {
+      "id": "assertion:B046:f054",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:11"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The evaluation explicitly stops after one next-hour transition."
+    },
+    {
+      "id": "assertion:B046:f055",
+      "subject_id": "evaluation:B046:paired-edits",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:10",
+        "evidence:B046:11"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "One successor is queried after an observed prefix; there are no intermediate forecast states to teacher-force."
+    },
+    {
+      "id": "assertion:B046:f056",
+      "subject_id": "evaluation:B046:paired-edits",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:10",
+        "evidence:B046:11"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The protocol terminates after one prediction, without correction from arriving observations followed by another forecast."
+    },
+    {
+      "id": "assertion:B046:f057",
+      "subject_id": "evaluation:B046:paired-edits",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits",
+        "time_horizon": "Next clinical hour; one transition."
+      },
+      "evidence_ids": [
+        "evidence:B046:11",
+        "evidence:B046:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "value": "One next-hour latent-response endpoint.",
+      "rationale": "This is the tested sensitivity extent, not an empirically validated usable forecasting horizon."
+    },
+    {
+      "id": "assertion:B046:f058",
+      "subject_id": "evaluation:B046:paired-edits",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:11",
+        "evidence:B046:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The explicit one-horizon protocol contains no error-versus-depth assessment."
+    },
+    {
+      "id": "assertion:B046:f059",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No metric/tolerance curve establishes an effective horizon. The one-hour stopping rule is not validation."
+    },
+    {
+      "id": "assertion:B046:f060",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Different treatment inputs and statistical bootstrap resamples are not conditional future-trajectory samples."
+    },
+    {
+      "id": "assertion:B046:f061",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:11"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "This is a fixed one-step experiment, not a service accepting variable-horizon requests.",
+      "rationale": "A study stopping rule is not a supported-horizon runtime guard."
+    },
+    {
+      "id": "assertion:B046:f062",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "planning.model_use",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits",
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:10",
+        "evidence:B046:12",
+        "evidence:B046:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The complete workflow measures representation sensitivity, not utility-based treatment ranking, policy learning or another treatment-decision pathway."
+    },
+    {
+      "id": "assertion:B046:f063",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits",
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:09",
+        "evidence:B046:10",
+        "evidence:B046:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Prescribed prediction comparisons stop before treatment optimization. Nearest-reference selection does not optimize predicted treatment consequences."
+    },
+    {
+      "id": "assertion:B046:f064",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:11",
+        "evidence:B046:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No planner, executed action prefix or observation-driven replanning episode exists in the scoped audit."
+    },
+    {
+      "id": "assertion:B046:f065",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:10",
+        "evidence:B046:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No treatment-selection objective or optimizer is implemented; frozen prediction alone does not establish objective-independent planning."
+    },
+    {
+      "id": "assertion:B046:f066",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:10",
+        "evidence:B046:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No action selection occurs, and confidence intervals do not alter a treatment decision."
+    },
+    {
+      "id": "assertion:B046:f067",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:10",
+        "evidence:B046:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "There is no model-optimized plan whose exploitation of model errors could be tested."
+    },
+    {
+      "id": "assertion:B046:f068",
+      "subject_id": "module:B046:bundle-editor",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits",
+        "module_implementation_id": "module:B046:bundle-editor"
+      },
+      "evidence_ids": [
+        "evidence:B046:07",
+        "evidence:B046:08",
+        "evidence:B046:09",
+        "evidence:B046:10",
+        "evidence:B046:17",
+        "evidence:B046:25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Donor source, matching, edit construction, target eligibility, reference reuse and unusable-bundle exclusions are reported."
+      ],
+      "criteria_missing": [
+        "Recipient-conditioned support, reconciled all-five/mode coverage and fully explained reference-pool eligibility."
+      ],
+      "rationale": "The candidate-construction responsibility applies without a planner. Future-based cohort selection is not a prospective query-availability protocol."
+    },
+    {
+      "id": "assertion:B046:f069",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:10",
+        "evidence:B046:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No decision policy or option hierarchy is implemented. Bundling fields is not hierarchical control."
+    },
+    {
+      "id": "assertion:B046:f070",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:10",
+        "evidence:B046:11"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Offline one-step queries do not actuate an environment and use its subsequent observations for new decisions."
+    },
+    {
+      "id": "assertion:B046:f071",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "uq.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No patient-state predictive distribution, posterior, ensemble or uncertainty set is specified."
+    },
+    {
+      "id": "assertion:B046:f072",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Separate aleatoric and epistemic estimation procedures or results are not reported."
+    },
+    {
+      "id": "assertion:B046:f073",
+      "subject_id": "evaluation:B046:paired-edits",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Bootstrap intervals on estimated response contrasts do not test predictive reliability or observed coverage."
+    },
+    {
+      "id": "assertion:B046:f074",
+      "subject_id": "evaluation:B046:paired-edits",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:11"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No multitime predictive trajectory or joint-path guarantee is produced in this evaluation."
+    },
+    {
+      "id": "assertion:B046:f075",
+      "subject_id": "evaluation:B046:paired-edits",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No calibration acceptance criterion and matching test result are reported."
+    },
+    {
+      "id": "assertion:B046:f076",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Component filters and donor similarity do not establish a thresholded OOD detector with protective response and detection performance."
+    },
+    {
+      "id": "assertion:B046:f077",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No nonconformity score, calibration split, prediction set or conformal assumptions are specified."
+    },
+    {
+      "id": "assertion:B046:f078",
+      "subject_id": "protocol:B046:paired-edits",
+      "feature_id": "causal.estimand",
+      "assessment_state": "absent",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits",
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:06",
+        "evidence:B046:14",
+        "evidence:B046:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The explicitly bounded endpoint is a model-response contrast, not a causal patient-outcome estimand."
+    },
+    {
+      "id": "assertion:B046:f079",
+      "subject_id": "protocol:B046:paired-edits",
+      "feature_id": "causal.identification",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits",
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:09",
+        "evidence:B046:10",
+        "evidence:B046:11",
+        "evidence:B046:14",
+        "evidence:B046:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The complete algorithm and representation-only interpretation provide no clinical-effect identification argument. Similarity matching and d_a adjustment are not causal identification."
+    },
+    {
+      "id": "assertion:B046:f080",
+      "subject_id": "protocol:B046:paired-edits",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Positivity is discussed as motivation, not as a complete assumption set tied to an identified estimand for this experiment."
+    },
+    {
+      "id": "assertion:B046:f081",
+      "subject_id": "protocol:B046:paired-edits",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Window matching and polynomial adjustment checks do not quantify violations of causal-identification assumptions."
+    },
+    {
+      "id": "assertion:B046:f082",
+      "subject_id": "evaluation:B046:paired-edits",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:06",
+        "evidence:B046:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The protocol compares predictions with predictions, explicitly not counterfactual correctness, and uses no interventional or known-potential-outcome validation reference."
+    },
+    {
+      "id": "assertion:B046:f083",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No calibrated physical or pharmacological intervention-to-state mechanism is specified."
+    },
+    {
+      "id": "assertion:B046:f084",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:14",
+        "evidence:B046:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The final scoped claim concerns representation sensitivity and expressly excludes clinical-effect assurance.",
+      "rationale": "A downstream therapeutic interpretation would require a new applicable gate assessment; the present study would not support a pass."
+    },
+    {
+      "id": "assertion:B046:f085",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Cohort eligibility and field restrictions are not a reported hazard-based guard with protective fail behavior."
+    },
+    {
+      "id": "assertion:B046:f086",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The explicitly research-only audit produces no treatment recommendation or executed action to withhold.",
+      "rationale": "Excluding unusable reference bundles is cohort eligibility, not clinical deferral."
+    },
+    {
+      "id": "assertion:B046:f087",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "There is no operational case-management or treatment-decision workflow requiring a timed human hand-off.",
+      "rationale": "Suggested clinical review of future bundles is not implemented escalation."
+    },
+    {
+      "id": "assertion:B046:f088",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No online hazard detector and protective response are specified."
+    },
+    {
+      "id": "assertion:B046:f089",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "A one-hour study stopping rule is not a specified and tested safe-stop/fallback mechanism."
+    },
+    {
+      "id": "assertion:B046:f090",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Responsible-use warnings do not identify adversaries, assets or attack paths."
+    },
+    {
+      "id": "assertion:B046:f091",
+      "subject_id": "evaluation:B046:paired-edits",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Treatment-text sensitivity edits are not specified adversarial attacks or injected faults with safety/security endpoints."
+    },
+    {
+      "id": "assertion:B046:f092",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "dataset_version_id": "dataset:B046:MIMIC-IV:test"
+      },
+      "evidence_ids": [
+        "evidence:B046:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "De-identified inputs and DUA use are reported, but an operational control implemented by this audit is insufficiently specified. No independent compliance or privacy guarantee is inferred."
+    },
+    {
+      "id": "assertion:B046:f093",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Donor matching is not a copying, membership-inference, re-identification or disclosure audit."
+    },
+    {
+      "id": "assertion:B046:f094",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Technical identity/access enforcement is not specified; a data agreement does not establish it."
+    },
+    {
+      "id": "assertion:B046:f095",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Publication cautions do not establish an implemented reliance/override interface or human-factors intervention."
+    },
+    {
+      "id": "assertion:B046:f096",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:08",
+        "evidence:B046:10",
+        "evidence:B046:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Research purpose, retrospective environment, onset population, query context and prohibition of individual treatment use."
+      ],
+      "criteria_missing": [
+        "Explicit intended user role and completely resolved decision/action timing."
+      ],
+      "rationale": "The implemented use is bounded, but the full intended-use contract is incomplete."
+    },
+    {
+      "id": "assertion:B046:f097",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No structured reporting card pins checkpoint/data revisions, assets and evidence. The responsible-use paragraph alone does not satisfy the criterion."
+    },
+    {
+      "id": "assertion:B046:f098",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No monitoring cadence, owner, thresholds, response or revalidation triggers are reported."
+    },
+    {
+      "id": "assertion:B046:f099",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "A frozen experiment is not evidence of versioned update approval, revalidation and rollback."
+    },
+    {
+      "id": "assertion:B046:f100",
+      "subject_id": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No named regulatory/reporting framework is captured. The DUA is not recoded as HIPAA, GDPR or clearance."
+    },
+    {
+      "id": "assertion:B046:f101",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No use/product/jurisdiction-specific authorization or compliance evidence is supplied. Nonvalidation is not a regulatory denial."
+    },
+    {
+      "id": "assertion:B046:f102",
+      "subject_id": "study:B046:intervention-granularity",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "dataset_version_id": "dataset:B046:MIMIC-IV:test"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No named approval, exemption or consent waiver is reported; de-identification/DUA language does not resolve ethics approval."
+    },
+    {
+      "id": "assertion:B046:f103",
+      "subject_id": "module:B046:text-encoder",
+      "feature_id": "agent.role",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B046:text-encoder",
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint"
+      },
+      "evidence_ids": [
+        "evidence:B046:05",
+        "evidence:B046:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": "Qwen3-8B with LoRA is a text encoder, not a decision-making agent or planner."
+    },
+    {
+      "id": "assertion:B046:f104",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "agent.multiple",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:05",
+        "evidence:B046:09",
+        "evidence:B046:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The specified workflow consists of ordinary matching, encoding, prediction and analysis modules, not interacting decision-making agents."
+    },
+    {
+      "id": "assertion:B046:f105",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No proposing agent revises actions using feedback. Prescribed edit comparisons and regression checks are not agent reflection."
+    },
+    {
+      "id": "assertion:B046:f106",
+      "subject_id": "module:B046:text-encoder",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:B046:text-encoder"
+      },
+      "evidence_ids": [
+        "evidence:B046:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The documented LLM role is encoding, not agent-initiated tool invocation. Hosting or network arrangements are not established."
+    },
+    {
+      "id": "assertion:B046:f107",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:10",
+        "evidence:B046:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": "A0 Offline analysis (no autonomy)",
+      "rationale": "Hypothetical querying and explicit exclusion of individual treatment use define the actual authority boundary."
+    },
+    {
+      "id": "assertion:B046:f108",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No released audit/editor code is identified. A released reused checkpoint does not establish release of this experiment's code."
+    },
+    {
+      "id": "assertion:B046:f109",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "release.weights",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint"
+      },
+      "evidence_ids": [
+        "evidence:B046:04",
+        "evidence:B046:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "The source explicitly identifies the reused checkpoint as released and documents execution."
+      ],
+      "criteria_missing": [
+        "Exact revision/hash, direct artifact location, pinned access conditions and an accessibility check."
+      ],
+      "rationale": "Applies to the reused artifact, not new B046 weights or independently verified current availability."
+    },
+    {
+      "id": "assertion:B046:f110",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "release.license",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "dataset_version_id": "dataset:B046:MIMIC-IV:test",
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "A MIMIC-IV data use agreement is explicitly identified."
+      ],
+      "criteria_missing": [
+        "Agreement details/version and separate code/weight terms."
+      ],
+      "rationale": "No permissive license, redistribution right or clinical-use authorization is inferred."
+    },
+    {
+      "id": "assertion:B046:f111",
+      "subject_id": "study:B046:intervention-granularity",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Checkpoint reuse and within-study sensitivity analyses are not independent reproduction of these results."
+    },
+    {
+      "id": "assertion:B046:f112",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:06",
+        "evidence:B046:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No next-state error against a validated successor reference is reported. Prediction-versus-prediction displacement measures sensitivity, not fidelity."
+    },
+    {
+      "id": "assertion:B046:f113",
+      "subject_id": "evaluation:B046:paired-edits",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:11"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The explicit one-hour stopping rule excludes multihorizon sequence-fidelity testing in this run."
+    },
+    {
+      "id": "assertion:B046:f114",
+      "subject_id": "evaluation:B046:paired-edits",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Distributions of response statistics are not generated-versus-observed patient-state distribution comparisons."
+    },
+    {
+      "id": "assertion:B046:f115",
+      "subject_id": "evaluation:B046:paired-edits",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Donor observation and component containment do not validate physiological constraints or clinical plausibility of predicted states."
+    },
+    {
+      "id": "assertion:B046:f116",
+      "subject_id": "evaluation:B046:paired-edits",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No predictive reliability, coverage or sharpness evaluation is reported."
+    },
+    {
+      "id": "assertion:B046:f117",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:10",
+        "evidence:B046:12",
+        "evidence:B046:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Controlled action-input changes are compared under fixed history and other treatments. Five positive mean contrasts with reported intervals above zero support the research sensitivity finding, not clinical acceptance."
+    },
+    {
+      "id": "assertion:B046:f118",
+      "subject_id": "evaluation:B046:paired-edits",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:06",
+        "evidence:B046:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The explicitly representation-only protocol has no interventional/counterfactual validation reference. This is not an executed failed causal-accuracy test."
+    },
+    {
+      "id": "assertion:B046:f119",
+      "subject_id": "evaluation:B046:paired-edits",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "History conditioning and matching-window stability do not test correct-individual predictive value against matched personalization controls."
+    },
+    {
+      "id": "assertion:B046:f120",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:10",
+        "evidence:B046:14",
+        "evidence:B046:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No model-coupled treatment policy or decision endpoint exists in this composition."
+    },
+    {
+      "id": "assertion:B046:f121",
+      "subject_id": "evaluation:B046:paired-edits",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Using real histories and donor treatments does not establish matched agreement between simulated and observed clinical consequences."
+    },
+    {
+      "id": "assertion:B046:f122",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits",
+        "population": "External-cohort, distribution-shift, missing-modality and transfer subfacets."
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Matching-window and regression-form sensitivity do not establish prediction/decision transfer. Explicit subgroup non-performance is separately scoped."
+    },
+    {
+      "id": "assertion:B046:f123",
+      "subject_id": "evaluation:B046:paired-edits",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No target-specific measurement-clock witness-preservation audit is reported."
+    },
+    {
+      "id": "assertion:B046:f124",
+      "subject_id": "evaluation:B046:paired-edits",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No actual reader/user task, participant count or human-review outcome is reported. Historical clinical documentation is not model evaluation by humans."
+    },
+    {
+      "id": "assertion:B046:f125",
+      "subject_id": "evaluation:B046:paired-edits",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Model component sizes do not supply measured hardware-qualified latency, throughput or efficiency."
+    },
+    {
+      "id": "assertion:B046:f126",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:14",
+        "evidence:B046:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The declared use is model evaluation, explicitly excluding individual treatment decisions and intubation benefit/harm claims.",
+      "rationale": "There is no utility evidence for a clinical deployment; any such intended use would require a separate applicable evaluation."
+    },
+    {
+      "id": "assertion:B046:f127",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:05",
+        "evidence:B046:10",
+        "evidence:B046:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The transition predicts internal successor-state representations. An executed latent transition, not merely an encoder bottleneck, is described."
+    },
+    {
+      "id": "assertion:B046:f128",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No reward/value/policy-preservation objective or contract is specified. Latent distances are not value equivalence."
+    },
+    {
+      "id": "assertion:B046:f129",
+      "subject_id": "system:B046:editing-audit",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits",
+        "population": "Response differences across patient groups unevenly represented in the ICU data."
+      },
+      "evidence_ids": [
+        "evidence:B046:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The responsible-use statement explicitly says this patient-group response analysis was not examined. Actual subgroup harm or its magnitude is not inferred."
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:B046:version",
+      "subject_id": "paper:B046",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "effective_date": "2026-09-18"
+      },
+      "evidence_ids": [
+        "evidence:B046:01",
+        "evidence:B046:02"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Bibliographic identity is checked against supplied title-page text; hash association comes from the supplied record."
+    },
+    {
+      "id": "relation:B046:study",
+      "subject_id": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "predicate_id": "reportsStudy",
+      "object_id": "study:B046:intervention-granularity",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:03",
+        "evidence:B046:12",
+        "evidence:B046:25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B046:lineage",
+      "subject_id": "study:B046:intervention-granularity",
+      "predicate_id": "belongsToLineage",
+      "object_id": "lineage:B046:Clin-JEPA-reuse",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "dataset_version_id": "dataset:B046:MIMIC-IV:test"
+      },
+      "evidence_ids": [
+        "evidence:B046:03",
+        "evidence:B046:04",
+        "evidence:B046:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Explicit reuse, not duplicate results or independently verified participant overlap."
+    },
+    {
+      "id": "relation:B046:model",
+      "subject_id": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint"
+      },
+      "evidence_ids": [
+        "evidence:B046:04",
+        "evidence:B046:05",
+        "evidence:B046:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Only the reused operations directly described and executed here are asserted."
+    },
+    {
+      "id": "relation:B046:composition",
+      "subject_id": "system:B046:editing-audit",
+      "predicate_id": "composesModel",
+      "object_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:04",
+        "evidence:B046:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "relation:B046:world",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "predicate_id": "modelsWorld",
+      "object_id": "WT_EHR",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint"
+      },
+      "evidence_ids": [
+        "evidence:B046:05",
+        "evidence:B046:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Hourly clinical-record states are advanced; no physiology-wide mechanistic scope is inferred."
+    },
+    {
+      "id": "relation:B046:use",
+      "subject_id": "system:B046:editing-audit",
+      "predicate_id": "hasUseContext",
+      "object_id": "use:B046:research-audit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:08",
+        "evidence:B046:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B046:encoder",
+      "subject_id": "system:B046:editing-audit",
+      "predicate_id": "hasModule",
+      "object_id": "module:B046:text-encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B046:text-encoder"
+      },
+      "evidence_ids": [
+        "evidence:B046:05",
+        "evidence:B046:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "relation:B046:encoder-role",
+      "subject_id": "module:B046:text-encoder",
+      "predicate_id": "realizesModule",
+      "object_id": "M2",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B046:text-encoder"
+      },
+      "evidence_ids": [
+        "evidence:B046:05",
+        "evidence:B046:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Limited encoding responsibility, not complete M2 robustness or pretraining validation."
+    },
+    {
+      "id": "relation:B046:editor",
+      "subject_id": "system:B046:editing-audit",
+      "predicate_id": "hasModule",
+      "object_id": "module:B046:bundle-editor",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B046:bundle-editor"
+      },
+      "evidence_ids": [
+        "evidence:B046:09",
+        "evidence:B046:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "relation:B046:editor-role",
+      "subject_id": "module:B046:bundle-editor",
+      "predicate_id": "realizesModule",
+      "object_id": "M4",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "module_implementation_id": "module:B046:bundle-editor",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:07",
+        "evidence:B046:10",
+        "evidence:B046:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "criteria_met": [
+        "Operational named-action and joint documented-bundle construction."
+      ],
+      "criteria_missing": [
+        "Complete units/timing/update contract, recipient-conditioned support and contraindication validation."
+      ]
+    },
+    {
+      "id": "relation:B046:transition",
+      "subject_id": "system:B046:editing-audit",
+      "predicate_id": "hasModule",
+      "object_id": "module:B046:latent-transition",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B046:latent-transition"
+      },
+      "evidence_ids": [
+        "evidence:B046:05",
+        "evidence:B046:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "relation:B046:transition-role",
+      "subject_id": "module:B046:latent-transition",
+      "predicate_id": "realizesModule",
+      "object_id": "M5",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "module_implementation_id": "module:B046:latent-transition"
+      },
+      "evidence_ids": [
+        "evidence:B046:04",
+        "evidence:B046:05",
+        "evidence:B046:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Limited transition responsibility, not demonstrated interchangeability, complete interface conformance or validated fidelity."
+    },
+    {
+      "id": "relation:B046:analysis",
+      "subject_id": "system:B046:editing-audit",
+      "predicate_id": "hasModule",
+      "object_id": "module:B046:response-analysis",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "module_implementation_id": "module:B046:response-analysis",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:10",
+        "evidence:B046:11",
+        "evidence:B046:12",
+        "evidence:B046:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B046:data",
+      "subject_id": "evaluation:B046:paired-edits",
+      "predicate_id": "usesDataset",
+      "object_id": "dataset:B046:MIMIC-IV:test",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits",
+        "dataset_version_id": "dataset:B046:MIMIC-IV:test"
+      },
+      "evidence_ids": [
+        "evidence:B046:03",
+        "evidence:B046:07",
+        "evidence:B046:15",
+        "evidence:B046:25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B046:cohort",
+      "subject_id": "evaluation:B046:paired-edits",
+      "predicate_id": "evaluatesOnCohort",
+      "object_id": "cohort:B046:onsets",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits",
+        "cohort_id": "cohort:B046:onsets"
+      },
+      "evidence_ids": [
+        "evidence:B046:08",
+        "evidence:B046:12",
+        "evidence:B046:16",
+        "evidence:B046:25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B046:protocol",
+      "subject_id": "evaluation:B046:paired-edits",
+      "predicate_id": "followsProtocol",
+      "object_id": "protocol:B046:paired-edits",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:10",
+        "evidence:B046:11",
+        "evidence:B046:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B046:capability",
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "predicate_id": "demonstratesCapability",
+      "object_id": "L3",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_ids": [
+        "evidence:B046:05",
+        "evidence:B046:10",
+        "evidence:B046:12",
+        "evidence:B046:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Functional same-origin one-step alternatives are demonstrated using directly documented learned clinical transitions. A separate fidelity experiment, causal identification and decision optimization are not inherited."
+    },
+    {
+      "id": "relation:B046:readiness",
+      "subject_id": "system:B046:editing-audit",
+      "predicate_id": "hasReadinessEvidence",
+      "object_id": "R2",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "evaluation_run_id": "evaluation:B046:paired-edits",
+        "dataset_version_id": "dataset:B046:MIMIC-IV:test",
+        "intended_use_context_id": "use:B046:research-audit",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B046:03",
+        "evidence:B046:04",
+        "evidence:B046:07",
+        "evidence:B046:12",
+        "evidence:B046:15",
+        "evidence:B046:25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Narrow internal sensitivity-audit evidence on actual retrospective clinical records explicitly designated the frozen model's test split. Detailed partition construction and independence remain unresolved; predictive accuracy and counterfactual validity are not validated."
+    },
+    {
+      "id": "relation:B046:profile",
+      "subject_id": "system:B046:editing-audit",
+      "predicate_id": "hasProfile",
+      "object_id": "BP_COMPONENT",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "evidence_ids": [
+        "evidence:B046:14",
+        "evidence:B046:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Reviewer-selected audit profile; not an author claim of a complete clinical architecture."
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:B046:01",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Title and byline"
+      },
+      "content": "Intervention Granularity Matters: Coherent\nTreatment Bundles in Counterfactual Simulation with\nClinical World Models\nFangzhou Wang∗ †\nDuke University\nYixuan Yang∗\nDuke University\nCamilla Balzarotti\nDuke University\nRishikesan Kamaleswaran\nDuke University",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:02",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Version footer"
+      },
+      "content": "Preprint.\narXiv:2609.21906v1  [cs.LG]  18 Sep 2026",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:03",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 2,
+        "section_or_table": "Section 2"
+      },
+      "content": "We audited how the compo-\nnents of these texts co-occur in the test split (945,707 unique patient-hours from 12,631 stays).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:04",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Section 3, Model and measurements"
+      },
+      "content": "We use the released Clin-JEPA checkpoint [27] without retraining.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:05",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Section 3, encoder and predictor"
+      },
+      "content": "Each hourtof a stay is written as a state texts t (vital signs, laboratory results, scores) and the\ntreatment texta t described above. A Qwen3-8B encoder with LoRA adapters maps each text to\na 4096-dimensional embedding,z t =E(s t)andu t =E(a t), and a 92M-parameter transformer\npredictor reads the interleaved embeddings of the previous 24 hours and predicts the next state\nembeddingˆzt+1.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:06",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Section 3, measurement definitions"
+      },
+      "content": "All quantities below compare the model’s own predictions; no observed future\nserves as counterfactual ground truth. When the history is fixed and one hour’s treatment text is\nedited, thenext-hour responseis the relative distance between the prediction under the edited text\nand the prediction under the recorded text,d z =∥ˆzedit −ˆzrec∥2/∥ˆzrec∥2, and theedit magnitudeis\nthe distance between the two treatment embeddings,d a =∥u edit −u rec∥2.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:07",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Section 3, Bundle and configuration bank"
+      },
+      "content": "We test the granularity hypothesis on one intervention with a\nclear bundle, invasive mechanical ventilation, at its onset. The index component is the ventilation\nstatusInvasiveVent; the clinician-set components are ventilator mode, FiO2, PEEP, set respiratory\nrate, and set tidal volume. Measured consequences of ventilation, such as plateau pressure and\nminute volume, are excluded: they are readouts, not decisions. From the test split we built a bank\nof every invasively ventilated hour (229,037 hours, 4,031 stays), keeping for each hour the subset of\nthe five settings actually documented (66.4% record only the status, 16.5% all five).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:08",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Section 3, Decision points"
+      },
+      "content": "A target is an hourtwithout invasive ventilation followed by an hourt+ 1with\nit, with no invasive ventilation in the preceding 12 hours, a complete 24-hour history, at least 12\nfurther hours of the stay, and ventilation persisting for at least two hours. Of 3,553 raw transitions in\nthe test split, 1,089 (788 stays) qualify; only 1.5% had six or more hours of non-invasive ventilation\nin the preceding day, so late rescue after failed non-invasive support is rare (Appendix A).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:09",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Section 3, Reference bundles from trajectory-matched patients"
+      },
+      "content": "Rather than writing ventilator settings\nby hand, we take them from a real patient: for each target we compared its 24 state embeddings\nzt−23, . . . , zt with the 24 pre-onset state embeddings of every other documented onset in the test\nsplit (1,130 eligible onsets), using the mean of the hourly cosine similarities, and took the most\nsimilar onset from a different stay as the reference; treatment embeddings and post-onset states play\nno role. Every target found a reference (mean similarity 0.929), 88.2% of reference bundles contain\nat least three settings and 52.6% all five, and masking the six hours before onset from the matching\nchanges none of this (Appendix B).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:10",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Section 3, Conditions and endpoint"
+      },
+      "content": "For every target we build three versions of the onset-hour treatment\ntext, keeping every non-ventilation fragment as recorded and changing only the ventilation descrip-\ntion (Figure 1): therecordedtext; thesingle-settingtext, which keeps the ventilation status and\ncopies one setting from the reference bundle, one condition per setting the reference documents;\nand thebundletext, which keeps the status and copies every setting the reference documents. Each\nversion is re-encoded and passed to the frozen predictor with the unchanged history, and the endpoint\nis the next-hour responsed z. We compare the bundle with each single-setting condition on the same\ntargets by the paired difference ind z with a bootstrap 95% confidence interval (5,000 resamples).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:11",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Section 3, adjustment and horizon"
+      },
+      "content": "To check that the difference is not a matter of how far each edit moves the treatment embedding, we\nalso fit the linear modeld z =β 0 +β b 1[bundle] +β1da +εon the single-setting and bundle rows\nof the same targets (with ad 2a term as a sensitivity analysis); theadjustedbundle effect isβ b, the\nextra response attributed to the bundle at equal edit magnitude. We stop at the next hour on purpose:\nrolling further would require deciding what treatments follow under each condition.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:12",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "table",
+        "page": 4,
+        "section_or_table": "Table 1"
+      },
+      "content": "SettingnSingle setting Coherent bundle Bundle−single [95% CI] Adjusted Adj. / single\nFiO2 918 0.0309 0.0487+0.0178[0.0157, 0.0201]+0.008327%\nPEEP 967 0.0303 0.0481+0.0178[0.0157, 0.0199]+0.008829%\nSet respiratory rate 685 0.0307 0.0553+0.0246[0.0220, 0.0274]+0.012139%\nSet tidal volume 677 0.0417 0.0556+0.0140[0.0112, 0.0167]+0.005714%\nVentilator mode 338 0.0415 0.0656+0.0241[0.0202, 0.0281]+0.025361%",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:13",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Results following Figure 2"
+      },
+      "content": "and every bootstrap confidence interval lies above zero. Adjusting for the edit magnitude changes\nthe picture little (Appendix D): at equal edit magnitude the bundle advantage remains positive for\neach setting, between 0.006 and 0.025, which is 14% to 61% of the corresponding single-setting\nresponse, and the pooled effect is+0.0096with a linear and+0.0080(95% CI 0.005 to 0.011)\nwith a quadratic adjustment. The bundle produces the larger response in 70.6–89.5% of paired\ntargets across settings. Meand a ranges from 45.1 to 68.3 across intervention constructions and is\nnot uniformly larger for bundle edits.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:14",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Section 5, final paragraph"
+      },
+      "content": "The claims are limited to representation: a larger response shows that the model distinguishes the\nbundle from its components, not that the unobserved counterfactual is correct. Because single-\nsetting configurations also occur in the data, this experiment tests edit granularity rather than empir-\nical support; unsupported edits require direct evaluation.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:15",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Responsible-use statement"
+      },
+      "content": "This work uses the de-identified MIMIC-IV database under its data use agreement. The world model\nand the editing protocol are research tools for evaluating models; neither is validated for clinical use,\nand no output is a basis for an individual treatment decision. One implication is cautionary: a model\nthat appears to support counterfactual simulation may respond to interventions for reasons unrelated\nto their clinical effect, and the effect sizes read from it depend on how the intervention is specified.\nWe make no claim about the benefit or harm of intubation. Any use of simulated treatment arms as\nevidence should report the data support of the edited configurations, the similarity of the reference\npatients, and the sensitivity of the conclusion to the choice of bundle. Responses may also differ\nacross patient groups unevenly represented in ICU data, which we have not examined.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:16",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "table",
+        "page": 9,
+        "section_or_table": "Appendix A, Table 2"
+      },
+      "content": "Criterion Target hours Stays\nRaw transition (no InvasiveVent att, InvasiveVent att+ 1) 3,553 2,903\n6-h washout 3,442 2,877\n+ 24-h history + 12-h future 1,127 805\n+ persistent≥2 h 1,125 803\n12-h washout 3,404 2,869\n+ 24-h history 1,125 809\n+ 12-h future 1,091 790\n+ persistent≥2 h (primary cohort) 1,089 788\n24-h washout 3,108 2,813\n+ 24-h history + 12-h future + persistent≥2 h 816 675",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:17",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "table",
+        "page": 9,
+        "section_or_table": "Appendix B, Table 3"
+      },
+      "content": "Full window (t−23tot) Masked window (t−23tot−6)\nTargets matched 1,089 / 1,089 1,089 / 1,089\nMean similarity of best match 0.929 0.934\n5th percentile of similarity 0.894 0.899\nDistinct references selected 518 541\nReuse per reference: median / 95th pct. / max 1 / 5 / 12 1 / 5 / 15\nBundles with≥3of 5 settings 88.2% 88.3%\nBundles with all 5 settings 52.6% 55.2%\nSame best match under both windows 59.2%\nMasked best match within full-window top 20 98.2%",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:18",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "Appendix A, respiratory support"
+      },
+      "content": "SpO2 is available attfor 87.2% of the 749 but an oxygen flow rate for\nonly 2.3%, so we did not impute a status for this heterogeneous group. The targets occur a median\nof 95 hours after ICU admission (interquartile range 49 to 171, range 23 to 323).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:19",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "Appendix C, co-occurrence audit continuation"
+      },
+      "content": "The six interventions are invasive ventilation, blood-pressure management, oxygen escalation, dial-\nysis, neuromuscular blockade, and antipsychotic treatment. Intervention hours are defined from\nexplicit components: invasive ventilation from the status field; blood-pressure management from\nan arterial-line record or any explicit vasoactive agent, with the derived norepinephrine-equivalent\ndose deliberately excluded from the definition; dialysis from the renal-replacement status; and like-\nwise for the other three. For each intervention, components are ranked by the co-occurrence ratio\nafter support gates (at least 10 co-occurring hours, at least 20 hours overall, presence in at least\n0.5% of intervention hours). Identical ratios within a group identify components that occur only\ninside the intervention. For blood-pressure management, eight components had the same ratio of\n6.44, including the seven intervention-defining vasoactive agents and the norepinephrine-equivalent\ndose. For dialysis, twenty dialysis/CRRT components were similarly fully contained within dialysis\nhours (ratio 23.29). Notably, although the norepinephrine-equivalent dose was excluded from the\nblood-pressure-management definition, it appeared in 88.3% of blood-pressure-management hours\nand never outside them.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:20",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "Appendix D, Response versus edit magnitude"
+      },
+      "content": "This figure plots the next-hour responsed z against edit magnituded a for every single-setting (blue)\nand bundle (green) edit. The response rises only weakly withd a (Pearson correlation 0.21), but the\nmain comparison still adjusts for it for the sake of fairness; the trend lines are descriptive.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:21",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "figure",
+        "page": 2,
+        "section_or_table": "Figure 1 caption"
+      },
+      "content": "Figure 1:Bundle-consistent editing at a ventilation onset.The 24-hour history is fixed. At the\nonset hour, the ventilation description is replaced by one setting or by the complete configuration\nrecorded for the reference patient, the real patient with the most similar trajectory; other treatments\nare kept. The frozen world model predicts the next state under each text, and the responsed z is\nthe relative distance from the prediction under the recorded text. Inset: a coherent bundle is a\nconfiguration observed in real care; a component on its own is not.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:22",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Reference [27]"
+      },
+      "content": "[27] Yixuan Yang, Mehak Arora, Ryan Zhang, Baraa Abed, Junseob Kim, Tilendra Choud-\nhary, Md Hassanuzzaman, Kevin Zhu, Ayman Ali, Chengkun Yang, Alasdair Edward Gent,\nVictor Moas, and Rishikesan Kamaleswaran. Clin-jepa: A multi-phase co-training frame-\nwork for joint-embedding predictive pretraining on ehr patient trajectories.arXiv preprint\narXiv:2605.10840, 2026.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:23",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 2,
+        "section_or_table": "Section 2, ratios and containment"
+      },
+      "content": "For\nblood-pressure management (146,829 hours with an arterial line or a vasopressor), the seven vasoac-\ntive agents and the norepinephrine-equivalent dose, a summary of all vasopressors in one unit [13],\nall have exactly the same ratio,6.44 = 945,707/146,829; for dialysis (40,604 hours), twenty pa-\nrameters of the renal-replacement circuit all have exactly the same ratio,23.29 = 945,707/40,604.\nA ratio equal toN/N I (Nhours in total,N I with the intervention) arises only when every hour\ncontaining the component contains the intervention,P(B| ¬I) = 0: these components are never\ndocumented apart from the intervention they belong to, and the ventilator settings used in Section 3\nbehave the same way inside the ventilation bundle.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:24",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "figure",
+        "page": 4,
+        "section_or_table": "Figure 2 caption"
+      },
+      "content": "Figure 2:Immediate representation responses to ventilation intervention construction. (a)\nMean factual-relative next-state latent responsedz for single-component (blue) and coherent-bundle\n(green) edits on paired targets;nis the number of paired target instances for each setting.(b)\nRelationship between action-embedding perturbation magnituded a andd z; curves are descriptive\nquadratic fits (overall Pearsonr= 0.21).(c)Action-distance-adjusted bundle-minus-single dif-\nferences ind z with 95% target-level bootstrap confidence intervals. Percentages give the adjusted\ndifference relative to the corresponding mean single-componentd z. (Appendix D)",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:25",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Section 4, analysis cohort"
+      },
+      "content": "1,019 of the 1,089 targets have a usable reference bundle and enter the comparison; the remaining\n70 matched reference bundles contain no eligible clinician-controlled ventilator setting from which\nto construct a bundle edit.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:26",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "Appendix C, opening audit specification"
+      },
+      "content": "The audit uses one row per unique (stay, hour) pair of the test split (N= 945,707) and treats\nevery fragment of the treatment text as a component (repeated mentions in one hour count once).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B046:27",
+      "source_ref": "Papers/Expanded_Collection/B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+      "source_version": "paper-version:B046:sha256-44a7cc6c3bc7",
+      "source_hash": "44a7cc6c3bc7d09951ee45165b4c7fa103de68e426ba9deea73f2d0890be871f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Introduction, training-support claim"
+      },
+      "content": "An edit that adds or removes\nsuch a component on its own therefore describes an hour that never occurs in the training data, a\nviolation of positivity [4, 8, 19], and a model that fits the data is free to treat such an input as noise\n[3].",
+      "verification_status": "entailment_reviewed"
+    }
+  ],
+  "metric_results": [
+    {
+      "id": "metric:B046:FiO2",
+      "metric": "Single-setting and bundle next-hour latent response, FiO2 subset",
+      "value": {
+        "n": 918,
+        "single_mean_dz": 0.0309,
+        "bundle_mean_dz": 0.0487,
+        "paired_difference": 0.0178,
+        "adjusted_coefficient": 0.0083,
+        "adjusted_relative_percent": 27
+      },
+      "unit_or_scale": "Dimensionless relative L2 latent displacement; relative percentage.",
+      "direction": "context_dependent",
+      "task": "Matched action-input sensitivity, not clinical effect or prediction error.",
+      "cohort_id": "cohort:B046:onsets",
+      "split_role": "Source-reported Clin-JEPA test split; reference documents FiO2.",
+      "horizon": "Next clinical hour; one step.",
+      "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "paired_difference_bootstrap_95_ci": [
+          0.0157,
+          0.0201
+        ],
+        "resamples": 5000,
+        "adjusted_interval": "Graphical interval reported; exact endpoints not extracted."
+      },
+      "baseline_id": "regime:B046:single",
+      "raw_reported_value": "918; 0.0309; 0.0487; +0.0178 [0.0157, 0.0201]; +0.0083; 27%",
+      "source_evidence_ids": [
+        "evidence:B046:10",
+        "evidence:B046:12",
+        "evidence:B046:24"
+      ]
+    },
+    {
+      "id": "metric:B046:PEEP",
+      "metric": "Single-setting and bundle next-hour latent response, PEEP subset",
+      "value": {
+        "n": 967,
+        "single_mean_dz": 0.0303,
+        "bundle_mean_dz": 0.0481,
+        "paired_difference": 0.0178,
+        "adjusted_coefficient": 0.0088,
+        "adjusted_relative_percent": 29
+      },
+      "unit_or_scale": "Dimensionless relative L2 latent displacement; relative percentage.",
+      "direction": "context_dependent",
+      "task": "Matched action-input sensitivity.",
+      "cohort_id": "cohort:B046:onsets",
+      "split_role": "Source-reported test split; reference documents PEEP.",
+      "horizon": "Next clinical hour; one step.",
+      "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "paired_difference_bootstrap_95_ci": [
+          0.0157,
+          0.0199
+        ],
+        "resamples": 5000,
+        "adjusted_interval": "Graphical interval reported; exact endpoints not extracted."
+      },
+      "baseline_id": "regime:B046:single",
+      "raw_reported_value": "967; 0.0303; 0.0481; +0.0178 [0.0157, 0.0199]; +0.0088; 29%",
+      "source_evidence_ids": [
+        "evidence:B046:10",
+        "evidence:B046:12",
+        "evidence:B046:24"
+      ]
+    },
+    {
+      "id": "metric:B046:respiratory-rate",
+      "metric": "Single-setting and bundle next-hour latent response, set-respiratory-rate subset",
+      "value": {
+        "n": 685,
+        "single_mean_dz": 0.0307,
+        "bundle_mean_dz": 0.0553,
+        "paired_difference": 0.0246,
+        "adjusted_coefficient": 0.0121,
+        "adjusted_relative_percent": 39
+      },
+      "unit_or_scale": "Dimensionless relative L2 latent displacement; relative percentage.",
+      "direction": "context_dependent",
+      "task": "Matched action-input sensitivity.",
+      "cohort_id": "cohort:B046:onsets",
+      "split_role": "Source-reported test split; reference documents set respiratory rate.",
+      "horizon": "Next clinical hour; one step.",
+      "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "paired_difference_bootstrap_95_ci": [
+          0.022,
+          0.0274
+        ],
+        "resamples": 5000,
+        "adjusted_interval": "Graphical interval reported; exact endpoints not extracted."
+      },
+      "baseline_id": "regime:B046:single",
+      "raw_reported_value": "685; 0.0307; 0.0553; +0.0246 [0.0220, 0.0274]; +0.0121; 39%",
+      "source_evidence_ids": [
+        "evidence:B046:10",
+        "evidence:B046:12",
+        "evidence:B046:24"
+      ]
+    },
+    {
+      "id": "metric:B046:tidal-volume",
+      "metric": "Single-setting and bundle next-hour latent response, set-tidal-volume subset",
+      "value": {
+        "n": 677,
+        "single_mean_dz": 0.0417,
+        "bundle_mean_dz": 0.0556,
+        "paired_difference": 0.014,
+        "adjusted_coefficient": 0.0057,
+        "adjusted_relative_percent": 14
+      },
+      "unit_or_scale": "Dimensionless relative L2 latent displacement; relative percentage.",
+      "direction": "context_dependent",
+      "task": "Matched action-input sensitivity.",
+      "cohort_id": "cohort:B046:onsets",
+      "split_role": "Source-reported test split; reference documents set tidal volume.",
+      "horizon": "Next clinical hour; one step.",
+      "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "paired_difference_bootstrap_95_ci": [
+          0.0112,
+          0.0167
+        ],
+        "resamples": 5000,
+        "adjusted_interval": "Graphical interval reported; exact endpoints not extracted."
+      },
+      "baseline_id": "regime:B046:single",
+      "raw_reported_value": "677; 0.0417; 0.0556; +0.0140 [0.0112, 0.0167]; +0.0057; 14%",
+      "source_evidence_ids": [
+        "evidence:B046:10",
+        "evidence:B046:12",
+        "evidence:B046:24"
+      ]
+    },
+    {
+      "id": "metric:B046:mode",
+      "metric": "Single-setting and bundle next-hour latent response, ventilator-mode subset",
+      "value": {
+        "n": 338,
+        "single_mean_dz": 0.0415,
+        "bundle_mean_dz": 0.0656,
+        "paired_difference": 0.0241,
+        "adjusted_coefficient": 0.0253,
+        "adjusted_relative_percent": 61
+      },
+      "unit_or_scale": "Dimensionless relative L2 latent displacement; relative percentage.",
+      "direction": "context_dependent",
+      "task": "Matched action-input sensitivity.",
+      "cohort_id": "cohort:B046:onsets",
+      "split_role": "Source-reported test split; reference documents ventilator mode.",
+      "horizon": "Next clinical hour; one step.",
+      "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "paired_difference_bootstrap_95_ci": [
+          0.0202,
+          0.0281
+        ],
+        "resamples": 5000,
+        "adjusted_interval": "Graphical interval reported; exact endpoints not extracted."
+      },
+      "baseline_id": "regime:B046:single",
+      "raw_reported_value": "338; 0.0415; 0.0656; +0.0241 [0.0202, 0.0281]; +0.0253; 61%",
+      "source_evidence_ids": [
+        "evidence:B046:10",
+        "evidence:B046:12",
+        "evidence:B046:24"
+      ]
+    },
+    {
+      "id": "metric:B046:pooled-linear",
+      "metric": "Pooled bundle coefficient after linear edit-distance adjustment",
+      "value": 0.0096,
+      "unit_or_scale": "Dimensionless d_z coefficient.",
+      "direction": "context_dependent",
+      "task": "Adjusted latent-response contrast.",
+      "cohort_id": "cohort:B046:onsets",
+      "split_role": "Pooled test-split edit comparisons; weighting/repeated-row treatment incompletely specified.",
+      "horizon": "Next clinical hour.",
+      "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "uncertainty_status": "not_reported",
+      "baseline_id": "regime:B046:single",
+      "raw_reported_value": "+0.0096",
+      "source_evidence_ids": [
+        "evidence:B046:11",
+        "evidence:B046:13"
+      ]
+    },
+    {
+      "id": "metric:B046:pooled-quadratic",
+      "metric": "Pooled bundle coefficient after quadratic edit-distance adjustment",
+      "value": 0.008,
+      "unit_or_scale": "Dimensionless d_z coefficient.",
+      "direction": "context_dependent",
+      "task": "Regression-form sensitivity analysis.",
+      "cohort_id": "cohort:B046:onsets",
+      "split_role": "Pooled test-split edit comparisons.",
+      "horizon": "Next clinical hour.",
+      "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "reported_95_ci": [
+          0.005,
+          0.011
+        ],
+        "limitation": "Handling of within-stay/patient dependence, donor reuse and repeated pooled rows is insufficiently specified."
+      },
+      "baseline_id": "regime:B046:single",
+      "raw_reported_value": "+0.0080 (95% CI 0.005 to 0.011)",
+      "source_evidence_ids": [
+        "evidence:B046:11",
+        "evidence:B046:13"
+      ]
+    },
+    {
+      "id": "metric:B046:correlation",
+      "metric": "Pearson correlation of treatment-embedding edit magnitude and latent response",
+      "value": 0.21,
+      "unit_or_scale": "Pearson correlation coefficient.",
+      "direction": "context_dependent",
+      "task": "Descriptive d_a–d_z association.",
+      "cohort_id": "cohort:B046:onsets",
+      "split_role": "Single-setting and bundle edit observations; exact pooled counting not specified.",
+      "horizon": "Next clinical hour.",
+      "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "uncertainty_status": "not_reported",
+      "raw_reported_value": "Pearson correlation 0.21",
+      "source_evidence_ids": [
+        "evidence:B046:20",
+        "evidence:B046:24"
+      ]
+    },
+    {
+      "id": "metric:B046:matching",
+      "metric": "Full-window versus masked-window reference matching",
+      "value": {
+        "targets_matched_full": "1,089 / 1,089",
+        "targets_matched_masked": "1,089 / 1,089",
+        "mean_similarity_full_masked": [
+          0.929,
+          0.934
+        ],
+        "fifth_percentile_similarity_full_masked": [
+          0.894,
+          0.899
+        ],
+        "distinct_references_full_masked": [
+          518,
+          541
+        ],
+        "reference_reuse_median_95pct_max_full": [
+          1,
+          5,
+          12
+        ],
+        "reference_reuse_median_95pct_max_masked": [
+          1,
+          5,
+          15
+        ],
+        "at_least_three_settings_percent_full_masked": [
+          88.2,
+          88.3
+        ],
+        "all_five_settings_percent_full_masked": [
+          52.6,
+          55.2
+        ],
+        "same_best_match_percent": 59.2,
+        "masked_best_in_full_top20_percent": 98.2
+      },
+      "unit_or_scale": "Cosine similarity, reference counts and percentages; separately labeled, not pooled.",
+      "direction": "context_dependent",
+      "task": "Donor-matching sensitivity, not clinical exchangeability or personalization validation.",
+      "cohort_id": "cohort:B046:onsets",
+      "split_role": "1,089 eligible test-split targets before exclusion of unusable reference bundles.",
+      "horizon": "Matching window t−23 through t versus t−23 through t−6.",
+      "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "uncertainty_status": "not_reported",
+      "raw_reported_value": "Table 3: 0.929/0.934; 52.6%/55.2%; 59.2%; 98.2%",
+      "source_evidence_ids": [
+        "evidence:B046:17"
+      ]
+    }
+  ],
+  "capability_assessments": [
+    {
+      "subject_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+      "level": "L3",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "evidence_assertion_ids": [
+        "assertion:B046:f019",
+        "assertion:B046:f041",
+        "assertion:B046:f042",
+        "assertion:B046:f031",
+        "assertion:B046:f043",
+        "assertion:B046:f039",
+        "assertion:B046:f117"
+      ],
+      "rationale": "The directly documented reused implementation has carried clinical history and learned successor dynamics. Reported comparisons apply multiple specified treatment alternatives to the same historical context, meeting the functional one-step L3 rule. A separate L1 fidelity test, G02 pass, identified treatment effects and L4 decision optimization are not inherited."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "system:B046:editing-audit",
+      "facets": [
+        "R2"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "evaluation_run_id": "evaluation:B046:paired-edits",
+        "dataset_version_id": "dataset:B046:MIMIC-IV:test",
+        "intended_use_context_id": "use:B046:research-audit",
+        "endpoint_boundary": "Internal action-sensitivity audit, not clinical counterfactual or factual forecasting accuracy.",
+        "split_boundary": "Source-designated checkpoint test split; detailed partition independence unresolved."
+      },
+      "evidence_ids": [
+        "evidence:B046:03",
+        "evidence:B046:04",
+        "evidence:B046:07",
+        "evidence:B046:12",
+        "evidence:B046:15",
+        "evidence:B046:25"
+      ],
+      "legacy_highest_label": "R2 Retrospective internal validation"
+    }
+  ],
+  "gate_assessments": [
+    {
+      "gate_id": "G01",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit",
+        "dataset_version_id": "dataset:B046:MIMIC-IV:test"
+      },
+      "rationale": "Partial provenance and query safeguards exist, but snapshots, patient partitioning, information availability and treatment/state alignment remain unresolved.",
+      "supporting_assertion_ids": [
+        "assertion:B046:f001",
+        "assertion:B046:f003",
+        "assertion:B046:f010"
+      ]
+    },
+    {
+      "gate_id": "G02",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "rationale": "Implemented state and learned clinical transition are supported. Successor-fidelity results against a non-leaky reference are not reported. Matched action sensitivity is a separate demonstrated feature.",
+      "supporting_assertion_ids": [
+        "assertion:B046:f019",
+        "assertion:B046:f041",
+        "assertion:B046:f042",
+        "assertion:B046:f053",
+        "assertion:B046:f112"
+      ]
+    },
+    {
+      "gate_id": "G03",
+      "status": "not_applicable",
+      "scope": {
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "rationale": "The explicitly one-hour protocol makes no multitime rollout claim.",
+      "supporting_assertion_ids": [
+        "assertion:B046:f054",
+        "assertion:B046:f057"
+      ]
+    },
+    {
+      "gate_id": "G04",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "rationale": "No probabilistic patient-state guarantee or uncertainty-dependent decision is claimed. Confidence intervals concern estimated audit statistics.",
+      "supporting_assertion_ids": [
+        "assertion:B046:f071",
+        "assertion:B046:f073"
+      ]
+    },
+    {
+      "gate_id": "G05",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B046:Clin-JEPA:frozen-checkpoint",
+        "evaluation_run_id": "evaluation:B046:paired-edits"
+      },
+      "rationale": "Editable actions and same-origin comparisons are demonstrated; complete parameter/timing/update semantics, conditional support and coverage denominators are unresolved.",
+      "supporting_assertion_ids": [
+        "assertion:B046:f031",
+        "assertion:B046:f033",
+        "assertion:B046:f034",
+        "assertion:B046:f035",
+        "assertion:B046:f038",
+        "assertion:B046:f039",
+        "assertion:B046:f043"
+      ]
+    },
+    {
+      "gate_id": "G06",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "rationale": "The final claim is representation sensitivity, expressly not intubation benefit/harm or counterfactual correctness. A therapeutic reinterpretation would require a new applicable assessment and currently lacks the required evidence.",
+      "supporting_assertion_ids": [
+        "assertion:B046:f078",
+        "assertion:B046:f079",
+        "assertion:B046:f082",
+        "assertion:B046:f084"
+      ]
+    },
+    {
+      "gate_id": "G07",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "rationale": "No model-coupled treatment optimizer or policy is implemented.",
+      "supporting_assertion_ids": [
+        "assertion:B046:f062",
+        "assertion:B046:f063"
+      ]
+    },
+    {
+      "gate_id": "G08",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "rationale": "The scoped composition is offline assessment, explicitly excluded from individual treatment decisions, not an operational high-stakes workflow or actuator. This is not a safety finding for later uses."
+    },
+    {
+      "gate_id": "G09",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "rationale": "The narrow descriptive claim does not establish generalization beyond the evaluated domain. External/shift/transfer evidence remains unreported and subgroup-response analysis is explicitly unperformed.",
+      "supporting_assertion_ids": [
+        "assertion:B046:f122",
+        "assertion:B046:f129"
+      ]
+    },
+    {
+      "gate_id": "G10",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "rationale": "No human usability/reader or sim-to-real utility claim is evaluated. Recommending future clinical review is not a human study."
+    },
+    {
+      "gate_id": "G11",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "rationale": "No live clinical/workflow operation or realized patient benefit is claimed."
+    },
+    {
+      "gate_id": "G12",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B046:research-audit"
+      },
+      "rationale": "No operational deployment is described. A reused released research checkpoint is not a clinical deployment or authorization."
+    }
+  ],
+  "legacy_cells": {
+    "A": "B046",
+    "B": "Intervention Granularity Matters: Coherent Treatment Bundles in Counterfactual Simulation with Clinical World Models",
+    "C": "Wang, Fangzhou, Yang, Yixuan, Balzarotti, Camilla, Kamaleswaran, Rishikesan",
+    "D": "2026",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://arxiv.org/abs/2609.21906",
+    "H": "Papers/Expanded_Collection (B)",
+    "I": "B046_Intervention_Granularity_Matters_Coherent_Treatment_Bundles_in_Counterfactual_Simulation_with_Clinical_World_M.pdf",
+    "J": "Evaluation / audit / benchmark",
+    "K": "Not reported",
+    "L": "Include – component / supporting",
+    "M": "Not reported",
+    "N": "Critical care / sepsis",
+    "O": "Not reported",
+    "P": "ICU / critical care",
+    "Q": "Patient clinical trajectory (EHR)",
+    "R": "Evaluation / audit methodology",
+    "S": "Under a fixed patient history, does editing a complete documented ventilation configuration change Clin-JEPA's predicted next-hour latent state more than editing one setting?",
+    "T": "MIMIC-IV test-split invasive-ventilation onset targets; 1,019 targets had usable reference bundles (from 1,089 eligible targets).",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "World model",
+    "X": "F13 Verification, semantics & audits",
+    "Y": "Predictive-latent (JEPA-style)",
+    "Z": "L3 Counterfactual comparison",
+    "AA": "L3 Counterfactual comparison",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "Yes",
+    "AE": "No",
+    "AF": "No",
+    "AG": "Not reported",
+    "AH": "Single model (no composition)",
+    "AI": "Hourly clinical state text (vital signs, laboratory results, scores); hourly treatment text (drugs, doses/rates, ventilator and dialysis settings, fluids, procedures)",
+    "AJ": "Qwen3-8B text encoder with LoRA adapters; 92M-parameter transformer predictor",
+    "AK": "Qwen3-8B encoder with LoRA adapters",
+    "AL": "Not reported",
+    "AM": "Not reported",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Continuous latent vector",
+    "AS": "4096-dimensional embedding",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Conditioning on patient history",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Ventilation / organ support",
+    "BC": "Text / language",
+    "BD": "Ventilation status; ventilator mode; FiO2; PEEP; set respiratory rate; set tidal volume",
+    "BE": "Yes",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "Clin-JEPA",
+    "BJ": "Transformer (autoregressive)",
+    "BK": "Fixed discrete steps",
+    "BL": "Hourly steps; next-hour prediction endpoint",
+    "BM": "Not reported",
+    "BN": "Not reported",
+    "BO": "Attention context window",
+    "BP": "24 hours",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Predicted next-state embedding; response measured as relative distance from the prediction under recorded treatment",
+    "BT": "Not reported",
+    "BU": "Not reported",
+    "BV": "Not reported",
+    "BW": "Not reported",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "One-step only",
+    "CD": "Next hour",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "None",
+    "CI": "Not applicable",
+    "CJ": "Not applicable",
+    "CK": "Not applicable",
+    "CL": "Not applicable",
+    "CM": "Not applicable",
+    "CN": "Not reported",
+    "CO": "Not applicable",
+    "CP": "Not reported",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "Associational action-conditioning",
+    "CU": "None",
+    "CV": "Not reported",
+    "CW": "No",
+    "CX": "No observed future serves as counterfactual ground truth; the paper states this tests edit granularity rather than empirical support.",
+    "CY": "Not reported",
+    "CZ": "Encoder",
+    "DA": "Not applicable",
+    "DB": "Not applicable",
+    "DC": "Not applicable",
+    "DD": "Not applicable",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "A0 Offline analysis (no autonomy)",
+    "DH": "Not reported",
+    "DI": "None",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Not reported",
+    "DN": "Not reported",
+    "DO": "Not reported",
+    "DP": "Not reported",
+    "DQ": "Not reported",
+    "DR": "Not reported",
+    "DS": "Not reported",
+    "DT": "Not reported",
+    "DU": "Not reported",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "R2 Retrospective internal validation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "Not reported",
+    "FD": "Not reported",
+    "FE": "Not reported",
+    "FF": "Not reported",
+    "FG": "Not reported",
+    "FH": "Not reported",
+    "FI": "Not reported",
+    "FJ": "Not reported",
+    "FK": "Not reported",
+    "FL": "Not reported",
+    "FM": "Not reported",
+    "FN": "On 1,019 invasive-ventilation onsets, editing the complete documented ventilator bundle changed the predicted next state more than editing any single setting, across all five settings and after controlling input-edit magnitude. This is model sensitivity rather than a causal treatment-effect estimate.",
+    "FO": "Not reported",
+    "FP": "Not reported",
+    "FQ": "Not reported",
+    "FR": "Not reported",
+    "FS": "Reviewer mapping: M1 Data adapters & provenance; M4 Action service; M5 Dynamics adapter; M7 Outcome & causal layer",
+    "FT": "Reviewer lesson: Edit supported, coherent treatment bundles while fixing patient history; do not treat isolated out-of-support parameter changes as valid interventions.",
+    "FU": "Reviewer mapping (KB §20): Hierarchical clinical action ontologies",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "PDF pp. 1–10: title/abstract; Introduction; Sections 2–5 (including Methods, Results, Discussion and limitations); Figure 1, Figure 2, Table 1; Responsible-use statement; Appendices A–D including Tables 2–3 and the co-occurrence/action-magnitude analyses; references were scanned as context. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "A:I were preserved and omitted from values. This is a retrospective MIMIC-IV methodological audit using a frozen Clin-JEPA checkpoint, with one-step latent-response comparisons for ventilation edits. Authors use counterfactual framing, but explicitly state that no observed future is counterfactual ground truth; no causal identification or clinical counterfactual validity is demonstrated. No unreadable tables or extraction issues. Evidence QA: 40/46 populated fields had a <=25-word quotation matching extracted PDF text (87%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 44 prior populated fields have a located source quotation; 2 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "This is automated model review, not independent human verification or replication. This synthesis directly received complete text and earlier automated image-review notes, not images.",
+    "All physical pages 1–10, including references, the responsible-use statement and Appendices A–D, are present in the assembled review package. Earlier chunk-local statements that other pages were unavailable do not describe this complete package.",
+    "The supplied source hash, path, page count and earlier API receipts were not independently recomputed or opened in this pass.",
+    "No executable schema validation, semantic preflight, regression tests, graph assembly, filesystem saving or canonical admission was performed here.",
+    "The exact checkpoint revision, original training losses, database release and patient-level development/test partition controls remain insufficiently reported. No capabilities are imported solely from reference [27].",
+    "Functional L3 here means matched one-step alternative-action prediction comparison. One-step fidelity and G02 remain unresolved, and neither causal treatment truth nor clinical benefit is established.",
+    "R2 is limited to the source-reported internal sensitivity audit on actual retrospective clinical records designated the frozen checkpoint's test split. It does not certify predictive accuracy, independent split verification or clinical counterfactual correctness.",
+    "The clinical one-hour prediction extent, 24-hour history and 5,000 statistical bootstrap resamples are distinct quantities. No recursive rollout, effective validated horizon or closed-loop policy control is shown.",
+    "Figure 1 and Section 3 leave treatment/state indexing insufficiently precise. No information-availability leakage pass is claimed.",
+    "Co-occurrence ratios establish one-way component-to-intervention containment in the audited sample, not mutual co-occurrence, numerical-value support, structural population zeros or a universal prohibition on partial setting changes. Containment of category-defining vasoactive agents is partly definitional.",
+    "The audit is explicitly of the test split; the introduction's training-support language is not established by the reported analysis.",
+    "The final limitation states that single-setting configurations occur and the experiment tests granularity rather than empirical support, qualifying the stronger unsupported-component framing.",
+    "Donor configurations and high embedding similarity do not establish recipient-conditioned support, clinical appropriateness, exchangeability or contraindication compliance.",
+    "The text-level replacement rule is described, but the clinical meaning of omitted ventilator fields, including inheritance versus unknown status, is not fully resolved.",
+    "Different-stay matching does not prove different-patient matching. The relationship between 1,130 eligible reference onsets and 1,089 eligible targets is insufficiently explained.",
+    "The 52.6% all-five reference-bundle figure and 338 ventilator-mode comparisons remain unreconciled. Both reported values are retained without an invented correction.",
+    "Eligibility uses subsequent stay duration and ventilation persistence, limiting correspondence with real-time decision populations.",
+    "Repeated targets within stays, reused references and possibly repeated pooled comparison rows complicate target-level bootstrap uncertainty. Cluster-aware analyses and pooled weighting details are not reported.",
+    "Linear/quadratic adjustment for d_a does not exclude text length, documentation density, embedding direction, interactions or regression misspecification as alternative explanations.",
+    "Setting-specific means use different overlapping subsets. Larger bundle response is reported for 70.6–89.5% of pairs across settings, not every target.",
+    "No latent-to-clinical relevance threshold, predictive calibration, uncertainty decomposition, external transfer, actual expert evaluation or prospective benefit is established. Subgroup-response analysis is explicitly unperformed.",
+    "De-identification and DUA use are source-reported; ethics approval, regulatory compliance/authorization and operational safety controls are not thereby established.",
+    "Appendix D refers to a plot, but upstream image notes report no separately displayed plot on physical page 10. Figure 2(b), on page 4, is the visible response-versus-edit plot.",
+    "All legacy cells are historical values preserved unchanged, including their earlier claims about review scope and quotation matching. Those metadata are not new verification claims by this pass."
+  ],
+  "notes": "Complete-criteria synthesis of all 128 catalogue features, with a separate E11 subgroup-response disposition. Each evidence fragment contains one contiguous passage from the supplied source text, with the exact supplied source hash/version/path and physical page. The requested Appendix C opening-audit inventory item is explicitly included. Removed stale candidate commentary about hypothetical earlier evidence/precheck failures not present in the supplied mechanical error. Raw legacy cells remain unchanged; proposed corrections are in submission.legacy_disagreements. Entailment review denotes this automated contextual comparison, not independent human review."
+}

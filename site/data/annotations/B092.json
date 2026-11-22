@@ -1,0 +1,4355 @@
+{
+  "record_id": "annotation:B092:r1",
+  "paper_record_id": "B092",
+  "paper_version_id": "paper-version:B092:sha256-03dd70f8d983",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:B092:ehr-digital-twin:v1",
+    "model:B092:qnet:v1",
+    "model:B092:clin:v1",
+    "model:B092:early:v1"
+  ],
+  "system_composition_ids": [
+    "system:B092:ehr-mpc:v1"
+  ],
+  "world_type_ids": [
+    "WT_EHR"
+  ],
+  "profile_ids": [
+    "BP_CONTROLLER"
+  ],
+  "entities": [
+    {
+      "id": "paper:B092",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "B092",
+        "title": "EHR-MPC: Inference-Time Control for Sepsis Treatment with Generative Patient Digital Twins",
+        "year": 2026,
+        "doi": "https://arxiv.org/abs/2607.08793"
+      }
+    },
+    {
+      "id": "paper-version:B092:sha256-03dd70f8d983",
+      "class_id": "PaperVersion",
+      "properties": {
+        "sha256": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46",
+        "source_path": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+        "pdf_pages": 29,
+        "version_basis": "PDF identified by SHA-256 against assignments.json; title page read."
+      }
+    },
+    {
+      "id": "study:B092:ehr-mpc",
+      "class_id": "Study",
+      "properties": {
+        "description": "Inference-time model predictive control over a generative EHR digital twin for ICU sepsis treatment.",
+        "independent_study_claim": "single group; own pipeline"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B092:0001",
+        "evidence:B092:0002"
+      ]
+    },
+    {
+      "id": "system:B092:ehr-mpc:v1",
+      "class_id": "SystemComposition",
+      "properties": {
+        "description": "GPT-2-style token-level EHR digital twin with token-forced action rollouts, outcome heads and a receding-horizon MPC planner over four intervention options.",
+        "implementation_stage": "evaluation (retrospective and simulated)",
+        "world_model_status": "core"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B092:0001",
+        "evidence:B092:0008",
+        "evidence:B092:0029"
+      ]
+    },
+    {
+      "id": "model:B092:ehr-digital-twin:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "GPT-2-style decoder-only transformer over tokenized EHR events with task heads",
+        "world_model_status": "core"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B092:0007",
+        "evidence:B092:0006"
+      ]
+    },
+    {
+      "id": "use:B092:icu-sepsis-treatment-optimization",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "population": "ICU patients with sepsis at eight hospitals of one health system",
+        "user": "clinician as human in the loop (stated aim)",
+        "decision": "vasopressor, antibiotic and corticosteroid treatment choice",
+        "autonomy": "decision support, retrospective only"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B092:0003",
+        "evidence:B092:0004"
+      ]
+    },
+    {
+      "id": "cohort:B092:mgb-icu-36930-patients",
+      "class_id": "Cohort",
+      "properties": {
+        "description": "36,930 ICU patients, two academic and six community hospitals, 2022 onward"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B092:0013"
+      ]
+    },
+    {
+      "id": "cohort:B092:mgb-sepsis-subset-policy-evaluation",
+      "class_id": "Cohort",
+      "properties": {
+        "description": "Sepsis patients within the cohort used for policy evaluation"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B092:0020"
+      ]
+    },
+    {
+      "id": "evalrun:B092:wis-and-simulated-policy-evaluation",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "description": "Weighted importance sampling and digital twin simulation of EHR-MPC and Q-network policies",
+        "split_role": "held-out patients (split ratio and partitioning protocol not reported across pp. 1-29)"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B092:0020",
+        "evidence:B092:0021"
+      ]
+    },
+    {
+      "id": "model:B092:qnet:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "Q-network policy on frozen digital twin representations",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B092:0020"
+      ]
+    },
+    {
+      "id": "model:B092:clin:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "Observed clinician policy",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B092:0020"
+      ]
+    },
+    {
+      "id": "model:B092:early:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "Early-epoch digital twin checkpoint used for MPC planning",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B092:0020"
+      ]
+    },
+    {
+      "id": "metric:B092:0001",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Next-m token set recall, top-10, m=5 = 86.2"
+      }
+    },
+    {
+      "id": "metric:B092:0002",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Next-m token set recall, top-10, m=10 = 82.8"
+      }
+    },
+    {
+      "id": "metric:B092:0003",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Next-m token set recall, top-50, m=5 = 92.9"
+      }
+    },
+    {
+      "id": "metric:B092:0004",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Next-m token set recall, top-50, m=10 = 89.9"
+      }
+    },
+    {
+      "id": "metric:B092:0005",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Top-1 next-token accuracy, medications = 54.8"
+      }
+    },
+    {
+      "id": "metric:B092:0006",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Top-1 next-token accuracy, location and unit = 31.4"
+      }
+    },
+    {
+      "id": "metric:B092:0007",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Top-1 next-token accuracy, labs, vitals and orders = 27.2"
+      }
+    },
+    {
+      "id": "metric:B092:0008",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Steroids: predicted mortality with 1 injected token = 0.38"
+      }
+    },
+    {
+      "id": "metric:B092:0009",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Steroids: predicted mortality with 20 injected tokens = 0.12"
+      }
+    },
+    {
+      "id": "metric:B092:0010",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Vasopressor: predicted mortality with 1 injected token = 0.49"
+      }
+    },
+    {
+      "id": "metric:B092:0011",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Vasopressor: predicted mortality with 20 injected tokens = 0.52"
+      }
+    },
+    {
+      "id": "metric:B092:0012",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Antibiotics: predicted mortality with 1 injected token = 0.44"
+      }
+    },
+    {
+      "id": "metric:B092:0013",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Antibiotics: predicted mortality with 20 injected tokens = 0.5"
+      }
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:B092:0001",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "data.provenance",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B092:0013",
+        "evidence:B092:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Cohort construction, extraction and tokenization are described for a multi-hospital production EHR.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B092:0002",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "data.native_time",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B092:0006",
+        "evidence:B092:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Time is represented with four-hour interval tokens, with irregular sampling discussed.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0003",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Delayed timestamps are mentioned as a challenge, with no availability-time handling described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0004",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0005",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0006",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B092:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Tokens indexed by order and time with four-hour interval tokens"
+      ],
+      "criteria_missing": [
+        "Evaluation of timing fidelity"
+      ],
+      "rationale": "Design only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0007",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0008",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0009",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "data.harmonization",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B092:0013"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Manual curation of key mappings across sites"
+      ],
+      "criteria_missing": [
+        "A harmonization evaluation"
+      ],
+      "rationale": "Curation only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0010",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "The text read mentions a held-out set and no split details were found.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0011",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0012",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0006",
+        "evidence:B092:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Events are tokenized and embedded by a transformer.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0013",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0014",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0015",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0016",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0017",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0018",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0019",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0005",
+        "evidence:B092:0006",
+        "evidence:B092:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "State is the history of tokens up to the decision time.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0020",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No explicit belief is maintained.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0021",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No propagate and correct cycle is described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0022",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "New EHR tokens are streamed into the patient state"
+      ],
+      "criteria_missing": [
+        "Evaluation of streaming updates"
+      ],
+      "rationale": "Design only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0023",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No adaptation is described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0024",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "state.reusable",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0011"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "One twin serves several reward functions"
+      ],
+      "criteria_missing": [
+        "Reuse across tasks beyond two rewards"
+      ],
+      "rationale": "Two rewards only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0025",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No sufficiency test is reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0026",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The twin conditions on the full token history within a window.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B092:0027",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No personalization audit is reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0028",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0029",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No interpretable state is described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0030",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Trajectories exceeding the context window are aggregated across windows"
+      ],
+      "criteria_missing": [
+        "Memory beyond the window"
+      ],
+      "rationale": "Windowing only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0031",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "action.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0008",
+        "evidence:B092:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Interventions are represented with action tokens forced into the input.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B092:0032",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0033",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "action.parameterized",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0029"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Up to five representative drug tokens per drug class"
+      ],
+      "criteria_missing": [
+        "Dose units and continuous parameters"
+      ],
+      "rationale": "Token counts only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0034",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described beyond daily decisions.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0035",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "action.bundle",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0029"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Combinations of vasopressor, antibiotics or steroids"
+      ],
+      "criteria_missing": [
+        "Rules for combined actions"
+      ],
+      "rationale": "Four options.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0036",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "action.constraints",
+      "assessment_state": "partial",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0024"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Safety and feasibility constraints can be incorporated during planning"
+      ],
+      "criteria_missing": [
+        "Constraints actually used in experiments"
+      ],
+      "rationale": "Capability statement only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0037",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No mapping from tokens to executed doses is reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0038",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No overlap or support analysis is reported, although weighted importance sampling support is discussed as a limitation.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0039",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "action.comparison",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0010",
+        "evidence:B092:0018",
+        "evidence:B092:0020"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Candidate actions and policies are compared by simulated outcomes and importance sampling.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B092:0040",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0041",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0007",
+        "evidence:B092:0008",
+        "evidence:B092:0028"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "An autoregressive transformer generates future tokens.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B092:0042",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0007",
+        "evidence:B092:0005",
+        "evidence:B092:0028"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Dynamics are learned from observational data.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B092:0043",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0008",
+        "evidence:B092:0018",
+        "evidence:B092:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Injected drug tokens change predicted mortality, with steroids showing a non-monotonic table and weak responses for the other drugs.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0044",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Trajectories are described as sampled, while the appendix states greedy decoding.",
+      "confidence": "low"
+    },
+    {
+      "id": "assertion:B092:0045",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0046",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0047",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0048",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0049",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0050",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0051",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described separately.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0052",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0028",
+        "evidence:B092:0029"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Outcome heads predict mortality and SOFA deltas from frozen representations.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0053",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0017"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Next-token and next-m recall are reported.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B092:0054",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0017",
+        "evidence:B092:0018",
+        "evidence:B092:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Set recall over five and ten tokens and 24-hour counterfactual rollouts are evaluated.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0055",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0056",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described for the evaluated rollouts.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0057",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Twenty-four hour rollouts"
+      ],
+      "criteria_missing": [
+        "A declared maximum supported horizon"
+      ],
+      "rationale": "Evaluated length.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0058",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No error versus horizon analysis is reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0059",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No supported horizon is stated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0060",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0010",
+        "evidence:B092:0030"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Generation described as sampling"
+      ],
+      "criteria_missing": [
+        "Number of samples per candidate, with a greedy decoding statement in the appendix"
+      ],
+      "rationale": "Conflicting description.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0061",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0062",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "planning.model_use",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0009",
+        "evidence:B092:0020"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "The twin is used to score candidate action sequences.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B092:0063",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0012",
+        "evidence:B092:0029",
+        "evidence:B092:0020"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Simulation-based search over candidate sequences selects actions and is evaluated against a Q-network.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B092:0064",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0004",
+        "evidence:B092:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Plans are repeatedly recomputed as new data arrive.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0065",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0011"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reward is separate from the dynamics model.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B092:0066",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No uncertainty is used in planning and decoding is greedy.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0067",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0021",
+        "evidence:B092:0022"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Planning and evaluation use different checkpoints with modest degradation.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0068",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0029"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Four intervention options with up to five tokens per class"
+      ],
+      "criteria_missing": [
+        "Provenance of the candidate set beyond the fixed options"
+      ],
+      "rationale": "Fixed small set.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0069",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0070",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0020",
+        "evidence:B092:0021"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Daily closed-loop interventions are simulated on the twin, with no real closed-loop use.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0071",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "uq.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No uncertainty quantity is reported, and uncertainty quantification is listed as an open problem.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0072",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No uncertainty quantity is reported, and uncertainty quantification is listed as an open problem.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0073",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No uncertainty quantity is reported, and uncertainty quantification is listed as an open problem.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0074",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No uncertainty quantity is reported, and uncertainty quantification is listed as an open problem.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0075",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No uncertainty quantity is reported, and uncertainty quantification is listed as an open problem.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0076",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No uncertainty quantity is reported, and uncertainty quantification is listed as an open problem.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0077",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No uncertainty quantity is reported, and uncertainty quantification is listed as an open problem.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0078",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No estimand is stated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0079",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No identification strategy is described and the authors state observational confounding.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0080",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No assumptions are stated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0081",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No sensitivity analysis is reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0082",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B092:0023"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Steroid recommendation direction compared with trial evidence in text"
+      ],
+      "criteria_missing": [
+        "A formal comparison against trial effect estimates"
+      ],
+      "rationale": "Qualitative.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0083",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No mechanism is asserted.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0084",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "partial",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B092:0026"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "The model is trained on observational data confounded by treatment indication"
+      ],
+      "criteria_missing": [
+        "A claim gate restricting the language of counterfactual outputs"
+      ],
+      "rationale": "Limitation stated and counterfactual wording used elsewhere.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0085",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "partial",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B092:0024"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Safety and feasibility constraints can be incorporated during planning"
+      ],
+      "criteria_missing": [
+        "A guard implemented and tested"
+      ],
+      "rationale": "Capability statement.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0086",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0087",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "partial",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B092:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "A closed loop that can incorporate clinician feedback"
+      ],
+      "criteria_missing": [
+        "A tested escalation path"
+      ],
+      "rationale": "Aim stated.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0088",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0089",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0090",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0091",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0092",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0093",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0094",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0095",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0096",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "partial",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B092:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Sepsis treatment optimization as decision support"
+      ],
+      "criteria_missing": [
+        "Intended user, decision point and permitted autonomy specified"
+      ],
+      "rationale": "Aim stated.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0097",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0098",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0099",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0100",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0101",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0102",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0103",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "agent.role",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B092:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No language-model agent or multi-agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B092:0104",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B092:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No language-model agent or multi-agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B092:0105",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B092:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No language-model agent or multi-agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B092:0106",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B092:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No language-model agent or multi-agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B092:0107",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B092:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No language-model agent or multi-agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B092:0108",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No statement was found in the pages read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0109",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No statement was found in the pages read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0110",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No statement was found in the pages read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0111",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No statement was found in the pages read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0112",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B092:0017"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Next-token prediction is scored by token type.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B092:0113",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B092:0017"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Set recall over five and ten tokens is reported.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0114",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No distributional realism metric is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0115",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No separate plausibility review is reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0116",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No calibration is reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0117",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B092:0018",
+        "evidence:B092:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Dose-response sensitivity to injected drug tokens is tested.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B092:0118",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B092:0023",
+        "evidence:B092:0026"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Steroid recommendation direction compared with trial evidence"
+      ],
+      "criteria_missing": [
+        "Causal identification"
+      ],
+      "rationale": "Qualitative.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0119",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No per-patient personalization evidence is reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0120",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B092:0020",
+        "evidence:B092:0021",
+        "evidence:B092:0022"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Policies are scored by importance sampling and simulated outcomes, with comparable WIS value to a Q-network.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B092:0121",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No simulation to real agreement is reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0122",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B092:0013"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Hospital-level stratification of embeddings and policies"
+      ],
+      "criteria_missing": [
+        "Held-out site or time transfer"
+      ],
+      "rationale": "Within one health system.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0123",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No observation process audit is reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0124",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No clinician review is reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0125",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B092:0028"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Training on seven GPUs and planning taking seconds to minutes"
+      ],
+      "criteria_missing": [
+        "Measured planning latency"
+      ],
+      "rationale": "Resources stated.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B092:0126",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No clinical or workflow outcome is reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0127",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B092:0128",
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:B092:0001",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "decouples learning patient dynamics from optimizing treatment",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0002",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "comparable off-policy performance and improved simulation performance",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0003",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "multicenter ICU sepsis cohort spanning 8 hospitals",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0004",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Figure 1"
+      },
+      "content": "the action token generating the best simulated outcome is translated to the proposed intervention.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0005",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "3.1"
+      },
+      "content": "EHR-MPC trains only a generative model of patient dynamics",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0006",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "3.2"
+      },
+      "content": "Continuous measurements are discretized into bins",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0007",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "3.2"
+      },
+      "content": "GPT-2-style causal language model architecture",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0008",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "3.2"
+      },
+      "content": "we force the corresponding action tokens into the input",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0009",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "3.3"
+      },
+      "content": "Because MPC operates entirely at inference time, the clinical objective",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0010",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "3.3"
+      },
+      "content": "we simulate a counterfactual trajectory by forcing the corresponding action tokens",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0011",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "3.3"
+      },
+      "content": "Because R is never embedded in the model",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0012",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "3.3"
+      },
+      "content": "this optimization is intractable to solve exactly",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0013",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "4.2"
+      },
+      "content": "we sampled 36,930 patients",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0014",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "4.4"
+      },
+      "content": "The tokenized dataset contained 469 million content tokens",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0015",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 11,
+        "section_or_table": "5.1"
+      },
+      "content": "The number of drug tokens is varied",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0016",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 11,
+        "section_or_table": "5.1"
+      },
+      "content": "Corticosteroid tokens induce a consistent, monotonic decrease in predicted",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0017",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "table",
+        "page": 11,
+        "section_or_table": "Table 3"
+      },
+      "content": "[paraphrase of Table 3, p. 11] Next-m token set recall (percent) at m=5 / m=10: top-10 86.2 / 82.8; top-20 89.4 / 85.9; top-50 92.9 / 89.9. Top-1 / top-5 / top-10 accuracy by token type: medications 54.8 / 74.0 / 82.7; location and unit 31.4 / 58.7 / 66.0; labs, vitals and orders 27.2 / 54.3 / 65.0.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0018",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "table",
+        "page": 12,
+        "section_or_table": "Table 4"
+      },
+      "content": "[paraphrase of Table 4, p. 12] Predicted mortality under 1, 2, 4, 6, 8, 10, 12, 15, 18, 20 injected tokens. Steroids 0.38, 0.33, 0.41, 0.39, 0.39, 0.37, 0.31, 0.22, 0.16, 0.12. Vasopressor 0.49, 0.56, 0.58, 0.66, 0.68, 0.73, 0.67, 0.62, 0.54, 0.52. Antibiotics 0.44, 0.50, 0.44, 0.48, 0.45, 0.41, 0.54, 0.47, 0.43, 0.50.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0019",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 12,
+        "section_or_table": "5.1"
+      },
+      "content": "satisfy empirical conditions for local controllability",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0020",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 12,
+        "section_or_table": "5.2"
+      },
+      "content": "achieve higher estimated value than the clinician policy under WIS",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0021",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 13,
+        "section_or_table": "5.2"
+      },
+      "content": "MPC planning uses an early-epoch checkpoint",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0022",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 13,
+        "section_or_table": "5.2"
+      },
+      "content": "EHR-MPC continues to outperform the clinician policy with only modest performance",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0023",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "6"
+      },
+      "content": "EHR-MPC recommends increased steroid use when optimized for mortality",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0024",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "6"
+      },
+      "content": "Third, safety and feasibility constraints can be incorporated directly",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0025",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 16,
+        "section_or_table": "6"
+      },
+      "content": "does not provide guarantees of correct system identification",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0026",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 16,
+        "section_or_table": "6"
+      },
+      "content": "The model is trained on observational data confounded by treatment indication",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0027",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 16,
+        "section_or_table": "6"
+      },
+      "content": "Uncertainty quantification, observability analysis",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0028",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 26,
+        "section_or_table": "B.1"
+      },
+      "content": "The base transformer model was trained on 7 NVIDIA A6000 GPUs",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0029",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 27,
+        "section_or_table": "B.3"
+      },
+      "content": "At each decision point, four intervention options are considered",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0030",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 27,
+        "section_or_table": "B.3"
+      },
+      "content": "The autoregressive generation uses a greedy (argmax) decoding strategy",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0031",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 28,
+        "section_or_table": "B.4"
+      },
+      "content": "is estimated by fitting a multinomial logistic regression classifier",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    },
+    {
+      "id": "evidence:B092:0032",
+      "source_ref": "Papers/Expanded_Collection/B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+      "source_version": "paper-version:B092:sha256-03dd70f8d983",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 28,
+        "section_or_table": "B.4"
+      },
+      "content": "Cumulative weights are clipped at",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "03dd70f8d98360dbe1b45332abe9387bcc30ff333c2655938d7c88074591cd46"
+    }
+  ],
+  "metric_results": [
+    {
+      "id": "metric:B092:0001",
+      "metric": "Next-m token set recall, top-10, m=5",
+      "value": 86.2,
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "next-token forecasting",
+      "cohort_id": "cohort:B092:mgb-icu-36930-patients",
+      "split_role": "held-out",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B092:ehr-digital-twin:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "86.2",
+      "source_evidence_ids": [
+        "evidence:B092:0017"
+      ]
+    },
+    {
+      "id": "metric:B092:0002",
+      "metric": "Next-m token set recall, top-10, m=10",
+      "value": 82.8,
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "next-token forecasting",
+      "cohort_id": "cohort:B092:mgb-icu-36930-patients",
+      "split_role": "held-out",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B092:ehr-digital-twin:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "82.8",
+      "source_evidence_ids": [
+        "evidence:B092:0017"
+      ]
+    },
+    {
+      "id": "metric:B092:0003",
+      "metric": "Next-m token set recall, top-50, m=5",
+      "value": 92.9,
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "next-token forecasting",
+      "cohort_id": "cohort:B092:mgb-icu-36930-patients",
+      "split_role": "held-out",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B092:ehr-digital-twin:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "92.9",
+      "source_evidence_ids": [
+        "evidence:B092:0017"
+      ]
+    },
+    {
+      "id": "metric:B092:0004",
+      "metric": "Next-m token set recall, top-50, m=10",
+      "value": 89.9,
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "next-token forecasting",
+      "cohort_id": "cohort:B092:mgb-icu-36930-patients",
+      "split_role": "held-out",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B092:ehr-digital-twin:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "89.9",
+      "source_evidence_ids": [
+        "evidence:B092:0017"
+      ]
+    },
+    {
+      "id": "metric:B092:0005",
+      "metric": "Top-1 next-token accuracy, medications",
+      "value": 54.8,
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "next-token forecasting",
+      "cohort_id": "cohort:B092:mgb-icu-36930-patients",
+      "split_role": "held-out",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B092:ehr-digital-twin:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "54.8",
+      "source_evidence_ids": [
+        "evidence:B092:0017"
+      ]
+    },
+    {
+      "id": "metric:B092:0006",
+      "metric": "Top-1 next-token accuracy, location and unit",
+      "value": 31.4,
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "next-token forecasting",
+      "cohort_id": "cohort:B092:mgb-icu-36930-patients",
+      "split_role": "held-out",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B092:ehr-digital-twin:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "31.4",
+      "source_evidence_ids": [
+        "evidence:B092:0017"
+      ]
+    },
+    {
+      "id": "metric:B092:0007",
+      "metric": "Top-1 next-token accuracy, labs, vitals and orders",
+      "value": 27.2,
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "next-token forecasting",
+      "cohort_id": "cohort:B092:mgb-icu-36930-patients",
+      "split_role": "held-out",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B092:ehr-digital-twin:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "27.2",
+      "source_evidence_ids": [
+        "evidence:B092:0017"
+      ]
+    },
+    {
+      "id": "metric:B092:0008",
+      "metric": "Steroids: predicted mortality with 1 injected token",
+      "value": 0.38,
+      "unit_or_scale": "probability",
+      "direction": "lower_better",
+      "task": "dose-response sensitivity",
+      "cohort_id": "cohort:B092:mgb-icu-36930-patients",
+      "split_role": "held-out",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B092:ehr-digital-twin:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.38",
+      "source_evidence_ids": [
+        "evidence:B092:0018"
+      ]
+    },
+    {
+      "id": "metric:B092:0009",
+      "metric": "Steroids: predicted mortality with 20 injected tokens",
+      "value": 0.12,
+      "unit_or_scale": "probability",
+      "direction": "lower_better",
+      "task": "dose-response sensitivity",
+      "cohort_id": "cohort:B092:mgb-icu-36930-patients",
+      "split_role": "held-out",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B092:ehr-digital-twin:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.12",
+      "source_evidence_ids": [
+        "evidence:B092:0018"
+      ]
+    },
+    {
+      "id": "metric:B092:0010",
+      "metric": "Vasopressor: predicted mortality with 1 injected token",
+      "value": 0.49,
+      "unit_or_scale": "probability",
+      "direction": "lower_better",
+      "task": "dose-response sensitivity",
+      "cohort_id": "cohort:B092:mgb-icu-36930-patients",
+      "split_role": "held-out",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B092:ehr-digital-twin:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.49",
+      "source_evidence_ids": [
+        "evidence:B092:0018"
+      ]
+    },
+    {
+      "id": "metric:B092:0011",
+      "metric": "Vasopressor: predicted mortality with 20 injected tokens",
+      "value": 0.52,
+      "unit_or_scale": "probability",
+      "direction": "lower_better",
+      "task": "dose-response sensitivity",
+      "cohort_id": "cohort:B092:mgb-icu-36930-patients",
+      "split_role": "held-out",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B092:ehr-digital-twin:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.52",
+      "source_evidence_ids": [
+        "evidence:B092:0018"
+      ]
+    },
+    {
+      "id": "metric:B092:0012",
+      "metric": "Antibiotics: predicted mortality with 1 injected token",
+      "value": 0.44,
+      "unit_or_scale": "probability",
+      "direction": "lower_better",
+      "task": "dose-response sensitivity",
+      "cohort_id": "cohort:B092:mgb-icu-36930-patients",
+      "split_role": "held-out",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B092:ehr-digital-twin:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.44",
+      "source_evidence_ids": [
+        "evidence:B092:0018"
+      ]
+    },
+    {
+      "id": "metric:B092:0013",
+      "metric": "Antibiotics: predicted mortality with 20 injected tokens",
+      "value": 0.5,
+      "unit_or_scale": "probability",
+      "direction": "lower_better",
+      "task": "dose-response sensitivity",
+      "cohort_id": "cohort:B092:mgb-icu-36930-patients",
+      "split_role": "held-out",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B092:ehr-digital-twin:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.5",
+      "source_evidence_ids": [
+        "evidence:B092:0018"
+      ]
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:B092:0001",
+      "subject_id": "paper:B092",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:B092:sha256-03dd70f8d983",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization"
+      },
+      "evidence_ids": [
+        "evidence:B092:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B092:0002",
+      "subject_id": "paper-version:B092:sha256-03dd70f8d983",
+      "predicate_id": "reportsStudy",
+      "object_id": "study:B092:ehr-mpc",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization"
+      },
+      "evidence_ids": [
+        "evidence:B092:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B092:0003",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "predicate_id": "hasUseContext",
+      "object_id": "use:B092:icu-sepsis-treatment-optimization",
+      "assessment_state": "present",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization"
+      },
+      "evidence_ids": [
+        "evidence:B092:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B092:0004",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "predicate_id": "hasProfile",
+      "object_id": "BP_CONTROLLER",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization"
+      },
+      "evidence_ids": [
+        "evidence:B092:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "A planner selects treatment actions by searching over simulated rollouts and is evaluated as a policy, so controller gates apply."
+    },
+    {
+      "id": "relation:B092:0005",
+      "subject_id": "paper-version:B092:sha256-03dd70f8d983",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B092:ehr-digital-twin:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B092:ehr-digital-twin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0020"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B092:0006",
+      "subject_id": "paper-version:B092:sha256-03dd70f8d983",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B092:qnet:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B092:qnet:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0020"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B092:0007",
+      "subject_id": "paper-version:B092:sha256-03dd70f8d983",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B092:clin:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B092:clin:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0020"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B092:0008",
+      "subject_id": "paper-version:B092:sha256-03dd70f8d983",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B092:early:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B092:early:v1"
+      },
+      "evidence_ids": [
+        "evidence:B092:0020"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B092:0009",
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "predicate_id": "composesModel",
+      "object_id": "model:B092:ehr-digital-twin:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B092:ehr-digital-twin:v1",
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization"
+      },
+      "evidence_ids": [
+        "evidence:B092:0008",
+        "evidence:B092:0028",
+        "evidence:B092:0029",
+        "evidence:B092:0020"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "relation:B092:0010",
+      "subject_id": "evalrun:B092:wis-and-simulated-policy-evaluation",
+      "predicate_id": "evaluatesOnCohort",
+      "object_id": "cohort:B092:mgb-icu-36930-patients",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B092:wis-and-simulated-policy-evaluation"
+      },
+      "evidence_ids": [
+        "evidence:B092:0013",
+        "evidence:B092:0020"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B092:0011",
+      "subject_id": "evalrun:B092:wis-and-simulated-policy-evaluation",
+      "predicate_id": "evaluatesOnCohort",
+      "object_id": "cohort:B092:mgb-sepsis-subset-policy-evaluation",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B092:wis-and-simulated-policy-evaluation"
+      },
+      "evidence_ids": [
+        "evidence:B092:0013",
+        "evidence:B092:0020"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B092:0012",
+      "subject_id": "paper-version:B092:sha256-03dd70f8d983",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M3",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization"
+      },
+      "evidence_ids": [
+        "evidence:B092:0008",
+        "evidence:B092:0029"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reviewer mapping: token history state, action tokens, autoregressive dynamics, token-forced rollouts and a simulation-search planner."
+    },
+    {
+      "id": "relation:B092:0013",
+      "subject_id": "paper-version:B092:sha256-03dd70f8d983",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M4",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization"
+      },
+      "evidence_ids": [
+        "evidence:B092:0008",
+        "evidence:B092:0029"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reviewer mapping: token history state, action tokens, autoregressive dynamics, token-forced rollouts and a simulation-search planner."
+    },
+    {
+      "id": "relation:B092:0014",
+      "subject_id": "paper-version:B092:sha256-03dd70f8d983",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M5",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization"
+      },
+      "evidence_ids": [
+        "evidence:B092:0008",
+        "evidence:B092:0029"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reviewer mapping: token history state, action tokens, autoregressive dynamics, token-forced rollouts and a simulation-search planner."
+    },
+    {
+      "id": "relation:B092:0015",
+      "subject_id": "paper-version:B092:sha256-03dd70f8d983",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M6",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization"
+      },
+      "evidence_ids": [
+        "evidence:B092:0008",
+        "evidence:B092:0029"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reviewer mapping: token history state, action tokens, autoregressive dynamics, token-forced rollouts and a simulation-search planner."
+    },
+    {
+      "id": "relation:B092:0016",
+      "subject_id": "paper-version:B092:sha256-03dd70f8d983",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M8",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization"
+      },
+      "evidence_ids": [
+        "evidence:B092:0008",
+        "evidence:B092:0029"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reviewer mapping: token history state, action tokens, autoregressive dynamics, token-forced rollouts and a simulation-search planner."
+    },
+    {
+      "id": "relation:B092:0017",
+      "subject_id": "evalrun:B092:wis-and-simulated-policy-evaluation",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B092:0001",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B092:wis-and-simulated-policy-evaluation"
+      },
+      "evidence_ids": [
+        "evidence:B092:0017"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B092:0018",
+      "subject_id": "evalrun:B092:wis-and-simulated-policy-evaluation",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B092:0002",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B092:wis-and-simulated-policy-evaluation"
+      },
+      "evidence_ids": [
+        "evidence:B092:0017"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B092:0019",
+      "subject_id": "evalrun:B092:wis-and-simulated-policy-evaluation",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B092:0003",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B092:wis-and-simulated-policy-evaluation"
+      },
+      "evidence_ids": [
+        "evidence:B092:0017"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B092:0020",
+      "subject_id": "evalrun:B092:wis-and-simulated-policy-evaluation",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B092:0004",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B092:wis-and-simulated-policy-evaluation"
+      },
+      "evidence_ids": [
+        "evidence:B092:0017"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B092:0021",
+      "subject_id": "evalrun:B092:wis-and-simulated-policy-evaluation",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B092:0005",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B092:wis-and-simulated-policy-evaluation"
+      },
+      "evidence_ids": [
+        "evidence:B092:0017"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B092:0022",
+      "subject_id": "evalrun:B092:wis-and-simulated-policy-evaluation",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B092:0006",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B092:wis-and-simulated-policy-evaluation"
+      },
+      "evidence_ids": [
+        "evidence:B092:0017"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B092:0023",
+      "subject_id": "evalrun:B092:wis-and-simulated-policy-evaluation",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B092:0007",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B092:wis-and-simulated-policy-evaluation"
+      },
+      "evidence_ids": [
+        "evidence:B092:0017"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B092:0024",
+      "subject_id": "evalrun:B092:wis-and-simulated-policy-evaluation",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B092:0008",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B092:wis-and-simulated-policy-evaluation"
+      },
+      "evidence_ids": [
+        "evidence:B092:0018"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B092:0025",
+      "subject_id": "evalrun:B092:wis-and-simulated-policy-evaluation",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B092:0009",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B092:wis-and-simulated-policy-evaluation"
+      },
+      "evidence_ids": [
+        "evidence:B092:0018"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B092:0026",
+      "subject_id": "evalrun:B092:wis-and-simulated-policy-evaluation",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B092:0010",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B092:wis-and-simulated-policy-evaluation"
+      },
+      "evidence_ids": [
+        "evidence:B092:0018"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B092:0027",
+      "subject_id": "evalrun:B092:wis-and-simulated-policy-evaluation",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B092:0011",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B092:wis-and-simulated-policy-evaluation"
+      },
+      "evidence_ids": [
+        "evidence:B092:0018"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B092:0028",
+      "subject_id": "evalrun:B092:wis-and-simulated-policy-evaluation",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B092:0012",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B092:wis-and-simulated-policy-evaluation"
+      },
+      "evidence_ids": [
+        "evidence:B092:0018"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B092:0029",
+      "subject_id": "evalrun:B092:wis-and-simulated-policy-evaluation",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B092:0013",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B092:wis-and-simulated-policy-evaluation"
+      },
+      "evidence_ids": [
+        "evidence:B092:0018"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    }
+  ],
+  "capability_assessments": [
+    {
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "level": "L4",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization"
+      },
+      "evidence_assertion_ids": [
+        "assertion:B092:0019",
+        "assertion:B092:0041",
+        "assertion:B092:0042",
+        "assertion:B092:0063",
+        "assertion:B092:0120"
+      ],
+      "rationale": "A simulation-based search over candidate action sequences chooses treatments and its policy value is evaluated by importance sampling and simulated outcomes, which meets L4. Evidence is retrospective and simulated, the twin has no identification guarantee and is confounded, there is no uncertainty, calibration or safety guard evidence, and the simulated advantage uses the same model family for planning and scoring."
+    },
+    {
+      "subject_id": "model:B092:ehr-digital-twin:v1",
+      "level": "L3",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization"
+      },
+      "evidence_assertion_ids": [
+        "assertion:B092:0019",
+        "assertion:B092:0041",
+        "assertion:B092:0042",
+        "assertion:B092:0053",
+        "assertion:B092:0043",
+        "assertion:B092:0039"
+      ],
+      "rationale": "Standalone generative digital twin model:B092:ehr-digital-twin:v1 implements tokenized persistent state, temporal autoregressive dynamics, and learned transformer transitions, and is evaluated on next-token/next-m forecasting (Table 3) and alternative-action dose-response counterfactual rollouts across steroids, vasopressors, and antibiotics from the same high-acuity patients (Table 4), meeting L3 without causal identification. Receding-horizon MPC policy search and WIS/simulated policy evaluation belong to the composed controller system:B092:ehr-mpc:v1 (L4), not the standalone dynamics model."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "system:B092:ehr-mpc:v1",
+      "facets": [
+        "R2"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization"
+      },
+      "evidence_ids": [
+        "evidence:B092:0020",
+        "evidence:B092:0021",
+        "evidence:B092:0013"
+      ],
+      "legacy_highest_label": "R3 Retrospective external / multi-site validation"
+    }
+  ],
+  "gate_assessments": [
+    {
+      "gate_id": "G01",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization"
+      },
+      "rationale": "A held-out set is mentioned (pp. 26-27), but train/validation/test split ratios, patient-level disjointness, and temporal split boundaries are not reported across pages 1-29.",
+      "supporting_assertion_ids": [
+        "assertion:B092:0010"
+      ]
+    },
+    {
+      "gate_id": "G02",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization"
+      },
+      "rationale": "Next-token and next-m set recall are reported with token-type stratification (Table 3, p. 11), but the train/test split design, patient-level disjointness, and non-leaky reference criteria are not specified across pages 1-29 (matching unresolved G01), preventing an evidence pass on G02.",
+      "supporting_assertion_ids": [
+        "assertion:B092:0019",
+        "assertion:B092:0041",
+        "assertion:B092:0053"
+      ]
+    },
+    {
+      "gate_id": "G05",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization"
+      },
+      "rationale": "No overlap or support analysis of candidate actions, and weighted importance sampling support issues are acknowledged.",
+      "supporting_assertion_ids": [
+        "assertion:B092:0038"
+      ]
+    },
+    {
+      "gate_id": "G07",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization"
+      },
+      "rationale": "A checkpoint-decoupling robustness test is reported, but planning and scoring models share data and architecture and no real-world outcome is observed.",
+      "supporting_assertion_ids": [
+        "assertion:B092:0067",
+        "assertion:B092:0120"
+      ]
+    },
+    {
+      "gate_id": "G08",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:B092:icu-sepsis-treatment-optimization"
+      },
+      "rationale": "Constraints are described as possible and no guard, abstention or monitoring is evaluated.",
+      "supporting_assertion_ids": [
+        "assertion:B092:0085",
+        "assertion:B092:0086"
+      ]
+    }
+  ],
+  "legacy_cells": {
+    "A": "B092",
+    "B": "EHR-MPC: Inference-Time Control for Sepsis Treatment with Generative Patient Digital Twins",
+    "C": "Pickard, Joshua, Qi, Wei, Li, Na, Woolley, Ann, Cosimi, Lisa, Kishony, Roy, et al.",
+    "D": "2026",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://arxiv.org/abs/2607.08793",
+    "H": "Papers/Expanded_Collection (B)",
+    "I": "B092_EHR_MPC_Inference_Time_Control_for_Sepsis_Treatment_with_Generative_Patient_Digital_Twins.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not applicable",
+    "N": "Critical care / sepsis",
+    "O": "Sepsis in a cohort of ICU admissions that also included non-sepsis patients",
+    "P": "ICU / critical care",
+    "Q": "Patient clinical trajectory (EHR)",
+    "R": "Treatment recommendation / planning",
+    "S": "For an ICU sepsis patient’s current EHR history, which medication action sequence optimizes mortality risk or SOFA over the planning horizon?",
+    "T": "36,930 ICU patients across eight hospitals, including 4,129 patients with sepsis; policy evaluation was restricted to sepsis patients.",
+    "U": "Clinicians (proposed clinical decision support; clinician feedback is contemplated).",
+    "V": "Select a vasopressor, antibiotic, or corticosteroid treatment action to optimize a specified mortality-risk or SOFA objective.",
+    "W": "Digital twin",
+    "X": "F2 EHR / ICU event & latent patient dynamics",
+    "Y": "Event/token autoregressive",
+    "Z": "L4 Planning / control",
+    "AA": "L4 Planning / control",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "Yes",
+    "AE": "Yes",
+    "AF": "Yes",
+    "AG": "Yes",
+    "AH": "Closed-loop simulator",
+    "AI": "Tokenized longitudinal EHR events: vitals, laboratory measurements, medication/intervention events, procedures, device settings, diagnoses, demographics, and administrative events",
+    "AJ": "Decoder-only GPT-2-style causal language model / transformer; tokenized EHR input",
+    "AK": "Not reported",
+    "AL": "Not reported",
+    "AM": "Not applicable",
+    "AN": "Not reported",
+    "AO": "Yes",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Event-token sequence",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Conditioning on patient history",
+    "AX": "Not reported",
+    "AY": "Yes",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Pharmacological treatment / dose",
+    "BC": "Discrete token / category",
+    "BD": "Candidate medication actions are represented by drug tokens; four options include combinations of vasopressor, antibiotics, or steroids, or no administration of the specified medications; up to five representative drug tokens per drug class; simulated planning horizon is approximately 24 hours and policy actions are selected at daily intervals.",
+    "BE": "Yes",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "EHR-MPC (generative patient digital twin pθ)",
+    "BJ": "Transformer (autoregressive)",
+    "BK": "Irregular timestamps (Δt as input)",
+    "BL": "EHR stream includes four-hour interval tokens; MPC rollout generates six [4 hour] tokens, approximately 24 hours.",
+    "BM": "Yes",
+    "BN": "Not reported",
+    "BO": "Attention context window",
+    "BP": "512 tokens (block size)",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Autoregressively generated future EHR tokens representing patient-state trajectories, including clinical events, measurements, and interventions.",
+    "BT": "Mortality-risk prediction head and daily SOFA-delta prediction head; lightweight random-forest outcome readouts are also evaluated on learned representations.",
+    "BU": "Inference-time trajectory reward/objective minimizes predicted SOFA score or mortality risk.",
+    "BV": "Next-token prediction (NTP) for the EHR sequence; SOFA-delta head trained with mean squared error; mortality head trained with binary cross-entropy.",
+    "BW": "Not reported",
+    "BX": "Not reported",
+    "BY": "74.8M total backbone parameters",
+    "BZ": "Not reported",
+    "CA": "Base transformer trained on 7 NVIDIA A6000 GPUs for approximately 18 hours.",
+    "CB": "Not reported",
+    "CC": "Closed-loop with re-assimilation",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "Sampling MPC (CEM / MPPI / shooting)",
+    "CI": "Approximately 24 hours (six four-hour tokens)",
+    "CJ": "Yes",
+    "CK": "Optimize simulated trajectory reward for lower SOFA score or mortality risk; choose the candidate medication sequence with the highest predicted utility.",
+    "CL": "Not reported",
+    "CM": "Yes",
+    "CN": "Not reported",
+    "CO": "Yes",
+    "CP": "Not reported",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "Associational action-conditioning",
+    "CU": "None",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not applicable",
+    "DB": "Not applicable",
+    "DC": "Not applicable",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Yes",
+    "DN": "Mass General Brigham health-system institutional EHR database",
+    "DO": "Hospital EHR",
+    "DP": "Not reported",
+    "DQ": "36,930 ICU patients, including 4,129 patients with sepsis, with policy evaluation restricted to sepsis patients.",
+    "DR": "8 hospitals",
+    "DS": "Both",
+    "DT": "Retrospective",
+    "DU": "Not reported",
+    "DV": "Not reported",
+    "DW": "Yes",
+    "DX": "Next-m-token set recall: top-10 predictions, m=5 86.2% and m=10 82.8%; top-20, m=5 89.4% and m=10 85.9%; top-50, m=5 92.9% and m=10 89.9%. Token top-1/top-5/top-10 accuracy: medications 54.8%/74.0%/82.7%; location/unit 31.4%/58.7%/66.0%; labs, vitals, and orders 27.2%/54.3%/65.0%.",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "In 24-hour counterfactual rollouts with injected drug tokens, predicted mortality probabilities varied by drug and token count. Table 4 reports steroids 0.38 at 1 token and 0.12 at 20 tokens (with non-monotonic intermediate values); vasopressor and antibiotic responses also varied.",
+    "EC": "Off-policy WIS: EHR-MPC and Q-network had higher estimated value than the clinician policy, with similar EHR-MPC/Q-network point estimates and overlapping confidence intervals. In digital-twin simulations, EHR-MPC outperformed Q-network policies on daily SOFA improvement and mortality-risk reduction; advantage persisted under model-mismatch evaluation.",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Q-network baseline: similar, overlapping off-policy WIS point estimates to EHR-MPC; lower simulation-based SOFA improvement and mortality-risk reduction. Clinician policy: lower WIS estimated value than EHR-MPC and Q-network.",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Yes",
+    "ET": "R3 Retrospective external / multi-site validation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not applicable",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "1 – minimal",
+    "FD": "1 – minimal",
+    "FE": "1 – minimal",
+    "FF": "2 – moderate",
+    "FG": "No",
+    "FH": "No",
+    "FI": "Yes",
+    "FJ": "Not reported",
+    "FK": "Yes",
+    "FL": "Tokenized EHR events → ordered patient-history state x1:kt → GPT-2-style autoregressive transformer generating action-conditioned future EHR tokens → mortality-risk and SOFA-delta heads/trajectory reward → simulation-based MPC samples candidate medication sequences, scores rollouts, selects the first action, then repeats with updated patient state.",
+    "FM": "The authors propose EHR-MPC: learn generative patient dynamics separately from the clinical objective, then optimize medication treatment through inference-time MPC over simulated trajectories.",
+    "FN": "On the eight-hospital ICU cohort, EHR-MPC and Q-network had comparable WIS performance; EHR-MPC performed better in digital-twin simulation for SOFA improvement and mortality-risk reduction, including under model mismatch. The reported token forecast set recalls were 86.2%–92.9% at m=5 and 82.8%–89.9% at m=10 for top-10 through top-50 predictions.",
+    "FO": "The authors state that observational training is confounded by treatment indication and may yield hallucinated or unreliable trajectories for treatment regimes poorly represented in training data; twin fidelity and intervention validation lack guarantees. WIS has high variance and support-mismatch sensitivity, while simulator evaluation depends on model accuracy. They also note computational and hyperparameter optimization opportunities.",
+    "FP": "The authors identify improving digital-twin fidelity, prospectively validating learned dynamics, and developing principled evaluation frameworks for simulation-based policies as open problems for clinical translation.",
+    "FQ": "The authors argue that fixed-reward RL entangles patient dynamics with clinical objectives, limiting adaptation to changing goals; existing retrospective policy results are difficult to interpret, adapt, or validate clinically.",
+    "FR": "Evidence is retrospective and model-relative: WIS is observational/off-policy and high variance, while policy benefit is shown primarily in the learned simulator. Action-conditioned rollouts and dose-token sensitivity do not establish identified treatment effects; the authors acknowledge treatment-indication confounding and unreliable predictions for underrepresented regimens. No prospective clinical benefit or deployment is demonstrated.",
+    "FS": "Reviewer mapping: M3 Belief-state service; M4 Action service; M5 Dynamics adapter; M6 Rollout service; M7 Outcome & causal layer; M8 Planner; M9 Safety & governance",
+    "FT": "Reviewer lesson: Keep the learned patient/scene simulator separate from the planner objective; constrain candidate actions and report closed-loop decision quality alongside model fidelity.",
+    "FU": "Reviewer mapping (KB §20): Causal-validity benchmarks",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Complete extracted PDF text (all pages 1–29; form-feed page breaks reviewed): title/abstract p. 1; introduction pp. 1–3; related work pp. 3–4; methods §§3.1–3.3 pp. 5–7; cohort/data §§4.1–4.4 and Table 2 pp. 8–9; experiments, Tables 3–4, Figures 2–5, and results §§5.1–5.2 pp. 10–13; discussion and limitations pp. 14–16; references pp. 17–22; cohort/tokenization tables and model/planning/evaluation appendices pp. 23–29. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "Full 29-page extracted text was readable. I did not browse or use external sources. A:I are omitted to preserve prefilled metadata; no direct contradiction requiring correction was identified. The evidence boundary is retrospective, multicenter, off-policy and model-relative simulation rather than prospective clinical benefit. The steroid dose-response table shows non-monotonic intermediate values despite the prose claim of a consistent monotonic decrease; EB reports the tabulated values without endorsing that claim. Blueprint module IDs and detailed open-problem taxonomy were referenced in the rubric but not defined in the supplied inputs, so FS is omitted and FU summarizes paper-supported open problems without assigning IDs. Evidence QA: 63/86 populated fields had a <=25-word quotation matching extracted PDF text (73.3%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 80 prior populated fields have a located source quotation; 6 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "All 29 physical PDF pages were read as extracted text (including references pp. 17-22, Appendix A Tables 5-8 pp. 23-25, and Appendix B.6 Figures 6-8 p. 29). Rendered page images were visually inspected for pages 3 (Figure 1), 11-13 (Tables 3-4, Figures 2-3), 23-25 (Tables 5-8), and 29 (Figures 6-8).",
+    "Figure 3, Figure 4, Figure 5, and Figures 6-8 plotted values were not digitized beyond printed annotations.",
+    "Train/validation/test split ratios, patient-level disjointness, and code/ethics/IRB approvals are not reported anywhere in the 29-page PDF; G01 and G02 remain unresolved.",
+    "The legacy row was read from the root workbook (read only). Saved API drafts for B092 were not opened.",
+    "Schema validity and quote occurrence do not establish semantic correctness. Automated repair review, no independent human review."
+  ],
+  "notes": "EHR-MPC trains a GPT-2-style token-level EHR digital twin on 36,930 ICU patients from eight hospitals and plans over four intervention options by simulation-based search. Weighted importance sampling gives comparable value to a Q-network and simulations favor EHR-MPC, with a checkpoint-decoupling check. Forecasting recall is 82.8 to 92.9 percent for set recall and medication tokens are best predicted. The authors report non-monotonic responses for non-steroid drugs, and Table 4 steroid values are not monotonic although the text says they are. Classified L4, core, R2 (retrospective). Source points: confounding, no uncertainty or guard evidence, greedy decoding stated in the appendix."
+}

@@ -1,0 +1,4536 @@
+{
+  "record_id": "annotation:B005:r3",
+  "paper_record_id": "B005",
+  "paper_version_id": "paper-version:B005:sha256-c711f93f867a",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:B005:0",
+    "model:B005:1S",
+    "model:B005:2S",
+    "model:B005:0L",
+    "model:B005:depthB",
+    "model:B005:pureB",
+    "model:B005:DINO"
+  ],
+  "system_composition_ids": [
+    "system:B005:unscaled",
+    "system:B005:scaled"
+  ],
+  "world_type_ids": [],
+  "profile_ids": [
+    "BP_COMPONENT"
+  ],
+  "entities": [
+    {
+      "id": "paper:B005",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "B005",
+        "title": "DALE-CT: Depth-Aware 2D Slice Encoders Learn an Anatomical World Model of Chest CT",
+        "authors": [
+          "Evan W. Damron",
+          "Mahmut S. Gokmen",
+          "Mitchell A. Klusty",
+          "Caroline N. Leach",
+          "Emily B. Collier",
+          "V. K. Cody Bumgardner"
+        ],
+        "year": 2026,
+        "venue": "arXiv",
+        "publication_status": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+        "url": "https://arxiv.org/abs/2606.07775",
+        "contribution_type": "Primary method – new model",
+        "inclusion": "Include – component / supporting",
+        "core_membership": "absent",
+        "membership_rationale": "The inspected implementation learns anatomical representations but does not advance persistent state through a learned successor transition."
+      },
+      "provenance_evidence_ids": [
+        "e:B005:01",
+        "e:B005:02",
+        "e:B005:04",
+        "e:B005:22"
+      ]
+    },
+    {
+      "id": "paper-version:B005:sha256-c711f93f867a",
+      "class_id": "PaperVersion",
+      "properties": {
+        "arxiv_version": "2606.07775v2",
+        "version_date": "2026-08-26",
+        "physical_pages": 18,
+        "source_path": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+        "sha256": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+        "hash_provenance": "Supplied registry; not recomputed.",
+        "review_access": "Full supplied text and earlier automated page-image review notes.",
+        "direct_images_received_by_this_synthesis": false
+      },
+      "provenance_evidence_ids": [
+        "e:B005:01",
+        "e:B005:02"
+      ]
+    },
+    {
+      "id": "study:B005",
+      "class_id": "Study",
+      "properties": {
+        "design": "Representation pretraining, matched spatial-sampling ablation, frozen anatomical/diagnostic probes, external transfer and preprocessing experiments.",
+        "configurations": [
+          "model:B005:0",
+          "model:B005:1S",
+          "model:B005:2S",
+          "model:B005:0L",
+          "model:B005:depthB",
+          "model:B005:pureB",
+          "model:B005:DINO"
+        ],
+        "shared_assertion_contract": "Assertions on study:B005 scoped to use:B005 describe common inspected properties of these seven configurations. Explicit model_version_id scopes override this common scope. Shared assertions do not imply shared weights, identical performance or inheritance of another configuration's results.",
+        "coordinate": "Cranio-caudal spatial position within acquired CT, not elapsed clinical time.",
+        "world_relevance": "Thoracic organ anatomy; no modelsWorld relation is asserted because an evolving organ-world mechanism is not implemented.",
+        "independent_replication": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "e:B005:03",
+        "e:B005:04",
+        "e:B005:10",
+        "e:B005:22"
+      ]
+    },
+    {
+      "id": "use:B005",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "purpose": "Offline chest-CT representation research and current-observation diagnostic/anatomical probing.",
+        "population": "Acquired human chest CT; detailed clinical eligibility and demographics insufficiently reported.",
+        "user": "Medical imaging research community; no evaluated clinical workflow.",
+        "decision_boundary": "No therapeutic, acquisition or robotic action selection/execution.",
+        "common_configurations": [
+          "model:B005:0",
+          "model:B005:1S",
+          "model:B005:2S",
+          "model:B005:0L",
+          "model:B005:depthB",
+          "model:B005:pureB",
+          "model:B005:DINO"
+        ]
+      },
+      "provenance_evidence_ids": [
+        "e:B005:10",
+        "e:B005:16"
+      ]
+    },
+    {
+      "id": "model:B005:0",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "DALE-CT-0",
+        "architecture": "Scratch-initialized 2D ViT-Large, patch-16, with projector.",
+        "objective": "LeJEPA invariance plus SIGReg, without auxiliary head.",
+        "sampling": "12 mm slabs; ReX/TS annotation-guided local crops.",
+        "pretraining_scans": 25692,
+        "checkpoint_revision": "not_reported",
+        "core_membership": "absent"
+      },
+      "provenance_evidence_ids": [
+        "e:B005:05",
+        "e:B005:06",
+        "e:B005:18",
+        "e:B005:20"
+      ]
+    },
+    {
+      "id": "model:B005:1S",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "DALE-CT-1S-v2",
+        "architecture": "Scratch-initialized 2D ViT-Large, patch-16.",
+        "objective": "LeJEPA/SIGReg plus dense CLS/patch supervision over 118 TS classes; ReX auxiliary terms inert.",
+        "sampling": "12 mm slabs with annotation-guided crops.",
+        "distinct_from": "Earlier patch-14, CLS-only DALE-CT-1S used in cited report-generation work.",
+        "checkpoint_revision": "not_reported",
+        "core_membership": "absent"
+      },
+      "provenance_evidence_ids": [
+        "e:B005:05",
+        "e:B005:18",
+        "e:B005:20"
+      ]
+    },
+    {
+      "id": "model:B005:2S",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "DALE-CT-2S",
+        "architecture": "Scratch-initialized 2D ViT-Large, patch-16.",
+        "objective": "LeJEPA/SIGReg plus weighted BCE over 118 TS and 14 ReX CLS/patch coverage targets.",
+        "SIGReg_weight": 0.02,
+        "auxiliary_weight": 0.1,
+        "checkpoint_revision": "not_reported",
+        "core_membership": "absent"
+      },
+      "provenance_evidence_ids": [
+        "e:B005:05",
+        "e:B005:20",
+        "e:B005:29"
+      ]
+    },
+    {
+      "id": "model:B005:0L",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "DALE-CT-0-L",
+        "architecture": "Scratch-initialized 2D ViT-Large, patch-16.",
+        "objective": "LeJEPA invariance plus SIGReg; no auxiliary head.",
+        "sampling": "Three-slice native-z slabs; TS-guided local crops; no ReX guidance.",
+        "training_scans": 287302,
+        "collections": 32,
+        "HU_clip": [
+          -940.8,
+          923.1
+        ],
+        "normalization_mean": -25.03,
+        "normalization_standard_deviation": 246.87,
+        "scale_boundary": "Corpus, slab, guidance, normalization and optimization change together.",
+        "pretraining_test_independence": "unresolved",
+        "checkpoint_revision": "not_reported",
+        "core_membership": "absent"
+      },
+      "provenance_evidence_ids": [
+        "e:B005:06",
+        "e:B005:15",
+        "e:B005:18",
+        "e:B005:27"
+      ]
+    },
+    {
+      "id": "model:B005:depthB",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Depth-aware ViT-Base ablation",
+        "objective": "LeJEPA across 12 mm slabs; no auxiliary head.",
+        "matched_control": "model:B005:pureB",
+        "matched_factors": "Architecture, initialization, corpus and budget, as reported.",
+        "initialization_source": "not_reported explicitly",
+        "core_membership": "absent"
+      },
+      "provenance_evidence_ids": [
+        "e:B005:09",
+        "e:B005:21"
+      ]
+    },
+    {
+      "id": "model:B005:pureB",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Pure-2D ViT-Base ablation",
+        "objective": "LeJEPA with intra-slice views; no auxiliary head.",
+        "initialization_source": "not_reported explicitly",
+        "interpretation": "Informative static representation control; lower shared-basis continuity does not establish absence of anatomical information.",
+        "core_membership": "absent"
+      },
+      "provenance_evidence_ids": [
+        "e:B005:09",
+        "e:B005:21",
+        "e:B005:26"
+      ]
+    },
+    {
+      "id": "model:B005:DINO",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Finetuned DINOv2",
+        "architecture": "Natural-image-initialized ViT-Large with Registers, adapted to single-channel CT.",
+        "training": "CT-RATE continual pretraining using DINO-MX momentum-teacher distillation and iBOT masked modeling.",
+        "comparison_boundary": "Initialization, objective, global resolution and local-crop composition differ from DALE-CT.",
+        "upstream_checkpoint_revision": "not_reported",
+        "core_membership": "absent"
+      },
+      "provenance_evidence_ids": [
+        "e:B005:07"
+      ]
+    },
+    {
+      "id": "system:B005:unscaled",
+      "class_id": "SystemComposition",
+      "properties": {
+        "configurations": [
+          "model:B005:0",
+          "model:B005:1S",
+          "model:B005:2S",
+          "model:B005:depthB",
+          "model:B005:pureB",
+          "model:B005:DINO"
+        ],
+        "semantics": "Separate encoder-plus-probe configurations, not an ensemble or simultaneous composition of all encoders.",
+        "flow": "HU preprocessing → acquired-slice encoding → pooling/projection → current-observation readout.",
+        "planner": "Absent from inspected algorithm."
+      },
+      "provenance_evidence_ids": [
+        "e:B005:04",
+        "e:B005:10",
+        "e:B005:22"
+      ]
+    },
+    {
+      "id": "system:B005:scaled",
+      "class_id": "SystemComposition",
+      "properties": {
+        "configuration": "model:B005:0L",
+        "flow": "CT preprocessing → frozen scaled encoder → fitted current-observation probes.",
+        "readiness_boundary": "Probe partitions are reported; full independence from multisource pretraining remains unresolved."
+      },
+      "provenance_evidence_ids": [
+        "e:B005:13",
+        "e:B005:15"
+      ]
+    },
+    {
+      "id": "cohort:B005:CT",
+      "class_id": "Cohort",
+      "properties": {
+        "dataset": "CT-RATE",
+        "pretraining_scans_reported": 25692,
+        "benchmark_train_scans": 4942,
+        "benchmark_test_scans": 992,
+        "benchmark_validation_count": "not_reported",
+        "split_statement": "Patient-disjoint splits stated in release description.",
+        "count_boundary": "Scans are not equated with unique patients."
+      },
+      "provenance_evidence_ids": [
+        "e:B005:10",
+        "e:B005:17"
+      ]
+    },
+    {
+      "id": "cohort:B005:anatomy",
+      "class_id": "Cohort",
+      "properties": {
+        "source": "3,002-scan CT-RATE validation partition.",
+        "position_split": "80/20 patient-level; 593 test scans.",
+        "stride_scans": 3002,
+        "stride_selection_independence": "unresolved"
+      },
+      "provenance_evidence_ids": [
+        "e:B005:08",
+        "e:B005:31"
+      ]
+    },
+    {
+      "id": "cohort:B005:ReX",
+      "class_id": "Cohort",
+      "properties": {
+        "source": "414 ReX-annotated CT-RATE validation scans.",
+        "probe_split": "Deterministic 70/10/20.",
+        "organ_test_scans": 86,
+        "organ_reference": "TotalSegmentator-derived, not independent manual adjudication."
+      },
+      "provenance_evidence_ids": [
+        "e:B005:12",
+        "e:B005:23",
+        "e:B005:30"
+      ]
+    },
+    {
+      "id": "cohort:B005:RAD",
+      "class_id": "Cohort",
+      "properties": {
+        "dataset": "RAD-ChestCT",
+        "test_scans": 360,
+        "target_train_validation_counts": "not_reported",
+        "cross_dataset_patient_overlap_controls": "not_reported sufficiently",
+        "independence_from_scaled_pretraining": "unresolved"
+      },
+      "provenance_evidence_ids": [
+        "e:B005:14"
+      ]
+    },
+    {
+      "id": "evaluation:B005:internal",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "task": "18-label current-scan CT-RATE classification.",
+        "cohort": "cohort:B005:CT",
+        "protocol": "Frozen encoders; validation AUPRC selects pooling/rate; validation fits classwise F1 thresholds.",
+        "reporting": "Table VI single selected probe; 2,000-resample test bootstrap."
+      },
+      "provenance_evidence_ids": [
+        "e:B005:10",
+        "e:B005:11",
+        "e:B005:22"
+      ]
+    },
+    {
+      "id": "evaluation:B005:geometry",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "tasks": "Observed-slice continuity, position decoding, ordering and residual organ clustering.",
+        "models": [
+          "model:B005:depthB",
+          "model:B005:pureB",
+          "model:B005:0L"
+        ],
+        "additional_clustering_result": "DALE-CT-2S NMI/ARI is separately reported in Section V-D.",
+        "coordinate": "Spatial z, not time.",
+        "not_rollout": true
+      },
+      "provenance_evidence_ids": [
+        "e:B005:09",
+        "e:B005:24"
+      ]
+    },
+    {
+      "id": "evaluation:B005:RAD-frozen",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "cohort": "cohort:B005:RAD",
+        "encoder": "Frozen.",
+        "classifier": "CT-RATE-trained classifier applied directly.",
+        "reporting": "Available-seed mean, 1–5 per model; exact per-arm counts unreported."
+      },
+      "provenance_evidence_ids": [
+        "e:B005:14"
+      ]
+    },
+    {
+      "id": "evaluation:B005:RAD-refit",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "cohort": "cohort:B005:RAD",
+        "encoder": "Frozen.",
+        "classifier": "New classifier trained on RAD-ChestCT training data.",
+        "boundary": "Target-supervised adaptation, not unadapted transfer."
+      },
+      "provenance_evidence_ids": [
+        "e:B005:14"
+      ]
+    },
+    {
+      "id": "evaluation:B005:stride",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "models": [
+          "model:B005:depthB",
+          "model:B005:pureB"
+        ],
+        "cohort": "cohort:B005:anatomy",
+        "strides": [
+          1,
+          2,
+          4,
+          8
+        ],
+        "offset": 0,
+        "probes_refit": false,
+        "boundary": "Spatial subsampling, not temporal horizon or comprehensive acquisition-shift testing."
+      },
+      "provenance_evidence_ids": [
+        "e:B005:31"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "a:B005:001",
+      "subject_id": "study:B005",
+      "feature_id": "data.provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:10",
+        "e:B005:18",
+        "e:B005:27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Named image/annotation sources and explicit normalization/sampling transformations."
+      ],
+      "criteria_missing": [
+        "Versioned variable/input lineage, complete multisource manifest and preprocessing-fit split provenance."
+      ]
+    },
+    {
+      "id": "a:B005:002",
+      "subject_id": "study:B005",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:03",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Completed-volume encoding has no modeled event-time resolution. Spatial z-spacing is not an acquisition timestamp."
+    },
+    {
+      "id": "a:B005:003",
+      "subject_id": "study:B005",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Scoped queries analyze already acquired scans, not latency-sensitive historical clinical decision times."
+    },
+    {
+      "id": "a:B005:004",
+      "subject_id": "study:B005",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Segmentation masks and restricting ReX losses to annotated scans do not establish missing/invalid CT observation indicators supplied to the encoder."
+    },
+    {
+      "id": "a:B005:005",
+      "subject_id": "study:B005",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No carried-forward asynchronous measurements or evolving temporal state requires freshness tracking."
+    },
+    {
+      "id": "a:B005:006",
+      "subject_id": "study:B005",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:03",
+        "e:B005:18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The method handles spatial sampling, not predictions at unequal elapsed clinical times."
+    },
+    {
+      "id": "a:B005:007",
+      "subject_id": "study:B005",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Training-crop selection is specified, not a model of why or when clinical observations occur or become unavailable."
+    },
+    {
+      "id": "a:B005:008",
+      "subject_id": "study:B005",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:31"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No temporal event distinction or observation-time grid is modeled. Spatial slice subsampling is not a measurement-clock witness audit."
+    },
+    {
+      "id": "a:B005:009",
+      "subject_id": "study:B005",
+      "feature_id": "data.harmonization",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:18",
+        "e:B005:27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Declared HU clipping and corpus-specific standardization."
+      ],
+      "criteria_missing": [
+        "Complete source-specific conversion/calibration lineage and cross-cohort label mappings."
+      ],
+      "rationale": "Two CT-RATE calcification categories cannot automatically be equated with RAD-ChestCT's single calcification category."
+    },
+    {
+      "id": "a:B005:010",
+      "subject_id": "system:B005:unscaled",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:08",
+        "e:B005:10",
+        "e:B005:17",
+        "e:B005:24",
+        "e:B005:31"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Stated patient-level/disjoint partitions and validation-based probe selection; residualization fitted using training scans."
+      ],
+      "criteria_missing": [
+        "Full pretraining/annotation overlap audit, training-only normalization-fit provenance and unambiguous stride selection/evaluation roles."
+      ],
+      "rationale": "No actual leakage event is established."
+    },
+    {
+      "id": "a:B005:010L",
+      "subject_id": "model:B005:0L",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B005:0L"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:14",
+        "e:B005:15",
+        "e:B005:27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Probe train/test and target-adaptation roles are stated."
+      ],
+      "criteria_missing": [
+        "Test independence from the full 32-collection pool and full-pool normalization fitting."
+      ]
+    },
+    {
+      "id": "a:B005:011",
+      "subject_id": "study:B005",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Distributed Data Parallel and multisource training do not establish site-local federation."
+    },
+    {
+      "id": "a:B005:012",
+      "subject_id": "study:B005",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:07",
+        "e:B005:09",
+        "e:B005:11"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "All seven configurations execute CT-to-feature encoding and receive reported probes; this does not establish evolving state."
+    },
+    {
+      "id": "a:B005:013",
+      "subject_id": "study:B005",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": [
+          "model:B005:0",
+          "model:B005:1S",
+          "model:B005:2S",
+          "model:B005:0L"
+        ]
+      },
+      "evidence_ids": [
+        "e:B005:20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "These four encoders are explicitly scratch-initialized. Annotation-derived guidance is not transferred encoder parameters."
+    },
+    {
+      "id": "a:B005:013B",
+      "subject_id": "study:B005",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:B005:depthB",
+          "model:B005:pureB"
+        ]
+      },
+      "evidence_ids": [
+        "e:B005:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Initialization is matched, but its source is not explicitly pinned for this ViT-Base pair."
+    },
+    {
+      "id": "a:B005:013D",
+      "subject_id": "model:B005:DINO",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B005:DINO"
+      },
+      "evidence_ids": [
+        "e:B005:07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Natural-image DINOv2 weights initialize the CT encoder; exact upstream revision is unreported."
+    },
+    {
+      "id": "a:B005:014",
+      "subject_id": "study:B005",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": [
+          "model:B005:0",
+          "model:B005:1S",
+          "model:B005:2S",
+          "model:B005:0L",
+          "model:B005:depthB",
+          "model:B005:pureB"
+        ]
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:05",
+        "e:B005:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "A representation-valued global-view centroid supplies the loss target without observation reconstruction."
+      ],
+      "criteria_missing": [
+        "An explicit context-to-unobserved-target prediction operation; the executed operation is symmetric view alignment."
+      ],
+      "rationale": "The loss name and JEPA lineage do not establish successor prediction. A separately named predictor network is not a universal requirement."
+    },
+    {
+      "id": "a:B005:014D",
+      "subject_id": "model:B005:DINO",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B005:DINO"
+      },
+      "evidence_ids": [
+        "e:B005:07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Exact DINO/iBOT targets are deferred to an uninspected model card; cited systems' details are not inherited."
+    },
+    {
+      "id": "a:B005:015",
+      "subject_id": "study:B005",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:07",
+        "e:B005:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": {
+        "DALE_and_ViT_Base": "SIGReg",
+        "DINOv2": "Momentum-teacher/stop-gradient asymmetry"
+      },
+      "rationale": "Mechanism existence is documented, not universal prevention, full-rank features or an independently verified theorem."
+    },
+    {
+      "id": "a:B005:016",
+      "subject_id": "study:B005",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:B005:0",
+          "model:B005:1S",
+          "model:B005:2S",
+          "model:B005:0L",
+          "model:B005:depthB",
+          "model:B005:pureB"
+        ]
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:05",
+        "e:B005:21",
+        "e:B005:29"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The complete losses use representation invariance, SIGReg and optional annotation coverage, not reconstructed CT values."
+    },
+    {
+      "id": "a:B005:016D",
+      "subject_id": "model:B005:DINO",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B005:DINO"
+      },
+      "evidence_ids": [
+        "e:B005:07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Masked-image-modeling terminology does not resolve raw-observation versus teacher/token targets in this implemented arm."
+    },
+    {
+      "id": "a:B005:017",
+      "subject_id": "study:B005",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Inference encodes CT alone. Slices, crops and annotation sources do not establish multiple input modalities."
+    },
+    {
+      "id": "a:B005:018",
+      "subject_id": "study:B005",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "There is no multimodal inference fusion operation; missing supervision is not missing-modality fusion."
+    },
+    {
+      "id": "a:B005:019",
+      "subject_id": "study:B005",
+      "feature_id": "state.persistent",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:07",
+        "e:B005:21",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The complete encoder/probe computation independently encodes supplied slices and pools/probes their features. No state/history is carried into successor prediction or update. An embedding collection or training teacher is not evolving world state."
+    },
+    {
+      "id": "a:B005:020",
+      "subject_id": "study:B005",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:19",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Documented inference uses point-valued features, not an individual filtering posterior. SIGReg constrains a population of embeddings, not a hidden-state belief."
+    },
+    {
+      "id": "a:B005:021",
+      "subject_id": "study:B005",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The fully specified observation-encoding pipeline has neither prior-state propagation nor measurement correction."
+    },
+    {
+      "id": "a:B005:022",
+      "subject_id": "study:B005",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Stateless completed-scan encoding has no maintained individual state or arriving-evidence interface. Classifier refitting is not assimilation."
+    },
+    {
+      "id": "a:B005:023",
+      "subject_id": "study:B005",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:14",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Evaluated encoders remain frozen across individuals. Probes and target-cohort classifiers are cohort-level fits, not patient-specific adaptation."
+    },
+    {
+      "id": "a:B005:024",
+      "subject_id": "study:B005",
+      "feature_id": "state.reusable",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:09",
+        "e:B005:11",
+        "e:B005:12",
+        "e:B005:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Each backbone's frozen representation feeds multiple named anatomical/diagnostic tasks. Representation reuse does not establish persistent or sufficient evolving state."
+    },
+    {
+      "id": "a:B005:025",
+      "subject_id": "study:B005",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": [
+          "model:B005:depthB",
+          "model:B005:pureB",
+          "model:B005:0L",
+          "model:B005:2S"
+        ],
+        "evaluation_run_id": "evaluation:B005:geometry"
+      },
+      "evidence_ids": [
+        "e:B005:09",
+        "e:B005:24"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Narrow representation-component omission test: remove one fitted linear z direction and assess retained organ information. This is not proof of transition/decision sufficiency; nonlinear position correlates remain possible. The 2S result is separately reported in Section V-D."
+    },
+    {
+      "id": "a:B005:025N",
+      "subject_id": "study:B005",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:B005:0",
+          "model:B005:1S",
+          "model:B005:DINO"
+        ]
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No corresponding configuration-specific omitted-information test is reported; other models' residualization results are not transferred."
+    },
+    {
+      "id": "a:B005:026",
+      "subject_id": "study:B005",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No preceding patient observation/action history conditions a current state or forecast. Within-volume spatial pooling is not longitudinal history."
+    },
+    {
+      "id": "a:B005:027",
+      "subject_id": "study:B005",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No history-conditioned or individually fitted forecast is claimed/evaluated. Patient-disjoint splits and subject-specific images are not P³ forecasting audits."
+    },
+    {
+      "id": "a:B005:028",
+      "subject_id": "study:B005",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:26"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No generated/updated successor states require identity persistence. Consistency across encoded observed slices is a separate representation property."
+    },
+    {
+      "id": "a:B005:029",
+      "subject_id": "study:B005",
+      "feature_id": "state.interpretability",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:09",
+        "e:B005:12",
+        "e:B005:21",
+        "e:B005:26"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Named anatomical projections and feature visualizations permit limited semantic inspection."
+      ],
+      "criteria_missing": [
+        "Direct meaning for underlying feature coordinates and an evaluated faithful clinical inspection interface."
+      ]
+    },
+    {
+      "id": "a:B005:030",
+      "subject_id": "study:B005",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:07",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Inference uses current image tokens and the supplied scan bag, without recurrent/external history across inputs. Image attention and teacher updates are not temporal world memory."
+    },
+    {
+      "id": "a:B005:031",
+      "subject_id": "study:B005",
+      "feature_id": "action.explicit",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:07",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The complete inference path takes images and emits static readouts; no settable treatment, acquisition command or procedural action conditions prediction. Augmentation and optimizer settings are not modeled actions."
+    },
+    {
+      "id": "a:B005:032",
+      "subject_id": "study:B005",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The verified actionless interface has no action vocabulary requiring role/effect typing."
+    },
+    {
+      "id": "a:B005:033",
+      "subject_id": "study:B005",
+      "feature_id": "action.parameterized",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:18",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No command is queried. Slab millimeters and crop dimensions are preprocessing attributes, not intervention parameters."
+    },
+    {
+      "id": "a:B005:034",
+      "subject_id": "study:B005",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:20",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "There are no interventions to schedule. Training iterations and learning-rate schedules are optimization quantities."
+    },
+    {
+      "id": "a:B005:035",
+      "subject_id": "study:B005",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No treatment/device settings are edited. Multi-crop views and combined annotation losses are not treatment bundles."
+    },
+    {
+      "id": "a:B005:036",
+      "subject_id": "study:B005",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:18",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No candidate action space exists. Intensity clipping and diagnostic thresholds are not action contraindication guards."
+    },
+    {
+      "id": "a:B005:037",
+      "subject_id": "study:B005",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Learned image features are not latent actions requiring executable mappings."
+    },
+    {
+      "id": "a:B005:038",
+      "subject_id": "study:B005",
+      "feature_id": "action.support",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No alternative regimen/action is queried. Data coverage and rare-class exclusions are not treatment positivity."
+    },
+    {
+      "id": "a:B005:039",
+      "subject_id": "study:B005",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:09",
+        "e:B005:14",
+        "e:B005:28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Training, preprocessing and classifier-refit comparisons do not predict successors under matched alternative actions."
+    },
+    {
+      "id": "a:B005:040",
+      "subject_id": "study:B005",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No physical/clinical intervention is proposed or executed. This does not establish absence of future informational harms."
+    },
+    {
+      "id": "a:B005:041",
+      "subject_id": "study:B005",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:07",
+        "e:B005:21",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The complete computation encodes supplied observations and pools/probes them, rather than mapping carried state/history and displacement to an unobserved successor. Spatial transitions could qualify, but are not implemented here. This conclusion does not depend solely on the missing separately named predictor."
+    },
+    {
+      "id": "a:B005:042",
+      "subject_id": "study:B005",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The transition parent is demonstrably absent. Learned encoder/readout parameters are not state-advancement parameters."
+    },
+    {
+      "id": "a:B005:043",
+      "subject_id": "study:B005",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Neither a successor transition nor a settable modeled action exists."
+    },
+    {
+      "id": "a:B005:044",
+      "subject_id": "study:B005",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No next-state process exists. Crop randomness, Gaussian regularization and bootstraps are not stochastic world transitions."
+    },
+    {
+      "id": "a:B005:045",
+      "subject_id": "study:B005",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": [
+          "model:B005:0",
+          "model:B005:1S",
+          "model:B005:2S",
+          "model:B005:0L",
+          "model:B005:depthB",
+          "model:B005:DINO"
+        ]
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:06",
+        "e:B005:18",
+        "e:B005:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "This feature permits anatomical representation constraints: spatial-neighborhood sampling is operative; specified arms also use annotation-guided crops/coverage supervision. No physiological equations or intervention mechanism is credited."
+    },
+    {
+      "id": "a:B005:045P",
+      "subject_id": "model:B005:pureB",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B005:pureB"
+      },
+      "evidence_ids": [
+        "e:B005:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Cross-slice sampling and auxiliary heads are excluded, but the control's exact annotation-guided crop configuration is not separately pinned."
+    },
+    {
+      "id": "a:B005:046",
+      "subject_id": "study:B005",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:05",
+        "e:B005:07",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The specified neural/statistical pipeline contains no coupled physical/physiological mechanism with a learned closure or fitted mechanistic component."
+    },
+    {
+      "id": "a:B005:047",
+      "subject_id": "study:B005",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:17",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "There is no dynamics backend. A unified encoder loader/common probe protocol is not a state/action/time transition contract."
+    },
+    {
+      "id": "a:B005:048",
+      "subject_id": "study:B005",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:05",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The complete architecture has crop/patch/slice aggregation, not coupled evolving scale-specific states with cross-scale dynamics mappings."
+    },
+    {
+      "id": "a:B005:049",
+      "subject_id": "study:B005",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:05",
+        "e:B005:07",
+        "e:B005:29"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The inspected objectives never traverse generated states through successive world transitions. Multiple crops and optimizer iterations are not dynamics steps."
+    },
+    {
+      "id": "a:B005:050",
+      "subject_id": "study:B005",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No successor process exists to abstract; crop scales and transformer layers are not temporal options or coordinated timescales."
+    },
+    {
+      "id": "a:B005:051",
+      "subject_id": "study:B005",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:12",
+        "e:B005:21",
+        "e:B005:25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": "Annotation-field emission subrole only.",
+      "rationale": "Under the broad observable-quantity criterion, fitted TS/ReX or TS coverage probes emit annotation-derived fields from frozen features. This applies to encoder-plus-probe compositions, not an auxiliary head in every backbone. No CT-intensity reconstruction, propagated-state emission or future observation generation is established."
+    },
+    {
+      "id": "a:B005:052",
+      "subject_id": "study:B005",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:09",
+        "e:B005:10",
+        "e:B005:12",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Named current-observation diagnostic/anatomical readouts are evaluated. No survival, reward, causal-effect or future clinical-outcome head is inferred."
+    },
+    {
+      "id": "a:B005:053",
+      "subject_id": "study:B005",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:09",
+        "e:B005:10",
+        "e:B005:14",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The full evaluation measures acquired observations/features, not a subsequent unobserved spatial or temporal state predicted from an origin. Sorting observed-slice embeddings is not successor prediction."
+    },
+    {
+      "id": "a:B005:054",
+      "subject_id": "study:B005",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The fully specified pipeline has no successor generator or recursive generated-history feedback."
+    },
+    {
+      "id": "a:B005:055",
+      "subject_id": "study:B005",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No sequential forecast has intermediate states to replace. DINO's training teacher is not teacher-forced rollout."
+    },
+    {
+      "id": "a:B005:056",
+      "subject_id": "study:B005",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:14",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No prediction/execution/state-correction loop exists; target-classifier retraining is not re-assimilation."
+    },
+    {
+      "id": "a:B005:057",
+      "subject_id": "study:B005",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:18",
+        "e:B005:31"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No forecast extent exists. Slab thickness, displayed acquired span, input stride and training iterations are not prediction horizons."
+    },
+    {
+      "id": "a:B005:058",
+      "subject_id": "study:B005",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:09",
+        "e:B005:31"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No free-running forecast exists whose errors compound. Representation continuity and input-stride sensitivity measure different properties."
+    },
+    {
+      "id": "a:B005:059",
+      "subject_id": "study:B005",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:09",
+        "e:B005:31"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "There is no forecast horizon to validate. Stride-eight robustness is not a tolerance-supported usable prediction extent."
+    },
+    {
+      "id": "a:B005:060",
+      "subject_id": "study:B005",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:14",
+        "e:B005:19",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No future path is generated. Crops, probe seeds and bootstrap replicates are not conditional patient futures."
+    },
+    {
+      "id": "a:B005:061",
+      "subject_id": "study:B005",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The image/probe interface accepts no forecast-horizon request."
+    },
+    {
+      "id": "a:B005:062",
+      "subject_id": "study:B005",
+      "feature_id": "planning.model_use",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Executed use stops at static representation/readouts. No modeled consequences feed action ranking, search or policy learning."
+    },
+    {
+      "id": "a:B005:063",
+      "subject_id": "study:B005",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:22",
+        "e:B005:28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "No action optimizer/policy is connected. SGD, hyperparameter search, slice sorting and span extraction are fitting/analysis, not consequence-based planning."
+    },
+    {
+      "id": "a:B005:064",
+      "subject_id": "study:B005",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No planner, executed prefix or measured-feedback replanning exists."
+    },
+    {
+      "id": "a:B005:065",
+      "subject_id": "study:B005",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No dynamics/planning interface exists. Encoder reuse across heads is not objective-independent transition modeling."
+    },
+    {
+      "id": "a:B005:066",
+      "subject_id": "study:B005",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:14",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No action-selection policy exists for uncertainty to modify; benchmark intervals are not planning risk terms."
+    },
+    {
+      "id": "a:B005:067",
+      "subject_id": "study:B005",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "There are no model-optimized action plans to stress-test under mismatched dynamics or reward/support checks."
+    },
+    {
+      "id": "a:B005:068",
+      "subject_id": "study:B005",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No action candidate set exists. Crops, pooling alternatives and learning-rate grids are not clinical action candidates."
+    },
+    {
+      "id": "a:B005:069",
+      "subject_id": "study:B005",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No decision policy exists; global/local crops and CLS/patch heads are not goals/options."
+    },
+    {
+      "id": "a:B005:070",
+      "subject_id": "study:B005",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:14",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No action changes an environment and returns measured feedback. External classifier fitting is supervised adaptation, not closed-loop control."
+    },
+    {
+      "id": "a:B005:071",
+      "subject_id": "study:B005",
+      "feature_id": "uq.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:14",
+        "e:B005:19",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No sufficiently specified individual-prediction posterior, uncertainty set or operational ensemble. Scores, metric bootstraps and SIGReg do not establish predictive uncertainty semantics."
+    },
+    {
+      "id": "a:B005:072",
+      "subject_id": "study:B005",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No separately defined and estimated aleatoric/epistemic components."
+    },
+    {
+      "id": "a:B005:073",
+      "subject_id": "study:B005",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No predictive reliability/coverage result. Discrimination, F1-threshold selection and metric confidence intervals are not calibration."
+    },
+    {
+      "id": "a:B005:074",
+      "subject_id": "study:B005",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:09",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No trajectory forecast distribution exists. Spatially ordered acquired features do not create joint forecast coverage targets."
+    },
+    {
+      "id": "a:B005:075",
+      "subject_id": "study:B005",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No declared predictive-calibration tolerance or attainment result."
+    },
+    {
+      "id": "a:B005:076",
+      "subject_id": "study:B005",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "External testing/refitting does not specify an operational OOD statistic, threshold and response."
+    },
+    {
+      "id": "a:B005:077",
+      "subject_id": "study:B005",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No nonconformity score/calibration protocol. Anatomical thresholds and bootstraps are not conformal prediction."
+    },
+    {
+      "id": "a:B005:078",
+      "subject_id": "study:B005",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Outputs describe acquired anatomy/abnormalities, not intervention-effect contrasts. Training attribution is not a patient-treatment estimand."
+    },
+    {
+      "id": "a:B005:079",
+      "subject_id": "study:B005",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No clinical intervention estimand is targeted. Matched pretraining ablations and z-residualization do not identify patient treatment effects."
+    },
+    {
+      "id": "a:B005:080",
+      "subject_id": "study:B005",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No clinical causal estimand requires identification assumptions. Representation/bootstrap assumptions are different."
+    },
+    {
+      "id": "a:B005:081",
+      "subject_id": "study:B005",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No intervention-identification argument is analyzed. Preprocessing robustness is not confounding/censoring/positivity sensitivity."
+    },
+    {
+      "id": "a:B005:082",
+      "subject_id": "study:B005",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:23"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No action-effect predictions exist. Actual CT holdouts and TS annotations are not counterfactual outcome ground truth."
+    },
+    {
+      "id": "a:B005:083",
+      "subject_id": "study:B005",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No action-to-state mechanism exists. Anatomical sampling is not calibrated intervention semantics."
+    },
+    {
+      "id": "a:B005:084",
+      "subject_id": "study:B005",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No identified clinical intervention-effect output is claimed. No causal assurance transfers to future downstream applications."
+    },
+    {
+      "id": "a:B005:085",
+      "subject_id": "study:B005",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No output-blocking safeguard/fail behavior is reported; HU clipping and diagnostic thresholds have other purposes."
+    },
+    {
+      "id": "a:B005:086",
+      "subject_id": "study:B005",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No reject/defer/fallback output under uncertain or unsupported inputs is reported."
+    },
+    {
+      "id": "a:B005:087",
+      "subject_id": "study:B005",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No triggered operational human route with response/fallback semantics. Annotation provenance is not escalation."
+    },
+    {
+      "id": "a:B005:088",
+      "subject_id": "study:B005",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Offline transfer/error analysis does not establish online hazard detection and protective response."
+    },
+    {
+      "id": "a:B005:089",
+      "subject_id": "study:B005",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No tested software safe-stop/degraded-output fallback is reported; absence of actuation does not resolve software fallback."
+    },
+    {
+      "id": "a:B005:090",
+      "subject_id": "study:B005",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "a:B005:091",
+      "subject_id": "study:B005",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Normal preprocessing/subsampling comparisons are not specified adversarial or fault-injection safety tests."
+    },
+    {
+      "id": "a:B005:092",
+      "subject_id": "study:B005",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Human/institutional CT use keeps privacy relevant. Public-source names and DDP do not establish study-level privacy mechanisms."
+    },
+    {
+      "id": "a:B005:093",
+      "subject_id": "study:B005",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No representation disclosure/membership audit. Nearest-neighbor slice ordering is not a privacy test."
+    },
+    {
+      "id": "a:B005:094",
+      "subject_id": "study:B005",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No operational external action, clinical write or device actuation boundary exists. Research-data access remains a separate privacy question."
+    },
+    {
+      "id": "a:B005:095",
+      "subject_id": "study:B005",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No reliance/override/human-factors protocol. Scholarly qualifications are not implemented interface mitigation."
+    },
+    {
+      "id": "a:B005:096",
+      "subject_id": "study:B005",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:16",
+        "e:B005:17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Chest-CT research purpose and model-specific diagnostic/anatomical reuse recommendations."
+      ],
+      "criteria_missing": [
+        "Clinical eligibility, user/decision point, workflow environment and permitted execution authority."
+      ]
+    },
+    {
+      "id": "a:B005:097",
+      "subject_id": "study:B005",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "External model cards are referenced but uninspected; complete asset-versioned card contents are not established by the paper."
+    },
+    {
+      "id": "a:B005:098",
+      "subject_id": "study:B005",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "A living benchmark does not establish operational monitoring signals, cadence, ownership and responses."
+    },
+    {
+      "id": "a:B005:099",
+      "subject_id": "study:B005",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "a:B005:100",
+      "subject_id": "study:B005",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No relevant regulatory/reporting framework captured; weight licensing is not clinical authorization."
+    },
+    {
+      "id": "a:B005:101",
+      "subject_id": "study:B005",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No scoped authorization/compliance evidence; neither legal applicability nor denial is inferred."
+    },
+    {
+      "id": "a:B005:102",
+      "subject_id": "study:B005",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No named approval/exemption/consent waiver reported. This does not establish required approval was unobtained."
+    },
+    {
+      "id": "a:B005:103",
+      "subject_id": "study:B005",
+      "feature_id": "agent.role",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:07",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The complete evaluated pipelines contain visual encoders and ordinary readout modules, not LLMs or decision-making agents. Cited language-model grafting is not inherited."
+    },
+    {
+      "id": "a:B005:104",
+      "subject_id": "study:B005",
+      "feature_id": "agent.multiple",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:07",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Only ordinary pipeline modules exist; heads, GPUs and teacher/student training networks are not interacting decision-making agents."
+    },
+    {
+      "id": "a:B005:105",
+      "subject_id": "study:B005",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No proposal-making agent exists; gradient iterations are not feedback-driven proposal reflection."
+    },
+    {
+      "id": "a:B005:106",
+      "subject_id": "study:B005",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:17",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No agent tool-invocation boundary exists. Development segmentation and checkpoint downloading are not operational agent actions."
+    },
+    {
+      "id": "a:B005:107",
+      "subject_id": "study:B005",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Actual use is offline probing without agent proposal/approval/execution authority. Legacy A0 remains a separate descriptive code."
+    },
+    {
+      "id": "a:B005:108",
+      "subject_id": "study:B005",
+      "feature_id": "release.code",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": [
+          "model:B005:0",
+          "model:B005:1S",
+          "model:B005:2S",
+          "model:B005:0L",
+          "model:B005:DINO"
+        ],
+        "effective_date": "2026-08-26"
+      },
+      "evidence_ids": [
+        "e:B005:17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Present-tense release and named repositories are documented. Accessibility, commits and execution were not independently checked."
+    },
+    {
+      "id": "a:B005:108B",
+      "subject_id": "study:B005",
+      "feature_id": "release.code",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:B005:depthB",
+          "model:B005:pureB"
+        ]
+      },
+      "evidence_ids": [
+        "e:B005:17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Broad all-code language may include these ablations; individually executable released configurations are not pinned."
+    },
+    {
+      "id": "a:B005:109",
+      "subject_id": "study:B005",
+      "feature_id": "release.weights",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": [
+          "model:B005:0",
+          "model:B005:1S",
+          "model:B005:2S",
+          "model:B005:0L",
+          "model:B005:DINO"
+        ],
+        "effective_date": "2026-08-26"
+      },
+      "evidence_ids": [
+        "e:B005:17",
+        "e:B005:17w"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Source-documented current release, not verified downloads or immutable checkpoint identities."
+    },
+    {
+      "id": "a:B005:109B",
+      "subject_id": "study:B005",
+      "feature_id": "release.weights",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:B005:depthB",
+          "model:B005:pureB"
+        ]
+      },
+      "evidence_ids": [
+        "e:B005:17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "The explicit release list identifies five ViT-Large configurations, not the two ViT-Base checkpoint identities."
+    },
+    {
+      "id": "a:B005:110",
+      "subject_id": "study:B005",
+      "feature_id": "release.license",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:17w"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Explicit CC-BY-NC-SA-4.0 weight license."
+      ],
+      "criteria_missing": [
+        "Separate code terms and sufficiently complete asset-specific data access/license terms."
+      ]
+    },
+    {
+      "id": "a:B005:111",
+      "subject_id": "study:B005",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Author-run probes, seeds, code release and automated review are not independent reproduction."
+    },
+    {
+      "id": "a:B005:112",
+      "subject_id": "study:B005",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:09",
+        "e:B005:10",
+        "e:B005:14",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The complete evaluations concern static diagnostic/anatomical probes, not predecessor-to-successor prediction."
+    },
+    {
+      "id": "a:B005:113",
+      "subject_id": "study:B005",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No recursive or block-generated future sequence exists."
+    },
+    {
+      "id": "a:B005:114",
+      "subject_id": "study:B005",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:19",
+        "e:B005:26"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No synthetic image/clinical sample generator exists. Gaussian regularization and observed-feature PCA are not distributional realism."
+    },
+    {
+      "id": "a:B005:115",
+      "subject_id": "study:B005",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": [
+          "model:B005:depthB",
+          "model:B005:pureB",
+          "model:B005:0L"
+        ],
+        "evaluation_run_id": "evaluation:B005:geometry"
+      },
+      "evidence_ids": [
+        "e:B005:09",
+        "e:B005:24",
+        "e:B005:26"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": "Narrow anatomical-representation consistency assessment.",
+      "rationale": "The feature includes defined anatomical/consistency tests: slice continuity/order and organ-pattern agreement are evaluated. This does not establish clinical plausibility of generated anatomy, physical constraint satisfaction or clinical validation; no generated anatomy exists."
+    },
+    {
+      "id": "a:B005:115N",
+      "subject_id": "study:B005",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:B005:0",
+          "model:B005:1S",
+          "model:B005:2S",
+          "model:B005:DINO"
+        ]
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Static target-decoding results alone do not establish a configuration-specific physical/clinical consistency protocol. The separately mentioned 2S residual-clustering result is retained under its information-omission probe, not generalized to all consistency tests."
+    },
+    {
+      "id": "a:B005:116",
+      "subject_id": "study:B005",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No held-out predictive reliability/coverage/sharpness result with nominal-target context."
+    },
+    {
+      "id": "a:B005:117",
+      "subject_id": "study:B005",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No controllable action conditions successors. Training/preprocessing perturbations are not intervention-sensitivity experiments."
+    },
+    {
+      "id": "a:B005:118",
+      "subject_id": "study:B005",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No clinical counterfactual outcome/estimand is produced."
+    },
+    {
+      "id": "a:B005:119",
+      "subject_id": "study:B005",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No personalized history-conditioned forecast exists to compare with swapped/withheld histories."
+    },
+    {
+      "id": "a:B005:120",
+      "subject_id": "study:B005",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No consequence-coupled action policy or decision endpoint exists. Diagnostic discrimination is not modeled-consequence decision utility."
+    },
+    {
+      "id": "a:B005:121",
+      "subject_id": "study:B005",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No simulation/execution pairing exists. Transfer between acquired CT cohorts is not sim-to-real agreement."
+    },
+    {
+      "id": "a:B005:122",
+      "subject_id": "study:B005",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": [
+          "model:B005:0",
+          "model:B005:1S",
+          "model:B005:2S",
+          "model:B005:0L",
+          "model:B005:DINO"
+        ],
+        "evaluation_run_id": "evaluation:B005:RAD-frozen",
+        "cohort_id": "cohort:B005:RAD"
+      },
+      "evidence_ids": [
+        "e:B005:13",
+        "e:B005:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": "Direct cross-cohort classifier transfer.",
+      "rationale": "An executed transfer test is present despite poor performance. Complete external independence, especially from scaled pretraining, remains unresolved."
+    },
+    {
+      "id": "a:B005:122R",
+      "subject_id": "study:B005",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": [
+          "model:B005:0",
+          "model:B005:1S",
+          "model:B005:2S",
+          "model:B005:0L",
+          "model:B005:DINO"
+        ],
+        "evaluation_run_id": "evaluation:B005:RAD-refit",
+        "cohort_id": "cohort:B005:RAD"
+      },
+      "evidence_ids": [
+        "e:B005:13",
+        "e:B005:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": "Target-supervised classifier adaptation with encoder frozen.",
+      "rationale": "Separate from unadapted transfer; recovery does not uniquely identify the cause of domain shift."
+    },
+    {
+      "id": "a:B005:122B",
+      "subject_id": "evaluation:B005:stride",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": [
+          "model:B005:depthB",
+          "model:B005:pureB"
+        ],
+        "evaluation_run_id": "evaluation:B005:stride"
+      },
+      "evidence_ids": [
+        "e:B005:31"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": "Fixed-probe spatial slice-subsampling robustness.",
+      "rationale": "Not universal native-spacing robustness, formal equivalence or proof of untouched-test independence."
+    },
+    {
+      "id": "a:B005:123",
+      "subject_id": "study:B005",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:31"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No temporal measurement-clock target/grid is defined. Spatial subsampling is retained as robustness, not native/update/external clock-witness auditing."
+    },
+    {
+      "id": "a:B005:124",
+      "subject_id": "study:B005",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No actual participant output-review/use study. Radiologist validation of source ReX annotations is not a model reader study."
+    },
+    {
+      "id": "a:B005:125",
+      "subject_id": "study:B005",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:20",
+        "e:B005:28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Hardware, batches and iteration budgets are specified, but measured latency/throughput, elapsed/resource cost, memory or a matched sample-efficiency endpoint is not reported. No GPU-hours are computed."
+    },
+    {
+      "id": "a:B005:126",
+      "subject_id": "study:B005",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No actual-care/workflow utility-and-harms study. Offline probes and proposed diagnostic reuse are not realized patient benefit."
+    },
+    {
+      "id": "a:B005:127",
+      "subject_id": "study:B005",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No transition operator exists whose representation space can be classified. Latent encoding/alignment is not latent successor dynamics."
+    },
+    {
+      "id": "a:B005:128",
+      "subject_id": "study:B005",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:05",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No transition state, reward/value model or consequence-based policy objective exists."
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "r:B005:version",
+      "subject_id": "paper:B005",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:B005:sha256-c711f93f867a",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "effective_date": "2026-08-26"
+      },
+      "evidence_ids": [
+        "e:B005:01",
+        "e:B005:02"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B005:study",
+      "subject_id": "paper-version:B005:sha256-c711f93f867a",
+      "predicate_id": "reportsStudy",
+      "object_id": "study:B005",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:09",
+        "e:B005:11",
+        "e:B005:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "r:B005:model0",
+      "subject_id": "paper-version:B005:sha256-c711f93f867a",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B005:0",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B005:0"
+      },
+      "evidence_ids": [
+        "e:B005:05",
+        "e:B005:11"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B005:model1",
+      "subject_id": "paper-version:B005:sha256-c711f93f867a",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B005:1S",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B005:1S"
+      },
+      "evidence_ids": [
+        "e:B005:05",
+        "e:B005:11"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B005:model2",
+      "subject_id": "paper-version:B005:sha256-c711f93f867a",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B005:2S",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B005:2S"
+      },
+      "evidence_ids": [
+        "e:B005:05",
+        "e:B005:11"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B005:modelL",
+      "subject_id": "paper-version:B005:sha256-c711f93f867a",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B005:0L",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B005:0L"
+      },
+      "evidence_ids": [
+        "e:B005:11",
+        "e:B005:13",
+        "e:B005:27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B005:modelDB",
+      "subject_id": "paper-version:B005:sha256-c711f93f867a",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B005:depthB",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B005:depthB"
+      },
+      "evidence_ids": [
+        "e:B005:09",
+        "e:B005:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B005:modelPB",
+      "subject_id": "paper-version:B005:sha256-c711f93f867a",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B005:pureB",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B005:pureB"
+      },
+      "evidence_ids": [
+        "e:B005:09",
+        "e:B005:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B005:modelD",
+      "subject_id": "paper-version:B005:sha256-c711f93f867a",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B005:DINO",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B005:DINO"
+      },
+      "evidence_ids": [
+        "e:B005:07",
+        "e:B005:11"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B005:profile",
+      "subject_id": "system:B005:unscaled",
+      "predicate_id": "hasProfile",
+      "object_id": "BP_COMPONENT",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_ids": [
+        "e:B005:04",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B005:profileL",
+      "subject_id": "system:B005:scaled",
+      "predicate_id": "hasProfile",
+      "object_id": "BP_COMPONENT",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B005:0L"
+      },
+      "evidence_ids": [
+        "e:B005:15",
+        "e:B005:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B005:R2",
+      "subject_id": "system:B005:unscaled",
+      "predicate_id": "hasReadinessEvidence",
+      "object_id": "R2",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": [
+          "model:B005:0",
+          "model:B005:1S",
+          "model:B005:2S",
+          "model:B005:DINO"
+        ],
+        "evaluation_run_id": "evaluation:B005:internal",
+        "cohort_id": "cohort:B005:CT",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:11",
+        "e:B005:17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "A stated actual-human CT holdout supports retrospective prediction evidence, not clinical acceptance. Complete leakage auditing remains partial."
+    },
+    {
+      "id": "r:B005:R2B",
+      "subject_id": "system:B005:unscaled",
+      "predicate_id": "hasReadinessEvidence",
+      "object_id": "R2",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": [
+          "model:B005:depthB",
+          "model:B005:pureB"
+        ],
+        "evaluation_run_id": "evaluation:B005:geometry",
+        "cohort_id": "cohort:B005:anatomy",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "e:B005:08",
+        "e:B005:09"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Patient-level actual-human position-probe holdout; not derived from the full-validation stride analysis."
+    },
+    {
+      "id": "r:B005:R3partial",
+      "subject_id": "system:B005:unscaled",
+      "predicate_id": "hasReadinessEvidence",
+      "object_id": "R3",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": [
+          "model:B005:0",
+          "model:B005:1S",
+          "model:B005:2S",
+          "model:B005:DINO"
+        ],
+        "evaluation_run_id": [
+          "evaluation:B005:RAD-frozen",
+          "evaluation:B005:RAD-refit"
+        ],
+        "cohort_id": "cohort:B005:RAD",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "e:B005:14",
+        "e:B005:17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Named external actual-human cohort, common test set and explicit adaptation distinction."
+      ],
+      "criteria_missing": [
+        "Sufficiently documented cross-dataset patient-overlap controls."
+      ],
+      "rationale": "The external experiment is retained. Lack of independent human verification is not the reason for partial classification."
+    },
+    {
+      "id": "r:B005:R2L",
+      "subject_id": "system:B005:scaled",
+      "predicate_id": "hasReadinessEvidence",
+      "object_id": "R2",
+      "assessment_state": "unknown",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B005:0L",
+        "cohort_id": "cohort:B005:CT",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "e:B005:11",
+        "e:B005:15",
+        "e:B005:27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Actual test scores exist; independence from all scaled-pretraining collections is unresolved."
+    },
+    {
+      "id": "r:B005:R3L",
+      "subject_id": "system:B005:scaled",
+      "predicate_id": "hasReadinessEvidence",
+      "object_id": "R3",
+      "assessment_state": "unknown",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B005:0L",
+        "cohort_id": "cohort:B005:RAD",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "e:B005:13",
+        "e:B005:14",
+        "e:B005:27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "External-cohort testing is documented; independence from the full multisource pool is unresolved."
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "e:B005:01",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Title and byline"
+      },
+      "content": "DALE-CT: Depth-Aware 2D Slice Encoders Learn\nan Anatomical World Model of Chest CT\nEvan W. Damron, Mahmut S. Gokmen, Mitchell A. Klusty, Caroline N. Leach, Emily B. Collier,\nV . K. Cody Bumgardner",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:02",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Version line"
+      },
+      "content": "arXiv:2606.07775v2  [cs.CV]  26 Aug 2026",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:03",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "II-A"
+      },
+      "content": "We use the term in\nthis passive sense, with the cranio-caudal axis of a CT volume\nplaying the role the temporal axis plays in video: slices are\nsuccessive states, and depth-aware training asks the encoder\nto relate them.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:04",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "III-B"
+      },
+      "content": "Our foundational models are initialized from scratch and\ntrained with LeJEPA [5], which pairs a multi-crop invariance\nobjective with SIGReg. Unlike teacher–student frameworks,\nLeJEPA routes every view through a single symmetric encoder\nfθ followed by a projection headg ϕ, with no momentum\nencoder, predictor, or stop-gradient. Although the models\nremain native 2D-slice encoders, the multi-crop views are\nsampled across the depth of a 3D slab composed of multiple\nslices (Section III-C); routing physically displaced, multi-scale\nviews through the unified encoder encourages the network\nto learn cross-slice anatomical consistency rather than strictly\nintra-slice features.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:05",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "III-B; configurations and targets"
+      },
+      "content": "•DALE-CT-0:the LeJEPA objective alone, no auxiliary\nhead (λ aux = 0).\n•DALE-CT-1S-v2:a single-source (1S) auxiliary head\nover the 118 TotalSegmentator classes, applied densely\nto both the[CLS]and patch tokens; ReXGroundingCT\nis held inert, isolating the TS objective against the 2S\nmodel.\n•DALE-CT-2S:a dual-source (2S) head over the 118 TS\nand 14 ReX classes jointly.\nThe auxiliary head is a pair of linear layers mapping the\nbackbone feature dimension to the TS and ReX class counts.\nFor every crop, both the global[CLS]token and the patch\ntokens are supervised, so each crop contributes a CLS-level\nand a patch-level prediction. Targets are dense fractional\ncoverage: for TS, masks are one-hot over 118 classes; for\nReX, binary abnormality channels are binarized per pixel and\nrestricted to scans carrying ReX annotations. Coverage is the\nmean over the crop and the average-pool over the patch grid,\nyielding continuous targets in[0,1]for both sources.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:06",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "III-C; guidance"
+      },
+      "content": "For\nthe CT-RATE models the preferred guidance label is a ReX\nabnormality mask when present; DALE-CT-0-L disables ReX\nguidance entirely, as the multi-source pool lacks ReX labels\noutside CT-RATE, and guides local crops on TS foreground\nalone.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:07",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "III-D"
+      },
+      "content": "A ViT-\nLarge with Registers, initialized from natural-image weights,\nis continually pretrained on CT-RATE via DINO-MX [30],\ncombining DINO distillation from a momentum teacher with\niBOT masked image modeling; we benchmark the result as\nFinetuned DINOv2. The two paradigms differ in how they sta-\nbilize learning: DINOv2 relies on a teacher–student asymmetry\nwith stop-gradients, whereas LeJEPA uses a symmetric joint-\nembedding objective with an isotropic-Gaussian regularizer.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:08",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "IV-B; position split"
+      },
+      "content": "an 80/20 patient-level split of\nthe 3,002-scan CT-RATE validation set (593 test scans).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:09",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "table",
+        "page": 8,
+        "section_or_table": "Table II"
+      },
+      "content": "z-regressionR 2 0.971[0.968,0.973] 0.974[0.972,0.977] 0.973[0.971,0.976]\nOrderτ(PCA-1D) 0.423[0.410,0.437] 0.206[0.191,0.220] 0.559[0.543,0.576]\nOrderτ(greedy-NN) 0.487[0.461,0.512] 0.555[0.532,0.580] 0.428[0.407,0.451]\nOrgan NMI (z-resid.) 0.755[0.742,0.769] 0.458[0.439,0.479] 0.725[0.711,0.738]\nOrgan ARI (z-resid.) 0.662[0.639,0.686] 0.258[0.237,0.281] 0.606[0.583,0.629]",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:10",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "V-B"
+      },
+      "content": "we replace each encoder’s native aggregation with a trained\nhead, search a grid of learning rates and pooling schemes\n(average, max, and learned-attention), feed the pooled vector\nto a linear layer over the 18 CT-RATE abnormalities, select\nthe best probe by validation AUPRC, and fit per-class F1-\nmaximizing decision thresholds on the validation set. All mod-\nels are evaluated on a common CT-RATE partition (4,942 train\n/ 992 test scans), and we report 95% confidence intervals from\na 2,000-resample test-set bootstrap.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:11",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "table",
+        "page": 10,
+        "section_or_table": "Table VI; 2D models"
+      },
+      "content": "Finetuned DINOv2 0.4902[0.4726,0.5164] 0.7953[0.7852,0.8056] 0.4631[0.4423,0.4810] 0.6736[0.6623,0.6845]\nDALE-CT-0 0.5112[0.4930,0.5375] 0.8057[0.7952,0.8159] 0.5011[0.4822,0.5188] 0.7067[0.6954,0.7182]\nDALE-CT-0-L 0.5206[0.5016,0.5464] 0.8156[0.8047,0.8254] 0.5054[0.4852,0.5237] 0.7019[0.6901,0.7135]\nDALE-CT-1S-v2 0.5074[0.4898,0.5323] 0.8098[0.8002,0.8189] 0.4969[0.4780,0.5147] 0.6996[0.6891,0.7099]\nDALE-CT-2S 0.5312[0.5134,0.5556] 0.8247[0.8152,0.8333] 0.5064[0.4871,0.5239] 0.7085[0.6969,0.7195]",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:12",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "V-A"
+      },
+      "content": "on 414 held-out, ReX-annotated CT-RATE valida-\ntion scans (deterministic 70/10/20 split), slice-level ([CLS])\nprobes predict the 14 ReX abnormality classes or the 118\nTS coverage classes, and patch-level probes predict the corre-\nsponding masks pooled to the ViT patch grid;",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:13",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "table",
+        "page": 11,
+        "section_or_table": "Table VII; DALE-CT-0-L"
+      },
+      "content": "DALE-CT-0-L 0.3972[0.3758,0.4344] 0.6281[0.6071,0.6472] 0.3519[0.3291,0.3719] 0.5487[0.5369,0.5602] 0.5551[0.5259,0.5936] 0.7572[0.7386,0.7766] 0.5281[0.4968,0.5556] 0.6588[0.6400,0.6766]",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:14",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "table",
+        "page": 11,
+        "section_or_table": "Table VII; protocol note"
+      },
+      "content": "Note: All models are probed by us on the common RAD-ChestCT test set (Section V-B); each value is the mean over the available probe seeds (1–5 per\nmodel) with a 95% bootstrap CI on that mean in gray. Bold marks the best overall model per column; underline marks the best DALE-CT model per\ncolumn. “Frozen” applies the CT-RATE-trained classifier directly to RAD-ChestCT; “Retrained” keeps the encoder frozen and trains a new classifier on the\nRAD-ChestCT train split. Frozen-arm Macro F1 is threshold-sensitive on RAD-ChestCT’s small validation set and should be read alongside AUPRC/AUROC.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:15",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 12,
+        "section_or_table": "V-D; confounds"
+      },
+      "content": "We are careful not to over-claim the25k→287k contrast as a\ncontrolled scaling law. DALE-CT-0-L differs from the released\nDALE-CT-0 along several axes simultaneously (Table VIII,\nAppendix B): corpus (multi-source vs. CT-RATE), slab instan-\ntiation (3-slice native-z 1 vs. 12 mm physical), ReX guidance\n(absent vs.0.8), normalization statistics (fit to the full pool\nvs. CT-RATE, via the identical 0.5/99.5-percentile procedure),\nand schedule (3 epochs / 191k iterations / batch 384 on 16\nH100s vs. 50k iterations / batch 512 on 8 H200s). The contrast\ntherefore reflects the full configuration of a broader-corpus\ninstantiation, not corpus size in isolation.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:16",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 12,
+        "section_or_table": "VI"
+      },
+      "content": "Because our two frozen probes did not translate\nthat geometry into higher downstream accuracy, we present\nthe world model as a property of the representation and\nestablish performance separately in a head-to-head frozen-\nprobe benchmark.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:17",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 13,
+        "section_or_table": "Code and Model Availability"
+      },
+      "content": "To support open science and reproducibility, all training\ncode, evaluation pipelines, and pretrained model weights dis-\ncussed in this work are publicly available. The core train-\ning framework and LeJEPA implementation are available in\ntheDALE-CT repository. The head-to-head evaluation har-\nness is released separately as thechest-ct-foundation-model-\nbenchmarkrepository, which distributes the unified backbone\nloader that normalizes every evaluated encoder behind one\ninterface, the patient-disjoint splits, the frozen-probe protocol,\nand every benchmark result reported here. The benchmark is\nmaintained as a living resource and continues to add encoders\nbeyond those evaluated in this paper; the numbers reported\nhere correspond to a fixed snapshot of its results.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:17w",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 13,
+        "section_or_table": "Weight license"
+      },
+      "content": "All pretrained weights are hosted on the Hugging Face Hub\nunder CC-BY-NC-SA-4.0",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:18",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "table",
+        "page": 14,
+        "section_or_table": "Table VIII"
+      },
+      "content": "Pretraining corpus 25,692 CT-RATE∼287k multi-source\nSlab instantiation 12 mm physical 3-slice native-z 1\nLocal-crop guidance ReXp=0.8+ TS TS foreground\nNorm clip [HU][−997,888] [−940.8,923.1]\nNormµ, σ−142,361−25.03,246.87",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:19",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 14,
+        "section_or_table": "Appendix A"
+      },
+      "content": "SIGReg matches the empirical characteristic function (CF)\nof the projected embeddings to that of a standard Gaussian.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:20",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 14,
+        "section_or_table": "Appendix B"
+      },
+      "content": "All DALE-CT variants use a ViT-Large, patch-16 backbone\ninitialized from scratch and trained with Distributed Data\nParallel inbf16mixed precision. DALE-CT-0 and DALE-\nCT-2S train for 50,000 iterations on 8×H200 GPUs (global\nbatch 512, 64 per GPU; 5,000-step warmup; peak learning\nrate3×10 −4 decaying to3×10 −5 under cosine anneal-\ning). DALE-CT-1S-v2 trains for 66,667 iterations on 8×H100\nGPUs (global batch 384, 48 per GPU; 6,667-step warmup;\nsame schedule), preserving the 25.6M-image budget of DALE-\nCT-2S (48×8×66,667≈64×8×50,000), so the CT-RATE\nsupervision ladder (0→1S-v2→2S) is architecture-, patch-\nsize-, and budget-controlled.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:21",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 14,
+        "section_or_table": "Appendix C"
+      },
+      "content": "The matched pair.Pure-2D ViT-Base and depth-aware ViT-\nBase are the CT-RATE ablation backbones of Section IV-B,\nidentical in architecture, initialization, corpus, and budget; the\narms differ only in whether self-supervised views are sampled\nwithin a single slice or across a 12 mm slab.\nOrgan-span localization.A RidgeCV probe maps each\nfrozen per-slice[CLS]embedding to 118-class TotalSegmen-\ntator fractional coverage,",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:22",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "Appendix D; MIL and token aggregation"
+      },
+      "content": "3D MIL probing (Section V-B).The grid search spans six\nlearning rates ({0.3,0.1,0.03,0.01,0.003,0.001}) and three\npooling schemes (average, max, and learned-attention, a subset\nof the five in [2]). The pooled vector feeds a linear layer over\nthe 18 CT-RATE abnormalities, optimized for 15,000 steps\nwith SGD (batch 16, momentum 0.95, weight decay 0, cosine\nannealing). The best probe is selected by validation AUPRC,\nfollowed by a per-class F1-maximizing decision threshold fit\non the validation set.\nToken aggregation and uncertainty.The 3D baselines\ncontribute a flattened grid of volumetric tokens from a cen-\ntered crop, and the 2D models contribute a per-slice[CLS]\ntoken bag; average, max, and learned-attention pooling reduce\neither to a single vector.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:23",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "Appendix C; reference limitation"
+      },
+      "content": "Both the probe and its ground\ntruth derive from TotalSegmentator, so the span results speak\nto inference cost rather than accuracy against an independent\nreference.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:24",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "Appendix D; residualization"
+      },
+      "content": "On the 414-scan ReX-annotated split,\na ridge regressor (regularization selected by cross-validation\nover10 −3–103) is fit on the training scans from per-slice\n[CLS]embeddings to normalized within-scan positionz∈\n[0,1]; its weight vector defines the dominant linear position\ndirection, and each test-scan embedding is residualized by\nprojecting out this single direction.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:25",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "Appendix D; patch targets"
+      },
+      "content": "patch-level labels are the seg-\nmentation masks max-pooled to the ViT patch grid (G×G),\ngiving[14, G, G]binary and[118, G, G]soft tensors.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:26",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "figure",
+        "page": 16,
+        "section_or_table": "Figure 5 caption"
+      },
+      "content": "Colors are therefore not comparable between columns, which is why the shared basis of Fig. 3 is the appropriate rendering for a continuity claim.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:27",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "table",
+        "page": 17,
+        "section_or_table": "Table X; scaled configuration"
+      },
+      "content": "DALE-CT-0-L2D ViT-Large (patch16) Multi-source chest-CT pool (287,302 training scans, 32 collections) Multi-source 2D CT slices dy-\nnamically sampled into multi-crop\nviews across a 3-slice axial slab\n(native-z1; no ReX guidance)\nFrom-scratch invariance SSL with SIGReg; no auxil-\niary supervision (full-pool scale-up of DALE-CT-0)",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:28",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "table",
+        "page": 17,
+        "section_or_table": "Table XI"
+      },
+      "content": "144 No 0.5186 0.8183 0.5015 0.7045Yes 0.5257 0.8156 0.5083 0.7067\n256 No 0.5382 0.8288 0.52090.7152Yes0.5421 0.82960.5137 0.7148\nFull≤512 No 0.5324 0.8232 0.5216 0.7059Yes 0.5315 0.8240 0.5221 0.7060\nAlternative Tiling Strategy\n256 (Tiled 5-Cut) Yes 0.5391 0.82640.52520.7066",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:29",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Equations (3) and (4); intervening explanation"
+      },
+      "content": "averaged equally over the global and local crops:L Aux 2S =\n1\n2 (LglobalAux 2S +L localAux 2S). The 1S-v2 loss omits the ReX terms,\nretaining the same CLS/patch and global/local averaging.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:30",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "table",
+        "page": 8,
+        "section_or_table": "Table III"
+      },
+      "content": "Pure-2D ViT-B 0.798[0.785,0.811] 6.48[5.74,7.31] 2.21[2.06,2.36]\nDepth-aware ViT-B 0.750[0.733,0.766] 9.91[8.41,11.63] 1.78[1.65,1.92]\nDALE-CT-0-L 0.786[0.771,0.800] 8.33[7.07,9.80] 4.29[3.93,4.66]",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:31",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "table",
+        "page": 8,
+        "section_or_table": "Table IV"
+      },
+      "content": "Arm k=1 k=2 k=4 k=8 ∆(1→8)\nPure-2D ViT-B 0.4647 0.4646 0.4645 0.4630−0.0017\nDepth-aware ViT-B 0.4631 0.4631 0.4628 0.4616−0.0015",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B005:32",
+      "source_ref": "Papers/Expanded_Collection/B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+      "source_version": "paper-version:B005:sha256-c711f93f867a",
+      "source_hash": "c711f93f867a6ad418c254d1471f5944a62a074c572b33436a36119e46bb9a06",
+      "locator": {
+        "kind": "table",
+        "page": 18,
+        "section_or_table": "Table XIII; frozen pulmonary fibrotic sequela, extracted text"
+      },
+      "content": "Pulmonary fibrotic sequela 0.429 0.439 0.512 0.5400.6080.514 0.456 0.363 0.521",
+      "verification_status": "entailment_reviewed"
+    }
+  ],
+  "metric_results": [
+    {
+      "id": "metric:B005:2S-CT-AUROC",
+      "metric": "Macro AUROC",
+      "value": 0.8247,
+      "unit_or_scale": "Dimensionless, 0–1",
+      "direction": "higher_better",
+      "task": "18-label current-scan CT-RATE classification",
+      "cohort_id": "cohort:B005:CT",
+      "split_role": "992-scan test; single validation-selected probe",
+      "horizon": "Not applicable: acquired current scan",
+      "model_version_id": "model:B005:2S",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "kind": "95% test-bootstrap CI",
+        "resamples": 2000,
+        "lower": 0.8152,
+        "upper": 0.8333
+      },
+      "raw_reported_value": "0.8247 [0.8152,0.8333]",
+      "source_evidence_ids": [
+        "e:B005:10",
+        "e:B005:11"
+      ]
+    },
+    {
+      "id": "metric:B005:2S-CT-AUPRC",
+      "metric": "Macro AUPRC",
+      "value": 0.5312,
+      "unit_or_scale": "Dimensionless, 0–1",
+      "direction": "higher_better",
+      "task": "18-label current-scan CT-RATE classification",
+      "cohort_id": "cohort:B005:CT",
+      "split_role": "992-scan test; single validation-selected probe",
+      "horizon": "Not applicable: acquired current scan",
+      "model_version_id": "model:B005:2S",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "kind": "95% test-bootstrap CI",
+        "resamples": 2000,
+        "lower": 0.5134,
+        "upper": 0.5556
+      },
+      "raw_reported_value": "0.5312 [0.5134,0.5556]",
+      "source_evidence_ids": [
+        "e:B005:10",
+        "e:B005:11"
+      ]
+    },
+    {
+      "id": "metric:B005:0L-RAD-direct",
+      "metric": "Macro AUROC",
+      "value": 0.6281,
+      "unit_or_scale": "Dimensionless, 0–1",
+      "direction": "higher_better",
+      "task": "RAD-ChestCT classification with directly transferred CT-RATE classifier",
+      "cohort_id": "cohort:B005:RAD",
+      "split_role": "360-scan reported external test; available-seed mean; pretraining overlap unresolved",
+      "horizon": "Not applicable: acquired current scan",
+      "model_version_id": "model:B005:0L",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "kind": "95% bootstrap CI on available-seed mean",
+        "lower": 0.6071,
+        "upper": 0.6472,
+        "exact_seed_count": "not_reported"
+      },
+      "raw_reported_value": "0.6281 [0.6071,0.6472]",
+      "source_evidence_ids": [
+        "e:B005:13",
+        "e:B005:14"
+      ]
+    },
+    {
+      "id": "metric:B005:0L-RAD-refit",
+      "metric": "Macro AUROC",
+      "value": 0.7572,
+      "unit_or_scale": "Dimensionless, 0–1",
+      "direction": "higher_better",
+      "task": "RAD-ChestCT classification after target-supervised classifier fitting; encoder frozen",
+      "cohort_id": "cohort:B005:RAD",
+      "split_role": "360-scan reported external test; available-seed mean",
+      "horizon": "Not applicable: acquired current scan",
+      "model_version_id": "model:B005:0L",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "kind": "95% bootstrap CI on available-seed mean",
+        "lower": 0.7386,
+        "upper": 0.7766
+      },
+      "raw_reported_value": "0.7572 [0.7386,0.7766]",
+      "source_evidence_ids": [
+        "e:B005:13",
+        "e:B005:14"
+      ]
+    },
+    {
+      "id": "metric:B005:depth-span",
+      "metric": "Macro organ-span IoU",
+      "value": 0.75,
+      "unit_or_scale": "Dimensionless; macro over 12 organs",
+      "direction": "higher_better",
+      "task": "Largest-run localization against TS-derived anatomical spans",
+      "cohort_id": "cohort:B005:ReX",
+      "split_role": "86 test scans",
+      "horizon": "Spatial extent of acquired scan, not forecasting",
+      "model_version_id": "model:B005:depthB",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "kind": "95% scan-bootstrap CI",
+        "lower": 0.733,
+        "upper": 0.766,
+        "resample_count": "not_reported for this analysis"
+      },
+      "baseline_id": "model:B005:pureB",
+      "raw_reported_value": "0.750 [0.733,0.766]",
+      "source_evidence_ids": [
+        "e:B005:30",
+        "e:B005:23"
+      ]
+    },
+    {
+      "id": "metric:B005:pure-span",
+      "metric": "Macro organ-span IoU",
+      "value": 0.798,
+      "unit_or_scale": "Dimensionless; macro over 12 organs",
+      "direction": "higher_better",
+      "task": "Largest-run localization against TS-derived anatomical spans",
+      "cohort_id": "cohort:B005:ReX",
+      "split_role": "86 test scans",
+      "horizon": "Spatial extent of acquired scan, not forecasting",
+      "model_version_id": "model:B005:pureB",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "kind": "95% scan-bootstrap CI",
+        "lower": 0.785,
+        "upper": 0.811
+      },
+      "raw_reported_value": "0.798 [0.785,0.811]",
+      "source_evidence_ids": [
+        "e:B005:30",
+        "e:B005:23"
+      ]
+    },
+    {
+      "id": "metric:B005:depth-NMI",
+      "metric": "z-residualized organ-clustering NMI",
+      "value": 0.755,
+      "unit_or_scale": "Dimensionless normalized mutual information",
+      "direction": "higher_better",
+      "task": "Residual representation agreement with TS organ-presence clustering",
+      "cohort_id": "cohort:B005:ReX",
+      "split_role": "86 test scans",
+      "horizon": "Acquired spatial slices",
+      "model_version_id": "model:B005:depthB",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "kind": "95% scan-bootstrap CI",
+        "resamples": 2000,
+        "lower": 0.742,
+        "upper": 0.769
+      },
+      "baseline_id": "model:B005:pureB",
+      "raw_reported_value": "0.755 [0.742,0.769]",
+      "source_evidence_ids": [
+        "e:B005:09",
+        "e:B005:24"
+      ]
+    },
+    {
+      "id": "metric:B005:depth-stride",
+      "metric": "Macro AUPRC by slice stride",
+      "value": {
+        "k1": 0.4631,
+        "k2": 0.4631,
+        "k4": 0.4628,
+        "k8": 0.4616,
+        "reported_delta": -0.0015
+      },
+      "unit_or_scale": "Dimensionless AUPRC; k is spatial slice-index stride",
+      "direction": "higher_better",
+      "task": "Fixed-probe classification with input slice subsampling",
+      "cohort_id": "cohort:B005:anatomy",
+      "split_role": "Full 3,002-scan validation partition; selection/evaluation separation unresolved",
+      "horizon": "Not a forecast horizon",
+      "model_version_id": "model:B005:depthB",
+      "uncertainty_status": "not_reported",
+      "raw_reported_value": "0.4631 0.4631 0.4628 0.4616; Δ −0.0015",
+      "source_evidence_ids": [
+        "e:B005:31"
+      ]
+    },
+    {
+      "id": "metric:B005:disputed-cell",
+      "metric": "Per-class AUROC: pulmonary fibrotic sequela",
+      "value": {
+        "supplied_extracted_text": 0.456,
+        "supplied_earlier_image_review_transcription": 0.546,
+        "resolution": "unresolved"
+      },
+      "unit_or_scale": "Dimensionless; conflicting transcriptions of one cell",
+      "direction": "higher_better",
+      "task": "RAD-ChestCT frozen-classifier transfer",
+      "cohort_id": "cohort:B005:RAD",
+      "split_role": "Reported 360-scan test; Appendix G available-seed mean",
+      "horizon": "Acquired current scan",
+      "model_version_id": "model:B005:0L",
+      "uncertainty_status": "not_reported",
+      "raw_reported_value": "Extracted text: 0.456. Earlier supplied page-image review: 0.546. This synthesis did not inspect the image directly.",
+      "source_evidence_ids": [
+        "e:B005:32"
+      ]
+    }
+  ],
+  "capability_assessments": [
+    {
+      "subject_id": "model:B005:0",
+      "level": "not_world_model",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_assertion_ids": [
+        "a:B005:019",
+        "a:B005:041",
+        "a:B005:053"
+      ],
+      "rationale": "WM-inspired representation evaluation without implemented persistent-state advancement does not satisfy the identity guard for L0."
+    },
+    {
+      "subject_id": "model:B005:1S",
+      "level": "not_world_model",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_assertion_ids": [
+        "a:B005:019",
+        "a:B005:041",
+        "a:B005:053"
+      ],
+      "rationale": "Dense anatomical targets do not introduce a world-transition operator."
+    },
+    {
+      "subject_id": "model:B005:2S",
+      "level": "not_world_model",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_assertion_ids": [
+        "a:B005:019",
+        "a:B005:041",
+        "a:B005:053"
+      ],
+      "rationale": "Current-observation diagnostic/annotation readouts are not learned successor dynamics."
+    },
+    {
+      "subject_id": "model:B005:0L",
+      "level": "not_world_model",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_assertion_ids": [
+        "a:B005:019",
+        "a:B005:041",
+        "a:B005:053"
+      ],
+      "rationale": "Scaling preserves representation geometry, not an implemented predictive transition."
+    },
+    {
+      "subject_id": "model:B005:depthB",
+      "level": "not_world_model",
+      "scope": {
+        "evaluation_run_id": "evaluation:B005:geometry"
+      },
+      "evidence_assertion_ids": [
+        "a:B005:019",
+        "a:B005:041",
+        "a:B005:053"
+      ],
+      "rationale": "Spatial ordering/continuity of acquired-slice embeddings is not successor prediction."
+    },
+    {
+      "subject_id": "model:B005:pureB",
+      "level": "not_world_model",
+      "scope": {
+        "evaluation_run_id": "evaluation:B005:geometry"
+      },
+      "evidence_assertion_ids": [
+        "a:B005:019",
+        "a:B005:041",
+        "a:B005:053"
+      ],
+      "rationale": "Static representation control without persistent-state advancement."
+    },
+    {
+      "subject_id": "model:B005:DINO",
+      "level": "not_world_model",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "evidence_assertion_ids": [
+        "a:B005:019",
+        "a:B005:041",
+        "a:B005:053"
+      ],
+      "rationale": "The actually evaluated comparator is a CT encoder/probe pipeline; cited systems' capabilities are not inherited."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "system:B005:unscaled",
+      "facets": [
+        "R2"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "model_version_ids": [
+          "model:B005:0",
+          "model:B005:1S",
+          "model:B005:2S",
+          "model:B005:DINO"
+        ],
+        "endpoint": "Current-scan classification",
+        "test_scans": 992,
+        "R3": "partial; actual external experiment retained, cross-dataset overlap controls insufficient",
+        "clinical_benefit": "not_reported"
+      },
+      "evidence_ids": [
+        "e:B005:10",
+        "e:B005:11",
+        "e:B005:14",
+        "e:B005:17"
+      ],
+      "legacy_highest_label": "R3 Retrospective external / multi-site validation"
+    },
+    {
+      "subject_id": "system:B005:unscaled",
+      "facets": [
+        "R2"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "model_version_ids": [
+          "model:B005:depthB",
+          "model:B005:pureB"
+        ],
+        "endpoint": "Patient-held-out anatomical-position regression",
+        "test_scans": 593,
+        "exclusion": "Does not qualify the separate full-validation stride experiment as an untouched test."
+      },
+      "evidence_ids": [
+        "e:B005:08",
+        "e:B005:09"
+      ],
+      "legacy_highest_label": null
+    },
+    {
+      "subject_id": "system:B005:scaled",
+      "facets": [],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "model_version_id": "model:B005:0L",
+        "observed_evidence": "Actual-human internal and cross-cohort test scores.",
+        "R2_R3": "unresolved independence from complete multisource pretraining",
+        "empty_vector_meaning": "No fully qualified facet assigned, not absence of empirical evaluation."
+      },
+      "evidence_ids": [
+        "e:B005:11",
+        "e:B005:13",
+        "e:B005:27"
+      ],
+      "legacy_highest_label": null
+    }
+  ],
+  "gate_assessments": [
+    {
+      "gate_id": "G01",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "rationale": "Provenance and some disjoint holdouts are documented, but full pretraining overlap, normalization-fit provenance and stride selection roles remain unresolved. No actual leakage is established.",
+      "supporting_assertion_ids": [
+        "a:B005:001",
+        "a:B005:010",
+        "a:B005:010L"
+      ]
+    },
+    {
+      "gate_id": "G02",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "rationale": "Not a baseline gate for the demonstrated BP_COMPONENT contribution. If the author's terminology is reinterpreted as an implemented successor-world-model claim, the inspected method contradicts its state/transition prerequisites.",
+      "supporting_assertion_ids": [
+        "a:B005:019",
+        "a:B005:041",
+        "a:B005:053"
+      ]
+    },
+    {
+      "gate_id": "G03",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "rationale": "No multitime prediction or generated-state rollout."
+    },
+    {
+      "gate_id": "G04",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "rationale": "No probabilistic predictive guarantee or uncertainty-dependent decision claim; classifier calibration remains relevant but not_reported."
+    },
+    {
+      "gate_id": "G05",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "rationale": "No action-conditioned successor queries."
+    },
+    {
+      "gate_id": "G06",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "rationale": "No clinical intervention-effect estimand or therapeutic assurance claim."
+    },
+    {
+      "gate_id": "G07",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "rationale": "No world-model-coupled action optimizer/policy."
+    },
+    {
+      "gate_id": "G08",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "rationale": "The assessed use is offline component research, not a defined high-stakes workflow operation. Relevant safety reporting remains unresolved."
+    },
+    {
+      "gate_id": "G09",
+      "status": "unresolved",
+      "scope": {
+        "cohort_id": "cohort:B005:RAD"
+      },
+      "rationale": "Executed direct/adapted transfer tests exist; overlap controls, scaled-pool independence, subgroup coverage and intended-use acceptance criteria remain insufficient. No AUROC threshold is invented.",
+      "supporting_assertion_ids": [
+        "a:B005:122",
+        "a:B005:122R"
+      ]
+    },
+    {
+      "gate_id": "G10",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "rationale": "No model-output human-usability or matched sim-to-real claim. Source-annotation validation is not model reader evaluation."
+    },
+    {
+      "gate_id": "G11",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "rationale": "No live workflow/patient utility claim demonstrated; proposed downstream use is not prospective system use."
+    },
+    {
+      "gate_id": "G12",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B005"
+      },
+      "rationale": "Research assets are released, not a product for a defined operational clinical use. Asset licensing/privacy/lifecycle questions remain relevant separately."
+    }
+  ],
+  "legacy_cells": {
+    "A": "B005",
+    "B": "DALE-CT: Depth-Aware 2D Slice Encoders Learn an Anatomical World Model of Chest CT",
+    "C": "Damron, Evan W., Gokmen, Mahmut S., Klusty, Mitchell A., Leach, Caroline N., Collier, Emily B., Bumgardner, V. K. Cody",
+    "D": "2026",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://arxiv.org/abs/2606.07775",
+    "H": "Papers/Expanded_Collection (B)",
+    "I": "B005_DALE_CT_Depth_Aware_2D_Slice_Encoders_Learn_an_Anatomical_World_Model_of_Chest_CT.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – component / supporting",
+    "M": "Not reported",
+    "N": "Radiology (multi-disease)",
+    "O": "Chest CT abnormalities (18 CT-RATE labels)",
+    "P": "Imaging department",
+    "Q": "Tissue / organ",
+    "R": "Representation learning / diagnosis",
+    "S": "Do depth-aware CT-slice representations encode anatomical order and content, and how do frozen features perform on thoracic-abnormality classification?",
+    "T": "Not reported",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "World model",
+    "X": "F1 Representation / anatomical state",
+    "Y": "Predictive-latent (JEPA-style)",
+    "Z": "L0 State representation only",
+    "AA": "L0 State representation only",
+    "AB": "Not reported",
+    "AC": "No",
+    "AD": "No",
+    "AE": "No",
+    "AF": "No",
+    "AG": "No",
+    "AH": "Not reported",
+    "AI": "Chest CT volumes and axial 2D slices sampled from volumes",
+    "AJ": "ViT-Large patch-16; ViT-Base for matched sampling ablation; ViT-Large with Registers for DINOv2 baseline",
+    "AK": "DALE-CT models trained from scratch; DINOv2 comparison baseline initialized from natural-image weights",
+    "AL": "LeJEPA multi-crop invariance plus SIGReg; optional dense auxiliary supervision",
+    "AM": "Not applicable",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Continuous latent vector",
+    "AS": "1024-dimensional per-slice CLS embeddings",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Not reported",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Frozen embedding geometry visualized by PCA; slice position, slice order, and organ identity probed from embeddings",
+    "BA": "Not reported",
+    "BB": "None (no actions)",
+    "BC": "Not reported",
+    "BD": "Not reported",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "DALE-CT (DALE-CT-0, DALE-CT-1S-v2, DALE-CT-2S, DALE-CT-0-L)",
+    "BJ": "Not reported",
+    "BK": "Not reported",
+    "BL": "Not reported",
+    "BM": "Not reported",
+    "BN": "Not reported",
+    "BO": "Not reported",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Not reported",
+    "BT": "Not reported",
+    "BU": "Not reported",
+    "BV": "LLeJEPA=(1−λ)Linv+λLSIGReg (λ=0.02); optional weighted BCE auxiliary losses (λaux=0.1)",
+    "BW": "No",
+    "BX": "CT-RATE pretraining: 25,692 chest CTs; scaled DALE-CT-0-L: 287,302 scans from 32 collections",
+    "BY": "Not reported",
+    "BZ": "Open weights",
+    "CA": "DALE-CT-0/2S: 50,000 iterations on 8 H200 GPUs; DALE-CT-1S-v2: 66,667 iterations on 8 H100 GPUs; DALE-CT-0-L: 3 epochs, 191,357 iterations, batch 384 on 16 H100 GPUs",
+    "CB": "Not reported",
+    "CC": "Not reported",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "Not reported",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Not reported",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Not reported",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "Not reported",
+    "CU": "Not reported",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not reported",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Yes",
+    "DN": "CT-RATE; RAD-ChestCT; National Lung Screening Trial (NLST); multi-source chest-CT pool",
+    "DO": "Multiple",
+    "DP": "Mixed",
+    "DQ": "CT-RATE pretraining: 25,692 scans; multi-source pretraining: 287,302 training scans; CT-RATE test: 992 scans; RAD-ChestCT test: 360 scans",
+    "DR": "Not reported",
+    "DS": "Real-world data",
+    "DT": "Not reported",
+    "DU": "Multiple",
+    "DV": "Yes",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "R3 Retrospective external / multi-site validation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Yes – public repository",
+    "EX": "Not reported",
+    "EY": "Yes",
+    "EZ": "Not applicable",
+    "FA": "Non-commercial / research only",
+    "FB": "Not reported",
+    "FC": "0 – absent",
+    "FD": "0 – absent",
+    "FE": "2 – moderate",
+    "FF": "0 – absent",
+    "FG": "No",
+    "FH": "No",
+    "FI": "Not applicable",
+    "FJ": "Yes",
+    "FK": "Yes",
+    "FL": "A shared 2D ViT-L/16 encoder and projector embed multi-crop views from neighboring CT slices; optional auxiliary linear heads predict dense TS/ReX labels. No patient-temporal transition model or planner is implemented.",
+    "FM": "Introduces DALE-CT depth-aware 2D slice encoders trained with LeJEPA; studies anatomical latent continuity, auxiliary anatomical/abnormality supervision, frozen-probe performance, and scale-up to a 287k-scan corpus.",
+    "FN": "Depth-aware sampling raised Latent Continuity Score from 0.4263 to 1.6844 versus pure-2D sampling, while classification was nearly unchanged; DALE-CT-2S reached CT-RATE AUROC 0.8247 and scaled DALE-CT-0-L reached RAD-ChestCT retrained AUROC 0.7572.",
+    "FO": "The authors state that their frozen probes did not translate the geometry into higher downstream accuracy; only two simple frozen probes were tested, leaving benefits in advanced aggregation pipelines unresolved.",
+    "FP": "The authors leave for future work whether smoother, better-ordered embeddings help advanced MIL aggregation and report-generation pipelines.",
+    "FQ": "The authors state that, to their knowledge, no prior CT foundation model framed frozen representations as an anatomical world model.",
+    "FR": "The demonstrated result is anatomical representation geometry across spatial CT slices, not evolving patient physiology: no learned patient-time transition, treatment/action-conditioned outcome, multi-step rollout, causal identification, or planning result is shown. The authors explicitly describe their use as passive and spatial.",
+    "FS": "Reviewer mapping: M2 Encoders; M3 Belief-state service; M7 Outcome & causal layer",
+    "FT": "Reviewer lesson: Expose the learned representation through a modality encoder/state interface, then independently validate next-state prediction before using it for simulation or control.",
+    "FU": "Reviewer mapping (KB §20): Incomplete multimodal state construction",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Read the complete extracted PDF (pp. 1–18): title/abstract and introduction (pp. 1–3); methods and architecture (pp. 3–6); results and Tables I–VII (pp. 6–13); conclusion and availability (p. 13); Tables VIII–XIII and Appendices A–G (pp. 14–18). | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "A:I were left untouched because the prefilled metadata is not contradicted by the PDF. Evidence supports a spatial anatomical representation component, not a model of evolving patient physiology. Some extracted tables have compressed/misaligned columns (notably portions of Tables V, X, and XIII); selected quantitative fields rely on legible narrative or table entries, not ambiguous cells. No workbook edits or external access were performed. Evidence QA: 22/60 populated fields had a <=25-word quotation matching extracted PDF text (36.7%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 54 prior populated fields have a located source quotation; 6 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "Automated model review, not independent human verification, replication or clinical validation.",
+    "This synthesis read all 18 supplied text pages, references, appendices and earlier image-review notes. Earlier API page calls received images; this synthesis did not directly receive or inspect page images.",
+    "Historical chunk-local unavailable-page statements in earlier notes do not mean the complete supplied text is currently unavailable.",
+    "Source hash, page count and page-call receipts are supplied provenance, not recomputed filesystem or billing verification.",
+    "No external repositories, model cards, weights or supplements were retrieved or executed.",
+    "No executable JSON Schema validation, reference checker, coverage counter, graph rebuild, file save or canonical admission was performed.",
+    "Common study-level assertions have an explicit seven-configuration scope contract; model-specific differences remain separately scoped. Export must preserve these qualifiers.",
+    "All seven inspected configurations lack implemented persistent-state advancement. Strict ontology not_world_model does not negate their useful WM-inspired representation contribution.",
+    "Spatial z is not clinical time. Optimization iterations, crop counts and input strides are not forecast horizons.",
+    "Latent-target invariance is only partially aligned with the predictive-latent feature; no successor mechanism is inferred from LeJEPA terminology.",
+    "Annotation-field readouts satisfy the broad emission criterion only narrowly; they do not reconstruct CT intensity or generate future observations.",
+    "The E4 positive is limited to anatomical-representation consistency tests, not clinical plausibility of generated anatomy or clinical readiness.",
+    "No-auxiliary configurations still use annotation-derived sampling; supervision-free must not be read as annotation-independent.",
+    "Scaled configuration differences do not isolate data scaling. Full pool manifest, pretraining/test overlap and preprocessing-fit exclusions remain insufficiently reported.",
+    "Table VI selected-probe, Figure 4 five-seed-mean and Table VII/Appendix G available-seed-mean summaries are different estimands.",
+    "Metric confidence intervals do not establish predictive calibration, uncertainty decomposition, equivalence or clinical acceptance.",
+    "Table I's continuity plus/minus statistic is undefined. The cosine-distance ratio can exceed one; the authors separately report a bounded Euclidean alternative.",
+    "Single-direction linear residualization does not remove every nonlinear position correlate. Effective-rank limitations remain relevant.",
+    "Organ-span targets and references both derive from TotalSegmentator. Improved smoothness accompanies worse matched-pair localization, not a demonstrated clinical benefit.",
+    "Spatial subsampling does not test every native spacing, scanner, kernel or population shift.",
+    "Classifier refitting shows target-supervised adaptability, not automatic recovery or a unique causal explanation of transfer failure.",
+    "Figure 3's 14-pixel stride, current patch-16 backbones and earlier patch-14 release require reconciliation.",
+    "Average-pooled pretraining coverage and max-pooled probing masks are reported separately; matching-target claims require clarification.",
+    "Table XIII's disputed D-0-L pulmonary fibrotic sequela cell remains 0.456 in supplied extracted text versus 0.546 in earlier supplied image-review transcription. Neither transcription is silently preferred.",
+    "Safety, privacy, ethics, calibration, human evaluation and clinical utility silence is retained as not_reported where applicable. No deployment permission or universal threshold is inferred.",
+    "Raw historical legacy metadata, quotation counts and audit claims are preserved but were not independently reproduced."
+  ],
+  "notes": "Complete-criteria skeptical synthesis. All 128 feature IDs have dispositions, with additional configuration/evaluation scopes. The inventory now explicitly includes Equations (3) and (4) on physical page 5. Evidence fragments contain contiguous supplied-source passages, source path/version/hash and physical pages. Raw legacy cells remain unchanged. Current status remains reviewed_with_limits."
+}

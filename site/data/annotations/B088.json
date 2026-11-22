@@ -1,0 +1,2829 @@
+{
+  "record_id": "annotation:B088:r1",
+  "paper_record_id": "B088",
+  "paper_version_id": "paper-version:B088:sha256-f9399f0cc850",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:B088:main"
+  ],
+  "system_composition_ids": [],
+  "world_type_ids": [
+    "WT_ORGAN"
+  ],
+  "profile_ids": [
+    "BP_COMPONENT"
+  ],
+  "entities": [
+    {
+      "id": "paper:B088",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "B088",
+        "title": "Automatic Patient-Specific Microwave Ablation Planning Accelerated by a Physics-Guided Deep Learning Model"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B088:0001"
+      ]
+    },
+    {
+      "id": "paper-version:B088:sha256-f9399f0cc850",
+      "class_id": "PaperVersion",
+      "properties": {
+        "source_path": "Papers/Expanded_Collection/B088_Automatic_Patient_Specific_Microwave_Ablation_Planning_Accelerated_by_a_Physics_Guided_Deep_Learning_Model.pdf",
+        "sha256": "f9399f0cc8508be8c8f513917e186937bbd9d66dc4a9d17d3c3b2bb98496fefe",
+        "pages": 10
+      },
+      "provenance_evidence_ids": [
+        "evidence:B088:0001"
+      ]
+    },
+    {
+      "id": "model:B088:main",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Physics-guided final-ablation surrogate and GA planner",
+        "membership": "Static action-conditioned surrogate/planning component; not a recurrent world model",
+        "architecture": "CNN encodes tumor/vessel masks; treatment embeddings affine-modulate four decoder stages; sigmoid final necrosis mask feeds constrained GA. The FEM/FDM/Arrhenius teacher evolves physics, but deployed neural surrogate maps initial geometry plus treatment duration directly to final region."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B088:0001",
+        "evidence:B088:0002",
+        "evidence:B088:0003",
+        "evidence:B088:0004",
+        "evidence:B088:0005",
+        "evidence:B088:0006",
+        "evidence:B088:0007",
+        "evidence:B088:0008",
+        "evidence:B088:0009",
+        "evidence:B088:0010",
+        "evidence:B088:0011",
+        "evidence:B088:0012",
+        "evidence:B088:0013",
+        "evidence:B088:0014"
+      ]
+    },
+    {
+      "id": "study:B088",
+      "class_id": "Study",
+      "properties": {
+        "design": "36/12/12 patient CT train/validation/test split, simulated endpoint labels; 13 held-out anatomy planning cases; two-specialist plan-feasibility ratings.",
+        "source_reviewed": true
+      },
+      "provenance_evidence_ids": [
+        "evidence:B088:0001",
+        "evidence:B088:0002",
+        "evidence:B088:0003",
+        "evidence:B088:0004",
+        "evidence:B088:0005",
+        "evidence:B088:0006",
+        "evidence:B088:0007",
+        "evidence:B088:0008",
+        "evidence:B088:0009",
+        "evidence:B088:0010",
+        "evidence:B088:0011",
+        "evidence:B088:0012",
+        "evidence:B088:0013",
+        "evidence:B088:0014"
+      ]
+    },
+    {
+      "id": "human-study:B088",
+      "class_id": "HumanStudy",
+      "properties": {
+        "subject_id": "model:B088:main",
+        "actual_human_participants": true,
+        "roles": "Two MWA specialists",
+        "task": "Rate antenna trajectories and power/time plans for 13 anatomical cases; not prospective patient treatment",
+        "outcomes": "Trajectory ratings optimal/acceptable; one time/power plan indeterminate"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B088:0010",
+        "evidence:B088:0011"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:B088:0001",
+      "subject_id": "model:B088:main",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "CNN maps static tumor/vessel volumes into decoder features."
+    },
+    {
+      "id": "assertion:B088:0002",
+      "subject_id": "model:B088:main",
+      "feature_id": "perception.fusion",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Image-derived geometry and parameter embeddings interact through affine modulation."
+    },
+    {
+      "id": "assertion:B088:0003",
+      "subject_id": "model:B088:main",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Upsampling decoder emits final binary ablation region; this is an endpoint component, not temporal dynamics."
+    },
+    {
+      "id": "assertion:B088:0004",
+      "subject_id": "model:B088:main",
+      "feature_id": "action.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0003",
+        "evidence:B088:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Antenna geometry, power and duration are settable independent treatment inputs."
+    },
+    {
+      "id": "assertion:B088:0005",
+      "subject_id": "model:B088:main",
+      "feature_id": "action.parameterized",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Six-dimensional antenna position/direction and power 45–100 W, duration 60–300 s define input conditions."
+    },
+    {
+      "id": "assertion:B088:0006",
+      "subject_id": "model:B088:main",
+      "feature_id": "action.schedule",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Treatment duration in seconds conditions a fixed single-session query."
+    },
+    {
+      "id": "assertion:B088:0007",
+      "subject_id": "model:B088:main",
+      "feature_id": "action.constraints",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Hard tumor coverage and OAR collision constraints plus soft normal-tissue/angle/length penalties."
+    },
+    {
+      "id": "assertion:B088:0008",
+      "subject_id": "model:B088:main",
+      "feature_id": "planning.model_use",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0004",
+        "evidence:B088:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Predicted endpoint masks enter GA fitness."
+    },
+    {
+      "id": "assertion:B088:0009",
+      "subject_id": "model:B088:main",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0004",
+        "evidence:B088:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Operational GA produces compared plans; component planning does not establish core-WM L4."
+    },
+    {
+      "id": "assertion:B088:0010",
+      "subject_id": "model:B088:main",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0006",
+        "evidence:B088:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Fixed surrogate is separate from weighted coverage/normal-tissue/trajectory objective."
+    },
+    {
+      "id": "assertion:B088:0011",
+      "subject_id": "model:B088:main",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Hard planning constraints disallow collision and incomplete tumor coverage in computational search, not a tested clinical fail-safe."
+    },
+    {
+      "id": "assertion:B088:0012",
+      "subject_id": "model:B088:main",
+      "feature_id": "action.comparison",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0008",
+        "evidence:B088:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Same-case optimized and clinician plans are compared using predicted ablation outcomes."
+    },
+    {
+      "id": "assertion:B088:0013",
+      "subject_id": "model:B088:main",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0008",
+        "evidence:B088:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "confidence": "medium",
+      "rationale": "Plan objective measures compare GA versus clinician-defined candidate plans on13 anatomies. Evaluation is reported; this annotation does not establish a formal categorical acceptance outcome, so no pass/fail result is inferred."
+    },
+    {
+      "id": "assertion:B088:0014",
+      "subject_id": "model:B088:main",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0010",
+        "evidence:B088:0011"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "confidence": "medium",
+      "rationale": "Two real specialists rate the plans; this is expert feasibility only. Evaluation is reported; this annotation does not establish a formal categorical acceptance outcome, so no pass/fail result is inferred."
+    },
+    {
+      "id": "assertion:B088:0015",
+      "subject_id": "model:B088:main",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0012"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "confidence": "medium",
+      "rationale": "Inference and end-to-end planning measured with hardware and units; numerical fullplanning time extrapolated. Evaluation is reported; this annotation does not establish a formal categorical acceptance outcome, so no pass/fail result is inferred."
+    },
+    {
+      "id": "assertion:B088:0016",
+      "subject_id": "model:B088:main",
+      "feature_id": "state.persistent",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "The complete neural architecture maps fixed inputs to a final endpoint without a carried recurrent patient state."
+    },
+    {
+      "id": "assertion:B088:0017",
+      "subject_id": "model:B088:main",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0001",
+        "evidence:B088:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Final ablation map is predicted directly; no learned successor-state update is reported in the neural model. Physics teacher time integration is separate."
+    },
+    {
+      "id": "assertion:B088:0018",
+      "subject_id": "model:B088:main",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Learning concerns a static surrogate; no learned state-transition dependency exists for this scoped component."
+    },
+    {
+      "id": "assertion:B088:0019",
+      "subject_id": "model:B088:main",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0004",
+        "evidence:B088:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Plans are optimized and evaluated with the same surrogate; independent optimized-plan mismatch stress test is not supplied."
+    },
+    {
+      "id": "assertion:B088:0020",
+      "subject_id": "model:B088:main",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Patient CT datasets are partitioned 36/12/12; full availability/site leakage audit not specified.",
+      "criteria_met": [
+        "Patient-dataset held-out split"
+      ],
+      "criteria_missing": [
+        "Availability/site audit and complete preprocessing fit provenance"
+      ]
+    },
+    {
+      "id": "assertion:B088:0021",
+      "subject_id": "model:B088:main",
+      "feature_id": "release.code",
+      "assessment_state": "present",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0013"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Specific code repository is explicitly said available; access not independently checked."
+    },
+    {
+      "id": "assertion:B088:0022",
+      "subject_id": "model:B088:main",
+      "feature_id": "data.provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Variable-level provenance: Measurements retain source, unit, acquisition/availability time, transformations and dataset/version identity. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0023",
+      "subject_id": "model:B088:main",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Native observation timestamps: Actual recorded event/acquisition times are retained or reversibly available at the modeled temporal resolution. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0024",
+      "subject_id": "model:B088:main",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Information-availability time: The time a value became usable is distinguished from collection time when latency matters, and training queries respect it. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0025",
+      "subject_id": "model:B088:main",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Missingness and validity masks: The model receives measured/missing/invalid status so placeholders are distinguishable from observed values. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0026",
+      "subject_id": "model:B088:main",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Measurement freshness: Per-variable elapsed time since true observation is represented and updated under carry-forward/asynchrony. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0027",
+      "subject_id": "model:B088:main",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Irregular-time handling: Real elapsed intervals, native events or continuous-time integration affect prediction at irregular times. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0028",
+      "subject_id": "model:B088:main",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Observation-process model: A model/rule explicitly represents when, whether or why observations occur conditional on relevant state/acquisition context. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0029",
+      "subject_id": "model:B088:main",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Observation-clock evidence audit: A target distinction and sampling grid are defined and witness preservation is tested across values, update/validity patterns, native timing and external acquisition channels, with unresolved allowed. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0030",
+      "subject_id": "model:B088:main",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Semantic and unit harmonization: Source-specific units, terminology and measurement definitions map to a declared target schema with traceable conversions. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0031",
+      "subject_id": "model:B088:main",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Federated learning/data access: Local data stay at defined sites and an explicit federated training/query protocol exchanges specified artifacts. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0032",
+      "subject_id": "model:B088:main",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Foundation encoder reuse: A named pretrained checkpoint/version supplies used encoder parameters or features, with adaptation described. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0033",
+      "subject_id": "model:B088:main",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Predictive-latent representation objective: A loss predicts a target representation from context rather than requiring observation reconstruction for that objective. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0034",
+      "subject_id": "model:B088:main",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Representation-collapse prevention: The predictive objective includes a specified anti-collapse mechanism, constraint or proved property. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0035",
+      "subject_id": "model:B088:main",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Observation reconstruction objective: A loss measures reconstructed observed values/images against observations. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0036",
+      "subject_id": "model:B088:main",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Availability-aware fusion: Fusion uses observed modality availability/quality/recency and defines behavior when a modality is missing. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0037",
+      "subject_id": "model:B088:main",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Belief over partially observed state: A posterior/filtering distribution over hidden state is conditioned on observation history, with uncertainty semantics stated. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0038",
+      "subject_id": "model:B088:main",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Propagation/correction separation: Prior evolution and observation-conditioned correction are distinct operations and missing observations do not cause fictitious measurement correction. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0039",
+      "subject_id": "model:B088:main",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Assimilation of arriving evidence: The current individual state is updated from newly available observations during sequential use. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0040",
+      "subject_id": "model:B088:main",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Patient-specific parameter adaptation: Individual parameters or model weights change using the patient's new measurements under a defined fitting rule. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0041",
+      "subject_id": "model:B088:main",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Shared state reused across tasks: The same state representation/checkpoint feeds at least two typed tasks/readouts without separately defining a new state model for each. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0042",
+      "subject_id": "model:B088:main",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for State-sufficiency assessment: Ablations/probes test omitted history, variables or representations against the specified prediction/decision targets. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0043",
+      "subject_id": "model:B088:main",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Patient/scene history conditioning: A subject's prior observations/actions affect the current inferred state or forecast through an explicit mechanism. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0044",
+      "subject_id": "model:B088:main",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Personalization beyond generic priors: Matched history-swap/withhold, population-prior or analogous controls test whether the correct individual's information adds predictive value without leakage. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0045",
+      "subject_id": "model:B088:main",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Identity/anatomical consistency mechanism: A declared memory, constraint or loss preserves the modeled entities, anatomy or patient identity through transitions. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0046",
+      "subject_id": "model:B088:main",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Inspectable state semantics: State variables/structures have a documented mapping to interpretable entities/physiology and users can inspect them. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0047",
+      "subject_id": "model:B088:main",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for History memory: Past observations/actions beyond the current supplied state are retained by a specified memory mechanism/context window. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0048",
+      "subject_id": "model:B088:main",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Typed action roles/effect channels: Treatment, inquiry/acquisition, procedural, behavioral and operational roles are distinguished, with physiology/observation/system effect channels recorded. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0049",
+      "subject_id": "model:B088:main",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Coherent treatment-bundle representation: Joint interventions and unchanged/inherited settings have defined bundle/update semantics that preserve clinically or empirically linked components. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0050",
+      "subject_id": "model:B088:main",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Executable/semantic action grounding: Action variables map to known clinical operations, calibrated robot commands or a validated latent-to-executable mapping. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0051",
+      "subject_id": "model:B088:main",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Historical/mechanistic action support: A context-conditioned coverage/overlap/support criterion is actually estimated or justified and tested for queried alternatives. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0052",
+      "subject_id": "model:B088:main",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Action reversibility assessment: Physical/clinical reversibility and residual harm of proposed actions are assessed in the intended environment. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0053",
+      "subject_id": "model:B088:main",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Action-conditioned transition: The transition consumes a settable action/regime and prediction depends on it, with evaluated action-conditioned results required for L2. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0054",
+      "subject_id": "model:B088:main",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Stochastic transitions: The transition defines a non-degenerate random next-state process conditional on state/action and randomness is used as specified. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0055",
+      "subject_id": "model:B088:main",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Mechanistic/structural inductive bias: Equations, conservation, anatomy, monotonicity, objects or symbolic structure constrain transition/representation learning or inference. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0056",
+      "subject_id": "model:B088:main",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Mechanistic–learned hybrid: A mechanistic component and learned component are operationally coupled, with which quantities are fixed/fitted/learned stated. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0057",
+      "subject_id": "model:B088:main",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Interchangeable dynamics behind a common contract: At least two implementations are exchanged under the same documented state/action/time/output semantics and compared or integration-tested. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0058",
+      "subject_id": "model:B088:main",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Coupled multiscale dynamics: Distinct physical/spatial/temporal levels exchange state or constraints with explicit cross-scale mappings. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0059",
+      "subject_id": "model:B088:main",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Multi-step dynamics training objective: Training loss/optimization traverses predicted states across at least two modeled transitions, with gradient/teacher-forcing behavior specified. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0060",
+      "subject_id": "model:B088:main",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Temporal abstraction/hierarchy: Options/events/subgoals define variable-duration or multi-timescale transitions with explicit higher/lower-level coordination. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0061",
+      "subject_id": "model:B088:main",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Typed task/outcome readouts: Defined heads map states/trajectories to named outcomes with units, targets and horizons. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0062",
+      "subject_id": "model:B088:main",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Future-state prediction evaluated: A reported experiment measures prediction of a subsequently indexed/observed state or justified transition successor against a relevant target/reference. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0063",
+      "subject_id": "model:B088:main",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Free-running multi-step rollout: At least two successive transitions use generated state/history without replacing every intermediate state by ground truth. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0064",
+      "subject_id": "model:B088:main",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Teacher-forced evaluation: Ground-truth intermediate observations/states are fed into successive prediction steps during the evaluated sequence. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0065",
+      "subject_id": "model:B088:main",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Rollout with real-observation re-assimilation: After imagined prediction/execution, newly observed evidence corrects state before a subsequent forecast/plan. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0066",
+      "subject_id": "model:B088:main",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Declared maximum evaluated horizon: The furthest tested prediction extent is stated with time/step/frame units and cadence when known. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0067",
+      "subject_id": "model:B088:main",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Error versus horizon / compounding error: Free-running errors or validity violations are compared at multiple forecast depths under a common protocol. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0068",
+      "subject_id": "model:B088:main",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Empirically justified usable horizon: A context/model-specific horizon is supported by an error/calibration/decision curve and explicit acceptance tolerance, uncertainty and action support. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0069",
+      "subject_id": "model:B088:main",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Multiple future trajectories: Several conditional future samples or an explicit joint forecast distribution preserve temporal/conditional dependence. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0070",
+      "subject_id": "model:B088:main",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Supported-horizon enforcement: A declared policy rejects, truncates with disclosure or escalates requests outside the context-specific supported horizon. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0071",
+      "subject_id": "model:B088:main",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Receding-horizon replanning: A plan is recomputed from updated real observations after executing a prefix, with planning and execution horizons stated. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0072",
+      "subject_id": "model:B088:main",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Uncertainty affects planning: Uncertainty changes scores, constraints, risk budgets or candidate acceptance during decision selection. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0073",
+      "subject_id": "model:B088:main",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Candidate-set provenance: Sources, construction, eligibility, support and coverage of candidate actions are documented independently of unavailable future outcomes. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0074",
+      "subject_id": "model:B088:main",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Hierarchical decision policy: Higher-level goals/options and lower-level actions interact through defined durations/termination and model use. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0075",
+      "subject_id": "model:B088:main",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Closed-loop control evaluated: Action outputs influence an environment and new environment observations feed subsequent decisions; environment kind is recorded. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0076",
+      "subject_id": "model:B088:main",
+      "feature_id": "uq.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Explicit predictive uncertainty: A distribution, posterior, ensemble or uncertainty set has specified semantics for the predicted state/outcome. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0077",
+      "subject_id": "model:B088:main",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Aleatoric/epistemic separation: Separate components have defined interpretations and estimation procedures with limitations explained. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0078",
+      "subject_id": "model:B088:main",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Calibration evaluated: Predicted probabilities/intervals/sets are compared with observed frequencies/coverage using a specified target, metric and validation sample. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0079",
+      "subject_id": "model:B088:main",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Trajectory-level calibration evaluated: Joint or explicitly horizon-indexed trajectory reliability is assessed under the deployment rollout/action regime. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0080",
+      "subject_id": "model:B088:main",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Calibration acceptance tolerance met: A named calibration/coverage criterion is met with uncertainty under the intended cohort/horizon/action regime. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0081",
+      "subject_id": "model:B088:main",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for OOD/distribution-shift detector: An operational statistic/threshold identifies out-of-support data/actions with stated response and, at evaluation stage, measured detection performance. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0082",
+      "subject_id": "model:B088:main",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Conformal calibration: A specified nonconformity score, calibration split and coverage/error-control assumptions define sets/alarms. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0083",
+      "subject_id": "model:B088:main",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Declared causal estimand: Intervention alternatives, population, outcomes, horizon and causal contrast are explicit. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0084",
+      "subject_id": "model:B088:main",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Identification strategy: An estimand is linked to an identification argument/strategy using stated assumptions and observed/simulated data structure. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0085",
+      "subject_id": "model:B088:main",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Identification assumptions stated: Relevant consistency, exchangeability, positivity, interference/censoring or mechanistic assumptions are explicitly tied to the estimand. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0086",
+      "subject_id": "model:B088:main",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Causal sensitivity assessment: Analyses quantify impact of violations such as unmeasured confounding, censoring or model/positivity assumptions. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0087",
+      "subject_id": "model:B088:main",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Counterfactual validation design: Validation compares defined action-effect predictions with known simulated potential outcomes, interventional experiments or appropriately qualified trial/causal benchmarks. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0088",
+      "subject_id": "model:B088:main",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Mechanistic intervention semantics: Actions enter a documented physical/pharmacological mechanism with identified/calibrated parameters and stated applicability. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0089",
+      "subject_id": "model:B088:main",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Causal-effect claim justified for scope: Estimand, justified identification/mechanistic assumptions, support, relevant validation and sensitivity collectively support the particular causal interpretation, with residual uncertainty disclosed. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0090",
+      "subject_id": "model:B088:main",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Abstention/deferral: The system can withhold a recommendation/action and enter a specified fallback or human-review route under defined triggers. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0091",
+      "subject_id": "model:B088:main",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Operational human escalation: A trigger routes a case to a defined available human role with response/timing/fallback semantics. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0092",
+      "subject_id": "model:B088:main",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Runtime failure monitor: Online signals detect a defined failure/hazard and trigger a specified protective response. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0093",
+      "subject_id": "model:B088:main",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Safe stop and fallback: A stop/fallback mechanism and its physical/software residual effects are specified and tested at the recorded stage. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0094",
+      "subject_id": "model:B088:main",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for World-model threat model: Assets, adversary capabilities and attack paths across data, state, action, rollout, objective and interfaces are explicitly analyzed. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0095",
+      "subject_id": "model:B088:main",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Adversarial/failure-injection evaluation: Defined attacks/faults are injected and measured on the relevant trajectory/planner/safety outputs. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0096",
+      "subject_id": "model:B088:main",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Implemented privacy controls: A defined de-identification, access, encryption, federation, differential privacy or data-minimization mechanism is operationally specified. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0097",
+      "subject_id": "model:B088:main",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Disclosure/memorization audit: Synthetic outputs or representations are tested for copying, membership/re-identification or attribute disclosure under a declared threat model. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0098",
+      "subject_id": "model:B088:main",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Permissioned external actions: External access/action permissions, identity and allowed operation scope are explicitly enforced. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0099",
+      "subject_id": "model:B088:main",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Automation-bias mitigation: Interface/protocol mechanisms address over-trust with appropriate uncertainty, limitations, override and, at evaluation stage, measured human factors. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0100",
+      "subject_id": "model:B088:main",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Intended use/user specified: Population, use purpose, user, decision point, environment and permitted autonomy are explicit. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0101",
+      "subject_id": "model:B088:main",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Versioned model/system reporting card: An organized report pins model/data versions, capability/evidence boundaries, assets and limitations. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0102",
+      "subject_id": "model:B088:main",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Post-release monitoring plan: Signals, thresholds, cadence, responsibility, response and revalidation triggers are declared for released use. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0103",
+      "subject_id": "model:B088:main",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Change, revalidation and rollback: Updates have versioned approval/revalidation criteria and executable rollback/fallback boundaries. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0104",
+      "subject_id": "model:B088:main",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Regulatory/reporting framework mentioned: A framework/standard is explicitly named in the paper/version and its statement is quoted/scoped. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0105",
+      "subject_id": "model:B088:main",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Scoped compliance/authorization evidence: Documented applicable requirements and evidence/authorization are connected to the intended use, jurisdiction, product/version and date. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0106",
+      "subject_id": "model:B088:main",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Ethics/IRB/informed-consent documentation: Named approval/exemption and applicable data/human participation scope are documented. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0107",
+      "subject_id": "model:B088:main",
+      "feature_id": "agent.role",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Explicit LLM/agent role: An actual component role such as encoder, simulator, proposer, planner, equation discovery or reporting is operationally described. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0108",
+      "subject_id": "model:B088:main",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Interacting multi-agent architecture: At least two distinct decision-making agents have defined roles, communication and coordination. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0109",
+      "subject_id": "model:B088:main",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Agent reflection/refinement loop: The agent revises a proposal using explicit feedback/evidence before or after action under a defined loop. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0110",
+      "subject_id": "model:B088:main",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for External tool/system calls: The agent invokes an external API/tool/system with stated read/write permissions and scope. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0111",
+      "subject_id": "model:B088:main",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Autonomy specified for actual environment: Who proposes, approves and executes actions is described for the actual simulated/physical/clinical context. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0112",
+      "subject_id": "model:B088:main",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Weight availability: The relevant trained weights/parameters are released under stated access conditions and version. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0113",
+      "subject_id": "model:B088:main",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for License/access conditions: Explicit terms govern code, weights and data separately. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0114",
+      "subject_id": "model:B088:main",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Independent reproduction: An independent run pins code/data/configuration and reports replication outcomes. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0115",
+      "subject_id": "model:B088:main",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for One-step fidelity: Future-state or transition-successor error against a stated reference. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0116",
+      "subject_id": "model:B088:main",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Multi-step rollout fidelity: Free-running or explicitly block-generated future sequence performance is evaluated at multiple horizons; protocols distinguish recursive from block prediction. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0117",
+      "subject_id": "model:B088:main",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Distributional realism: Generated sample distributions are compared with reference distributions using defined sample/conditional protocols. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0118",
+      "subject_id": "model:B088:main",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Physical/clinical plausibility: Defined anatomical, mechanistic, contact, clinical or consistency constraints are tested, including adverse/rare cases where relevant. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0119",
+      "subject_id": "model:B088:main",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Calibration and uncertainty: Reliability/coverage/sharpness and nominal-target context are measured on held-out data under the stated prediction regime. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0120",
+      "subject_id": "model:B088:main",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Action sensitivity: Predictions under controlled changes to specified action inputs are compared, with history and relevant context fixed or explicitly controlled. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0121",
+      "subject_id": "model:B088:main",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Counterfactual/causal validity: A defined interventional/counterfactual validation reference and estimand are tested; simulated truth versus aggregate trial agreement are distinguished. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0122",
+      "subject_id": "model:B088:main",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Personalization evidence: Correct individual history/context is compared with swapped/withheld/population-prior controls under matched forecasting conditions. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0123",
+      "subject_id": "model:B088:main",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Sim-to-real agreement: Matched tasks/policies are evaluated both in simulation and a specified physical/clinical environment and agreement/bias is quantified. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0124",
+      "subject_id": "model:B088:main",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Robustness and transfer: At least one explicit independent-site/cohort, shift, subgroup, missing-modality or transfer test is reported; record each subfacet separately. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0125",
+      "subject_id": "model:B088:main",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Observation-process audit: A target-specific preprocessing/measurement-clock audit tests evidence retention, including native/update/external witnesses as needed. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0126",
+      "subject_id": "model:B088:main",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Clinical/workflow utility: A prospective or appropriately designed comparative real-care/workflow study measures a predeclared utility endpoint and harms for the scoped system. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0127",
+      "subject_id": "model:B088:main",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Dynamics computed in internal representation: The transition predicts internal state representations used across steps or for decisions, with decoding optional. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B088:0128",
+      "subject_id": "model:B088:main",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Value/reward-equivalent dynamics: Learned transition states are optimized to preserve decision-relevant rewards/values or policy predictions without claiming full observation reconstruction. The scoped method is offline endpoint-surrogate planning; no clinical execution, uncertainty calibration or temporal rollout is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:B088:0001",
+      "subject_id": "paper-version:B088:sha256-f9399f0cc850",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B088:main",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0001",
+        "evidence:B088:0002",
+        "evidence:B088:0003",
+        "evidence:B088:0004",
+        "evidence:B088:0005",
+        "evidence:B088:0006",
+        "evidence:B088:0007",
+        "evidence:B088:0008",
+        "evidence:B088:0009",
+        "evidence:B088:0010",
+        "evidence:B088:0011",
+        "evidence:B088:0012",
+        "evidence:B088:0013",
+        "evidence:B088:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "This version reports the scoped model/component."
+    },
+    {
+      "id": "relation:B088:0002",
+      "subject_id": "paper-version:B088:sha256-f9399f0cc850",
+      "predicate_id": "reportsStudy",
+      "object_id": "study:B088",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0001",
+        "evidence:B088:0002",
+        "evidence:B088:0003",
+        "evidence:B088:0004",
+        "evidence:B088:0005",
+        "evidence:B088:0006",
+        "evidence:B088:0007",
+        "evidence:B088:0008",
+        "evidence:B088:0009",
+        "evidence:B088:0010",
+        "evidence:B088:0011",
+        "evidence:B088:0012",
+        "evidence:B088:0013",
+        "evidence:B088:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Source methods/results report this study."
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:B088:0001",
+      "source_ref": "Papers/Expanded_Collection/B088_Automatic_Patient_Specific_Microwave_Ablation_Planning_Accelerated_by_a_Physics_Guided_Deep_Learning_Model.pdf",
+      "source_version": "paper-version:B088:sha256-f9399f0cc850",
+      "source_hash": "f9399f0cc8508be8c8f513917e186937bbd9d66dc4a9d17d3c3b2bb98496fefe",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "The tumor-vessel volume was processed by a CNN-based encoder. The en-\ncoder repeatedly applies 3D CNN layers, instance normalization, and GELU\nactivation to extract high-dimensional features while reducing the spatial reso-\nlution. The antenna position, antenna direction, power, and treatment duration\nwere separately passed through positional encoding and linear layers to generate\nthe affine parameters required at each decoder stage, namely the scale parameter\nγand shift parameterβ.\nThe extracted features and affine parameters were jointly used in the decoder\nblocks, allowing the feature maps to be modulated according to the treatment\nconditions. Each decoder block consists of one upsampling operation and three\naffine stages. In each affine stage, after a CNN layer, feature modulation was\nperformed by applyingγandβto the feature mapXasX ′ =X·γ+β[18]. The\nspatial resolution was progressively restored through four decoder blocks, and\nencoder features were combined with decoder features through skip connections\nusing channel-wise concatenation.\nFinally, the output was passed through a sigmoid function to obtain a prob-\nability map, which was thresholded at 0.5 to predict the final ablation region.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B088:0002",
+      "source_ref": "Papers/Expanded_Collection/B088_Automatic_Patient_Specific_Microwave_Ablation_Planning_Accelerated_by_a_Physics_Guided_Deep_Learning_Model.pdf",
+      "source_version": "paper-version:B088:sha256-f9399f0cc850",
+      "source_hash": "f9399f0cc8508be8c8f513917e186937bbd9d66dc4a9d17d3c3b2bb98496fefe",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "The simulation con-\nsisted of three multiphysics steps [3,8]: electromagnetic field calculation using\nthe Helmholtz equation, tissue temperature estimation using the Pennes bio-\nheat equation, and cellular necrosis estimation using the Arrhenius model. The\nHelmholtz equation was solved using the finite element method (FEM), whereas\nthePennesbioheatequationwassolvedusingthefinitedifferencemethod(FDM).\nThe vessel region was maintained at37◦C, with a convection boundary condition\napplied at the vessel–tissue interface. Finally, the Arrhenius damage integral was\naccumulated over time, and voxels with a final value greater than 1 were defined\nas the necrotic region.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B088:0003",
+      "source_ref": "Papers/Expanded_Collection/B088_Automatic_Patient_Specific_Microwave_Ablation_Planning_Accelerated_by_a_Physics_Guided_Deep_Learning_Model.pdf",
+      "source_version": "paper-version:B088:sha256-f9399f0cc850",
+      "source_hash": "f9399f0cc8508be8c8f513917e186937bbd9d66dc4a9d17d3c3b2bb98496fefe",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "The antenna position was sampled within the tumor, while\npower and duration were sampled from45–100 Wand60–300 s, respectively.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B088:0004",
+      "source_ref": "Papers/Expanded_Collection/B088_Automatic_Patient_Specific_Microwave_Ablation_Planning_Accelerated_by_a_Physics_Guided_Deep_Learning_Model.pdf",
+      "source_version": "paper-version:B088:sha256-f9399f0cc850",
+      "source_hash": "f9399f0cc8508be8c8f513917e186937bbd9d66dc4a9d17d3c3b2bb98496fefe",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "The optimization variablesuincluded the antenna position, insertion direc-\ntion, applied power, and treatment duration. During optimization, the patient-\nspecific tumor and vessel masks were fixed, whileuwas updated using the neural",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B088:0005",
+      "source_ref": "Papers/Expanded_Collection/B088_Automatic_Patient_Specific_Microwave_Ablation_Planning_Accelerated_by_a_Physics_Guided_Deep_Learning_Model.pdf",
+      "source_version": "paper-version:B088:sha256-f9399f0cc850",
+      "source_hash": "f9399f0cc8508be8c8f513917e186937bbd9d66dc4a9d17d3c3b2bb98496fefe",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "In contrast, tumor cov-\nerage and collision between the antenna insertion trajectory and organs-at-risk\nwere treated as hard constraints that must be satisfied, as defined in Eq. 4.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B088:0006",
+      "source_ref": "Papers/Expanded_Collection/B088_Automatic_Patient_Specific_Microwave_Ablation_Planning_Accelerated_by_a_Physics_Guided_Deep_Learning_Model.pdf",
+      "source_version": "paper-version:B088:sha256-f9399f0cc850",
+      "source_hash": "f9399f0cc8508be8c8f513917e186937bbd9d66dc4a9d17d3c3b2bb98496fefe",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "The weights of the three penalty terms were all set to 0.3.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B088:0007",
+      "source_ref": "Papers/Expanded_Collection/B088_Automatic_Patient_Specific_Microwave_Ablation_Planning_Accelerated_by_a_Physics_Guided_Deep_Learning_Model.pdf",
+      "source_version": "paper-version:B088:sha256-f9399f0cc850",
+      "source_hash": "f9399f0cc8508be8c8f513917e186937bbd9d66dc4a9d17d3c3b2bb98496fefe",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "The 60 patient CT datasets used for neural ablation prediction model training\nand evaluation were divided into training, validation, and test sets with 36,\n12, and 12 datasets, respectively. To reduce bias in the data distribution, the\ndatasets were sorted based on tumor size and the number of vessel voxels in the\nvessel mask, and then evenly distributed across the three sets. The validation\nset was used for early stopping with a patience of 5 to prevent overfitting during\ntraining. Ablation zone prediction performance was evaluated using 1,000 cases\nrandomly sampled from the test set. The model achieved a Dice score of 95.06%\nand an IoU of 90.78%, showing high agreement between the predicted ablation\nzones and the numerical simulation results.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B088:0008",
+      "source_ref": "Papers/Expanded_Collection/B088_Automatic_Patient_Specific_Microwave_Ablation_Planning_Accelerated_by_a_Physics_Guided_Deep_Learning_Model.pdf",
+      "source_version": "paper-version:B088:sha256-f9399f0cc850",
+      "source_hash": "f9399f0cc8508be8c8f513917e186937bbd9d66dc4a9d17d3c3b2bb98496fefe",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "13 patients with liver tumors who were not used for training the prediction model\nwere selected. The selected patients had a maximum tumor diameter of 40 mm\nor less, with a mean diameter of 21.8 mm (range: 7–36 mm).",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B088:0009",
+      "source_ref": "Papers/Expanded_Collection/B088_Automatic_Patient_Specific_Microwave_Ablation_Planning_Accelerated_by_a_Physics_Guided_Deep_Learning_Model.pdf",
+      "source_version": "paper-version:B088:sha256-f9399f0cc850",
+      "source_hash": "f9399f0cc8508be8c8f513917e186937bbd9d66dc4a9d17d3c3b2bb98496fefe",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "mean IPL was 71.2 mm for the proposed planning method and 73.6 mm for\nclinician-defined planning, indicating that the proposed planning method pro-\nvided a shorter and less invasive trajectory.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B088:0010",
+      "source_ref": "Papers/Expanded_Collection/B088_Automatic_Patient_Specific_Microwave_Ablation_Planning_Accelerated_by_a_Physics_Guided_Deep_Learning_Model.pdf",
+      "source_version": "paper-version:B088:sha256-f9399f0cc850",
+      "source_hash": "f9399f0cc8508be8c8f513917e186937bbd9d66dc4a9d17d3c3b2bb98496fefe",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "The clinical applicability of the proposed\nplanning method was evaluated by two MWA specialists using four categories:\noptimal, acceptable, indeterminate, and not feasible. Plans rated as optimal or\nacceptable were considered clinically applicable. As shown in Table 2, all antenna\ninsertion trajectories were rated as optimal or acceptable by both clinicians, in-\ndicating clinically acceptable trajectory generation. In contrast, treatment dura-\ntion and power settings showed greater inter-clinician variability, with one case\nrated as indeterminate due to possible insufficient ablation, suggesting the need\nfor more quantitative criteria for treatment parameter selection.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B088:0011",
+      "source_ref": "Papers/Expanded_Collection/B088_Automatic_Patient_Specific_Microwave_Ablation_Planning_Accelerated_by_a_Physics_Guided_Deep_Learning_Model.pdf",
+      "source_version": "paper-version:B088:sha256-f9399f0cc850",
+      "source_hash": "f9399f0cc8508be8c8f513917e186937bbd9d66dc4a9d17d3c3b2bb98496fefe",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "Antenna insertion trajectoryClinician 1 9 4 – –Clinician 2 10 3 – –\nTime/power setting Clinician 1 13 – – –Clinician 2 6 6 1 –",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B088:0012",
+      "source_ref": "Papers/Expanded_Collection/B088_Automatic_Patient_Specific_Microwave_Ablation_Planning_Accelerated_by_a_Physics_Guided_Deep_Learning_Model.pdf",
+      "source_version": "paper-version:B088:sha256-f9399f0cc850",
+      "source_hash": "f9399f0cc8508be8c8f513917e186937bbd9d66dc4a9d17d3c3b2bb98496fefe",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "pared with an average of 10.8 s for numerical simulation. The neural-network-\nbased planning required an average of 42.7 s, including 1,664 forward evaluations\ntaking 32.9 s. Performing the same number of evaluations with numerical simu-\nlation would require approximately 17,971 s (5.0 h), indicating that the proposed\nframework enabled about 420-fold faster planning. All measurements were con-\nducted on a GPU-enabled desktop with an AMD Ryzen 9 5900X CPU and an\nNVIDIA RTX 3090 GPU.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B088:0013",
+      "source_ref": "Papers/Expanded_Collection/B088_Automatic_Patient_Specific_Microwave_Ablation_Planning_Accelerated_by_a_Physics_Guided_Deep_Learning_Model.pdf",
+      "source_version": "paper-version:B088:sha256-f9399f0cc850",
+      "source_hash": "f9399f0cc8508be8c8f513917e186937bbd9d66dc4a9d17d3c3b2bb98496fefe",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "https://github.com/SeonAengCho/MWA-Planning.git",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B088:0014",
+      "source_ref": "Papers/Expanded_Collection/B088_Automatic_Patient_Specific_Microwave_Ablation_Planning_Accelerated_by_a_Physics_Guided_Deep_Learning_Model.pdf",
+      "source_version": "paper-version:B088:sha256-f9399f0cc850",
+      "source_hash": "f9399f0cc8508be8c8f513917e186937bbd9d66dc4a9d17d3c3b2bb98496fefe",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "The rib region (HU≥200) and body region (HU≥ −500) were seg-\nmented in 3D Slicer, while major anatomical structures, including the aorta,\nveins, portal vein, colon, liver, pancreas, and stomach, were segmented using\nTotalSegmentator [24]. All segments were resampled to 1-mm voxel spacing and\nintegrated into a single label map to construct the 3D body twin.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    }
+  ],
+  "metric_results": [],
+  "capability_assessments": [
+    {
+      "subject_id": "model:B088:main",
+      "level": "not_world_model",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_assertion_ids": [],
+      "rationale": "The learned model outputs a final ablation endpoint from static anatomy and treatment inputs. Treatment duration is an input, not evidence of a carried state and learned transition. GA iterations vary plans rather than advance a health-world state. Retain planning features without awarding L4 core-WM membership."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "model:B088:main",
+      "facets": [
+        "R1",
+        "R4"
+      ],
+      "environment_kind": "mixed",
+      "scope": {
+        "model_version_id": "model:B088:main"
+      },
+      "evidence_ids": [
+        "evidence:B088:0007",
+        "evidence:B088:0010",
+        "evidence:B088:0009"
+      ],
+      "legacy_highest_label": null
+    }
+  ],
+  "gate_assessments": [
+    {
+      "gate_id": "G01",
+      "status": "unresolved",
+      "scope": {
+        "subject_id": "model:B088:main"
+      },
+      "rationale": "Source-aware research extraction; no release or clinical deployment assurance certified by this review."
+    }
+  ],
+  "legacy_cells": {
+    "A": "B088",
+    "B": "Automatic Patient-Specific Microwave Ablation Planning Accelerated by a Physics-Guided Deep Learning Model",
+    "C": "Cho, Seonaeng, Seo, Minjee, Seol, Minju, Park, Juil, Kwon, Joon Ho, Yoon, Kyungho",
+    "D": "2026",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://arxiv.org/abs/2608.03086",
+    "H": "Papers/Expanded_Collection (B)",
+    "I": "B088_Automatic_Patient_Specific_Microwave_Ablation_Planning_Accelerated_by_a_Physics_Guided_Deep_Learning_Model.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not reported",
+    "N": "Oncology",
+    "O": "Liver tumors treated with microwave ablation",
+    "P": "Not reported",
+    "Q": "Procedure / scene (surgery, acquisition)",
+    "R": "Treatment recommendation / planning",
+    "S": "Select patient-specific antenna position and direction, power, and duration to maximize ablation coverage while limiting normal-tissue damage and insertion-path costs.",
+    "T": "Planning evaluation: 13 patients with liver tumors, maximum diameter ≤40 mm, mean 21.8 mm (range 7–36 mm).",
+    "U": "Not reported",
+    "V": "Patient-specific microwave-ablation antenna position, insertion direction, applied power, and treatment duration.",
+    "W": "Digital twin",
+    "X": "F8 Surgical simulation & world-action models",
+    "Y": "Other",
+    "Z": "L4 Planning / control",
+    "AA": "L4 Planning / control",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "Yes",
+    "AE": "No",
+    "AF": "Yes",
+    "AG": "Yes",
+    "AH": "Serial pipeline",
+    "AI": "3D tumor and vessel masks; antenna position and direction; applied power; treatment duration",
+    "AJ": "3D CNN encoder and decoder with instance normalization and GELU activations",
+    "AK": "Not reported",
+    "AL": "Not reported",
+    "AM": "Antenna pose, power, and duration are positionally encoded and linearly embedded to generate affine scale/shift parameters that modulate decoder features.",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Image / voxel space",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Not reported",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Procedure / surgery",
+    "BC": "Continuous vector (dose / rate)",
+    "BD": "Antenna position (x,y,z), direction (dx,dy,dz), power (45–100 W), and duration (60–300 s).",
+    "BE": "Not reported",
+    "BF": "5 mm target safety margin; hard constraints require complete tumor coverage and no antenna-trajectory collision with organs at risk. Soft penalties cover normal-tissue ablation, vertical deflection angle, and insertion-path length.",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "Unnamed",
+    "BJ": "Other",
+    "BK": "Not reported",
+    "BL": "Not reported",
+    "BM": "No",
+    "BN": "Not reported",
+    "BO": "Not reported",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Voxelwise ablation probability map thresholded at 0.5 to produce the final binary ablation region.",
+    "BT": "Ablation-region prediction head producing a final voxelwise probability map and thresholded binary mask.",
+    "BU": "Genetic-algorithm fitness: target under-coverage objective plus weighted (0.3 each) normal-tissue, vertical-deflection-angle, and insertion-length penalties, with hard tumor-coverage and organ-collision constraints.",
+    "BV": "Not reported",
+    "BW": "Not reported",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "No rollout",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "Classical optimisation (GA / constrained)",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Minimize target under-coverage plus weighted penalties for normal-tissue ablation, vertical deflection angle, and insertion length; enforce complete tumor coverage and avoid organs-at-risk collisions.",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Deterministic (none)",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "None (predictive only)",
+    "CU": "None",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "None",
+    "DA": "Not applicable",
+    "DB": "Not applicable",
+    "DC": "Not applicable",
+    "DD": "Not applicable",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Clinical",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Yes",
+    "DN": "HepaticVessel dataset from the Medical Segmentation Decathlon; multiphysics simulation-generated ablation data",
+    "DO": "Multiple",
+    "DP": "Not reported",
+    "DQ": "60 patient CT datasets; 813 tumor-centered volumes; 30,000 simulated input conditions; 1,000 test cases; 13 planning patients",
+    "DR": "Not reported",
+    "DS": "Both",
+    "DT": "Not reported",
+    "DU": "Not reported",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Ablation-mask prediction against numerical simulation on 1,000 test cases: Dice 95.06%, IoU 90.78%.",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Proposed plans achieved complete margin-included target coverage (CP 1.000); mean organ-damage rate was 0.175.",
+    "EB": "Not reported",
+    "EC": "Compared with clinician-defined plans across 13 patients: mean AE 0.764 vs 0.495, CP 1.000 vs 0.998, OD 0.175 vs 0.389, and IPL 71.2 vs 73.6 mm.",
+    "ED": "Not reported",
+    "EE": "Two microwave-ablation specialists rated feasibility. All proposed antenna trajectories were optimal or acceptable to both; power/time ratings varied, with one indeterminate case for possible insufficient ablation.",
+    "EF": "2 microwave-ablation specialists",
+    "EG": "Model inference 16.3 ms per case; neural-network planning 42.7 s versus approximately 17,971 s for the same 1,664 numerical-simulation evaluations, about 420-fold faster; GPU desktop with AMD Ryzen 9 5900X and NVIDIA RTX 3090.",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Planning constraints include a 5 mm safety margin, complete tumor coverage, avoidance of organs-at-risk collisions, and penalties for normal-tissue ablation.",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Yes",
+    "ET": "R4 Expert / reader evaluation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Yes – public repository",
+    "EX": "https://github.com/SeonAengCho/MWA-Planning.git",
+    "EY": "Not reported",
+    "EZ": "Not applicable",
+    "FA": "Not reported",
+    "FB": "Voxel-space anatomy and treatment-response representation: patient-specific tumor/vessel masks are mapped to a final predicted ablation-region mask; no intermediate latent state is described.",
+    "FC": "0 – absent",
+    "FD": "0 – absent",
+    "FE": "2 – moderate",
+    "FF": "2 – moderate",
+    "FG": "No",
+    "FH": "No",
+    "FI": "No",
+    "FJ": "Yes",
+    "FK": "Yes",
+    "FL": "Patient-specific tumor/vessel voxel masks are encoded by a 3D CNN; antenna pose, power, and duration generate affine modulation parameters in the decoder; the network predicts a terminal ablation mask; a genetic algorithm searches candidate plans using this fast forward model and anatomical constraints.",
+    "FM": "The authors propose patient-specific MWA planning using a neural ablation predictor as a fast forward model in a genetic algorithm, aiming to improve planning efficiency and quantitative treatment planning while considering anatomical constraints.",
+    "FN": "On 1,000 test cases, ablation prediction reached Dice 95.06% and IoU 90.78%. In 13 planning cases, mean AE was 0.764 vs 0.495, mean OD 0.175 vs 0.389, and mean IPL 71.2 vs 73.6 mm for clinician plans. Planning was about 420-fold faster than numerical simulation.",
+    "FO": "Not reported",
+    "FP": "Not reported",
+    "FQ": "The authors identify the high computational cost of multiphysics MWA simulation as a barrier to optimization-based planning requiring repeated forward evaluations.",
+    "FR": "Evidence supports endpoint ablation-mask prediction conditioned on anatomy and procedural settings plus offline GA planning on CT-derived cases. It does not demonstrate temporally resolved learned rollouts, validation against real ablation outcomes, prospective patient benefit, causal treatment-effect identification, or clinical execution.",
+    "FS": "Reviewer mapping: M3 Belief-state service; M4 Action service; M5 Dynamics adapter; M7 Outcome & causal layer; M8 Planner; M9 Safety & governance",
+    "FT": "Reviewer lesson: Keep the learned patient/scene simulator separate from the planner objective; constrain candidate actions and report closed-loop decision quality alongside model fidelity.",
+    "FU": "Reviewer mapping (KB §20): Sim-to-real",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Complete extracted PDF text, PDF pp. 1–10: title/abstract, introduction, all methods, results, Tables 1–2, conclusion, and references. Relevant methods: §§2.1–2.3; results: §§3.1–3.3. Table 2 extraction was imperfectly aligned, so only the accompanying prose summary was used. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "Table 2 column alignment was imperfect in the extracted text; the prose reports all trajectories optimal or acceptable to both specialists and one indeterminate time/power rating. No explicit training loss, model parameter count, or future-work section was reported. Blueprint module/open-problem mappings requiring KB §19–20 were omitted because that taxonomy was not among the declared input files. Evidence QA: 42/75 populated fields had a <=25-word quotation matching extracted PDF text (56%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 73 prior populated fields have a located source quotation; 2 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "Surrogate labels and compared plan outcomes come from simulations/the same learned surrogate, not observed ablation outcomes. Human CT geometry does not convert simulated lesion labels into clinical predictive validation.",
+    "The roughly 420-fold numerical-planning comparison is extrapolated from 1,664 forward evaluations and a measured per-simulation time; no full numerical GA run is reported.",
+    "Expert feasibility ratings are not evidence of improved patient outcomes, safety or actual treatment delivery.",
+    "Code URL is explicitly reported but was not accessed; no weights/license/reproduction verified.",
+    "Single Codex source review; no independent human review, external source retrieval, code execution/replication or prospective clinical validation performed by reviewer.",
+    "All main-PDF pages including references/appendices read; every identified figure/table inspected. Referenced studies are bibliography only and do not transfer capabilities.",
+    "Mechanical schema/source/coverage checks establish necessary conditions and quote occurrence, not scientific truth or clinical safety."
+  ]
+}

@@ -1,0 +1,2632 @@
+{
+  "record_id": "annotation:B026:r1",
+  "paper_record_id": "B026",
+  "paper_version_id": "paper-version:B026:sha256-a8ca5421fbd2",
+  "annotation_status": "reviewed",
+  "model_version_ids": [
+    "model:B026:physioworld:v1"
+  ],
+  "system_composition_ids": [
+    "system:B026:physioworld"
+  ],
+  "world_type_ids": [
+    "WT_EHR"
+  ],
+  "profile_ids": [
+    "BP_COMPARE"
+  ],
+  "entities": [
+    {
+      "id": "paper:B026",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "B026",
+        "title": "Sign-Constrained Intervention Effects for Domain-Generalizable ICU World Models",
+        "canonical_url": "https://arxiv.org/abs/2610.11090",
+        "contribution_type": "Primary method – new model",
+        "membership": {
+          "legacy_value": "Include – core world model",
+          "legacy_status": "confirmed_world_model",
+          "primary_source_core_identity": "present",
+          "reason": "PhysioWorld is an action-conditioned ICU world model constraining latent intervention effects Delta z to pharmacologically admissible sign cones.",
+          "counting_boundary": "Verified L3 intervention-conditioned ICU world model (WT_EHR, BP_COMPARE)."
+        }
+      },
+      "provenance_evidence_ids": [
+        "evidence:B026:0001",
+        "evidence:B026:0002"
+      ]
+    },
+    {
+      "id": "paper-version:B026:sha256-a8ca5421fbd2",
+      "class_id": "PaperVersion",
+      "properties": {
+        "arxiv_identifier": "2610.11090v1",
+        "year": "2026",
+        "physical_pdf_pages": 24,
+        "source_path": "Papers/Expanded_Collection/B026_Sign_Constrained_Intervention_Effects_for_Domain_Generalizable_ICU_World_Models.pdf",
+        "sha256": "a8ca5421fbd218e03a2f3cac61c0ad095be9ce0d69cca28a89079bc2624bacac"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B026:0001"
+      ]
+    },
+    {
+      "id": "model:B026:physioworld:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "backbone": "Recurrent/JEPA-style latent dynamics with dual-pass dose-effect isolation and closed-form pharmacological sign-cone projection (70 rules, 28 drugs)"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B026:0001",
+        "evidence:B026:0002"
+      ]
+    },
+    {
+      "id": "system:B026:physioworld",
+      "class_id": "SystemComposition",
+      "properties": {
+        "flow": "Irregular vitals (x_t, m_t) + typed interventions E + static covariates -> dual-pass pharmacological sign-projected latent transition -> free-running vital-sign rollout"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B026:0002"
+      ]
+    },
+    {
+      "id": "use:B026:icu-ood",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "purpose": "Domain-generalizable ICU vital-sign trajectory prediction under OOD dosing practices and what-if treatment courses.",
+        "environment": "Three retrospective ICU databases across 5 distribution-shift axes"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B026:0001"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:B026:001",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "data.provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:002",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "data.native_time",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [
+        "evidence:B026:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Continuous irregular timestamps tau_t and administration times s_i on a common clock."
+    },
+    {
+      "id": "assertion:B026:003",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:004",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [
+        "evidence:B026:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Explicit freshness masks m_t in {0,1}^C encoding newly measured vital-sign channels."
+    },
+    {
+      "id": "assertion:B026:005",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:006",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [
+        "evidence:B026:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Explicitly models variable time gap tau_{t+1} - tau_t."
+    },
+    {
+      "id": "assertion:B026:007",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:008",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:009",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:010",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:011",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:012",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [
+        "evidence:B026:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Encodes vital-sign streams, freshness masks, static covariates, and typed intervention events."
+    },
+    {
+      "id": "assertion:B026:013",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:014",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:015",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:016",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:017",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:018",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:019",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [
+        "evidence:B026:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Recurrent latent patient state z_t evolved across irregular ICU timestamps."
+    },
+    {
+      "id": "assertion:B026:020",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:021",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:022",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:023",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:024",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:025",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:026",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:027",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:028",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:029",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:030",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:031",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "action.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [
+        "evidence:B026:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Typed asynchronous intervention stream E={(s_i, k_i, v_i)} for 28 drugs, infusions, boluses, and ventilator settings."
+    },
+    {
+      "id": "assertion:B026:032",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:033",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "action.parameterized",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:034",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:035",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:036",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:037",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:038",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:039",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "action.comparison",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [
+        "evidence:B026:0006",
+        "evidence:B026:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Section 5.4 / Table 3 (p. 9) performs a one-step matched-initial-state alternative-action comparison on MIMIC-IV circulatory intervention-intensity test slices: compares predicted next-step vital signs under recorded vs zeroed doses (sensitivity 0.93, 86% pharmacological sign agreement) and recorded vs permuted dose courses (sensitivity 0.55, 79% sign agreement). Functional comparison only; multi-step rollouts use recorded doses and rules constrain sign direction (13.0% of scored entries) without causal magnitude identification."
+    },
+    {
+      "id": "assertion:B026:040",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:041",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [
+        "evidence:B026:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "One-step and free-running multi-step rollout predictions."
+    },
+    {
+      "id": "assertion:B026:042",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [
+        "evidence:B026:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Learned latent dynamics constrained by closed-form pharmacological sign-cone projection."
+    },
+    {
+      "id": "assertion:B026:043",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [
+        "evidence:B026:0001",
+        "evidence:B026:0002",
+        "evidence:B026:0004",
+        "evidence:B026:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Dual forward pass isolates latent intervention effect Delta z and projects onto pharmacological sign cone; evaluated under vasopressor/sedative intervention-intensity shifts (Table 1) and dose perturbations (Table 3)."
+    },
+    {
+      "id": "assertion:B026:044",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:045",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [
+        "evidence:B026:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "70 pharmacologically admissible (drug, vital-sign channel, sign) direction rules."
+    },
+    {
+      "id": "assertion:B026:046",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:047",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:048",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:049",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:050",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:051",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:052",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:053",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [
+        "evidence:B026:0001",
+        "evidence:B026:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Evaluated one-step ID and OOD RMSE on MIMIC-IV across 5 shift axes (Table 1, p. 7: ID 7.95±0.04; OOD 8.15-9.42) and cross-database sedative shift (MIMIC-III, VitalDB, Fig. 3)."
+    },
+    {
+      "id": "assertion:B026:054",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [
+        "evidence:B026:0003",
+        "evidence:B026:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Evaluated 8-step free-running autoregressive rollout under recorded doses on MIMIC-IV (Section 5.3, Table 2, Fig. 4, Table 15: RMSE 8.52 at h=1 to 10.28 at h=8, slope +0.090)."
+    },
+    {
+      "id": "assertion:B026:055",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:056",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:057",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:058",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:059",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:060",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:061",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:062",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "planning.model_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:063",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:064",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:065",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:066",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:067",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:068",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:069",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:070",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:071",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "uq.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:072",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:073",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:074",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:075",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:076",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:077",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:078",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:079",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:080",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:081",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:082",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:083",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:084",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:085",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:086",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:087",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:088",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:089",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:090",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:091",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:092",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:093",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:094",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:095",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:096",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [
+        "evidence:B026:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Predicting vital-sign responses to ICU interventions under dosing-practice distribution shifts."
+    },
+    {
+      "id": "assertion:B026:097",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:098",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:099",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:100",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:101",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:102",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:103",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "agent.role",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:104",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:105",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:106",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:107",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:108",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:109",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:110",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:111",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:112",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:113",
+      "subject_id": "system:B026:physioworld",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [
+        "evidence:B026:0001",
+        "evidence:B026:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "One-step and free-running multi-step vital-sign RMSE across 5 shift axes."
+    },
+    {
+      "id": "assertion:B026:114",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:115",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:116",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:117",
+      "subject_id": "system:B026:physioworld",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [
+        "evidence:B026:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Intervention sensitivity verified via dual-pass ablations and inverted-sign corpus ablations."
+    },
+    {
+      "id": "assertion:B026:118",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:119",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:120",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:121",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:122",
+      "subject_id": "system:B026:physioworld",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [
+        "evidence:B026:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Lowest OOD RMSE in every setting across 3 ICU databases and 5 distribution-shift axes (8-12% gain over strongest baseline)."
+    },
+    {
+      "id": "assertion:B026:123",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:124",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:125",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:126",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    },
+    {
+      "id": "assertion:B026:127",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [
+        "evidence:B026:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Sign-cone constraint operates directly on latent transition Delta z."
+    },
+    {
+      "id": "assertion:B026:128",
+      "subject_id": "model:B026:physioworld:v1",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B026:physioworld:v1",
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in B026 (24-page PDF)."
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:B026:version",
+      "subject_id": "paper:B026",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:B026:sha256-a8ca5421fbd2",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "effective_date": "2026-10-08"
+      },
+      "evidence_ids": [
+        "evidence:B026:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:B026:0001",
+      "source_ref": "Papers/Expanded_Collection/B026_Sign_Constrained_Intervention_Effects_for_Domain_Generalizable_ICU_World_Models.pdf",
+      "source_version": "paper-version:B026:sha256-a8ca5421fbd2",
+      "source_hash": "a8ca5421fbd218e03a2f3cac61c0ad095be9ce0d69cca28a89079bc2624bacac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Title and Abstract"
+      },
+      "content": "To resolve the OOD sensitivity issues of current ICU world models, we introduce PhysioWorld, a world model that isolates an intervention’s effect by evaluating a forward pass twice: once under the recorded doses, and once with those doses set to zero. The difference is then projected onto the set of pharmacologically admissible effect directions stated by a corpus of 70 (drug, channel, sign) rules over 28 drugs, leaving the magnitude, which no source states, to be learned from data. Across five distribution-shift parameters over cohorts from three intensive-care databases, and against forecasters, counterfactual treatment-effect models, invariance objectives and two weaker placements of the same knowledge, PhysioWorld attains the lowest OOD RMSE in every setting, improving on the strongest external baseline by 8–12%, while matching the in-distribution error of an unconstrained backbone.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B026:0002",
+      "source_ref": "Papers/Expanded_Collection/B026_Sign_Constrained_Intervention_Effects_for_Domain_Generalizable_ICU_World_Models.pdf",
+      "source_version": "paper-version:B026:sha256-a8ca5421fbd2",
+      "source_hash": "a8ca5421fbd218e03a2f3cac61c0ad095be9ce0d69cca28a89079bc2624bacac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Section 3 Problem Setup"
+      },
+      "content": "The state stream is a sequence {(τt, xt, mt)}Tt=1 of irregularly spaced times τ1 < · · · < τT, last-observed vital-sign vectors xt ∈ RC, and freshness masks mt ∈ {0,1}C, where mt,c = 1 if and only if channel c is newly measured at τt. Between measurements x carries the last value forward, so the mask, not the value, encodes what is known. The intervention stream is a set of typed events E={(si, ki, vi)}: administration time si in continuous hours, intervention channel ki ∈ {1, . . . , A} (drug infusions and boluses, ventilator set-\npoints, discrete switches), and dose or setting vi. The third stream is the static covariate vector ξ (e.g. age, sex, care unit), fixed for the stay. The task is one-step state prediction under a specified intervention course: given the history Ht of all three streams up to τt and the interventions in (τt, τt+1], predict xt+1 at the next observed time,",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B026:0003",
+      "source_ref": "Papers/Expanded_Collection/B026_Sign_Constrained_Intervention_Effects_for_Domain_Generalizable_ICU_World_Models.pdf",
+      "source_version": "paper-version:B026:sha256-a8ca5421fbd2",
+      "source_hash": "a8ca5421fbd218e03a2f3cac61c0ad095be9ce0d69cca28a89079bc2624bacac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Section 3 Problem Setup"
+      },
+      "content": "Multi-step prediction is a free-running rollout in which predictions are fed back as states while the future intervention course is held to a specified plan, and because that course is an explicit argument of f, separate from the history, substituting an alternative course poses a “what-if” query.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B026:0004",
+      "source_ref": "Papers/Expanded_Collection/B026_Sign_Constrained_Intervention_Effects_for_Domain_Generalizable_ICU_World_Models.pdf",
+      "source_version": "paper-version:B026:sha256-a8ca5421fbd2",
+      "source_hash": "a8ca5421fbd218e03a2f3cac61c0ad095be9ce0d69cca28a89079bc2624bacac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Table 1"
+      },
+      "content": "Table 1: In-distribution and out-of-distribution RMSE (↓) on MIMIC-IV, physical units, mean ± std over five seeds. The ID column is a model trained on the full training split and tested on the full test split. Each OOD entry averages the off-diagonal of that axis’s train-slice × test-slice matrix.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B026:0005",
+      "source_ref": "Papers/Expanded_Collection/B026_Sign_Constrained_Intervention_Effects_for_Domain_Generalizable_ICU_World_Models.pdf",
+      "source_version": "paper-version:B026:sha256-a8ca5421fbd2",
+      "source_hash": "a8ca5421fbd218e03a2f3cac61c0ad095be9ce0d69cca28a89079bc2624bacac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "Section 5.3 Horizon analysis under free-running rollout"
+      },
+      "content": "PhysioWorld has the lowest error at every horizon, from 8.52 at h=1 to 10.28 at h=8, and the flattest growth among learned models, with a slope of +0.090 against +0.127 for PatchTST.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B026:0006",
+      "source_ref": "Papers/Expanded_Collection/B026_Sign_Constrained_Intervention_Effects_for_Domain_Generalizable_ICU_World_Models.pdf",
+      "source_version": "paper-version:B026:sha256-a8ca5421fbd2",
+      "source_hash": "a8ca5421fbd218e03a2f3cac61c0ad095be9ce0d69cca28a89079bc2624bacac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "Section 5.4 Dose response under perturbation"
+      },
+      "content": "We therefore perturb the doses at test time on the pooled test slices of the two intervention-intensity axes and measure how the one-step prediction bxt+1 responds (Table 3). Two perturbations are applied separately: the doses over the predicted interval (τt, τt+1] are set to zero and the dose courses are permuted across patients within a test slice, which keeps their distribution and breaks their link to the patient.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B026:0007",
+      "source_ref": "Papers/Expanded_Collection/B026_Sign_Constrained_Intervention_Effects_for_Domain_Generalizable_ICU_World_Models.pdf",
+      "source_version": "paper-version:B026:sha256-a8ca5421fbd2",
+      "source_hash": "a8ca5421fbd218e03a2f3cac61c0ad095be9ce0d69cca28a89079bc2624bacac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "Section 5.4 Dose response under perturbation"
+      },
+      "content": "PhysioWorld agrees on 86% of eligible channel-steps under zeroing and 79% under permutation, against at most 77% and 70% respectively for any baseline, while its sensitivity is comparable to that of the forecasters, so the agreement is not obtained by responding less.",
+      "verification_status": "entailment_reviewed"
+    }
+  ],
+  "metric_results": [],
+  "capability_assessments": [
+    {
+      "subject_id": "model:B026:physioworld:v1",
+      "level": "L3",
+      "scope": {
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_assertion_ids": [
+        "assertion:B026:019",
+        "assertion:B026:031",
+        "assertion:B026:039",
+        "assertion:B026:041",
+        "assertion:B026:042",
+        "assertion:B026:043",
+        "assertion:B026:045",
+        "assertion:B026:053",
+        "assertion:B026:054",
+        "assertion:B026:127"
+      ],
+      "rationale": "Action-conditioned ICU world model with persistent latent state, learned hybrid dynamics (GRU/JEPA + 70-rule pharmacological sign-cone projection), evaluated one-step ID/OOD prediction (Table 1), 8-step free-running rollout under recorded doses (Section 5.3, Table 2), and one-step matched-initial-state dose-perturbation comparison (recorded vs zeroed and recorded vs permuted doses; 86% / 79% pharmacological sign agreement, Section 5.4, Table 3), supporting functional L3 (one-step perturbation comparison; does not establish causal effect magnitudes)."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "system:B026:physioworld",
+      "facets": [
+        "R2"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "intended_use_context_id": "use:B026:icu-ood"
+      },
+      "evidence_ids": [
+        "evidence:B026:0001"
+      ],
+      "legacy_highest_label": "R2 Multi-database retrospective OOD validation"
+    }
+  ],
+  "gate_assessments": [],
+  "limitations": [
+    "Constrains effect sign only; magnitude remains confounded by retrospective treatment assignment.",
+    "Retrospective ICU cohorts only; no prospective clinical deployment.",
+    "Multi-step 8-step free-running rollouts (Section 5.3) are evaluated under recorded doses only; matched alternative-action comparison (Section 5.4, Table 3) is one-step dose perturbation (recorded vs zeroed/permuted) over rule-covered channel-steps (13.0% of scored entries)."
+  ],
+  "notes": "All 24 physical PDF pages extracted/read; page 3 visually inspected via PNG; pp. 1-20 & feature drafts reused from saved_work/B026.",
+  "legacy_cells": {
+    "A": "B026",
+    "B": "Sign-Constrained Intervention Effects for Domain-Generalizable ICU World Models",
+    "C": "Xu, Zhen, Konz, Nicholas, Tan, Zhen, Plotkin, Zachary, Chen, Tianlong",
+    "D": "2026",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://arxiv.org/abs/2610.11090",
+    "H": "Papers/Expanded_Collection (B)",
+    "I": "B026_Sign_Constrained_Intervention_Effects_for_Domain_Generalizable_ICU_World_Models.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not reported",
+    "N": "Critical care / sepsis",
+    "O": "Circulatory-system and injury primary-diagnosis ICU cohorts; surgical cases in VitalDB",
+    "P": "ICU / critical care",
+    "Q": "Whole-patient physiology",
+    "R": "Treatment-response simulation",
+    "S": "How do specified medication/intervention courses alter predicted next-step vital signs and their trajectory?",
+    "T": "Not reported",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "World model",
+    "X": "F4 Physiological signals & interventions",
+    "Y": "Predictive-latent (JEPA-style)",
+    "Z": "L2 Action-conditioned prediction",
+    "AA": "L2 Action-conditioned prediction",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "Yes",
+    "AE": "Yes",
+    "AF": "No",
+    "AG": "No",
+    "AH": "Single model (no composition)",
+    "AI": "Vital-sign vectors; freshness masks/features; intervention events (drug doses, blood products, ventilator settings); static patient covariates",
+    "AJ": "Not reported",
+    "AK": "Not reported",
+    "AL": "LeJEPA latent prediction of the online encoder's true next-state encoding with SIGReg distributional regularization; anchor loss for the channel calibration map",
+    "AM": "Not reported",
+    "AN": "Last-observed vital values are carried forward; measurement freshness masks and per-channel freshness features are input",
+    "AO": "Yes",
+    "AP": "Yes",
+    "AQ": "Not reported",
+    "AR": "Continuous latent vector",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Conditioning on patient history",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "A learned calibration map reads latent differences in physiological-channel units; sign constraints are applied to these channel-level intervention effects.",
+    "BA": "Not reported",
+    "BB": "Mixed",
+    "BC": "Continuous vector (dose / rate)",
+    "BD": "Intervention channel and dose/setting; doses are aggregated in five elapsed-time windows (0–0.5, 0.5–2, 2–6, 6–24, >24 h); infusion rates are integrated over windows; ventilator settings use held current values",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "PhysioWorld",
+    "BJ": "RNN / GRU / LSTM",
+    "BK": "Irregular timestamps (Δt as input)",
+    "BL": "MIMIC grid: 1 h; VitalDB grid: 5 min; free-running rollout evaluated for 8 steps",
+    "BM": "Not reported",
+    "BN": "A corpus of 70 pharmacological intervention–channel sign rules over 28 drugs; a parameter-free projection enforces admissible signs on the latent intervention effect",
+    "BO": "Recurrent hidden state",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Next-step vital-sign vector, decoded as the carry-forward value plus an MLP-predicted delta",
+    "BT": "Vital-sign channel readout for next-step prediction (nine channels)",
+    "BU": "Not reported",
+    "BV": "LeJEPA latent prediction loss with SIGReg regularizer plus channel-anchor loss (λanchor = 1); two-stage training, with the readout trained after the backbone is frozen",
+    "BW": "No",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "Open-loop multi-step",
+    "CD": "8 steps",
+    "CE": "Not reported",
+    "CF": "Yes",
+    "CG": "Not reported",
+    "CH": "None",
+    "CI": "Not applicable",
+    "CJ": "Not applicable",
+    "CK": "Not applicable",
+    "CL": "Not applicable",
+    "CM": "Not applicable",
+    "CN": "Not reported",
+    "CO": "Not applicable",
+    "CP": "Deterministic (none)",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "Associational action-conditioning",
+    "CU": "Sign / mechanistic constraints",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "None",
+    "DA": "Not applicable",
+    "DB": "Not applicable",
+    "DC": "Not applicable",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "A0 Offline analysis (no autonomy)",
+    "DH": "Not reported",
+    "DI": "None",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Yes",
+    "DN": "MIMIC-IV; MIMIC-III; VitalDB",
+    "DO": "Multiple",
+    "DP": "Not reported",
+    "DQ": "Five cohorts: MIMIC-IV circulatory 20,128 stays and injury 7,746; MIMIC-III circulatory 10,020 and injury 4,480; VitalDB 5,391 surgical cases",
+    "DR": "Not reported",
+    "DS": "Real-world data",
+    "DT": "Retrospective",
+    "DU": "Patient-level split",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "One-step RMSE; PhysioWorld has the lowest OOD RMSE in every reported setting and improves 8–12% over the strongest external baseline while matching the unconstrained backbone's in-distribution error.",
+    "DY": "Free-running MIMIC-IV rollout: RMSE 8.52 at h=1 and 10.28 at h=8; log-RMSE growth slope +0.090; skill against persistence 0.258 at h=1 and 0.247 at h=8.",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "MIMIC-IV circulatory intervention-intensity test: sign agreement 86% when covered doses were zeroed and 79% when dose courses were permuted; corresponding sensitivities 0.93 and 0.55.",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "PhysioWorld inference: 25.2 ms/step versus 6.6 ms/step for JEPA backbone; training: 46.9 versus 21.0 ms/step; calibration map adds 288 parameters (reported as 0.07% of model parameters).",
+    "EH": "Not reported",
+    "EI": "Compared with PatchTST, GraFITi, Chronos-2, CRN, Causal Transformer, IPTW, IRM, and CORAL; under MIMIC-IV vasopressor/sedative intensity shift PatchTST RMSE was 12.15/11.60 versus persistence 10.83/10.91, while Causal Transformer was 10.45/10.28.",
+    "EJ": "Compared with JEPA, soft constraint, and Clamp sharing the backbone; PhysioWorld had OOD skill +0.20 versus JEPA +0.05, soft constraint +0.11, and Clamp +0.15 in the component-ablation summary.",
+    "EK": "Ablated the sign projection, second forward pass, rule corpus coverage/content, and calibration-map initialization/anchor/orthonormalization/fitting choices. Removing sign projection reduced OOD skill from +0.20 to +0.11; removing the second pass reduced it to +0.08; backbone skill was +0.05.",
+    "EL": "Data-driven baselines show poor robustness to intervention-intensity shift; forecasters can predict vital-sign changes opposite to pharmacological directions. PhysioWorld's sign guarantee is limited to latent channel-space effects and is not guaranteed for decoded predictions.",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "R2 Retrospective internal validation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not applicable",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "0 – absent",
+    "FD": "1 – minimal",
+    "FE": "2 – moderate",
+    "FF": "0 – absent",
+    "FG": "Yes",
+    "FH": "No",
+    "FI": "Not applicable",
+    "FJ": "Yes",
+    "FK": "Yes",
+    "FL": "State encoder maps vital signs, measurement masks, and freshness features to a continuous latent; an intervention encoder represents bucketed drug doses/settings; a GRU transition runs paired recorded-dose and zero-dose passes; a channel calibration map and sign-cone projection correct the latent intervention effect; an MLP decodes the next vital-sign vector. No planner is implemented.",
+    "FM": "Introduces PhysioWorld, which isolates intervention effects with a paired forward pass and projects those effects onto pharmacologically admissible sign directions; builds a five-axis, five-cohort distribution-shift evaluation; and ablates the content and placement of pharmacological knowledge.",
+    "FN": "Across five shift settings, PhysioWorld reports lowest OOD RMSE and 8–12% improvement over the strongest external baseline, with in-distribution error matching its unconstrained backbone. In free-running eight-step rollout, RMSE rises from 8.52 to 10.28 and retains nearly all persistence-relative skill; direction agreement is 86% (zeroed doses) and 79% (permuted doses).",
+    "FO": "The sign constraint fixes directions but not magnitudes, imposes no constraint when active drugs disagree or the rule corpus is silent, and guarantees signs only for the calibrated latent effect—not decoded predictions. The second-pass contribution reflects a dose history, while rules use drugs active at the current step; the trailing three-step approximation is conservative for slow channels.",
+    "FP": "Not reported",
+    "FQ": "The authors argue that existing clinical time-series models often treat interventions as covariates and fail under treatment-intensity shifts because dose is confounded by indication; prior healthcare world models lacked explicit intervention effects, pharmacological structure, or shift evaluation.",
+    "FR": "Action-conditioned vital-sign forecasts and perturbation-based sign agreement do not identify causal treatment effects: the paper states that effect magnitudes cannot be reliably recovered from observational records. It reports no treatment-selection planner, decision-quality outcome, prospective evaluation, or clinical utility study.",
+    "FS": "Reviewer mapping: M4 Action service; M5 Dynamics adapter; M7 Outcome & causal layer",
+    "FT": "Reviewer lesson: Constrain known intervention-effect signs in learned dynamics while keeping effect magnitude and causal identification as separate evidence obligations.",
+    "FU": "Reviewer mapping (KB §20): Weak interventional validation",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Read the complete 24-page extracted PDF stream: title/abstract and introduction (PDF pp. 1–2); problem setup and methods (pp. 3–6); experiments/results and tables (pp. 6–9); conclusion (p. 10); appendices and relevant tables on rule corpus, stream representation, limits, ablations, training, cost, convergence, significance, and rollout (pp. 15–24). | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Low",
+    "FZ": "The full extracted text was read, but some table layouts are interleaved in the text stream; key findings were cross-checked against the abstract and narrative results. Evidence supports action-conditioned vital-sign prediction and sign-constrained response behavior, but not causal identification, treatment planning, prospective clinical readiness, or clinical utility. A:I were left untouched, with no correction to prefilled metadata indicated. Evidence QA: 57/81 populated fields had a <=25-word quotation matching extracted PDF text (70.4%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 68 prior populated fields have a located source quotation; 13 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  }
+}

@@ -1,0 +1,4965 @@
+{
+  "title": "Healthcare World-Model Extraction Schema",
+  "version": "1.0",
+  "created": "2026-11-17",
+  "companion_files": [
+    "Healthcare_World_Model_Extraction_Sheet.xlsx",
+    "Healthcare_World_Model_Knowledge_Base.md"
+  ],
+  "global_rules": [
+    "Record what the paper DEMONSTRATES with evidence in methods/results; author claims go only in the dedicated \"claimed\" or synthesis columns.",
+    "Never infer unreported details: use \"Not reported\"; use \"Not applicable\" when a concept cannot apply.",
+    "Categorical columns must use exactly one value from allowed_values unless the column is marked multi-value (separate with \";\").",
+    "Capability level (L0–L4) and Clinical Readiness Stage (R0–R8) are independent axes.",
+    "Action conditioning is not causal identification; fill causality columns from explicit causal methods/assumptions only.",
+    "Numbers must be copied from the paper with units; do not compute or estimate."
+  ],
+  "column_count": 182,
+  "columns": [
+    {
+      "column_letter": "A",
+      "group": "A. Identification & screening",
+      "name": "Paper ID",
+      "definition": "Local ID (001–099, B001–B106, A01–A20) or new ID",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Always fill. Use the local file prefix (001–099, B001–B106, A01–A20); new papers get the next free ID.",
+      "evidence_location": "Title page, header/footer, landing page",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§22",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "B",
+      "group": "A. Identification & screening",
+      "name": "Title",
+      "definition": "Full title as in the PDF (not the file name)",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Exact title as printed on the first page of the PDF version read (not the file name or a catalogue title).",
+      "evidence_location": "Title page, header/footer, landing page",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§22",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "C",
+      "group": "A. Identification & screening",
+      "name": "Authors",
+      "definition": "All authors (first 6 + et al. acceptable)",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Author byline of the PDF version read. Do not copy from search engines if it differs from the PDF.",
+      "evidence_location": "Title page, header/footer, landing page",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§22",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "D",
+      "group": "A. Identification & screening",
+      "name": "Year",
+      "definition": "Year of the version read",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "YYYY",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Year printed on the version read (journal issue, conference year or preprint version date).",
+      "evidence_location": "Title page, header/footer, landing page",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§22",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "E",
+      "group": "A. Identification & screening",
+      "name": "Venue / Journal",
+      "definition": "Journal, conference or preprint server",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Journal/conference/preprint server stated on the PDF or its official landing page.",
+      "evidence_location": "Title page, header/footer, landing page",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§22",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "F",
+      "group": "A. Identification & screening",
+      "name": "Publication status",
+      "definition": "Peer review status of the version read",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Peer-reviewed journal",
+        "Peer-reviewed conference",
+        "Workshop paper",
+        "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+        "Book chapter",
+        "Thesis",
+        "Other"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Fill from the PDF header/footer or official landing page. Preprint unless a peer-reviewed venue is explicitly shown.",
+      "evidence_location": "Title page, header/footer, landing page",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§22 caution",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "G",
+      "group": "A. Identification & screening",
+      "name": "DOI / URL",
+      "definition": "DOI or canonical URL",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "DOI printed in the paper or its official landing page; otherwise the canonical arXiv/publisher URL.",
+      "evidence_location": "Title page, header/footer, landing page",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§22",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "H",
+      "group": "A. Identification & screening",
+      "name": "Source folder",
+      "definition": "Where the PDF lives",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Papers (numbered 001–099)",
+        "Papers/Expanded_Collection (B)",
+        "Papers/Recommended_Additions (A)",
+        "Linked only (no local PDF)",
+        "New (not yet in folder)"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Folder in which the PDF actually sits.",
+      "evidence_location": "Title page, header/footer, landing page",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§22",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "I",
+      "group": "A. Identification & screening",
+      "name": "Local file name",
+      "definition": "PDF file name",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Exact PDF file name on disk.",
+      "evidence_location": "Title page, header/footer, landing page",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§22",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "J",
+      "group": "A. Identification & screening",
+      "name": "Paper type",
+      "definition": "Kind of contribution",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Primary method – new model",
+        "Primary method – application/adaptation of existing WM",
+        "Evaluation / audit / benchmark",
+        "Dataset / resource",
+        "Survey / review",
+        "Perspective / position",
+        "Conceptual framework (no implementation)",
+        "Out of scope – static prediction",
+        "Out of scope – non-healthcare",
+        "Other"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Classify from the abstract + methods: \"Primary method\" only if the paper proposes/trains/evaluates a model; \"Survey/review\" only if it synthesises others' work; \"Out of scope\" when there is no temporal/action modelling in healthcare.",
+      "evidence_location": "Title page, header/footer, landing page",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§1.4",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "K",
+      "group": "A. Identification & screening",
+      "name": "Overlap / duplicate flag",
+      "definition": "Same study/lineage as another paper? Give IDs (e.g., 009/060; 089/094; GAS/GASv2)",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Fill only when two papers share authors AND the same model/cohort/results, or when the paper states it extends a prior version. Cite the paired IDs.",
+      "evidence_location": "Title page, header/footer, landing page",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§17; §22",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "L",
+      "group": "A. Identification & screening",
+      "name": "Final Included",
+      "definition": "Inclusion decision for the WM review",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Include – core world model",
+        "Include – component / supporting",
+        "Include – survey / background",
+        "Exclude",
+        "Pending"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "\"Include – core\" requires evidence of a state + learned/hybrid temporal transition in a health setting (KB §1.3, §1.4). Component/supporting if it supplies a WM part (encoder, UQ, causal estimator, audit). Otherwise Exclude.",
+      "evidence_location": "Title page, header/footer, landing page",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§1.4",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "M",
+      "group": "A. Identification & screening",
+      "name": "Exclusion Reason",
+      "definition": "Primary reason if excluded",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Not healthcare",
+        "Static prediction – no state evolution",
+        "No learned or hybrid dynamics",
+        "Representation only – no temporal/action evaluation",
+        "Duplicate / overlapping study",
+        "Not a research paper",
+        "Full text unavailable",
+        "Out of scope – other",
+        "Not applicable (included)"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Required only when Final Included = Exclude; choose the single primary reason.",
+      "evidence_location": "Title page, header/footer, landing page",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§1.4",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "N",
+      "group": "B. Healthcare problem",
+      "name": "Clinical Domain",
+      "definition": "Primary specialty",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Oncology",
+        "Cardiology / cardiovascular",
+        "Neurology / neuro-oncology",
+        "Critical care / sepsis",
+        "Pulmonology / respiratory",
+        "Nephrology",
+        "Endocrinology / diabetes",
+        "Hepatology / gastroenterology",
+        "Ophthalmology",
+        "Radiology (multi-disease)",
+        "Surgery (general / robotic)",
+        "Interventional / endovascular",
+        "Psychiatry / mental health",
+        "Infectious disease",
+        "Pharmacology / dosing",
+        "Genomics / precision medicine",
+        "Public health / epidemiology",
+        "Musculoskeletal / rehabilitation",
+        "Multi-specialty / general medicine",
+        "Other"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Specialty explicitly targeted by the paper's data/task (not generic claims of applicability).",
+      "evidence_location": "Abstract, introduction, data/cohort section",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§14; §16",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "O",
+      "group": "B. Healthcare problem",
+      "name": "Disease / condition",
+      "definition": "Specific condition(s) (e.g., sepsis, glioblastoma, CKD)",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Condition(s) named in the dataset/cohort description.",
+      "evidence_location": "Abstract, introduction, data/cohort section",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§16",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "P",
+      "group": "B. Healthcare problem",
+      "name": "Care setting",
+      "definition": "Where the system would operate",
+      "value_type": "categorical",
+      "allowed_values": [
+        "ICU / critical care",
+        "Emergency / prehospital / triage",
+        "Inpatient ward",
+        "Outpatient / chronic care",
+        "Operating room / interventional suite",
+        "Imaging department",
+        "Home / wearable / remote",
+        "Clinical trial / drug development",
+        "Public health",
+        "Mixed / other"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Setting explicitly stated or unambiguously implied by the data (e.g., MIMIC → ICU).",
+      "evidence_location": "Abstract, introduction, data/cohort section",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§14",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "Q",
+      "group": "B. Healthcare problem",
+      "name": "Scale of the modelled world",
+      "definition": "Granularity of the simulated system",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Molecular / cellular",
+        "Tissue / organ",
+        "Whole-patient physiology",
+        "Patient clinical trajectory (EHR)",
+        "Procedure / scene (surgery, acquisition)",
+        "Clinician / expert behaviour",
+        "Health system / operations",
+        "Population / public health",
+        "Multi-scale"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Level at which the STATE is defined in the methods (organ voxels, whole-patient physiology, EHR trajectory, surgical scene, hospital operations, population).",
+      "evidence_location": "Abstract, introduction, data/cohort section",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§14; §16.1",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "R",
+      "group": "B. Healthcare problem",
+      "name": "Primary Healthcare Task",
+      "definition": "Main task addressed",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Disease progression forecasting",
+        "Treatment-response simulation",
+        "Treatment recommendation / planning",
+        "Dosing optimisation",
+        "Patient trajectory / event generation",
+        "Synthetic data generation",
+        "Representation learning / diagnosis",
+        "Image acquisition guidance",
+        "Surgical simulation / video generation",
+        "Robotic control / navigation",
+        "Policy evaluation / failure detection",
+        "Registration / state estimation",
+        "Operational / resource planning",
+        "Population policy simulation",
+        "Evaluation / audit methodology",
+        "Other"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Task that the main experiments evaluate (not every application listed in the discussion).",
+      "evidence_location": "Abstract, introduction, data/cohort section",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§16",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "S",
+      "group": "B. Healthcare problem",
+      "name": "Clinical question answered",
+      "definition": "Phrase as a question, e.g., \"How will this tumour evolve under regimen A vs B?\"",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Must be traceable to the evaluated output (e.g., forecasted MRI under treatment). Do not phrase questions the experiments do not answer.",
+      "evidence_location": "Abstract, introduction, data/cohort section",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§1.3; §15.1",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "T",
+      "group": "B. Healthcare problem",
+      "name": "Target population",
+      "definition": "Inclusion criteria / population (age, disease stage, cohort)",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Inclusion criteria / cohort characteristics stated in methods. \"Not reported\" if only dataset name is given.",
+      "evidence_location": "Abstract, introduction, data/cohort section",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§14",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "U",
+      "group": "B. Healthcare problem",
+      "name": "Intended user",
+      "definition": "Clinician, sonographer, surgeon, robot, researcher, policy-maker, patient",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Only if the paper states who would use the system; otherwise \"Not reported\".",
+      "evidence_location": "Abstract, introduction, data/cohort section",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§19.1 M10",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "V",
+      "group": "B. Healthcare problem",
+      "name": "Decision supported",
+      "definition": "Which real decision the outputs inform",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Only a decision the outputs are explicitly designed or evaluated to inform.",
+      "evidence_location": "Abstract, introduction, data/cohort section",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§15; §19",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "W",
+      "group": "C. World-model identity & capability",
+      "name": "Self-described label",
+      "definition": "How authors label the system",
+      "value_type": "categorical",
+      "allowed_values": [
+        "World model",
+        "Digital twin",
+        "Simulator",
+        "Counterfactual / causal model",
+        "Generative model",
+        "Foundation model",
+        "Model-based RL",
+        "World-action model (WAM)",
+        "Other",
+        "None"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Term the authors use in title/abstract for their system.",
+      "evidence_location": "Methods + results (demonstrated) vs abstract/conclusion (claimed)",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§1.2; §1.4",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "X",
+      "group": "C. World-model identity & capability",
+      "name": "World-model family",
+      "definition": "Healthcare WM family (§16.1)",
+      "value_type": "categorical",
+      "allowed_values": [
+        "F1 Representation / anatomical state",
+        "F2 EHR / ICU event & latent patient dynamics",
+        "F3 Longitudinal imaging & treatment response",
+        "F4 Physiological signals & interventions",
+        "F5 Mechanistic / hybrid digital twin",
+        "F6 Causal patient trajectories",
+        "F7 Acquisition / ultrasound guidance",
+        "F8 Surgical simulation & world-action models",
+        "F9 Endovascular control",
+        "F10 Ophthalmic & neuro dynamics",
+        "F11 Population & health-system",
+        "F12 WM-coupled agents & policies",
+        "F13 Verification, semantics & audits",
+        "F14 Survey / taxonomy",
+        "Not a world model"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Assign using KB §16.1 based on state + action + dynamics actually implemented.",
+      "evidence_location": "Methods + results (demonstrated) vs abstract/conclusion (claimed)",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§16.1",
+      "principle_codes": [
+        "FAM"
+      ]
+    },
+    {
+      "column_letter": "Y",
+      "group": "C. World-model identity & capability",
+      "name": "General WM paradigm",
+      "definition": "Closest general paradigm (§7)",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Predictive-latent (JEPA-style)",
+        "Latent generative (VAE / RSSM)",
+        "Pixel/voxel generative (diffusion / flow / video)",
+        "Event/token autoregressive",
+        "Mechanistic / physics-based",
+        "Hybrid mechanistic–learned",
+        "Value-equivalent (MuZero-style)",
+        "Neuro-symbolic",
+        "Probabilistic graphical / Bayesian",
+        "LLM-as-world-model",
+        "Other"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Assign using KB §7 based on the training objective and state type in methods.",
+      "evidence_location": "Methods + results (demonstrated) vs abstract/conclusion (claimed)",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§7",
+      "principle_codes": [
+        "FAM"
+      ]
+    },
+    {
+      "column_letter": "Z",
+      "group": "C. World-model identity & capability",
+      "name": "Capability level (L0–L4)",
+      "definition": "Highest level demonstrated with evidence (not claimed)",
+      "value_type": "categorical",
+      "allowed_values": [
+        "L0 State representation only",
+        "L1 Temporal prediction",
+        "L2 Action-conditioned prediction",
+        "L3 Counterfactual comparison",
+        "L4 Planning / control",
+        "Not a world model"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Highest level SUPPORTED BY RESULTS: L1 needs reported forecasts of future state; L2 needs results conditioned on specified actions; L3 needs reported comparison of rollouts under ≥2 alternative action sequences for the same patient/scene; L4 needs an optimiser/policy using the WM with reported decision/control results. L0 if only representation quality is evaluated.",
+      "evidence_location": "Methods + results (demonstrated) vs abstract/conclusion (claimed)",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§15.1",
+      "principle_codes": [
+        "CL"
+      ]
+    },
+    {
+      "column_letter": "AA",
+      "group": "C. World-model identity & capability",
+      "name": "Capability level claimed by authors",
+      "definition": "Level the authors claim, if higher than demonstrated",
+      "value_type": "categorical",
+      "allowed_values": [
+        "L0 State representation only",
+        "L1 Temporal prediction",
+        "L2 Action-conditioned prediction",
+        "L3 Counterfactual comparison",
+        "L4 Planning / control",
+        "Not a world model"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Level implied by the authors' claims in abstract/conclusion, even if not fully evaluated.",
+      "evidence_location": "Methods + results (demonstrated) vs abstract/conclusion (claimed)",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§15.1",
+      "principle_codes": [
+        "CL"
+      ]
+    },
+    {
+      "column_letter": "AB",
+      "group": "C. World-model identity & capability",
+      "name": "Has state (Y/N)",
+      "definition": "Maintains an explicit or latent state",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if methods define a state/latent/belief variable that persists across time steps.",
+      "evidence_location": "Methods + results (demonstrated) vs abstract/conclusion (claimed)",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§3 comp 2",
+      "principle_codes": [
+        "P1"
+      ]
+    },
+    {
+      "column_letter": "AC",
+      "group": "C. World-model identity & capability",
+      "name": "Has temporal transition (Y/N)",
+      "definition": "Learns state evolution over time",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if a model maps state at t to state at t+Δ (learned, mechanistic or hybrid).",
+      "evidence_location": "Methods + results (demonstrated) vs abstract/conclusion (claimed)",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§3 comp 3",
+      "principle_codes": [
+        "P1"
+      ]
+    },
+    {
+      "column_letter": "AD",
+      "group": "C. World-model identity & capability",
+      "name": "Action-conditioned (Y/N)",
+      "definition": "Transition takes actions/interventions as input",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if actions/interventions are an explicit input to the transition in the equations/architecture.",
+      "evidence_location": "Methods + results (demonstrated) vs abstract/conclusion (claimed)",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§3 comp 3",
+      "principle_codes": [
+        "P2"
+      ]
+    },
+    {
+      "column_letter": "AE",
+      "group": "C. World-model identity & capability",
+      "name": "Multi-step rollout (Y/N)",
+      "definition": "Generates multi-step trajectories",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if results report predictions beyond one step produced by feeding predictions back (or continuous-time integration over a horizon).",
+      "evidence_location": "Methods + results (demonstrated) vs abstract/conclusion (claimed)",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§3",
+      "principle_codes": [
+        "P1",
+        "E2"
+      ]
+    },
+    {
+      "column_letter": "AF",
+      "group": "C. World-model identity & capability",
+      "name": "Uses rollouts for decisions (Y/N)",
+      "definition": "Rollouts feed a planner, comparison or policy",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if simulated trajectories are used to select/rank/learn actions in the experiments.",
+      "evidence_location": "Methods + results (demonstrated) vs abstract/conclusion (claimed)",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§3 comp 6",
+      "principle_codes": [
+        "P12"
+      ]
+    },
+    {
+      "column_letter": "AG",
+      "group": "C. World-model identity & capability",
+      "name": "Complete perception–dynamics–planning loop (Y/N)",
+      "definition": "All six canonical components present and connected",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if encoder, state, action-conditioned transition and planner/policy are all implemented and jointly evaluated.",
+      "evidence_location": "Methods + results (demonstrated) vs abstract/conclusion (claimed)",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§3; §15.3",
+      "principle_codes": [
+        "M3",
+        "M5",
+        "M8"
+      ]
+    },
+    {
+      "column_letter": "AH",
+      "group": "C. World-model identity & capability",
+      "name": "Composition pattern",
+      "definition": "How components are wired",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Single model (no composition)",
+        "Serial pipeline",
+        "Shared state-space",
+        "Closed-loop simulator",
+        "Patient → system composition",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "From the architecture figure/methods: how modules hand off (KB §15.3).",
+      "evidence_location": "Methods + results (demonstrated) vs abstract/conclusion (claimed)",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§15.3",
+      "principle_codes": [
+        "CP"
+      ]
+    },
+    {
+      "column_letter": "AI",
+      "group": "D. Observation & perception (component 1)",
+      "name": "Input Modality and Type of Data",
+      "definition": "All modalities, separated by \";\" (EHR codes; labs/vitals; notes; X-ray/CT/MRI; ultrasound; video; ECG/EEG; wearables/CGM; omics; robot kinematics; eye-tracking; aggregate)",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text (multi, \";\"-separated)",
+      "multi_value": true,
+      "fill_only_if_paper_contains": "List every modality actually fed to the model in experiments (not those mentioned as future work).",
+      "evidence_location": "Methods (data processing, model architecture)",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§3; §14",
+      "principle_codes": [
+        "M1"
+      ]
+    },
+    {
+      "column_letter": "AJ",
+      "group": "D. Observation & perception (component 1)",
+      "name": "Encoder architecture",
+      "definition": "e.g., ViT, 3D CNN, Transformer, LLM-as-encoder, GNN",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Network named in methods for each modality.",
+      "evidence_location": "Methods (data processing, model architecture)",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§3 comp 1",
+      "principle_codes": [
+        "M2"
+      ]
+    },
+    {
+      "column_letter": "AK",
+      "group": "D. Observation & perception (component 1)",
+      "name": "Pretrained / foundation encoder used",
+      "definition": "Name of reused foundation model (e.g., V-JEPA 2.1, Cosmos, LLaMA, CT-FM) or None",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Only if a named pretrained model/checkpoint is reused; give its name.",
+      "evidence_location": "Methods (data processing, model architecture)",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§7; §19.1 M2",
+      "principle_codes": [
+        "M2"
+      ]
+    },
+    {
+      "column_letter": "AL",
+      "group": "D. Observation & perception (component 1)",
+      "name": "Encoder pretraining objective",
+      "definition": "Reconstruction / MAE; latent prediction (JEPA); contrastive; next-token; none",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Loss stated in methods for encoder pretraining.",
+      "evidence_location": "Methods (data processing, model architecture)",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§8",
+      "principle_codes": [
+        "M2",
+        "C11"
+      ]
+    },
+    {
+      "column_letter": "AM",
+      "group": "D. Observation & perception (component 1)",
+      "name": "Multimodal fusion strategy",
+      "definition": "Early/late/cross-attention/shared latent; how modalities combine",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Fusion mechanism described in methods; \"Not applicable\" for single-modality models.",
+      "evidence_location": "Methods (data processing, model architecture)",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§3; §16.3",
+      "principle_codes": [
+        "M2",
+        "P17"
+      ]
+    },
+    {
+      "column_letter": "AN",
+      "group": "D. Observation & perception (component 1)",
+      "name": "Missing-modality / missing-data handling",
+      "definition": "Availability masks, imputation, masking, belief update only on observation",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Explicit mechanism in methods (masks, imputation, belief updates). \"Not reported\" if missingness is not discussed.",
+      "evidence_location": "Methods (data processing, model architecture)",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§14; §16.3",
+      "principle_codes": [
+        "P5",
+        "C2",
+        "FM4"
+      ]
+    },
+    {
+      "column_letter": "AO",
+      "group": "D. Observation & perception (component 1)",
+      "name": "Irregular sampling handled (Y/N)",
+      "definition": "Native timestamps / Δt / continuous time used",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if the model ingests real time gaps (Δt/timestamps) or continuous time; resampling to a grid alone = No.",
+      "evidence_location": "Methods (data processing, model architecture)",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§14",
+      "principle_codes": [
+        "P9"
+      ]
+    },
+    {
+      "column_letter": "AP",
+      "group": "D. Observation & perception (component 1)",
+      "name": "Observation process modelled (Y/N)",
+      "definition": "Measurement timing, availability, informative missingness or acquisition modelled explicitly",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if measurement timing/availability/intensity is modelled or used as input (not merely imputed away).",
+      "evidence_location": "Methods (data processing, model architecture)",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§13.1 E12; §16.3",
+      "principle_codes": [
+        "C2",
+        "E12",
+        "FM9"
+      ]
+    },
+    {
+      "column_letter": "AQ",
+      "group": "D. Observation & perception (component 1)",
+      "name": "Observation-clock audit (EndoClock regime)",
+      "definition": "Where task evidence survives: sampled values / grid-cell update pattern / native timing / external channel / not assessed",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Fill only if the paper analyses whether temporal resampling preserves task evidence; otherwise \"Not assessed\".",
+      "evidence_location": "Methods (data processing, model architecture)",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.1 E12",
+      "principle_codes": [
+        "E12",
+        "FM9"
+      ]
+    },
+    {
+      "column_letter": "AR",
+      "group": "E. State (component 2)",
+      "name": "State representation type",
+      "definition": "Form of the state",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Continuous latent vector",
+        "Deterministic + stochastic latent (RSSM-style)",
+        "Discrete codes / tokens",
+        "Object-centric slots",
+        "Scene graph / structured symbolic",
+        "Explicit physiological variables",
+        "Image / voxel space",
+        "Event-token sequence",
+        "Belief distribution / posterior",
+        "Hybrid",
+        "Not reported"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Form of the state in methods (KB §6 DA1).",
+      "evidence_location": "Methods, ablations",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§6 DA1",
+      "principle_codes": [
+        "DA1",
+        "P3"
+      ]
+    },
+    {
+      "column_letter": "AS",
+      "group": "E. State (component 2)",
+      "name": "State dimensionality",
+      "definition": "Latent size or number of variables",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Number stated in methods/appendix; else \"Not reported\".",
+      "evidence_location": "Methods, ablations",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§6 DA1",
+      "principle_codes": [
+        "DA1"
+      ]
+    },
+    {
+      "column_letter": "AT",
+      "group": "E. State (component 2)",
+      "name": "Belief / filtering mechanism",
+      "definition": "How the state is updated from observations (RSSM posterior, Kalman-like filter, propagate–correct, hourly assimilation)",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Explicit update rule combining prior prediction with new observations; \"None\" if state is recomputed from scratch.",
+      "evidence_location": "Methods, ablations",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§4; §19.1 M3",
+      "principle_codes": [
+        "P5",
+        "M3"
+      ]
+    },
+    {
+      "column_letter": "AU",
+      "group": "E. State (component 2)",
+      "name": "Unified / reusable state across tasks (Y/N)",
+      "definition": "Same state serves multiple readouts (typed decoders)",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if one shared state feeds ≥2 different readouts/tasks in experiments.",
+      "evidence_location": "Methods, ablations",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§16.3 lesson 1",
+      "principle_codes": [
+        "C1",
+        "P17"
+      ]
+    },
+    {
+      "column_letter": "AV",
+      "group": "E. State (component 2)",
+      "name": "State sufficiency tested (Y/N)",
+      "definition": "Ablations showing state contains transition determinants",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if ablations remove/alter state components (history, treatment, stage) and report effect on predictions.",
+      "evidence_location": "Methods, ablations",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§5 P4; §20",
+      "principle_codes": [
+        "P4"
+      ]
+    },
+    {
+      "column_letter": "AW",
+      "group": "E. State (component 2)",
+      "name": "Personalisation mechanism",
+      "definition": "How patient-specific behaviour arises",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Population-level only",
+        "Conditioning on patient history",
+        "Patient-specific parameter fitting",
+        "Online assimilation / updating",
+        "Per-patient fine-tuning",
+        "Not reported"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Mechanism in methods by which individual data change the forecast.",
+      "evidence_location": "Methods, ablations",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§5 P15",
+      "principle_codes": [
+        "P15"
+      ]
+    },
+    {
+      "column_letter": "AX",
+      "group": "E. State (component 2)",
+      "name": "Personalisation audit (P³ / history swap)",
+      "definition": "Patient / Place / Prior or withhold/swap controls; result",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Fill only if experiments withhold/swap/shuffle patient history or compare to population-average forecasts; report result.",
+      "evidence_location": "Methods, ablations",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.1 E8",
+      "principle_codes": [
+        "P15",
+        "E8",
+        "FM10",
+        "C8"
+      ]
+    },
+    {
+      "column_letter": "AY",
+      "group": "E. State (component 2)",
+      "name": "Online updating / assimilation (Y/N)",
+      "definition": "State updated with new data without retraining (digital-twin behaviour)",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if the paper shows forecasts updated from new observations at inference without retraining.",
+      "evidence_location": "Methods, ablations",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§5 P16",
+      "principle_codes": [
+        "P16"
+      ]
+    },
+    {
+      "column_letter": "AZ",
+      "group": "E. State (component 2)",
+      "name": "State interpretability",
+      "definition": "Explicit variables, scene graphs, probes, none",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Only interpretability evidence shown (explicit variables, probing, visualisations).",
+      "evidence_location": "Methods, ablations",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§5 P19",
+      "principle_codes": [
+        "P19"
+      ]
+    },
+    {
+      "column_letter": "BA",
+      "group": "E. State (component 2)",
+      "name": "State consistency mechanism",
+      "definition": "How identity/anatomy/entities persist across rollouts",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Loss/constraint/memory explicitly targeting identity/anatomy persistence across rollouts.",
+      "evidence_location": "Methods, ablations",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§5 P14",
+      "principle_codes": [
+        "P14",
+        "FM11"
+      ]
+    },
+    {
+      "column_letter": "BB",
+      "group": "F. Action / intervention (component 3)",
+      "name": "Action type",
+      "definition": "Main action class",
+      "value_type": "categorical",
+      "allowed_values": [
+        "None (no actions)",
+        "Pharmacological treatment / dose",
+        "Procedure / surgery",
+        "Radiotherapy",
+        "Ventilation / organ support",
+        "Acquisition / probe motion",
+        "Surgical instrument / robot command",
+        "Endovascular device motion",
+        "Behavioural / lifestyle",
+        "Operational / resource",
+        "Population policy",
+        "Information request / inquiry",
+        "Communication (text)",
+        "Learned latent action",
+        "Mixed"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Class of actions present in the model input (KB §16.3 lesson 3).",
+      "evidence_location": "Methods (action space), experiments",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§16.3 lesson 3",
+      "principle_codes": [
+        "P2",
+        "M4",
+        "C3"
+      ]
+    },
+    {
+      "column_letter": "BC",
+      "group": "F. Action / intervention (component 3)",
+      "name": "Action representation",
+      "definition": "How actions enter the model",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Discrete token / category",
+        "Continuous vector (dose / rate)",
+        "Text / language",
+        "Trajectory / pose / skeleton",
+        "Learned latent action",
+        "Treatment bundle",
+        "Schedule (timing + dose + duration)",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Encoding of actions in methods.",
+      "evidence_location": "Methods (action space), experiments",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§19.1 M4",
+      "principle_codes": [
+        "M4"
+      ]
+    },
+    {
+      "column_letter": "BD",
+      "group": "F. Action / intervention (component 3)",
+      "name": "Action attributes specified",
+      "definition": "Which of: units, dose, route, timing, duration, co-interventions, valid ranges",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "List only attributes actually encoded (units, dose, route, timing, duration, co-interventions, ranges).",
+      "evidence_location": "Methods (action space), experiments",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§16.3 lesson 3",
+      "principle_codes": [
+        "M4",
+        "C3"
+      ]
+    },
+    {
+      "column_letter": "BE",
+      "group": "F. Action / intervention (component 3)",
+      "name": "Treatment bundles handled (Y/N)",
+      "definition": "Coherent multi-component interventions edited together",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if co-occurring intervention components are modelled/edited as a set.",
+      "evidence_location": "Methods (action space), experiments",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§12.3; §13.2",
+      "principle_codes": [
+        "C3",
+        "FM8"
+      ]
+    },
+    {
+      "column_letter": "BF",
+      "group": "F. Action / intervention (component 3)",
+      "name": "Action constraints / contraindications",
+      "definition": "Rules, valid ranges, support checks applied to actions",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Explicit rules/ranges/support checks applied to candidate actions in methods.",
+      "evidence_location": "Methods (action space), experiments",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§19.1 M4; §18.2",
+      "principle_codes": [
+        "M4",
+        "M9",
+        "P21"
+      ]
+    },
+    {
+      "column_letter": "BG",
+      "group": "F. Action / intervention (component 3)",
+      "name": "Observation-changing vs physiology-changing actions separated (Y/N)",
+      "definition": "Acquisition actions kept distinct from treatment actions",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if the action space distinguishes acquisition/inquiry actions from treatment actions.",
+      "evidence_location": "Methods (action space), experiments",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§14; §16.3",
+      "principle_codes": [
+        "C3"
+      ]
+    },
+    {
+      "column_letter": "BH",
+      "group": "F. Action / intervention (component 3)",
+      "name": "Action grounding",
+      "definition": "For learned latent actions: how they map to executable commands",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "For latent/learned actions only: how mapped to executable commands and whether evaluated.",
+      "evidence_location": "Methods (action space), experiments",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.2 weak grounding",
+      "principle_codes": [
+        "FM5"
+      ]
+    },
+    {
+      "column_letter": "BI",
+      "group": "G. Dynamics / transition (component 4)",
+      "name": "Model(s) name",
+      "definition": "Name of the proposed model/system",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Name given by authors; \"Unnamed\" if none.",
+      "evidence_location": "Methods, appendix",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§16.2",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "BJ",
+      "group": "G. Dynamics / transition (component 4)",
+      "name": "Dynamics backbone",
+      "definition": "Transition architecture",
+      "value_type": "categorical",
+      "allowed_values": [
+        "RNN / GRU / LSTM",
+        "RSSM",
+        "Transformer (autoregressive)",
+        "State-space model (S4 / S5 / Mamba)",
+        "Diffusion",
+        "Flow matching",
+        "Neural ODE / CDE",
+        "Neural SDE",
+        "Mechanistic ODE / PDE",
+        "Hybrid mechanistic + neural",
+        "Markov / CTMC / HMM",
+        "Gaussian process",
+        "LLM",
+        "Neural operator",
+        "Linear / linearised predictor",
+        "Mixture-of-experts / transformers",
+        "Bayesian network",
+        "Other"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Architecture of the transition function in methods.",
+      "evidence_location": "Methods, appendix",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§7; §19.1 M5",
+      "principle_codes": [
+        "M5",
+        "DA3"
+      ]
+    },
+    {
+      "column_letter": "BK",
+      "group": "G. Dynamics / transition (component 4)",
+      "name": "Time representation",
+      "definition": "How time enters the model",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Fixed discrete steps",
+        "Visit / event index",
+        "Irregular timestamps (Δt as input)",
+        "Continuous time (ODE / SDE / flow)",
+        "Multi-timescale / hierarchical",
+        "Not reported"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "How time is represented in the transition (KB §5 P9).",
+      "evidence_location": "Methods, appendix",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§5 P9",
+      "principle_codes": [
+        "P9"
+      ]
+    },
+    {
+      "column_letter": "BL",
+      "group": "G. Dynamics / transition (component 4)",
+      "name": "Time scale & step size",
+      "definition": "e.g., hourly, per visit, per frame (30 fps), seconds",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Step/resolution stated in data processing section.",
+      "evidence_location": "Methods, appendix",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§10; §14",
+      "principle_codes": [
+        "P9"
+      ]
+    },
+    {
+      "column_letter": "BM",
+      "group": "G. Dynamics / transition (component 4)",
+      "name": "Stochastic transitions (Y/N)",
+      "definition": "Transition outputs a distribution",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if transitions output a distribution or are sampled.",
+      "evidence_location": "Methods, appendix",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§11",
+      "principle_codes": [
+        "P6",
+        "DA2"
+      ]
+    },
+    {
+      "column_letter": "BN",
+      "group": "G. Dynamics / transition (component 4)",
+      "name": "Structural / mechanistic priors",
+      "definition": "Physics, ODE/PDE, PK/PD, sign constraints, conservation, symbolic rules, object-centric",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Only priors encoded in model/loss (equations, constraints, rules).",
+      "evidence_location": "Methods, appendix",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§6 DA4",
+      "principle_codes": [
+        "DA4",
+        "P10",
+        "C10"
+      ]
+    },
+    {
+      "column_letter": "BO",
+      "group": "G. Dynamics / transition (component 4)",
+      "name": "Memory mechanism",
+      "definition": "How history beyond current state is retained",
+      "value_type": "categorical",
+      "allowed_values": [
+        "None (Markov)",
+        "Recurrent hidden state",
+        "Attention context window",
+        "Ordered state–action history",
+        "Explicit memory module",
+        "Retrieval memory",
+        "Graph memory",
+        "Not reported"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Mechanism retaining history in the transition.",
+      "evidence_location": "Methods, appendix",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§10",
+      "principle_codes": [
+        "DA3",
+        "P8"
+      ]
+    },
+    {
+      "column_letter": "BP",
+      "group": "G. Dynamics / transition (component 4)",
+      "name": "History / context length",
+      "definition": "Steps, visits or time span conditioned on",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Numeric context length or span in methods.",
+      "evidence_location": "Methods, appendix",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§10",
+      "principle_codes": [
+        "P8"
+      ]
+    },
+    {
+      "column_letter": "BQ",
+      "group": "G. Dynamics / transition (component 4)",
+      "name": "Temporal abstraction / hierarchy",
+      "definition": "Multi-timescale, options, event-level manager etc.",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Only explicit multi-timescale/hierarchical modules.",
+      "evidence_location": "Methods, appendix",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§10",
+      "principle_codes": [
+        "P8"
+      ]
+    },
+    {
+      "column_letter": "BR",
+      "group": "G. Dynamics / transition (component 4)",
+      "name": "Multiple dynamics backends behind common contract (Y/N)",
+      "definition": "Pluggable or hybrid backends",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if ≥2 dynamics models are interchangeable or combined behind one interface.",
+      "evidence_location": "Methods, appendix",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§16.3 lesson 5",
+      "principle_codes": [
+        "C5",
+        "M5"
+      ]
+    },
+    {
+      "column_letter": "BS",
+      "group": "H. Decoders, heads & objectives (component 5)",
+      "name": "Observation decoder / generated outputs",
+      "definition": "What is generated (images, video, ECG, events, labs, none)",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Outputs generated from the state in experiments.",
+      "evidence_location": "Methods (loss functions), results",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§3 comp 4",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "BT",
+      "group": "H. Decoders, heads & objectives (component 5)",
+      "name": "Task readout heads",
+      "definition": "Typed clinical readouts (survival, pCR, mortality, EF, BCVA ...)",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Clinical heads trained/evaluated on the state.",
+      "evidence_location": "Methods (loss functions), results",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§3 comp 5",
+      "principle_codes": [
+        "C1"
+      ]
+    },
+    {
+      "column_letter": "BU",
+      "group": "H. Decoders, heads & objectives (component 5)",
+      "name": "Reward / value / cost model",
+      "definition": "Reward, value, utility or cost definitions",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Explicit reward/value/cost definition; \"None\" otherwise.",
+      "evidence_location": "Methods (loss functions), results",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§3 comp 5; §9",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "BV",
+      "group": "H. Decoders, heads & objectives (component 5)",
+      "name": "Training objective(s)",
+      "definition": "Reconstruction; latent prediction; next-token; diffusion/flow; multi-step/overshooting; reward/value; causal balancing; physics residual; RL",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Losses written in methods.",
+      "evidence_location": "Methods (loss functions), results",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§8",
+      "principle_codes": [
+        "C11"
+      ]
+    },
+    {
+      "column_letter": "BW",
+      "group": "H. Decoders, heads & objectives (component 5)",
+      "name": "Multi-step training loss (Y/N)",
+      "definition": "Trained on k-step predictions or rollouts",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if the loss includes k>1-step predictions or rollouts.",
+      "evidence_location": "Methods (loss functions), results",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§8",
+      "principle_codes": [
+        "P1",
+        "FM1"
+      ]
+    },
+    {
+      "column_letter": "BX",
+      "group": "H. Decoders, heads & objectives (component 5)",
+      "name": "Self-supervised pretraining scale",
+      "definition": "Patients/records/hours used for pretraining",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Pretraining data size stated (patients/records/hours/images).",
+      "evidence_location": "Methods (loss functions), results",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§8; §14",
+      "principle_codes": [
+        "C13"
+      ]
+    },
+    {
+      "column_letter": "BY",
+      "group": "I. Model size, openness & compute",
+      "name": "Model(s) size or size range",
+      "definition": "Parameters (e.g., 3.77M, 300M, 7B)",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Parameter count stated in paper/appendix/model card; do not estimate.",
+      "evidence_location": "Methods, appendix, model card/repository",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§7",
+      "principle_codes": [
+        "P18"
+      ]
+    },
+    {
+      "column_letter": "BZ",
+      "group": "I. Model size, openness & compute",
+      "name": "Open/Closed Models",
+      "definition": "Weights open or closed (incl. any LLM/foundation components)",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Open weights",
+        "Closed / proprietary",
+        "Mixed",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Based on stated release of weights (and openness of any foundation model used).",
+      "evidence_location": "Methods, appendix, model card/repository",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§19",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "CA",
+      "group": "I. Model size, openness & compute",
+      "name": "Training compute reported",
+      "definition": "GPU type/hours",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Hardware/time stated; else \"Not reported\".",
+      "evidence_location": "Methods, appendix, model card/repository",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§5 P18",
+      "principle_codes": [
+        "P18"
+      ]
+    },
+    {
+      "column_letter": "CB",
+      "group": "I. Model size, openness & compute",
+      "name": "Inference latency / real-time capability",
+      "definition": "Seconds per step/action; streaming; distillation used",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Measured latency/throughput reported in results.",
+      "evidence_location": "Methods, appendix, model card/repository",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§5 P18; §13.1 E14",
+      "principle_codes": [
+        "P18",
+        "E14",
+        "C12",
+        "C12"
+      ]
+    },
+    {
+      "column_letter": "CC",
+      "group": "J. Rollout / imagination",
+      "name": "Rollout mode",
+      "definition": "How multi-step prediction is run",
+      "value_type": "categorical",
+      "allowed_values": [
+        "No rollout",
+        "One-step only",
+        "Open-loop multi-step",
+        "Closed-loop with re-assimilation",
+        "Teacher-forced only",
+        "Not reported"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "How multi-step predictions are produced in evaluation.",
+      "evidence_location": "Results (horizon analyses)",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§9; §19.1 M6",
+      "principle_codes": [
+        "M6",
+        "P12"
+      ]
+    },
+    {
+      "column_letter": "CD",
+      "group": "J. Rollout / imagination",
+      "name": "Maximum horizon evaluated",
+      "definition": "Longest rollout horizon reported (with units)",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Longest horizon in reported results (with units).",
+      "evidence_location": "Results (horizon analyses)",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.1 E2",
+      "principle_codes": [
+        "E2"
+      ]
+    },
+    {
+      "column_letter": "CE",
+      "group": "J. Rollout / imagination",
+      "name": "Effective / validated horizon",
+      "definition": "Horizon at which error stays within stated tolerance",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Only if the paper reports the horizon at which error stays within a stated tolerance or degrades past a threshold.",
+      "evidence_location": "Results (horizon analyses)",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.1 E2; A19",
+      "principle_codes": [
+        "E2",
+        "M6",
+        "P20"
+      ]
+    },
+    {
+      "column_letter": "CF",
+      "group": "J. Rollout / imagination",
+      "name": "Compounding error measured (Y/N)",
+      "definition": "Error vs horizon reported",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if error-versus-horizon is reported.",
+      "evidence_location": "Results (horizon analyses)",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§13.2",
+      "principle_codes": [
+        "FM1",
+        "E2"
+      ]
+    },
+    {
+      "column_letter": "CG",
+      "group": "J. Rollout / imagination",
+      "name": "Number of sampled futures / distributional output",
+      "definition": "Point forecast vs N samples / distribution",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Samples/distribution reported in results.",
+      "evidence_location": "Results (horizon analyses)",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§11",
+      "principle_codes": [
+        "P6"
+      ]
+    },
+    {
+      "column_letter": "CH",
+      "group": "K. Planning & decision",
+      "name": "Planning",
+      "definition": "Planner or policy type",
+      "value_type": "categorical",
+      "allowed_values": [
+        "None",
+        "Clinician-supplied candidate comparison",
+        "Proposal + simulation + scoring pipeline",
+        "Sampling MPC (CEM / MPPI / shooting)",
+        "TD-MPC / TD-MPC2",
+        "Tree search (MCTS)",
+        "Gradient-based planning",
+        "Imagined policy learning (actor–critic / Dreamer)",
+        "Offline model-based RL (uncertainty-penalised)",
+        "RL on simulated MDP (DQN etc.)",
+        "LLM agent loop (propose–simulate–refine)",
+        "Retrieval-based planning",
+        "Classical optimisation (GA / constrained)",
+        "Other"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Planner/policy type used in experiments (KB §9).",
+      "evidence_location": "Methods (planning/policy), results",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§9; §6 DA5",
+      "principle_codes": [
+        "DA5",
+        "M8",
+        "C6"
+      ]
+    },
+    {
+      "column_letter": "CI",
+      "group": "K. Planning & decision",
+      "name": "Planning horizon",
+      "definition": "Horizon used by the planner",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Planner horizon stated in methods.",
+      "evidence_location": "Methods (planning/policy), results",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§9",
+      "principle_codes": [
+        "P12"
+      ]
+    },
+    {
+      "column_letter": "CJ",
+      "group": "K. Planning & decision",
+      "name": "Closed-loop re-planning (Y/N)",
+      "definition": "Executes first action, observes, re-plans",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if the planner re-plans after new observations in evaluation.",
+      "evidence_location": "Methods (planning/policy), results",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§9 principle 1",
+      "principle_codes": [
+        "P12"
+      ]
+    },
+    {
+      "column_letter": "CK",
+      "group": "K. Planning & decision",
+      "name": "Objective / utility & constraints",
+      "definition": "What is optimised and under which constraints/preferences",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Objective function and constraints stated in methods.",
+      "evidence_location": "Methods (planning/policy), results",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§19.1 M8",
+      "principle_codes": [
+        "M8"
+      ]
+    },
+    {
+      "column_letter": "CL",
+      "group": "K. Planning & decision",
+      "name": "Uncertainty used in planning (Y/N)",
+      "definition": "Penalties, risk-sensitive objectives",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if uncertainty enters the planning objective or action filter.",
+      "evidence_location": "Methods (planning/policy), results",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§9; §11",
+      "principle_codes": [
+        "P13",
+        "DA2"
+      ]
+    },
+    {
+      "column_letter": "CM",
+      "group": "K. Planning & decision",
+      "name": "Model-exploitation tested (Y/N)",
+      "definition": "Checks that planner does not exploit model error",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if experiments test whether planned actions exploit model error (e.g., held-out simulator, real execution, support checks).",
+      "evidence_location": "Methods (planning/policy), results",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§9; §13.2",
+      "principle_codes": [
+        "P13",
+        "FM2"
+      ]
+    },
+    {
+      "column_letter": "CN",
+      "group": "K. Planning & decision",
+      "name": "Abstention / deferral (Y/N)",
+      "definition": "System can abstain or defer when unsupported/uncertain",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if the system can output \"abstain/defer/escalate\" and this is described or evaluated.",
+      "evidence_location": "Methods (planning/policy), results",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§11; §18.2",
+      "principle_codes": [
+        "P21",
+        "M9"
+      ]
+    },
+    {
+      "column_letter": "CO",
+      "group": "K. Planning & decision",
+      "name": "Dynamics decoupled from objective (Y/N)",
+      "definition": "Objective can change at inference without retraining",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if the objective can be changed at inference without retraining the dynamics.",
+      "evidence_location": "Methods (planning/policy), results",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§9 principle 6",
+      "principle_codes": [
+        "C6"
+      ]
+    },
+    {
+      "column_letter": "CP",
+      "group": "L. Uncertainty & calibration",
+      "name": "Uncertainty method",
+      "definition": "How uncertainty is represented",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Deterministic (none)",
+        "Stochastic latent",
+        "Ensemble",
+        "Bayesian / posterior",
+        "MC dropout",
+        "Generative sampling (diffusion / flow)",
+        "Conformal",
+        "Gaussian process",
+        "Multiple methods",
+        "Not reported"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Method stated in methods (KB §11).",
+      "evidence_location": "Methods, results (calibration tables)",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§11; §6 DA2",
+      "principle_codes": [
+        "DA2",
+        "P6"
+      ]
+    },
+    {
+      "column_letter": "CQ",
+      "group": "L. Uncertainty & calibration",
+      "name": "Aleatoric vs epistemic separated (Y/N)",
+      "definition": "Distinguishes reducible from irreducible uncertainty",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if both are estimated separately.",
+      "evidence_location": "Methods, results (calibration tables)",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§11",
+      "principle_codes": [
+        "P6"
+      ]
+    },
+    {
+      "column_letter": "CR",
+      "group": "L. Uncertainty & calibration",
+      "name": "Calibration evaluated",
+      "definition": "Metric(s) and whether per-step or trajectory-level",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Metric and level (per-step or trajectory) from results; \"Not reported\" otherwise.",
+      "evidence_location": "Methods, results (calibration tables)",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§11; §13.1 E5",
+      "principle_codes": [
+        "P7",
+        "E5"
+      ]
+    },
+    {
+      "column_letter": "CS",
+      "group": "L. Uncertainty & calibration",
+      "name": "OOD / shift detection",
+      "definition": "Method for detecting unsupported inputs or actions",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Explicit detection method evaluated.",
+      "evidence_location": "Methods, results (calibration tables)",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.2",
+      "principle_codes": [
+        "E11",
+        "FM3"
+      ]
+    },
+    {
+      "column_letter": "CT",
+      "group": "M. Causality & counterfactuals",
+      "name": "Causal claim level",
+      "definition": "Strength of causal claim made",
+      "value_type": "categorical",
+      "allowed_values": [
+        "None (predictive only)",
+        "Associational action-conditioning",
+        "Interventional with stated assumptions",
+        "Counterfactual with identification strategy",
+        "Mechanistic causal (physics / pharmacology)",
+        "Not reported"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Strongest causal statement the paper makes about its outputs (KB §12).",
+      "evidence_location": "Methods (causal framework), discussion",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§12",
+      "principle_codes": [
+        "P11",
+        "CL"
+      ]
+    },
+    {
+      "column_letter": "CU",
+      "group": "M. Causality & counterfactuals",
+      "name": "Causal method",
+      "definition": "Technique used",
+      "value_type": "categorical",
+      "allowed_values": [
+        "None",
+        "g-computation",
+        "IPTW / MSM",
+        "Balancing representations",
+        "Target-trial emulation",
+        "Sign / mechanistic constraints",
+        "SCM / causal representation learning",
+        "Supported-regimen restriction",
+        "Multiple",
+        "Other"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Technique explicitly used to address confounding/identification.",
+      "evidence_location": "Methods (causal framework), discussion",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§12.3",
+      "principle_codes": [
+        "P11",
+        "C4"
+      ]
+    },
+    {
+      "column_letter": "CV",
+      "group": "M. Causality & counterfactuals",
+      "name": "Identification assumptions stated",
+      "definition": "Exchangeability, positivity, consistency, censoring, other (list)",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Assumptions explicitly named in the text; do not infer.",
+      "evidence_location": "Methods (causal framework), discussion",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§12.2",
+      "principle_codes": [
+        "P11",
+        "C4"
+      ]
+    },
+    {
+      "column_letter": "CW",
+      "group": "M. Causality & counterfactuals",
+      "name": "Positivity / action-support check (Y/N)",
+      "definition": "Candidate actions checked against historical support",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if candidate actions are checked against observed support/overlap.",
+      "evidence_location": "Methods (causal framework), discussion",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§12.3; §19.1 M4",
+      "principle_codes": [
+        "M4",
+        "M7"
+      ]
+    },
+    {
+      "column_letter": "CX",
+      "group": "M. Causality & counterfactuals",
+      "name": "Counterfactual validation",
+      "definition": "RCT agreement, known mechanism, synthetic ground truth, none",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "How counterfactual predictions were validated (RCT agreement, mechanism, synthetic ground truth).",
+      "evidence_location": "Methods (causal framework), discussion",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.1 E7",
+      "principle_codes": [
+        "E7",
+        "P20"
+      ]
+    },
+    {
+      "column_letter": "CY",
+      "group": "M. Causality & counterfactuals",
+      "name": "Sensitivity analysis (Y/N)",
+      "definition": "Unmeasured-confounding / treatment-selection sensitivity",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if a confounding/selection sensitivity analysis is reported.",
+      "evidence_location": "Methods (causal framework), discussion",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§12.3",
+      "principle_codes": [
+        "P11"
+      ]
+    },
+    {
+      "column_letter": "CZ",
+      "group": "N. Agentic / LLM integration & autonomy",
+      "name": "LLM role",
+      "definition": "Role of any language model",
+      "value_type": "categorical",
+      "allowed_values": [
+        "None",
+        "Encoder",
+        "Simulator / world model",
+        "Agent / planner",
+        "Model or equation discovery",
+        "Treatment proposal generator",
+        "Report / explanation",
+        "Other"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Role of any LLM in the pipeline as described in methods.",
+      "evidence_location": "Methods (system design), deployment description",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§1.4; §9",
+      "principle_codes": [
+        "C9",
+        "FM11"
+      ]
+    },
+    {
+      "column_letter": "DA",
+      "group": "N. Agentic / LLM integration & autonomy",
+      "name": "Single or Multiagent",
+      "definition": "Agent architecture",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Single agent",
+        "Multi-agent",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Only for agentic systems (an LLM/RL agent that acts/plans); otherwise \"Not applicable\".",
+      "evidence_location": "Methods (system design), deployment description",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§17",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "DB",
+      "group": "N. Agentic / LLM integration & autonomy",
+      "name": "If Multi then how many Agents and their roles (if single then type N/A)",
+      "definition": "Count and roles",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Count and role of each agent as described; \"N/A\" for single agent/non-agentic.",
+      "evidence_location": "Methods (system design), deployment description",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§17",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "DC",
+      "group": "N. Agentic / LLM integration & autonomy",
+      "name": "Memory (agent)",
+      "definition": "Agent memory (episodic, retrieval, scratchpad) if agentic; else N/A",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Agent memory described; \"N/A\" if not agentic.",
+      "evidence_location": "Methods (system design), deployment description",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§10",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "DD",
+      "group": "N. Agentic / LLM integration & autonomy",
+      "name": "Reflection",
+      "definition": "Self-critique / refinement loop (e.g., propose–simulate–refine)",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if an explicit critique/refine loop exists (e.g., propose–simulate–refine).",
+      "evidence_location": "Methods (system design), deployment description",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§9",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "DE",
+      "group": "N. Agentic / LLM integration & autonomy",
+      "name": "External API Use",
+      "definition": "External tools/APIs called (simulators, databases, calculators)",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if the system calls external tools/APIs/simulators/databases at inference.",
+      "evidence_location": "Methods (system design), deployment description",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§18.1",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "DF",
+      "group": "N. Agentic / LLM integration & autonomy",
+      "name": "Technology Used (Like RAG, ReACT, Graphs etc)",
+      "definition": "Enabling techniques: RAG, ReAct, knowledge graphs, scene graphs, ontologies, tool use",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Named enabling techniques explicitly used.",
+      "evidence_location": "Methods (system design), deployment description",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§17",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "DG",
+      "group": "N. Agentic / LLM integration & autonomy",
+      "name": "Autonomy Level",
+      "definition": "Degree of autonomy in intended use",
+      "value_type": "categorical",
+      "allowed_values": [
+        "A0 Offline analysis (no autonomy)",
+        "A1 Information / assistive",
+        "A2 Recommendation – clinician decides",
+        "A3 Conditional automation – human supervises",
+        "A4 High automation – human on call",
+        "A5 Full autonomy",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Based on the intended-use description: who executes the action (KB §18.2).",
+      "evidence_location": "Methods (system design), deployment description",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§18.2",
+      "principle_codes": [
+        "M9"
+      ]
+    },
+    {
+      "column_letter": "DH",
+      "group": "N. Agentic / LLM integration & autonomy",
+      "name": "Can Call External Systems",
+      "definition": "Can the system call EHR, devices, robots or other systems",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if the paper shows integration with EHR, devices, robots or other systems.",
+      "evidence_location": "Methods (system design), deployment description",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§18.1",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "DI",
+      "group": "N. Agentic / LLM integration & autonomy",
+      "name": "Possible Action (Administrative or Clinical)",
+      "definition": "Category of actions the system can take/recommend",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Clinical",
+        "Administrative / operational",
+        "Both",
+        "None"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Category of actions the system outputs/executes.",
+      "evidence_location": "Methods (system design), deployment description",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§14",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "DJ",
+      "group": "N. Agentic / LLM integration & autonomy",
+      "name": "Require System Permissions",
+      "definition": "Needs write/execute permissions in clinical systems/devices",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if execution requires write/actuation access to clinical systems/devices.",
+      "evidence_location": "Methods (system design), deployment description",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§18",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "DK",
+      "group": "N. Agentic / LLM integration & autonomy",
+      "name": "Irreversible Action Possible",
+      "definition": "Could outputs lead directly to irreversible actions (drug given, robot cut)",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes if outputs directly trigger actions that cannot be undone (drug delivery, robotic cutting/navigation) without human gate.",
+      "evidence_location": "Methods (system design), deployment description",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§14; §18",
+      "principle_codes": [
+        "P21"
+      ]
+    },
+    {
+      "column_letter": "DL",
+      "group": "N. Agentic / LLM integration & autonomy",
+      "name": "Human Escalation Available",
+      "definition": "Mechanism to route to a human",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if a human review/hand-off mechanism is described.",
+      "evidence_location": "Methods (system design), deployment description",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§18.2",
+      "principle_codes": [
+        "P21",
+        "M9",
+        "M10"
+      ]
+    },
+    {
+      "column_letter": "DM",
+      "group": "O. Data & evaluation design",
+      "name": "Did their evaluation involve Data?",
+      "definition": "Empirical evaluation on data",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes if any empirical experiment on data (real or simulated) is reported.",
+      "evidence_location": "Data section, data-availability statement",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§13",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "DN",
+      "group": "O. Data & evaluation design",
+      "name": "Dataset name(s)",
+      "definition": "e.g., MIMIC-IV, eICU, ADNI, BraTS, Epic Cosmos, SutureBot",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Names exactly as given in the paper.",
+      "evidence_location": "Data section, data-availability statement",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.1",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "DO",
+      "group": "O. Data & evaluation design",
+      "name": "Data source type",
+      "definition": "Origin of data",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Hospital EHR",
+        "ICU database",
+        "Imaging archive / registry",
+        "Clinical trial",
+        "Cohort study / biobank",
+        "Wearable / consumer device",
+        "Surgical video dataset",
+        "Robotic platform recordings",
+        "Physics / mechanistic simulator",
+        "Synthetic (generated)",
+        "Public health / aggregate",
+        "Multiple"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Origin of the evaluation data.",
+      "evidence_location": "Data section, data-availability statement",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.1",
+      "principle_codes": [
+        "M1"
+      ]
+    },
+    {
+      "column_letter": "DP",
+      "group": "O. Data & evaluation design",
+      "name": "Is that Data Publicly available?",
+      "definition": "Access level",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Public open",
+        "Public with credentialed access (DUA)",
+        "Available on request",
+        "Private / proprietary",
+        "Mixed",
+        "Not reported"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Based on the paper's data-availability statement or dataset licence.",
+      "evidence_location": "Data section, data-availability statement",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.1",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "DQ",
+      "group": "O. Data & evaluation design",
+      "name": "Number of Cases (dataset size)",
+      "definition": "Patients / stays / scans / videos / trajectories (state units)",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Numbers reported in data section, with unit (patients, stays, scans, videos, trajectories).",
+      "evidence_location": "Data section, data-availability statement",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§14",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "DR",
+      "group": "O. Data & evaluation design",
+      "name": "Number of sites / institutions",
+      "definition": "Count of data-contributing sites",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Count stated; \"Not reported\" otherwise.",
+      "evidence_location": "Data section, data-availability statement",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.1 E11",
+      "principle_codes": [
+        "E11"
+      ]
+    },
+    {
+      "column_letter": "DS",
+      "group": "O. Data & evaluation design",
+      "name": "Simulation or Real World",
+      "definition": "Evaluation data type",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Real-world data",
+        "Simulation only",
+        "Both",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Whether evaluation data are real clinical data, simulator output, or both.",
+      "evidence_location": "Data section, data-availability statement",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.1 E10",
+      "principle_codes": [
+        "E10"
+      ]
+    },
+    {
+      "column_letter": "DT",
+      "group": "O. Data & evaluation design",
+      "name": "Prospective or Retrospective dataset",
+      "definition": "Timing of data collection",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Retrospective",
+        "Prospective",
+        "Both",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Prospective only if data were collected after the study protocol was set.",
+      "evidence_location": "Data section, data-availability statement",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§15.2",
+      "principle_codes": [
+        "ES"
+      ]
+    },
+    {
+      "column_letter": "DU",
+      "group": "O. Data & evaluation design",
+      "name": "Data split strategy",
+      "definition": "How train/test separated (leakage control)",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Random record split",
+        "Patient-level split",
+        "Site / hospital-level split",
+        "Temporal split",
+        "External cohort",
+        "Multiple",
+        "Not reported"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Split stated in methods; \"Not reported\" if absent.",
+      "evidence_location": "Data section, data-availability statement",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§19.1 M1",
+      "principle_codes": [
+        "M1"
+      ]
+    },
+    {
+      "column_letter": "DV",
+      "group": "O. Data & evaluation design",
+      "name": "External validation (Y/N)",
+      "definition": "Held-out site/cohort/population",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if tested on data from a different site/cohort/population not used in training.",
+      "evidence_location": "Data section, data-availability statement",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§13.1 E11",
+      "principle_codes": [
+        "E11"
+      ]
+    },
+    {
+      "column_letter": "DW",
+      "group": "O. Data & evaluation design",
+      "name": "Subgroup / fairness analysis (Y/N)",
+      "definition": "Performance by subgroup",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if results are reported by demographic/clinical subgroup.",
+      "evidence_location": "Data section, data-availability statement",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§13.1 E11",
+      "principle_codes": [
+        "E11"
+      ]
+    },
+    {
+      "column_letter": "DX",
+      "group": "P. Evaluation results by layer (E1–E15)",
+      "name": "E1 One-step fidelity metrics & results",
+      "definition": "Metric = value",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Metric = value pairs for next-step prediction from results tables.",
+      "evidence_location": "Results tables/figures",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.1",
+      "principle_codes": [
+        "E1"
+      ]
+    },
+    {
+      "column_letter": "DY",
+      "group": "P. Evaluation results by layer (E1–E15)",
+      "name": "E2 Multi-step rollout metrics & results",
+      "definition": "Error vs horizon, drift",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Metric values at ≥2 horizons.",
+      "evidence_location": "Results tables/figures",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.1",
+      "principle_codes": [
+        "E2"
+      ]
+    },
+    {
+      "column_letter": "DZ",
+      "group": "P. Evaluation results by layer (E1–E15)",
+      "name": "E3 Distributional realism metrics",
+      "definition": "FID/FVD/MMD/Jaccard etc.",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Realism metrics reported (FID/FVD/MMD/Jaccard).",
+      "evidence_location": "Results tables/figures",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.1",
+      "principle_codes": [
+        "E3",
+        "C13"
+      ]
+    },
+    {
+      "column_letter": "EA",
+      "group": "P. Evaluation results by layer (E1–E15)",
+      "name": "E4 Physical / clinical plausibility",
+      "definition": "Constraint violations, anatomical consistency, SPP tiers",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Constraint-violation or plausibility assessments reported.",
+      "evidence_location": "Results tables/figures",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.1",
+      "principle_codes": [
+        "E4"
+      ]
+    },
+    {
+      "column_letter": "EB",
+      "group": "P. Evaluation results by layer (E1–E15)",
+      "name": "E6 Action / intervention sensitivity",
+      "definition": "Direction & magnitude of response to edits",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Results showing response to changed actions (direction/magnitude).",
+      "evidence_location": "Results tables/figures",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.1",
+      "principle_codes": [
+        "E6"
+      ]
+    },
+    {
+      "column_letter": "EC",
+      "group": "P. Evaluation results by layer (E1–E15)",
+      "name": "E9 Downstream decision quality",
+      "definition": "Task success, off-policy value, regret",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Decision/control/task-success metrics.",
+      "evidence_location": "Results tables/figures",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.1",
+      "principle_codes": [
+        "E9",
+        "C7"
+      ]
+    },
+    {
+      "column_letter": "ED",
+      "group": "P. Evaluation results by layer (E1–E15)",
+      "name": "E10 Sim-to-real agreement",
+      "definition": "Agreement between simulated and real outcomes/policy rankings",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Comparison of simulated vs real outcomes or policy rankings.",
+      "evidence_location": "Results tables/figures",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.1",
+      "principle_codes": [
+        "E10",
+        "FM3",
+        "C7"
+      ]
+    },
+    {
+      "column_letter": "EE",
+      "group": "P. Evaluation results by layer (E1–E15)",
+      "name": "E13 Human/SME Evaluation",
+      "definition": "Yes/No and design (rating scale, reader study, Turing test)",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Fill only if humans rated/compared outputs; describe design.",
+      "evidence_location": "Results tables/figures",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.1",
+      "principle_codes": [
+        "E13"
+      ]
+    },
+    {
+      "column_letter": "EF",
+      "group": "P. Evaluation results by layer (E1–E15)",
+      "name": "Number of SMEs",
+      "definition": "Number and expertise of experts",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Number + expertise of raters as reported.",
+      "evidence_location": "Results tables/figures",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.1",
+      "principle_codes": [
+        "E13"
+      ]
+    },
+    {
+      "column_letter": "EG",
+      "group": "P. Evaluation results by layer (E1–E15)",
+      "name": "E14 Efficiency / sample efficiency",
+      "definition": "Latency, throughput, data efficiency",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Latency, compute or data-efficiency results.",
+      "evidence_location": "Results tables/figures",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.1",
+      "principle_codes": [
+        "E14"
+      ]
+    },
+    {
+      "column_letter": "EH",
+      "group": "P. Evaluation results by layer (E1–E15)",
+      "name": "E15 Clinical utility outcome",
+      "definition": "Workflow/patient outcomes measured",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Patient/workflow outcomes measured in a clinical study.",
+      "evidence_location": "Results tables/figures",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§13.1",
+      "principle_codes": [
+        "E15"
+      ]
+    },
+    {
+      "column_letter": "EI",
+      "group": "P. Evaluation results by layer (E1–E15)",
+      "name": "Compared with Non-Agentic / non-WM Systems",
+      "definition": "Baselines without WM/agent (static predictors, model-free RL, plain LLM) and result",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Baselines without world model/agent that appear in results tables, with outcome.",
+      "evidence_location": "Results tables/figures",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§1.4",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "EJ",
+      "group": "P. Evaluation results by layer (E1–E15)",
+      "name": "Compared with other Agentic / WM Systems",
+      "definition": "Other WM/agent baselines and result",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Other WM/agent baselines in results tables, with outcome.",
+      "evidence_location": "Results tables/figures",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§16",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "EK",
+      "group": "P. Evaluation results by layer (E1–E15)",
+      "name": "Ablations performed",
+      "definition": "Key ablations (state, action, history, priors, uncertainty)",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Ablations reported in results.",
+      "evidence_location": "Results tables/figures",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§5 P4",
+      "principle_codes": [
+        "P4"
+      ]
+    },
+    {
+      "column_letter": "EL",
+      "group": "Q. Safety, failures & security",
+      "name": "Failures Observed (if none observed type N/A)",
+      "definition": "Failure modes reported (use §13.2 names: drift, exploitation, sim-to-real, missing modality, grounding, physics, confounding reversal, unsupported edits, grid erasure, population-average, LLM inconsistency, plausibility gap, silent policy failure, over-trust)",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Failures the authors report or show (qualitative/quantitative), using KB §13.2 names. \"N/A\" only if none reported.",
+      "evidence_location": "Results, discussion, limitations",
+      "value_if_evidence_absent": "N/A",
+      "knowledge_base_section": "§13.2",
+      "principle_codes": [
+        "FM1",
+        "FM2",
+        "FM3",
+        "FM4",
+        "FM5",
+        "FM6",
+        "FM7",
+        "FM8",
+        "FM9",
+        "FM10",
+        "FM11",
+        "FM12",
+        "FM13",
+        "FM14"
+      ]
+    },
+    {
+      "column_letter": "EM",
+      "group": "Q. Safety, failures & security",
+      "name": "Safety mechanisms",
+      "definition": "Constraints, shields, verify-before-act, failure detection, safety envelopes, shadow mode",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Mechanisms implemented (not merely recommended).",
+      "evidence_location": "Results, discussion, limitations",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§18.2",
+      "principle_codes": [
+        "P21",
+        "M9"
+      ]
+    },
+    {
+      "column_letter": "EN",
+      "group": "Q. Safety, failures & security",
+      "name": "Security / adversarial considerations",
+      "definition": "Poisoning, spoofing, trajectory manipulation, prompt injection addressed?",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Only if threats/defences are discussed or tested.",
+      "evidence_location": "Results, discussion, limitations",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§18.1",
+      "principle_codes": [
+        "P22",
+        "SEC"
+      ]
+    },
+    {
+      "column_letter": "EO",
+      "group": "Q. Safety, failures & security",
+      "name": "Privacy approach",
+      "definition": "De-identification, federated learning, DP, memorisation audit",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "De-ID/federation/DP/memorisation audit stated.",
+      "evidence_location": "Results, discussion, limitations",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§18.1",
+      "principle_codes": [
+        "P22"
+      ]
+    },
+    {
+      "column_letter": "EP",
+      "group": "Q. Safety, failures & security",
+      "name": "Automation-bias / trust mitigation",
+      "definition": "How over-trust is addressed (uncertainty display, explanations, gating)",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Explicit measures for appropriate reliance.",
+      "evidence_location": "Results, discussion, limitations",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§18.1",
+      "principle_codes": [
+        "FM14"
+      ]
+    },
+    {
+      "column_letter": "EQ",
+      "group": "R. Regulation, ethics & readiness",
+      "name": "If they followed any Regulatory Frameworks, (such as HIPAA, EU AI Act etc) name them all",
+      "definition": "All frameworks/standards/guidelines named (HIPAA, GDPR, FDA SaMD/PCCP, EU AI Act, MDR, IMDRF, ISO 14971, IEC 62304, TRIPOD+AI, CONSORT-AI, DECIDE-AI, MI-CLAIM, FUTURE-AI)",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "List only frameworks/standards/guidelines the paper explicitly names or states compliance with.",
+      "evidence_location": "Ethics statement, methods, discussion",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§18.3",
+      "principle_codes": [
+        "REG"
+      ]
+    },
+    {
+      "column_letter": "ER",
+      "group": "R. Regulation, ethics & readiness",
+      "name": "Ethics / IRB approval",
+      "definition": "Approval body or exemption",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Approval body/number or waiver as stated.",
+      "evidence_location": "Ethics statement, methods, discussion",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§18.3",
+      "principle_codes": [
+        "REG"
+      ]
+    },
+    {
+      "column_letter": "ES",
+      "group": "R. Regulation, ethics & readiness",
+      "name": "Intended-use statement (Y/N)",
+      "definition": "Explicit intended use/population/limits",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if intended use/population/limits are explicitly stated.",
+      "evidence_location": "Ethics statement, methods, discussion",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§19.1",
+      "principle_codes": [
+        "REG"
+      ]
+    },
+    {
+      "column_letter": "ET",
+      "group": "R. Regulation, ethics & readiness",
+      "name": "Clinical Readiness Stage",
+      "definition": "Evidence stage reached",
+      "value_type": "categorical",
+      "allowed_values": [
+        "R0 Concept / position",
+        "R1 Technical feasibility (synthetic/simulated)",
+        "R2 Retrospective internal validation",
+        "R3 Retrospective external / multi-site validation",
+        "R4 Expert / reader evaluation",
+        "R5 Prospective silent / shadow mode",
+        "R6 Prospective interventional / feasibility",
+        "R7 Randomised / comparative effectiveness",
+        "R8 Regulated deployment & post-market monitoring"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Highest stage SUPPORTED by the reported evidence (KB §15.2), independent of capability level.",
+      "evidence_location": "Ethics statement, methods, discussion",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§15.2",
+      "principle_codes": [
+        "ES"
+      ]
+    },
+    {
+      "column_letter": "EU",
+      "group": "R. Regulation, ethics & readiness",
+      "name": "ML Technology Readiness Level",
+      "definition": "TRL per [095] if assessable",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Only if authors state a TRL or evidence clearly matches a TRL level from [095].",
+      "evidence_location": "Ethics statement, methods, discussion",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§15.2",
+      "principle_codes": [
+        "ES"
+      ]
+    },
+    {
+      "column_letter": "EV",
+      "group": "R. Regulation, ethics & readiness",
+      "name": "Lifecycle / monitoring plan",
+      "definition": "Drift monitoring, change control, revalidation",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Only explicit drift-monitoring/change-control/revalidation plans.",
+      "evidence_location": "Ethics statement, methods, discussion",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§19.1 M10",
+      "principle_codes": [
+        "M10"
+      ]
+    },
+    {
+      "column_letter": "EW",
+      "group": "S. Reproducibility",
+      "name": "Code Available",
+      "definition": "Code availability",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Yes – public repository",
+        "Yes – on request",
+        "Announced, not yet released",
+        "No",
+        "Not reported"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Based on a working link or explicit statement in the paper.",
+      "evidence_location": "Code/data availability statement, repository",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§20",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "EX",
+      "group": "S. Reproducibility",
+      "name": "Code URL",
+      "definition": "Repository link",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Exact URL given in the paper.",
+      "evidence_location": "Code/data availability statement, repository",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§20",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "EY",
+      "group": "S. Reproducibility",
+      "name": "Weights available",
+      "definition": "Model weights released",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes only if released weights are linked/stated.",
+      "evidence_location": "Code/data availability statement, repository",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§20",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "EZ",
+      "group": "S. Reproducibility",
+      "name": "Prompts Available",
+      "definition": "If LLM used: prompts disclosed",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "For LLM-based systems: prompts given in paper/appendix/repo; \"Not applicable\" otherwise.",
+      "evidence_location": "Code/data availability statement, repository",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§20",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "FA",
+      "group": "S. Reproducibility",
+      "name": "License",
+      "definition": "Code/model license",
+      "value_type": "categorical",
+      "allowed_values": [
+        "Open-source (permissive)",
+        "Open-source (copyleft)",
+        "Non-commercial / research only",
+        "Proprietary",
+        "Not reported"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Licence stated in paper or repository.",
+      "evidence_location": "Code/data availability statement, repository",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§20",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "FB",
+      "group": "T. Design-axis scoring (Leapspace five axes & principles)",
+      "name": "DA1 State abstraction – choice",
+      "definition": "Pixels / latent / discrete / object / symbolic",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "From methods (KB §6).",
+      "evidence_location": "Reviewer scoring after reading methods + results",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§6",
+      "principle_codes": [
+        "DA1"
+      ]
+    },
+    {
+      "column_letter": "FC",
+      "group": "T. Design-axis scoring (Leapspace five axes & principles)",
+      "name": "DA2 Uncertainty representation – score",
+      "definition": "0–3",
+      "value_type": "categorical",
+      "allowed_values": [
+        "0 – absent",
+        "1 – minimal",
+        "2 – moderate",
+        "3 – strong",
+        "Not assessable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "0 none; 1 single stochastic element; 2 principled UQ; 3 calibrated UQ used in decisions.",
+      "evidence_location": "Reviewer scoring after reading methods + results",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§6",
+      "principle_codes": [
+        "DA2"
+      ]
+    },
+    {
+      "column_letter": "FD",
+      "group": "T. Design-axis scoring (Leapspace five axes & principles)",
+      "name": "DA3 Memory horizon – score",
+      "definition": "0–3",
+      "value_type": "categorical",
+      "allowed_values": [
+        "0 – absent",
+        "1 – minimal",
+        "2 – moderate",
+        "3 – strong",
+        "Not assessable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "0 Markov; 1 short recurrent; 2 long context/SSM; 3 long memory with evidence of delayed-effect capture.",
+      "evidence_location": "Reviewer scoring after reading methods + results",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§6",
+      "principle_codes": [
+        "DA3"
+      ]
+    },
+    {
+      "column_letter": "FE",
+      "group": "T. Design-axis scoring (Leapspace five axes & principles)",
+      "name": "DA4 Structural bias – score",
+      "definition": "0–3",
+      "value_type": "categorical",
+      "allowed_values": [
+        "0 – absent",
+        "1 – minimal",
+        "2 – moderate",
+        "3 – strong",
+        "Not assessable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "0 unstructured; 1 light priors; 2 explicit structure (objects/graphs/sign constraints); 3 mechanistic/causal structure validated.",
+      "evidence_location": "Reviewer scoring after reading methods + results",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§6",
+      "principle_codes": [
+        "DA4"
+      ]
+    },
+    {
+      "column_letter": "FF",
+      "group": "T. Design-axis scoring (Leapspace five axes & principles)",
+      "name": "DA5 Planner interface – score",
+      "definition": "0–3",
+      "value_type": "categorical",
+      "allowed_values": [
+        "0 – absent",
+        "1 – minimal",
+        "2 – moderate",
+        "3 – strong",
+        "Not assessable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "0 none; 1 candidate comparison; 2 planner/policy evaluated offline; 3 closed-loop planning evaluated in real or high-fidelity setting.",
+      "evidence_location": "Reviewer scoring after reading methods + results",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§6",
+      "principle_codes": [
+        "DA5"
+      ]
+    },
+    {
+      "column_letter": "FG",
+      "group": "T. Design-axis scoring (Leapspace five axes & principles)",
+      "name": "Principle 1 – latent-space modelling (Y/N)",
+      "definition": "Leapspace principle 1",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes if dynamics operate in a learned latent space.",
+      "evidence_location": "Reviewer scoring after reading methods + results",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§5",
+      "principle_codes": [
+        "LS1",
+        "P3"
+      ]
+    },
+    {
+      "column_letter": "FH",
+      "group": "T. Design-axis scoring (Leapspace five axes & principles)",
+      "name": "Principle 2 – explicit uncertainty (Y/N)",
+      "definition": "Leapspace principle 2",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes if uncertainty is represented and reported.",
+      "evidence_location": "Reviewer scoring after reading methods + results",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§5",
+      "principle_codes": [
+        "LS2",
+        "P6"
+      ]
+    },
+    {
+      "column_letter": "FI",
+      "group": "T. Design-axis scoring (Leapspace five axes & principles)",
+      "name": "Principle 3 – closed-loop, horizon-limited planning (Y/N)",
+      "definition": "Leapspace principle 3",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes if planning is receding-horizon/closed-loop; \"Not applicable\" without planning.",
+      "evidence_location": "Reviewer scoring after reading methods + results",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§5",
+      "principle_codes": [
+        "LS3",
+        "P12"
+      ]
+    },
+    {
+      "column_letter": "FJ",
+      "group": "T. Design-axis scoring (Leapspace five axes & principles)",
+      "name": "Principle 4 – added structure (Y/N)",
+      "definition": "Leapspace principle 4",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes if object/discrete/causal/symbolic/physics structure is built in.",
+      "evidence_location": "Reviewer scoring after reading methods + results",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§5",
+      "principle_codes": [
+        "LS4",
+        "P10"
+      ]
+    },
+    {
+      "column_letter": "FK",
+      "group": "T. Design-axis scoring (Leapspace five axes & principles)",
+      "name": "Principle 5 – evaluated by decision usefulness/robustness/transfer (Y/N)",
+      "definition": "Leapspace principle 5",
+      "value_type": "yes_no",
+      "allowed_values": [
+        "Yes",
+        "No",
+        "Partial",
+        "Not reported",
+        "Not applicable"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Yes if evaluation includes decision quality, robustness or transfer, not only fidelity/realism.",
+      "evidence_location": "Reviewer scoring after reading methods + results",
+      "value_if_evidence_absent": "\"Not reported\" if the paper is silent; \"Not applicable\" if the concept cannot apply (e.g., no planner).",
+      "knowledge_base_section": "§5",
+      "principle_codes": [
+        "LS5",
+        "E9",
+        "E11"
+      ]
+    },
+    {
+      "column_letter": "FL",
+      "group": "U. Synthesis",
+      "name": "Architecture Description",
+      "definition": "2–5 sentence description of the pipeline (encoder → state → dynamics → heads → planner)",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Summarise from methods/architecture figure in the order encoder → state → dynamics → heads → planner.",
+      "evidence_location": "Introduction, results, discussion/limitations",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§3",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "FM",
+      "group": "U. Synthesis",
+      "name": "Main Contribution",
+      "definition": "What is new",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Contribution(s) listed by authors (usually end of introduction).",
+      "evidence_location": "Introduction, results, discussion/limitations",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§16",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "FN",
+      "group": "U. Synthesis",
+      "name": "Key Findings",
+      "definition": "Main quantitative results",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Main quantitative results with numbers from results/abstract.",
+      "evidence_location": "Introduction, results, discussion/limitations",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§16",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "FO",
+      "group": "U. Synthesis",
+      "name": "Authors Reported Limitations",
+      "definition": "As stated by authors",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Only limitations the authors themselves state.",
+      "evidence_location": "Introduction, results, discussion/limitations",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§20",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "FP",
+      "group": "U. Synthesis",
+      "name": "Authors Reported Future Work",
+      "definition": "As stated by authors",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Only future work the authors themselves state.",
+      "evidence_location": "Introduction, results, discussion/limitations",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§20",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "FQ",
+      "group": "U. Synthesis",
+      "name": "Research Gap Claimed by Authors",
+      "definition": "Gap motivating the work",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Gap stated in introduction/related work.",
+      "evidence_location": "Introduction, results, discussion/limitations",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "§20",
+      "principle_codes": [
+        "GAP"
+      ]
+    },
+    {
+      "column_letter": "FR",
+      "group": "U. Synthesis",
+      "name": "Evidence boundary (what is NOT shown)",
+      "definition": "Claims the evidence does not support (e.g., realism ≠ benefit)",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Reviewer judgement: claims not supported by the reported evidence (e.g., realism ≠ benefit, off-policy ≠ prospective).",
+      "evidence_location": "Introduction, results, discussion/limitations",
+      "value_if_evidence_absent": "Reviewer judgement — always fill after reading.",
+      "knowledge_base_section": "§15; §16.2",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "FS",
+      "group": "U. Synthesis",
+      "name": "Blueprint module(s) informed",
+      "definition": "M1–M10 the paper informs (multi, \";\")",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text (M1;…;M10)",
+      "multi_value": true,
+      "fill_only_if_paper_contains": "Reviewer judgement mapping to KB §19.1 M1–M10.",
+      "evidence_location": "Introduction, results, discussion/limitations",
+      "value_if_evidence_absent": "Reviewer judgement — always fill after reading.",
+      "knowledge_base_section": "§19.1",
+      "principle_codes": [
+        "M1",
+        "M2",
+        "M3",
+        "M4",
+        "M5",
+        "M6",
+        "M7",
+        "M8",
+        "M9",
+        "M10"
+      ]
+    },
+    {
+      "column_letter": "FT",
+      "group": "U. Synthesis",
+      "name": "Blueprint lesson (reuse for our architecture)",
+      "definition": "Concrete design lesson",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Reviewer judgement: one concrete reusable design lesson.",
+      "evidence_location": "Introduction, results, discussion/limitations",
+      "value_if_evidence_absent": "Reviewer judgement — always fill after reading.",
+      "knowledge_base_section": "§16.3; §19",
+      "principle_codes": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6",
+        "C7",
+        "C8",
+        "C9",
+        "C10",
+        "C11",
+        "C12",
+        "C13"
+      ]
+    },
+    {
+      "column_letter": "FU",
+      "group": "U. Synthesis",
+      "name": "Maps to open problem(s)",
+      "definition": "Which §20 gaps it addresses",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Reviewer judgement mapping to KB §20 gaps.",
+      "evidence_location": "Introduction, results, discussion/limitations",
+      "value_if_evidence_absent": "Reviewer judgement — always fill after reading.",
+      "knowledge_base_section": "§20",
+      "principle_codes": [
+        "GAP"
+      ]
+    },
+    {
+      "column_letter": "FV",
+      "group": "V. Extraction metadata",
+      "name": "Extractor",
+      "definition": "Name/initials",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Person extracting.",
+      "evidence_location": "Extraction metadata",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "—",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "FW",
+      "group": "V. Extraction metadata",
+      "name": "Extraction date",
+      "definition": "YYYY-MM-DD",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Date",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Date of extraction.",
+      "evidence_location": "Extraction metadata",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "—",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "FX",
+      "group": "V. Extraction metadata",
+      "name": "Sections read",
+      "definition": "Abstract only / methods / full text",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Sections actually read.",
+      "evidence_location": "Extraction metadata",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "—",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "FY",
+      "group": "V. Extraction metadata",
+      "name": "Extraction confidence",
+      "definition": "Reviewer confidence",
+      "value_type": "categorical",
+      "allowed_values": [
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "format": null,
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Reviewer confidence in this row.",
+      "evidence_location": "Extraction metadata",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "—",
+      "principle_codes": []
+    },
+    {
+      "column_letter": "FZ",
+      "group": "V. Extraction metadata",
+      "name": "Notes",
+      "definition": "Free notes; write \"Not reported\" rather than infer",
+      "value_type": "free_text",
+      "allowed_values": null,
+      "format": "Text",
+      "multi_value": false,
+      "fill_only_if_paper_contains": "Anything else; never infer unreported details.",
+      "evidence_location": "Extraction metadata",
+      "value_if_evidence_absent": "\"Not reported\" (or \"Not applicable\" when the concept cannot apply).",
+      "knowledge_base_section": "—",
+      "principle_codes": []
+    }
+  ],
+  "principle_codes": {
+    "P1": {
+      "kb_section": "§5",
+      "principle": "Predictive",
+      "columns": [
+        "Has state (Y/N)",
+        "Has temporal transition (Y/N)",
+        "Multi-step rollout (Y/N)",
+        "Multi-step training loss (Y/N)"
+      ]
+    },
+    "P2": {
+      "kb_section": "§5",
+      "principle": "Action-conditioned",
+      "columns": [
+        "Action-conditioned (Y/N)",
+        "Action type"
+      ]
+    },
+    "P3": {
+      "kb_section": "§5",
+      "principle": "Compact latent state",
+      "columns": [
+        "State representation type",
+        "Principle 1 – latent-space modelling (Y/N)"
+      ]
+    },
+    "P4": {
+      "kb_section": "§5",
+      "principle": "Decision-sufficient state",
+      "columns": [
+        "State sufficiency tested (Y/N)",
+        "Ablations performed"
+      ]
+    },
+    "P5": {
+      "kb_section": "§5",
+      "principle": "Partial-observability aware (belief state)",
+      "columns": [
+        "Missing-modality / missing-data handling",
+        "Belief / filtering mechanism"
+      ]
+    },
+    "P6": {
+      "kb_section": "§5",
+      "principle": "Explicit uncertainty",
+      "columns": [
+        "Stochastic transitions (Y/N)",
+        "Number of sampled futures / distributional output",
+        "Uncertainty method",
+        "Aleatoric vs epistemic separated (Y/N)",
+        "Principle 2 – explicit uncertainty (Y/N)"
+      ]
+    },
+    "P7": {
+      "kb_section": "§5",
+      "principle": "Calibrated",
+      "columns": [
+        "Calibration evaluated"
+      ]
+    },
+    "P8": {
+      "kb_section": "§5",
+      "principle": "Useful long-horizon memory",
+      "columns": [
+        "Memory mechanism",
+        "History / context length",
+        "Temporal abstraction / hierarchy"
+      ]
+    },
+    "P9": {
+      "kb_section": "§5",
+      "principle": "Temporal fidelity (irregular / continuous time)",
+      "columns": [
+        "Irregular sampling handled (Y/N)",
+        "Time representation",
+        "Time scale & step size"
+      ]
+    },
+    "P10": {
+      "kb_section": "§5",
+      "principle": "Structure (objects, discrete, causal, symbolic, physics)",
+      "columns": [
+        "Structural / mechanistic priors",
+        "Principle 4 – added structure (Y/N)"
+      ]
+    },
+    "P11": {
+      "kb_section": "§5",
+      "principle": "Causal validity",
+      "columns": [
+        "Causal claim level",
+        "Causal method",
+        "Identification assumptions stated",
+        "Sensitivity analysis (Y/N)"
+      ]
+    },
+    "P12": {
+      "kb_section": "§5",
+      "principle": "Closed-loop compatible",
+      "columns": [
+        "Uses rollouts for decisions (Y/N)",
+        "Rollout mode",
+        "Planning horizon",
+        "Closed-loop re-planning (Y/N)",
+        "Principle 3 – closed-loop, horizon-limited planning (Y/N)"
+      ]
+    },
+    "P13": {
+      "kb_section": "§5",
+      "principle": "Exploitation-resistant",
+      "columns": [
+        "Uncertainty used in planning (Y/N)",
+        "Model-exploitation tested (Y/N)"
+      ]
+    },
+    "P14": {
+      "kb_section": "§5",
+      "principle": "Consistent state across rollouts",
+      "columns": [
+        "State consistency mechanism"
+      ]
+    },
+    "P15": {
+      "kb_section": "§5",
+      "principle": "Personalised",
+      "columns": [
+        "Personalisation mechanism",
+        "Personalisation audit (P³ / history swap)"
+      ]
+    },
+    "P16": {
+      "kb_section": "§5",
+      "principle": "Updatable (assimilation / continual)",
+      "columns": [
+        "Online updating / assimilation (Y/N)"
+      ]
+    },
+    "P17": {
+      "kb_section": "§5",
+      "principle": "Composable / modular",
+      "columns": [
+        "Multimodal fusion strategy",
+        "Unified / reusable state across tasks (Y/N)"
+      ]
+    },
+    "P18": {
+      "kb_section": "§5",
+      "principle": "Efficient for planning",
+      "columns": [
+        "Model(s) size or size range",
+        "Training compute reported",
+        "Inference latency / real-time capability"
+      ]
+    },
+    "P19": {
+      "kb_section": "§5",
+      "principle": "Interpretable / inspectable",
+      "columns": [
+        "State interpretability"
+      ]
+    },
+    "P20": {
+      "kb_section": "§5",
+      "principle": "Verifiable",
+      "columns": [
+        "Effective / validated horizon",
+        "Counterfactual validation"
+      ]
+    },
+    "P21": {
+      "kb_section": "§5",
+      "principle": "Safe and governed",
+      "columns": [
+        "Action constraints / contraindications",
+        "Abstention / deferral (Y/N)",
+        "Irreversible Action Possible",
+        "Human Escalation Available",
+        "Safety mechanisms"
+      ]
+    },
+    "P22": {
+      "kb_section": "§5",
+      "principle": "Secure and privacy-preserving",
+      "columns": [
+        "Security / adversarial considerations",
+        "Privacy approach"
+      ]
+    },
+    "LS1": {
+      "kb_section": "§5 (Leapspace five principles)",
+      "principle": "Model in latent space for control",
+      "columns": [
+        "Principle 1 – latent-space modelling (Y/N)"
+      ]
+    },
+    "LS2": {
+      "kb_section": "§5 (Leapspace five principles)",
+      "principle": "Represent uncertainty explicitly",
+      "columns": [
+        "Principle 2 – explicit uncertainty (Y/N)"
+      ]
+    },
+    "LS3": {
+      "kb_section": "§5 (Leapspace five principles)",
+      "principle": "Closed-loop, horizon-limited planning",
+      "columns": [
+        "Principle 3 – closed-loop, horizon-limited planning (Y/N)"
+      ]
+    },
+    "LS4": {
+      "kb_section": "§5 (Leapspace five principles)",
+      "principle": "Add structure (objects, discrete states, causality, symbols)",
+      "columns": [
+        "Principle 4 – added structure (Y/N)"
+      ]
+    },
+    "LS5": {
+      "kb_section": "§5 (Leapspace five principles)",
+      "principle": "Evaluate by control usefulness, robustness, transfer",
+      "columns": [
+        "Principle 5 – evaluated by decision usefulness/robustness/transfer (Y/N)"
+      ]
+    },
+    "DA1": {
+      "kb_section": "§6",
+      "principle": "State abstraction",
+      "columns": [
+        "State representation type",
+        "State dimensionality",
+        "DA1 State abstraction – choice"
+      ]
+    },
+    "DA2": {
+      "kb_section": "§6",
+      "principle": "Uncertainty representation",
+      "columns": [
+        "Stochastic transitions (Y/N)",
+        "Uncertainty used in planning (Y/N)",
+        "Uncertainty method",
+        "DA2 Uncertainty representation – score"
+      ]
+    },
+    "DA3": {
+      "kb_section": "§6",
+      "principle": "Memory horizon",
+      "columns": [
+        "Dynamics backbone",
+        "Memory mechanism",
+        "DA3 Memory horizon – score"
+      ]
+    },
+    "DA4": {
+      "kb_section": "§6",
+      "principle": "Structural bias",
+      "columns": [
+        "Structural / mechanistic priors",
+        "DA4 Structural bias – score"
+      ]
+    },
+    "DA5": {
+      "kb_section": "§6",
+      "principle": "Planner interface",
+      "columns": [
+        "Planning",
+        "DA5 Planner interface – score"
+      ]
+    },
+    "E1": {
+      "kb_section": "§13.1",
+      "principle": "One-step fidelity",
+      "columns": [
+        "E1 One-step fidelity metrics & results"
+      ]
+    },
+    "E2": {
+      "kb_section": "§13.1",
+      "principle": "Multi-step rollout / effective horizon",
+      "columns": [
+        "Multi-step rollout (Y/N)",
+        "Maximum horizon evaluated",
+        "Effective / validated horizon",
+        "Compounding error measured (Y/N)",
+        "E2 Multi-step rollout metrics & results"
+      ]
+    },
+    "E3": {
+      "kb_section": "§13.1",
+      "principle": "Distributional realism",
+      "columns": [
+        "E3 Distributional realism metrics"
+      ]
+    },
+    "E4": {
+      "kb_section": "§13.1",
+      "principle": "Physical / clinical plausibility",
+      "columns": [
+        "E4 Physical / clinical plausibility"
+      ]
+    },
+    "E5": {
+      "kb_section": "§13.1",
+      "principle": "Calibration & uncertainty",
+      "columns": [
+        "Calibration evaluated"
+      ]
+    },
+    "E6": {
+      "kb_section": "§13.1",
+      "principle": "Action / intervention sensitivity",
+      "columns": [
+        "E6 Action / intervention sensitivity"
+      ]
+    },
+    "E7": {
+      "kb_section": "§13.1",
+      "principle": "Counterfactual / causal validity",
+      "columns": [
+        "Counterfactual validation"
+      ]
+    },
+    "E8": {
+      "kb_section": "§13.1",
+      "principle": "Personalisation",
+      "columns": [
+        "Personalisation audit (P³ / history swap)"
+      ]
+    },
+    "E9": {
+      "kb_section": "§13.1",
+      "principle": "Downstream decision quality",
+      "columns": [
+        "E9 Downstream decision quality",
+        "Principle 5 – evaluated by decision usefulness/robustness/transfer (Y/N)"
+      ]
+    },
+    "E10": {
+      "kb_section": "§13.1",
+      "principle": "Sim-to-real agreement",
+      "columns": [
+        "Simulation or Real World",
+        "E10 Sim-to-real agreement"
+      ]
+    },
+    "E11": {
+      "kb_section": "§13.1",
+      "principle": "Robustness & transfer (external, OOD, subgroups)",
+      "columns": [
+        "OOD / shift detection",
+        "Number of sites / institutions",
+        "External validation (Y/N)",
+        "Subgroup / fairness analysis (Y/N)",
+        "Principle 5 – evaluated by decision usefulness/robustness/transfer (Y/N)"
+      ]
+    },
+    "E12": {
+      "kb_section": "§13.1",
+      "principle": "Observation-process audit",
+      "columns": [
+        "Observation process modelled (Y/N)",
+        "Observation-clock audit (EndoClock regime)"
+      ]
+    },
+    "E13": {
+      "kb_section": "§13.1",
+      "principle": "Human / expert evaluation",
+      "columns": [
+        "E13 Human/SME Evaluation",
+        "Number of SMEs"
+      ]
+    },
+    "E14": {
+      "kb_section": "§13.1",
+      "principle": "Efficiency",
+      "columns": [
+        "Inference latency / real-time capability",
+        "E14 Efficiency / sample efficiency"
+      ]
+    },
+    "E15": {
+      "kb_section": "§13.1",
+      "principle": "Clinical utility",
+      "columns": [
+        "E15 Clinical utility outcome"
+      ]
+    },
+    "FM1": {
+      "kb_section": "§13.2",
+      "principle": "Compounding rollout drift",
+      "columns": [
+        "Multi-step training loss (Y/N)",
+        "Compounding error measured (Y/N)",
+        "Failures Observed (if none observed type N/A)"
+      ]
+    },
+    "FM2": {
+      "kb_section": "§13.2",
+      "principle": "Planner exploitation",
+      "columns": [
+        "Model-exploitation tested (Y/N)",
+        "Failures Observed (if none observed type N/A)"
+      ]
+    },
+    "FM3": {
+      "kb_section": "§13.2",
+      "principle": "Sim-to-real mismatch",
+      "columns": [
+        "OOD / shift detection",
+        "E10 Sim-to-real agreement",
+        "Failures Observed (if none observed type N/A)"
+      ]
+    },
+    "FM4": {
+      "kb_section": "§13.2",
+      "principle": "Missing modalities / partial observability",
+      "columns": [
+        "Missing-modality / missing-data handling",
+        "Failures Observed (if none observed type N/A)"
+      ]
+    },
+    "FM5": {
+      "kb_section": "§13.2",
+      "principle": "Weak grounding of actions",
+      "columns": [
+        "Action grounding",
+        "Failures Observed (if none observed type N/A)"
+      ]
+    },
+    "FM6": {
+      "kb_section": "§13.2",
+      "principle": "Intuitive-physics failure",
+      "columns": [
+        "Failures Observed (if none observed type N/A)"
+      ]
+    },
+    "FM7": {
+      "kb_section": "§13.2",
+      "principle": "Confounding-reversed effects",
+      "columns": [
+        "Failures Observed (if none observed type N/A)"
+      ]
+    },
+    "FM8": {
+      "kb_section": "§13.2",
+      "principle": "Unsupported action edits (bundles)",
+      "columns": [
+        "Treatment bundles handled (Y/N)",
+        "Failures Observed (if none observed type N/A)"
+      ]
+    },
+    "FM9": {
+      "kb_section": "§13.2",
+      "principle": "Grid erases event (observation clock)",
+      "columns": [
+        "Observation process modelled (Y/N)",
+        "Observation-clock audit (EndoClock regime)",
+        "Failures Observed (if none observed type N/A)"
+      ]
+    },
+    "FM10": {
+      "kb_section": "§13.2",
+      "principle": "Population-average masquerading as personalisation",
+      "columns": [
+        "Personalisation audit (P³ / history swap)",
+        "Failures Observed (if none observed type N/A)"
+      ]
+    },
+    "FM11": {
+      "kb_section": "§13.2",
+      "principle": "LLM state inconsistency",
+      "columns": [
+        "State consistency mechanism",
+        "LLM role",
+        "Failures Observed (if none observed type N/A)"
+      ]
+    },
+    "FM12": {
+      "kb_section": "§13.2",
+      "principle": "Plausibility gap",
+      "columns": [
+        "Failures Observed (if none observed type N/A)"
+      ]
+    },
+    "FM13": {
+      "kb_section": "§13.2",
+      "principle": "Silent policy failure",
+      "columns": [
+        "Failures Observed (if none observed type N/A)"
+      ]
+    },
+    "FM14": {
+      "kb_section": "§13.2",
+      "principle": "Automation bias / over-trust",
+      "columns": [
+        "Failures Observed (if none observed type N/A)",
+        "Automation-bias / trust mitigation"
+      ]
+    },
+    "M1": {
+      "kb_section": "§19.1",
+      "principle": "Data adapters & provenance",
+      "columns": [
+        "Input Modality and Type of Data",
+        "Data source type",
+        "Data split strategy",
+        "Blueprint module(s) informed"
+      ]
+    },
+    "M2": {
+      "kb_section": "§19.1",
+      "principle": "Encoders",
+      "columns": [
+        "Encoder architecture",
+        "Pretrained / foundation encoder used",
+        "Encoder pretraining objective",
+        "Multimodal fusion strategy",
+        "Blueprint module(s) informed"
+      ]
+    },
+    "M3": {
+      "kb_section": "§19.1",
+      "principle": "Belief-state service",
+      "columns": [
+        "Complete perception–dynamics–planning loop (Y/N)",
+        "Belief / filtering mechanism",
+        "Blueprint module(s) informed"
+      ]
+    },
+    "M4": {
+      "kb_section": "§19.1",
+      "principle": "Action service",
+      "columns": [
+        "Action type",
+        "Action representation",
+        "Action attributes specified",
+        "Action constraints / contraindications",
+        "Positivity / action-support check (Y/N)",
+        "Blueprint module(s) informed"
+      ]
+    },
+    "M5": {
+      "kb_section": "§19.1",
+      "principle": "Dynamics adapter (pluggable)",
+      "columns": [
+        "Complete perception–dynamics–planning loop (Y/N)",
+        "Dynamics backbone",
+        "Multiple dynamics backends behind common contract (Y/N)",
+        "Blueprint module(s) informed"
+      ]
+    },
+    "M6": {
+      "kb_section": "§19.1",
+      "principle": "Rollout service",
+      "columns": [
+        "Rollout mode",
+        "Effective / validated horizon",
+        "Blueprint module(s) informed"
+      ]
+    },
+    "M7": {
+      "kb_section": "§19.1",
+      "principle": "Outcome & causal layer",
+      "columns": [
+        "Positivity / action-support check (Y/N)",
+        "Blueprint module(s) informed"
+      ]
+    },
+    "M8": {
+      "kb_section": "§19.1",
+      "principle": "Planner (replaceable)",
+      "columns": [
+        "Complete perception–dynamics–planning loop (Y/N)",
+        "Planning",
+        "Objective / utility & constraints",
+        "Blueprint module(s) informed"
+      ]
+    },
+    "M9": {
+      "kb_section": "§19.1",
+      "principle": "Safety & governance layer",
+      "columns": [
+        "Action constraints / contraindications",
+        "Abstention / deferral (Y/N)",
+        "Autonomy Level",
+        "Human Escalation Available",
+        "Safety mechanisms",
+        "Blueprint module(s) informed"
+      ]
+    },
+    "M10": {
+      "kb_section": "§19.1",
+      "principle": "Clinician interface & lifecycle",
+      "columns": [
+        "Human Escalation Available",
+        "Lifecycle / monitoring plan",
+        "Blueprint module(s) informed"
+      ]
+    },
+    "C1": {
+      "kb_section": "§16.3",
+      "principle": "Reusable state, typed readouts",
+      "columns": [
+        "Unified / reusable state across tasks (Y/N)",
+        "Task readout heads",
+        "Blueprint lesson (reuse for our architecture)"
+      ]
+    },
+    "C2": {
+      "kb_section": "§16.3",
+      "principle": "Observation process is part of the model",
+      "columns": [
+        "Missing-modality / missing-data handling",
+        "Observation process modelled (Y/N)",
+        "Blueprint lesson (reuse for our architecture)"
+      ]
+    },
+    "C3": {
+      "kb_section": "§16.3",
+      "principle": "Typed, bundle-aware action vocabulary",
+      "columns": [
+        "Action type",
+        "Action attributes specified",
+        "Treatment bundles handled (Y/N)",
+        "Observation-changing vs physiology-changing actions separated (Y/N)",
+        "Blueprint lesson (reuse for our architecture)"
+      ]
+    },
+    "C4": {
+      "kb_section": "§16.3",
+      "principle": "Action conditioning ≠ causal identification",
+      "columns": [
+        "Causal method",
+        "Identification assumptions stated",
+        "Blueprint lesson (reuse for our architecture)"
+      ]
+    },
+    "C5": {
+      "kb_section": "§16.3",
+      "principle": "Multiple dynamics backends behind a common contract",
+      "columns": [
+        "Multiple dynamics backends behind common contract (Y/N)",
+        "Blueprint lesson (reuse for our architecture)"
+      ]
+    },
+    "C6": {
+      "kb_section": "§16.3",
+      "principle": "Replaceable planner",
+      "columns": [
+        "Planning",
+        "Dynamics decoupled from objective (Y/N)",
+        "Blueprint lesson (reuse for our architecture)"
+      ]
+    },
+    "C7": {
+      "kb_section": "§16.3",
+      "principle": "Validate against the decision, not the image",
+      "columns": [
+        "E9 Downstream decision quality",
+        "E10 Sim-to-real agreement",
+        "Blueprint lesson (reuse for our architecture)"
+      ]
+    },
+    "C8": {
+      "kb_section": "§16.3",
+      "principle": "Personalisation must be demonstrated",
+      "columns": [
+        "Personalisation audit (P³ / history swap)",
+        "Blueprint lesson (reuse for our architecture)"
+      ]
+    },
+    "C9": {
+      "kb_section": "§16.3",
+      "principle": "LLMs need trajectory grounding or a coupled simulator",
+      "columns": [
+        "LLM role",
+        "Blueprint lesson (reuse for our architecture)"
+      ]
+    },
+    "C10": {
+      "kb_section": "§16.3",
+      "principle": "Hybrid mechanistic–learned dynamics",
+      "columns": [
+        "Structural / mechanistic priors",
+        "Blueprint lesson (reuse for our architecture)"
+      ]
+    },
+    "C11": {
+      "kb_section": "§16.3",
+      "principle": "Latent prediction beats reconstruction for decision state",
+      "columns": [
+        "Encoder pretraining objective",
+        "Training objective(s)",
+        "Blueprint lesson (reuse for our architecture)"
+      ]
+    },
+    "C12": {
+      "kb_section": "§16.3",
+      "principle": "Real-time requires distillation / causal students",
+      "columns": [
+        "Inference latency / real-time capability",
+        "Inference latency / real-time capability",
+        "Blueprint lesson (reuse for our architecture)"
+      ]
+    },
+    "C13": {
+      "kb_section": "§16.3",
+      "principle": "Scaling works but conditional tests matter",
+      "columns": [
+        "Self-supervised pretraining scale",
+        "E3 Distributional realism metrics",
+        "Blueprint lesson (reuse for our architecture)"
+      ]
+    },
+    "CL": {
+      "kb_section": "§15.1",
+      "principle": "Capability ladder L0–L4",
+      "columns": [
+        "Capability level (L0–L4)",
+        "Capability level claimed by authors",
+        "Causal claim level"
+      ]
+    },
+    "ES": {
+      "kb_section": "§15.2",
+      "principle": "Evidence / readiness ladder R0–R8",
+      "columns": [
+        "Prospective or Retrospective dataset",
+        "Clinical Readiness Stage",
+        "ML Technology Readiness Level"
+      ]
+    },
+    "CP": {
+      "kb_section": "§15.3",
+      "principle": "Composition patterns",
+      "columns": [
+        "Composition pattern"
+      ]
+    },
+    "FAM": {
+      "kb_section": "§7; §16.1",
+      "principle": "General and healthcare WM families",
+      "columns": [
+        "World-model family",
+        "General WM paradigm"
+      ]
+    },
+    "REG": {
+      "kb_section": "§18.3",
+      "principle": "Regulatory, reporting and ethics frameworks",
+      "columns": [
+        "If they followed any Regulatory Frameworks, (such as HIPAA, EU AI Act etc) name them all",
+        "Ethics / IRB approval",
+        "Intended-use statement (Y/N)"
+      ]
+    },
+    "SEC": {
+      "kb_section": "§18.1",
+      "principle": "WM-specific security risks",
+      "columns": [
+        "Security / adversarial considerations"
+      ]
+    },
+    "GAP": {
+      "kb_section": "§20",
+      "principle": "Open problems and research gaps",
+      "columns": [
+        "Research Gap Claimed by Authors",
+        "Maps to open problem(s)"
+      ]
+    }
+  },
+  "controlled_vocabularies": {
+    "YesNo": [
+      "Yes",
+      "No",
+      "Partial",
+      "Not reported",
+      "Not applicable"
+    ],
+    "PaperType": [
+      "Primary method – new model",
+      "Primary method – application/adaptation of existing WM",
+      "Evaluation / audit / benchmark",
+      "Dataset / resource",
+      "Survey / review",
+      "Perspective / position",
+      "Conceptual framework (no implementation)",
+      "Out of scope – static prediction",
+      "Out of scope – non-healthcare",
+      "Other"
+    ],
+    "Folder": [
+      "Papers (numbered 001–099)",
+      "Papers/Expanded_Collection (B)",
+      "Papers/Recommended_Additions (A)",
+      "Linked only (no local PDF)",
+      "New (not yet in folder)"
+    ],
+    "PubStatus": [
+      "Peer-reviewed journal",
+      "Peer-reviewed conference",
+      "Workshop paper",
+      "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+      "Book chapter",
+      "Thesis",
+      "Other"
+    ],
+    "Inclusion": [
+      "Include – core world model",
+      "Include – component / supporting",
+      "Include – survey / background",
+      "Exclude",
+      "Pending"
+    ],
+    "ExclusionReason": [
+      "Not healthcare",
+      "Static prediction – no state evolution",
+      "No learned or hybrid dynamics",
+      "Representation only – no temporal/action evaluation",
+      "Duplicate / overlapping study",
+      "Not a research paper",
+      "Full text unavailable",
+      "Out of scope – other",
+      "Not applicable (included)"
+    ],
+    "Scale": [
+      "Molecular / cellular",
+      "Tissue / organ",
+      "Whole-patient physiology",
+      "Patient clinical trajectory (EHR)",
+      "Procedure / scene (surgery, acquisition)",
+      "Clinician / expert behaviour",
+      "Health system / operations",
+      "Population / public health",
+      "Multi-scale"
+    ],
+    "CareSetting": [
+      "ICU / critical care",
+      "Emergency / prehospital / triage",
+      "Inpatient ward",
+      "Outpatient / chronic care",
+      "Operating room / interventional suite",
+      "Imaging department",
+      "Home / wearable / remote",
+      "Clinical trial / drug development",
+      "Public health",
+      "Mixed / other"
+    ],
+    "Domain": [
+      "Oncology",
+      "Cardiology / cardiovascular",
+      "Neurology / neuro-oncology",
+      "Critical care / sepsis",
+      "Pulmonology / respiratory",
+      "Nephrology",
+      "Endocrinology / diabetes",
+      "Hepatology / gastroenterology",
+      "Ophthalmology",
+      "Radiology (multi-disease)",
+      "Surgery (general / robotic)",
+      "Interventional / endovascular",
+      "Psychiatry / mental health",
+      "Infectious disease",
+      "Pharmacology / dosing",
+      "Genomics / precision medicine",
+      "Public health / epidemiology",
+      "Musculoskeletal / rehabilitation",
+      "Multi-specialty / general medicine",
+      "Other"
+    ],
+    "Task": [
+      "Disease progression forecasting",
+      "Treatment-response simulation",
+      "Treatment recommendation / planning",
+      "Dosing optimisation",
+      "Patient trajectory / event generation",
+      "Synthetic data generation",
+      "Representation learning / diagnosis",
+      "Image acquisition guidance",
+      "Surgical simulation / video generation",
+      "Robotic control / navigation",
+      "Policy evaluation / failure detection",
+      "Registration / state estimation",
+      "Operational / resource planning",
+      "Population policy simulation",
+      "Evaluation / audit methodology",
+      "Other"
+    ],
+    "SelfLabel": [
+      "World model",
+      "Digital twin",
+      "Simulator",
+      "Counterfactual / causal model",
+      "Generative model",
+      "Foundation model",
+      "Model-based RL",
+      "World-action model (WAM)",
+      "Other",
+      "None"
+    ],
+    "Family": [
+      "F1 Representation / anatomical state",
+      "F2 EHR / ICU event & latent patient dynamics",
+      "F3 Longitudinal imaging & treatment response",
+      "F4 Physiological signals & interventions",
+      "F5 Mechanistic / hybrid digital twin",
+      "F6 Causal patient trajectories",
+      "F7 Acquisition / ultrasound guidance",
+      "F8 Surgical simulation & world-action models",
+      "F9 Endovascular control",
+      "F10 Ophthalmic & neuro dynamics",
+      "F11 Population & health-system",
+      "F12 WM-coupled agents & policies",
+      "F13 Verification, semantics & audits",
+      "F14 Survey / taxonomy",
+      "Not a world model"
+    ],
+    "CapLevel": [
+      "L0 State representation only",
+      "L1 Temporal prediction",
+      "L2 Action-conditioned prediction",
+      "L3 Counterfactual comparison",
+      "L4 Planning / control",
+      "Not a world model"
+    ],
+    "Evidence": [
+      "R0 Concept / position",
+      "R1 Technical feasibility (synthetic/simulated)",
+      "R2 Retrospective internal validation",
+      "R3 Retrospective external / multi-site validation",
+      "R4 Expert / reader evaluation",
+      "R5 Prospective silent / shadow mode",
+      "R6 Prospective interventional / feasibility",
+      "R7 Randomised / comparative effectiveness",
+      "R8 Regulated deployment & post-market monitoring"
+    ],
+    "Composition": [
+      "Single model (no composition)",
+      "Serial pipeline",
+      "Shared state-space",
+      "Closed-loop simulator",
+      "Patient → system composition",
+      "Not applicable"
+    ],
+    "Paradigm": [
+      "Predictive-latent (JEPA-style)",
+      "Latent generative (VAE / RSSM)",
+      "Pixel/voxel generative (diffusion / flow / video)",
+      "Event/token autoregressive",
+      "Mechanistic / physics-based",
+      "Hybrid mechanistic–learned",
+      "Value-equivalent (MuZero-style)",
+      "Neuro-symbolic",
+      "Probabilistic graphical / Bayesian",
+      "LLM-as-world-model",
+      "Other"
+    ],
+    "StateType": [
+      "Continuous latent vector",
+      "Deterministic + stochastic latent (RSSM-style)",
+      "Discrete codes / tokens",
+      "Object-centric slots",
+      "Scene graph / structured symbolic",
+      "Explicit physiological variables",
+      "Image / voxel space",
+      "Event-token sequence",
+      "Belief distribution / posterior",
+      "Hybrid",
+      "Not reported"
+    ],
+    "Uncertainty": [
+      "Deterministic (none)",
+      "Stochastic latent",
+      "Ensemble",
+      "Bayesian / posterior",
+      "MC dropout",
+      "Generative sampling (diffusion / flow)",
+      "Conformal",
+      "Gaussian process",
+      "Multiple methods",
+      "Not reported"
+    ],
+    "Backbone": [
+      "RNN / GRU / LSTM",
+      "RSSM",
+      "Transformer (autoregressive)",
+      "State-space model (S4 / S5 / Mamba)",
+      "Diffusion",
+      "Flow matching",
+      "Neural ODE / CDE",
+      "Neural SDE",
+      "Mechanistic ODE / PDE",
+      "Hybrid mechanistic + neural",
+      "Markov / CTMC / HMM",
+      "Gaussian process",
+      "LLM",
+      "Neural operator",
+      "Linear / linearised predictor",
+      "Mixture-of-experts / transformers",
+      "Bayesian network",
+      "Other"
+    ],
+    "TimeRep": [
+      "Fixed discrete steps",
+      "Visit / event index",
+      "Irregular timestamps (Δt as input)",
+      "Continuous time (ODE / SDE / flow)",
+      "Multi-timescale / hierarchical",
+      "Not reported"
+    ],
+    "ActionType": [
+      "None (no actions)",
+      "Pharmacological treatment / dose",
+      "Procedure / surgery",
+      "Radiotherapy",
+      "Ventilation / organ support",
+      "Acquisition / probe motion",
+      "Surgical instrument / robot command",
+      "Endovascular device motion",
+      "Behavioural / lifestyle",
+      "Operational / resource",
+      "Population policy",
+      "Information request / inquiry",
+      "Communication (text)",
+      "Learned latent action",
+      "Mixed"
+    ],
+    "ActionRep": [
+      "Discrete token / category",
+      "Continuous vector (dose / rate)",
+      "Text / language",
+      "Trajectory / pose / skeleton",
+      "Learned latent action",
+      "Treatment bundle",
+      "Schedule (timing + dose + duration)",
+      "Not applicable"
+    ],
+    "Memory": [
+      "None (Markov)",
+      "Recurrent hidden state",
+      "Attention context window",
+      "Ordered state–action history",
+      "Explicit memory module",
+      "Retrieval memory",
+      "Graph memory",
+      "Not reported"
+    ],
+    "Planner": [
+      "None",
+      "Clinician-supplied candidate comparison",
+      "Proposal + simulation + scoring pipeline",
+      "Sampling MPC (CEM / MPPI / shooting)",
+      "TD-MPC / TD-MPC2",
+      "Tree search (MCTS)",
+      "Gradient-based planning",
+      "Imagined policy learning (actor–critic / Dreamer)",
+      "Offline model-based RL (uncertainty-penalised)",
+      "RL on simulated MDP (DQN etc.)",
+      "LLM agent loop (propose–simulate–refine)",
+      "Retrieval-based planning",
+      "Classical optimisation (GA / constrained)",
+      "Other"
+    ],
+    "Rollout": [
+      "No rollout",
+      "One-step only",
+      "Open-loop multi-step",
+      "Closed-loop with re-assimilation",
+      "Teacher-forced only",
+      "Not reported"
+    ],
+    "CausalClaim": [
+      "None (predictive only)",
+      "Associational action-conditioning",
+      "Interventional with stated assumptions",
+      "Counterfactual with identification strategy",
+      "Mechanistic causal (physics / pharmacology)",
+      "Not reported"
+    ],
+    "CausalMethod": [
+      "None",
+      "g-computation",
+      "IPTW / MSM",
+      "Balancing representations",
+      "Target-trial emulation",
+      "Sign / mechanistic constraints",
+      "SCM / causal representation learning",
+      "Supported-regimen restriction",
+      "Multiple",
+      "Other"
+    ],
+    "DataSource": [
+      "Hospital EHR",
+      "ICU database",
+      "Imaging archive / registry",
+      "Clinical trial",
+      "Cohort study / biobank",
+      "Wearable / consumer device",
+      "Surgical video dataset",
+      "Robotic platform recordings",
+      "Physics / mechanistic simulator",
+      "Synthetic (generated)",
+      "Public health / aggregate",
+      "Multiple"
+    ],
+    "SimReal": [
+      "Real-world data",
+      "Simulation only",
+      "Both",
+      "Not applicable"
+    ],
+    "ProspRetro": [
+      "Retrospective",
+      "Prospective",
+      "Both",
+      "Not applicable"
+    ],
+    "Split": [
+      "Random record split",
+      "Patient-level split",
+      "Site / hospital-level split",
+      "Temporal split",
+      "External cohort",
+      "Multiple",
+      "Not reported"
+    ],
+    "LLMRole": [
+      "None",
+      "Encoder",
+      "Simulator / world model",
+      "Agent / planner",
+      "Model or equation discovery",
+      "Treatment proposal generator",
+      "Report / explanation",
+      "Other"
+    ],
+    "AgentArch": [
+      "Single agent",
+      "Multi-agent",
+      "Not applicable"
+    ],
+    "Autonomy": [
+      "A0 Offline analysis (no autonomy)",
+      "A1 Information / assistive",
+      "A2 Recommendation – clinician decides",
+      "A3 Conditional automation – human supervises",
+      "A4 High automation – human on call",
+      "A5 Full autonomy",
+      "Not applicable"
+    ],
+    "ActionCategory": [
+      "Clinical",
+      "Administrative / operational",
+      "Both",
+      "None"
+    ],
+    "Code": [
+      "Yes – public repository",
+      "Yes – on request",
+      "Announced, not yet released",
+      "No",
+      "Not reported"
+    ],
+    "DataPublic": [
+      "Public open",
+      "Public with credentialed access (DUA)",
+      "Available on request",
+      "Private / proprietary",
+      "Mixed",
+      "Not reported"
+    ],
+    "License": [
+      "Open-source (permissive)",
+      "Open-source (copyleft)",
+      "Non-commercial / research only",
+      "Proprietary",
+      "Not reported"
+    ],
+    "OpenClosed": [
+      "Open weights",
+      "Closed / proprietary",
+      "Mixed",
+      "Not reported",
+      "Not applicable"
+    ],
+    "Personalisation": [
+      "Population-level only",
+      "Conditioning on patient history",
+      "Patient-specific parameter fitting",
+      "Online assimilation / updating",
+      "Per-patient fine-tuning",
+      "Not reported"
+    ],
+    "Confidence": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "DAScore": [
+      "0 – absent",
+      "1 – minimal",
+      "2 – moderate",
+      "3 – strong",
+      "Not assessable"
+    ]
+  }
+}

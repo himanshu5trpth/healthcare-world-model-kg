@@ -1,0 +1,2748 @@
+{
+  "record_id": "annotation:B029:r1",
+  "paper_record_id": "B029",
+  "paper_version_id": "paper-version:B029:sha256-af923f68e0b7",
+  "annotation_status": "reviewed",
+  "model_version_ids": [
+    "model:B029:ehr-wm:v1"
+  ],
+  "system_composition_ids": [
+    "system:B029:ehr-wm-forecast"
+  ],
+  "world_type_ids": [
+    "WT_EHR"
+  ],
+  "profile_ids": [
+    "BP_COMPARE"
+  ],
+  "entities": [
+    {
+      "id": "paper:B029",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "B029",
+        "title": "Forecasting Patient Trajectories from the Electronic Health Records with Action-Conditioned World Models",
+        "canonical_url": "https://arxiv.org/abs/2610.23862",
+        "contribution_type": "Primary method – new model",
+        "membership": {
+          "legacy_value": "Include – core world model",
+          "legacy_status": "confirmed_world_model",
+          "primary_source_core_identity": "present",
+          "reason": "Implements EHR-WM, an action-conditioned state-dependent linearization latent world model over 6-hour discretized MIMIC-IV trajectories with decoded observation forecasting and matched-initial-state action perturbation.",
+          "counting_boundary": "Verified L2 action-conditioned world model (WT_EHR); Figure 5 MPC perturbation is exploratory action-sensitivity evidence without specified regimens or MPC formulation."
+        }
+      },
+      "provenance_evidence_ids": [
+        "evidence:B029:0001",
+        "evidence:B029:0003"
+      ]
+    },
+    {
+      "id": "paper-version:B029:sha256-af923f68e0b7",
+      "class_id": "PaperVersion",
+      "properties": {
+        "arxiv_identifier": "2610.23862v1",
+        "year": "2026",
+        "physical_pdf_pages": 46,
+        "source_path": "Papers/Expanded_Collection/B029_Forecasting_Patient_Trajectories_from_the_Electronic_Health_Records_with_Action_Conditioned_World_Models.pdf",
+        "sha256": "af923f68e0b75fe18617735f50ae3403661ae55cf3fe0e19162ae4a1b59348a2"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B029:0001"
+      ]
+    },
+    {
+      "id": "model:B029:ehr-wm:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "backbone": "Feedforward state encoder f_phi (D=128) + state-dependent linearization predictor F_theta(z_t, a_t) + SIGReg + curriculum teacher forcing (4.39M params)"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B029:0003",
+        "evidence:B029:0004",
+        "evidence:B029:0005"
+      ]
+    },
+    {
+      "id": "system:B029:ehr-wm-forecast",
+      "class_id": "SystemComposition",
+      "properties": {
+        "flow": "6h binned EHR (x_t, mask_t, a_t) -> encoder f_phi -> z_t -> second-order linearization rollout z_hat_{t+1} = z_t + F_theta(z_t, a_t) Delta z_t -> linear probes & observation decoder"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B029:0003",
+        "evidence:B029:0005"
+      ]
+    },
+    {
+      "id": "use:B029:icu-trajectory-forecasting",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "purpose": "Multi-step ICU patient trajectory forecasting, downstream risk prediction, and action-conditioned trajectory exploration.",
+        "environment": "Retrospective single-center ICU EHR (MIMIC-IV MEDS)"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B029:0002",
+        "evidence:B029:0007"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:B029:001",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "data.provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:002",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:003",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:004",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Two-channel encoding pairs z-score normalized values with explicit binary observation masks."
+    },
+    {
+      "id": "assertion:B029:005",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:006",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:007",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:008",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:009",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:010",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Patient-disjoint train/val/test splits; normalization and top-k selection computed on training split only."
+    },
+    {
+      "id": "assertion:B029:011",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:012",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Feedforward projection encoder f_phi maps x_t to D=128 latent state z_t."
+    },
+    {
+      "id": "assertion:B029:013",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:014",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Multi-step latent prediction loss L_pred between rollout z_hat_{t+j} and encoder target z_{t+j}."
+    },
+    {
+      "id": "assertion:B029:015",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0004",
+        "evidence:B029:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "SIGReg isotropic Gaussian regularization prevents representation collapse (validated in Fig. 6 ablation)."
+    },
+    {
+      "id": "assertion:B029:016",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:017",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:018",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:019",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0003",
+        "evidence:B029:0011"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Augmented latent state (z_t, Delta z_t) propagated across 6-hour clinical timesteps."
+    },
+    {
+      "id": "assertion:B029:020",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:021",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:022",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:023",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:024",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "state.reusable",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Shared latent rollout states evaluated across 10 binary classification and time-to-event tasks via linear probes."
+    },
+    {
+      "id": "assertion:B029:025",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:026",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:027",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:028",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:029",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:030",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Second-order recurrence uses (z_t, z_{t-1}) via Delta z_t = z_t - z_{t-1}."
+    },
+    {
+      "id": "assertion:B029:031",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "action.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0003",
+        "evidence:B029:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Explicit binary medication administration vector a_t in {0, 1}^{d_a} per 6-hour window."
+    },
+    {
+      "id": "assertion:B029:032",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Medication treatment actions separated from physiological state variables."
+    },
+    {
+      "id": "assertion:B029:033",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "action.parameterized",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:034",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:035",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:036",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:037",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:038",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:039",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "action.comparison",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0006",
+        "evidence:B029:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Figure 5 (p. 11) illustrates action sensitivity by comparing observed vs MPC-perturbed readmission risk curves from matched initial states, but does not specify named clinical alternative actions, sample size N, or the MPC optimization setup referenced for Appendix D.4.",
+      "criteria_met": [
+        "Figure 5 (p. 11) compares predicted 30-day readmission risk trajectories from matched initial latent states under observed treatment (mu=0.59) vs an MPC-perturbed alternative action sequence (mu=0.53)"
+      ],
+      "criteria_missing": [
+        "Cohort sample size N and named specific clinical alternative action regimens",
+        "Explicit MPC objective, control horizon, and optimization setup (promised on p. 12 for Appendix D.4, but omitted from Appendix D.4 on p. 22)"
+      ]
+    },
+    {
+      "id": "assertion:B029:040",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:041",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0003",
+        "evidence:B029:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Discrete-time (Delta=6h) latent transition dynamics."
+    },
+    {
+      "id": "assertion:B029:042",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0003",
+        "evidence:B029:0011"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Learned state- and action-dependent linearization operator F_theta(z_t, a_t)."
+    },
+    {
+      "id": "assertion:B029:043",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0010",
+        "evidence:B029:0011",
+        "evidence:B029:0006",
+        "evidence:B029:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Action-conditioned state-dependent linearization F_theta(z_t, a_t) is quantitatively ablated in Figure 6 (p. 12: removing action conditioning drops ICU Admission AUROC from 0.891 to 0.801 and Long LOS from 0.768 to 0.706) and tested for action sensitivity in Figure 5 (p. 11)."
+    },
+    {
+      "id": "assertion:B029:044",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:045",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:046",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:047",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:048",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:049",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Multi-step rollout loss summed over horizons j=1..k with curriculum annealing."
+    },
+    {
+      "id": "assertion:B029:050",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:051",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0005",
+        "evidence:B029:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Decodes free-running latent rollouts back into 79 continuous clinical variables."
+    },
+    {
+      "id": "assertion:B029:052",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Linear probes for 10 binary classification and time-to-event clinical outcomes."
+    },
+    {
+      "id": "assertion:B029:053",
+      "subject_id": "system:B029:ehr-wm-forecast",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Evaluated at short and multi-step horizons in both latent and decoded feature spaces."
+    },
+    {
+      "id": "assertion:B029:054",
+      "subject_id": "system:B029:ehr-wm-forecast",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0005",
+        "evidence:B029:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Free-running multi-step rollouts evaluated up to 24-48h (Figs. 4, 22, 23) and paired Oracle vs Rollout in Table 1."
+    },
+    {
+      "id": "assertion:B029:055",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Stochastic curriculum mixing encoder latent z_t (prob rho) and predicted z_hat_t (prob 1-rho) during training."
+    },
+    {
+      "id": "assertion:B029:056",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:057",
+      "subject_id": "system:B029:ehr-wm-forecast",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Evaluated up to 24-48h horizon (8 steps of 6h)."
+    },
+    {
+      "id": "assertion:B029:058",
+      "subject_id": "system:B029:ehr-wm-forecast",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0005",
+        "evidence:B029:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Evaluates R2/MAE across increasing forecast horizons (0-48h) and Oracle vs Rollout gap (Table 1)."
+    },
+    {
+      "id": "assertion:B029:059",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:060",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:061",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:062",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "planning.model_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:063",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:064",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:065",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:066",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:067",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:068",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:069",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:070",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:071",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "uq.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:072",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:073",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:074",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:075",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:076",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:077",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:078",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:079",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:080",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:081",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:082",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:083",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:084",
+      "subject_id": "system:B029:ehr-wm-forecast",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Paper explicitly states (p. 12) that observational action-conditioned rollouts do not identify causal treatment effects."
+    },
+    {
+      "id": "assertion:B029:085",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:086",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:087",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:088",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:089",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:090",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:091",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:092",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:093",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:094",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:095",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:096",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Explicitly scoped to ICU trajectory modeling on MIMIC-IV."
+    },
+    {
+      "id": "assertion:B029:097",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:098",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:099",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:100",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:101",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:102",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:103",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "agent.role",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:104",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:105",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:106",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:107",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:108",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:109",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:110",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:111",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:112",
+      "subject_id": "system:B029:ehr-wm-forecast",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Short-horizon decoded forecasting and latent fidelity."
+    },
+    {
+      "id": "assertion:B029:113",
+      "subject_id": "system:B029:ehr-wm-forecast",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0005",
+        "evidence:B029:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Free-running multi-step rollouts evaluated up to 48h across 79 clinical variables."
+    },
+    {
+      "id": "assertion:B029:114",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:115",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:116",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:117",
+      "subject_id": "system:B029:ehr-wm-forecast",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0006",
+        "evidence:B029:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Action-conditioning ablation (Fig. 6) and matched-state action perturbation (Fig. 5)."
+    },
+    {
+      "id": "assertion:B029:118",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:119",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:120",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:121",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:122",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:123",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:124",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:125",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:126",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    },
+    {
+      "id": "assertion:B029:127",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Transition operates in D=128 latent space."
+    },
+    {
+      "id": "assertion:B029:128",
+      "subject_id": "model:B029:ehr-wm:v1",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B029:ehr-wm:v1",
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported or verified beyond inherited page notes."
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:B029:version",
+      "subject_id": "paper:B029",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:B029:sha256-af923f68e0b7",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "effective_date": "2026-08-16"
+      },
+      "evidence_ids": [
+        "evidence:B029:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:B029:0001",
+      "source_ref": "Papers/Expanded_Collection/B029_Forecasting_Patient_Trajectories_from_the_Electronic_Health_Records_with_Action_Conditioned_World_Models.pdf",
+      "source_version": "paper-version:B029:sha256-af923f68e0b7",
+      "source_hash": "af923f68e0b75fe18617735f50ae3403661ae55cf3fe0e19162ae4a1b59348a2",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Title and Abstract"
+      },
+      "content": "Rather than modeling clinical events solely through autoregressive token prediction, our framework explicitly separates patient states from observed clinical actions and learns their evolution through a state- and action-conditioned transition operator. At its core is a state-dependent linearization predictor that propagates local changes in latent patient state, enabling time-resolved prediction, multi-step rollout, and action-conditioned simulation.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B029:0002",
+      "source_ref": "Papers/Expanded_Collection/B029_Forecasting_Patient_Trajectories_from_the_Electronic_Health_Records_with_Action_Conditioned_World_Models.pdf",
+      "source_version": "paper-version:B029:sha256-af923f68e0b7",
+      "source_hash": "af923f68e0b75fe18617735f50ae3403661ae55cf3fe0e19162ae4a1b59348a2",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Section 3 Methods"
+      },
+      "content": "We construct longitudinal patient trajectories from MIMIC-IV (31) using the MEDS schema (5, 53) and partition patients into disjoint training, validation, and test cohorts. To prevent information leakage, all preprocessing statistics, including normalization parameters and feature frequencies, are computed on the training split and applied unchanged to validation and test1.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B029:0003",
+      "source_ref": "Papers/Expanded_Collection/B029_Forecasting_Patient_Trajectories_from_the_Electronic_Health_Records_with_Action_Conditioned_World_Models.pdf",
+      "source_version": "paper-version:B029:sha256-af923f68e0b7",
+      "source_hash": "af923f68e0b75fe18617735f50ae3403661ae55cf3fe0e19162ae4a1b59348a2",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section 3 and Section 3.1"
+      },
+      "content": "Each variable is then represented by a two-channel encoding consisting of its normalized value and a corresponding binary observation mask to encode missingness.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B029:0004",
+      "source_ref": "Papers/Expanded_Collection/B029_Forecasting_Patient_Trajectories_from_the_Electronic_Health_Records_with_Action_Conditioned_World_Models.pdf",
+      "source_version": "paper-version:B029:sha256-af923f68e0b7",
+      "source_hash": "af923f68e0b75fe18617735f50ae3403661ae55cf3fe0e19162ae4a1b59348a2",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Section 3.1 Latent predictive objective & Curriculum"
+      },
+      "content": "We therefore employ a curriculum over prediction horizon and input distribution, combining teacher forcing with a sliding-window training scheme (12, 36, 83).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B029:0005",
+      "source_ref": "Papers/Expanded_Collection/B029_Forecasting_Patient_Trajectories_from_the_Electronic_Health_Records_with_Action_Conditioned_World_Models.pdf",
+      "source_version": "paper-version:B029:sha256-af923f68e0b7",
+      "source_hash": "af923f68e0b75fe18617735f50ae3403661ae55cf3fe0e19162ae4a1b59348a2",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "Table 1 and Figure 4 (visual inspection)"
+      },
+      "content": "[paraphrase (visual p.10)] Table 1 compares EHR-WM (4.39M params, Rollout and Oracle) against GBM/XGBoost, CLMBR (141M), MOTOR (143M), CoxPH, DeepHit (145k), and DeepSurv (133k) across 10 tasks (e.g., ICU Admission AUC 0.891±0.008 Rollout / 0.894±0.009 Oracle; Sepsis 0.786±0.012 / 0.782±0.013; 30-day Readmission C-Index 0.822±0.011 / 0.816±0.011). Section 4 text on p. 10 summarizes Figure 4 per-variable R2 and MAE across 79 continuous clinical variables over increasing forecast horizons against global mean, LOCF, ridge, GRU-D, Latent ODE, and Transformer baselines.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B029:0006",
+      "source_ref": "Papers/Expanded_Collection/B029_Forecasting_Patient_Trajectories_from_the_Electronic_Health_Records_with_Action_Conditioned_World_Models.pdf",
+      "source_version": "paper-version:B029:sha256-af923f68e0b7",
+      "source_hash": "af923f68e0b75fe18617735f50ae3403661ae55cf3fe0e19162ae4a1b59348a2",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 11,
+        "section_or_table": "Figure 5 Intervention-Conditioned Simulation"
+      },
+      "content": "In Figure 5, we illustrate this behavior for 30-day readmission by comparing trajectories generated under the observed treatment sequence with trajectories generated under an alternative sequence selected using model predictive control (MPC) (29, 35, 56, 69). Both rollouts begin from the same latent patient state, such that differences in the resulting trajectories arise from changes to the action sequence supplied to the transition model.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B029:0007",
+      "source_ref": "Papers/Expanded_Collection/B029_Forecasting_Patient_Trajectories_from_the_Electronic_Health_Records_with_Action_Conditioned_World_Models.pdf",
+      "source_version": "paper-version:B029:sha256-af923f68e0b7",
+      "source_hash": "af923f68e0b75fe18617735f50ae3403661ae55cf3fe0e19162ae4a1b59348a2",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 12,
+        "section_or_table": "Section 4 Causal caveat and Figure 6 Ablation"
+      },
+      "content": "Importantly, these intervention-conditioned rollouts should not be interpreted as counterfactual or causal estimates of treatment effects. EHR-WM is trained on observational clinical data and does not identify the causal effect of an intervention from confounded treatment assignment.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B029:0008",
+      "source_ref": "Papers/Expanded_Collection/B029_Forecasting_Patient_Trajectories_from_the_Electronic_Health_Records_with_Action_Conditioned_World_Models.pdf",
+      "source_version": "paper-version:B029:sha256-af923f68e0b7",
+      "source_hash": "af923f68e0b75fe18617735f50ae3403661ae55cf3fe0e19162ae4a1b59348a2",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 45,
+        "section_or_table": "Figure 22 & Figure 23 (visual inspection, pp. 45-46)"
+      },
+      "content": "[paraphrase (visual p.45)] Figures 22 (p. 45) and 23 (p. 46) report per-feature R2 and MAE for decoded long-horizon rollouts in the 12-24h and 24-48h prediction windows across 79 clinical variables against G.Mean, LOCF, Ridge, GRU-D, L-ODE, and Transformer baselines.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B029:0009",
+      "source_ref": "Papers/Expanded_Collection/B029_Forecasting_Patient_Trajectories_from_the_Electronic_Health_Records_with_Action_Conditioned_World_Models.pdf",
+      "source_version": "paper-version:B029:sha256-af923f68e0b7",
+      "source_hash": "af923f68e0b75fe18617735f50ae3403661ae55cf3fe0e19162ae4a1b59348a2",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Section 3 Methods"
+      },
+      "content": "We impose a discrete-time structure by partitioning each patient timeline into fixed intervals of Δ= 6 hours (Experiment in Appendix Section G.3).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B029:0010",
+      "source_ref": "Papers/Expanded_Collection/B029_Forecasting_Patient_Trajectories_from_the_Electronic_Health_Records_with_Action_Conditioned_World_Models.pdf",
+      "source_version": "paper-version:B029:sha256-af923f68e0b7",
+      "source_hash": "af923f68e0b75fe18617735f50ae3403661ae55cf3fe0e19162ae4a1b59348a2",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section 3 State and action representation"
+      },
+      "content": "Observed medication administrations within each time window are modeled explicitly as a binary clinical action vector 𝑎𝑡∈{ 0, 1}𝑑𝑎.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B029:0011",
+      "source_ref": "Papers/Expanded_Collection/B029_Forecasting_Patient_Trajectories_from_the_Electronic_Health_Records_with_Action_Conditioned_World_Models.pdf",
+      "source_version": "paper-version:B029:sha256-af923f68e0b7",
+      "source_hash": "af923f68e0b75fe18617735f50ae3403661ae55cf3fe0e19162ae4a1b59348a2",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section 3.1 Controlled latent dynamics"
+      },
+      "content": "Let Δ𝑧𝑡 = 𝑧𝑡 − 𝑧𝑡−1. The next state is predicted as ˆ𝑧𝑡+1 = 𝑧𝑡 + 𝐹𝜃(𝑧𝑡, 𝑎𝑡)Δ𝑧𝑡, (3) which propagates the previous latent displacement through a state- and action-dependent linear map.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B029:0012",
+      "source_ref": "Papers/Expanded_Collection/B029_Forecasting_Patient_Trajectories_from_the_Electronic_Health_Records_with_Action_Conditioned_World_Models.pdf",
+      "source_version": "paper-version:B029:sha256-af923f68e0b7",
+      "source_hash": "af923f68e0b75fe18617735f50ae3403661ae55cf3fe0e19162ae4a1b59348a2",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Section 3.1 Latent predictive objective"
+      },
+      "content": "The full objective is L=L pred+𝜆 sigLSIGReg.(6)",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B029:0013",
+      "source_ref": "Papers/Expanded_Collection/B029_Forecasting_Patient_Trajectories_from_the_Electronic_Health_Records_with_Action_Conditioned_World_Models.pdf",
+      "source_version": "paper-version:B029:sha256-af923f68e0b7",
+      "source_hash": "af923f68e0b75fe18617735f50ae3403661ae55cf3fe0e19162ae4a1b59348a2",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Section 3.1 Curriculum learning"
+      },
+      "content": "We jointly increase the prediction horizon 𝑘 while annealing 𝜌, transitioning from fully teacher-\nforced one-step prediction to partially autoregressive multi-step rollouts.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B029:0014",
+      "source_ref": "Papers/Expanded_Collection/B029_Forecasting_Patient_Trajectories_from_the_Electronic_Health_Records_with_Action_Conditioned_World_Models.pdf",
+      "source_version": "paper-version:B029:sha256-af923f68e0b7",
+      "source_hash": "af923f68e0b75fe18617735f50ae3403661ae55cf3fe0e19162ae4a1b59348a2",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 12,
+        "section_or_table": "Figure 6 Ablation"
+      },
+      "content": "Model ICU Adm. Long LOS Sepsis Full Model 0.891 0.768 0.786 w/o Action Cond. 0.801 0.706 0.789",
+      "verification_status": "entailment_reviewed"
+    }
+  ],
+  "metric_results": [],
+  "capability_assessments": [
+    {
+      "subject_id": "model:B029:ehr-wm:v1",
+      "level": "L2",
+      "scope": {
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_assertion_ids": [
+        "assertion:B029:019",
+        "assertion:B029:031",
+        "assertion:B029:041",
+        "assertion:B029:042",
+        "assertion:B029:043",
+        "assertion:B029:053"
+      ],
+      "rationale": "Action-conditioned latent EHR world model with persistent augmented state (z_t, Delta z_t) and learned state-dependent linearization F_theta(z_t, a_t), evaluated on multi-step decoded clinical forecasting across 79 variables (0-48h, Figs. 4, 19-23), 10 downstream tasks (Table 1), and action-conditioning ablation (Fig. 6), supporting L2 (matching legacy_cells.Z). Downgraded from L3 because Figure 5 (p. 11) is an exploratory action-sensitivity plot comparing observed vs unspecified MPC-perturbed trajectories without reporting sample size N, named clinical alternative regimens, or the MPC optimization specification promised for Appendix D.4 (p. 22)."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "system:B029:ehr-wm-forecast",
+      "facets": [
+        "R2"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "intended_use_context_id": "use:B029:icu-trajectory-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B029:0002",
+        "evidence:B029:0005"
+      ],
+      "legacy_highest_label": "R2 Retrospective internal validation"
+    }
+  ],
+  "gate_assessments": [],
+  "limitations": [
+    "Restricted to single-center MIMIC-IV ICU cohort and top-k frequent variables.",
+    "Multiplicative transition rule z_hat_{t+1} = z_t + F_theta(z_t, a_t) Delta z_t has limited action response when Delta z_t ~ 0.",
+    "Observational action-conditioned rollouts do not establish causal treatment effects.",
+    "Figure 5 (p. 11) compares observed vs MPC-perturbed 30-day readmission trajectories without reporting sample size N, specific alternative medication sequences, or the MPC objective/horizon setup referenced for Appendix D.4 (p. 22)."
+  ],
+  "notes": "All 46 physical PDF pages read (1-44 inherited + 45-46 read directly); Figures 1, 22, 23 and Table 1 visually inspected.",
+  "legacy_cells": {
+    "A": "B029",
+    "B": "Forecasting Patient Trajectories from the Electronic Health Records with Action-Conditioned World Models",
+    "C": "Lee, Simon A., Sha, Jiahang Hank, Chung, Soomin, Akamatsu, Kai, Halperin, Eran, Chiang, Jeffrey N.",
+    "D": "2026",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://arxiv.org/abs/2610.23862",
+    "H": "Papers/Expanded_Collection (B)",
+    "I": "B029_Forecasting_Patient_Trajectories_from_the_Electronic_Health_Records_with_Action_Conditioned_World_Models.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not reported",
+    "N": "Multi-specialty / general medicine",
+    "O": "Acute myocardial infarction, lupus, hyperlipidemia, hypertension, celiac disease, pancreatic cancer, ICU admission, long length of stay, 30-day readmission, and sepsis are among the evaluated outcomes.",
+    "P": "ICU / critical care",
+    "Q": "Patient clinical trajectory (EHR)",
+    "R": "Patient trajectory / event generation",
+    "S": "Can a learned action-conditioned latent patient trajectory forecast future clinical measurements and preserve downstream predictive information under free-running rollout?",
+    "T": "Patients in MIMIC-IV longitudinal EHR trajectories, partitioned into training, validation, and test cohorts.",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "World model",
+    "X": "F2 EHR / ICU event & latent patient dynamics",
+    "Y": "Predictive-latent (JEPA-style)",
+    "Z": "L2 Action-conditioned prediction",
+    "AA": "L2 Action-conditioned prediction",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "Yes",
+    "AE": "Yes",
+    "AF": "Not reported",
+    "AG": "Not reported",
+    "AH": "Shared state-space",
+    "AI": "Structured EHR observations including vital signs, laboratory measurements, demographics, normalized values and observation masks, with binary medication-administration actions.",
+    "AJ": "Feedforward projection encoder: linear projection, LayerNorm, ReLU, dropout, and linear projection to a 128-dimensional latent state.",
+    "AK": "Not reported",
+    "AL": "Not reported",
+    "AM": "Not reported",
+    "AN": "Continuous variables are z-score normalized and represented with value and binary observation-mask channels. Unobserved normalized values are set to zero with mask zero.",
+    "AO": "No",
+    "AP": "Yes",
+    "AQ": "Temporal-discretization audit compared 3-, 6-, 9-, and 12-hour bins on downstream performance; the paper reports best results at 6 hours.",
+    "AR": "Continuous latent vector",
+    "AS": "128 dimensions",
+    "AT": "No filtering or belief update is described. Each observed x_t is encoded as z_t=f_phi(x_t); free-running forecasts then propagate predicted states.",
+    "AU": "Yes",
+    "AV": "Not reported",
+    "AW": "Conditioning on patient history",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Pharmacological treatment / dose",
+    "BC": "Discrete token / category",
+    "BD": "Binary medication-administration vector over medication codes. The paper does not specify dose, route, or duration attributes.",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "No",
+    "BH": "Not reported",
+    "BI": "EHR-WM",
+    "BJ": "Linear / linearised predictor",
+    "BK": "Fixed discrete steps",
+    "BL": "Fixed 6-hour bins; training sequences have length T=16.",
+    "BM": "No",
+    "BN": "The transition uses a state- and action-dependent local linearization of latent increments. Spectral normalization bounds the learned operator, and SIGReg regularizes latent geometry.",
+    "BO": "None (Markov)",
+    "BP": "Forecasts initialize from the first two observed timepoints; training sequences have length 16 at 6-hour resolution.",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Autoregressively generated latent states are decoded by a shared linear decoder into future continuous clinical-variable values.",
+    "BT": "Linear probes evaluate binary classification and time-to-event outcomes on latent states; a shared linear decoder predicts continuous clinical measurements.",
+    "BU": "Not reported",
+    "BV": "Multi-step latent prediction squared-error loss plus SIGReg: L = L_pred + lambda_sig L_SIGReg.",
+    "BW": "Yes",
+    "BX": "Not reported",
+    "BY": "4.39 million parameters",
+    "BZ": "Not reported",
+    "CA": "Training used one Apple MacBook Pro with Apple M4 chip and 48 GB unified memory using MPS; full-model training took roughly 13 hours.",
+    "CB": "Not reported",
+    "CC": "Open-loop multi-step",
+    "CD": "24–48 hours for the reported clinical-measurement forecasting windows.",
+    "CE": "Not reported",
+    "CF": "Yes",
+    "CG": "Not reported",
+    "CH": "Other",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Not reported",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Not reported",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "Associational action-conditioning",
+    "CU": "None",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "None",
+    "DA": "Not applicable",
+    "DB": "Not applicable",
+    "DC": "Not applicable",
+    "DD": "Not applicable",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "A0 Offline analysis (no autonomy)",
+    "DH": "Not reported",
+    "DI": "None",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Yes",
+    "DN": "MIMIC-IV",
+    "DO": "ICU database",
+    "DP": "Not reported",
+    "DQ": "Not reported",
+    "DR": "Not reported",
+    "DS": "Real-world data",
+    "DT": "Retrospective",
+    "DU": "Patient-level split",
+    "DV": "No",
+    "DW": "Yes",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Latent trajectory discriminator performance is reported near chance (AUROC approximately 0.5) for generated versus encoder-derived trajectories.",
+    "EA": "Not reported",
+    "EB": "Holding the initial latent patient state fixed, an alternative action sequence produced a distinct time-resolved readmission-risk trajectory from the observed-treatment sequence. This demonstrates action sensitivity, not causal treatment effect.",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "The model has 4.39M parameters versus 141M and 143M for the compared CLMBR and MOTOR models; the authors describe an approximately 30× smaller parameter footprint.",
+    "EH": "Not reported",
+    "EI": "Compared with global mean, LOCF, Ridge Regression, GRU-D, Latent ODE, Transformer, XGBoost, CLMBR, MOTOR, CoxPH, DeepHit, and DeepSurv. EHR-WM is competitive on some outcomes but task-dependent and weaker than specialized baselines on others.",
+    "EJ": "Not reported",
+    "EK": "Ablations remove action conditioning, teacher forcing, curriculum learning, and SIGReg. Removing action conditioning degrades selected tasks; omitting the stabilization components causes training collapse or unstable latent dynamics. Temporal-bin resolutions of 3, 6, 9, and 12 hours are also compared.",
+    "EL": "Removing teacher forcing, curriculum learning, or SIGReg caused training collapse or unstable rollout behavior in the reported ablations.",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Yes",
+    "ET": "R2 Retrospective internal validation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "1 – minimal",
+    "FD": "0 – absent",
+    "FE": "2 – moderate",
+    "FF": "1 – minimal",
+    "FG": "Yes",
+    "FH": "Yes",
+    "FI": "No",
+    "FJ": "Yes",
+    "FK": "Yes",
+    "FL": "A feedforward encoder maps each structured EHR observation to a 128-dimensional latent state. A neural predictor maps the current latent state and binary medication action to a state-dependent linear operator that propagates the prior latent increment. A shared linear decoder produces future continuous clinical measurements, and linear probes evaluate downstream outcomes. An MPC-referenced action-perturbation experiment compares simulated trajectories; no clinical execution loop is evaluated.",
+    "FM": "The authors introduce an action-conditioned latent dynamical model for structured EHR, using a state-dependent linearization predictor for incremental patient-state evolution. They evaluate latent trajectory fidelity, decoded clinical forecasting, downstream prediction, and sensitivity to changed medication-action sequences.",
+    "FN": "The paper reports 4.39M parameters for EHR-WM versus 141M and 143M for CLMBR and MOTOR. Forecasting is assessed across 79 continuous variables and 0–6, 6–12, 12–24, and 24–48-hour windows. Generated-versus-encoder latent discrimination is reported near AUROC 0.5; predictive performance varies by task.",
+    "FO": "The authors limit evaluation to MIMIC-IV, a single predominantly acute-care setting, and a restricted high-frequency feature set. The multiplicative transition may not produce action-driven displacement when the latent increment is near zero. Appropriate latent dimensionality remains unresolved.",
+    "FP": "The authors suggest external validation across institutions and longer-term populations, adding independent action-forcing terms or more flexible transition operators, and exploring adaptive, sparse, or hierarchical latent representations.",
+    "FQ": "The authors distinguish their approach from autoregressive EHR models by explicitly parameterizing the evolution of a time-indexed latent patient state under clinical actions, rather than modeling evolution implicitly through event-token prediction.",
+    "FR": "The experiments demonstrate latent and decoded forecasting and action sensitivity under observational treatment sequences. They do not identify causal treatment effects, establish counterfactual validity, show clinical benefit, or provide prospective or external validation.",
+    "FS": "Reviewer mapping: M3 Belief-state service; M4 Action service; M5 Dynamics adapter; M6 Rollout service; M7 Outcome & causal layer",
+    "FT": "Reviewer lesson: Pass the paper’s specified action and time context explicitly into the state-transition interface; preserve the boundary between predictive action sensitivity and identified intervention effects.",
+    "FU": "Reviewer mapping (KB §20): Weak interventional validation",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Complete 46-page extracted PDF text, pages 1–46, including title/abstract, introduction and related work, Methods §§3–3.1, main Results §§4–4.3, Discussion and limitations, Appendix dataset/task/architecture/training sections C–F, and extended-results sections G.1–G.9. Reviewed the text/captions for Tables 1–15 and Figures 1–23, including calibration and horizon results. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Low",
+    "FZ": "A:I are intentionally omitted from values and remain unchanged. Evidence is based on the complete local PDF text. Confidence is Medium because extracted table reading order is imperfect and Table 2 reports 29,871 test patients while Table 3 reports 29,971; the conflicting split count is not used. The action-sequence/MPC demonstration supports L2 action sensitivity only, not causal identification or clinical planning benefit. The supplied rubric refers to blueprint module IDs M1–M10 but does not define their mapping, so FS names the supported modules without IDs. Evidence QA: 61/92 populated fields had a <=25-word quotation matching extracted PDF text (66.3%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 77 prior populated fields have a located source quotation; 15 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  }
+}

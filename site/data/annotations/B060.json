@@ -1,0 +1,4323 @@
+{
+  "record_id": "annotation:B060:r1",
+  "paper_record_id": "B060",
+  "paper_version_id": "paper-version:B060:sha256-ca3d4b054276",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:B060:wam_pt",
+    "model:B060:wam_no_pt"
+  ],
+  "system_composition_ids": [
+    "system:B060:wam_pt",
+    "system:B060:wam_no_pt"
+  ],
+  "world_type_ids": [
+    "WT_PROCEDURE"
+  ],
+  "profile_ids": [
+    "BP_CONTROLLER"
+  ],
+  "entities": [
+    {
+      "id": "paper:B060",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "B060",
+        "title": "Surgical WAM: A World-Action Model for Data-Efficient Surgical Robot Learning",
+        "authors": [
+          "Wenrui Bao",
+          "Tianyun Jiang",
+          "Zhiben Chen",
+          "Ser-Nam Lim",
+          "Peter D. Peng",
+          "Yuzhang Shang"
+        ],
+        "canonical_url": "https://arxiv.org/abs/2608.11204",
+        "contribution_type": "Primary method – application/adaptation of existing WM",
+        "bibliographic_boundary": "Checked against supplied title-page text and earlier image-review notes, not an external bibliographic service."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B060:identity",
+        "evidence:B060:byline",
+        "evidence:B060:version"
+      ]
+    },
+    {
+      "id": "paper-version:B060:sha256-ca3d4b054276",
+      "class_id": "PaperVersion",
+      "properties": {
+        "version": "arXiv:2608.11204v1",
+        "version_date": "2026-08-11",
+        "publication_status": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+        "source_path": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+        "pdf_sha256": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+        "physical_pages": 10,
+        "hash_basis": "Supplied metadata; not recomputed.",
+        "access": "Complete supplied text and earlier image-review notes for pages 1–10. This synthesis did not receive image binaries.",
+        "appendices": "No labeled appendix identified.",
+        "supplements": "None supplied; external availability not assessed."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B060:version"
+      ]
+    },
+    {
+      "id": "study:B060:simulation",
+      "class_id": "Study",
+      "properties": {
+        "design": "SurRoL simulation comparison of additional surgical-video pretraining, optimization checkpoints and execution-prefix lengths",
+        "tasks": [
+          "Needle Pick",
+          "Peg Transfer",
+          "Needle Regrasp",
+          "BiPeg Transfer"
+        ],
+        "training_size": "10k demonstrations",
+        "evaluation_size": "100 evaluation episodes per result as stated; ablation averaging unresolved",
+        "boundary": "Not patient treatment or demonstrated autonomous physical-robot execution."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B060:setup",
+        "evidence:B060:budget",
+        "evidence:B060:protocol",
+        "evidence:B060:table1"
+      ]
+    },
+    {
+      "id": "study:B060:jigsaws",
+      "class_id": "Study",
+      "properties": {
+        "description": "Qualitatively reported application to JIGSAWS recordings",
+        "limits": "No sample count, held-out split, numerical endpoint or autonomous physical-execution protocol is reported.",
+        "clinical_boundary": "Real robotic source recordings are not established patient data or prospective model deployment."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B060:jigsaws",
+        "evidence:B060:figure3"
+      ]
+    },
+    {
+      "id": "model:B060:wam_pt",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Surgical WAM w/ PT",
+        "configuration": "Additional surgical-video initialization followed by joint future/action fine-tuning",
+        "backbone": "Cosmos Policy diffusion transformer",
+        "checkpoint_identifier": "Not reported",
+        "world_coordinate": "Successive surgical-scene observations and manipulation steps",
+        "membership": "Source-supported core healthcare world model at implementation stage",
+        "identity_boundary": "Learned future-scene generation and evolving scene context are implemented; independent forecast fidelity and a settable-action simulator interface are not established."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B060:slots",
+        "evidence:B060:stage1",
+        "evidence:B060:stage2",
+        "evidence:B060:coupling",
+        "evidence:B060:table1"
+      ]
+    },
+    {
+      "id": "model:B060:wam_no_pt",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Surgical WAM w/o PT",
+        "configuration": "Same architecture without additional surgical-video pretraining",
+        "checkpoint_identifier": "Not reported",
+        "initialization_boundary": "Shared backbone initialization is reported; no-PT does not necessarily mean wholly unpretrained.",
+        "world_coordinate": "Successive surgical-scene observations and manipulation steps",
+        "membership": "Source-supported core healthcare world model at implementation stage"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B060:slots",
+        "evidence:B060:variants",
+        "evidence:B060:stage2",
+        "evidence:B060:table1"
+      ]
+    },
+    {
+      "id": "system:B060:wam_pt",
+      "class_id": "SystemComposition",
+      "properties": {
+        "coupling": "Joint future-grounded world–action policy",
+        "flow": "Scene/proprioceptive/task context → joint future/action denoising → execute action prefix in SurRoL → obtain new environment observation → resample",
+        "boundary": "No separate rollout scorer, utility-based action search or physical deployment is established."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B060:loop",
+        "evidence:B060:coupling"
+      ]
+    },
+    {
+      "id": "system:B060:wam_no_pt",
+      "class_id": "SystemComposition",
+      "properties": {
+        "coupling": "Joint future-grounded world–action policy",
+        "environment": "SurRoL simulation",
+        "configuration_boundary": "Shares the documented architecture and execution mechanism, not the trained parameters, with the PT configuration."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B060:variants",
+        "evidence:B060:loop",
+        "evidence:B060:table1"
+      ]
+    },
+    {
+      "id": "module:B060:shared_implementation",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "configuration_ids": [
+          "model:B060:wam_pt",
+          "model:B060:wam_no_pt"
+        ],
+        "scope_contract": "Assertions scoped to this module describe the explicitly shared architecture/execution mechanism in both configurations, not identical learned weights. Configuration-specific membership and L4 support are separately asserted.",
+        "responsibilities": "Observation representation and fusion; evolving scene conditioning; latent future/action generation; receding-horizon policy execution",
+        "completeness": "Limited responsibilities, not complete M1–M10 services or validated interface contracts."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B060:slots",
+        "evidence:B060:variants",
+        "evidence:B060:coupling",
+        "evidence:B060:loop"
+      ]
+    },
+    {
+      "id": "state:B060:scene_context",
+      "class_id": "StateSpec",
+      "properties": {
+        "observed_state": "Endoscopic RGB observation, dVRK proprioception and task context",
+        "internal_state": "Shared visual, robot-state, future-prediction and action latent/token sequence",
+        "update": "Conditioning refreshed after an executed prefix using a new simulator observation",
+        "unresolved": "Deployed history window, cross-call memory, state dimensions and precise future-proprioception targets",
+        "belief_boundary": "Generative future sampling is not a posterior belief over the current hidden scene."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B060:slots",
+        "evidence:B060:stage2",
+        "evidence:B060:loop"
+      ]
+    },
+    {
+      "id": "action:B060:psm_targets",
+      "class_id": "ActionSpec",
+      "properties": {
+        "role_types": [
+          "procedural_or_robotic"
+        ],
+        "effect_channels": [
+          "physical_scene"
+        ],
+        "representation": "Absolute Cartesian position, orientation and gripper command per arm",
+        "direction": "Generated command output; no externally settable transition-conditioning query is established",
+        "execution": "Simulated dVRK",
+        "missing_contract": "Units, reference frame, orientation convention, command cadence and workspace/force constraints"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B060:action_type",
+        "evidence:B060:actions"
+      ]
+    },
+    {
+      "id": "time:B060:coordinates",
+      "class_id": "TimeSpec",
+      "properties": {
+        "world_coordinate": "Discrete scene/control index; physical cadence not reported",
+        "generated_action_chunk": "Hc = 16 actions",
+        "default_execution_prefix": "He = 4 actions",
+        "tested_execution_prefixes": "He = 1, 2, 4, 8 actions",
+        "future_video_extent": "K future observations; numerical K and spacing not reported",
+        "diffusion_sampler": "5 denoising iterations",
+        "training": "Optimization steps, not world or clinical time",
+        "boundary": "Generation, execution, forecast extent, denoising iterations and optimization checkpoints are distinct quantities."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B060:equation1",
+        "evidence:B060:actions",
+        "evidence:B060:protocol",
+        "evidence:B060:table3"
+      ]
+    },
+    {
+      "id": "use:B060:simulation_research",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "purpose": "Evaluate additional action-free video pretraining at a fixed action-labeled budget",
+        "environment": "SurRoL simulated manipulation",
+        "authority": "Policy executes simulator action prefixes",
+        "human_user": "Not explicitly identified",
+        "patient_population": "Not specified or evaluated",
+        "release_boundary": "Research controller, not an established operational clinical release"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B060:setup",
+        "evidence:B060:budget",
+        "evidence:B060:loop"
+      ]
+    },
+    {
+      "id": "dataset:B060:surrol",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "name": "SurRoL",
+        "version": "Not reported",
+        "source": "Simulator",
+        "training_size": "10k demonstrations",
+        "limits": "Per-task allocation, collection policy, split and overlap controls not reported."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B060:setup",
+        "evidence:B060:budget"
+      ]
+    },
+    {
+      "id": "dataset:B060:video_pretraining",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "description": "Surgical-video data underlying the reused He et al. model",
+        "limits": "Actual corpus identity/version, size, source proportions and overlap controls insufficiently reported.",
+        "boundary": "No dataset details or capabilities are inherited from cited publications or generic source icons."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B060:stage1"
+      ]
+    },
+    {
+      "id": "dataset:B060:jigsaws",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "name": "JIGSAWS",
+        "version": "Not reported",
+        "role": "Qualitatively described real-recording application",
+        "limits": "Sample count, split, adaptation details and numerical outcomes not reported."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B060:jigsaws",
+        "evidence:B060:figure3"
+      ]
+    },
+    {
+      "id": "cohort:B060:surrol_evaluation",
+      "class_id": "Cohort",
+      "properties": {
+        "unit": "Simulator episodes",
+        "reported_denominator": "100 evaluation episodes per result",
+        "limits": "Seeds, initial-state matching, held-out design, checkpoint selection and ablation averaging unresolved."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B060:protocol",
+        "evidence:B060:table2"
+      ]
+    },
+    {
+      "id": "evaluation:B060:table1",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "endpoint": "Closed-loop success on four SurRoL tasks",
+        "default_training": "80k optimization steps; batch size 1; learning rate 1e−4",
+        "control": "Hc=16; He=4",
+        "uncertainty_and_acceptance": "Repeated-run uncertainty and a global acceptance threshold not reported."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B060:table1",
+        "evidence:B060:protocol",
+        "evidence:B060:actions"
+      ]
+    },
+    {
+      "id": "evaluation:B060:table2",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "endpoint": "Success versus Stage 2 optimization checkpoint",
+        "task_or_aggregation": "Not reported",
+        "boundary": "Not forecast error versus world-time horizon."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B060:table2"
+      ]
+    },
+    {
+      "id": "evaluation:B060:table3",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "endpoint": "Success versus executed action-prefix length",
+        "task_or_aggregation": "Not reported",
+        "fixed_generated_chunk": "16 actions",
+        "boundary": "Not a future-video fidelity or measured-latency curve."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B060:table3"
+      ]
+    },
+    {
+      "id": "failure:B060:late_training_degradation",
+      "class_id": "FailureMode",
+      "properties": {
+        "observation": "Pretrained success declines at later optimization checkpoints.",
+        "author_explanation": "Overfitting erodes the visual-dynamics prior.",
+        "mechanism_status": "Author attribution, not independently diagnosed.",
+        "boundary": "Not demonstrated compounding prediction drift over world time."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B060:table2",
+        "evidence:B060:overfitting"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "a:B060:data.provenance",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "data.provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Named datasets and synchronized modalities do not establish retained variable-level sources, units, times, transformations and versions."
+    },
+    {
+      "id": "a:B060:data.native_time",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Synchronization and sequence indices do not establish retained actual acquisition timestamps."
+    },
+    {
+      "id": "a:B060:data.availability_time",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No separate information-release time or availability-aware query audit is reported."
+    },
+    {
+      "id": "a:B060:data.availability_mask",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Training-slot zeroing/exclusion and diffusion corruption are not measurement-validity indicators."
+    },
+    {
+      "id": "a:B060:data.measurement_age",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Per-variable freshness and stale-value handling are not described."
+    },
+    {
+      "id": "a:B060:data.irregular_time_handling",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No real unequal-time input or irregular-world-time integration is specified; diffusion time is different."
+    },
+    {
+      "id": "a:B060:data.observation_process",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "A feedback schedule is specified, not a state/acquisition-dependent observation-occurrence or availability model."
+    },
+    {
+      "id": "a:B060:data.clock_audit",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No target/grid witness-preservation audit is reported; execution-prefix success is not such an audit."
+    },
+    {
+      "id": "a:B060:data.harmonization",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No traceable terminology, unit or coordinate conversion scheme is reported."
+    },
+    {
+      "id": "a:B060:data.leakage_control",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Pretraining overlap, trajectory/user separation, preprocessing fit and checkpoint-selection boundaries are not audited. Leakage is not thereby demonstrated."
+    },
+    {
+      "id": "a:B060:data.federation",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No site-local data exchange or federated training/query protocol is reported."
+    },
+    {
+      "id": "a:B060:perception.encoder",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [
+        "evidence:B060:slots",
+        "evidence:B060:stage2",
+        "evidence:B060:variants",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Operational observation-to-token processing is documented and used for control; detailed encoder architecture and isolated quality are not established."
+    },
+    {
+      "id": "a:B060:perception.foundation_reuse.pt",
+      "subject_id": "model:B060:wam_pt",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B060:wam_pt"
+      },
+      "evidence_ids": [
+        "evidence:B060:stage1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Named surgical-video pretrained parameters initialize visual/future-prediction processing and undergo adaptation."
+      ],
+      "criteria_missing": [
+        "Exact encoder checkpoint/version and encoder-versus-predictor parameter boundaries are unspecified."
+      ],
+      "rationale": "Transferred visual parameters are documented, not a fully pinned encoder artifact."
+    },
+    {
+      "id": "a:B060:perception.foundation_reuse.no_pt",
+      "subject_id": "model:B060:wam_no_pt",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B060:wam_no_pt"
+      },
+      "evidence_ids": [
+        "evidence:B060:variants"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Shared backbone initialization does not pin a reused encoder checkpoint; no-PT does not establish scratch training."
+    },
+    {
+      "id": "a:B060:perception.latent_prediction",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Latent diffusion noise prediction is not a JEPA-style representation-target objective; upstream encoder objectives are insufficiently specified."
+    },
+    {
+      "id": "a:B060:perception.collapse_control",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No declared anti-collapse mechanism, property or diagnostic is reported."
+    },
+    {
+      "id": "a:B060:perception.reconstruction",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Reported losses compare diffusion noise, not explicitly reconstructed observations; upstream tokenizer training is unspecified."
+    },
+    {
+      "id": "a:B060:perception.fusion",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "perception.fusion",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [
+        "evidence:B060:slots",
+        "evidence:B060:stage2",
+        "evidence:B060:variants"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Vision and proprioception jointly condition shared-sequence inference; isolated fusion benefit is not evaluated."
+    },
+    {
+      "id": "a:B060:perception.availability_aware_fusion",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Availability/quality/recency-conditioned inference and missing-modality behavior are unspecified."
+    },
+    {
+      "id": "a:B060:state.persistent.pt",
+      "subject_id": "model:B060:wam_pt",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B060:wam_pt",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:slots",
+        "evidence:B060:stage2",
+        "evidence:B060:loop",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Defined scene context is carried into later-scene prediction and refreshed in sequential control. This does not establish cross-call cached memory or a belief posterior."
+    },
+    {
+      "id": "a:B060:state.persistent.no_pt",
+      "subject_id": "model:B060:wam_no_pt",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B060:wam_no_pt",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:slots",
+        "evidence:B060:variants",
+        "evidence:B060:stage2",
+        "evidence:B060:loop",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The comparator implements the same evolving scene-context and future-generation mechanism without additional surgical-video pretraining."
+    },
+    {
+      "id": "a:B060:state.belief_distribution",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "A distribution over generated futures/actions does not establish a filtering posterior over current hidden state."
+    },
+    {
+      "id": "a:B060:state.propagate_correct",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Re-observation does not specify separate prior propagation and measurement correction or missing-observation semantics."
+    },
+    {
+      "id": "a:B060:state.online_assimilation",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:loop",
+        "evidence:B060:variants",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "New environment observations refresh scene conditioning between executed prefixes; no Bayesian correction or online weight adaptation is inferred."
+    },
+    {
+      "id": "a:B060:state.parameter_adaptation",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation",
+        "intended_use_context_id": "use:B060:simulation_research"
+      },
+      "evidence_ids": [
+        "evidence:B060:setup"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "This scope models robot/scene states, not individual patient parameters fitted from that patient's measurements.",
+      "rationale": "Dataset-level policy fine-tuning is not patient-specific adaptation."
+    },
+    {
+      "id": "a:B060:state.reusable",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "state.reusable",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [
+        "evidence:B060:slots",
+        "evidence:B060:coupling",
+        "evidence:B060:variants"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Shared scene-conditioned processing supports future-observation and action readouts. One checkpoint across all tasks or reusable clinical outcome heads is not established."
+    },
+    {
+      "id": "a:B060:state.sufficiency_test",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Pretraining, checkpoint and execution-prefix comparisons do not test omitted state/history determinants."
+    },
+    {
+      "id": "a:B060:state.history_conditioning.specification",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [
+        "evidence:B060:slots",
+        "evidence:B060:stage2"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Past-observation slots and history-conditioned context are specified."
+    },
+    {
+      "id": "a:B060:state.history_conditioning.implementation",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation",
+        "evaluation_run_id": "evaluation:B060:table1"
+      },
+      "evidence_ids": [
+        "evidence:B060:slots",
+        "evidence:B060:stage2",
+        "evidence:B060:loop"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "History notation coexists with current-observation execution prose. Actual inference tensors/window settings would resolve nontrivial historical input use."
+    },
+    {
+      "id": "a:B060:state.personalization_audit",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation",
+        "population": "Simulated surgical scenes"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No correct-scene-history swap/withhold or generic-prior control is reported."
+    },
+    {
+      "id": "a:B060:state.identity_consistency",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No declared entity/anatomy-preserving mechanism or specific loss is reported; shared attention is insufficient."
+    },
+    {
+      "id": "a:B060:state.interpretability",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Named command/token roles do not establish inspectable semantic mappings for the evolving latent state."
+    },
+    {
+      "id": "a:B060:state.temporal_memory.specification",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [
+        "evidence:B060:slots"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Past visual slots specify a history-context mechanism, not demonstrated useful long memory."
+    },
+    {
+      "id": "a:B060:state.temporal_memory.implementation",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation",
+        "evaluation_run_id": "evaluation:B060:table1"
+      },
+      "evidence_ids": [
+        "evidence:B060:slots",
+        "evidence:B060:loop"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Historical-slot population and retention across evaluated calls need the deployed context configuration or code."
+    },
+    {
+      "id": "a:B060:action.explicit",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "action.explicit",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation",
+        "intended_use_context_id": "use:B060:simulation_research"
+      },
+      "evidence_ids": [
+        "evidence:B060:equation1",
+        "evidence:B060:stage2",
+        "evidence:B060:loop",
+        "evidence:B060:coupling"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Scoped absence of an explicit settable action INPUT in the documented inference signature: commands are joint generated outputs. This does not deny active command execution or rule out an undocumented conditional-query extension."
+    },
+    {
+      "id": "a:B060:action.typed_roles",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [
+        "evidence:B060:action_type",
+        "evidence:B060:actions"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Procedural/robotic command meaning and simulated physical-scene effects are recoverable."
+      ],
+      "criteria_missing": [
+        "Explicit operational role/effect-channel typing is not reported."
+      ],
+      "rationale": "Reviewer role/channel mapping is not a complete implemented action ontology."
+    },
+    {
+      "id": "a:B060:action.parameterized",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "action.parameterized",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [
+        "evidence:B060:action_type",
+        "evidence:B060:actions",
+        "evidence:B060:variants"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Absolute Cartesian position/orientation and gripper targets per arm, chunk length and prefix execution are specified."
+      ],
+      "criteria_missing": [
+        "Units, orientation convention, reference frame and physical cadence are unspecified."
+      ],
+      "rationale": "Interpretable simulator commands do not constitute a complete transferable action contract."
+    },
+    {
+      "id": "a:B060:action.schedule",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "action.schedule",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [
+        "evidence:B060:loop",
+        "evidence:B060:actions"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Ordered chunks and the feedback event after a specified executed prefix are defined."
+      ],
+      "criteria_missing": [
+        "Per-command physical timing/duration and cadence are unspecified."
+      ],
+      "rationale": "Action indices are not converted into invented durations."
+    },
+    {
+      "id": "a:B060:action.bundle",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Bimanual commands and multiple fields do not establish supported joint-update or inherited-setting semantics."
+    },
+    {
+      "id": "a:B060:action.constraints",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Workspace, collision, force and other action restrictions are not documented or inherited from SurRoL."
+    },
+    {
+      "id": "a:B060:action.grounding",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "action.grounding",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:action_type",
+        "evidence:B060:actions",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Outputs map to executed Cartesian/gripper commands in SurRoL, not uninterpreted latent actions. Physical calibration is not established."
+    },
+    {
+      "id": "a:B060:action.support",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "A demonstration count does not establish context-conditioned action coverage, overlap or mechanistic support."
+    },
+    {
+      "id": "a:B060:action.comparison",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Policy/prefix comparisons are not comparisons of predicted successors under specified alternatives from matched initial context."
+    },
+    {
+      "id": "a:B060:action.irreversibility",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No reversibility/residual-harm assessment is reported; dropping future commands does not undo executed contact."
+    },
+    {
+      "id": "a:B060:dynamics.temporal.pt",
+      "subject_id": "model:B060:wam_pt",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B060:wam_pt",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:equation1",
+        "evidence:B060:stage1",
+        "evidence:B060:stage2",
+        "evidence:B060:coupling",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Scene context maps to later visual predictions within the implemented controller. This is scene evolution, not diffusion or optimization time; independent fidelity is unreported."
+    },
+    {
+      "id": "a:B060:dynamics.temporal.no_pt",
+      "subject_id": "model:B060:wam_no_pt",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B060:wam_no_pt",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:equation1",
+        "evidence:B060:stage2",
+        "evidence:B060:variants",
+        "evidence:B060:coupling",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Removing additional video pretraining does not remove the implemented future-scene generation mechanism."
+    },
+    {
+      "id": "a:B060:dynamics.learned_hybrid.pt",
+      "subject_id": "model:B060:wam_pt",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B060:wam_pt",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:stage1",
+        "evidence:B060:denoising",
+        "evidence:B060:protocol",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Future-generation parameters are learned through video and joint denoising training. This establishes learned dynamics, not mechanistic hybridization."
+    },
+    {
+      "id": "a:B060:dynamics.learned_hybrid.no_pt",
+      "subject_id": "model:B060:wam_no_pt",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B060:wam_no_pt",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:denoising",
+        "evidence:B060:variants",
+        "evidence:B060:protocol",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Joint future/action fine-tuning learns predictive parameters in this comparator; fixed environment physics is not substituted for learned dynamics."
+    },
+    {
+      "id": "a:B060:dynamics.action_conditioned",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [
+        "evidence:B060:equation1",
+        "evidence:B060:stage2",
+        "evidence:B060:coupling",
+        "evidence:B060:loop"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Generated action/future dependence is documented, but a settable-action prediction query is not. Action-clamping semantics and specified-action fidelity tests would resolve this broader capability; the documented routine lacks that input."
+    },
+    {
+      "id": "a:B060:dynamics.stochastic",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [
+        "evidence:B060:equation1",
+        "evidence:B060:denoising",
+        "evidence:B060:coupling",
+        "evidence:B060:variants"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Noise-based joint generation includes future-scene tokens; this is not calibrated specified-action uncertainty or measured sample diversity."
+    },
+    {
+      "id": "a:B060:dynamics.mechanistic_prior",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No encoded physical law, anatomy/contact constraint, object factorization or symbolic rule is identified. A pretrained dynamics prior is insufficient."
+    },
+    {
+      "id": "a:B060:dynamics.hybrid",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No mechanistic component is coupled inside the learned transition; using an external simulator does not establish hybrid dynamics."
+    },
+    {
+      "id": "a:B060:dynamics.multibackend_contract",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [
+        "evidence:B060:backbone",
+        "evidence:B060:variants"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "One backbone is explicitly used throughout. Initialization variants and unrelated policy baselines are not interchangeable dynamics backends in the reported implementation."
+    },
+    {
+      "id": "a:B060:dynamics.multiscale",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No cross-scale mappings or exchanged constraints are reported; multimodality and different chunk/prefix lengths are insufficient."
+    },
+    {
+      "id": "a:B060:dynamics.multi_step_loss",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Future-block denoising does not specify traversal of two generated world transitions or associated gradient/teacher-forcing behavior."
+    },
+    {
+      "id": "a:B060:dynamics.temporal_abstraction",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Fixed chunks and two training stages do not establish options/subgoals or higher/lower-level world transitions."
+    },
+    {
+      "id": "a:B060:dynamics.observation_decoder",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [
+        "evidence:B060:slots",
+        "evidence:B060:coupling",
+        "evidence:B060:variants"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Future endoscopic observations are targets and future-video latent slots are operationally generated."
+      ],
+      "criteria_missing": [
+        "Latent-to-observable RGB decoding and its execution are not described; control discards future outputs."
+      ],
+      "rationale": "No decoder implementation or prediction quality is inherited from a cited backbone."
+    },
+    {
+      "id": "a:B060:dynamics.task_heads",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No state-to-outcome/reward/value head is specified. Action generation and externally scored success are not automatically outcome heads."
+    },
+    {
+      "id": "a:B060:rollout.one_step_evaluated",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No predicted successor is measured against a reference; denoising loss and control success do not replace this evaluation."
+    },
+    {
+      "id": "a:B060:rollout.multistep",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Recursive transitions using generated world history are not documented; block generation, denoising and re-observed control calls are distinct."
+    },
+    {
+      "id": "a:B060:rollout.teacher_forcing",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No forecast evaluation describes reference intermediate-history feeding; actual controlled-environment feedback is not teacher forcing."
+    },
+    {
+      "id": "a:B060:rollout.reassimilation",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation",
+        "evaluation_run_id": "evaluation:B060:table3",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:loop",
+        "evidence:B060:actions",
+        "evidence:B060:variants",
+        "evidence:B060:table3"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "New observations from the controlled simulator refresh conditioning after execution. This is not imagined-only feedback or clinical/physical re-assimilation."
+    },
+    {
+      "id": "a:B060:rollout.maximum_horizon",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "K, forecast cadence and maximum evaluated future-state extent are unspecified. Hc=16 and He up to 8 concern generated/executed actions."
+    },
+    {
+      "id": "a:B060:rollout.drift_test",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Success versus optimization checkpoint or executed prefix is not free-running forecast error versus depth."
+    },
+    {
+      "id": "a:B060:rollout.effective_horizon",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No tolerance-defined usable forecast horizon with uncertainty and action support is established."
+    },
+    {
+      "id": "a:B060:rollout.sampled_futures",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [
+        "evidence:B060:equation1",
+        "evidence:B060:coupling",
+        "evidence:B060:variants"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Explicit dependent joint future/action distribution meets the distribution route; samples per fixed context, diversity and calibration are unreported."
+    },
+    {
+      "id": "a:B060:rollout.horizon_enforcement",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Fixed chunk/prefix operation is not support-based horizon rejection, disclosed truncation or escalation."
+    },
+    {
+      "id": "a:B060:planning.model_use.pt",
+      "subject_id": "model:B060:wam_pt",
+      "feature_id": "planning.model_use",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B060:wam_pt",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:coupling",
+        "evidence:B060:loop",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": "Joint future-grounded world–action policy",
+      "rationale": "Actions attend to generated future tokens during inference and drive the simulator; subsequent future-output discarding does not remove this coupling."
+    },
+    {
+      "id": "a:B060:planning.model_use.no_pt",
+      "subject_id": "model:B060:wam_no_pt",
+      "feature_id": "planning.model_use",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B060:wam_no_pt",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:variants",
+        "evidence:B060:coupling",
+        "evidence:B060:loop",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": "Joint future-grounded world–action policy",
+      "rationale": "The comparator retains this shared future-coupled action pathway and has separately reported control results."
+    },
+    {
+      "id": "a:B060:planning.search_policy.pt",
+      "subject_id": "model:B060:wam_pt",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B060:wam_pt",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:coupling",
+        "evidence:B060:loop",
+        "evidence:B060:table1",
+        "evidence:B060:protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "An operational learned policy uses generated futures and executes commands with decision results: the L4 policy route, not explicit utility-based search."
+    },
+    {
+      "id": "a:B060:planning.search_policy.no_pt",
+      "subject_id": "model:B060:wam_no_pt",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B060:wam_no_pt",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:variants",
+        "evidence:B060:coupling",
+        "evidence:B060:loop",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "The same operational future-grounded policy is separately evaluated without additional surgical pretraining; lower success does not negate L4."
+    },
+    {
+      "id": "a:B060:planning.receding_horizon",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation",
+        "evaluation_run_id": "evaluation:B060:table3",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:loop",
+        "evidence:B060:actions",
+        "evidence:B060:variants",
+        "evidence:B060:table3"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": {
+        "generated_chunk": "16 actions",
+        "default_prefix": "4 actions",
+        "tested_prefixes": "1, 2, 4, 8 actions"
+      },
+      "rationale": "Actions are recomputed after new simulator observations; this does not establish utility-optimized MPC or physical control."
+    },
+    {
+      "id": "a:B060:planning.objective_separation",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Two training stages do not establish changed inference-time utilities with fixed transition parameters."
+    },
+    {
+      "id": "a:B060:planning.uncertainty_use",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No uncertainty statistic affects scoring, constraints, risk budgets or acceptance; stochastic sampling alone is insufficient."
+    },
+    {
+      "id": "a:B060:planning.exploitation_test",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No deliberate mismatch/adversarial-support/reward-exploitation protocol is reported; ordinary simulator execution is not such a stress test."
+    },
+    {
+      "id": "a:B060:planning.candidate_provenance",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [
+        "evidence:B060:stage2",
+        "evidence:B060:loop",
+        "evidence:B060:budget",
+        "evidence:B060:variants"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Policy proposer, conditioning, chunk construction and labeled training source are documented."
+      ],
+      "criteria_missing": [
+        "Eligibility, acceptance, coverage/support and complete source provenance are not established."
+      ],
+      "rationale": "This concerns generated proposals, not an asserted finite candidate-search procedure."
+    },
+    {
+      "id": "a:B060:planning.hierarchical_policy",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Task embeddings and chunks do not establish coordinated higher-level options and lower-level actions with termination semantics."
+    },
+    {
+      "id": "a:B060:planning.closed_loop_test",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:loop",
+        "evidence:B060:variants",
+        "evidence:B060:table1",
+        "evidence:B060:protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Commands affect SurRoL and resulting observations inform later decisions; no global reliability acceptance criterion or physical execution is established."
+    },
+    {
+      "id": "a:B060:uq.explicit",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "uq.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [
+        "evidence:B060:equation1",
+        "evidence:B060:coupling",
+        "evidence:B060:variants"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "An explicit conditional future/action distribution is sampled; it is not validated, calibrated or decomposed uncertainty."
+    },
+    {
+      "id": "a:B060:uq.decomposition",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Separate aleatoric/epistemic estimators and interpretations are not supplied."
+    },
+    {
+      "id": "a:B060:uq.calibration_evaluated",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No reliability/coverage comparison is reported; success proportions and undefined training-curve bands are not predictive calibration."
+    },
+    {
+      "id": "a:B060:uq.trajectory_calibration",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No joint-path or horizon-indexed predictive reliability assessment is reported."
+    },
+    {
+      "id": "a:B060:uq.tolerance_met",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No calibration criterion and matching result are supplied; this is not evidence of failed calibration."
+    },
+    {
+      "id": "a:B060:uq.shift_detector",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No OOD statistic, threshold, response or detection evaluation is specified."
+    },
+    {
+      "id": "a:B060:uq.conformal",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No conformal score, calibration split, predictive-set/alarm construction or assumptions are reported."
+    },
+    {
+      "id": "a:B060:causal.estimand",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No modeled scene-intervention-effect contrast is declared. A controlled training-recipe comparison is a different target."
+    },
+    {
+      "id": "a:B060:causal.identification",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No estimand-linked identification argument for generated scene effects is supplied."
+    },
+    {
+      "id": "a:B060:causal.assumptions",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No identification assumptions are explicitly tied to a modeled intervention-effect estimand."
+    },
+    {
+      "id": "a:B060:causal.sensitivity",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Checkpoint and execution-prefix ablations do not test violations of causal assumptions."
+    },
+    {
+      "id": "a:B060:causal.ground_truth_test",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No predicted action-effect contrast is tested against matched potential outcomes or an interventional reference."
+    },
+    {
+      "id": "a:B060:causal.mechanistic_grounding",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Commands are executable, but a calibrated physical intervention-to-state mechanism inside the learned model is not documented."
+    },
+    {
+      "id": "a:B060:causal.effect_claim_gate",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Combined estimand, identification/grounding, support, validation and sensitivity evidence is not supplied. Functional L4 is separate."
+    },
+    {
+      "id": "a:B060:safety.hard_guard",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No action blocker and fail behavior are specified; prefix execution alone is not a hard safety guard."
+    },
+    {
+      "id": "a:B060:safety.abstention",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No reject/defer trigger and fallback are documented; discarding the ordinary chunk remainder is not abstention."
+    },
+    {
+      "id": "a:B060:safety.human_escalation",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No operational hand-off trigger, human role, response time or fallback is reported."
+    },
+    {
+      "id": "a:B060:safety.runtime_monitor",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No online hazard detector with protective response is specified; re-observation is not runtime assurance."
+    },
+    {
+      "id": "a:B060:safety.kill_switch",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No safe-stop/degraded-mode mechanism, residual-effect specification or fallback test is reported."
+    },
+    {
+      "id": "a:B060:safety.threat_model",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Assets, adversaries and attack paths across observations, weights, futures and actions are not analyzed."
+    },
+    {
+      "id": "a:B060:safety.red_team",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No defined attacks or faults are injected and measured."
+    },
+    {
+      "id": "a:B060:safety.privacy_controls",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No operational privacy mechanism is specified; simulation does not resolve privacy of pretraining or real-recording inputs."
+    },
+    {
+      "id": "a:B060:safety.memorization_audit",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No copying, membership, re-identification or attribute-disclosure test is reported."
+    },
+    {
+      "id": "a:B060:safety.permissions",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Simulator actuation does not document authorization or allowed-operation enforcement."
+    },
+    {
+      "id": "a:B060:safety.automation_bias",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No appropriate-reliance/override design or human-factors mitigation is reported; no observed over-trust failure is inferred."
+    },
+    {
+      "id": "a:B060:lifecycle.intended_use",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation",
+        "intended_use_context_id": "use:B060:simulation_research"
+      },
+      "evidence_ids": [
+        "evidence:B060:setup",
+        "evidence:B060:budget",
+        "evidence:B060:loop"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Research purpose, simulated tasks, decision point and automatic simulator execution are specified."
+      ],
+      "criteria_missing": [
+        "Intended human user/responsible operator and complete supervision/exclusion/escalation boundaries are unspecified."
+      ],
+      "rationale": "No clinical intended use is established; a patient indication is not required for this simulation scope."
+    },
+    {
+      "id": "a:B060:lifecycle.model_card",
+      "subject_id": "paper-version:B060:sha256-ca3d4b054276",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": [
+          "model:B060:wam_pt",
+          "model:B060:wam_no_pt"
+        ]
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No organized versioned asset/evidence/limits card is identified; manuscript versioning alone is insufficient."
+    },
+    {
+      "id": "a:B060:lifecycle.monitoring",
+      "subject_id": "paper-version:B060:sha256-ca3d4b054276",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": [
+          "model:B060:wam_pt",
+          "model:B060:wam_no_pt"
+        ]
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No post-release monitoring owner, signals, thresholds, cadence or response plan is supplied."
+    },
+    {
+      "id": "a:B060:lifecycle.change_control",
+      "subject_id": "paper-version:B060:sha256-ca3d4b054276",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": [
+          "model:B060:wam_pt",
+          "model:B060:wam_no_pt"
+        ]
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Checkpoints and replanning do not specify update approval, revalidation or rollback."
+    },
+    {
+      "id": "a:B060:lifecycle.regulatory_mention",
+      "subject_id": "paper-version:B060:sha256-ca3d4b054276",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "effective_date": "2026-08-11"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No named regulatory/reporting framework is captured; a cited title mentioning regulatory considerations is not a named standard or compliance statement."
+    },
+    {
+      "id": "a:B060:lifecycle.regulatory_evidence",
+      "subject_id": "paper-version:B060:sha256-ca3d4b054276",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": [
+          "model:B060:wam_pt",
+          "model:B060:wam_no_pt"
+        ],
+        "effective_date": "2026-08-11"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No use/version/jurisdiction-specific compliance or authorization evidence is reported; no legal determination is made."
+    },
+    {
+      "id": "a:B060:lifecycle.ethics",
+      "subject_id": "paper-version:B060:sha256-ca3d4b054276",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "dataset_version_id": [
+          "dataset:B060:surrol",
+          "dataset:B060:video_pretraining",
+          "dataset:B060:jigsaws"
+        ]
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No named approval, exemption or consent scope is supplied; neither an approval obligation nor satisfaction is inferred."
+    },
+    {
+      "id": "a:B060:agent.role",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "agent.role",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:coupling",
+        "evidence:B060:loop",
+        "evidence:B060:variants",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "An actual decision policy controls the simulator; no LLM role is inferred from a Transformer or task embedding."
+    },
+    {
+      "id": "a:B060:agent.multiple",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "agent.multiple",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [
+        "evidence:B060:slots",
+        "evidence:B060:coupling",
+        "evidence:B060:variants"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "One shared decision policy is described; arms, token types and training stages are not separate interacting agents."
+    },
+    {
+      "id": "a:B060:agent.reflection",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No explicit critique/refinement operation is described; feedback control and denoising are not automatically reflection."
+    },
+    {
+      "id": "a:B060:agent.external_calls",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:coupling",
+        "evidence:B060:loop",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "The policy sends commands to the simulated actuator and receives environment observations."
+      ],
+      "criteria_missing": [
+        "Named invocation interface and read/write permission/access-control boundaries are unspecified."
+      ],
+      "rationale": "Operational simulator interaction is not permission-scoped physical/clinical integration."
+    },
+    {
+      "id": "a:B060:agent.autonomy",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation",
+        "intended_use_context_id": "use:B060:simulation_research",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:loop",
+        "evidence:B060:actions",
+        "evidence:B060:variants",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "The model generates and executes simulator prefixes without a described per-prefix approval step; no clinical autonomy level is inferred."
+    },
+    {
+      "id": "a:B060:release.code",
+      "subject_id": "paper-version:B060:sha256-ca3d4b054276",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": [
+          "model:B060:wam_pt",
+          "model:B060:wam_no_pt"
+        ],
+        "effective_date": "2026-08-11"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No Surgical WAM repository/availability statement is supplied; dependency code availability is not inherited."
+    },
+    {
+      "id": "a:B060:release.weights",
+      "subject_id": "paper-version:B060:sha256-ca3d4b054276",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": [
+          "model:B060:wam_pt",
+          "model:B060:wam_no_pt"
+        ],
+        "effective_date": "2026-08-11"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No resulting controller checkpoint is identified as released; reused initialization is not release of fine-tuned weights."
+    },
+    {
+      "id": "a:B060:release.license",
+      "subject_id": "paper-version:B060:sha256-ca3d4b054276",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": [
+          "model:B060:wam_pt",
+          "model:B060:wam_no_pt"
+        ],
+        "effective_date": "2026-08-11"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Separate code, weights and data terms are not supplied; external assets were not inspected."
+    },
+    {
+      "id": "a:B060:release.reproduced",
+      "subject_id": "paper-version:B060:sha256-ca3d4b054276",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": [
+          "model:B060:wam_pt",
+          "model:B060:wam_no_pt"
+        ]
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No independently executed reproduction is reported; this review performs none."
+    },
+    {
+      "id": "a:B060:evaluation.E1",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No future-state error against a reference is reported."
+    },
+    {
+      "id": "a:B060:evaluation.E2",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No multihorizon recursive/block forecast fidelity result is reported; action-prefix and training-step ablations are different."
+    },
+    {
+      "id": "a:B060:evaluation.E3",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No defined generated/reference distribution comparison is reported."
+    },
+    {
+      "id": "a:B060:evaluation.E4",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Task success does not independently test defined physical/anatomical/contact constraints on generated futures."
+    },
+    {
+      "id": "a:B060:evaluation.E5",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Held-out predictive reliability/coverage/sharpness and nominal-target results are not supplied."
+    },
+    {
+      "id": "a:B060:evaluation.E6",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No predicted-successor sensitivity to controlled specified-action changes from fixed context is reported."
+    },
+    {
+      "id": "a:B060:evaluation.E7",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No modeled intervention-effect estimand and causal/interventional reference test are reported."
+    },
+    {
+      "id": "a:B060:evaluation.E8",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation",
+        "population": "Simulated surgical scenes"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Analogous correct-scene-history controls could apply, but none are reported. Scene conditioning is not demonstrated personalization."
+    },
+    {
+      "id": "a:B060:evaluation.E9.pt",
+      "subject_id": "model:B060:wam_pt",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B060:wam_pt",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:table1",
+        "evidence:B060:protocol",
+        "evidence:B060:loop",
+        "evidence:B060:summary"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": {
+        "success_percent": {
+          "Needle Pick": 99,
+          "Peg Transfer": 86,
+          "Needle Regrasp": 62,
+          "BiPeg Transfer": 64
+        },
+        "reported_suite_mean_percent": 77.8
+      },
+      "rationale": "Success evaluates an executing model-coupled policy. No overall acceptance threshold or uncertainty supports a global validation pass."
+    },
+    {
+      "id": "a:B060:evaluation.E9.no_pt",
+      "subject_id": "model:B060:wam_no_pt",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B060:wam_no_pt",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:table1",
+        "evidence:B060:protocol",
+        "evidence:B060:variants",
+        "evidence:B060:summary"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": {
+        "success_percent": {
+          "Needle Pick": 96,
+          "Peg Transfer": 66,
+          "Needle Regrasp": 50,
+          "BiPeg Transfer": 42
+        },
+        "reported_suite_mean_percent": 63.5
+      },
+      "rationale": "The comparator has separately reported decision outcomes; lower performance does not negate evaluation existence."
+    },
+    {
+      "id": "a:B060:evaluation.E10",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation",
+        "dataset_version_id": [
+          "dataset:B060:surrol",
+          "dataset:B060:jigsaws"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:B060:jigsaws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No matched simulation/physical policy-task comparison quantifies agreement or bias."
+    },
+    {
+      "id": "a:B060:evaluation.E11.transfer",
+      "subject_id": "evaluation:B060:table1",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": [
+          "model:B060:wam_pt",
+          "model:B060:wam_no_pt"
+        ],
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:stage1",
+        "evidence:B060:stage2",
+        "evidence:B060:variants",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": "Narrow video-pretraining-to-supervised-simulator-control transfer comparison",
+      "rationale": "Transfer initialization is compared with the no-additional-pretraining control. This is not independent-cohort/OOD validation or verified physical-dynamics transfer."
+    },
+    {
+      "id": "a:B060:evaluation.E11.external",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation",
+        "dataset_version_id": "dataset:B060:jigsaws"
+      },
+      "evidence_ids": [
+        "evidence:B060:jigsaws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Held-out protocol, numerical outcome, overlap controls and comparator identity are insufficiently reported for evaluated external transfer."
+    },
+    {
+      "id": "a:B060:evaluation.E11.jigsaws_claim",
+      "subject_id": "study:B060:jigsaws",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "present",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "dataset_version_id": "dataset:B060:jigsaws"
+      },
+      "evidence_ids": [
+        "evidence:B060:jigsaws_conclusion"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "The conclusion explicitly claims beyond-simulation benefit; no qualifying held-out quantitative or physical-control evaluation is established."
+    },
+    {
+      "id": "a:B060:evaluation.E12",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No target-specific preprocessing/clock evidence-retention audit is reported."
+    },
+    {
+      "id": "a:B060:evaluation.E13",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No actual participant review/use task and outcomes are documented; source teleoperation is not human evaluation of this model."
+    },
+    {
+      "id": "a:B060:evaluation.E14",
+      "subject_id": "evaluation:B060:table2",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": [
+          "model:B060:wam_pt",
+          "model:B060:wam_no_pt"
+        ],
+        "evaluation_run_id": "evaluation:B060:table2",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:protocol",
+        "evidence:B060:table2",
+        "evidence:B060:figure1_caption"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Success is reported at optimization budgets with batch size 1 and fixed labeled data."
+      ],
+      "criteria_missing": [
+        "Hardware, wall-clock/Stage 1 cost, memory, inference timing, ablation aggregation and repeated-run accounting are unspecified."
+      ],
+      "rationale": "Measured optimization-budget proxy, not half total compute, real-time suitability or fewer labels at matched performance. Differing Figure 1 reports remain separate."
+    },
+    {
+      "id": "a:B060:evaluation.E15",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No prospective/comparative real-care or workflow study measures utility and harms."
+    },
+    {
+      "id": "a:B060:dynamics.latent_transition",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [
+        "evidence:B060:slots",
+        "evidence:B060:coupling",
+        "evidence:B060:variants"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Generated future representations directly participate in action generation, exceeding an encoder bottleneck. Recursive latent rollout and independent fidelity remain unestablished."
+    },
+    {
+      "id": "a:B060:dynamics.value_equivalent",
+      "subject_id": "module:B060:shared_implementation",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Joint observation/action denoising does not establish a reward/value/policy-equivalence transition objective or contract."
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "r:B060:version",
+      "subject_id": "paper:B060",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:B060:sha256-ca3d4b054276",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "effective_date": "2026-08-11"
+      },
+      "evidence_ids": [
+        "evidence:B060:identity",
+        "evidence:B060:version"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B060:study",
+      "subject_id": "paper-version:B060:sha256-ca3d4b054276",
+      "predicate_id": "reportsStudy",
+      "object_id": "study:B060:simulation",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:setup",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "r:B060:model.pt",
+      "subject_id": "paper-version:B060:sha256-ca3d4b054276",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B060:wam_pt",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B060:wam_pt",
+        "evaluation_run_id": "evaluation:B060:table1"
+      },
+      "evidence_ids": [
+        "evidence:B060:stage1",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "r:B060:model.no_pt",
+      "subject_id": "paper-version:B060:sha256-ca3d4b054276",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B060:wam_no_pt",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B060:wam_no_pt",
+        "evaluation_run_id": "evaluation:B060:table1"
+      },
+      "evidence_ids": [
+        "evidence:B060:variants",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "r:B060:composition.pt",
+      "subject_id": "system:B060:wam_pt",
+      "predicate_id": "composesModel",
+      "object_id": "model:B060:wam_pt",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B060:wam_pt"
+      },
+      "evidence_ids": [
+        "evidence:B060:loop",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B060:composition.no_pt",
+      "subject_id": "system:B060:wam_no_pt",
+      "predicate_id": "composesModel",
+      "object_id": "model:B060:wam_no_pt",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B060:wam_no_pt"
+      },
+      "evidence_ids": [
+        "evidence:B060:variants",
+        "evidence:B060:loop",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B060:module.pt",
+      "subject_id": "system:B060:wam_pt",
+      "predicate_id": "hasModule",
+      "object_id": "module:B060:shared_implementation",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B060:wam_pt"
+      },
+      "evidence_ids": [
+        "evidence:B060:slots",
+        "evidence:B060:loop"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B060:module.no_pt",
+      "subject_id": "system:B060:wam_no_pt",
+      "predicate_id": "hasModule",
+      "object_id": "module:B060:shared_implementation",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B060:wam_no_pt"
+      },
+      "evidence_ids": [
+        "evidence:B060:variants",
+        "evidence:B060:loop"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Shared parameterized implementation, not identical trained weights."
+    },
+    {
+      "id": "r:B060:dynamics",
+      "subject_id": "module:B060:shared_implementation",
+      "predicate_id": "realizesModule",
+      "object_id": "M5",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [
+        "evidence:B060:slots",
+        "evidence:B060:coupling",
+        "evidence:B060:variants"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Limited future-generation responsibility; no complete pluggable dynamics service is inferred."
+    },
+    {
+      "id": "r:B060:policy",
+      "subject_id": "module:B060:shared_implementation",
+      "predicate_id": "realizesModule",
+      "object_id": "M8",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:coupling",
+        "evidence:B060:loop",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Learned future-grounded policy responsibility, not independently replaceable planner/objective."
+    },
+    {
+      "id": "r:B060:state",
+      "subject_id": "module:B060:shared_implementation",
+      "predicate_id": "maintainsState",
+      "object_id": "state:B060:scene_context",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "evidence_ids": [
+        "evidence:B060:stage2",
+        "evidence:B060:loop",
+        "evidence:B060:variants"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Evolving scene context, not a demonstrated posterior belief service."
+    },
+    {
+      "id": "r:B060:world.pt",
+      "subject_id": "model:B060:wam_pt",
+      "predicate_id": "modelsWorld",
+      "object_id": "WT_PROCEDURE",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B060:wam_pt",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:setup",
+        "evidence:B060:joint"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B060:world.no_pt",
+      "subject_id": "model:B060:wam_no_pt",
+      "predicate_id": "modelsWorld",
+      "object_id": "WT_PROCEDURE",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B060:wam_no_pt",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:setup",
+        "evidence:B060:variants"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B060:l4.pt",
+      "subject_id": "model:B060:wam_pt",
+      "predicate_id": "demonstratesCapability",
+      "object_id": "L4",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B060:wam_pt",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:coupling",
+        "evidence:B060:loop",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "r:B060:l4.no_pt",
+      "subject_id": "model:B060:wam_no_pt",
+      "predicate_id": "demonstratesCapability",
+      "object_id": "L4",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B060:wam_no_pt",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:variants",
+        "evidence:B060:coupling",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "r:B060:r1.pt",
+      "subject_id": "system:B060:wam_pt",
+      "predicate_id": "hasReadinessEvidence",
+      "object_id": "R1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B060:wam_pt",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:setup",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "r:B060:r1.no_pt",
+      "subject_id": "system:B060:wam_no_pt",
+      "predicate_id": "hasReadinessEvidence",
+      "object_id": "R1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B060:wam_no_pt",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:setup",
+        "evidence:B060:table1"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "r:B060:degradation",
+      "subject_id": "evaluation:B060:table2",
+      "predicate_id": "exhibitsFailure",
+      "object_id": "failure:B060:late_training_degradation",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B060:wam_pt",
+        "evaluation_run_id": "evaluation:B060:table2",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B060:table2",
+        "evidence:B060:overfitting"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Later-checkpoint deterioration is observed; overfitting is the authors' explanation."
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:B060:identity",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Title"
+      },
+      "content": "Surgical WAM: A World-Action Model for Data-Efficient Surgical Robot Learning",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:byline",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Byline"
+      },
+      "content": "Wenrui Bao1, Tianyun Jiang, Zhiben Chen, Ser-Nam Lim1, Peter D. Peng2, Yuzhang Shang1∗\n1University of Central Florida,2AdventHealth",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:version",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "arXiv margin"
+      },
+      "content": "arXiv:2608.11204v1  [cs.RO]  11 Aug 2026",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:equation1",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Section 3.1, Equation (1)"
+      },
+      "content": "the termworld–action model(WAM), which we adopt as a\ndescriptive label for the joint distribution\npθ(ot+1:t+K , at:t+Hc |o ≤t, s≤t, c),(1)",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:joint",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Section 3.1"
+      },
+      "content": "In our surgical setting,ot is the current\nendoscopic RGB frame andst the dVRK proprioceptive\nstate. Our recipe applies to any WAM whose latent sequence\ncontains both video and action slots processed by a shared\nnetwork, so that weights learned without action labels can be\nreused for action prediction.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:backbone",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Section 3.1, Instantiation"
+      },
+      "content": "As the backbone used throughout our exper-\niments, we instantiate the WAM with Cosmos Policy (Kim\netal.2026),adiffusion-transformerrealizationofEquation(1)",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:slots",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section 3.1 continuation"
+      },
+      "content": "whose latent sequence contains dedicated slots for past visual\nobservations, robot state, future predictions, and actions, all\nprocessedbyasinglenetwork.Itsvisualandfuture-prediction\nslots are architecturally compatible with action-free video\ndiffusionbackbones,soweightsobtainedbyaction-freevideo\npretraining transfer directly into Cosmos Policy and serve as\nthe initialization for the action-labeled stage.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:stage1",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section 3.2, Stage 1"
+      },
+      "content": "InthisworkweinstantiateStage1withthesurgical\nvideoworldmodelofHeetal.(2026),obtainedbyfine-tuning\na general video diffusion backbone (Agarwal et al. 2025) on\nlarge-scale surgical video. Its weights populate the visual and\nfuture-predictionslotsoftheWAM,whiletheactionandstate\nslots are initialized fresh and learned in Stage 2.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:stage2",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section 3.2, Stage 2"
+      },
+      "content": "Starting from the\nvideo-pretrained initialization θ0, we fine-tune the full\nmodel on action-labeled surgical demonstrationsDva =\n{(o1:T , s1:T , a1:T , c)}. We denote the conditioning context\nat timetbyh t := (o≤t, s≤t, c). Each training example pairs\nthis context with an action chunk and the corresponding\nfuture-prediction targets.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:denoising",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section 3.2, explanation following Equation (3)"
+      },
+      "content": "Action\nand future-prediction tokens are denoised jointly through the\nsameattentionandvisual-predictionparameters.Thiscouples\nthe action-prediction stream to the temporal structure learned\nduring video-only pretraining, allowing the model to transfer\nvideo-derived dynamics representations while learning to\npredict executable surgical actions.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:coupling",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section 3.3, Joint sampling"
+      },
+      "content": "Although only\nactions are sent to the actuator, the model samples the action\nand future-prediction tokens jointly: action tokens attend to\nthe denoised future-prediction tokens at every diffusion step,\npreserving at inference the video-action coupling learned\nduring finetuning. The future-prediction outputs are then dis-\ncarded, so joint sampling adds compute but no I/O overhead.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:loop",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section 3.3"
+      },
+      "content": "At test time the finetuned model is used as a closed-loop\nreceding-horizon policy. Given the current observation and\ntask embedding, the diffusion sampler produces an action\nchunk of lengthHc together with the corresponding future-\nprediction slots; the robot executes the firstHe ≤H c actions,\ndiscards the rest, and the loop then re-observes and re-plans.\nSmaller He improves reactivity while largerHe amortizes\nthe cost of diffusion sampling.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:setup",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section 4.1"
+      },
+      "content": "The benchmark provides endoscopic\nobservations, robot proprioception, and synchronized actions\nfor simulated dVRK manipulation tasks.\nWe consider four tasks: Needle Pick, Peg Transfer, Needle\nRegrasp, and BiPeg Transfer. Needle Pick and Peg Transfer\nare unilateral manipulation tasks, while Needle Regrasp and\nBiPegTransferrequirebimanualcoordination.Together,these\ntasks involve reaching, grasping, contact-rich manipulation,\nobject transfer, and precise placement.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:action_type",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section 4.1, final lines; continuation on page 6"
+      },
+      "content": "It predicts an action chunk of lengthHc, where each action\nis an absolute Cartesian end-effector target for the dVRK",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:actions",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Section 4.1 continuation"
+      },
+      "content": "patient-sidemanipulators(PSMs),consistingofaposition,an\norientation,andagripperopen–closecommandperarm.Only\nthefirst He actionsareexecuted,afterwhichtherobotobtains\na new observation and replans. Unless otherwise specified,\nwe useHc = 16andH e = 4.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:budget",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Action-labeled demonstrations"
+      },
+      "content": "The action-labeled train-\ningsetcontains10kdemonstrationscollectedfromtheSurRoL\nsimulator (Xu et al. 2021). Each demonstration consists of\nendoscopic observations, proprioceptive states, task informa-\ntion,andsynchronizedrobotactions.Thesameaction-labeled\ndataset is used for all methods and ablations.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:variants",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Compared methods"
+      },
+      "content": "The two WAM variants share the same backbone initializa-\ntion, action representation, diffusion sampler, and evaluation\nprotocol; their comparison therefore isolates the effect of\naction-free surgical video pretraining.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:protocol",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Evaluation metric and Implementation details"
+      },
+      "content": "Evaluation metric.We report the closed-loop task success\nrate. An episode is successful if the task-specific success\ncondition is satisfied within the maximum episode horizon.\nEach result is evaluated over100evaluation episodes.\nImplementation details.The model is fine-tuned for80k\noptimization steps with a batch size of1and a learning rate\nof 1e−4 . The diffusion sampler uses5 denoising steps.\nAll experiments use the same image resolution, optimizer,\nlearning-rate schedule, and action representation.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:table1",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "table",
+        "page": 6,
+        "section_or_table": "Table 1"
+      },
+      "content": "Model Needle Pick Peg Transfer Needle Regrasp BiPeg Transfer\nsnapshots\nBET (Shafiullah et al. 2022) 78% 73%63%—\nDEX (Huang et al. 2023) 98% 77% 56%—\nALOHA (Fu, Zhao, and Finn 2024) 95% 14% 11%—\nDiffusion (Chi et al. 2023) 21% 2% 2%—\nπ0.5 (Black et al. 2025) 8% 36% 12% 33%\nSurgical WAM w/o PT (ours) 96% 66% 50% 42%\nSurgical WAM w/ PT (ours) 99%86% 62%64%",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:summary",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Section 4.2 continuation"
+      },
+      "content": "Averaged over the full suite,\nSurgical WAMw/ PT reaches77.8% versus 63.5% without\npretraining, an improvement of14.3points.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:table2",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "table",
+        "page": 7,
+        "section_or_table": "Table 2"
+      },
+      "content": "Fine-tuning steps WAM w/o PT WAM w/ PT\n40k 41.5% 52%\n80k 65.5% 86%\n120k 71.5% 34%\n160k 79% 56.5%\nBest 79% 86%",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:overfitting",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Effect of Fine-Tuning Steps"
+      },
+      "content": "Atlongerhorizons,thepretrainedmodel\ndegrades, which we attribute to overfitting to the limited\ndemonstrations that gradually erodes the visual-dynamics\nprior.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:table3",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "table",
+        "page": 7,
+        "section_or_table": "Table 3"
+      },
+      "content": "He WAM w/o PT WAM w/ PT\n1 50% 86%\n2 52% 70%\n4 66% 86%\n8 60% 80%",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:jigsaws",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Section 4.4"
+      },
+      "content": "To probe whether the benefit of action-free video pretraining\ntransfers beyond simulation, we apply the identical two-stage\nprotocol to demonstrations from the JIGSAWS dataset (Gao\net al. 2014), a standard corpus of dVRK operation recordings\ncaptured on real robotic hardware (Figure 3). We observe\nthe same qualitative trend as in simulation: video-pretrained\ninitializationsyieldstrongerdownstreampoliciesthanafrom-\nscratch baseline.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:jigsaws_conclusion",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Conclusion"
+      },
+      "content": "Results on real surgical videos\nfrom JIGSAWS confirm that these benefits are not an artifact\nofsimulation.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:figure1_caption",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "figure",
+        "page": 2,
+        "section_or_table": "Figure 1 caption"
+      },
+      "content": "the pretrained model attains a higher peak success rate with fewer fine-tuning steps (62% at 50k\nsteps vs. 50% at 60k steps without pretraining, averaged over the SurRoL task suite).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:figure3",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "figure",
+        "page": 7,
+        "section_or_table": "Figure 3 caption"
+      },
+      "content": "Figure 3:Real-robot surgical manipulation sequences from JIGSAWS.Representative endoscopic frames from the JIGSAWS\ndVRK teleoperation recordings used in our real-data experiments, with task progress shown from left to right.(Top)Knot tying.\n(Bottom)Suturing.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B060:future_work",
+      "source_ref": "Papers/Expanded_Collection/B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+      "source_version": "paper-version:B060:sha256-ca3d4b054276",
+      "source_hash": "ca3d4b054276606d74572b8aed63550377ef5b49377548ffb2591f3f85919e54",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Conclusion"
+      },
+      "content": "scaling action-free pretraining is a promising\ndirection for data-efficient surgical robot learning.",
+      "verification_status": "entailment_reviewed"
+    }
+  ],
+  "metric_results": [
+    {
+      "id": "metric:B060:table1.pt",
+      "metric": "Closed-loop task success rate",
+      "value": {
+        "Needle Pick": 99,
+        "Peg Transfer": 86,
+        "Needle Regrasp": 62,
+        "BiPeg Transfer": 64
+      },
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "Four SurRoL tasks retained separately by name",
+      "cohort_id": "cohort:B060:surrol_evaluation",
+      "split_role": "Evaluation episodes; held-out design and seed structure insufficiently reported",
+      "horizon": "Default 16 generated actions, first 4 executed; episode timeout and physical cadence not reported",
+      "model_version_id": "model:B060:wam_pt",
+      "uncertainty_status": "not_reported",
+      "baseline_id": "model:B060:wam_no_pt",
+      "raw_reported_value": "99%; 86%; 62%; 64%",
+      "source_evidence_ids": [
+        "evidence:B060:table1",
+        "evidence:B060:protocol"
+      ]
+    },
+    {
+      "id": "metric:B060:table1.no_pt",
+      "metric": "Closed-loop task success rate",
+      "value": {
+        "Needle Pick": 96,
+        "Peg Transfer": 66,
+        "Needle Regrasp": 50,
+        "BiPeg Transfer": 42
+      },
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "Four SurRoL tasks retained separately by name",
+      "cohort_id": "cohort:B060:surrol_evaluation",
+      "split_role": "Evaluation episodes; overlap and seeds insufficiently reported",
+      "horizon": "Default Hc=16, He=4; episode timeout not reported",
+      "model_version_id": "model:B060:wam_no_pt",
+      "uncertainty_status": "not_reported",
+      "raw_reported_value": "96%; 66%; 50%; 42%",
+      "source_evidence_ids": [
+        "evidence:B060:table1",
+        "evidence:B060:protocol"
+      ]
+    },
+    {
+      "id": "metric:B060:average.pt",
+      "metric": "Author-reported suite-average closed-loop success",
+      "value": 77.8,
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "Four-task SurRoL suite; aggregate copied, not recalculated",
+      "cohort_id": "cohort:B060:surrol_evaluation",
+      "split_role": "Reported simulation evaluation",
+      "horizon": "Default controller; episode timeout not reported",
+      "model_version_id": "model:B060:wam_pt",
+      "uncertainty_status": "not_reported",
+      "baseline_id": "model:B060:wam_no_pt",
+      "raw_reported_value": "77.8%",
+      "source_evidence_ids": [
+        "evidence:B060:summary"
+      ]
+    },
+    {
+      "id": "metric:B060:average.no_pt",
+      "metric": "Author-reported suite-average closed-loop success",
+      "value": 63.5,
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "Four-task SurRoL suite",
+      "cohort_id": "cohort:B060:surrol_evaluation",
+      "split_role": "Reported simulation evaluation",
+      "horizon": "Default controller; episode timeout not reported",
+      "model_version_id": "model:B060:wam_no_pt",
+      "uncertainty_status": "not_reported",
+      "raw_reported_value": "63.5%",
+      "source_evidence_ids": [
+        "evidence:B060:summary"
+      ]
+    },
+    {
+      "id": "metric:B060:gain",
+      "metric": "Author-reported improvement in suite-average success",
+      "value": 14.3,
+      "unit_or_scale": "percentage points",
+      "direction": "higher_better",
+      "task": "Four-task SurRoL suite",
+      "cohort_id": "cohort:B060:surrol_evaluation",
+      "split_role": "Reported fixed labeled-data comparison",
+      "horizon": "Default controller; episode timeout not reported",
+      "model_version_id": "model:B060:wam_pt",
+      "uncertainty_status": "not_reported",
+      "baseline_id": "model:B060:wam_no_pt",
+      "raw_reported_value": "an improvement of14.3points",
+      "source_evidence_ids": [
+        "evidence:B060:summary"
+      ]
+    },
+    {
+      "id": "metric:B060:table2.pt",
+      "metric": "Success by Stage 2 optimization checkpoint",
+      "value": {
+        "40k": 52,
+        "80k": 86,
+        "120k": 34,
+        "160k": 56.5,
+        "Best": 86
+      },
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "Table 2 ablation; task/aggregation unspecified",
+      "cohort_id": "cohort:B060:surrol_evaluation",
+      "split_role": "Checkpoint ablation; selection partition and averaging unspecified",
+      "horizon": "Optimization checkpoints, not world-time forecast horizons",
+      "model_version_id": "model:B060:wam_pt",
+      "uncertainty_status": "not_reported",
+      "baseline_id": "model:B060:wam_no_pt",
+      "raw_reported_value": "52%; 86%; 34%; 56.5%; Best 86%",
+      "source_evidence_ids": [
+        "evidence:B060:table2"
+      ]
+    },
+    {
+      "id": "metric:B060:table2.no_pt",
+      "metric": "Success by Stage 2 optimization checkpoint",
+      "value": {
+        "40k": 41.5,
+        "80k": 65.5,
+        "120k": 71.5,
+        "160k": 79,
+        "Best": 79
+      },
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "Table 2 ablation; task/aggregation unspecified",
+      "cohort_id": "cohort:B060:surrol_evaluation",
+      "split_role": "Checkpoint ablation; denominator averaging and selection partition unspecified",
+      "horizon": "Optimization checkpoints, not forecast time",
+      "model_version_id": "model:B060:wam_no_pt",
+      "uncertainty_status": "not_reported",
+      "raw_reported_value": "41.5%; 65.5%; 71.5%; 79%; Best 79%",
+      "source_evidence_ids": [
+        "evidence:B060:table2"
+      ]
+    },
+    {
+      "id": "metric:B060:table3.pt",
+      "metric": "Success by executed action-prefix length",
+      "value": {
+        "He=1": 86,
+        "He=2": 70,
+        "He=4": 86,
+        "He=8": 80
+      },
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "Table 3 ablation; task/aggregation unspecified",
+      "cohort_id": "cohort:B060:surrol_evaluation",
+      "split_role": "Simulation ablation",
+      "horizon": "Fixed Hc=16; prefixes 1, 2, 4, 8 actions; physical cadence unspecified",
+      "model_version_id": "model:B060:wam_pt",
+      "uncertainty_status": "not_reported",
+      "baseline_id": "model:B060:wam_no_pt",
+      "raw_reported_value": "86%; 70%; 86%; 80%",
+      "source_evidence_ids": [
+        "evidence:B060:table3"
+      ]
+    },
+    {
+      "id": "metric:B060:table3.no_pt",
+      "metric": "Success by executed action-prefix length",
+      "value": {
+        "He=1": 50,
+        "He=2": 52,
+        "He=4": 66,
+        "He=8": 60
+      },
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "Table 3 ablation; task/aggregation unspecified",
+      "cohort_id": "cohort:B060:surrol_evaluation",
+      "split_role": "Simulation ablation",
+      "horizon": "Fixed Hc=16; prefixes 1, 2, 4, 8 actions; physical cadence unspecified",
+      "model_version_id": "model:B060:wam_no_pt",
+      "uncertainty_status": "not_reported",
+      "raw_reported_value": "50%; 52%; 66%; 60%",
+      "source_evidence_ids": [
+        "evidence:B060:table3"
+      ]
+    },
+    {
+      "id": "metric:B060:figure1.pt",
+      "metric": "Figure 1 caption-reported peak suite-average success",
+      "value": 62,
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "SurRoL suite as captioned; alignment with tables unresolved",
+      "cohort_id": "cohort:B060:surrol_evaluation",
+      "split_role": "Training-curve evaluation; aggregation/selection unspecified",
+      "horizon": "50k optimization steps, not forecast time",
+      "model_version_id": "model:B060:wam_pt",
+      "uncertainty_status": "not_reported",
+      "baseline_id": "model:B060:wam_no_pt",
+      "raw_reported_value": "62% at 50k steps",
+      "source_evidence_ids": [
+        "evidence:B060:figure1_caption"
+      ]
+    },
+    {
+      "id": "metric:B060:figure1.no_pt",
+      "metric": "Figure 1 caption-reported peak suite-average success",
+      "value": 50,
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "SurRoL suite as captioned; alignment with tables unresolved",
+      "cohort_id": "cohort:B060:surrol_evaluation",
+      "split_role": "Training-curve evaluation; aggregation/selection unspecified",
+      "horizon": "60k optimization steps, not forecast time",
+      "model_version_id": "model:B060:wam_no_pt",
+      "uncertainty_status": "not_reported",
+      "raw_reported_value": "50% at 60k steps without pretraining",
+      "source_evidence_ids": [
+        "evidence:B060:figure1_caption"
+      ]
+    }
+  ],
+  "capability_assessments": [
+    {
+      "subject_id": "model:B060:wam_pt",
+      "level": "L4",
+      "scope": {
+        "model_version_id": "model:B060:wam_pt",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_assertion_ids": [
+        "a:B060:state.persistent.pt",
+        "a:B060:dynamics.temporal.pt",
+        "a:B060:dynamics.learned_hybrid.pt",
+        "a:B060:planning.model_use.pt",
+        "a:B060:planning.search_policy.pt",
+        "a:B060:evaluation.E9.pt"
+      ],
+      "rationale": "Implemented learned future-scene generation is coupled to an executing policy with simulator decision results. No separate lower-level prediction tests, specified-action query, causal validity, physical execution or clinical assurance are inherited."
+    },
+    {
+      "subject_id": "model:B060:wam_no_pt",
+      "level": "L4",
+      "scope": {
+        "model_version_id": "model:B060:wam_no_pt",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "environment_kind": "in_silico"
+      },
+      "evidence_assertion_ids": [
+        "a:B060:state.persistent.no_pt",
+        "a:B060:dynamics.temporal.no_pt",
+        "a:B060:dynamics.learned_hybrid.no_pt",
+        "a:B060:planning.model_use.no_pt",
+        "a:B060:planning.search_policy.no_pt",
+        "a:B060:evaluation.E9.no_pt"
+      ],
+      "rationale": "The same future-grounded policy mechanism has separately reported simulator control results; lower performance does not remove this functional label."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "system:B060:wam_pt",
+      "facets": [
+        "R1"
+      ],
+      "environment_kind": "in_silico",
+      "scope": {
+        "model_version_id": "model:B060:wam_pt",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "population": "Simulated manipulation episodes, not patients"
+      },
+      "evidence_ids": [
+        "evidence:B060:setup",
+        "evidence:B060:table1",
+        "evidence:B060:protocol"
+      ],
+      "legacy_highest_label": "R1 Technical feasibility (synthetic/simulated)"
+    },
+    {
+      "subject_id": "system:B060:wam_no_pt",
+      "facets": [
+        "R1"
+      ],
+      "environment_kind": "in_silico",
+      "scope": {
+        "model_version_id": "model:B060:wam_no_pt",
+        "evaluation_run_id": "evaluation:B060:table1",
+        "population": "Simulated manipulation episodes, not patients"
+      },
+      "evidence_ids": [
+        "evidence:B060:setup",
+        "evidence:B060:table1",
+        "evidence:B060:variants"
+      ],
+      "legacy_highest_label": "R1 Technical feasibility (synthetic/simulated)"
+    }
+  ],
+  "gate_assessments": [
+    {
+      "gate_id": "G01",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": [
+          "model:B060:wam_pt",
+          "model:B060:wam_no_pt"
+        ]
+      },
+      "rationale": "Provenance, versions, pretraining overlap, evaluation boundaries and independent checkpoint selection are insufficiently reported; no observed leakage is inferred.",
+      "supporting_assertion_ids": [
+        "a:B060:data.provenance",
+        "a:B060:data.leakage_control"
+      ]
+    },
+    {
+      "gate_id": "G02",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": [
+          "model:B060:wam_pt",
+          "model:B060:wam_no_pt"
+        ],
+        "environment_kind": "in_silico"
+      },
+      "rationale": "Implemented state and learned temporal prediction are supported, but no reference-based future-state fidelity evaluation is supplied. L4 cannot replace it.",
+      "supporting_assertion_ids": [
+        "a:B060:state.persistent.pt",
+        "a:B060:state.persistent.no_pt",
+        "a:B060:dynamics.temporal.pt",
+        "a:B060:dynamics.temporal.no_pt",
+        "a:B060:rollout.one_step_evaluated"
+      ]
+    },
+    {
+      "gate_id": "G03",
+      "status": "unresolved",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation"
+      },
+      "rationale": "Future-sequence generation is described, but K, evaluated extent, drift and a tolerance-supported horizon are unreported. Action counts are not evaluated forecast extent.",
+      "supporting_assertion_ids": [
+        "a:B060:rollout.maximum_horizon",
+        "a:B060:rollout.drift_test",
+        "a:B060:rollout.effective_horizon"
+      ]
+    },
+    {
+      "gate_id": "G04",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B060:simulation_research"
+      },
+      "rationale": "The scoped evaluated claim is simulator control improvement, not a calibrated probabilistic guarantee or uncertainty-dependent decision. Sampling alone does not activate or pass this gate.",
+      "supporting_assertion_ids": [
+        "a:B060:uq.explicit",
+        "a:B060:uq.calibration_evaluated"
+      ]
+    },
+    {
+      "gate_id": "G05",
+      "status": "unresolved",
+      "scope": {
+        "module_implementation_id": "module:B060:shared_implementation",
+        "intended_use_context_id": "use:B060:simulation_research"
+      },
+      "rationale": "The controller-profile action assessment encounters a scope/dependency mismatch: this joint-output policy lacks an established settable-action prediction query. Command attributes, support and constraints are also incomplete. Applicability of the gate as written requires adjudication, not an invented pass or an executed-test failure.",
+      "supporting_assertion_ids": [
+        "a:B060:action.explicit",
+        "a:B060:action.parameterized",
+        "a:B060:dynamics.action_conditioned",
+        "a:B060:action.support"
+      ]
+    },
+    {
+      "gate_id": "G06",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B060:simulation_research"
+      },
+      "rationale": "No modeled scene-intervention-effect estimand or therapeutic-benefit interpretation is evaluated. Attribution of benefit to a training recipe is a different claim.",
+      "supporting_assertion_ids": [
+        "a:B060:causal.estimand",
+        "a:B060:causal.effect_claim_gate"
+      ]
+    },
+    {
+      "gate_id": "G07",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": [
+          "model:B060:wam_pt",
+          "model:B060:wam_no_pt"
+        ],
+        "evaluation_run_id": "evaluation:B060:table1"
+      },
+      "rationale": "Future-policy coupling and decision results are supported; exploitation/mismatch stress tests, coverage and acceptance criteria are not.",
+      "supporting_assertion_ids": [
+        "a:B060:planning.model_use.pt",
+        "a:B060:planning.model_use.no_pt",
+        "a:B060:planning.search_policy.pt",
+        "a:B060:planning.search_policy.no_pt",
+        "a:B060:evaluation.E9.pt",
+        "a:B060:evaluation.E9.no_pt",
+        "a:B060:planning.exploitation_test"
+      ]
+    },
+    {
+      "gate_id": "G08",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:B060:simulation_research"
+      },
+      "rationale": "Selected BP_CONTROLLER research-assurance baseline; proposed surgical control/physical translation requires scoped risk assessment. Guards, abstention and tested fallback are unreported. This is not a clinical authorization requirement or an observed safety failure.",
+      "supporting_assertion_ids": [
+        "a:B060:safety.hard_guard",
+        "a:B060:safety.abstention",
+        "a:B060:safety.kill_switch"
+      ]
+    },
+    {
+      "gate_id": "G09",
+      "status": "unresolved",
+      "scope": {
+        "dataset_version_id": "dataset:B060:jigsaws"
+      },
+      "rationale": "Beyond-simulation claims lack quantitative held-out evaluation, aligned checkpoint/adaptation details and overlap controls.",
+      "supporting_assertion_ids": [
+        "a:B060:evaluation.E11.external",
+        "a:B060:evaluation.E11.jigsaws_claim"
+      ]
+    },
+    {
+      "gate_id": "G10",
+      "status": "unresolved",
+      "scope": {
+        "dataset_version_id": "dataset:B060:jigsaws"
+      },
+      "rationale": "Teleoperation recordings and an unquantified trend do not establish autonomous physical execution, matched sim-to-real agreement or an actual human model-evaluation task.",
+      "supporting_assertion_ids": [
+        "a:B060:evaluation.E10",
+        "a:B060:evaluation.E13"
+      ]
+    },
+    {
+      "gate_id": "G11",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B060:simulation_research"
+      },
+      "rationale": "The selected use is simulation research, not a live real-care/workflow utility claim.",
+      "supporting_assertion_ids": [
+        "a:B060:evaluation.E15"
+      ]
+    },
+    {
+      "gate_id": "G12",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B060:simulation_research"
+      },
+      "rationale": "No defined operational release is assessed; manuscript publication is not operational deployment. Asset-release and governance evidence remain unreported.",
+      "supporting_assertion_ids": [
+        "a:B060:release.code",
+        "a:B060:release.weights",
+        "a:B060:lifecycle.change_control"
+      ]
+    }
+  ],
+  "legacy_cells": {
+    "A": "B060",
+    "B": "Surgical WAM: A World-Action Model for Data-Efficient Surgical Robot Learning",
+    "C": "Bao, Wenrui, Jiang, Tianyun, Chen, Zhiben, Lim, Ser-Nam, Peng, Peter D., Shang, Yuzhang",
+    "D": "2026",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://arxiv.org/abs/2608.11204",
+    "H": "Papers/Expanded_Collection (B)",
+    "I": "B060_Surgical_WAM_A_World_Action_Model_for_Data_Efficient_Surgical_Robot_Learning.pdf",
+    "J": "Primary method – application/adaptation of existing WM",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not reported",
+    "N": "Surgery (general / robotic)",
+    "O": "Not reported",
+    "P": "Mixed / other",
+    "Q": "Procedure / scene (surgery, acquisition)",
+    "R": "Robotic control / navigation",
+    "S": "Under a fixed budget of action-labeled demonstrations, does action-free video pretraining improve closed-loop surgical manipulation?",
+    "T": "Not reported",
+    "U": "Not reported",
+    "V": "Generate surgical robot action chunks for closed-loop task manipulation.",
+    "W": "World-action model (WAM)",
+    "X": "F8 Surgical simulation & world-action models",
+    "Y": "Pixel/voxel generative (diffusion / flow / video)",
+    "Z": "L4 Planning / control",
+    "AA": "L4 Planning / control",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "Yes",
+    "AE": "Not reported",
+    "AF": "Not reported",
+    "AG": "Yes",
+    "AH": "Single model (no composition)",
+    "AI": "Endoscopic RGB video; dVRK proprioceptive state; task embedding; synchronized robot action sequences",
+    "AJ": "Cosmos Policy diffusion transformer; one shared network processes visual, robot-state, and action tokens.",
+    "AK": "Initialization from the surgical video world model of He et al. (2026).",
+    "AL": "Action-free pretraining denoises future-video latents using a video-prediction diffusion loss.",
+    "AM": "Shared latent sequence; action and future-prediction tokens are jointly denoised through the same attention and visual-prediction parameters.",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Not reported",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Not reported",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Surgical instrument / robot command",
+    "BC": "Trajectory / pose / skeleton",
+    "BD": "Absolute Cartesian end-effector target; position, orientation, and gripper open–close command per arm; predicted chunk length Hc=16; executes prefix He=4 by default.",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "Surgical WAM",
+    "BJ": "Diffusion",
+    "BK": "Fixed discrete steps",
+    "BL": "Predicted action chunk Hc=16; default executed prefix He=4 actions before replanning.",
+    "BM": "Yes",
+    "BN": "Not reported",
+    "BO": "Not reported",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Future endoscopic observations/video and surgical robot action chunks; architecture figure also shows future proprioception.",
+    "BT": "Not reported",
+    "BU": "Not reported",
+    "BV": "Video-only diffusion denoising loss Lpre; joint video/action diffusion denoising loss Lft.",
+    "BW": "Yes",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "Closed-loop with re-assimilation",
+    "CD": "Maximum execution horizon evaluated: He=8 actions before replanning; predicted chunk Hc=16.",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "Other",
+    "CI": "Predicted action chunk horizon Hc=16 actions.",
+    "CJ": "Yes",
+    "CK": "Not reported",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Generative sampling (diffusion / flow)",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "None (predictive only)",
+    "CU": "Not reported",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not reported",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Not reported",
+    "DN": "Not reported",
+    "DO": "Not reported",
+    "DP": "Not reported",
+    "DQ": "Not reported",
+    "DR": "Not reported",
+    "DS": "Not reported",
+    "DT": "Not reported",
+    "DU": "Not reported",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "R1 Technical feasibility (synthetic/simulated)",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "Not reported",
+    "FD": "Not reported",
+    "FE": "Not reported",
+    "FF": "Not reported",
+    "FG": "Not reported",
+    "FH": "Not reported",
+    "FI": "Not reported",
+    "FJ": "Not reported",
+    "FK": "Not reported",
+    "FL": "Not reported",
+    "FM": "Not reported",
+    "FN": "Reported results (source excerpt): On a suite of four simulated surgical manipulation tasks, video pretraining improves the average success rate from63.5%to 77.8%, including an absolute gain of 20 percentage points on PegTransfer, with the largest improvements on contact-rich and bimanual tasks.",
+    "FO": "Not reported",
+    "FP": "Not reported",
+    "FQ": "Not reported",
+    "FR": "Not reported",
+    "FS": "Reviewer mapping: M3 Belief-state service; M4 Action service; M5 Dynamics adapter; M7 Outcome & causal layer; M8 Planner; M9 Safety & governance",
+    "FT": "Reviewer lesson: Keep the learned patient/scene simulator separate from the planner objective; constrain candidate actions and report closed-loop decision quality alongside model fidelity.",
+    "FU": "Reviewer mapping (KB §20): Sim-to-real",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Complete extracted PDF text, pp. 1–11: title/abstract and introduction (pp. 1–3); related work (pp. 3–4); methods (pp. 4–5); experimental setup, results, tables 1–3, and ablations (pp. 6–7); real-video evaluation and conclusion (pp. 7–8); references (pp. 8–11). No separate limitations section appears in the extracted text. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "The paper text and tables were readable, including the main results and ablations. The schema JSON was supplied as a single exceptionally long line and the read tool truncated its displayed definitions after column DL; fields beyond the visible definitions were omitted rather than guessed. The PDF reports closed-loop control results on simulated SurRoL tasks and a qualitative transfer trend on JIGSAWS videos, not prospective clinical deployment. A:I were left untouched. Evidence QA: 20/41 populated fields had a <=25-word quotation matching extracted PDF text (48.8%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 39 prior populated fields have a located source quotation; 2 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "Automated model review, not independent human verification, replication or clinical validation.",
+    "This synthesis read complete supplied text for all ten physical pages and all supplied earlier image-review notes. It did not directly receive page images. Earlier API calls supply the reported visual-coverage provenance.",
+    "Source hash/path/page count and API receipts were supplied, not independently checked on disk. No external supplement, repository or cited publication was retrieved.",
+    "Shared-module assertions concern both documented configurations' common mechanism, not identical weights. Core membership and L4 support are separately asserted for each model.",
+    "Scene context supports implemented temporal prediction; deployed history length and cross-call retention remain ambiguous. A recurrent state or posterior belief is not inferred.",
+    "Joint action/future generation does not establish an externally settable action query, specified-action fidelity or matched alternative-action forecast comparison.",
+    "Future proprioception depicted in Figure 2 is absent from Equation (1)'s explicit generated variables; its target and evaluation are unresolved. Task text/goal conditioning and task-embedding implementation also require clarification.",
+    "No independent future-state fidelity, multihorizon prediction error, distributional realism or calibration result is reported. L4 control results do not supply these lower-level tests.",
+    "K, forecast spacing, control cadence, command units/frames, episode timeout and tolerance-supported effective horizon are unreported. Optimization and diffusion iterations are not clinical time.",
+    "Pretraining corpus/version, checkpoint identity, overlap controls, demonstration allocation and model-selection partitions are insufficiently reported.",
+    "The stated 100 episodes per result do not explain Table 2's half-percentage values; averaging, seeds and uncertainty intervals are unspecified.",
+    "Figure 1 caption/plot reports, main suite averages and ablations have unresolved run/task/aggregation alignment. All reported values are retained rather than silently reconciled.",
+    "Tables 2 and 3 do not identify task/aggregation. Table 2's 65.5% no-PT result at 80k is not silently equated with Table 1's 66% Peg Transfer result or the 63.5% suite mean.",
+    "No-PT is not necessarily wholly unpretrained. The real-recording section's from-scratch terminology is not reconciled with shared backbone initialization.",
+    "JIGSAWS evidence is qualitative without counts, held-out design, numerical results or autonomous physical execution. R2 requires held-out actual human/clinical data and is not established.",
+    "Fixed labeled-budget improvement does not establish fewer labels at matched performance, measured video-volume scaling, lower total compute or real-time operation.",
+    "Later-checkpoint deterioration is observed; overfitting/prior erosion is an author explanation, not a diagnosed mechanism or world-time rollout drift.",
+    "Baseline tuning, DEX environment-interaction budgets, checkpoint fairness and statistical uncertainty are insufficiently reported.",
+    "Safety, support, fallback, human escalation, security/privacy and governance evidence is unreported, not automatically absent or inapplicable.",
+    "No executable schema/semantic validation, source matching, hash computation, graph assembly, saving or KG admission occurred in this response."
+  ],
+  "notes": "All 128 supplied feature definitions received explicit dispositions, with additional configuration/stage/transfer scopes where necessary. Raw legacy cells are preserved unchanged. Quotations are contiguous supplied-source passages, including extraction artifacts, with exact supplied source hash/version/path and physical page. Interpretations, numerical-alignment issues and observations from earlier image notes remain outside quotations. Equation (1), (2) and (3) have been added to the visual inventory; this remedies the supplied inventory omission without claiming fresh pixel inspection."
+}

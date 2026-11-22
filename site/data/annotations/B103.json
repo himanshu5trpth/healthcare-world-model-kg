@@ -1,0 +1,4740 @@
+{
+  "record_id": "annotation:B103:r1",
+  "paper_record_id": "B103",
+  "paper_version_id": "paper-version:B103:sha256-111c9bd42b69",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:B103:raven-144m:v1",
+    "model:B103:bert:v1",
+    "model:B103:multiclass:v1",
+    "model:B103:seqloss:v1",
+    "model:B103:ege:v1",
+    "model:B103:medgemma:v1",
+    "model:B103:lrgbm:v1"
+  ],
+  "system_composition_ids": [
+    "system:B103:raven:v1"
+  ],
+  "world_type_ids": [
+    "WT_EHR"
+  ],
+  "profile_ids": [
+    "BP_FORECAST"
+  ],
+  "entities": [
+    {
+      "id": "paper:B103",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "B103",
+        "title": "Scaling Recurrence-aware Foundation Models for Clinical Records via Next-Visit Prediction",
+        "year": 2026,
+        "doi": "https://arxiv.org/abs/2603.24562"
+      }
+    },
+    {
+      "id": "paper-version:B103:sha256-111c9bd42b69",
+      "class_id": "PaperVersion",
+      "properties": {
+        "sha256": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a",
+        "source_path": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+        "pdf_pages": 43,
+        "version_basis": "PDF identified by SHA-256 against assignments.json; title page read."
+      }
+    },
+    {
+      "id": "study:B103:raven",
+      "class_id": "Study",
+      "properties": {
+        "description": "Recurrence-aware next-visit generative pretraining on structured EHR, with zero-shot horizon-conditioned disease onset queries, scaling study and external EHRSHOT transfer.",
+        "independent_study_claim": "single group; own pipeline"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B103:0001",
+        "evidence:B103:0004"
+      ]
+    },
+    {
+      "id": "system:B103:raven:v1",
+      "class_id": "SystemComposition",
+      "properties": {
+        "description": "Visit-level decoder transformer over 42,337 EHR tokens predicting the full event set of the next visit from history and elapsed time, queried with a future-time separator token for disease onset risk.",
+        "implementation_stage": "evaluation (retrospective, external zero-shot)",
+        "world_model_status": "core"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B103:0001",
+        "evidence:B103:0004",
+        "evidence:B103:0008"
+      ]
+    },
+    {
+      "id": "model:B103:raven-144m:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "144M-parameter visit-level causal transformer with weighted multi-label binary cross-entropy and history-dependent recurrence weights",
+        "world_model_status": "core"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B103:0039",
+        "evidence:B103:0042",
+        "evidence:B103:0025"
+      ]
+    },
+    {
+      "id": "use:B103:long-horizon-disease-onset-risk-stratification",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "population": "adult health-system patients with structured records",
+        "user": "not reported",
+        "decision": "risk stratification over a specified horizon, not absolute risk",
+        "autonomy": "research only"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B103:0032",
+        "evidence:B103:0018"
+      ]
+    },
+    {
+      "id": "cohort:B103:nyu-langone-test",
+      "class_id": "Cohort",
+      "properties": {
+        "description": "NYU Langone held-out test patients, 193,237 of about 1.29 million"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B103:0005",
+        "evidence:B103:0006"
+      ]
+    },
+    {
+      "id": "cohort:B103:ehrshot-test",
+      "class_id": "Cohort",
+      "properties": {
+        "description": "EHRSHOT Stanford test patients, N 2,212, zero-shot transfer with lossy concept mapping"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B103:0021",
+        "evidence:B103:0020"
+      ]
+    },
+    {
+      "id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "description": "Zero-shot onset forecasting at 2 and 5 years on held-out NYU data, demographic restriction, calibration, operating points and EHRSHOT transfer",
+        "split_role": "patient-level 70/15/15 split plus external benchmark"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B103:0006",
+        "evidence:B103:0009",
+        "evidence:B103:0021"
+      ]
+    },
+    {
+      "id": "model:B103:bert:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "Fine-tuned BERT-based foundation model",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B103:0009"
+      ]
+    },
+    {
+      "id": "model:B103:multiclass:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "Next-token cross-entropy model (Multiclass)",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B103:0009"
+      ]
+    },
+    {
+      "id": "model:B103:seqloss:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "Next-token set loss model (SeqLoss)",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B103:0009"
+      ]
+    },
+    {
+      "id": "model:B103:ege:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "Joint gap and event generation model (EGE)",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B103:0009"
+      ]
+    },
+    {
+      "id": "model:B103:medgemma:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "MedGemma-27B prompted on serialized records",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B103:0009"
+      ]
+    },
+    {
+      "id": "model:B103:lrgbm:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "Logistic regression and GBM on demographic and utilization covariates",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B103:0009"
+      ]
+    },
+    {
+      "id": "metric:B103:0001",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Macro-average AUROC, 2-year zero-shot onset = 0.78"
+      }
+    },
+    {
+      "id": "metric:B103:0002",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Macro-average AUROC, 5-year zero-shot onset = 0.752"
+      }
+    },
+    {
+      "id": "metric:B103:0003",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "AUROC dementia, 2 years = 0.789"
+      }
+    },
+    {
+      "id": "metric:B103:0004",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "AUROC CHF, 2 years = 0.857"
+      }
+    },
+    {
+      "id": "metric:B103:0005",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "AUROC pancreatic cancer, 2 years = 0.693"
+      }
+    },
+    {
+      "id": "metric:B103:0006",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Macro-average AUROC, 2-year fine-tuned = 0.767"
+      }
+    },
+    {
+      "id": "metric:B103:0007",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Macro-average AUROC, 5-year fine-tuned = 0.757"
+      }
+    },
+    {
+      "id": "metric:B103:0008",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Macro-average AUROC, 2-year, 64 rollouts = 0.642"
+      }
+    },
+    {
+      "id": "metric:B103:0009",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Macro-average AUROC, 2-year, 64 rollouts = 0.662"
+      }
+    },
+    {
+      "id": "metric:B103:0010",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Macro-average AUROC, 2-year, 64 rollouts = 0.626"
+      }
+    },
+    {
+      "id": "metric:B103:0011",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Macro-average AUROC, 2-year = 0.659"
+      }
+    },
+    {
+      "id": "metric:B103:0012",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "EHRSHOT zero-shot AUROC, lupus = 0.763"
+      }
+    },
+    {
+      "id": "metric:B103:0013",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "EHRSHOT zero-shot AUROC, hypertension = 0.705"
+      }
+    },
+    {
+      "id": "metric:B103:0014",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "EHRSHOT zero-shot AUROC, pancreatic cancer = 0.786"
+      }
+    },
+    {
+      "id": "metric:B103:0015",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Mean expected calibration error after Platt scaling, 2 years = 0.00085"
+      }
+    },
+    {
+      "id": "metric:B103:0016",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Mean expected calibration error before recalibration, 2 years = 0.0132"
+      }
+    },
+    {
+      "id": "metric:B103:0017",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Windows with monotonically non-decreasing risk across horizons, lowest = 19.9"
+      }
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:B103:0001",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "data.provenance",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0005",
+        "evidence:B103:0006",
+        "evidence:B103:0049"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Cohort, tokenization and external benchmark are described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0002",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "data.native_time",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0041",
+        "evidence:B103:0039"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Visits carry elapsed-time positional encodings.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0003",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0004",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0005",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0006",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0041",
+        "evidence:B103:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Elapsed time to the next visit conditions the prediction.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0007",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0008",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0009",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "data.harmonization",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0020"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Lossy concept mapping to the internal vocabulary for EHRSHOT"
+      ],
+      "criteria_missing": [
+        "Evaluation of harmonization quality"
+      ],
+      "rationale": "Only 25 percent of rows usable.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B103:0010",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0006",
+        "evidence:B103:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Patient-level splits and exclusion of windows whose history already contains the label.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0011",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0012",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "perception.encoder",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0038"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] Inputs are discretized event tokens with no signal or image encoder.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0013",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0038"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] Inputs are discretized event tokens with no signal or image encoder.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0014",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0038"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] Inputs are discretized event tokens with no signal or image encoder.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0015",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0038"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] Inputs are discretized event tokens with no signal or image encoder.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0016",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0038"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] Inputs are discretized event tokens with no signal or image encoder.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0017",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0038"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] Inputs are discretized event tokens with no signal or image encoder.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0018",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0038"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[design] Inputs are discretized event tokens with no signal or image encoder.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0019",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0004",
+        "evidence:B103:0039",
+        "evidence:B103:0009",
+        "evidence:B103:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "The visit history is carried as a token sequence into each prediction.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B103:0020",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No belief over a hidden state is maintained.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0021",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0022",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0023",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0024",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0025",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0026",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0004",
+        "evidence:B103:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Predictions condition on a fixed 365 day history window.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B103:0027",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0028",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0029",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0030",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0039",
+        "evidence:B103:0040"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Past visits are retained within a 512 token context window.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B103:0031",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "action.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No actions are modelled and the authors state interventional queries are not addressed.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0032",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No actions are modelled.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0033",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "action.parameterized",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No actions are modelled.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0034",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No actions are modelled.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0035",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No actions are modelled.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0036",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No actions are modelled.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0037",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No actions are modelled.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0038",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No actions are modelled.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0039",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No actions are modelled.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0040",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No actions are modelled.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0041",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0004",
+        "evidence:B103:0040",
+        "evidence:B103:0009",
+        "evidence:B103:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "A causal transformer predicts the next visit from earlier visits.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0042",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0042",
+        "evidence:B103:0001",
+        "evidence:B103:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Dynamics are learned from records.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0043",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No action conditioning.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0044",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "The model outputs per-token probabilities and no sampling-based stochastic dynamics are evaluated for RAVEN.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0045",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0046",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0047",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0048",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0049",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0050",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0051",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0042"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "A linear projection with sigmoid decodes event probabilities.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B103:0052",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0053",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0009",
+        "evidence:B103:0010",
+        "evidence:B103:0034"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "One-step next-visit and horizon-queried predictions are scored on held-out patients.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0054",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0034",
+        "evidence:B103:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Horizon queries up to five years by appending a separator token"
+      ],
+      "criteria_missing": [
+        "Sequential generation of future trajectories"
+      ],
+      "rationale": "No rollout of RAVEN is evaluated.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B103:0055",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0056",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0057",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0017"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Queries at 1 to 5 years with 2 and 5 year evaluation"
+      ],
+      "criteria_missing": [
+        "A declared supported horizon"
+      ],
+      "rationale": "Monotonicity not guaranteed.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B103:0058",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not applicable to a single-pass query and not reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0059",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not stated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0060",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "RAVEN uses one forward pass, and sampled rollouts are used only for baselines.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0061",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0017",
+        "evidence:B103:0018"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Horizon is supplied through the separator time"
+      ],
+      "criteria_missing": [
+        "A monotonic cumulative incidence constraint"
+      ],
+      "rationale": "Not enforced.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B103:0062",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "planning.model_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0033"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0063",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0033"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0064",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0033"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0065",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0033"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0066",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0033"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0067",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0033"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0068",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0033"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0069",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0033"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0070",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0033"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No planner or policy is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0071",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "uq.explicit",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0018"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Per-token probabilities from sigmoid outputs"
+      ],
+      "criteria_missing": [
+        "A distribution over outcomes with stated meaning"
+      ],
+      "rationale": "Scores not calibrated.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B103:0072",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0073",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0015",
+        "evidence:B103:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Raw scores are miscalibrated, and post-hoc recalibration on a validation split greatly lowers calibration error.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0074",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0075",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0076",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0077",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0078",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No causal estimand is stated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0079",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0080",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0081",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0082",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0083",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0084",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "present",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0033"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The authors state interventional and counterfactual queries are not addressed.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0085",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0086",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0087",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0088",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0089",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0090",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0091",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0092",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0093",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0094",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0095",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0096",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "partial",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0032",
+        "evidence:B103:0018"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Risk stratification over a specified horizon"
+      ],
+      "criteria_missing": [
+        "Intended user, decision point and permitted autonomy specified"
+      ],
+      "rationale": "Framing only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B103:0097",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0098",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0099",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0100",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0101",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0102",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0037"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "IRB approval is stated with consent waived for de-identified data.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0103",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "agent.role",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0033"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0104",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0033"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0105",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0033"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0106",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0033"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0107",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0033"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0108",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "release.code",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0046"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "A code repository is stated.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0109",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "release.weights",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0047"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Pretrained weights are stated as available.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0110",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No license statement was found in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0111",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No independent reproduction is reported.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0112",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0009",
+        "evidence:B103:0026"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Next-visit prediction is scored and onset forecasting is scored by AUROC.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B103:0113",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No multi-step rollout evaluation of RAVEN.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0114",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0115",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0116",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0015",
+        "evidence:B103:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Brier skill, expected calibration error and recalibration are reported.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0117",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0118",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0119",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0120",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0121",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0122",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0022",
+        "evidence:B103:0013",
+        "evidence:B103:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "External transfer and demographic restriction analyses show mixed results.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:B103:0123",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0124",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0125",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0008",
+        "evidence:B103:0043"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Single forward pass against 64 rollouts and scaling to model size"
+      ],
+      "criteria_missing": [
+        "Measured latency or cost"
+      ],
+      "rationale": "Qualitative only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B103:0126",
+      "subject_id": "system:B103:raven:v1",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B103:0019"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Alert burden, sensitivity and PPV at fixed operating points"
+      ],
+      "criteria_missing": [
+        "Clinical or workflow outcomes"
+      ],
+      "rationale": "Retrospective operating points only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:B103:0127",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:B103:0128",
+      "subject_id": "model:B103:raven-144m:v1",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:B103:0001",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "generative pretraining strategy for sequential EHR data",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0002",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "repeated event tokens can inflate performance",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0003",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "zero-shot prediction for forecasting",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0004",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Fig 1"
+      },
+      "content": "a time-coded separator token [SEP] predicts the full event set at the next visit",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0005",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Results"
+      },
+      "content": "approximately 1.29 million patients at NYU Langone Health",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0006",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Results"
+      },
+      "content": "training (70%, n = 901,769), validation (15%, n = 193,236)",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0007",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Results"
+      },
+      "content": "we exclude prediction windows if their input history windows contain any label code",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0008",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Results"
+      },
+      "content": "whereas RAVEN uses a single forward pass per",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0009",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "table",
+        "page": 5,
+        "section_or_table": "Table 1"
+      },
+      "content": "[paraphrase of Table 1, p. 5] Zero-shot 2-year AUROC / AUPRC. Macro-average AUROC: RAVEN 0.780, Multiclass 0.642, SeqLoss 0.662, EGE 0.626, MedGemma 0.659, fine-tuned BERT 0.767. RAVEN per condition: dementia 0.789, knee OA 0.726, COPD 0.691, CHF 0.857, acute MI 0.793, pancreatic cancer 0.693, prostate cancer 0.910.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0010",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "table",
+        "page": 6,
+        "section_or_table": "Table 2"
+      },
+      "content": "[paraphrase of Table 2, p. 6] Zero-shot 5-year macro-average AUROC: RAVEN 0.752, Multiclass 0.638, SeqLoss 0.659, EGE 0.639, MedGemma 0.638, fine-tuned BERT 0.757. Pancreatic cancer RAVEN 0.639 against BERT 0.642 at 5 years.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0011",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Results"
+      },
+      "content": "does not stem from an insufficient sampling budget",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0012",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Results"
+      },
+      "content": "The fine-tuned BERT baseline achieves the highest AUROC on CHF",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0013",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Results"
+      },
+      "content": "RAVEN achieved the highest AUROC in all 12 restricted settings",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0014",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Results"
+      },
+      "content": "RAVEN exceeded the best baseline in 73 of 88 evaluable strata",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0015",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Results"
+      },
+      "content": "Raw Brier skill scores are negative for all settings",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0016",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "table",
+        "page": 8,
+        "section_or_table": "Results"
+      },
+      "content": "[paraphrase of text, p. 8] Platt recalibration on the validation set lowered mean expected calibration error from 0.0132 to 0.00085 at 2 years and from 0.0452 to 0.00318 at 5 years and moved mean Brier skill score from -0.152 to 0.0147 and from -0.0738 to 0.0379, with AUROC unchanged.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0017",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Results"
+      },
+      "content": "The fraction of prediction windows with monotonically non-decreasing scores ranged from 19.9% to 47.1%",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0018",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Results"
+      },
+      "content": "should not be interpreted as a calibrated cumulative-incidence function",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0019",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "table",
+        "page": 8,
+        "section_or_table": "Results"
+      },
+      "content": "[paraphrase of text, p. 8] Flagging the top 5 percent of windows by predicted risk captured 37, 34 and 29 percent of incident CHF, prostate cancer and dementia at 2 years. Among the 100 highest-ranked windows, 27 percent were followed by incident CHF against a 1.1 percent base rate.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0020",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Results"
+      },
+      "content": "We are only able to utilize 25% of the data rows from EHRSHOT",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0021",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "Results"
+      },
+      "content": "making this a strict zero-shot transfer evaluation",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0022",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "table",
+        "page": 10,
+        "section_or_table": "Results"
+      },
+      "content": "[paraphrase of text, p. 10] EHRSHOT zero-shot AUROC: lupus 0.763 and hypertension 0.705 exceed all four baselines trained with up to 128 labelled examples per class, pancreatic cancer 0.786 for the lowest regularization strength. Best RAVEN against the best fully supervised baseline: hypertension 0.705 against 0.718, lupus 0.763 against 0.793, pancreatic cancer 0.786 against 0.885, celiac disease 0.672 against 0.758.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0023",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "Results"
+      },
+      "content": "the strongest supervised baseline achieved a higher AUROC than the best zero-shot RAVEN variant for each condition",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0024",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "Results"
+      },
+      "content": "limited number of positive",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0025",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "Results"
+      },
+      "content": "exponentially downweight the loss contribution of each positive target token",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0026",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "table",
+        "page": 11,
+        "section_or_table": "Results"
+      },
+      "content": "[paraphrase of text, p. 11] Stronger regularization raised the on-time ratio, which nearly doubled for acute MI, while aggregate AUPRC over all events declined.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0027",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "table",
+        "page": 12,
+        "section_or_table": "Results"
+      },
+      "content": "[paraphrase of text, p. 12] Macro-average AUROC with the chosen regularization against none: 0.780 against 0.772 at 2 years and 0.752 against 0.751 at 5 years. Pancreatic cancer at 5 years fell by 0.046 under the strongest regularization.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0028",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 13,
+        "section_or_table": "Results"
+      },
+      "content": "we evaluate eight model configurations",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0029",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 14,
+        "section_or_table": "Results"
+      },
+      "content": "Loss exhibits a U-shaped dependence on parameter count",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0030",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "table",
+        "page": 14,
+        "section_or_table": "Results"
+      },
+      "content": "[paraphrase of text, p. 14] Five-year macro-average AUROC rose from 0.723 with 10 percent of the training data to 0.752 with the full data, and two-year AUROC from 0.755 to 0.780.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0031",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "Results"
+      },
+      "content": "Performance plateaus and even diminishes once we move to models larger than the optimal",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0032",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "Discussion"
+      },
+      "content": "calibration and threshold selection remain application-specific",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0033",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 16,
+        "section_or_table": "Discussion"
+      },
+      "content": "we have not addressed interventional or counterfactual queries",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0034",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 17,
+        "section_or_table": "Discussion"
+      },
+      "content": "we have only focused on one-step predictions so far",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0035",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 16,
+        "section_or_table": "Discussion"
+      },
+      "content": "pretraining and the primary evaluations were conducted on a single large",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0036",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 16,
+        "section_or_table": "Discussion"
+      },
+      "content": "documented onset in the EHR is only a proxy for true clinical onset",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0037",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 17,
+        "section_or_table": "Methods"
+      },
+      "content": "the requirement for informed consent was waived by the IRB",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0038",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 20,
+        "section_or_table": "Methods"
+      },
+      "content": "All EHR models use the same tokenizer and vocabulary",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0039",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 19,
+        "section_or_table": "Methods"
+      },
+      "content": "tokens belonging to the same visit are allowed to attend to one another",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0040",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 19,
+        "section_or_table": "Methods"
+      },
+      "content": "causal ordering is enforced only across visits",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0041",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 19,
+        "section_or_table": "Methods"
+      },
+      "content": "explicitly encoding the inter-visit time gap",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0042",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 19,
+        "section_or_table": "Methods"
+      },
+      "content": "The base loss is a binary cross-entropy objective summed",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0043",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 21,
+        "section_or_table": "Methods"
+      },
+      "content": "we estimate risk using",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0044",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 20,
+        "section_or_table": "Methods"
+      },
+      "content": "evaluated in a zero-shot setting with no task-specific fine-tuning",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0045",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 23,
+        "section_or_table": "Methods"
+      },
+      "content": "patient-level clustered",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0046",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 24,
+        "section_or_table": "Data availability"
+      },
+      "content": "The source code for RAVEN model training and evaluation",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0047",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 24,
+        "section_or_table": "Data availability"
+      },
+      "content": "The pretrained RAVEN model weights are available at",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0048",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 24,
+        "section_or_table": "Data availability"
+      },
+      "content": "are not publicly available due to patient privacy reasons",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    },
+    {
+      "id": "evidence:B103:0049",
+      "source_ref": "Papers/Expanded_Collection/B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+      "source_version": "paper-version:B103:sha256-111c9bd42b69",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 17,
+        "section_or_table": "Methods"
+      },
+      "content": "comprises approximately 1.29 million unique patients",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "111c9bd42b69cd2dd975848a6edb1b6b2b03eb9599f0b6d8ea6152f002e9d83a"
+    }
+  ],
+  "metric_results": [
+    {
+      "id": "metric:B103:0001",
+      "metric": "Macro-average AUROC, 2-year zero-shot onset",
+      "value": 0.78,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "disease onset forecasting",
+      "cohort_id": "cohort:B103:nyu-langone-test",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B103:raven-144m:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.78",
+      "source_evidence_ids": [
+        "evidence:B103:0009"
+      ]
+    },
+    {
+      "id": "metric:B103:0002",
+      "metric": "Macro-average AUROC, 5-year zero-shot onset",
+      "value": 0.752,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "disease onset forecasting",
+      "cohort_id": "cohort:B103:nyu-langone-test",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B103:raven-144m:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.752",
+      "source_evidence_ids": [
+        "evidence:B103:0010"
+      ]
+    },
+    {
+      "id": "metric:B103:0003",
+      "metric": "AUROC dementia, 2 years",
+      "value": 0.789,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "disease onset forecasting",
+      "cohort_id": "cohort:B103:nyu-langone-test",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B103:raven-144m:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.789",
+      "source_evidence_ids": [
+        "evidence:B103:0009"
+      ]
+    },
+    {
+      "id": "metric:B103:0004",
+      "metric": "AUROC CHF, 2 years",
+      "value": 0.857,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "disease onset forecasting",
+      "cohort_id": "cohort:B103:nyu-langone-test",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B103:raven-144m:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.857",
+      "source_evidence_ids": [
+        "evidence:B103:0009"
+      ]
+    },
+    {
+      "id": "metric:B103:0005",
+      "metric": "AUROC pancreatic cancer, 2 years",
+      "value": 0.693,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "disease onset forecasting",
+      "cohort_id": "cohort:B103:nyu-langone-test",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B103:raven-144m:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.693",
+      "source_evidence_ids": [
+        "evidence:B103:0009"
+      ]
+    },
+    {
+      "id": "metric:B103:0006",
+      "metric": "Macro-average AUROC, 2-year fine-tuned",
+      "value": 0.767,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "disease onset forecasting",
+      "cohort_id": "cohort:B103:nyu-langone-test",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B103:bert:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.767",
+      "source_evidence_ids": [
+        "evidence:B103:0009"
+      ]
+    },
+    {
+      "id": "metric:B103:0007",
+      "metric": "Macro-average AUROC, 5-year fine-tuned",
+      "value": 0.757,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "disease onset forecasting",
+      "cohort_id": "cohort:B103:nyu-langone-test",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B103:bert:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.757",
+      "source_evidence_ids": [
+        "evidence:B103:0010"
+      ]
+    },
+    {
+      "id": "metric:B103:0008",
+      "metric": "Macro-average AUROC, 2-year, 64 rollouts",
+      "value": 0.642,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "disease onset forecasting",
+      "cohort_id": "cohort:B103:nyu-langone-test",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B103:multiclass:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.642",
+      "source_evidence_ids": [
+        "evidence:B103:0009"
+      ]
+    },
+    {
+      "id": "metric:B103:0009",
+      "metric": "Macro-average AUROC, 2-year, 64 rollouts",
+      "value": 0.662,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "disease onset forecasting",
+      "cohort_id": "cohort:B103:nyu-langone-test",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B103:seqloss:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.662",
+      "source_evidence_ids": [
+        "evidence:B103:0009"
+      ]
+    },
+    {
+      "id": "metric:B103:0010",
+      "metric": "Macro-average AUROC, 2-year, 64 rollouts",
+      "value": 0.626,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "disease onset forecasting",
+      "cohort_id": "cohort:B103:nyu-langone-test",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B103:ege:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.626",
+      "source_evidence_ids": [
+        "evidence:B103:0009"
+      ]
+    },
+    {
+      "id": "metric:B103:0011",
+      "metric": "Macro-average AUROC, 2-year",
+      "value": 0.659,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "disease onset forecasting",
+      "cohort_id": "cohort:B103:nyu-langone-test",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B103:medgemma:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.659",
+      "source_evidence_ids": [
+        "evidence:B103:0009"
+      ]
+    },
+    {
+      "id": "metric:B103:0012",
+      "metric": "EHRSHOT zero-shot AUROC, lupus",
+      "value": 0.763,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "one-year new diagnosis",
+      "cohort_id": "cohort:B103:ehrshot-test",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B103:raven-144m:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.763",
+      "source_evidence_ids": [
+        "evidence:B103:0022"
+      ]
+    },
+    {
+      "id": "metric:B103:0013",
+      "metric": "EHRSHOT zero-shot AUROC, hypertension",
+      "value": 0.705,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "one-year new diagnosis",
+      "cohort_id": "cohort:B103:ehrshot-test",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B103:raven-144m:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.705",
+      "source_evidence_ids": [
+        "evidence:B103:0022"
+      ]
+    },
+    {
+      "id": "metric:B103:0014",
+      "metric": "EHRSHOT zero-shot AUROC, pancreatic cancer",
+      "value": 0.786,
+      "unit_or_scale": "AUROC",
+      "direction": "higher_better",
+      "task": "one-year new diagnosis",
+      "cohort_id": "cohort:B103:ehrshot-test",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B103:raven-144m:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.786",
+      "source_evidence_ids": [
+        "evidence:B103:0022"
+      ]
+    },
+    {
+      "id": "metric:B103:0015",
+      "metric": "Mean expected calibration error after Platt scaling, 2 years",
+      "value": 0.00085,
+      "unit_or_scale": "ECE",
+      "direction": "lower_better",
+      "task": "calibration",
+      "cohort_id": "cohort:B103:nyu-langone-test",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B103:raven-144m:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.00085",
+      "source_evidence_ids": [
+        "evidence:B103:0016"
+      ]
+    },
+    {
+      "id": "metric:B103:0016",
+      "metric": "Mean expected calibration error before recalibration, 2 years",
+      "value": 0.0132,
+      "unit_or_scale": "ECE",
+      "direction": "lower_better",
+      "task": "calibration",
+      "cohort_id": "cohort:B103:nyu-langone-test",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B103:raven-144m:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "0.0132",
+      "source_evidence_ids": [
+        "evidence:B103:0016"
+      ]
+    },
+    {
+      "id": "metric:B103:0017",
+      "metric": "Windows with monotonically non-decreasing risk across horizons, lowest",
+      "value": 19.9,
+      "unit_or_scale": "percent",
+      "direction": "higher_better",
+      "task": "horizon consistency",
+      "cohort_id": "cohort:B103:nyu-langone-test",
+      "split_role": "held-out or external",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:B103:raven-144m:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "19.9",
+      "source_evidence_ids": [
+        "evidence:B103:0017"
+      ]
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:B103:0001",
+      "subject_id": "paper:B103",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:B103:sha256-111c9bd42b69",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification"
+      },
+      "evidence_ids": [
+        "evidence:B103:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B103:0002",
+      "subject_id": "paper-version:B103:sha256-111c9bd42b69",
+      "predicate_id": "reportsStudy",
+      "object_id": "study:B103:raven",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification"
+      },
+      "evidence_ids": [
+        "evidence:B103:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B103:0003",
+      "subject_id": "system:B103:raven:v1",
+      "predicate_id": "hasUseContext",
+      "object_id": "use:B103:long-horizon-disease-onset-risk-stratification",
+      "assessment_state": "present",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification"
+      },
+      "evidence_ids": [
+        "evidence:B103:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B103:0004",
+      "subject_id": "system:B103:raven:v1",
+      "predicate_id": "hasProfile",
+      "object_id": "BP_FORECAST",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification"
+      },
+      "evidence_ids": [
+        "evidence:B103:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "A learned next-visit predictor queried for horizon-conditioned onset risk, with no actions or controller."
+    },
+    {
+      "id": "relation:B103:0005",
+      "subject_id": "paper-version:B103:sha256-111c9bd42b69",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B103:raven-144m:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B103:raven-144m:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B103:0006",
+      "subject_id": "paper-version:B103:sha256-111c9bd42b69",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B103:bert:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B103:bert:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B103:0007",
+      "subject_id": "paper-version:B103:sha256-111c9bd42b69",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B103:multiclass:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B103:multiclass:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B103:0008",
+      "subject_id": "paper-version:B103:sha256-111c9bd42b69",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B103:seqloss:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B103:seqloss:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B103:0009",
+      "subject_id": "paper-version:B103:sha256-111c9bd42b69",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B103:ege:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B103:ege:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B103:0010",
+      "subject_id": "paper-version:B103:sha256-111c9bd42b69",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B103:medgemma:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B103:medgemma:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B103:0011",
+      "subject_id": "paper-version:B103:sha256-111c9bd42b69",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B103:lrgbm:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B103:lrgbm:v1"
+      },
+      "evidence_ids": [
+        "evidence:B103:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B103:0012",
+      "subject_id": "system:B103:raven:v1",
+      "predicate_id": "composesModel",
+      "object_id": "model:B103:raven-144m:v1",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B103:raven-144m:v1",
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification"
+      },
+      "evidence_ids": [
+        "evidence:B103:0001",
+        "evidence:B103:0039",
+        "evidence:B103:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "relation:B103:0013",
+      "subject_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot",
+      "predicate_id": "evaluatesOnCohort",
+      "object_id": "cohort:B103:nyu-langone-test",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot"
+      },
+      "evidence_ids": [
+        "evidence:B103:0006",
+        "evidence:B103:0021"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B103:0014",
+      "subject_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot",
+      "predicate_id": "evaluatesOnCohort",
+      "object_id": "cohort:B103:ehrshot-test",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot"
+      },
+      "evidence_ids": [
+        "evidence:B103:0006",
+        "evidence:B103:0021"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B103:0015",
+      "subject_id": "paper-version:B103:sha256-111c9bd42b69",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M3",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification"
+      },
+      "evidence_ids": [
+        "evidence:B103:0039",
+        "evidence:B103:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reviewer mapping: visit-history state and a learned next-visit transition."
+    },
+    {
+      "id": "relation:B103:0016",
+      "subject_id": "paper-version:B103:sha256-111c9bd42b69",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M5",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification"
+      },
+      "evidence_ids": [
+        "evidence:B103:0039",
+        "evidence:B103:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reviewer mapping: visit-history state and a learned next-visit transition."
+    },
+    {
+      "id": "relation:B103:0017",
+      "subject_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B103:0001",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot"
+      },
+      "evidence_ids": [
+        "evidence:B103:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B103:0018",
+      "subject_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B103:0002",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot"
+      },
+      "evidence_ids": [
+        "evidence:B103:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B103:0019",
+      "subject_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B103:0003",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot"
+      },
+      "evidence_ids": [
+        "evidence:B103:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B103:0020",
+      "subject_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B103:0004",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot"
+      },
+      "evidence_ids": [
+        "evidence:B103:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B103:0021",
+      "subject_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B103:0005",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot"
+      },
+      "evidence_ids": [
+        "evidence:B103:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B103:0022",
+      "subject_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B103:0006",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot"
+      },
+      "evidence_ids": [
+        "evidence:B103:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B103:0023",
+      "subject_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B103:0007",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot"
+      },
+      "evidence_ids": [
+        "evidence:B103:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B103:0024",
+      "subject_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B103:0008",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot"
+      },
+      "evidence_ids": [
+        "evidence:B103:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B103:0025",
+      "subject_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B103:0009",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot"
+      },
+      "evidence_ids": [
+        "evidence:B103:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B103:0026",
+      "subject_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B103:0010",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot"
+      },
+      "evidence_ids": [
+        "evidence:B103:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B103:0027",
+      "subject_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B103:0011",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot"
+      },
+      "evidence_ids": [
+        "evidence:B103:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B103:0028",
+      "subject_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B103:0012",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot"
+      },
+      "evidence_ids": [
+        "evidence:B103:0022"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B103:0029",
+      "subject_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B103:0013",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot"
+      },
+      "evidence_ids": [
+        "evidence:B103:0022"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B103:0030",
+      "subject_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B103:0014",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot"
+      },
+      "evidence_ids": [
+        "evidence:B103:0022"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B103:0031",
+      "subject_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B103:0015",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot"
+      },
+      "evidence_ids": [
+        "evidence:B103:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B103:0032",
+      "subject_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B103:0016",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot"
+      },
+      "evidence_ids": [
+        "evidence:B103:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B103:0033",
+      "subject_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:B103:0017",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:B103:nyu-heldout-and-ehrshot-zero-shot"
+      },
+      "evidence_ids": [
+        "evidence:B103:0017"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    }
+  ],
+  "capability_assessments": [
+    {
+      "subject_id": "system:B103:raven:v1",
+      "level": "L1",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification"
+      },
+      "evidence_assertion_ids": [
+        "assertion:B103:0019",
+        "assertion:B103:0041",
+        "assertion:B103:0042",
+        "assertion:B103:0053"
+      ],
+      "rationale": "One-step next-visit and horizon-queried predictions are evaluated on held-out and external patients, which meets L1. There are no actions, so L2 is not met. Visit history is carried into each prediction with learned temporal dynamics, which meets the V11 core membership criteria, although the authors note only one-step prediction has been used."
+    },
+    {
+      "subject_id": "model:B103:raven-144m:v1",
+      "level": "L1",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification"
+      },
+      "evidence_assertion_ids": [
+        "assertion:B103:0019",
+        "assertion:B103:0041",
+        "assertion:B103:0042",
+        "assertion:B103:0053"
+      ],
+      "rationale": "One-step next-visit and horizon-queried predictions are evaluated on held-out and external patients, which meets L1. There are no actions, so L2 is not met. Visit history is carried into each prediction with learned temporal dynamics, which meets the V11 core membership criteria, although the authors note only one-step prediction has been used."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "system:B103:raven:v1",
+      "facets": [
+        "R3"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification"
+      },
+      "evidence_ids": [
+        "evidence:B103:0022",
+        "evidence:B103:0021"
+      ],
+      "legacy_highest_label": "R3 Retrospective external / multi-site validation"
+    },
+    {
+      "subject_id": "system:B103:raven:v1",
+      "facets": [
+        "R2"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification"
+      },
+      "evidence_ids": [
+        "evidence:B103:0006",
+        "evidence:B103:0009",
+        "evidence:B103:0010"
+      ],
+      "legacy_highest_label": "R3 Retrospective external / multi-site validation"
+    }
+  ],
+  "gate_assessments": [
+    {
+      "gate_id": "G01",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification"
+      },
+      "rationale": "Patient-level 70/15/15 NYU splits, 1-year gap window, and history-label exclusion are implemented, but feature availability times are not reported (data.availability_time) and external EHRSHOT transfer uses lossy code mapping retaining only ~25% of rows (p. 18).",
+      "supporting_assertion_ids": [
+        "assertion:B103:0001",
+        "assertion:B103:0003",
+        "assertion:B103:0010"
+      ]
+    },
+    {
+      "gate_id": "G02",
+      "status": "pass",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification"
+      },
+      "rationale": "Carried visit history (state.persistent), time-coded next-visit transitions (dynamics.temporal), and held-out/external zero-shot predictions (rollout.one_step_evaluated) are evaluated on 193,237 NYU and 2,212 EHRSHOT patients against rollout, LLM, fine-tuned BERT, and demographic baselines (Tables 1-2, Figs. 2-3).",
+      "supporting_assertion_ids": [
+        "assertion:B103:0019",
+        "assertion:B103:0041",
+        "assertion:B103:0053",
+        "assertion:B103:0112"
+      ]
+    },
+    {
+      "gate_id": "G03",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification"
+      },
+      "rationale": "No sequential rollout of RAVEN is evaluated, and horizon-query scores are not monotone in many windows.",
+      "supporting_assertion_ids": [
+        "assertion:B103:0054",
+        "assertion:B103:0061"
+      ]
+    },
+    {
+      "gate_id": "G05",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B103:long-horizon-disease-onset-risk-stratification"
+      },
+      "rationale": "No actions or interventions exist.",
+      "supporting_assertion_ids": [
+        "assertion:B103:0031"
+      ]
+    }
+  ],
+  "legacy_cells": {
+    "A": "B103",
+    "B": "Scaling Recurrence-aware Foundation Models for Clinical Records via Next-Visit Prediction",
+    "C": "Gao, Xiang, Rajamohan, Haresh Rengaraj, Zhu, Weicheng, Huang, Shih-Lun, Chen, Long, Schulman, Gabe, et al.",
+    "D": "2026",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://arxiv.org/abs/2603.24562",
+    "H": "Papers/Expanded_Collection (B)",
+    "I": "B103_Scaling_Recurrence_aware_Foundation_Models_for_Clinical_Records_via_Next_Visit_Prediction.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not applicable",
+    "N": "Multi-specialty / general medicine",
+    "O": "Dementia; knee osteoarthritis; pancreatic cancer; prostate cancer; acute myocardial infarction; congestive heart failure; chronic obstructive pulmonary disease; lupus; hyperlipidemia; hypertension; celiac disease",
+    "P": "Mixed / other",
+    "Q": "Patient clinical trajectory (EHR)",
+    "R": "Disease progression forecasting",
+    "S": "Whether a patient's history predicts first onset of selected conditions within a future 2- or 5-year horizon (1-year tasks in EHRSHOT).",
+    "T": "De-identified NYU Langone longitudinal EHR patients (1,288,242; 2013–2023; median 21 visits); external EHRSHOT test cohort of 2,212 patients from Stanford.",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "Foundation model",
+    "X": "F2 EHR / ICU event & latent patient dynamics",
+    "Y": "Event/token autoregressive",
+    "Z": "L1 Temporal prediction",
+    "AA": "L1 Temporal prediction",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "No",
+    "AE": "No",
+    "AF": "No",
+    "AG": "No",
+    "AH": "Single model (no composition)",
+    "AI": "Structured longitudinal EHR events: demographics (race, ethnicity, sex), age, diagnoses (ICD-10), prescribed medications, laboratory codes and values (LOINC)",
+    "AJ": "Decoder-only GPT-2-based Transformer; 8 layers, 8 attention heads, hidden dimension 1024, maximum sequence length 512 (main model).",
+    "AK": "Not reported",
+    "AL": "Not reported",
+    "AM": "Not reported",
+    "AN": "Not reported",
+    "AO": "Yes",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Event-token sequence",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Yes",
+    "AV": "Not reported",
+    "AW": "Conditioning on patient history",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "None (no actions)",
+    "BC": "Not reported",
+    "BD": "Not reported",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "RAVEN (Recurrence-Aware next-Visit EveNt prediction)",
+    "BJ": "Transformer (autoregressive)",
+    "BK": "Irregular timestamps (Δt as input)",
+    "BL": "Not reported",
+    "BM": "Not reported",
+    "BN": "Not reported",
+    "BO": "Not reported",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Predicted multi-label set of clinical-event tokens for the next visit (diagnoses, medications, laboratory results, and demographics); disease-risk scores are pooled from condition-code logits.",
+    "BT": "Linear projection and sigmoid for next-visit token probabilities; condition-specific zero-shot score pools logits across the disease code set and applies sigmoid.",
+    "BU": "Not reported",
+    "BV": "Weighted binary cross-entropy for next-visit multi-label prediction; positive target weights decay as λ raised to the prior-history occurrence count, with minimum weight; main setting λ⋆=0.5.",
+    "BW": "No",
+    "BX": "Pretrained on NYU Langone records from 1,288,242 patients.",
+    "BY": "Main model: 144 million parameters; scaling configurations 0.69 million to 848.80 million parameters.",
+    "BZ": "Open weights",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "One-step only",
+    "CD": "5 years",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "None",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Not reported",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Not reported",
+    "CQ": "Not reported",
+    "CR": "Calibration evaluated using Brier score, Brier skill score, and expected calibration error at 2- and 5-year horizons; Platt scaling and isotonic recalibration were fit on validation and evaluated on test data.",
+    "CS": "Not reported",
+    "CT": "None (predictive only)",
+    "CU": "None",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not reported",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Not reported",
+    "DN": "Not reported",
+    "DO": "Not reported",
+    "DP": "Not reported",
+    "DQ": "Not reported",
+    "DR": "Not reported",
+    "DS": "Not reported",
+    "DT": "Not reported",
+    "DU": "Not reported",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "R3 Retrospective external / multi-site validation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "Not reported",
+    "FD": "Not reported",
+    "FE": "Not reported",
+    "FF": "Not reported",
+    "FG": "Not reported",
+    "FH": "Not reported",
+    "FI": "Not reported",
+    "FJ": "Not reported",
+    "FK": "Not reported",
+    "FL": "Not reported",
+    "FM": "Not reported",
+    "FN": "RAVEN zero-shot macro-average AUROC was 0.780 at two years and 0.752 at five years; at two years the structured next-token/simulation baselines scored 0.642, 0.662 and 0.626, and MedGemma 0.659. External transfer was evaluated under lossy ontology/feature mapping.",
+    "FO": "Not reported",
+    "FP": "Not reported",
+    "FQ": "Not reported",
+    "FR": "Not reported",
+    "FS": "Reviewer mapping: M3 Belief-state service; M5 Dynamics adapter; M7 Outcome & causal layer",
+    "FT": "Reviewer lesson: Expose future-state forecasts through a time-aware dynamics interface and validate error versus horizon; treatment actions need separate evidence before intervention simulation.",
+    "FU": "Reviewer mapping (KB §20): Multiscale / continuous-time states",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "PDF title and abstract (p. 1); Introduction and overview (pp. 2–4); primary results, figures, and main forecasting tables (pp. 4–16); Methods, cohort, architecture, training objective, inference, evaluation metrics, and calibration (pp. 17–23); availability statements (p. 24); relevant calibration and operating-point supplementary tables (pp. 37–41). Complete 43-page extracted text was available; all evidence-bearing methods and results used above were reviewed. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "A:I retained as prefilled; no PDF contradiction requiring correction. M is not applicable because the record is included. RAVEN's results establish one-step, horizon-conditioned predictive scoring only; no treatment-action conditioning, causal identification, counterfactual comparison, or planning is demonstrated. The model's medication history tokens are observed EHR events, not intervention inputs. The main forecasting tables and relevant calibration tables were legible in extracted text; the garbled layout of unrelated supplementary table S15 was not relied upon. Evidence QA: 34/44 populated fields had a <=25-word quotation matching extracted PDF text (77.3%). Confidence is conservative; review this row where exact quote checks were incomplete. Schema normalization (source details retained): Y normalized to 'Event/token autoregressive'; source detail: Event-token autoregressive Codex audit: 37 prior populated fields have a located source quotation; 7 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "All 43 PDF pages were read as extracted text (including Table 3 on p. 18, References on pp. 25-26, and Supplementary Tables S1-S18 and Figs. S1-S4 captions on pp. 27-43), and rendered page images were visually inspected for pages 3, 5, 6, 7, 9, and 13 (Figs. 1-3, 6; Tables 1-2).",
+    "Main visual figures 4, 5, and 7 and supplementary figure images S1-S4 were not separately rendered as PNGs; their full numeric tables (Tables S1-S18) and captions were read directly from extracted text.",
+    "The legacy row was read from the root workbook (read only). Saved API drafts for B103 were not opened.",
+    "Schema validity and quote occurrence do not establish semantic correctness. One reviewer pass, no independent human review."
+  ],
+  "notes": "RAVEN is a visit-level causal transformer pretrained on about 1.29 million NYU patients to predict the next visit event set, with history-dependent downweighting of repeated events. A future-time separator token gives one-pass zero-shot onset risk at 2 and 5 years for seven diseases (macro AUROC 0.780 and 0.752), above next-token rollout baselines and a prompted LLM, and close to a fine-tuned BERT (0.767 and 0.757). Zero-shot EHRSHOT transfer is competitive on some tasks and below the fully supervised best on all six. Raw scores are miscalibrated until recalibrated. Classified L1, core, R3. Source points: only one-step use, horizon scores non-monotone, small positive counts in EHRSHOT, causal queries not addressed."
+}

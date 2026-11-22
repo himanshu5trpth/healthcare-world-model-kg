@@ -1,0 +1,2734 @@
+{
+  "record_id": "annotation:A06:r1",
+  "paper_record_id": "A06",
+  "paper_version_id": "paper-version:A06:sha256-3cf11f294794",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:A06:main"
+  ],
+  "system_composition_ids": [],
+  "world_type_ids": [
+    "WT_EHR",
+    "WT_PHYSIOLOGY"
+  ],
+  "profile_ids": [
+    "BP_FORECAST"
+  ],
+  "entities": [
+    {
+      "id": "paper:A06",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "A06",
+        "title": "ChronoMedicalWorld: A Medical World Model for Learning Patient Trajectories from Longitudinal Care Data"
+      },
+      "provenance_evidence_ids": []
+    },
+    {
+      "id": "paper-version:A06:sha256-3cf11f294794",
+      "class_id": "PaperVersion",
+      "properties": {
+        "title": "ChronoMedicalWorld: A Medical World Model for Learning Patient Trajectories from Longitudinal Care Data",
+        "source_sha256": "3cf11f294794b96d21894d4c3c912f3943c77b29acf314e870246ca09b2eb1a6",
+        "full_text_pages": 14
+      },
+      "provenance_evidence_ids": []
+    },
+    {
+      "id": "model:A06:main",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "ChronoMedicalWorld CKD",
+        "architecture_summary": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect.",
+        "implemented": true,
+        "coordinate": "Declared clinical pre/post timepoint or annual follow-up index; never diffusion/flow sampling time"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A06:0001",
+        "evidence:A06:0002"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:A06:0001",
+      "subject_id": "model:A06:main",
+      "feature_id": "data.provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0006",
+        "evidence:A06:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Clinical source channels, eGFR equation and annual aggregation specified; Native/availability timestamp lineage not supplied",
+      "criteria_met": [
+        "Clinical source channels, eGFR equation and annual aggregation specified"
+      ],
+      "criteria_missing": [
+        "Native/availability timestamp lineage not supplied"
+      ]
+    },
+    {
+      "id": "assertion:A06:0002",
+      "subject_id": "model:A06:main",
+      "feature_id": "data.native_time",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Calendar-year and gap covariates retained; Native within-year event times not shown reversibly retained after aggregation",
+      "criteria_met": [
+        "Calendar-year and gap covariates retained"
+      ],
+      "criteria_missing": [
+        "Native within-year event times not shown reversibly retained after aggregation"
+      ]
+    },
+    {
+      "id": "assertion:A06:0003",
+      "subject_id": "model:A06:main",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: The time a value became usable is distinguished from collection time when latency matters, and training queries respect it. This specific criterion is not established for the scoped contribution in the supplied full paper. Chronological ordering by specimen time alone.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0004",
+      "subject_id": "model:A06:main",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Annual clinical state includes missingness flags for urineprotein/BP; absent communication maps to zero, not a separate verified measurement."
+    },
+    {
+      "id": "assertion:A06:0005",
+      "subject_id": "model:A06:main",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Per-variable elapsed time since true observation is represented and updated under carry-forward/asynchrony. This specific criterion is not established for the scoped contribution in the supplied full paper. A single global sequence timestamp does not establish variable-level freshness.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0006",
+      "subject_id": "model:A06:main",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Real elapsed intervals, native events or continuous-time integration affect prediction at irregular times. This specific criterion is not established for the scoped contribution in the supplied full paper. Dataset irregularity alone or arbitrary positional embeddings.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0007",
+      "subject_id": "model:A06:main",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A model/rule explicitly represents when, whether or why observations occur conditional on relevant state/acquisition context. This specific criterion is not established for the scoped contribution in the supplied full paper. Masks or a time embedding alone do not model the observation-generation process.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0008",
+      "subject_id": "model:A06:main",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A target distinction and sampling grid are defined and witness preservation is tested across values, update/validity patterns, native timing and external acquisition channels, with unresolved allowed. This specific criterion is not established for the scoped contribution in the supplied full paper. Checking unequal time differences alone is not EndoClock.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0009",
+      "subject_id": "model:A06:main",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Source-specific units, terminology and measurement definitions map to a declared target schema with traceable conversions. This specific criterion is not established for the scoped contribution in the supplied full paper. FHIR/OMOP mentioned only as future work.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0010",
+      "subject_id": "model:A06:main",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0005",
+        "evidence:A06:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Patient-level split and training-only standardization specified; Prospective availability of future auxiliary covariates and period communication unresolved",
+      "criteria_met": [
+        "Patient-level split and training-only standardization specified"
+      ],
+      "criteria_missing": [
+        "Prospective availability of future auxiliary covariates and period communication unresolved"
+      ]
+    },
+    {
+      "id": "assertion:A06:0011",
+      "subject_id": "model:A06:main",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Local data stay at defined sites and an explicit federated training/query protocol exchanges specified artifacts. This specific criterion is not established for the scoped contribution in the supplied full paper. Federation alone does not prove privacy, differential privacy or legal compliance.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0012",
+      "subject_id": "model:A06:main",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "State encoder maps standardized clinical/static variables into latent state."
+    },
+    {
+      "id": "assertion:A06:0013",
+      "subject_id": "model:A06:main",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "text-embedding-3-small produces256dim annual communication vectors; exact endpoint checkpoint not pinned."
+    },
+    {
+      "id": "assertion:A06:0014",
+      "subject_id": "model:A06:main",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Stop-gradient next-latent prediction plus SIGReg characteristic-function isotropy regularization are explicit, separate from observable loss."
+    },
+    {
+      "id": "assertion:A06:0015",
+      "subject_id": "model:A06:main",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Stop-gradient next-latent prediction plus SIGReg characteristic-function isotropy regularization are explicit, separate from observable loss."
+    },
+    {
+      "id": "assertion:A06:0016",
+      "subject_id": "model:A06:main",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A loss measures reconstructed observed values/images against observations. This specific criterion is not established for the scoped contribution in the supplied full paper. Reconstruction is a valid option, not automatically a defect or a WM definition.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0017",
+      "subject_id": "model:A06:main",
+      "feature_id": "perception.fusion",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0006",
+        "evidence:A06:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Structured state/action and text-derived communication enter wide action encoder and GRU jointly."
+    },
+    {
+      "id": "assertion:A06:0018",
+      "subject_id": "model:A06:main",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Fusion uses observed modality availability/quality/recency and defines behavior when a modality is missing. This specific criterion is not established for the scoped contribution in the supplied full paper. Robustness claims without missing-modality evaluation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0019",
+      "subject_id": "model:A06:main",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0002",
+        "evidence:A06:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "GRU previous hidden state and observed/action history carry into subsequent annual predictions."
+    },
+    {
+      "id": "assertion:A06:0020",
+      "subject_id": "model:A06:main",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A posterior/filtering distribution over hidden state is conditioned on observation history, with uncertainty semantics stated. This specific criterion is not established for the scoped contribution in the supplied full paper. Sampling output images alone does not establish a posterior belief state.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0021",
+      "subject_id": "model:A06:main",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Prior evolution and observation-conditioned correction are distinct operations and missing observations do not cause fictitious measurement correction. This specific criterion is not established for the scoped contribution in the supplied full paper. A recurrent state update alone is not evidence of filtering separation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0022",
+      "subject_id": "model:A06:main",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: The current individual state is updated from newly available observations during sequential use. This specific criterion is not established for the scoped contribution in the supplied full paper. Retraining model weights and assimilating patient state are distinct.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0023",
+      "subject_id": "model:A06:main",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Individual parameters or model weights change using the patient's new measurements under a defined fitting rule. This specific criterion is not established for the scoped contribution in the supplied full paper. History conditioning is not per-patient fitting or continual learning.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0024",
+      "subject_id": "model:A06:main",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: The same state representation/checkpoint feeds at least two typed tasks/readouts without separately defining a new state model for each. This specific criterion is not established for the scoped contribution in the supplied full paper. Sharing the architecture name without sharing the learned state.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0025",
+      "subject_id": "model:A06:main",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "confidence": "medium",
+      "rationale": "Communication semantic/intensity and encoder ablations test representation components; not a correct-patient history-swap audit."
+    },
+    {
+      "id": "assertion:A06:0026",
+      "subject_id": "model:A06:main",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0002",
+        "evidence:A06:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "GRU previous hidden state and observed/action history carry into subsequent annual predictions."
+    },
+    {
+      "id": "assertion:A06:0027",
+      "subject_id": "model:A06:main",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Matched history-swap/withhold, population-prior or analogous controls test whether the correct individual's information adds predictive value without leakage. This specific criterion is not established for the scoped contribution in the supplied full paper. Setting a personalized flag, conditioning on identity or fitting individual parameters alone.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0028",
+      "subject_id": "model:A06:main",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A declared memory, constraint or loss preserves the modeled entities, anatomy or patient identity through transitions. This specific criterion is not established for the scoped contribution in the supplied full paper. Visual similarity alone or a causal attention mask.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0029",
+      "subject_id": "model:A06:main",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: State variables/structures have a documented mapping to interpretable entities/physiology and users can inspect them. This specific criterion is not established for the scoped contribution in the supplied full paper. Attention heatmaps alone do not make all latent coordinates physiologically interpretable.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0030",
+      "subject_id": "model:A06:main",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0002",
+        "evidence:A06:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "GRU previous hidden state and observed/action history carry into subsequent annual predictions."
+    },
+    {
+      "id": "assertion:A06:0031",
+      "subject_id": "model:A06:main",
+      "feature_id": "action.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Framework accepts candidate intervention sequences separately from observed history; empirical evaluation uses factual sequences, so noL2 query validation inferred."
+    },
+    {
+      "id": "assertion:A06:0032",
+      "subject_id": "model:A06:main",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0011"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Medication and communication are separate channels; Advice, patient symptom reports and automated messages mixed within communication",
+      "criteria_met": [
+        "Medication and communication are separate channels"
+      ],
+      "criteria_missing": [
+        "Advice, patient symptom reports and automated messages mixed within communication"
+      ]
+    },
+    {
+      "id": "assertion:A06:0033",
+      "subject_id": "model:A06:main",
+      "feature_id": "action.parameterized",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0011"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Annual binary exposure identities encoded; Dose/duration/adherence and executable schedules omitted",
+      "criteria_met": [
+        "Annual binary exposure identities encoded"
+      ],
+      "criteria_missing": [
+        "Dose/duration/adherence and executable schedules omitted"
+      ]
+    },
+    {
+      "id": "assertion:A06:0034",
+      "subject_id": "model:A06:main",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Interventions include explicit start/stop/event times or sequence cadence and appropriate duration/dose semantics. This specific criterion is not established for the scoped contribution in the supplied full paper. The schedule need not have more than one event to be a schedule.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0035",
+      "subject_id": "model:A06:main",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Joint interventions and unchanged/inherited settings have defined bundle/update semantics that preserve clinically or empirically linked components. This specific criterion is not established for the scoped contribution in the supplied full paper. A universally fixed ventilator field list or categorical rejection of every partial update.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0036",
+      "subject_id": "model:A06:main",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Explicit context-dependent bounds, contraindications or workspace rules restrict candidate actions. This specific criterion is not established for the scoped contribution in the supplied full paper. Constraints mentioned in discussion or encoded only in reward penalties are not necessarily hard guards.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0037",
+      "subject_id": "model:A06:main",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Action variables map to known clinical operations, calibrated robot commands or a validated latent-to-executable mapping. This specific criterion is not established for the scoped contribution in the supplied full paper. Observed optical flow is not commanded probe motion or a causal intervention.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0038",
+      "subject_id": "model:A06:main",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A context-conditioned coverage/overlap/support criterion is actually estimated or justified and tested for queried alternatives. This specific criterion is not established for the scoped contribution in the supplied full paper. A fabricated propensity formula, dose clipping or a named positivity assumption alone.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0039",
+      "subject_id": "model:A06:main",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: At least two specified action alternatives are applied to the same initial patient/scene/history and their predicted successors are compared in reported results. This specific criterion is not established for the scoped contribution in the supplied full paper. May be one-step; functional comparison does not certify causal identification.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0040",
+      "subject_id": "model:A06:main",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Physical/clinical reversibility and residual harm of proposed actions are assessed in the intended environment. This specific criterion is not established for the scoped contribution in the supplied full paper. Stopping software or reverting a plan does not undo a delivered intervention.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0041",
+      "subject_id": "model:A06:main",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0002",
+        "evidence:A06:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Learned GRU latent transition predicts subsequent annual state/target."
+    },
+    {
+      "id": "assertion:A06:0042",
+      "subject_id": "model:A06:main",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0002",
+        "evidence:A06:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Learned GRU latent transition predicts subsequent annual state/target."
+    },
+    {
+      "id": "assertion:A06:0043",
+      "subject_id": "model:A06:main",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: The transition consumes a settable action/regime and prediction depends on it, with evaluated action-conditioned results required for L2. This specific criterion is not established for the scoped contribution in the supplied full paper. Medication appearing in a passive event sequence is insufficient without intervention/query semantics.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0044",
+      "subject_id": "model:A06:main",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: The transition defines a non-degenerate random next-state process conditional on state/action and randomness is used as specified. This specific criterion is not established for the scoped contribution in the supplied full paper. Output sampling, dropout or a Bayesian parameter posterior should be scoped; uncertainty need not arise in the transition itself.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0045",
+      "subject_id": "model:A06:main",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Slope/continuity/jump shape penalties constrain smooth biomarker trajectories, not physiological differential equations."
+    },
+    {
+      "id": "assertion:A06:0046",
+      "subject_id": "model:A06:main",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A mechanistic component and learned component are operationally coupled, with which quantities are fixed/fitted/learned stated. This specific criterion is not established for the scoped contribution in the supplied full paper. Using a biological term or a neural network alone.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0047",
+      "subject_id": "model:A06:main",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: At least two implementations are exchanged under the same documented state/action/time/output semantics and compared or integration-tested. This specific criterion is not established for the scoped contribution in the supplied full paper. An architecture ablation with different end-to-end systems is not proven pluggability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0048",
+      "subject_id": "model:A06:main",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Distinct physical/spatial/temporal levels exchange state or constraints with explicit cross-scale mappings. This specific criterion is not established for the scoped contribution in the supplied full paper. Multiple modalities or horizons alone are not multiscale composition.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0049",
+      "subject_id": "model:A06:main",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Rollout-prefix training feeds generated eGFR into later state slots and aggregates per-step losses; future non-target covariates remain provided."
+    },
+    {
+      "id": "assertion:A06:0050",
+      "subject_id": "model:A06:main",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Options/events/subgoals define variable-duration or multi-timescale transitions with explicit higher/lower-level coordination. This specific criterion is not established for the scoped contribution in the supplied full paper. A deep network or hierarchical image encoder alone.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0051",
+      "subject_id": "model:A06:main",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Prediction head emits annual eGFR and next latent; no survival or policy-value readout inferred."
+    },
+    {
+      "id": "assertion:A06:0052",
+      "subject_id": "model:A06:main",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Prediction head emits annual eGFR and next latent; no survival or policy-value readout inferred."
+    },
+    {
+      "id": "assertion:A06:0053",
+      "subject_id": "model:A06:main",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "confidence": "medium",
+      "rationale": "Held-out next-year MAE/RMSE compare eGFR predictions with recorded targets."
+    },
+    {
+      "id": "assertion:A06:0054",
+      "subject_id": "model:A06:main",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Rollout-prefix training feeds generated eGFR into later state slots and aggregates per-step losses; future non-target covariates remain provided."
+    },
+    {
+      "id": "assertion:A06:0055",
+      "subject_id": "model:A06:main",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Ground-truth intermediate observations/states are fed into successive prediction steps during the evaluated sequence. This specific criterion is not established for the scoped contribution in the supplied full paper. Teacher-forced fidelity does not establish free-running reliability.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0056",
+      "subject_id": "model:A06:main",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: After imagined prediction/execution, newly observed evidence corrects state before a subsequent forecast/plan. This specific criterion is not established for the scoped contribution in the supplied full paper. An internal imagined feedback loop is not clinical/physical re-assimilation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0057",
+      "subject_id": "model:A06:main",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0007",
+        "evidence:A06:0012"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Maximum configured8 and representative4–6year cases supplied; Full empirically tested horizon distribution not separately reported",
+      "criteria_met": [
+        "Maximum configured8 and representative4–6year cases supplied"
+      ],
+      "criteria_missing": [
+        "Full empirically tested horizon distribution not separately reported"
+      ]
+    },
+    {
+      "id": "assertion:A06:0058",
+      "subject_id": "model:A06:main",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Free-running errors or validity violations are compared at multiple forecast depths under a common protocol. This specific criterion is not established for the scoped contribution in the supplied full paper. Increasing follow-up gap alone must be distinguished from recursive error accumulation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0059",
+      "subject_id": "model:A06:main",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A context/model-specific horizon is supported by an error/calibration/decision curve and explicit acceptance tolerance, uncertainty and action support. This specific criterion is not established for the scoped contribution in the supplied full paper. Maximum generated length, a hard-coded clamp or a paper-specific threshold copied into another use.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0060",
+      "subject_id": "model:A06:main",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Several conditional future samples or an explicit joint forecast distribution preserve temporal/conditional dependence. This specific criterion is not established for the scoped contribution in the supplied full paper. Independent marginal intervals do not establish coherent joint trajectory uncertainty.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0061",
+      "subject_id": "model:A06:main",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A declared policy rejects, truncates with disclosure or escalates requests outside the context-specific supported horizon. This specific criterion is not established for the scoped contribution in the supplied full paper. Silently shortening a requested clinical question is not transparent enforcement.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0062",
+      "subject_id": "model:A06:main",
+      "feature_id": "planning.model_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Simulated states/outcomes feed candidate ranking, search, value/policy learning or a documented future-grounded decision pathway. This specific criterion is not established for the scoped contribution in the supplied full paper. Shared predictive features, synthetic-data policy training and explicit rollout search must be separately qualified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0063",
+      "subject_id": "model:A06:main",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: An operational optimizer or policy uses modeled consequences/imagination with reported decision/control results for L4. This specific criterion is not established for the scoped contribution in the supplied full paper. A planning claim, action classifier or clinician-agreement diagnostic alone is not necessarily an optimizer.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0064",
+      "subject_id": "model:A06:main",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A plan is recomputed from updated real observations after executing a prefix, with planning and execution horizons stated. This specific criterion is not established for the scoped contribution in the supplied full paper. Closed-loop task success is not enough unless the update/replanning mechanism is specified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0065",
+      "subject_id": "model:A06:main",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A fixed learned transition can support changed utilities/constraints at decision time without retraining that transition, demonstrated or specified by stage. This specific criterion is not established for the scoped contribution in the supplied full paper. Different heads or multiple tasks alone do not establish objective-independent dynamics.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0066",
+      "subject_id": "model:A06:main",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Uncertainty changes scores, constraints, risk budgets or candidate acceptance during decision selection. This specific criterion is not established for the scoped contribution in the supplied full paper. A stochastic simulator alone.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0067",
+      "subject_id": "model:A06:main",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Plans optimized in the model are evaluated under independent/mismatched dynamics or adversarial support/reward checks to reveal model-error exploitation. This specific criterion is not established for the scoped contribution in the supplied full paper. An uncertainty penalty is a mitigation, not evidence that exploitation was tested or eliminated.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0068",
+      "subject_id": "model:A06:main",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Sources, construction, eligibility, support and coverage of candidate actions are documented independently of unavailable future outcomes. This specific criterion is not established for the scoped contribution in the supplied full paper. Top-k agreement only among covered decisions does not describe all decisions.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0069",
+      "subject_id": "model:A06:main",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Higher-level goals/options and lower-level actions interact through defined durations/termination and model use. This specific criterion is not established for the scoped contribution in the supplied full paper. A multilayer neural network alone.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0070",
+      "subject_id": "model:A06:main",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Action outputs influence an environment and new environment observations feed subsequent decisions; environment kind is recorded. This specific criterion is not established for the scoped contribution in the supplied full paper. An offline action-agreement score or generated-video success annotation alone.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0071",
+      "subject_id": "model:A06:main",
+      "feature_id": "uq.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A distribution, posterior, ensemble or uncertainty set has specified semantics for the predicted state/outcome. This specific criterion is not established for the scoped contribution in the supplied full paper. Uncalibrated stochastic sampling can be present but is not validated uncertainty.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0072",
+      "subject_id": "model:A06:main",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Separate components have defined interpretations and estimation procedures with limitations explained. This specific criterion is not established for the scoped contribution in the supplied full paper. Two arbitrary standard-deviation constants or ensemble spread alone prove neither decomposition nor its validity.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0073",
+      "subject_id": "model:A06:main",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Predicted probabilities/intervals/sets are compared with observed frequencies/coverage using a specified target, metric and validation sample. This specific criterion is not established for the scoped contribution in the supplied full paper. High accuracy, stochastic samples, narrow intervals or a nominal 90/95% label.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0074",
+      "subject_id": "model:A06:main",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Joint or explicitly horizon-indexed trajectory reliability is assessed under the deployment rollout/action regime. This specific criterion is not established for the scoped contribution in the supplied full paper. One-step calibration and pointwise intervals do not guarantee joint-path coverage.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0075",
+      "subject_id": "model:A06:main",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A named calibration/coverage criterion is met with uncertainty under the intended cohort/horizon/action regime. This specific criterion is not established for the scoped contribution in the supplied full paper. Evaluation existence or nominal confidence is not successful calibration.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0076",
+      "subject_id": "model:A06:main",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: An operational statistic/threshold identifies out-of-support data/actions with stated response and, at evaluation stage, measured detection performance. This specific criterion is not established for the scoped contribution in the supplied full paper. External validation, robustness claims or generic uncertainty are not an operational OOD detector.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0077",
+      "subject_id": "model:A06:main",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A specified nonconformity score, calibration split and coverage/error-control assumptions define sets/alarms. This specific criterion is not established for the scoped contribution in the supplied full paper. Conformal labeling does not guarantee exchangeability, conditional coverage or clinical safety.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0078",
+      "subject_id": "model:A06:main",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Intervention alternatives, population, outcomes, horizon and causal contrast are explicit. This specific criterion is not established for the scoped contribution in the supplied full paper. Counterfactual terminology or immutable-covariate editing alone.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0079",
+      "subject_id": "model:A06:main",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: An estimand is linked to an identification argument/strategy using stated assumptions and observed/simulated data structure. This specific criterion is not established for the scoped contribution in the supplied full paper. Action conditioning, sign constraints, support checks or treatment prediction alone.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0080",
+      "subject_id": "model:A06:main",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Relevant consistency, exchangeability, positivity, interference/censoring or mechanistic assumptions are explicitly tied to the estimand. This specific criterion is not established for the scoped contribution in the supplied full paper. An assumption named in related work is not necessarily the model's assumption, and stating one does not verify it.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0081",
+      "subject_id": "model:A06:main",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Analyses quantify impact of violations such as unmeasured confounding, censoring or model/positivity assumptions. This specific criterion is not established for the scoped contribution in the supplied full paper. Ablations or OOD performance are not automatically causal sensitivity analyses.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0082",
+      "subject_id": "model:A06:main",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Validation compares defined action-effect predictions with known simulated potential outcomes, interventional experiments or appropriately qualified trial/causal benchmarks. This specific criterion is not established for the scoped contribution in the supplied full paper. Aggregate RCT agreement does not reveal the same patient's individual potential outcomes or prove identification.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0083",
+      "subject_id": "model:A06:main",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Actions enter a documented physical/pharmacological mechanism with identified/calibrated parameters and stated applicability. This specific criterion is not established for the scoped contribution in the supplied full paper. Mechanistic assumptions can be wrong; they do not automatically identify real-world patient effects.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0084",
+      "subject_id": "model:A06:main",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Estimand, justified identification/mechanistic assumptions, support, relevant validation and sensitivity collectively support the particular causal interpretation, with residual uncertainty disclosed. This specific criterion is not established for the scoped contribution in the supplied full paper. A successful L3 comparison or L4 controller does not itself qualify.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0085",
+      "subject_id": "model:A06:main",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: An implemented mechanism blocks disallowed actions/outputs before the relevant operation, with defined fail behavior. This specific criterion is not established for the scoped contribution in the supplied full paper. A rule name or demonstration-only threshold is not a validated clinical guard.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0086",
+      "subject_id": "model:A06:main",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: The system can withhold a recommendation/action and enter a specified fallback or human-review route under defined triggers. This specific criterion is not established for the scoped contribution in the supplied full paper. Displaying low confidence while still executing is not abstention.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0087",
+      "subject_id": "model:A06:main",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A trigger routes a case to a defined available human role with response/timing/fallback semantics. This specific criterion is not established for the scoped contribution in the supplied full paper. A separate retrospective expert review is not an operational escalation workflow.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0088",
+      "subject_id": "model:A06:main",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Online signals detect a defined failure/hazard and trigger a specified protective response. This specific criterion is not established for the scoped contribution in the supplied full paper. A monitor's existence does not prove useful sensitivity, latency or acceptable false alarms.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0089",
+      "subject_id": "model:A06:main",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A stop/fallback mechanism and its physical/software residual effects are specified and tested at the recorded stage. This specific criterion is not established for the scoped contribution in the supplied full paper. Stopping future commands does not reverse an already delivered therapy or injury.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0090",
+      "subject_id": "model:A06:main",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Assets, adversary capabilities and attack paths across data, state, action, rollout, objective and interfaces are explicitly analyzed. This specific criterion is not established for the scoped contribution in the supplied full paper. A general privacy statement or an adversarial-example citation alone.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0091",
+      "subject_id": "model:A06:main",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Defined attacks/faults are injected and measured on the relevant trajectory/planner/safety outputs. This specific criterion is not established for the scoped contribution in the supplied full paper. Generic robustness metrics or a proposed future red-team plan.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0092",
+      "subject_id": "model:A06:main",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A defined de-identification, access, encryption, federation, differential privacy or data-minimization mechanism is operationally specified. This specific criterion is not established for the scoped contribution in the supplied full paper. A GDPR/HIPAA mention, synthetic data or federation alone proves no privacy guarantee.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0093",
+      "subject_id": "model:A06:main",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Synthetic outputs or representations are tested for copying, membership/re-identification or attribute disclosure under a declared threat model. This specific criterion is not established for the scoped contribution in the supplied full paper. Nearest-neighbor dissimilarity alone may not rule out all privacy attacks.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0094",
+      "subject_id": "model:A06:main",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: External access/action permissions, identity and allowed operation scope are explicitly enforced. This specific criterion is not established for the scoped contribution in the supplied full paper. An offline clinical recommendation is not an actual EHR write permission.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0095",
+      "subject_id": "model:A06:main",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Interface/protocol mechanisms address over-trust with appropriate uncertainty, limitations, override and, at evaluation stage, measured human factors. This specific criterion is not established for the scoped contribution in the supplied full paper. An explanation or a human-in-the-loop label alone.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0096",
+      "subject_id": "model:A06:main",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0011"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "CKD annual-forecasting research use defined; Prospective user/decisionpoint/autonomy workflow not operationally specified",
+      "criteria_met": [
+        "CKD annual-forecasting research use defined"
+      ],
+      "criteria_missing": [
+        "Prospective user/decisionpoint/autonomy workflow not operationally specified"
+      ]
+    },
+    {
+      "id": "assertion:A06:0097",
+      "subject_id": "model:A06:main",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: An organized report pins model/data versions, capability/evidence boundaries, assets and limitations. This specific criterion is not established for the scoped contribution in the supplied full paper. A repository README alone does not establish every model-card field.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0098",
+      "subject_id": "model:A06:main",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Signals, thresholds, cadence, responsibility, response and revalidation triggers are declared for released use. This specific criterion is not established for the scoped contribution in the supplied full paper. A recommendation to monitor in future is not an operating lifecycle plan.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0099",
+      "subject_id": "model:A06:main",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Updates have versioned approval/revalidation criteria and executable rollback/fallback boundaries. This specific criterion is not established for the scoped contribution in the supplied full paper. State assimilation alone is not retraining or regulated model modification.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0100",
+      "subject_id": "model:A06:main",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A framework/standard is explicitly named in the paper/version and its statement is quoted/scoped. This specific criterion is not established for the scoped contribution in the supplied full paper. Mention does not establish applicability, compliance, approval or product clearance.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0101",
+      "subject_id": "model:A06:main",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Documented applicable requirements and evidence/authorization are connected to the intended use, jurisdiction, product/version and date. This specific criterion is not established for the scoped contribution in the supplied full paper. Ethics approval, reporting-checklist use and regulatory clearance are different evidence objects.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0102",
+      "subject_id": "model:A06:main",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Named approval/exemption and applicable data/human participation scope are documented. This specific criterion is not established for the scoped contribution in the supplied full paper. No approval number in the extraction is not proof of absent approval; ethics review is not product authorization.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0103",
+      "subject_id": "model:A06:main",
+      "feature_id": "agent.role",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: An actual component role such as encoder, simulator, proposer, planner, equation discovery or reporting is operationally described. This specific criterion is not established for the scoped contribution in the supplied full paper. A Transformer backbone is not automatically an LLM or autonomous agent.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0104",
+      "subject_id": "model:A06:main",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: At least two distinct decision-making agents have defined roles, communication and coordination. This specific criterion is not established for the scoped contribution in the supplied full paper. Multiple heads, prompt calls or software services alone are not multiple agents.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0105",
+      "subject_id": "model:A06:main",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: The agent revises a proposal using explicit feedback/evidence before or after action under a defined loop. This specific criterion is not established for the scoped contribution in the supplied full paper. Repeated samples or chain-of-thought text alone.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0106",
+      "subject_id": "model:A06:main",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: The agent invokes an external API/tool/system with stated read/write permissions and scope. This specific criterion is not established for the scoped contribution in the supplied full paper. A dataset download or named library during development is not an operational external action.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0107",
+      "subject_id": "model:A06:main",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Who proposes, approves and executes actions is described for the actual simulated/physical/clinical context. This specific criterion is not established for the scoped contribution in the supplied full paper. A robot acting autonomously in a phantom is not autonomous therapeutic care.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0108",
+      "subject_id": "model:A06:main",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Code for the relevant model/version is actually identified as released/accessible at the stated evidence date. This specific criterion is not established for the scoped contribution in the supplied full paper. An announced future repository is not released code; accessible code is not reproduced performance.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0109",
+      "subject_id": "model:A06:main",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: The relevant trained weights/parameters are released under stated access conditions and version. This specific criterion is not established for the scoped contribution in the supplied full paper. Open code, a pretrained dependency or an untested download link does not establish release of this model's weights.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0110",
+      "subject_id": "model:A06:main",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Explicit terms govern code, weights and data separately. This specific criterion is not established for the scoped contribution in the supplied full paper. Publicly reachable does not mean permissively licensed or clinically authorized.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0111",
+      "subject_id": "model:A06:main",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: An independent run pins code/data/configuration and reports replication outcomes. This specific criterion is not established for the scoped contribution in the supplied full paper. Open source, same-lab reruns and a reproducibility badge do not by themselves establish independent successful replication.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0112",
+      "subject_id": "model:A06:main",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "confidence": "medium",
+      "rationale": "Held-out next-year MAE/RMSE compare eGFR predictions with recorded targets."
+    },
+    {
+      "id": "assertion:A06:0113",
+      "subject_id": "model:A06:main",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0009",
+        "evidence:A06:0012"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "confidence": "medium",
+      "rationale": "Dynamic50% and fixed3 protocols evaluate free-running target forecasts over multiple years while supplying future non-target inputs."
+    },
+    {
+      "id": "assertion:A06:0114",
+      "subject_id": "model:A06:main",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Generated sample distributions are compared with reference distributions using defined sample/conditional protocols. This specific criterion is not established for the scoped contribution in the supplied full paper. An evaluation can be present and fail its performance target. Lack of reporting is unresolved, not an absent evaluation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0115",
+      "subject_id": "model:A06:main",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Defined anatomical, mechanistic, contact, clinical or consistency constraints are tested, including adverse/rare cases where relevant. This specific criterion is not established for the scoped contribution in the supplied full paper. An evaluation can be present and fail its performance target. Lack of reporting is unresolved, not an absent evaluation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0116",
+      "subject_id": "model:A06:main",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Reliability/coverage/sharpness and nominal-target context are measured on held-out data under the stated prediction regime. This specific criterion is not established for the scoped contribution in the supplied full paper. An evaluation can be present and fail its performance target. Lack of reporting is unresolved, not an absent evaluation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0117",
+      "subject_id": "model:A06:main",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Predictions under controlled changes to specified action inputs are compared, with history and relevant context fixed or explicitly controlled. This specific criterion is not established for the scoped contribution in the supplied full paper. An evaluation can be present and fail its performance target. Lack of reporting is unresolved, not an absent evaluation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0118",
+      "subject_id": "model:A06:main",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A defined interventional/counterfactual validation reference and estimand are tested; simulated truth versus aggregate trial agreement are distinguished. This specific criterion is not established for the scoped contribution in the supplied full paper. An evaluation can be present and fail its performance target. Lack of reporting is unresolved, not an absent evaluation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0119",
+      "subject_id": "model:A06:main",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Correct individual history/context is compared with swapped/withheld/population-prior controls under matched forecasting conditions. This specific criterion is not established for the scoped contribution in the supplied full paper. An evaluation can be present and fail its performance target. Lack of reporting is unresolved, not an absent evaluation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0120",
+      "subject_id": "model:A06:main",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A model-coupled policy/decision is assessed with task success, regret, properly qualified off-policy value or another specified decision endpoint. This specific criterion is not established for the scoped contribution in the supplied full paper. An evaluation can be present and fail its performance target. Lack of reporting is unresolved, not an absent evaluation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0121",
+      "subject_id": "model:A06:main",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Matched tasks/policies are evaluated both in simulation and a specified physical/clinical environment and agreement/bias is quantified. This specific criterion is not established for the scoped contribution in the supplied full paper. An evaluation can be present and fail its performance target. Lack of reporting is unresolved, not an absent evaluation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0122",
+      "subject_id": "model:A06:main",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: At least one explicit independent-site/cohort, shift, subgroup, missing-modality or transfer test is reported; record each subfacet separately. This specific criterion is not established for the scoped contribution in the supplied full paper. An evaluation can be present and fail its performance target. Lack of reporting is unresolved, not an absent evaluation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0123",
+      "subject_id": "model:A06:main",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A target-specific preprocessing/measurement-clock audit tests evidence retention, including native/update/external witnesses as needed. This specific criterion is not established for the scoped contribution in the supplied full paper. An evaluation can be present and fail its performance target. Lack of reporting is unresolved, not an absent evaluation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0124",
+      "subject_id": "model:A06:main",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Actual people perform a defined review/use task with participant roles, sampling and outcomes recorded where available. This specific criterion is not established for the scoped contribution in the supplied full paper. An evaluation can be present and fail its performance target. Lack of reporting is unresolved, not an absent evaluation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0125",
+      "subject_id": "model:A06:main",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Measured latency/throughput, training/interaction cost, memory or sample efficiency has hardware, batch/load and unit context. This specific criterion is not established for the scoped contribution in the supplied full paper. An evaluation can be present and fail its performance target. Lack of reporting is unresolved, not an absent evaluation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0126",
+      "subject_id": "model:A06:main",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: A prospective or appropriately designed comparative real-care/workflow study measures a predeclared utility endpoint and harms for the scoped system. This specific criterion is not established for the scoped contribution in the supplied full paper. An evaluation can be present and fail its performance target. Lack of reporting is unresolved, not an absent evaluation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:A06:0127",
+      "subject_id": "model:A06:main",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0002",
+        "evidence:A06:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Learned GRU latent transition predicts subsequent annual state/target."
+    },
+    {
+      "id": "assertion:A06:0128",
+      "subject_id": "model:A06:main",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect. Required operational criterion: Learned transition states are optimized to preserve decision-relevant rewards/values or policy predictions without claiming full observation reconstruction. This specific criterion is not established for the scoped contribution in the supplied full paper. Value-equivalent planning does not certify complete physiological or causal faithfulness.",
+      "missingness_reason": "paper_silent_after_review"
+    }
+  ],
+  "relation_assertions": [],
+  "evidence_fragments": [
+    {
+      "id": "evidence:A06:0001",
+      "source_ref": "Papers/Recommended_Additions/A06_ChronoMedicalWorld.pdf",
+      "source_version": "paper-version:A06:sha256-3cf11f294794",
+      "source_hash": "3cf11f294794b96d21894d4c3c912f3943c77b29acf314e870246ca09b2eb1a6",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Full-paper source review; see review.md"
+      },
+      "content": "3.1 Problem Formulation\nWe consider a patient followed periodically. At each observation indext= 1,...,T i, three vectors are\nrecorded: a clinical statex i,t∈R dx summarising the period (biomarkers, vitals, missingness flags, mea-\nsurement counts), an actionai,t ∈R da that may concatenate structured intervention indicatorsami,t and\na semantic embeddingaci,t of any free-text exchange during the period, and a target-time covariate vector\nτi,t∈R dτ (e.g., age, gap since previous observation, follow-up volume). The patient also carries a static\ncontextb i such as sex and disease type.\nLet\nHi,t ={(x i,1,ai,1,τi,1),...,(x i,t,ai,t,τi,t)}.(1)\nAmedical world modelis a parametric map\nˆyi,t+k =f θ\n(\nHi,t, bi, ai,t:t+k−1, τi,t+1:t+k\n)\n, k≥1,(2)\nwhereˆyi,t+k is a designated component (or transformation) of the clinical state—thetarget observable—that\nwe wish to forecast under candidate intervention sequences. At evaluation,ˆyi,t+k is written back into the\ncorresponding slot ofx(1)i,t+k in the next step, so that no future ground-truth observable enters the rollout.\n3.2 Architecture\nCMWM instantiates Equation (2) as a recurrent latent transition module with four components (Figure 1):\nbi =B(static i),(3)\nzi,t =E s\n(\n[˜xi,t;b i]\n)\n,(state encoder) (4)\nui,t =E a\n(\n[ami,t;a ci,t]),(wide action encoder) (5)\nhi,t =G\n(\nhi,t−1,[z i,t;u i,t]\n)\n,(recurrent transition) (6)\n(ˆyi,t+1,ˆzi,t+1) =H\n(\n[hi,t;b i; ˜τi,t+1]\n)\n.(prediction head) (7)\nTildes denote standardisation using train-set statistics. The two output channels are deliberate: the explicit-\npredictionchannelˆyi,t+1 suppliessupervised, interpretableforecastsforthetargetobservable, whilethelatent\nchannelˆzi,t+1 enablesJEPA-stylenext-latenttraininganddownstreamlatent-spaceprobing. Thewideaction\nencoder is a single feed-forward block over the full action vector; the framework also admits a split variant\nin which structured and text acti",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:A06:0002",
+      "source_ref": "Papers/Recommended_Additions/A06_ChronoMedicalWorld.pdf",
+      "source_version": "paper-version:A06:sha256-3cf11f294794",
+      "source_hash": "3cf11f294794b96d21894d4c3c912f3943c77b29acf314e870246ca09b2eb1a6",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Full-paper source review; see review.md"
+      },
+      "content": "CMWM instantiates Equation (2) as a recurrent latent transition module with four components (Figure 1):\nbi =B(static i),(3)\nzi,t =E s\n(\n[˜xi,t;b i]\n)\n,(state encoder) (4)\nui,t =E a\n(\n[ami,t;a ci,t]),(wide action encoder) (5)\nhi,t =G\n(\nhi,t−1,[z i,t;u i,t]\n)\n,(recurrent transition) (6)\n(ˆyi,t+1,ˆzi,t+1) =H\n(\n[hi,t;b i; ˜τi,t+1]\n)\n.(prediction head) (7)\nTildes denote standardisation using train-set statistics. The two output channels are deliberate: the explicit-\npredictionchannelˆyi,t+1 suppliessupervised, interpretableforecastsforthetargetobservable, whilethelatent\nchannelˆzi,t+1 enablesJEPA-stylenext-latenttraininganddownstreamlatent-spaceprobing. Thewideaction\nencoder is a single feed-forward block over the full action vector; the framework also admits a split variant\nin which structured and text actions are routed through separate encoders, but in our experiments the wide\nvariant proved more stable under multi-step rollout.\n4",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:A06:0003",
+      "source_ref": "Papers/Recommended_Additions/A06_ChronoMedicalWorld.pdf",
+      "source_version": "paper-version:A06:sha256-3cf11f294794",
+      "source_hash": "3cf11f294794b96d21894d4c3c912f3943c77b29acf314e870246ca09b2eb1a6",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Full-paper source review; see review.md"
+      },
+      "content": "3.3 Training Objective\nFor minibatches drawn from rollout-prefix samples (Section 3.4), CMWM minimises\nL=L y +λzLz +λ sigLSIGReg +λ ∆Lslope +λcLcont +λjLjump.(8)\nThe supervised term penalises one-step error on the target observable in the standardised space:\nLy = 1|D| ∑(i,t)∈D SmoothL1(ˆyi,t+1−yi,t+1).(9)\nThe next-latent term aligns the predicted next latent with the encoded next observed state under stop-\ngradient on the target encoding, as in JEPA-style models [14, 13]:\nLz = 1|D| ∑(i,t)∈D‖‖ˆzi,t+1−sg(Es([˜xi,t+1;bi]))‖‖22.(10)\nSIGReg [14] prevents trivial latent collapse by projecting a minibatch of latent codes ontoQrandom unit\ndirections and measuring the discrepancy between each one-dimensional empirical characteristic function\nˆϕq(t) = ˆCq(t) +i ˆSq(t)and the characteristic functionϕ⋆(t) =e−t2/2 of a standard Gaussian:\nˆCq(t) = 1N∑Nn=1 cos(tq⊤zn), ˆSq(t) = 1N∑Nn=1 sin(tq⊤zn),(11)\nLSIGReg = NQ\nQ∑\nq=1\nK−1∑\nk=0\nwk\n[( ˆCq(tk)−ϕ ⋆(tk))2 + ˆSq(tk)2],(12)\nwhere{t k}K−1k=0 is a uniform grid over[0,T max],w k are Gaussian-windowed trapezoidal weights,zn is the\nn-th latent code in the minibatch, andqis sampled from the uniform distribution on the unit sphere. We\nuseK= 17,T max = 3, andQ= 64. Equation (12) is differentiable inθand acts as an isotropy regulariser\nwithout exponential moving averages or auxiliary supervision.\n5",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:A06:0004",
+      "source_ref": "Papers/Recommended_Additions/A06_ChronoMedicalWorld.pdf",
+      "source_version": "paper-version:A06:sha256-3cf11f294794",
+      "source_hash": "3cf11f294794b96d21894d4c3c912f3943c77b29acf314e870246ca09b2eb1a6",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Full-paper source review; see review.md"
+      },
+      "content": "3.4 Rollout-Prefix Training Protocol\nA long-standing source of multi-step error in autoregressive sequence models is the train–evaluation mismatch\nbetween teacher-forced next-step training and free-running rollout deployment. CMWM addresses this by\nreplacing standard one-step training with arollout-prefixregime. For a patient withTi observations, every\nprefix lengthc∈[c min,Ti)generates one training trajectory in which the model unrolls forward for up toH\nsteps; predicted target observables are fed back into the next step’s clinical state in place of the corresponding\nground-truth slot, exactly as at evaluation; and per-step losses are aggregated with a horizon-decay factor\nso that nearer-horizon steps dominate optimisation while later-horizon steps still contribute. This protocol\nmakes the model robust to its own prediction error and is, in our experiments, more important for closed-loop\nperformance than any single architectural choice.\n3.5 Inference-Time Stabilisation\nAt inference, CMWM supports an optional first-step anchor: the first prediction is convex-combined with a\nrecent-trend extrapolation from the patient’s own history, and the resulting first-step change is clipped to a\nclinically plausible magnitude. This is a deployment-time stabiliser independent of training; it eliminates an\ninitial jump that occasionally appears at the boundary between observed history and pure-rollout forecasting\nand that compounds over later horizons.\n4 Case Study: Annual eGFR Trajectory Forecasting in CKD\nTo substantiate the value of CMWM, we instantiate the framework on a non-trivial chronic-disease setting—\nannual eGFR trajectory forecasting in CKD—and compare it against a contemporary large language model\nunder matched evaluation protocol. The case study is intended as evidence of the framework’s value; the\nframework itself remains domain-agnostic.\n4.1 Cohort\nThe study used a private KidneyOnline platform follow-up cohort. Data sources included serum-creatinine–\nderived eGFR computed by the CKD-EPI 2021 race-free equation [17]; demographics and pathology; medica-\ntion exposures; 24-hour urine protein; patient-reported home-measured blood pressure; and patient–health-\ncoac",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:A06:0005",
+      "source_ref": "Papers/Recommended_Additions/A06_ChronoMedicalWorld.pdf",
+      "source_version": "paper-version:A06:sha256-3cf11f294794",
+      "source_hash": "3cf11f294794b96d21894d4c3c912f3943c77b29acf314e870246ca09b2eb1a6",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Full-paper source review; see review.md"
+      },
+      "content": "calendar year to produce annual feature vectors. Inclusion required at least five annual observations and\na first-year eGFR above 30 mL/min/1.73m2. Patients were split at the patient level. The final cohort\ncomprised 2,232 patients and 15,070 patient-years.\nTable 1: KidneyOnline cohort characteristics, feature dimensions, and missingness for the CKD case study.\nContinuous variables are reported as mean (standard deviation, SD) or median [interquartile range, IQR].\nMAP, mean arterial pressure.\nCategory Statistic Value\nCohort size Patients / pati",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:A06:0006",
+      "source_ref": "Papers/Recommended_Additions/A06_ChronoMedicalWorld.pdf",
+      "source_version": "paper-version:A06:sha256-3cf11f294794",
+      "source_hash": "3cf11f294794b96d21894d4c3c912f3943c77b29acf314e870246ca09b2eb1a6",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Full-paper source review; see review.md"
+      },
+      "content": "The target observable is annual mean eGFR. The clinical state vectorxt∈R 9 collects mean eGFR, mean\nage, log-transformed 24-hour urine total protein, median mean arterial pressure (MAP), measurement counts\nfor eGFR / urine protein / blood pressure, and missingness flags for urine protein and blood pressure. The\ntarget-time vectorτ t ∈R 6 contains age, gap to the previous annual visit, years since baseline, and the\nsame measurement counts. Structured intervention actionsa mt ∈{0,1} 62 cover 12 drug classes (steroid,\ncalcineurin inhibitor, mycophenolate mofetil (MMF), other immunosuppressant, renin–angiotensin system\n(RAS) blocker, sodium–glucose cotransporter-2 (SGLT2) inhibitor, mineralocorticoid receptor antagonist\n(MRA), uric-acid lowering agent, statin, calcium channel blocker (CCB),β-blocker, broad CKD support) and\n50frequentindividualagents, encodedasyear-levelexposureindicators. Thecommunicationactiona ct∈R 256\nis obtained by sorting all patient–health-coach messages of a patient-year chronologically, concatenating them\ninto one annual transcript, and embedding with OpenAI’stext-embedding-3-smallmodel truncated to\n7",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:A06:0007",
+      "source_ref": "Papers/Recommended_Additions/A06_ChronoMedicalWorld.pdf",
+      "source_version": "paper-version:A06:sha256-3cf11f294794",
+      "source_hash": "3cf11f294794b96d21894d4c3c912f3943c77b29acf314e870246ca09b2eb1a6",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Full-paper source review; see review.md"
+      },
+      "content": "Table 3: Training configuration of the best CMWM variant on the CKD case study (wide action encoder,\ncommunication embedding).\nItem Value\nState / action / target-time dim. 9 / 318 / 6\nArchitecture state encoder, wide action encoder, GRU dynamics\nHidden / latent / static / action emb. 256 / 128 / 64 / 128\nTotal trainable parameters 790,081 (≈0.79M; GRU 0.395M, prediction heads 0.217M,\nencoders 0.176M)\nContext length / minimum history / max hori-\nzon\n6 / 3 / 8\nOptimiser AdamW, lr6×10 −4, weight decay8×10 −5\nDropout 0.05\nLoss weights in Eq. (8)λ z=0.08, λsig=0.008, λ∆=0.2, λc=0.3, λj=0.2\nContinuity / jump thresholdsδ c=0.5, δj=10eGFR units\nSIGReg grid / projectionsK=17knots over[0,3],Q=64\nSelection metric / best epoch validation dynamic-50% rollout MAE / 5\nRollout-time stabilisation first-step anchor weight 1.0, anchor jump cap±5eGFR units\n4.4 GPT-5.5 Baseline\nWe probe GPT-5.5 through structured prompting on the same history, future non-eGFR covariates and\nintervention descriptions used by CMWM. The prompt restricts the model to outputting only future annual\neGFR values and explicitly withholds future ground-truth eGFR. For each validation and test patient, the\ncontext length matches the dynamic-50% rollout protocol (max(3,⌊0.5Ti⌋)). Predictions are de-duplicated\nper (patient, target-year) before scoring.\n5 Results\n5.1 CMWM vs. GPT-5.5 on the CKD Case Study\nWe report mean absolute error (MAE) and root-mean-square error (RMSE) on the predicted vs. observed\nannual eGFR. MAE is the de facto standard summary metric for continuous-e",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:A06:0008",
+      "source_ref": "Papers/Recommended_Additions/A06_ChronoMedicalWorld.pdf",
+      "source_version": "paper-version:A06:sha256-3cf11f294794",
+      "source_hash": "3cf11f294794b96d21894d4c3c912f3943c77b29acf314e870246ca09b2eb1a6",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Full-paper source review; see review.md"
+      },
+      "content": "We probe GPT-5.5 through structured prompting on the same history, future non-eGFR covariates and\nintervention descriptions used by CMWM. The prompt restricts the model to outputting only future annual\neGFR values and explicitly withholds future ground-truth eGFR. For each validation and test patient, the\ncontext length matches the dynamic-50% rollout protocol (max(3,⌊0.5Ti⌋)). Predictions are de-duplicated\nper (patient, target-year) before scoring.\n5 Results\n5.1 CMWM vs. GPT-5.5 on the CKD Case Study\nWe report mean absolute error (MAE) and root-mean-square error (RMSE) on the predicted vs. observed\nannual eGFR. MAE is the de facto standard summary metric for continuous-eGFR prediction in prior CKD\nmodelling work—used by imaging-based deep models [23], interpretable machine-learning models on routine\nlaboratory features [24], and pretrans",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:A06:0009",
+      "source_ref": "Papers/Recommended_Additions/A06_ChronoMedicalWorld.pdf",
+      "source_version": "paper-version:A06:sha256-3cf11f294794",
+      "source_hash": "3cf11f294794b96d21894d4c3c912f3943c77b29acf314e870246ca09b2eb1a6",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "Full-paper source review; see review.md"
+      },
+      "content": "Table 4: Dynamic-50% history rollout comparison between CMWM (CKD instantiation) and GPT-5.5 on\nthe CKD case study. “Overall” is the sample-weighted validation and test summary.\nSplitnCMWM MAE CMWM RMSE GPT-5.5 MAE GPT-5.5 RMSE∆MAE∆RMSE\nValidation 1,020 7.310 9.851 7.997 11.128−8.59%−11.48%\nTest 1,078 7.384 10.256 7.964 11.069−7.28%−7.35%\nOverall 2,098 7.348 10.061 7.980 11.098−7.92%−9.34%\n5.2 Action-Encoder Ablations\nTable 5 reports four communication-aware variants under the same dynamic-50% protocol. The wide\nencoder ingesting the full annual communication embedding is the best long-horizon model. A split\nstructured/communication encoder slightly improves next-year MAE but degrades rollout, suggesting that\nstronger modular separation increases compounding variance in closed-loop forecasts. Replacing the se-\nmantic embedding by raw communication-intensity statistics (message count, character count, chunk count)\ndoes not recover the gain—a strong indication that the predictive signal ",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:A06:0010",
+      "source_ref": "Papers/Recommended_Additions/A06_ChronoMedicalWorld.pdf",
+      "source_version": "paper-version:A06:sha256-3cf11f294794",
+      "source_hash": "3cf11f294794b96d21894d4c3c912f3943c77b29acf314e870246ca09b2eb1a6",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "Full-paper source review; see review.md"
+      },
+      "content": "Table 5: Ablations of the action encoder on the CKD case study. “Test MAE/RMSE” are next-year metrics;\n“Test rollout MAE” uses the dynamic-50% protocol; “Fixed3 MAE” anchors on exactly the first three years.\nModel variant Action dim. Test MAE Test RMSE Test rollout MAE Fixed3 MAE\nCommunication embedding with wide encoder 318 11.046 15.8607.384 7.697\nSplit structured / communication encoder 32110.953 15.8347.526 7.768\nCommunication intensity with wide encoder 321 11.142 15.853 7.612 7.946\nCompact split encoder 321 11.313 16.149 7.796 8.129\nA finer message-type ablation (dialogue-only vs. system-only communication embeddings, identical train-\ningotherwise)showedthatdialoguemessagesreproduceessentiallyallofthegain: dynamicrolloutMAEisre-\nduced by 4.78% relative to the no-communication baseline (compared with 4.95% for the full-communication\nembedding), whereas system messages alone reduce MAE by only 2.04%. The predictive value of the\ncommunication-action channel is therefore dominated by genuine patient–health-coach conversation, not\nby platform notifications.\n6 Discussion\n6.1 Why an Explicit Medical World Model Outperforms an LLM Simulator\nGPT-5.5 has broad medical knowledge and reasons coherently over a single prompt, but is not explicitly\ntrained to maintain a persistent latent patient state under repeated intervention-conditioned updates. In\nmulti-year rollout this manifests as over-linearised decline or drift after an early misstep, mirroring the\nfailure mode that EHRWorld [8] reports more broadly for LLM-only clinical simulators. CMWM carries an\nexplicit recurrent hidden state and is optimised in the same closed-loop regime that defines the evaluation:\nevery training trajectory feeds the model’s own prediction back as input. The case-study performance gap\nis therefore larger on multi-step rollout than on next-year prediction, exactly the empirical signature we\nexpect when long-horizon state consistency is the bottleneck. It is also worth noting that this is achieved at\na fraction of the parameter budget: the CKD instance of CMWM has roughly 0.79M trainable par",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:A06:0011",
+      "source_ref": "Papers/Recommended_Additions/A06_ChronoMedicalWorld.pdf",
+      "source_version": "paper-version:A06:sha256-3cf11f294794",
+      "source_hash": "3cf11f294794b96d21894d4c3c912f3943c77b29acf314e870246ca09b2eb1a6",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "Full-paper source review; see review.md"
+      },
+      "content": "6.4 Limitations\nThe case-study cohort is single-source, single-platform, and skews young (median age 35); external validation\nin older and multi-centre populations is required before clinical deployment, and a similar validation regime\nwill be needed for each future disease instantiation. Structured intervention actions are annual binary\nindicators that do not encode dose, duration, adherence, or confounding by indication; CMWM is not\na causal estimator, and comparison with methods that explicitly adjust for time-dependent confounding\n[28, 29] is left to future work. The communication embedding is a period-level summary and does not\nseparate health-coach advice, patient symptom reports, and automated system notifications inside a single\nwindow. Finally, the GPT-5.5 baseline is a structured-prompting baseline rather than a domain-fine-tuned\nLLM; the gap against a clinically-fine-tuned LLM is an open question.\n7 Conclusion\nWe proposed CMWM (ChronoMedicalWorld Model), a general action-conditioned latent world-model frame-\nwork for learning patient trajectories from longitudinal care data. CMWM couples a clinical-state encoder, a\nwide action encoder admitting both structured intervention indicators and free-text communication embed-\ndings, and a recurrent latent transition module, and is trained under a six-term physiology-aware objective\nand a closed-loop rollout-prefix protocol. As a concrete case study, we instantiated CMWM for annual\neGFR trajectory forecasting in chronic kidney disease and demonstrated that the CKD instance outper-\nforms a tuned GPT-5.5 structured-promptin",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:A06:0012",
+      "source_ref": "Papers/Recommended_Additions/A06_ChronoMedicalWorld.pdf",
+      "source_version": "paper-version:A06:sha256-3cf11f294794",
+      "source_hash": "3cf11f294794b96d21894d4c3c912f3943c77b29acf314e870246ca09b2eb1a6",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 11,
+        "section_or_table": "Full-paper source review; see review.md"
+      },
+      "content": "A Case Studies\nFigure 2 shows four de-identified test cases from the CKD instantiation in which CMWM outperformed\nGPT-5.5. The black curve is the historical context used for prediction; the green curve is the held-out future\ntrajectory; coloured forecast curves start from the prediction horizon. Light dashed connectors link the\nlast observed historical point to the first held-out future point and to the first prediction from each model.\nPer-case mean absolute errors are reported in Table 6.\n2,014 2,016 2,018 2,020 2,022 2,024 2,026\n20\n40\n60\nYear\neGFR\nCase A\n2,018 2,020 2,022 2,024\n60\n80\nYear\neGFR\nCase B\n2,018 2,020 2,022 2,024 2,026\n40\n60\n80\nYear\neGFR\nCase C\n2,020 2,021 2,022 2,023 2,024 2,025 2,026\n20\n40\n60\nYear\neGFR\nCase D\nhistory actual future CMWM GPT-5.5\nFigure 2: Representative dynamic-50% test rollouts on the CKD case study in which CMWM stays closer\nto the held-out future eGFR trajectory than GPT-5.5.\nTable 6: Mean absolute error of the four case-study patients in Figure 2.\nCase Forecast years CMWM MAE GPT-5.5 MAE\nA 6 6.915 15.464\nB 5 4.192 6.929\nC 5 3.480 13.663\nD 4 2.877 11.783\n11",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    }
+  ],
+  "metric_results": [],
+  "capability_assessments": [
+    {
+      "subject_id": "model:A06:main",
+      "level": "L1",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_assertion_ids": [
+        "assertion:A06:0019",
+        "assertion:A06:0041",
+        "assertion:A06:0042",
+        "assertion:A06:0053"
+      ],
+      "rationale": "GRU latent history predicts annual eGFR using structured exposure and communication channels. Free-running eGFR is evaluated retrospectively with known future non-eGFR covariates. ConservativelyL1: factual annual exposure/communication conditioning is not a tested specified executable treatment query or causal effect."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "model:A06:main",
+      "facets": [
+        "R2"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "evidence_ids": [
+        "evidence:A06:0005",
+        "evidence:A06:0009"
+      ],
+      "legacy_highest_label": null
+    }
+  ],
+  "gate_assessments": [
+    {
+      "gate_id": "G01",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:A06:main"
+      },
+      "rationale": "Data availability, leakage and source split assumptions require audit; no gate pass inferred."
+    }
+  ],
+  "legacy_cells": {
+    "A": "A06",
+    "B": "ChronoMedicalWorld: A Medical World Model for Learning Patient Trajectories from Longitudinal Care Data",
+    "C": "Not reported",
+    "D": "2026",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://arxiv.org/abs/2605.21963v1",
+    "H": "Papers/Recommended_Additions (A)",
+    "I": "A06_ChronoMedicalWorld.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not reported",
+    "N": "Nephrology",
+    "O": "Chronic kidney disease (CKD)",
+    "P": "Outpatient / chronic care",
+    "Q": "Patient clinical trajectory (EHR)",
+    "R": "Disease progression forecasting",
+    "S": "Forecast annual mean eGFR trajectories in CKD from patient history and intervention inputs.",
+    "T": "Private KidneyOnline nephrology follow-up cohort; inclusion required at least five annual observations and first-year eGFR above 30 mL/min/1.73 m²; 2,232 patients.",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "World model",
+    "X": "F2 EHR / ICU event & latent patient dynamics",
+    "Y": "Predictive-latent (JEPA-style)",
+    "Z": "L2 Action-conditioned prediction",
+    "AA": "L3 Counterfactual comparison",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "Yes",
+    "AE": "Yes",
+    "AF": "Not reported",
+    "AG": "No",
+    "AH": "Single model (no composition)",
+    "AI": "Annual structured clinical-state features (eGFR, age, urine protein, blood pressure, measurement counts and missingness flags); static demographics/pathology; annual binary medication/intervention indicators; patient–health-coach transcript embeddings; target-time covariates.",
+    "AJ": "State encoder Es (specific architecture not stated); wide action encoder Ea is a single feed-forward block over the full action vector.",
+    "AK": "OpenAI text-embedding-3-small for communication transcripts (256-dimensional truncated embedding).",
+    "AL": "Not reported",
+    "AM": "Wide action encoder jointly maps structured intervention indicators and communication embeddings; a split variant is described but not used in the best case-study model.",
+    "AN": "Years without communication receive a zero communication vector; clinical state includes measurement-count and missingness features.",
+    "AO": "Yes",
+    "AP": "Yes",
+    "AQ": "Not reported",
+    "AR": "Continuous latent vector",
+    "AS": "128-dimensional latent; 256-dimensional hidden state (Table 3).",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Conditioning on patient history",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Mixed",
+    "BC": "Not reported",
+    "BD": "Structured actions: annual year-level exposure indicators for 12 drug classes and 50 frequent individual agents; communication: annual transcript embedded to 256 dimensions. Dose, duration and adherence are not encoded.",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "ChronoMedicalWorld Model (CMWM)",
+    "BJ": "RNN / GRU / LSTM",
+    "BK": "Irregular timestamps (Δt as input)",
+    "BL": "Records aggregated by calendar year; annual eGFR trajectory forecasting; the target-time vector includes the gap to the previous annual visit.",
+    "BM": "Not reported",
+    "BN": "Physiology-aware slope-consistency, local-continuity Huber, and large-jump hinge penalties.",
+    "BO": "Recurrent hidden state",
+    "BP": "Table 3 reports context length 6, minimum history 3, and maximum horizon 8 (annual observations).",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Next annual target-observable prediction (mean eGFR) and next-latent prediction.",
+    "BT": "Explicit next-observation eGFR prediction and next-latent prediction.",
+    "BU": "Not reported",
+    "BV": "Six-term objective: SmoothL1 next-observation supervision; next-latent prediction; SIGReg latent regularisation; slope-consistency; local-continuity Huber; large-jump hinge penalty.",
+    "BW": "Yes",
+    "BX": "Not reported",
+    "BY": "790,081 total trainable parameters (approximately 0.79 M).",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "Open-loop multi-step",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "None",
+    "CI": "Not applicable",
+    "CJ": "Not applicable",
+    "CK": "Not applicable",
+    "CL": "Not applicable",
+    "CM": "Not applicable",
+    "CN": "Not reported",
+    "CO": "Not applicable",
+    "CP": "Not reported",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "Associational action-conditioning",
+    "CU": "None",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not applicable",
+    "DB": "Not applicable",
+    "DC": "Not applicable",
+    "DD": "Not applicable",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Yes",
+    "DN": "Private KidneyOnline platform follow-up cohort",
+    "DO": "Cohort study / biobank",
+    "DP": "Private / proprietary",
+    "DQ": "2,232 patients and 15,070 patient-years.",
+    "DR": "Not reported",
+    "DS": "Real-world data",
+    "DT": "Not reported",
+    "DU": "Patient-level split",
+    "DV": "No",
+    "DW": "Not reported",
+    "DX": "Next-year test metrics for the communication-embedding wide-encoder variant: MAE 11.046; RMSE 15.860 (Table 5).",
+    "DY": "Dynamic-50% history rollout test: CMWM MAE 7.384 and RMSE 10.256; GPT-5.5 baseline MAE 7.964 and RMSE 11.069 (abstract; Table 5 rollout MAE).",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "GPT-5.5 structured-prompting baseline: dynamic-50% rollout test MAE 7.964 and RMSE 11.069 versus CMWM 7.384 and 10.256; GPT-5.5 is not a world-model baseline.",
+    "EJ": "Not reported",
+    "EK": "Action-encoder ablations: wide communication embedding, split structured/communication encoder, communication-intensity features, and compact split encoder; dialogue-only versus system-only communication ablation also reported.",
+    "EL": "Authors describe GPT-5.5 rollout drift after repeated interventions; CMWM can occasionally show an initial jump at the boundary between observed history and pure-rollout forecasting.",
+    "EM": "Optional inference-time first-step anchor blends the prediction with a recent-trend extrapolation and clips the first-step change to a clinically plausible magnitude (anchor jump cap ±5 eGFR units in Table 3).",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Yes",
+    "ET": "R2 Retrospective internal validation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Periodic 9-dimensional clinical state with a 128-dimensional learned latent; the explicit prediction target is annual mean eGFR.",
+    "FC": "0 – absent",
+    "FD": "1 – minimal",
+    "FE": "2 – moderate",
+    "FF": "0 – absent",
+    "FG": "Yes",
+    "FH": "Not reported",
+    "FI": "Not reported",
+    "FJ": "No",
+    "FK": "No",
+    "FL": "Clinical-state encoder plus static patient context and wide structured/text action encoder → continuous latent state and recurrent GRU hidden state → next-eGFR and next-latent heads; no planner is implemented.",
+    "FM": "Introduces CMWM for periodic clinical-state trajectories with structured and communication actions; formalises patient–health-coach communication as an action input; adds physiology-aware shape penalties and rollout-prefix training; evaluates a CKD eGFR case study.",
+    "FN": "On dynamic-50% history rollout, CMWM test MAE/RMSE were 7.384/10.256 versus 7.964/11.069 for GPT-5.5; communication-action ablations indicate the dialogue component accounts for most of the reported gain.",
+    "FO": "Single-source, single-platform cohort skewed young; external and multi-centre validation is required. Annual binary intervention indicators omit dose, duration, adherence, and confounding by indication; CMWM is not a causal estimator. Communication embeddings do not separate advice, symptoms, and system notifications; GPT-5.5 was structured-prompted rather than domain-fine-tuned.",
+    "FP": "Authors state that external validation in older and multi-centre populations is needed, future disease instantiations require similar validation, and comparison with a clinically fine-tuned LLM remains open; analogous chronic-disease instantiations are proposed as follow-up.",
+    "FQ": "Authors identify three gaps: lack of an architectural recipe for periodic chronic-disease observations with structured and free-text interventions; prior medical world models largely treat interventions as structured events rather than first-class communication actions; and training/evaluation mismatch between one-step training and multi-step rollout.",
+    "FR": "The study demonstrates retrospective, single-platform CKD eGFR forecasting under observed intervention histories. It does not demonstrate causal treatment effects, identified alternative-action counterfactuals, planning/control, external validation, prospective clinical benefit, or generalisation beyond the CKD cohort.",
+    "FS": "Reviewer mapping: M3 Belief-state service; M4 Action service; M5 Dynamics adapter; M6 Rollout service; M7 Outcome & causal layer",
+    "FT": "Reviewer lesson: Pass the paper’s specified action and time context explicitly into the state-transition interface; preserve the boundary between predictive action sensitivity and identified intervention effects.",
+    "FU": "Reviewer mapping (KB §20): Weak interventional validation",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Complete 14-page extracted PDF text reviewed: title/abstract and introduction (pp. 1–2); related work (pp. 2–3); framework, equations, architecture, training objective, rollout protocol and inference stabilisation (pp. 4–6); cohort and Tables 1–3, data/action definitions and training configuration (pp. 6–7); GPT baseline, results, Tables 4–5 and ablations (pp. 7–8); discussion and limitations (pp. 9–10); conclusion and appendix case studies/Table 6 (pp. 10–11). References on pp. 12–14 were scanned for context, not used as evidence for extracted claims. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "A:I were left untouched as instructed. The text extraction includes all 14 pages, but some multi-column tables are flattened; table-derived values were used only where column alignment was clear or the finding was corroborated by the abstract/narrative. Demonstrated results are retrospective held-out CKD prediction; counterfactual/planning descriptions are author claims, not demonstrated causal effects or action selection. Several blueprint mappings to KB-defined M1–M10 modules/open-problem IDs were omitted because the corresponding KB definitions were not among the declared inputs. Evidence QA: 70/80 populated fields had a <=25-word quotation matching extracted PDF text (87.5%). Confidence is conservative; review this row where exact quote checks were incomplete. Schema normalization (source details retained): DU normalized to 'Patient-level split'; source detail: Patient-level split (1,562 train; 334 validation; 336 test). Codex audit: 75 prior populated fields have a located source quotation; 5 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "Single private platform young cohort; no independent external/prospective evaluation.",
+    "Known future non-eGFR covariates and full annual communication condition evaluation; not autonomous origin-available forecasting.",
+    "Annual binary drug indicators omit dose/duration/adherence, communication mixes actions and observations.",
+    "First-step anchor weight1.0 and jumpcap±5 may dominate the first forecast; no isolated anchor contribution established.",
+    "No confounding adjustment; paper explicitly disclaims causal estimation.",
+    "No actual control-policy execution or matched alternative treatment experiment.",
+    "One automated Codex source-review pass with skeptical criterion check; no independent human review or experimental reproduction.",
+    "Source references/bibliography were read as entries, not retrieved as independent primary studies.",
+    "Schema/quote occurrence checks are necessary checks, not proof of clinical safety, causal identification or complete scientific correctness."
+  ]
+}

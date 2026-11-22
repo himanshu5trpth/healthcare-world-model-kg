@@ -1,0 +1,2692 @@
+{
+  "record_id": "annotation:085:r1",
+  "paper_record_id": "085",
+  "paper_version_id": "paper-version:085:sha256-5acf4e933b6d",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [],
+  "system_composition_ids": [],
+  "world_type_ids": [],
+  "profile_ids": [],
+  "entities": [
+    {
+      "id": "paper:085",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "085",
+        "title": "Efficacy Analysis in Clinical Trials: A Comprehensive Review of Statistical and Machine Learning Approaches",
+        "membership": "survey_background"
+      },
+      "provenance_evidence_ids": [
+        "evidence:085:0001",
+        "evidence:085:0002"
+      ]
+    },
+    {
+      "id": "paper-version:085:sha256-5acf4e933b6d",
+      "class_id": "PaperVersion",
+      "properties": {
+        "version": "arXiv2511.04903v1 November7 2025",
+        "pages": 28,
+        "raw_application_tables": {
+          "3": "Running Title for Header\nthe t-test, analysis of variance (ANOV A), and analysis of covariance (ANCOV A), each tailored for comparing means\nacross groups or conditions under varying experimental designs. In many clinical trials, efficacy is evaluated based on\nthe change from baseline to the final endpoint, where cross-sectional parametric tests like the t-test or ANCOV A can be\nused to compare treatment groups [18, 19]. For longitudinal or repeated measures data, LMMs extend the scope of\nparametric analysis by incorporating random effects to account for within-subject correlations and handling missing data\nunder the missing-at-random (MAR) framework [3, 4]. While parametric methods are robust under their assumptions,\ntheir utility can be limited when these assumptions are violated, such as in the presence of skewed distributions or\nheterogeneous variances, highlighting the need for alternative approaches in certain clinical trial settings.\n2.1 Cross-Sectional Parametric Tests\nEfficacy testing in clinical trials often begins with the comparison of treatment groups at a single time point, where\nparametric methods provide powerful and interpretable statistical tools. These methods, including t-tests, analysis of\nvariance (ANOV A), and analysis of covariance (ANCOV A), leverage assumptions about data distribution to efficiently\nestimate treatment effects. The following section discusses these cross-sectional parametric tests, their applications in\nclinical research, and their advantages and limitations in different trial settings.\n2.1.1 t-Tests\nThe t-test, introduced by William Sealy Gosset in 1908 under the pseudonym “Student,” is a parametric statistical\ntest designed to compare the means of two groups under specific assumptions [ 1]. The standard t-test, also called\nthe independent t-test, evaluates the difference between two independent group means. The test statistic is calculated\nas: t=\n ¯X1 − ¯X2\u0001 /qs2p(n−11 +n −12 ), where ¯X1 and ¯X2 are the sample means, n1 and n2 are the sample sizes,\nand s2p = (n1 −1)s 21 + (n2 −1)s 22\u0001 /(n 1 +n 2 −2) is the pooled variance. Here, s21 and s22 represent the variances\nof the two groups. The paired t-test, a variation of the standard t-test, is used for dependent or matched samples,\nanalyzing the mean differences between paired observations using the formula: t= ¯d/(s d/√n), where ¯d is the mean\nof the differences, sd is the standard deviation of the differences, and n is the number of paired observations. Another\nimportant extension, Welch’s t-test, modifies the standard t-test to account for unequal variances and sample sizes\nbetween groups, with its test statistic computed as: t=\n ¯X1 − ¯X2\u0001 /p(s21/n1) + (s22/n2). These methods, which rely\non the assumption of normally distributed data, have become foundational tools for statistical inference in clinical trials\nand experimental research [20].\nTable 1:Applications of the t-Tests in Clinical Trials\nStudy Application Therapeutic Area\n[21] Evaluation of pre- and post-treatment differences in blood pressure\nlevels\nCardiovascular Research\n[22] Assessment of the impact of antihypertensive therapies on systolic\nand diastolic blood pressure in hypertensive patients\nHypertension\n[23] Analysis of Metformin’s impact on glycemic control using indepen-\ndent t-tests to compare pre- and post-intervention HbA1c levels\nDiabetes\n[24] Analysis of the efficacy of dietary and behavioral therapies in weight-\nloss interventions\nWeight-Loss Interventions\n[25] Evaluation of psychometric properties in mental health research Mental Health\n[26] Evaluation of cognitive behavioral therapy’s impact on depression\nscores in mental health interventions\nMental Health\n[27] Examination of the effects of angiotensin-converting enzyme in-\nhibitors on cardiac function\nCardiology\n[28] Comparison of drug efficacy for treatments with differing variance\nprofiles\nGeneral Healthcare\n[29] Systematic reviews to synthesize data on pre- and post-treatment\nchanges in diagnostic accuracy studies\nMeta-analytical Frameworks\n[30] Application of Welch’s t-test in contingency table analyses for ro-\nbustness in healthcare data\nHealthcare\n[31] Exploration of Welch’s t-test in pharmacokinetics to address unequal\nvariances due to population heterogeneity\nPharmacokinetics\n[32] Highlighted effectiveness of Welch’s t-test for small-sample compar-\nisons in clinical studies\nClinical Research\n3",
+          "4": "Running Title for Header\nTable 1 Continued from previous page\nStudy Application Therapeutic Area\n[33] Assessment of the efficacy of Liraglutide in reducing body weight\nthrough paired analysis\nWeight Management\n[34] Examination of Budesonide-Formoterol therapy in improving lung\nfunction parameters through paired t-tests\nPulmonology\n[35] Optimization of photon-counting CT for lung density quantifications\nusing paired analysis\nRadiology\nT-tests are widely recognized for their simplicity, computational efficiency, and effectiveness in comparing means,\nparticularly in small to moderate-sized datasets (Cf. Table 1). The paired t-test enhances statistical power by focusing on\nwithin-subject differences, while Welch’s t-test provides a robust alternative for scenarios involving unequal variances\nor sample sizes. However, these methods rely on assumptions of normality and are sensitive to outliers, which can\ncompromise their validity in non-normal or heavily skewed data. Additionally, t-tests are limited to mean-based\ncomparisons, rendering them unsuitable for ordinal data or high-dimensional datasets that require more sophisticated\nstatistical approaches, such as mixed-effects models or machine learning techniques.\n2.1.2 Variance Analysis Methods\nAnalysis of Variance (ANOV A), introduced by Fisher in 1918, is a parametric method for comparing the means\nof multiple groups. It partitions total variation into between-group variation ( SSbetween) and within-group variation\n(SSwithin), with the F-statistic calculated as F=SS between(N−k)/SS within(k−1) where k is the number of groups\nand N is the total number of observations. Under the null hypothesis (H0), the F-statistic follows an F-distribution with\nk−1 and N−k degrees of freedom. ANOV A assumes normality within groups, homoscedasticity, and independence\nof observations. Extensions like repeated measures and two-way ANOV A have been developed for longitudinal and\nfactorial designs. While ANOV A controls Type I error better than multiple pairwise t-tests, violations of its assumptions\ncan lead to misleading results. Nonparametric alternatives like the Kruskal-Wallis test address these limitations. ANOV A\nis also less powerful with unequal group sizes.\nAnalysis of Covariance (ANCOV A), introduced by Fisher in 1925, combines ANOV A and linear regression to compare\ngroup means while adjusting for one or more covariates. ANCOV A is particularly useful in clinical trials to control\nfor baseline imbalances (Cf. Table 2). The model is Yij =µ+α i +βX ij +ϵ ij where Yij is the outcome, Xij is\nthe covariate, and β is the regression coefficient for the covariate. ANCOV A adjusts the outcome by removing the\neffect of the covariate, enabling a comparison of group means for a common covariate value. It assumes linearity\nbetween the covariate and the outcome, homogeneity of regression slopes, and normality and homoscedasticity of\nresiduals. ANCOV A has been extended to handle multiple covariates and more complex designs. However, violations\nof assumptions or failure to account for covariate-treatment interactions can lead to biased results.\nTable 2:Applications of ANOV A and ANCOV A in Clinical Trials\nStudy Method Application Therapeutic Area\n[36] ANOV A Multivariate studies of psychological interventions\nfor chronic pain management\nChronic Pain Management\n[37] ANCOV A Adjustment for tumor size at baseline in oncology\ntrials to compare treatment efficacy\nOncology\n[38] ANOV A Comparison of the effects of beta-blockers across\ndifferent dosages\nCardiovascular Research\n[39] ANCOV A Longitudinal studies to address baseline imbal-\nances in randomized controlled trials\nRandomized Controlled Trials\n[40] ANOV A Comparison of cognitive behavioral therapies\nacross different durations of intervention\nMental Health\n[41] ANCOV A A 24-week, double-blind, placebo-controlled trial\nof donepezil in Alzheimer’s disease\nAlzheimer’s Disease\n[42] ANOV A Extension to mixed models for longitudinal analy-\nses in oncology trials\nOncology\n[18] ANCOV A Adjusting for percentage change from baseline\nin pain management studies, avoiding biased esti-\nmates\nPain Management\n[43] ANOV A Assessment of musculoskeletal burden differences\nacross patient subgroups in observational studies\nMusculoskeletal Disorders\n4",
+          "5": "Running Title for Header\nTable 2 Continued from previous page\nStudy Method Application Therapeutic Area\n[19] ANCOV A Cardiovascular trials to adjust for baseline blood\npressure and cholesterol levels\nCardiovascular Research\n[44] ANCOV A Survival analysis to adjust for clinical staging in\noncology trials\nOncology\n[45] ANOV A Use of repeated measures to evaluate temporal ef-\nfects of pain relief medications in drug trials\nPain Management\n[46] ANOV A Analysis of repeated measures in antidepressant\neffects over time\nMental Health\n[47] ANOV A Adjusting for random baseline imbalances in clini-\ncal trials\nClinical Trials\n[48] ANCOV A Handle missing data and apply covariate adjust-\nment in weight-loss trials\nWeight-Loss Trials\n[49] ANCOV A Incorporates social network structure and opinion\nfor election forecasting\nElection Prediction\n2.2 Longitudinal Parametric Tests\nWhile cross-sectional parametric tests such as t-tests and ANOV A are widely used in clinical trials, they are limited\nto analyzing treatment effects at a single time point. However, many clinical studies involve repeated measurements\nof patient outcomes over time, requiring statistical methods that account for within-subject correlations and time-\ndependent variations. Longitudinal parametric models, such as Linear Mixed-Effects Models (LMMs) and Generalized\nEstimating Equations (GEEs), extend traditional parametric frameworks to capture temporal dynamics and patient-\nspecific variability. The following section explores these methods, highlighting their applications in efficacy testing and\ntheir ability to handle missing data and complex correlation structures.\n2.2.1 Linear Mixed Effects Model\nLMMs, introduced by [50], extend linear regression by incorporating both fixed and random effects, making them\nparticularly suitable for analyzing hierarchical or longitudinal data, such as repeated measures in clinical trials. Fixed\neffects represent population-level relationships, while random effects capture subject-specific variability, allowing\nLMMs to effectively model within-subject or within-cluster correlations. The general model is expressed as: Y=\nXβ+Zb+ϵ, where Xβ denotes the fixed effects, Zb represents the random effects (b∼N(0, G) ), and ϵ∼N(0, R)\naccounts for residual errors. One of the significant strengths of LMMs is their ability to handle missing data under\nthe Missing at Random (MAR) assumption, where the probability of missingness depends only on observed data.\nUnlike traditional methods that exclude incomplete cases, LMMs use all available data through maximum likelihood or\nrestricted maximum likelihood estimation, reducing bias and improving efficiency. Additionally, LMMs accommodate\ncomplex covariance structures, such as autoregressive or unstructured correlations, providing flexibility in modeling\ndependencies.\nLMMs, while versatile, have limitations. They assume linear relationships, normality of random effects and residuals,\nand independence between random and fixed effects. While diagnostic checks, transformations, and robust estimation\ntechniques can address some violations, these assumptions inherently restrict their use in datasets with non-linear\nrelationships or non-normal distributions. Computational challenges with large datasets or complex random-effects\nstructures can be mitigated using efficient algorithms like Expectation-Maximization or parallel computing. However,\nLMMs struggle with data missing not at random (MNAR), as the mechanism depends on unobserved variables, and\nbiased estimates may result when the independence of random and fixed effects is violated. Additionally, interpreting\nrandom effects in complex hierarchical models can be challenging, limiting subject-specific inferences. These limitations\nunderscore the need to carefully evaluate assumptions and choose appropriate methods for specific research contexts.\nTable 3:Applications of LMMs in Clinical Trials\nStudy Method Application Therapeutic Area\n[3] LMM Model patient responses over time, introducing ran-\ndom effects for patient-specific trajectories\nPsychiatry\n[51] GEE Analyzing repeated measurements of respiratory out-\ncomes, establishing a foundation for their use in public\nhealth research\nRespiratory Outcomes\n5",
+          "6": "Running Title for Header\nTable 3 Continued from previous page\nStudy Method Application Therapeutic Area\n[52] GEE Binary data analysis, focusing on treatment adherence\nin clinical trials\nClinical Trials\n[53] GEE Modeling correlated binary outcomes in healthcare\ninfection rate studies\nInfection Control\n[4] LMM Monitoring HbA1c levels in diabetes trials Diabetes\n[54] LMM Phase II trial and pharmacokinetic evaluation of cyto-\nsine arabinoside for leptomeningeal metastases from\nbreast cancer\nOncology\n[55] LMM Estimate the reliability of repeated measurements in\nclinical trial data for schizophrenia treatment\nPsychiatry\n[46] LMM Drug trials evaluating the efficacy of antidepressants\nacross multiple time points\nPsychiatry\n[56] LMM Modeling tumor size reduction over time, handling\nirregularly spaced follow-up data\nOncology\n[56] GEE Evaluate weight loss interventions by modeling re-\npeated weight measurements over time\nWeight Management\n[57] GEE Investigated concordance between urine drug screens\nand self-reported cocaine use over time and across\ngenders\nAddiction Medicine\n[58] LMM Analyzing fMRI group data and study brain activation\npatterns in response to stimuli\nNeuroscience\n[59] GEE Analyzed self-efficacy in treatment frameworks among\npsychology and management scholars\nPsychology\n[60] GEE Conducted a randomized controlled trial of CBT-AD\nto improve adherence and reduce depression among\nHIV-positive Latinos\nBehavioral Medicine\n[61] GEE Estimated the efficacy of preexposure prophylaxis for\nHIV prevention based on drug concentration thresh-\nolds\nEpidemiology\n[62] LMM Analysis of non-adherence to treatment in a random-\nized controlled trial comparing citalopram and reboxe-\ntine in treating depression\nPsychiatry\n[63] LMM Measuring anthelmintic drug efficacy for parasitolo-\ngists\nParasitology\n[64] GEE Examined how housing status influenced drug use pat-\nterns among street-involved youth in Canada\nPublic Health\n[65] LMM Modeled QTc prolongation to evaluate the safety pro-\nfile of olmesartan medoxomil\nCardiovascular Pharmacol-\nogy\n[66] GEE Performed a systematic review of drug efficacy studies\nfor soil-transmitted helminthiases and advocated for\nindividual data-sharing\nParasitology\n[67] LMM Statistical analysis of intestinal lesion scores in studies\nof anti-coccidial drugs in chickens\nVeterinary Parasitology\n[68] LMM Design and analysis of mouse clinical trials for oncol-\nogy drug development\nOncology\n[69] LMM Systematic review and meta-analysis of in vivo effi-\ncacy of anti-malarial drugs against clinical Plasmod-\nium vivax malaria in Ethiopia\nInfectious Diseases\n[70] GEE Evaluated the effects of skin-to-skin contact on new-\nborn sucking and breastfeeding abilities in a quasi-\nexperimental study\nNeonatal Health\n[71] LMM Assessed the efficacy of a digital integrative medicine\nintervention for cancer patients undergoing treatment\nOncology\n6",
+          "8": "Running Title for Header\nis computationally intensive, requiring specialized algorithms like the Expectation-Maximization (EM) algorithm or\nBayesian Markov Chain Monte Carlo (MCMC) methods. Recent advancements have addressed these challenges by\ndeveloping efficient algorithms, such as the R package JSM [ 74], which provides a semiparametric joint modeling\nframework and offers a maximum likelihood approach to fit these models.\nTable 4:Applications of AFT and Joint Models in Clinical Trials\nStudy Method Application Therapeutic\nArea\n[75] AFT Analyze long-term survivors in clinical trials, emphasizing\napplicability in data with short- and long-term survival\ntimes\nClinical Trials\n[76] AFT Use of Weibull AFT models to evaluate treatment effects\nand compare survival times in cancer patients receiving\ndifferent chemotherapy regimens\nOncology\n[44] AFT Comparison of AFT models with proportional hazards\nmodels in censored data survival analysis in cancer trials\nOncology\n[77] JM HIV studies to explore relationships between viral load\nand time to treatment failure\nHIV Studies\n[78] JM Alzheimer’s disease trials to model the association be-\ntween cognitive decline and time to dementia onset\nAlzheimer’s Dis-\nease\n[79] JM Predict survival probabilities for cancer patients based on\ntumor progression biomarkers\nOncology\nWhile AFT models and the proportional hazards framework remain the most widely used for survival data, several\nextensions have been proposed to address more complex event structures. When the proportional hazards assumption\nis violated, alternatives such as time-varying coefficient models, stratified Cox models, Random Survival Forest and\nGradient Boosting type methods provide flexible inference by allowing hazard ratios to change over time [80, 81, 82]. In\nstudies with complex censoring patterns, including interval-censored, left-truncated, or competing-risk data, specialized\nlikelihood-based and nonparametric estimators have been developed, such as the Fine–Gray subdistribution model\nfor competing risks [83]. Furthermore, when participants may experience multiple or repeated events, recurrent-event\nmodels such as the Andersen–Gill counting-process formulation, Prentice–Williams–Peterson (PWP) total- or gap-time\nmodels, and Wei–Lin–Weissfeld (WLW) marginal models offer distinct strategies for capturing dependence among\nevent recurrences [84]. Together, these approaches expand survival modeling beyond proportional hazards assumptions\nand accommodate the complexities frequently encountered in modern clinical trials.\n2.3 Handling Missing data\nParametric methods such as ANOV A, ANCOV A, and mixed-effects models rely on explicit distributional assumptions\nand are particularly sensitive to how missing data arise. In most applications, data are assumed to be missing at\nrandom (MAR), that is, the probability of missingness depends only on observed quantities. Under this assumption,\nlikelihood-based estimation or restricted maximum likelihood provides valid inference while using all available data\n[15, 16]. When data are missing not at random (MNAR), for instance, when dropout depends on unobserved outcomes,\nbias can occur even with correct model specification. In such settings, models that explicitly link the missingness process\nto the outcome, such as selection, pattern-mixture, or shared-parameter formulations, are required [17]. Because MNAR\nassumptions cannot be empirically verified, sensitivity analyses are essential for assessing robustness. Delta-adjustment,\ntipping-point, and Bayesian prior–based approaches provide interpretable ways to examine how treatment estimates\nchange under alternative assumptions. Clear documentation of the assumed mechanism and sensitivity framework is\ntherefore critical for credible parametric inference.\n3 NONPARAMETRIC TESTS\nNonparametric tests have become essential tools in clinical trials, particularly when the data deviate from the assump-\ntions required by parametric methods, such as normality or homogeneity of variances. Nonparametric frameworks\nare particularly useful when the aim is to compare treatment distributions robustly without relying on parametric\nassumptions, emphasizing inference on ranks or medians rather than means. These methods are robust and versatile,\nmaking them well-suited for analyzing ordinal, skewed, or small-sample data, as well as datasets with outliers. In\n8",
+          "10": "Running Title for Header\n3.1.3 Tests for association between categorical variables\nThe Mantel-Haenszel (MH) test, introduced by Mantel and Haenszel in 1959, is a non-parametric statistical method\nused to evaluate associations between two categorical variables while controlling for a confounding variable. It is widely\nused in clinical trials and epidemiology to analyze stratified data, particularly in cases where the data are organized into\ncontingency tables across strata. Given K strata, each represented by a 2×2 table, the MH test combines information\nacross all strata to compute a pooled odds ratio and test for homogeneity or association. For each stratum k, the\ncontingency table is represented as:\nExposed (E) Unexposed (U)\nCase (C) ak bk\nControl (Co) ck dk\nThe MH estimate of the common odds ratio ( ˆθM H), with nk =a k +b k +c k +d k as the total sample size for the k-th\nstratum, is calculated as ˆθM H= PKk=1(akdk/nk)/PKk=1(bkck/nk). The Mantel-Haenszel test statistic is computed\nas: χ2M H=  PKk=1(ak −E k)\u00012/PKk=1 Vk, where Ek is the expected value of ak under the null hypothesis of no\nassociation and Vk is its variance. The test statistic χ2M Hfollows a chi-squared distribution with 1 degree of freedom\nunder the null hypothesis. A significant result suggests an association between the exposure and the outcome after\ncontrolling for the stratifying variable. However, the test assumes that the odds ratio is consistent across strata, which\nmay not always hold in practice. If the homogeneity assumption is violated, the pooled estimate may be misleading.\nFurthermore, the test is limited to 2×2 contingency tables and cannot accommodate complex multilevel or continuous\ndata without extensions. It also requires sufficient sample sizes within each stratum for reliable results.\nTable 5:Applications of the Kruskal-Wallis (KW) and Mantel-Haenszel (MH) Tests in Clinical Trials\nStudy Method Application Therapeutic Area\n[92] MH Meta-analysis comparing ceftriaxone with β-\nlactams in febrile neutropenia using the Peto-\nmodified MH method to assess relative efficacy\nAntibiotic Therapy\n[93] KW Compared the efficacy of various preventive drugs\nduring the course of preventive migraine treatment.\nNeurology\n[94] MH Meta-analysis to assess the efficacy and safety of\ncombining Vandetanib with chemotherapy in ad-\nvanced non-small cell lung cancer patients\nOncology\n[95] MH Compare clinical success rates of moxifloxacin\nagainst pooled active comparator treatments in sec-\nondary peritonitis\nAntibiotic Therapy\n[96] MH Multicenter trials with binary outcomes to summa-\nrize data obtained from Early External Cephalic\nVersion (EECV) trials published in 2003 across\ndifferent strata\nMulticenter Trials\n[97] MH Infertility treatments clinical trials, emphasizing\nits simplicity and suitability for crossover designs\nInfertility Treatments\n[98] KW Compare the inpatient length of stay (LOS) be-\ntween different patient samples, exploring the re-\nlationship between LOS, treatment benefit, and\nadverse events.\nHealthcare, Inpatient Care\n[99] MH Post-hoc analysis evaluating the efficacy of Las-\nmiditan for treating migraines in patients with car-\ndiovascular risk factors\nNeurology\n[100] KW Explored factors affecting patient participation in\nclinical research to assess differences in willing-\nness across groups.\nClinical Research\n[101] KW Evaluated the efficacy of hydroxychloroquine in\npreventing illness compatible with Covid-19 or\nconfirmed infection when used as postexposure\nprophylaxis.\nInfectious Diseases\n10",
+          "11": "Running Title for Header\nTable 5 Continued from previous page\nStudy Method Application Therapeutic Area\n[102] MH Systematic review and meta-analysis on integrated\ncare’s impact on outcomes after acute coronary\nsyndrome\nCardiovascular Research\n3.1.4 Tests with survival data\nThe Log-Rank test, first introduced by Mantel in 1966, is a nonparametric statistical method used to compare sur-\nvival distributions between two or more groups. The test is based on the null hypothesis ( H0) that there is no\ndifference in the survival distributions between groups. Consider k groups, and let ni(t) and di(t) denote the\nnumber of subjects at risk and the number of events observed at time t in group i, respectively. The observed\n(Oi) and expected ( Ei) event counts for each group are calculated as follows: Ei(t) = (n i(t)/n(t))·d(t), where\nn(t) = Pki=1 ni(t) is the total number of subjects at risk at time t, and d(t) = Pki=1 di(t) is the total number ofevents at time t. The observed and expected values are then summed across all time points. The test statistic is\ngiven by χ2 =  Pki=1(Oi −E i)\u00012/Pki=1 Vi, where Vi is the variance of Oi under the null hypothesis, calculated as\nVi = (Pt ni(t)·(n(t)−n i(t))·d(t)·(n(t)−d(t)))/(n(t) 2 ·(n(t)−1)). Under H0, the test statistic χ2 follows achi-squared distribution with k−1 degrees of freedom. For k= 2 , the test reduces to a single degree of freedom test\ncomparing two groups. The Log-Rank is a robust, distribution-free method for comparing survival curves and it retains\ngood power when the hazard ratios between groups are proportional. However, violations of the proportional hazards\nassumption can lead to biased results. The test is also sensitive to censoring patterns; unbalanced censoring across\ngroups can distort the results. Moreover, it does not adjust for covariates, requiring the use of stratified methods for\nmore complex analyses.\nGray’s test, introduced in [ 103], is a non-parametric method for comparing cumulative incidence functions in the\npresence of competing risks. In clinical trials and epidemiological studies, competing risks occur when an individual is at\nrisk of experiencing more than one mutually exclusive event, such as death from different causes. Unlike the Log-Rank\ntest, which assumes all events are of the same type, Gray’s test accounts for the sub-distribution of competing risks.\nThe cumulative incidence function (CIF), denoted as Fj(t), represents the probability of experiencing event j by time t,\nconsidering the presence of other competing events. Gray’s test assesses whether the CIFs differ significantly between\ngroups for a specific event type j. The test statistic for Gray’s test is derived from weighted differences in observed\nand expected event counts for each group. For k groups, let dij(t) denote the number of events of type j at time t in\ngroup i, and ni(t) denote the number of individuals at risk in group i at time t. The weighted observed-minus-expected\ndifference is computed as S(t) = Pki=1 w(t)·[d ij(t)−E ij(t)], where Eij(t) is the expected number of events ingroup i under the null hypothesis, and w(t) is a weight function. The variance of S(t) is estimated to compute the test\nstatistic χ2 =S(t) 2/Var[S(t)]. Under the null hypothesis, χ2 follows a chi-squared distribution with k−1 degrees\nof freedom. This test is found to be particularly valuable in clinical trials where competing risks are prominent, such\nas cancer studies with multiple causes of mortality. However, Gray’s test is sensitive to the choice of weights, and\nassumes independence between competing events and censoring, which may not always hold in practice. Additionally,\nthe test does not adjust for covariates, requiring extensions such as Fine and Gray’s regression model for more complex\nanalyses.\n3.2 Longitudinal Nonparametric Tests\nWhile cross-sectional nonparametric tests provide robust alternatives to parametric methods for single-time-point\ncomparisons, many clinical trials involve repeated measurements over time. In such cases, traditional rank-based\nmethods may fail to account for within-subject correlations, requiring specialized nonparametric techniques for\nlongitudinal data. These methods, such as the Friedman Test, Brunner-Munzel Test, the nparLD framework and the\nLongitudinal Rank Sum Test, extend nonparametric inference to repeated measures settings, enabling more flexible\nand assumption-free analysis of treatment effects over time. The following section explores these approaches, their\napplications, and their advantages in handling non-normal, ordinal, and irregularly spaced longitudinal data.\n3.2.1 Friedman Test\nTheFriedman Test, introduced by [5], is a nonparametric method designed for analyzing repeated measures or matched\ngroup data across multiple treatments. The test ranks observations within each subject and evaluates differences in\nranks across treatments, making it robust to non-normal distributions. For n subjects and k treatments, let Rij denote\nthe rank of the j-th treatment for the i-th subject. The test statistic is computed as: Q= 12nk(k+1) Pkj=1  ¯Rj − k+12 \u00012 ,\n11",
+          "13": "Running Title for Header\n3.2.4 Longitudinal Rank-Sum Test (LRST)\nTheLongitudinal Rank-Sum Test (LRST), introduced by [ 8], is a nonparametric method developed to evaluate treatment\neffects across multiple longitudinal endpoints in clinical trials. Unlike traditional rank-based methods, the LRST\naccounts for the complexity of repeated measures and multi-endpoint designs while maintaining robustness against non-\nnormal distributions and outliers. Let xitk and yjtk represent the changes from baseline for subjects in the control and\ntreatment groups, respectively, whereiandjindex subjects,tdenotes time, andkrepresents outcomes. Observations\nare ranked across all subjects, time points, and outcomes, with ranks Ritk and Rjtk. The test statistic is calculated as\nTLRST = ( ¯Ry··· − ¯Rx···)/\nq\ncVar( ¯Ry··· − ¯Rx···),where ¯Ry··· and ¯Rx··· are the mean ranks for the treatment and control\ngroups, respectively, aggregated across all time points and outcomes. Under the null hypothesis of no treatment effect,\nTLRST asymptotically follows a standard normal distribution. LRST has also been developed for multi-arm clinical trials\nby [9, 104].\nThe LRST offers several advantages, making it a valuable tool in modern clinical trials. Its rank-based approach is\nrobust to outliers and non-normal data distributions, which are common in real-world datasets. By simultaneously\nevaluating multiple longitudinal endpoints, the LRST reduces the need for multiplicity adjustments, enhancing statistical\npower while maintaining control of Type I error rates. Additionally, it handles missing data and irregular follow-ups\nefficiently, ensuring flexibility in complex trial designs. However, the test relies on large-sample approximations for\nits validity, and its performance in small-sample studies may require further evaluation. Despite these limitations,\nthe LRST has shown strong applicability in neurodegenerative disease and oncology trials, where multiple outcomes\nsuch as motor function and cognitive performance are monitored over time, providing a comprehensive evaluation of\ntreatment efficacy.\n3.3 Handling Missing Data:\nNonparametric and rank-based methods are sensitive to missing data because their validity depends on the complete\nordering of observations. When data are missing completely at random (MCAR), complete-case analysis remains\nunbiased but less efficient. Under missing at random (MAR) assumptions, validity can be maintained through several\napproaches. Inverse Probability Weighting (IPW) reweights observed cases by the inverse of their estimated response\nprobabilities, while Multiple Imputation (MI) replaces missing values with plausible draws from predictive models\nand combines results across imputations to incorporate uncertainty [ 105]. Extensions such as augmented IPW and\nweighted-rank procedures improve small-sample efficiency and robustness [ 106, 107]. When data are missing not\nat random (MNAR), rank-based inference alone cannot guarantee unbiasedness; combining these approaches with\ntargeted sensitivity analyses remains essential for assessing robustness [108].\nTable 6:Applications of Nonparametric Methods in Clinical Trials (Sorted by Year)\nStudy Method Application Therapeutic\nArea\n[109] Friedman Panic and agoraphobia scale in a clinical trial Psychiatry\n[110] nparLD Resistance to Phytophthora crown rot in cucumbers Agriculture\n[111] Brunner-Munzel Lesion-symptom mapping in cognitive neuro-\nscience\nNeuroscience\n[112] Friedman Immune cell response to pemetrexed in pancreatic\nadenocarcinoma\nOncology\n[113] Brunner-Munzel Ketamine use in refractory status epilepticus Neurology\n[114] Brunner-Munzel Degradation mechanisms in autophagy systems Cellular Biology\n[115] Friedman Stress-strength estimation in clinical trials General Medicine\n[116] nparLD Automatic detection of major depressive disorder\nusing electrodermal activity\nMental Health\n[117] nparLD Linkage between the I-3 gene for Fusarium wilt\nresistance and bacterial spot sensitivity in tomato\nAgriculture\n[118] Friedman Compare the efficacy of 19 anticancer compounds\non HNSCC cell lines\nOncology\n[119] Friedman Edetate disodium-based chelation for critical limb\nischemia\nDiabetes\n[120] nparLD Exergame training for older adults Geriatrics\n13",
+          "14": "Running Title for Header\nTable 6 Continued from previous page\nStudy Method Application Therapeutic\nArea\n[121] nparLD Metabolic adaptations to targeted therapies in uveal\nmelanoma\nOncology\n[122] nparLD Impact of isolation on mental health of athletes\nduring COVID-19\nMental Health\n[123] Brunner-Munzel Sporozoite vaccine efficacy for malaria prevention Infectious Dis-\neases\n[124] Friedman Ethanolamine oleate injection for postoperative\npain\nOral Surgery\n[125] Brunner-Munzel Depression and anxiety in ischemic stroke patients Neurology\n[126] nparLD Biomarkers in gingival crevicular fluid during\nmenopause\nPeriodontology\n[127] Friedman Comparison of pain block methods in bariatric\nsurgery\nAnesthesiology\n[128] Friedman Epidural prolotherapy versus steroids for chronic\npain\nPain Management\n4 BA YESIAN MODELS\nBayesian methods have become indispensable tools for analyzing longitudinal data in clinical trials, offering a\nprobabilistic framework that seamlessly integrates prior knowledge with observed data. By explicitly modeling\nuncertainty, Bayesian approaches provide a comprehensive understanding of treatment effects, making them particularly\nwell-suited for efficacy testing in complex and high-stakes settings. Bayesian approaches serve both confirmatory and\ndecision-analytic objectives, integrating prior evidence with observed data to produce interpretable posterior estimates\nfor efficacy or safety outcomes. These methods excel in handling challenges such as small sample sizes, hierarchical\ndata structures, and irregularly sampled longitudinal data, all of which are common in clinical trials. Despite their\nnumerous advantages, Bayesian methods face challenges, particularly in terms of computational demands and the\nselection of appropriate priors. However, advancements in scalable inference algorithms, such as variational inference\nand MCMC methods, continue to mitigate these issues, broadening the scope of Bayesian methods in clinical trials.\n4.1 Bayesian Hierarchical Mixed Model\nBayesian Hierarchical Models (BHMs) are foundational tools in the analysis of longitudinal clinical trial data. These\nmodels account for multi-level data structures, such as repeated measurements nested within subjects, by introducing\nrandom effects at different levels of the hierarchy. The Bayesian framework incorporates prior distributions over\nmodel parameters, enabling the explicit representation of uncertainty. A typical BHM for longitudinal data can be\nexpressed as yij =β 0 +β 1tij +b i +ϵ ij, where yij is the observed outcome for subject i at time j, β0 and β1 are\nfixed effects representing the population-level intercept and slope, bi ∼ N(0, σ2b ) represents the random effect for\nsubject i, ϵij ∼ N(0, σ2) is the residual error, and tij represents time. In the Bayesian framework, prior distributions\nare specified for all parameters. For example, β0, β1 ∼ N(0, τ2), σ 2b , σ2 ∼Inverse-Gamma(a, b).The inclusion\nof prior information allows the incorporation of external knowledge or historical data, further enhancing model\nrobustness. Posterior distributions of the parameters are obtained using MCMC methods or variational inference,\nenabling uncertainty quantification for all components of the model. However, the reliance on MCMC methods often\nrequires significant computational resources. Furthermore, careful selection of prior distributions is essential, as\nimproper priors may introduce bias into the model estimates. Interpretation of results, while probabilistically robust,\ncan also be challenging in highly hierarchical settings.\n4.2 Bayesian Nonparametrics and Dynamic Bayesian Networks\nBayesian nonparametric models extend Bayesian methods to settings where the complexity of the model is not fixed a\npriori but can grow with the data. These models are particularly useful in clinical trials for longitudinal data, where the\nunderlying distributions or clusters may not be well-defined. Bayesian nonparametrics rely on stochastic processes,\nsuch as the Dirichlet process (DP) and Gaussian processes (GP), to construct flexible models. A foundational Bayesian\nnonparametric model is the Dirichlet Process Mixture Model (DPMM), which allows clustering without pre-specifying\nthe number of clusters. The DPMM is represented as G∼DP(α, G 0), where G is the random probability measure, α is\nthe concentration parameter controlling cluster formation, and G0 is the base distribution. Observations xi are modeled\n14",
+          "15": "Running Title for Header\nas xi ∼F(θ i), θi ∼G, where F is the likelihood function and θi are parameters drawn from the Dirichlet process.\nFor longitudinal data, extensions like the Hierarchical Dirichlet Process (HDP) and Dependent Dirichlet Process (DDP)\nhave been developed to model repeated measures and temporal dependencies. For example, the DDP allows the\ndistribution Gt at time t to evolve over time Gt ∼DP(α, Gt−1), capturing temporal relationships in longitudinal\ndata. Bayesian Additive Regression Trees (BART) is another popular nonparametric model that partitions the data\nspace using an ensemble of regression trees. BART offers a robust way to model complex, nonlinear relationships\nin longitudinal data. On the downside, these approaches are computationally intensive, requiring advanced sampling\ntechniques. Furthermore, hyperparameters require careful tuning to ensure meaningful results.\nBayesian Gaussian Processes (GPs) infer distributions over functions, allowing them to adaptively capture the underlying\nstructure in longitudinal trajectories. GPs are particularly well-suited for irregularly sampled data, a common feature\nin clinical trials. A GP models a set of observations y={y 1, y2, . . . , yn} at corresponding times t={t 1, t2, . . . , tn}\nas a realization from a multivariate normal distribution y∼ N(m(t), K(t, t′)), where m(t) is the mean function,\noften set to zero for simplicity, and K(t, t′) is the covariance function (or kernel) that encodes the similarity between\nobservations at times t and t′. Common choices for K(t, t′) include the squared exponential kernel K(t, t′) =\nσ2 exp  −(t−t ′)2/2ℓ2\u0001, where σ2 is the variance and ℓ is the length scale, controlling the smoothness of the function.\nThe Bayesian nature of GPs allows for uncertainty quantification in predictions. Given observed data (t, y), the\nposterior predictive distribution for a new time t∗ is also Gaussian, that is, p(y∗|t∗, t, y)∼ N(µ(t∗), σ2(t∗)), where\nµ(t∗) =K(t ∗, t)K(t, t)−1y, σ2(t∗) =K(t ∗, t∗)−K(t ∗, t)K(t, t)−1K(t, t∗). GPs handle irregularly sampled data\nseamlessly and can accommodate heteroscedastic noise by modifying the covariance structure. But, they face scalability\nchallenges as the computational cost grows cubically with the number of data points due to the inversion of the\ncovariance matrix. Sparse approximations, such as inducing points, have been developed to mitigate this issue but may\ncompromise model accuracy. Additionally, hyperparameter tuning and kernel selection require careful consideration, as\nthese can significantly impact model performance.\nTable 7:Applications of Bayesian Nonparametric and Graphical Models in Clinical Trials\nStudy Method Application Therapeutic Area\n[129] GP Model tumor growth dynamics in oncology trials,\nshowing their adaptability to complex trajectories\nOncology\n[130] BHM Phase I/II trials investigating the safety and efficacy\nof drug combinations, focusing on dose finding and\nexploring therapeutic activity\nDose Finding\n[131] DP Nested Dirichlet process model to account for\nphysician-patient interactions in cluster random-\nized trials, improving treatment effect assessment\nHealthcare\n[132] BHM Bayesian adaptive design for Phase I/II trials with\ndelayed outcomes, jointly modeling efficacy and\ntoxicity for dose escalation in oncology\nOncology\n[133] GP Handle multivariate longitudinal data, enabling si-\nmultaneous modeling of multiple biomarkers in\ncardiovascular trials\nCardiovascular Research\n[134] BHM Bayesian optimization for dose-finding to balance\nefficacy and toxicity in biologic agent trials\nOncology\n[135] DP Regression discontinuity designs to assess treat-\nment effects in clinical trials with thresholds\nClinical Trials Design\n[136] GP Identify personalized optimal doses in Phase I/II\nclinical trials by modeling toxicity and efficacy\nbased on patient biomarkers\nDose Finding\n[137] GP Optimize nanoparticle formulations for drug deliv-\nery, improving encapsulation efficiency and thera-\npeutic efficacy\nDrug Delivery\n4.3 Handling Missing Data\nA major strength of the Bayesian framework is its coherent treatment of missing data through probabilistic modeling.\nMissing values are treated as additional unknown parameters and are integrated over during posterior sampling,\n15",
+          "18": "Running Title for Header\nand ϕ is the output activation function. While RNNs can theoretically model long-term dependencies, in practice, they\nsuffer from the vanishing and exploding gradient problem during training. To address these limitations, two specialized\narchitectures have been developed: Long Short-Term Memory (LSTM) networks and Gated Recurrent Units (GRUs).\nRNNs, especially LSTMs and GRUs, are powerful for handling sequential data with temporal dependencies. They excel\nin modeling complex longitudinal relationships and can naturally accommodate varying lengths of time series, making\nthem suitable for clinical trials with irregular follow-ups. However, RNNs are computationally expensive, particularly\nfor long sequences, due to the sequential nature of their computations. Training RNNs is challenging due to issues like\nvanishing gradients in vanilla RNNs and the need for extensive hyperparameter tuning. LSTMs and GRUs mitigate\nsome of these challenges but at the cost of increased architectural complexity.\nThe fundamental architecture of TCNs includes the following features, namely,Causal Convolutions, which ensure\nthat predictions at time t are only influenced by data from t and earlier,Dilated Convolutions, which introduce gaps\nbetween filter applications to expand the receptive field without increasing computational cost,Residual Connections\nwhich address vanishing gradient issues and improve gradient flow, andSequence Paddingto maintain the sequence\nlength throughout the network, zero-padding is applied to the input. The output of a TCN is generated by applying\nsuccessive convolutional layers, culminating in a prediction layer. This architecture makes TCNs highly parallelizable,\nunlike RNNs, which require sequential processing. Thus, TCNs do not suffer from the vanishing gradient problem\ninherent in RNNs, ensuring stable training. However, their reliance on fixed kernel sizes and dilation rates may\nrequire extensive hyperparameter tuning to achieve optimal performance. Additionally, both these approaches face an\ninterpretability issue due to their black-box nature.\n5.3 Graph Neural Networks (GNNs)\nGraph Neural Networks (GNNs) are deep learning models designed to operate on graph-structured data, where nodes\nrepresent entities, and edges encode relationships between them. GNNs are increasingly applied to clinical trials, where\ndata often involves complex relationships between patients, treatments, or time-series features. Unlike traditional\ndeep learning models, which assume data independence, GNNs can learn from interdependent entities, making them\nwell-suited for modeling networks of patients, molecular pathways, or clinical sites. For longitudinal clinical trial\ndata, temporal extensions of GNNs, such as Temporal GNNs or Dynamic GNNs, incorporate time as an additional\ndimension to model evolving patient relationships or feature dynamics. However, GNNs are computationally expensive,\nespecially for large graphs with dense connections. Training can be challenging due to issues like over-smoothing,\nwhere embeddings of all nodes become indistinguishable after several layers.\n5.4 Federated and Reinforcement Learning with Deep Models\nFederated learning (FL) is a decentralized approach to training deep learning models across multiple data sources without\nthe need to centralize data. This is particularly valuable in clinical trials, where privacy concerns, regulatory constraints,\nand logistical challenges often prevent data from being pooled across institutions or sites. In federated learning, models\nare trained locally on each participating site and periodically aggregated to form a global model. Extensions like\npersonalized federated learning allow customization of global models to individual institutions, addressing heterogeneity\nacross sites, without exposing sensitive patient data, ensuring compliance with privacy regulations like HIPAA and\nGDPR. However, communication overhead between institutions can be substantial, especially with frequent model\nupdates. Data heterogeneity across sites can lead to suboptimal convergence or biased global models. Security concerns,\nsuch as model inversion attacks, must also be addressed to ensure participant confidentiality.\nReinforcement Learning (RL) is a framework for sequential decision-making, where an agent learns to maximize\ncumulative rewards through interactions with an environment. In the context of clinical trials, RL has been employed to\noptimize treatment strategies by modeling patient responses to interventions as a dynamic process. RL is particularly\nsuited for longitudinal data analysis, where the effects of treatments unfold over time. RL offers the ability to personalize\ntreatment strategies dynamically, adjusting decisions based on patient responses over time. However, RL requires\nsubstantial amounts of data to train effectively, which can be a challenge in clinical settings with limited patient samples.\nTable 8:Applications of Deep Learning Methods in Clinical Trials. RL, Reinforcement Learning; TCN, Temporal Convolution\nNetwork; GNN, Graph Neural Network; RNN, Recurrent Neural Network; FL, Federated Learning; DMEM, Deep Mixed Effects\nModel.\nStudy Method Application Therapeutic Area\n[139, 140] RL Cancer clinical trial design Oncology\n[141] RL Sepsis management, recommending dynamic treat-\nment adjustments based on evolving patient condi-\ntions\nCritical Care\n18",
+          "19": "Running Title for Header\nTable 8 Continued from previous page\nStudy Method Application Therapeutic Area\n[142] RNN Use of multitask learning for mortality and length-\nof-stay prediction in critical care settings\nCritical Care\n[143] TCN Seizure detection using temporal graph CNNs Neurology\n[144] TCN Sepsis prediction using TCNs Critical Care\n[145] FL Develop machine learning models for brain tumor\nsegmentation with multi-center imaging data, pre-\nserving patient privacy\nOncology\n[146] FL Predicting COVID-19 outcomes using federated\nmodels\nInfectious Diseases\n[147] RL Potential applications of RL in ophthalmology Ophthalmology\n[148] RNN Estimation of Jadad’s score for clinical trial robust-\nness\nClinical Trial Methodology\n[149] DMEM Mixture model for healthcare time-series data with\nGaussian processes\nHealthcare Analytics\n[13] RNN Chronic kidney disease progression prediction us-\ning EHRs\nNephrology\n[150] RL Online RL in oral health clinical trials Oral Health\n[151] DMEM Real-time monitoring in additive manufacturing\nwith mixed-effects models\nManufacturing Processes\n[152] DMEM Personalized prediction of Parkinson’s progression\nusing Gaussian processes\nNeurology\n5.5 Handling Missing Data\nMissing data are pervasive in clinical trial settings, particularly in multimodal and longitudinal studies that integrate\nimaging, omics, and clinical outcomes. Deep learning models, while highly flexible, generally require complete\ninput tensors, making missingness a key challenge for model reliability and inference. Traditional solutions rely\non multiple imputation or inverse probability weighting (IPW) before model fitting, but recent approaches embed\nmissingness handling directly within the network architecture. Generative models such as Variational Autoencoders\n(V AEs) and Generative Adversarial Imputation Networks (GAIN) reconstruct missing values by learning joint latent\nrepresentations of observed and unobserved features, thus preserving biological structure and temporal coherence\n[153, 154]. For time-dependent data, Recurrent Neural Networks and Temporal Convolutional Networks have been\nextended to incorporate missing-indicator embeddings or time-gap encodings, enabling dynamic imputation during\nsequence learning [155, 156]. Despite these advances, most deep models assume data are missing at random (MAR);\nexplicitly modeling missing not at random (MNAR) mechanisms remains an open challenge. Integrating deep generative\nframeworks with Bayesian or causal formulations provides a promising direction for handling informative dropout and\nachieving principled uncertainty quantification in high-dimensional clinical trial data.\n6 Conclusion and Future Directions\nA conceptual integration framework summarizing the links between study design, endpoint type, and analytic approach\nis presented in Figure 1 to provide readers with a practical overview of the decision pathways discussed throughout\nthis review. This schematic highlights how the choice of statistical test naturally follows from the structure of the\ndata and the nature of the outcome, serving as a bridge between traditional inferential methods and emerging data\ncomplexities. Building on this framework, several challenges and opportunities remain that warrant further exploration.\nThe growing complexity of clinical data, driven by the integration of multi-modal biomarkers, electronic health records,\nand real-world evidence, demands novel statistical and computational approaches that can handle high-dimensional,\nheterogeneous, and often incomplete datasets.\nOne key area of future work is the development of hybrid models that combine the strengths of parametric and\nnonparametric methods. While parametric methods offer efficiency and interpretability under ideal assumptions,\nnonparametric approaches provide robustness to deviations from these assumptions. Hybrid frameworks could leverage\nboth perspectives, providing flexible yet interpretable solutions for efficacy testing. For example, the integration of\nrank-based methods with mixed-effects modeling could offer a promising avenue for analyzing complex longitudinal\ndata.\n19"
+        },
+        "own_empirical_results": "none; generic tests/formulae/application survey, not own clinical metrics"
+      },
+      "provenance_evidence_ids": [
+        "evidence:085:0001",
+        "evidence:085:0002",
+        "evidence:085:0003"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:085:0001",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [
+        "evidence:085:0002",
+        "evidence:085:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Methodological review and schematic test-selection guide, no own learned health-state transition or world-model planner; cited LMM/GP/RL systems not inherited."
+    },
+    {
+      "id": "assertion:085:0002",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [
+        "evidence:085:0002",
+        "evidence:085:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Methodological review and schematic test-selection guide, no own learned health-state transition or world-model planner; cited LMM/GP/RL systems not inherited."
+    },
+    {
+      "id": "assertion:085:0003",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "planning.model_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [
+        "evidence:085:0002",
+        "evidence:085:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Methodological review and schematic test-selection guide, no own learned health-state transition or world-model planner; cited LMM/GP/RL systems not inherited."
+    },
+    {
+      "id": "assertion:085:0004",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "present",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [
+        "evidence:085:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "HIPAA/GDPR named in generic federated-learning discussion; does not establish compliance."
+    },
+    {
+      "id": "assertion:085:0005",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "data.provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0006",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0007",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0008",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0009",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0010",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0011",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0012",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0013",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0014",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0015",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0016",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "perception.encoder",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0017",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0018",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0019",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0020",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0021",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0022",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0023",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "state.persistent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0024",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0025",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0026",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0027",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0028",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0029",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0030",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0031",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0032",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0033",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0034",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0035",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "action.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0036",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0037",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "action.parameterized",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0038",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0039",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0040",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0041",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0042",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0043",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0044",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0045",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0046",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0047",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0048",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0049",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0050",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0051",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0052",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0053",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0054",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0055",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0056",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0057",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0058",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0059",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0060",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0061",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0062",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0063",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0064",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0065",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0066",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0067",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0068",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0069",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0070",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0071",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0072",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "uq.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0073",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0074",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0075",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0076",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0077",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0078",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0079",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0080",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0081",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0082",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0083",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0084",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0085",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0086",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0087",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0088",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0089",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0090",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0091",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0092",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0093",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0094",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0095",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0096",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0097",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0098",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0099",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0100",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0101",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0102",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0103",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "agent.role",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0104",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0105",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0106",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0107",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0108",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0109",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0110",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0111",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0112",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0113",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0114",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0115",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0116",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0117",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0118",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0119",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0120",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0121",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0122",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0123",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0124",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0125",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0126",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0127",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:085:0128",
+      "subject_id": "paper-version:085:sha256-5acf4e933b6d",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All28physical pages including165references,1figure and8numbered tables plus unnumbered2×2table reviewed. No own primary implementation/evaluation of feature; generic statistical equations and cited clinical studies are secondary.",
+      "missingness_reason": "paper_silent_after_review"
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:085:0001",
+      "subject_id": "paper:085",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:085:sha256-5acf4e933b6d",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "environment_kind": "unknown",
+        "population": "methodological review of trial efficacy analyses; no own model/cohort"
+      },
+      "evidence_ids": [
+        "evidence:085:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Exact source preprint version pinned"
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:085:0001",
+      "source_ref": "Papers/085_2025_Efficacy Analysis in Clinical Trials A Comprehensive Review of Statistical and Machine Learning Approaches.pdf",
+      "source_version": "paper-version:085:sha256-5acf4e933b6d",
+      "source_hash": "5acf4e933b6d3382f3ae3bf4650dbc615c7431a59d27e70dd1a91799212c32b7",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Review/source/figure"
+      },
+      "content": "arXiv:2511.04903v1  [stat.OT]  7 Nov 2025",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:085:0002",
+      "source_ref": "Papers/085_2025_Efficacy Analysis in Clinical Trials A Comprehensive Review of Statistical and Machine Learning Approaches.pdf",
+      "source_version": "paper-version:085:sha256-5acf4e933b6d",
+      "source_hash": "5acf4e933b6d3382f3ae3bf4650dbc615c7431a59d27e70dd1a91799212c32b7",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 2,
+        "section_or_table": "Review/source/figure"
+      },
+      "content": "This review provides a comprehensive examination of statistical methods for efficacy testing in clinical trials",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:085:0003",
+      "source_ref": "Papers/085_2025_Efficacy Analysis in Clinical Trials A Comprehensive Review of Statistical and Machine Learning Approaches.pdf",
+      "source_version": "paper-version:085:sha256-5acf4e933b6d",
+      "source_hash": "5acf4e933b6d3382f3ae3bf4650dbc615c7431a59d27e70dd1a91799212c32b7",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 17,
+        "section_or_table": "Review/source/figure"
+      },
+      "content": "[paraphrase Figure1 is a schematic test-selection guide by cross-sectional/longitudinal design, endpoint and comparison type; no implemented clinical predictive or simulation system.]",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:085:0004",
+      "source_ref": "Papers/085_2025_Efficacy Analysis in Clinical Trials A Comprehensive Review of Statistical and Machine Learning Approaches.pdf",
+      "source_version": "paper-version:085:sha256-5acf4e933b6d",
+      "source_hash": "5acf4e933b6d3382f3ae3bf4650dbc615c7431a59d27e70dd1a91799212c32b7",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Review/source/figure"
+      },
+      "content": "Because MNAR\nassumptions cannot be empirically verified, sensitivity analyses are essential for assessing robustness.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:085:0005",
+      "source_ref": "Papers/085_2025_Efficacy Analysis in Clinical Trials A Comprehensive Review of Statistical and Machine Learning Approaches.pdf",
+      "source_version": "paper-version:085:sha256-5acf4e933b6d",
+      "source_hash": "5acf4e933b6d3382f3ae3bf4650dbc615c7431a59d27e70dd1a91799212c32b7",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 20,
+        "section_or_table": "Review/source/figure"
+      },
+      "content": "balancing predictive accuracy with causal interpretability",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:085:0006",
+      "source_ref": "Papers/085_2025_Efficacy Analysis in Clinical Trials A Comprehensive Review of Statistical and Machine Learning Approaches.pdf",
+      "source_version": "paper-version:085:sha256-5acf4e933b6d",
+      "source_hash": "5acf4e933b6d3382f3ae3bf4650dbc615c7431a59d27e70dd1a91799212c32b7",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 18,
+        "section_or_table": "Review/source/figure"
+      },
+      "content": "privacy regulations like HIPAA and\nGDPR",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:085:0007",
+      "source_ref": "Papers/085_2025_Efficacy Analysis in Clinical Trials A Comprehensive Review of Statistical and Machine Learning Approaches.pdf",
+      "source_version": "paper-version:085:sha256-5acf4e933b6d",
+      "source_hash": "5acf4e933b6d3382f3ae3bf4650dbc615c7431a59d27e70dd1a91799212c32b7",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 21,
+        "section_or_table": "Review/source/figure"
+      },
+      "content": "[paraphrase Bibliography21 is Berger/Sellke1987 Testing a point null hypothesis; Table1p3describes21asblood-pressure pre/post trial application. Bibliography25 is Zimmermanvariance-pretest note, not Table1psychometric evaluation;37isAFTsurvival model rather than Table2ANCOVA tumor-size application.]",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    }
+  ],
+  "metric_results": [],
+  "capability_assessments": [],
+  "readiness_assessments": [],
+  "gate_assessments": [],
+  "legacy_cells": {
+    "A": "085",
+    "B": "Efficacy Analysis in Clinical Trials: A Comprehensive Review of Statistical and Machine Learning Approaches",
+    "C": "Dhrubajyoti Ghosh",
+    "D": "2025",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://doi.org/10.48550/arxiv.2511.04903",
+    "H": "Papers (numbered 001–099)",
+    "I": "085_2025_Efficacy Analysis in Clinical Trials A Comprehensive Review of Statistical and Machine Learning Approaches.pdf",
+    "J": "Survey / review",
+    "K": "Not reported",
+    "L": "Exclude",
+    "M": "Out of scope – other",
+    "N": "Not reported",
+    "O": "Not reported",
+    "P": "Not reported",
+    "Q": "Not reported",
+    "R": "Not reported",
+    "S": "Not reported",
+    "T": "Not reported",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "Not reported",
+    "X": "Not reported",
+    "Y": "Not reported",
+    "Z": "Not a world model",
+    "AA": "Not reported",
+    "AB": "Not reported",
+    "AC": "Not reported",
+    "AD": "Not reported",
+    "AE": "Not reported",
+    "AF": "Not reported",
+    "AG": "Not reported",
+    "AH": "Not reported",
+    "AI": "Not reported",
+    "AJ": "Not reported",
+    "AK": "Not reported",
+    "AL": "Not reported",
+    "AM": "Not reported",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Not reported",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Not reported",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Not reported",
+    "BC": "Not reported",
+    "BD": "Not reported",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "Not reported",
+    "BJ": "Not reported",
+    "BK": "Not reported",
+    "BL": "Not reported",
+    "BM": "Not reported",
+    "BN": "Not reported",
+    "BO": "Not reported",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Not reported",
+    "BT": "Not reported",
+    "BU": "Not reported",
+    "BV": "Not reported",
+    "BW": "Not reported",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "Not reported",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "Not reported",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Not reported",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Not reported",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "Not reported",
+    "CU": "Not reported",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not reported",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Not reported",
+    "DN": "Not reported",
+    "DO": "Not reported",
+    "DP": "Not reported",
+    "DQ": "Not reported",
+    "DR": "Not reported",
+    "DS": "Not reported",
+    "DT": "Not reported",
+    "DU": "Not reported",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "Not applicable",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "Not reported",
+    "FD": "Not reported",
+    "FE": "Not reported",
+    "FF": "Not reported",
+    "FG": "Not reported",
+    "FH": "Not reported",
+    "FI": "Not reported",
+    "FJ": "Not reported",
+    "FK": "Not reported",
+    "FL": "Not reported",
+    "FM": "Not reported",
+    "FN": "Not reported",
+    "FO": "Not reported",
+    "FP": "Not reported",
+    "FQ": "Not reported",
+    "FR": "Not reported",
+    "FS": "Not applicable",
+    "FT": "Not reported",
+    "FU": "Not applicable",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "PDF pp. 1–28: title/byline, abstract, introduction, review sections 2–5 (including displayed Tables 1–8), conclusion/future directions, and references. No separate original-study Methods, Results, or Limitations sections are present; this is a narrative review. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "The paper reviews broad statistical and machine-learning approaches to clinical-trial efficacy, not world models or a specific reusable world-model component; excluded as out of scope. The extracted text has imperfect row/column alignment in some tables, but no table results were needed for this screening decision. A:I were left untouched. Evidence QA: 3/3 populated fields had a <=25-word quotation matching extracted PDF text (100%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 3 prior populated fields have a located source quotation; 0 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "Review only; no own WM or readiness facet (noR0 merely for test-selection schematic).",
+    "No explicit systematic search/protocol/risk-of-bias process or primary dataset/results.",
+    "Several application rows do not match cited bibliographic scope, e.g.Table1refs21/25,Table2ref37; inspect original studies before reliance.",
+    "Figure1 places AFT under nonparametric longitudinal survival and two-group Brunner–Munzel under longitudinal; schematic is not an authoritative validated method selector.",
+    "Generic TCN/RNN irregular-time and missingness statements do not demonstrate explicit native-time handling.",
+    "Federation alone does not establishHIPAA/GDPRcompliance; causal convolution is temporal ordering, not intervention identification.",
+    "Application tables include agriculture/manufacturing/election examples; not all independent clinical trials.",
+    "No model-level metrics or clinical benefit inferred from cited efficacy trials."
+  ]
+}

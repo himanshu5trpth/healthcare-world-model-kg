@@ -1,0 +1,3056 @@
+{
+  "record_id": "annotation:074:r1",
+  "paper_record_id": "074",
+  "paper_version_id": "paper-version:074:sha256-87c16173f11a",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:074:multi-kernel-gp"
+  ],
+  "system_composition_ids": [],
+  "world_type_ids": [],
+  "profile_ids": [],
+  "entities": [
+    {
+      "id": "paper:074",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "074",
+        "title": "Quantifying uncertainty in microbiome-based prediction using Gaussian processes with microbial community dissimilarities",
+        "membership": "supporting_static_uncertainty_component"
+      },
+      "provenance_evidence_ids": [
+        "evidence:074:0001"
+      ]
+    },
+    {
+      "id": "paper-version:074:sha256-87c16173f11a",
+      "class_id": "PaperVersion",
+      "properties": {
+        "version": "BioinformaticsAdvances2025vbaf045; DOI10.1093/bioadv/vbaf045; publishedMarch11",
+        "physical_pages": 9,
+        "article_pages": 8,
+        "raw_table2": " Comparison of Gaussian process kernel functions using NLL and RMSE.a\nAge BMI CDAI\nKernel function NLL (#) RMSE (#) NLL (#) RMSE (#) NLL (#) RMSE (#)\nLinear 3.95 ± 0.00 12.48 ± 0.06 2.45 ± 0.00 2.80 ± 0.01 3.50 ± 0.03 7.85 ± 0.20\nRBF 3.92 ± 0.01 12.24 ± 0.05 2.39 ± 0.00 2.64 ± 0.01 3.43 ± 0.02 7.92 ± 0.20\nJaccard 3.81 ± 0.01 11.05 ± 0.06 2.37 ± 0.00 2.60 ± 0.01 3.44 ± 0.02 7.70 ± 0.15\nBray–Curtis 3.85 ± 0.01 11.59 ± 0.07 2.34 ± 0.00 2.54 ± 0.01 3.48 ± 0.03 7.74 ± 0.19\nUnweighted UniFrac 3.82 ± 0.01 11.12 ± 0.06 2.38 ± 0.00 2.62 ± 0.01 3.47 ± 0.03 7.88 ± 0.16\nWeighted UniFrac 3.92 ± 0.00 12.23 ± 0.04 2.44 ± 0.00 2.77 ± 0.01 3.49 ± 0.03 7.87 ± 0.18\nMultiple-kernel 3.80 ± 0.01 11.02 ± 0.06 2.34 ± 0.00 2.53 ± 0.01 3.43 ± 0.04 7.50 ± 0.20\na The means and standard errors of the means over 10 train-test splits are shown. The best method for each dataset is highlighted in bold, along with those \nwhose standard errors overlap with it.\n4                                                                                                                                                                                                                                    Adachi et al. \nDownloaded from academic.oup.com/bioinformaticsadvances/article/5/1/vbaf045/8069461 by guest on 17 November 2026\n",
+        "raw_table3": " Comparison of predicted probability distributions using NLL.a\nMethod Age BMI CDAI\nNGBoost 4.20 ± 0.02 2.73 ± 0.01 628.45 ± 213.06\nDeep ensembles (standard CNN) 3.96 ± 0.01 2.48 ± 0.00 3.58 ± 0.06\nDeep ensembles (phylogenetic CNN) 3.97 ± 0.01 2.48 ± 0.01 3.58 ± 0.05\nMultiple-kernel GP model 3.80 ± 0.01 2.34 ± 0.00 3.43 ± 0.04\na The means and standard errors of the means over 10 train-test splits are shown. The best method for each dataset is highlighted in bold, along with those \nwhose standard errors overlap with it.\n"
+      },
+      "provenance_evidence_ids": [
+        "evidence:074:0001",
+        "evidence:074:0005",
+        "evidence:074:0006"
+      ]
+    },
+    {
+      "id": "model:074:multi-kernel-gp",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Multiple-dissimilarity-kernel GP static regression",
+        "membership": "not_a_world_model",
+        "kernel": "sumJaccard/BrayCurtis/unweightedUniFrac/weightedUniFrac RBF-like kernels; independent length/outputscales",
+        "training": "marginal likelihood,Adam200epochs,lr0.1",
+        "not_temporal": "Age is a contemporaneous target,not a transition coordinate"
+      },
+      "provenance_evidence_ids": [
+        "evidence:074:0003",
+        "evidence:074:0004",
+        "evidence:074:0002"
+      ]
+    },
+    {
+      "id": "cohort:074:agp",
+      "class_id": "Cohort",
+      "properties": {
+        "n_samples": 1639,
+        "target": "age/BMI",
+        "snapshot": "AGP2017-12-04 orQiita12675",
+        "split": "10repeated50/50 train/test; patientgrouping not reported"
+      },
+      "provenance_evidence_ids": [
+        "evidence:074:0004",
+        "evidence:074:0002"
+      ]
+    },
+    {
+      "id": "cohort:074:ibd200",
+      "class_id": "Cohort",
+      "properties": {
+        "n_samples": 104,
+        "target": "CDAI",
+        "snapshot": "AGP2017-12-04 orQiita12675",
+        "split": "10repeated50/50 train/test; patientgrouping not reported"
+      },
+      "provenance_evidence_ids": [
+        "evidence:074:0004",
+        "evidence:074:0002"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:074:0001",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "state.persistent",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [
+        "evidence:074:0004",
+        "evidence:074:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Complete method maps current microbial composition to age/BMI/CDAI target. No persistent state transition or future rollout; age target is not modeled temporal evolution."
+    },
+    {
+      "id": "assertion:074:0002",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [
+        "evidence:074:0004",
+        "evidence:074:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Complete method maps current microbial composition to age/BMI/CDAI target. No persistent state transition or future rollout; age target is not modeled temporal evolution."
+    },
+    {
+      "id": "assertion:074:0003",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [
+        "evidence:074:0004",
+        "evidence:074:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Complete method maps current microbial composition to age/BMI/CDAI target. No persistent state transition or future rollout; age target is not modeled temporal evolution."
+    },
+    {
+      "id": "assertion:074:0004",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [
+        "evidence:074:0004",
+        "evidence:074:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Complete method maps current microbial composition to age/BMI/CDAI target. No persistent state transition or future rollout; age target is not modeled temporal evolution."
+    },
+    {
+      "id": "assertion:074:0005",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [
+        "evidence:074:0004",
+        "evidence:074:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Complete method maps current microbial composition to age/BMI/CDAI target. No persistent state transition or future rollout; age target is not modeled temporal evolution."
+    },
+    {
+      "id": "assertion:074:0006",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [
+        "evidence:074:0004",
+        "evidence:074:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Complete method maps current microbial composition to age/BMI/CDAI target. No persistent state transition or future rollout; age target is not modeled temporal evolution."
+    },
+    {
+      "id": "assertion:074:0007",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "planning.model_use",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [
+        "evidence:074:0004",
+        "evidence:074:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Complete method maps current microbial composition to age/BMI/CDAI target. No persistent state transition or future rollout; age target is not modeled temporal evolution."
+    },
+    {
+      "id": "assertion:074:0008",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [
+        "evidence:074:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Relative abundance and four community dissimilarities convert microbial data into GPkernel inputs."
+    },
+    {
+      "id": "assertion:074:0009",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "uq.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [
+        "evidence:074:0003",
+        "evidence:074:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Analytical GPposterior Gaussian mean/variance includes additive observation noise; static-outcome uncertainty."
+    },
+    {
+      "id": "assertion:074:0010",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [
+        "evidence:074:0007",
+        "evidence:074:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "confidence": "medium",
+      "rationale": "Heldout interval coverage versus nominal confidence and confidence/oracle curves evaluated over10splits. No clinical tolerance pass claimed."
+    },
+    {
+      "id": "assertion:074:0011",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [
+        "evidence:074:0007",
+        "evidence:074:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "confidence": "medium",
+      "rationale": "Heldout reliability/coverage plots with standard-deviation bands; staticprediction regime."
+    },
+    {
+      "id": "assertion:074:0012",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [
+        "evidence:074:0004",
+        "evidence:074:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Two distinct task datasets have their own internal50/50splits; not train-one-cohort/test-another transfer. No explicitshift/subgroup/independent-site test of same task."
+    },
+    {
+      "id": "assertion:074:0013",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [
+        "evidence:074:0004",
+        "evidence:074:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Holdout split explicit; prevalencefilter appears acrossdataset before splitting, patientgrouping/training-only preprocessing audit not reported.",
+      "criteria_met": [
+        "Explicit10repeated50/50train-test splits"
+      ],
+      "criteria_missing": [
+        "Patientgrouping andtraining-only preprocessing audit"
+      ]
+    },
+    {
+      "id": "assertion:074:0014",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "safety.abstention",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [
+        "evidence:074:0007",
+        "evidence:074:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Offline confidence-removal curves test selective prediction; operational threshold/fallback and actual clinical use are future discussion.",
+      "criteria_met": [
+        "Offline uncertainty-ranked removal evaluation"
+      ],
+      "criteria_missing": [
+        "Operational rejection threshold andfallback"
+      ]
+    },
+    {
+      "id": "assertion:074:0015",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "release.code",
+      "assessment_state": "present",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [
+        "evidence:074:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Relevant repository identified in source; not independently executed."
+    },
+    {
+      "id": "assertion:074:0016",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "data.provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0017",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0018",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0019",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0020",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0021",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0022",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0023",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0024",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0025",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0026",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0027",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0028",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0029",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0030",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0031",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0032",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0033",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0034",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0035",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0036",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0037",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0038",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0039",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0040",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0041",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0042",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0043",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "action.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0044",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0045",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "action.parameterized",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0046",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0047",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0048",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0049",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0050",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0051",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0052",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0053",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0054",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0055",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0056",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0057",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0058",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0059",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0060",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0061",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0062",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0063",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0064",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0065",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0066",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0067",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0068",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0069",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0070",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0071",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0072",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0073",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0074",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0075",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0076",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0077",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0078",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0079",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0080",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0081",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0082",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0083",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0084",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0085",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0086",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0087",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0088",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0089",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0090",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0091",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0092",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0093",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0094",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0095",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0096",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0097",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0098",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0099",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0100",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0101",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0102",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0103",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0104",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0105",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0106",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0107",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0108",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "agent.role",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0109",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0110",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0111",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0112",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0113",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0114",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0115",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0116",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0117",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0118",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0119",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0120",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0121",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0122",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0123",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0124",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0125",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0126",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0127",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:074:0128",
+      "subject_id": "model:074:multi-kernel-gp",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All9physicalPDFpages including references/colophon and3figures/3tables reviewed. Feature not operationally established for staticmicrobiomeGP. Supplementary material not locally supplied, numericalECE/AUCO not verified.",
+      "missingness_reason": "paper_silent_after_review"
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:074:0001",
+      "subject_id": "paper:074",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:074:sha256-87c16173f11a",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [
+        "evidence:074:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Published PDF version"
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:074:0001",
+      "source_ref": "Papers/074_2024_Quantifying uncertainty in microbiome-based prediction using Gaussian processes with microbial community dissimilarities.pdf",
+      "source_version": "paper-version:074:sha256-87c16173f11a",
+      "source_hash": "87c16173f11ade34e60cd0dac6bdf50ecce5876e0aa119e80a86796a6e122aeb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Methods/results/table"
+      },
+      "content": "Advance Access Publication Date: 11 March 2025",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:074:0002",
+      "source_ref": "Papers/074_2024_Quantifying uncertainty in microbiome-based prediction using Gaussian processes with microbial community dissimilarities.pdf",
+      "source_version": "paper-version:074:sha256-87c16173f11a",
+      "source_hash": "87c16173f11ade34e60cd0dac6bdf50ecce5876e0aa119e80a86796a6e122aeb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Methods/results/table"
+      },
+      "content": "All models were \ntrained and tested with 10 repeated 50/50 split training and \ntest sets.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:074:0003",
+      "source_ref": "Papers/074_2024_Quantifying uncertainty in microbiome-based prediction using Gaussian processes with microbial community dissimilarities.pdf",
+      "source_version": "paper-version:074:sha256-87c16173f11a",
+      "source_hash": "87c16173f11ade34e60cd0dac6bdf50ecce5876e0aa119e80a86796a6e122aeb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Methods/results/table"
+      },
+      "content": "a multiple- \nkernel function was developed",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:074:0004",
+      "source_ref": "Papers/074_2024_Quantifying uncertainty in microbiome-based prediction using Gaussian processes with microbial community dissimilarities.pdf",
+      "source_version": "paper-version:074:sha256-87c16173f11a",
+      "source_hash": "87c16173f11ade34e60cd0dac6bdf50ecce5876e0aa119e80a86796a6e122aeb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Methods/results/table"
+      },
+      "content": "[paraphrase Table1: AGPage/BMI1639samples4091OTUs; IBD200CDAI104samples1096ASVs. These are static microbiome-to-host-characteristic regressions.]",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:074:0005",
+      "source_ref": "Papers/074_2024_Quantifying uncertainty in microbiome-based prediction using Gaussian processes with microbial community dissimilarities.pdf",
+      "source_version": "paper-version:074:sha256-87c16173f11a",
+      "source_hash": "87c16173f11ade34e60cd0dac6bdf50ecce5876e0aa119e80a86796a6e122aeb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Methods/results/table"
+      },
+      "content": "[paraphrase Table2 gives meanNLL/RMSE and standard error across10train-test splits for7GPkernel configurations, not temporal forecasting.]",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:074:0006",
+      "source_ref": "Papers/074_2024_Quantifying uncertainty in microbiome-based prediction using Gaussian processes with microbial community dissimilarities.pdf",
+      "source_version": "paper-version:074:sha256-87c16173f11a",
+      "source_hash": "87c16173f11ade34e60cd0dac6bdf50ecce5876e0aa119e80a86796a6e122aeb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Methods/results/table"
+      },
+      "content": "[paraphrase Table3:multiple-kernelGPNLL3.80±0.01age,2.34±0.00BMI,3.43±0.04CDAI;NGBoostCDAI628.45±213.06. Standard errors across10splits, not patient-level prediction intervals.]",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:074:0007",
+      "source_ref": "Papers/074_2024_Quantifying uncertainty in microbiome-based prediction using Gaussian processes with microbial community dissimilarities.pdf",
+      "source_version": "paper-version:074:sha256-87c16173f11a",
+      "source_hash": "87c16173f11ade34e60cd0dac6bdf50ecce5876e0aa119e80a86796a6e122aeb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Methods/results/table"
+      },
+      "content": "[paraphrase Figure2 compares interval confidence with empirical coverage across3tasks; mean and standard-deviation bands over10splits. Figure3 removes increasingly uncertain test cases and comparesRMSE with oracle removal, not a live abstention workflow.]",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:074:0008",
+      "source_ref": "Papers/074_2024_Quantifying uncertainty in microbiome-based prediction using Gaussian processes with microbial community dissimilarities.pdf",
+      "source_version": "paper-version:074:sha256-87c16173f11a",
+      "source_hash": "87c16173f11ade34e60cd0dac6bdf50ecce5876e0aa119e80a86796a6e122aeb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Methods/results/table"
+      },
+      "content": "For clinical applications, it is crucial to establish criteria to",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:074:0009",
+      "source_ref": "Papers/074_2024_Quantifying uncertainty in microbiome-based prediction using Gaussian processes with microbial community dissimilarities.pdf",
+      "source_version": "paper-version:074:sha256-87c16173f11a",
+      "source_hash": "87c16173f11ade34e60cd0dac6bdf50ecce5876e0aa119e80a86796a6e122aeb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Methods/results/table"
+      },
+      "content": "The code is available at https://github.com/asahiadachi/gp4microbiome.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    }
+  ],
+  "metric_results": [
+    {
+      "id": "metric:074:age:NLL",
+      "metric": "NLL",
+      "value": 3.8,
+      "unit_or_scale": "mean negative loglikelihood",
+      "direction": "lower_better",
+      "task": "agefrommicrobiome",
+      "cohort_id": "cohort:074:agp",
+      "split_role": "test,10repeated50/50splits",
+      "horizon": "contemporaneous target;no future forecast",
+      "model_version_id": "model:074:multi-kernel-gp",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "standard_error_across10splits": 0.01
+      },
+      "source_evidence_ids": [
+        "evidence:074:0005"
+      ],
+      "raw_reported_value": "3.80 ± 0.01"
+    },
+    {
+      "id": "metric:074:age:RMSE",
+      "metric": "RMSE",
+      "value": 11.02,
+      "unit_or_scale": "years",
+      "direction": "lower_better",
+      "task": "agefrommicrobiome",
+      "cohort_id": "cohort:074:agp",
+      "split_role": "test,10repeated50/50splits",
+      "horizon": "contemporaneous target;no future forecast",
+      "model_version_id": "model:074:multi-kernel-gp",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "standard_error_across10splits": 0.06
+      },
+      "source_evidence_ids": [
+        "evidence:074:0005"
+      ],
+      "raw_reported_value": "11.02 ± 0.06"
+    },
+    {
+      "id": "metric:074:BMI:NLL",
+      "metric": "NLL",
+      "value": 2.34,
+      "unit_or_scale": "mean negative loglikelihood",
+      "direction": "lower_better",
+      "task": "BMIfrommicrobiome",
+      "cohort_id": "cohort:074:agp",
+      "split_role": "test,10repeated50/50splits",
+      "horizon": "contemporaneous target;no future forecast",
+      "model_version_id": "model:074:multi-kernel-gp",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "standard_error_across10splits": 0
+      },
+      "source_evidence_ids": [
+        "evidence:074:0005"
+      ],
+      "raw_reported_value": "2.34 ± 0.00"
+    },
+    {
+      "id": "metric:074:BMI:RMSE",
+      "metric": "RMSE",
+      "value": 2.53,
+      "unit_or_scale": "BMI units asreported",
+      "direction": "lower_better",
+      "task": "BMIfrommicrobiome",
+      "cohort_id": "cohort:074:agp",
+      "split_role": "test,10repeated50/50splits",
+      "horizon": "contemporaneous target;no future forecast",
+      "model_version_id": "model:074:multi-kernel-gp",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "standard_error_across10splits": 0.01
+      },
+      "source_evidence_ids": [
+        "evidence:074:0005"
+      ],
+      "raw_reported_value": "2.53 ± 0.01"
+    },
+    {
+      "id": "metric:074:CDAI:NLL",
+      "metric": "NLL",
+      "value": 3.43,
+      "unit_or_scale": "mean negative loglikelihood",
+      "direction": "lower_better",
+      "task": "CDAIfrommicrobiome",
+      "cohort_id": "cohort:074:ibd200",
+      "split_role": "test,10repeated50/50splits",
+      "horizon": "contemporaneous target;no future forecast",
+      "model_version_id": "model:074:multi-kernel-gp",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "standard_error_across10splits": 0.04
+      },
+      "source_evidence_ids": [
+        "evidence:074:0005"
+      ],
+      "raw_reported_value": "3.43 ± 0.04"
+    },
+    {
+      "id": "metric:074:CDAI:RMSE",
+      "metric": "RMSE",
+      "value": 7.5,
+      "unit_or_scale": "reported CDAI score units",
+      "direction": "lower_better",
+      "task": "CDAIfrommicrobiome",
+      "cohort_id": "cohort:074:ibd200",
+      "split_role": "test,10repeated50/50splits",
+      "horizon": "contemporaneous target;no future forecast",
+      "model_version_id": "model:074:multi-kernel-gp",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "standard_error_across10splits": 0.2
+      },
+      "source_evidence_ids": [
+        "evidence:074:0005"
+      ],
+      "raw_reported_value": "7.50 ± 0.20"
+    }
+  ],
+  "capability_assessments": [],
+  "readiness_assessments": [
+    {
+      "subject_id": "model:074:multi-kernel-gp",
+      "facets": [
+        "R1",
+        "R2"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "environment_kind": "retrospective_human_records",
+        "population": "AGP healthy USA adults; IBD200 Crohn disease subset",
+        "time_horizon": "contemporaneous target; no forecast horizon"
+      },
+      "evidence_ids": [
+        "evidence:074:0004",
+        "evidence:074:0002",
+        "evidence:074:0006"
+      ]
+    }
+  ],
+  "gate_assessments": [],
+  "legacy_cells": {
+    "A": "074",
+    "B": "Quantifying uncertainty in microbiome-based prediction using Gaussian processes with microbial community dissimilarities",
+    "C": "Asahi Adachi; Fan Zhang; Shigehiko Kanaya; Naoaki Ono",
+    "D": "2024",
+    "E": "bioinformatics advances",
+    "F": "Peer-reviewed journal",
+    "G": "https://doi.org/10.1093/bioadv/vbaf045",
+    "H": "Papers (numbered 001–099)",
+    "I": "074_2024_Quantifying uncertainty in microbiome-based prediction using Gaussian processes with microbial community dissimilarities.pdf",
+    "J": "Out of scope – static prediction",
+    "K": "Not reported",
+    "L": "Include – component / supporting",
+    "M": "Not applicable (included)",
+    "N": "Not reported",
+    "O": "Human gut microbiome-based prediction of chronological age, body mass index (BMI), and Crohn’s disease severity (CDAI)",
+    "P": "Not reported",
+    "Q": "Not reported",
+    "R": "Other",
+    "S": "Can human gut microbial abundance data predict chronological age, BMI, and Crohn’s disease severity (CDAI)?",
+    "T": "Not reported",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "Other",
+    "X": "Not a world model",
+    "Y": "Not reported",
+    "Z": "Not a world model",
+    "AA": "Not a world model",
+    "AB": "No",
+    "AC": "No",
+    "AD": "No",
+    "AE": "No",
+    "AF": "No",
+    "AG": "No",
+    "AH": "Not reported",
+    "AI": "16S rRNA gene amplicon sequencing-derived human gut microbial community abundance (OTU/ASV relative abundances)",
+    "AJ": "Not reported",
+    "AK": "Not reported",
+    "AL": "Not reported",
+    "AM": "Not reported",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Not reported",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Not reported",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "None (no actions)",
+    "BC": "Not reported",
+    "BD": "Not reported",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "Multiple-kernel Gaussian process (GP) regression model",
+    "BJ": "Not reported",
+    "BK": "Not reported",
+    "BL": "Not reported",
+    "BM": "Not reported",
+    "BN": "Not reported",
+    "BO": "Not reported",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Not reported",
+    "BT": "Not reported",
+    "BU": "Not reported",
+    "BV": "Not reported",
+    "BW": "Not reported",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "Not reported",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "Not applicable",
+    "CI": "Not applicable",
+    "CJ": "Not applicable",
+    "CK": "Not applicable",
+    "CL": "Not applicable",
+    "CM": "Not applicable",
+    "CN": "Not reported",
+    "CO": "Not applicable",
+    "CP": "Gaussian process",
+    "CQ": "Not reported",
+    "CR": "Confidence-interval calibration evaluated by empirical coverage and expected calibration error (ECE); confidence curves related uncertainty to prediction error.",
+    "CS": "Not reported",
+    "CT": "None (predictive only)",
+    "CU": "Not reported",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not applicable",
+    "DB": "Not applicable",
+    "DC": "Not applicable",
+    "DD": "Not applicable",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Yes",
+    "DN": "American Gut Project (AGP); IBD200 cohort",
+    "DO": "Cohort study / biobank",
+    "DP": "Public open",
+    "DQ": "Not reported",
+    "DR": "Not reported",
+    "DS": "Real-world data",
+    "DT": "Retrospective",
+    "DU": "Not reported",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "R2 Retrospective internal validation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Yes – public repository",
+    "EX": "https://github.com/asahiadachi/gp4microbiome",
+    "EY": "Not reported",
+    "EZ": "Not applicable",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "2 – moderate",
+    "FD": "Not reported",
+    "FE": "Not reported",
+    "FF": "Not reported",
+    "FG": "Not reported",
+    "FH": "Yes",
+    "FI": "Not applicable",
+    "FJ": "Not reported",
+    "FK": "Not reported",
+    "FL": "Relative-abundance OTU/ASV inputs are compared using microbial dissimilarity measures; single or summed dissimilarity-based kernels feed GP regression, which outputs predictive distributions for age, BMI, or CDAI. No temporal transition or planner is implemented.",
+    "FM": "Develops GP kernel functions incorporating microbial community dissimilarities, including a multiple-kernel function, for probabilistic prediction and uncertainty quantification from microbiome data.",
+    "FN": "The multiple-kernel GP achieved NLL 3.80 ± 0.01 for age, 2.34 ± 0.00 for BMI, and 3.43 ± 0.04 for CDAI; results report close agreement between confidence and empirical coverage.",
+    "FO": "The authors identify exact-GP scalability limitations: time complexity O(N³) and storage requirement O(N²), challenging for large-scale microbiome datasets.",
+    "FP": "Future work should explore sparse GP variants for scalability and the method’s potential for daily health monitoring and early disease detection.",
+    "FQ": "The authors state that uncertainty quantification in microbiome-based prediction models remained unexplored.",
+    "FR": "Evidence boundary: experiments are retrospective, repeated 50/50 train/test regressions on microbiome cohorts. They evaluate predictive accuracy and uncertainty, not evolving patient states, action-conditioned rollouts, identified treatment effects, planning, or prospective clinical utility; clinical application is proposed rather than tested.",
+    "FS": "Reviewer mapping: M7 Outcome & causal layer; M9 Safety & governance",
+    "FT": "Reviewer lesson: Preserve predictive uncertainty when routing clinical estimates to the safety layer; calibration must be retested after coupling to dynamics.",
+    "FU": "Reviewer mapping (KB §20): Trajectory-level uncertainty calibration",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Title and abstract (PDF p. 1); Introduction (pp. 1–2); Methods §§2.1–2.5 and Table 1 (pp. 2–4); Results §§3.1–3.3, Tables 2–3 and Figures 1–3 (pp. 4–6); Discussion, limitations, Conclusion, and availability/statements (pp. 6–8); references and final publication page (pp. 8–9). | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "A:I left unchanged. The paper evaluates static supervised regression on microbiome data and has no demonstrated temporal state transition, action conditioning, rollout, planner, or agent. The extracted Table 1 text has misaligned row/column values, so sample counts were omitted. No external sources or systems were used. Evidence QA: 12/41 populated fields had a <=25-word quotation matching extracted PDF text (29.3%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 38 prior populated fields have a located source quotation; 3 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "Staticcomponent,notWM;R2internalretrospective prediction,not prospectivebenefit.",
+    "ReferencedSupplementaryS1–S4andTablesS1–S3not supplied; numericalECE/AUCO andCNNdetails unverified.",
+    "No externalvalidation; twodatasets have separate outcomes/splits.",
+    "Sampleprevalencefilter beforetrain-test separation andpatientgrouping unresolved.",
+    "No declared clinicalcalibrationtolerance or runtimeabstention/escalation.",
+    "ExactGPcubic complexity discussed,hardwarelatency not measured.",
+    "Baselines/kernel comparators preserved raw; exact variants/cohort-level configs not fully typed."
+  ]
+}

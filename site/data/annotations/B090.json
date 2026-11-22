@@ -1,0 +1,2895 @@
+{
+  "record_id": "annotation:B090:r1",
+  "paper_record_id": "B090",
+  "paper_version_id": "paper-version:B090:sha256-93eb4edca399",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:B090:main"
+  ],
+  "system_composition_ids": [],
+  "world_type_ids": [
+    "WT_EHR"
+  ],
+  "profile_ids": [
+    "BP_CONTROLLER"
+  ],
+  "entities": [
+    {
+      "id": "paper:B090",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "B090",
+        "title": "Enhancing Personalized Bladder Cancer Treatment Through Reinforcement Learning: A Recurrent Patient State Transition Decision Support Framework"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B090:0001"
+      ]
+    },
+    {
+      "id": "paper-version:B090:sha256-93eb4edca399",
+      "class_id": "PaperVersion",
+      "properties": {
+        "source_path": "Papers/Expanded_Collection/B090_Enhancing_Personalized_Bladder_Cancer_Treatment_Through_Reinforcement_Learning_A_Recurrent_Patient_State_Trans.pdf",
+        "sha256": "93eb4edca39907b4a2c59d4c9fcb585004f074fbe446bc7e4bfa77f6875bc5a0",
+        "pages": 23
+      },
+      "provenance_evidence_ids": [
+        "evidence:B090:0001"
+      ]
+    },
+    {
+      "id": "model:B090:main",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Bladder1 Random-Forest transition simulator plus DQN policy",
+        "membership": "Core learned recurrent state-transition environment with simulation-trained controller; evidence reliability limited",
+        "architecture": "Two RF regressors update tumor size/count from current clinical state and onehot placebo/pyridoxine/thiotepa. MDP carries outputs across recurrent episodes;64/64dense DQN learns simulated return with replay and target network. Recurrent refers repeated state transitions, not recurrent-neural architecture."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B090:0001",
+        "evidence:B090:0002",
+        "evidence:B090:0003",
+        "evidence:B090:0004",
+        "evidence:B090:0005",
+        "evidence:B090:0006",
+        "evidence:B090:0007",
+        "evidence:B090:0008",
+        "evidence:B090:0009",
+        "evidence:B090:0010",
+        "evidence:B090:0011",
+        "evidence:B090:0012",
+        "evidence:B090:0013",
+        "evidence:B090:0014",
+        "evidence:B090:0015",
+        "evidence:B090:0016",
+        "evidence:B090:0017"
+      ]
+    },
+    {
+      "id": "study:B090",
+      "class_id": "Study",
+      "properties": {
+        "design": "118subject Bladder1 historical recurrent-event data; RF heldout metrics with insufficient split provenance; RL in learned simulated environment, no prospective treatment deployment.",
+        "source_reviewed": true
+      },
+      "provenance_evidence_ids": [
+        "evidence:B090:0001",
+        "evidence:B090:0002",
+        "evidence:B090:0003",
+        "evidence:B090:0004",
+        "evidence:B090:0005",
+        "evidence:B090:0006",
+        "evidence:B090:0007",
+        "evidence:B090:0008",
+        "evidence:B090:0009",
+        "evidence:B090:0010",
+        "evidence:B090:0011",
+        "evidence:B090:0012",
+        "evidence:B090:0013",
+        "evidence:B090:0014",
+        "evidence:B090:0015",
+        "evidence:B090:0016",
+        "evidence:B090:0017"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:B090:0001",
+      "subject_id": "model:B090:main",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0002",
+        "evidence:B090:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Predicted tumor size/count become updated patient state used for subsequent episodes."
+    },
+    {
+      "id": "assertion:B090:0002",
+      "subject_id": "model:B090:main",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0002",
+        "evidence:B090:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Current clinical state and recurrent episode enumeration condition transition."
+    },
+    {
+      "id": "assertion:B090:0003",
+      "subject_id": "model:B090:main",
+      "feature_id": "state.interpretability",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0002",
+        "evidence:B090:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Tumor size,count,recurrence and observation interval fields have explicit labels."
+    },
+    {
+      "id": "assertion:B090:0004",
+      "subject_id": "model:B090:main",
+      "feature_id": "action.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0009",
+        "evidence:B090:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Three onehot treatment alternatives condition RF transition."
+    },
+    {
+      "id": "assertion:B090:0005",
+      "subject_id": "model:B090:main",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0002",
+        "evidence:B090:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Treatment selection role separated from patient characteristics."
+    },
+    {
+      "id": "assertion:B090:0006",
+      "subject_id": "model:B090:main",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0001",
+        "evidence:B090:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "RF successor predictions advance recurrent treatment episodes."
+    },
+    {
+      "id": "assertion:B090:0007",
+      "subject_id": "model:B090:main",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Historical-data RF models approximate next size/count."
+    },
+    {
+      "id": "assertion:B090:0008",
+      "subject_id": "model:B090:main",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Two regressors emit interpretable successor tumor size/count."
+    },
+    {
+      "id": "assertion:B090:0009",
+      "subject_id": "model:B090:main",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Separate size/count prediction readouts used by reward."
+    },
+    {
+      "id": "assertion:B090:0010",
+      "subject_id": "model:B090:main",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "MDP simulates successive actions and carries predicted state."
+    },
+    {
+      "id": "assertion:B090:0011",
+      "subject_id": "model:B090:main",
+      "feature_id": "planning.model_use",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0005",
+        "evidence:B090:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "DQN learning samples transitions/rewards from learned simulation."
+    },
+    {
+      "id": "assertion:B090:0012",
+      "subject_id": "model:B090:main",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0001",
+        "evidence:B090:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "RF dynamics independent of DQN reward function, though printed rewarddefinitions conflict."
+    },
+    {
+      "id": "assertion:B090:0013",
+      "subject_id": "model:B090:main",
+      "feature_id": "agent.role",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "DQN is operational treatment-selection policy in simulated environment."
+    },
+    {
+      "id": "assertion:B090:0014",
+      "subject_id": "model:B090:main",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0005",
+        "evidence:B090:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "DQN selects actions autonomously in simulation, clinical final decisions explicitly reserved toclinician."
+    },
+    {
+      "id": "assertion:B090:0015",
+      "subject_id": "model:B090:main",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0001",
+        "evidence:B090:0013"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Treatment-conditioned predictions and simulated DQN treatment-return experiment reported."
+    },
+    {
+      "id": "assertion:B090:0016",
+      "subject_id": "model:B090:main",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0001",
+        "evidence:B090:0013"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "RF regression errors for nexttumor size/count reported, but heldout protocol incompletely pinned."
+    },
+    {
+      "id": "assertion:B090:0017",
+      "subject_id": "model:B090:main",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0005",
+        "evidence:B090:0013"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "DQN policy trained in learned environment and reported simulated reward."
+    },
+    {
+      "id": "assertion:B090:0018",
+      "subject_id": "model:B090:main",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0006",
+        "evidence:B090:0013"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Simulated actions alter patientstate supplied to nextDQN choice; no physical/clinical loop."
+    },
+    {
+      "id": "assertion:B090:0019",
+      "subject_id": "model:B090:main",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0013"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "confidence": "medium",
+      "rationale": "DQN simulatedreturn endpoint reported with uncertain reward/aggregation comparability. Evaluation is reported; this annotation does not establish a formal categorical acceptance outcome, so no pass/fail result is inferred."
+    },
+    {
+      "id": "assertion:B090:0020",
+      "subject_id": "model:B090:main",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0009",
+        "evidence:B090:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Clinical featurevector and onehot treatment encoding formmodelinputs."
+    },
+    {
+      "id": "assertion:B090:0021",
+      "subject_id": "model:B090:main",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0010",
+        "evidence:B090:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Train/test split described symbolically but patient boundaries and inputavailability unresolved.",
+      "criteria_met": [
+        "A train/test partition is mentioned"
+      ],
+      "criteria_missing": [
+        "Reproducible fraction/seed, patient/time separation and future-feature exclusion"
+      ]
+    },
+    {
+      "id": "assertion:B090:0022",
+      "subject_id": "model:B090:main",
+      "feature_id": "action.parameterized",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Named treatment categories/start-stop times exist, but dose/route and executable administration regimen absent.",
+      "criteria_met": [
+        "Treatmentidentity and intervalfeatures"
+      ],
+      "criteria_missing": [
+        "Dose,route and executable delivery semantics"
+      ]
+    },
+    {
+      "id": "assertion:B090:0023",
+      "subject_id": "model:B090:main",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Multiagentarchitecture discussed onlyas futureextension; no distinct co-ordinating agents implemented.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0024",
+      "subject_id": "model:B090:main",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "absent",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0017"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Real-timeclinical inputs and onlinelearning are explicitly future research."
+    },
+    {
+      "id": "assertion:B090:0025",
+      "subject_id": "model:B090:main",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "absent",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0017"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Patient-specific onlineweightadaptation not implemented; RL training isoffline simulation, not newpatientmeasurement adaptation."
+    },
+    {
+      "id": "assertion:B090:0026",
+      "subject_id": "model:B090:main",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0015",
+        "evidence:B090:0013"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "No prospective care/workflow evaluation; alltreatmentreturns arelearned-environment simulation."
+    },
+    {
+      "id": "assertion:B090:0027",
+      "subject_id": "model:B090:main",
+      "feature_id": "data.provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Variable-level provenance: Measurements retain source, unit, acquisition/availability time, transformations and dataset/version identity. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0028",
+      "subject_id": "model:B090:main",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Native observation timestamps: Actual recorded event/acquisition times are retained or reversibly available at the modeled temporal resolution. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0029",
+      "subject_id": "model:B090:main",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Information-availability time: The time a value became usable is distinguished from collection time when latency matters, and training queries respect it. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0030",
+      "subject_id": "model:B090:main",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Missingness and validity masks: The model receives measured/missing/invalid status so placeholders are distinguishable from observed values. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0031",
+      "subject_id": "model:B090:main",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Measurement freshness: Per-variable elapsed time since true observation is represented and updated under carry-forward/asynchrony. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0032",
+      "subject_id": "model:B090:main",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Irregular-time handling: Real elapsed intervals, native events or continuous-time integration affect prediction at irregular times. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0033",
+      "subject_id": "model:B090:main",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Observation-process model: A model/rule explicitly represents when, whether or why observations occur conditional on relevant state/acquisition context. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0034",
+      "subject_id": "model:B090:main",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Observation-clock evidence audit: A target distinction and sampling grid are defined and witness preservation is tested across values, update/validity patterns, native timing and external acquisition channels, with unresolved allowed. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0035",
+      "subject_id": "model:B090:main",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Semantic and unit harmonization: Source-specific units, terminology and measurement definitions map to a declared target schema with traceable conversions. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0036",
+      "subject_id": "model:B090:main",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Federated learning/data access: Local data stay at defined sites and an explicit federated training/query protocol exchanges specified artifacts. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0037",
+      "subject_id": "model:B090:main",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Foundation encoder reuse: A named pretrained checkpoint/version supplies used encoder parameters or features, with adaptation described. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0038",
+      "subject_id": "model:B090:main",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Predictive-latent representation objective: A loss predicts a target representation from context rather than requiring observation reconstruction for that objective. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0039",
+      "subject_id": "model:B090:main",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Representation-collapse prevention: The predictive objective includes a specified anti-collapse mechanism, constraint or proved property. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0040",
+      "subject_id": "model:B090:main",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Observation reconstruction objective: A loss measures reconstructed observed values/images against observations. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0041",
+      "subject_id": "model:B090:main",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Multimodal fusion: At least two separately identified modalities interact in a stated fusion operation for model inference/training. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0042",
+      "subject_id": "model:B090:main",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Availability-aware fusion: Fusion uses observed modality availability/quality/recency and defines behavior when a modality is missing. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0043",
+      "subject_id": "model:B090:main",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Belief over partially observed state: A posterior/filtering distribution over hidden state is conditioned on observation history, with uncertainty semantics stated. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0044",
+      "subject_id": "model:B090:main",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Propagation/correction separation: Prior evolution and observation-conditioned correction are distinct operations and missing observations do not cause fictitious measurement correction. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0045",
+      "subject_id": "model:B090:main",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Shared state reused across tasks: The same state representation/checkpoint feeds at least two typed tasks/readouts without separately defining a new state model for each. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0046",
+      "subject_id": "model:B090:main",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for State-sufficiency assessment: Ablations/probes test omitted history, variables or representations against the specified prediction/decision targets. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0047",
+      "subject_id": "model:B090:main",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Personalization beyond generic priors: Matched history-swap/withhold, population-prior or analogous controls test whether the correct individual's information adds predictive value without leakage. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0048",
+      "subject_id": "model:B090:main",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Identity/anatomical consistency mechanism: A declared memory, constraint or loss preserves the modeled entities, anatomy or patient identity through transitions. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0049",
+      "subject_id": "model:B090:main",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for History memory: Past observations/actions beyond the current supplied state are retained by a specified memory mechanism/context window. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0050",
+      "subject_id": "model:B090:main",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Time-indexed action schedule: Interventions include explicit start/stop/event times or sequence cadence and appropriate duration/dose semantics. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0051",
+      "subject_id": "model:B090:main",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Coherent treatment-bundle representation: Joint interventions and unchanged/inherited settings have defined bundle/update semantics that preserve clinically or empirically linked components. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0052",
+      "subject_id": "model:B090:main",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Action constraints/contraindications: Explicit context-dependent bounds, contraindications or workspace rules restrict candidate actions. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0053",
+      "subject_id": "model:B090:main",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Executable/semantic action grounding: Action variables map to known clinical operations, calibrated robot commands or a validated latent-to-executable mapping. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0054",
+      "subject_id": "model:B090:main",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Historical/mechanistic action support: A context-conditioned coverage/overlap/support criterion is actually estimated or justified and tested for queried alternatives. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0055",
+      "subject_id": "model:B090:main",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Matched alternative-action prediction comparison: At least two specified action alternatives are applied to the same initial patient/scene/history and their predicted successors are compared in reported results. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0056",
+      "subject_id": "model:B090:main",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Action reversibility assessment: Physical/clinical reversibility and residual harm of proposed actions are assessed in the intended environment. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0057",
+      "subject_id": "model:B090:main",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Stochastic transitions: The transition defines a non-degenerate random next-state process conditional on state/action and randomness is used as specified. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0058",
+      "subject_id": "model:B090:main",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Mechanistic/structural inductive bias: Equations, conservation, anatomy, monotonicity, objects or symbolic structure constrain transition/representation learning or inference. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0059",
+      "subject_id": "model:B090:main",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Mechanistic–learned hybrid: A mechanistic component and learned component are operationally coupled, with which quantities are fixed/fitted/learned stated. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0060",
+      "subject_id": "model:B090:main",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Interchangeable dynamics behind a common contract: At least two implementations are exchanged under the same documented state/action/time/output semantics and compared or integration-tested. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0061",
+      "subject_id": "model:B090:main",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Coupled multiscale dynamics: Distinct physical/spatial/temporal levels exchange state or constraints with explicit cross-scale mappings. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0062",
+      "subject_id": "model:B090:main",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Multi-step dynamics training objective: Training loss/optimization traverses predicted states across at least two modeled transitions, with gradient/teacher-forcing behavior specified. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0063",
+      "subject_id": "model:B090:main",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Temporal abstraction/hierarchy: Options/events/subgoals define variable-duration or multi-timescale transitions with explicit higher/lower-level coordination. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0064",
+      "subject_id": "model:B090:main",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Teacher-forced evaluation: Ground-truth intermediate observations/states are fed into successive prediction steps during the evaluated sequence. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0065",
+      "subject_id": "model:B090:main",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Rollout with real-observation re-assimilation: After imagined prediction/execution, newly observed evidence corrects state before a subsequent forecast/plan. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0066",
+      "subject_id": "model:B090:main",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Declared maximum evaluated horizon: The furthest tested prediction extent is stated with time/step/frame units and cadence when known. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0067",
+      "subject_id": "model:B090:main",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Error versus horizon / compounding error: Free-running errors or validity violations are compared at multiple forecast depths under a common protocol. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0068",
+      "subject_id": "model:B090:main",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Empirically justified usable horizon: A context/model-specific horizon is supported by an error/calibration/decision curve and explicit acceptance tolerance, uncertainty and action support. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0069",
+      "subject_id": "model:B090:main",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Multiple future trajectories: Several conditional future samples or an explicit joint forecast distribution preserve temporal/conditional dependence. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0070",
+      "subject_id": "model:B090:main",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Supported-horizon enforcement: A declared policy rejects, truncates with disclosure or escalates requests outside the context-specific supported horizon. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0071",
+      "subject_id": "model:B090:main",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Receding-horizon replanning: A plan is recomputed from updated real observations after executing a prefix, with planning and execution horizons stated. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0072",
+      "subject_id": "model:B090:main",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Uncertainty affects planning: Uncertainty changes scores, constraints, risk budgets or candidate acceptance during decision selection. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0073",
+      "subject_id": "model:B090:main",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Planner exploitation stress test: Plans optimized in the model are evaluated under independent/mismatched dynamics or adversarial support/reward checks to reveal model-error exploitation. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0074",
+      "subject_id": "model:B090:main",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Candidate-set provenance: Sources, construction, eligibility, support and coverage of candidate actions are documented independently of unavailable future outcomes. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0075",
+      "subject_id": "model:B090:main",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Hierarchical decision policy: Higher-level goals/options and lower-level actions interact through defined durations/termination and model use. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0076",
+      "subject_id": "model:B090:main",
+      "feature_id": "uq.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Explicit predictive uncertainty: A distribution, posterior, ensemble or uncertainty set has specified semantics for the predicted state/outcome. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0077",
+      "subject_id": "model:B090:main",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Aleatoric/epistemic separation: Separate components have defined interpretations and estimation procedures with limitations explained. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0078",
+      "subject_id": "model:B090:main",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Calibration evaluated: Predicted probabilities/intervals/sets are compared with observed frequencies/coverage using a specified target, metric and validation sample. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0079",
+      "subject_id": "model:B090:main",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Trajectory-level calibration evaluated: Joint or explicitly horizon-indexed trajectory reliability is assessed under the deployment rollout/action regime. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0080",
+      "subject_id": "model:B090:main",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Calibration acceptance tolerance met: A named calibration/coverage criterion is met with uncertainty under the intended cohort/horizon/action regime. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0081",
+      "subject_id": "model:B090:main",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for OOD/distribution-shift detector: An operational statistic/threshold identifies out-of-support data/actions with stated response and, at evaluation stage, measured detection performance. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0082",
+      "subject_id": "model:B090:main",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Conformal calibration: A specified nonconformity score, calibration split and coverage/error-control assumptions define sets/alarms. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0083",
+      "subject_id": "model:B090:main",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Declared causal estimand: Intervention alternatives, population, outcomes, horizon and causal contrast are explicit. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0084",
+      "subject_id": "model:B090:main",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Identification strategy: An estimand is linked to an identification argument/strategy using stated assumptions and observed/simulated data structure. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0085",
+      "subject_id": "model:B090:main",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Identification assumptions stated: Relevant consistency, exchangeability, positivity, interference/censoring or mechanistic assumptions are explicitly tied to the estimand. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0086",
+      "subject_id": "model:B090:main",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Causal sensitivity assessment: Analyses quantify impact of violations such as unmeasured confounding, censoring or model/positivity assumptions. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0087",
+      "subject_id": "model:B090:main",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Counterfactual validation design: Validation compares defined action-effect predictions with known simulated potential outcomes, interventional experiments or appropriately qualified trial/causal benchmarks. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0088",
+      "subject_id": "model:B090:main",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Mechanistic intervention semantics: Actions enter a documented physical/pharmacological mechanism with identified/calibrated parameters and stated applicability. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0089",
+      "subject_id": "model:B090:main",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Causal-effect claim justified for scope: Estimand, justified identification/mechanistic assumptions, support, relevant validation and sensitivity collectively support the particular causal interpretation, with residual uncertainty disclosed. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0090",
+      "subject_id": "model:B090:main",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Hard safety/constraint guard: An implemented mechanism blocks disallowed actions/outputs before the relevant operation, with defined fail behavior. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0091",
+      "subject_id": "model:B090:main",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Abstention/deferral: The system can withhold a recommendation/action and enter a specified fallback or human-review route under defined triggers. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0092",
+      "subject_id": "model:B090:main",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Operational human escalation: A trigger routes a case to a defined available human role with response/timing/fallback semantics. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0093",
+      "subject_id": "model:B090:main",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Runtime failure monitor: Online signals detect a defined failure/hazard and trigger a specified protective response. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0094",
+      "subject_id": "model:B090:main",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Safe stop and fallback: A stop/fallback mechanism and its physical/software residual effects are specified and tested at the recorded stage. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0095",
+      "subject_id": "model:B090:main",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for World-model threat model: Assets, adversary capabilities and attack paths across data, state, action, rollout, objective and interfaces are explicitly analyzed. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0096",
+      "subject_id": "model:B090:main",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Adversarial/failure-injection evaluation: Defined attacks/faults are injected and measured on the relevant trajectory/planner/safety outputs. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0097",
+      "subject_id": "model:B090:main",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Implemented privacy controls: A defined de-identification, access, encryption, federation, differential privacy or data-minimization mechanism is operationally specified. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0098",
+      "subject_id": "model:B090:main",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Disclosure/memorization audit: Synthetic outputs or representations are tested for copying, membership/re-identification or attribute disclosure under a declared threat model. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0099",
+      "subject_id": "model:B090:main",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Permissioned external actions: External access/action permissions, identity and allowed operation scope are explicitly enforced. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0100",
+      "subject_id": "model:B090:main",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Automation-bias mitigation: Interface/protocol mechanisms address over-trust with appropriate uncertainty, limitations, override and, at evaluation stage, measured human factors. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0101",
+      "subject_id": "model:B090:main",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Intended use/user specified: Population, use purpose, user, decision point, environment and permitted autonomy are explicit. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0102",
+      "subject_id": "model:B090:main",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Versioned model/system reporting card: An organized report pins model/data versions, capability/evidence boundaries, assets and limitations. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0103",
+      "subject_id": "model:B090:main",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Post-release monitoring plan: Signals, thresholds, cadence, responsibility, response and revalidation triggers are declared for released use. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0104",
+      "subject_id": "model:B090:main",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Change, revalidation and rollback: Updates have versioned approval/revalidation criteria and executable rollback/fallback boundaries. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0105",
+      "subject_id": "model:B090:main",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Regulatory/reporting framework mentioned: A framework/standard is explicitly named in the paper/version and its statement is quoted/scoped. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0106",
+      "subject_id": "model:B090:main",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Scoped compliance/authorization evidence: Documented applicable requirements and evidence/authorization are connected to the intended use, jurisdiction, product/version and date. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0107",
+      "subject_id": "model:B090:main",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Ethics/IRB/informed-consent documentation: Named approval/exemption and applicable data/human participation scope are documented. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0108",
+      "subject_id": "model:B090:main",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Agent reflection/refinement loop: The agent revises a proposal using explicit feedback/evidence before or after action under a defined loop. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0109",
+      "subject_id": "model:B090:main",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for External tool/system calls: The agent invokes an external API/tool/system with stated read/write permissions and scope. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0110",
+      "subject_id": "model:B090:main",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Code availability: Code for the relevant model/version is actually identified as released/accessible at the stated evidence date. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0111",
+      "subject_id": "model:B090:main",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Weight availability: The relevant trained weights/parameters are released under stated access conditions and version. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0112",
+      "subject_id": "model:B090:main",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for License/access conditions: Explicit terms govern code, weights and data separately. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0113",
+      "subject_id": "model:B090:main",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Independent reproduction: An independent run pins code/data/configuration and reports replication outcomes. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0114",
+      "subject_id": "model:B090:main",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for One-step fidelity: Future-state or transition-successor error against a stated reference. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0115",
+      "subject_id": "model:B090:main",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Multi-step rollout fidelity: Free-running or explicitly block-generated future sequence performance is evaluated at multiple horizons; protocols distinguish recursive from block prediction. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0116",
+      "subject_id": "model:B090:main",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Distributional realism: Generated sample distributions are compared with reference distributions using defined sample/conditional protocols. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0117",
+      "subject_id": "model:B090:main",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Physical/clinical plausibility: Defined anatomical, mechanistic, contact, clinical or consistency constraints are tested, including adverse/rare cases where relevant. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0118",
+      "subject_id": "model:B090:main",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Calibration and uncertainty: Reliability/coverage/sharpness and nominal-target context are measured on held-out data under the stated prediction regime. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0119",
+      "subject_id": "model:B090:main",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Action sensitivity: Predictions under controlled changes to specified action inputs are compared, with history and relevant context fixed or explicitly controlled. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0120",
+      "subject_id": "model:B090:main",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Counterfactual/causal validity: A defined interventional/counterfactual validation reference and estimand are tested; simulated truth versus aggregate trial agreement are distinguished. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0121",
+      "subject_id": "model:B090:main",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Personalization evidence: Correct individual history/context is compared with swapped/withheld/population-prior controls under matched forecasting conditions. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0122",
+      "subject_id": "model:B090:main",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Sim-to-real agreement: Matched tasks/policies are evaluated both in simulation and a specified physical/clinical environment and agreement/bias is quantified. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0123",
+      "subject_id": "model:B090:main",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Robustness and transfer: At least one explicit independent-site/cohort, shift, subgroup, missing-modality or transfer test is reported; record each subfacet separately. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0124",
+      "subject_id": "model:B090:main",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Observation-process audit: A target-specific preprocessing/measurement-clock audit tests evidence retention, including native/update/external witnesses as needed. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0125",
+      "subject_id": "model:B090:main",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Human/expert evaluation: Actual people perform a defined review/use task with participant roles, sampling and outcomes recorded where available. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0126",
+      "subject_id": "model:B090:main",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Efficiency: Measured latency/throughput, training/interaction cost, memory or sample efficiency has hardware, batch/load and unit context. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0127",
+      "subject_id": "model:B090:main",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Dynamics computed in internal representation: The transition predicts internal state representations used across steps or for decisions, with decoding optional. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B090:0128",
+      "subject_id": "model:B090:main",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "The complete scoped paper does not report the mechanism/test required for Value/reward-equivalent dynamics: Learned transition states are optimized to preserve decision-relevant rewards/values or policy predictions without claiming full observation reconstruction. Patient-trace simulation and reported policy learning are not actual prospective actions or independent environment validation. Global recurrence/endtime availability, patient-level splitting, reward consistency and action support are unresolved.",
+      "missingness_reason": "paper_silent_after_review"
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:B090:0001",
+      "subject_id": "paper-version:B090:sha256-93eb4edca399",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B090:main",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0001",
+        "evidence:B090:0002",
+        "evidence:B090:0003",
+        "evidence:B090:0004",
+        "evidence:B090:0005",
+        "evidence:B090:0006",
+        "evidence:B090:0007",
+        "evidence:B090:0008",
+        "evidence:B090:0009",
+        "evidence:B090:0010",
+        "evidence:B090:0011",
+        "evidence:B090:0012",
+        "evidence:B090:0013",
+        "evidence:B090:0014",
+        "evidence:B090:0015",
+        "evidence:B090:0016",
+        "evidence:B090:0017"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "This version reports the scoped model/component."
+    },
+    {
+      "id": "relation:B090:0002",
+      "subject_id": "paper-version:B090:sha256-93eb4edca399",
+      "predicate_id": "reportsStudy",
+      "object_id": "study:B090",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0001",
+        "evidence:B090:0002",
+        "evidence:B090:0003",
+        "evidence:B090:0004",
+        "evidence:B090:0005",
+        "evidence:B090:0006",
+        "evidence:B090:0007",
+        "evidence:B090:0008",
+        "evidence:B090:0009",
+        "evidence:B090:0010",
+        "evidence:B090:0011",
+        "evidence:B090:0012",
+        "evidence:B090:0013",
+        "evidence:B090:0014",
+        "evidence:B090:0015",
+        "evidence:B090:0016",
+        "evidence:B090:0017"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Source methods/results report this study."
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:B090:0001",
+      "source_ref": "Papers/Expanded_Collection/B090_Enhancing_Personalized_Bladder_Cancer_Treatment_Through_Reinforcement_Learning_A_Recurrent_Patient_State_Trans.pdf",
+      "source_version": "paper-version:B090:sha256-93eb4edca399",
+      "source_hash": "93eb4edca39907b4a2c59d4c9fcb585004f074fbe446bc7e4bfa77f6875bc5a0",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "To emulate patient -specific disease progression within this \nsequential environment, a predictive state -transition module \nis learned from historical clinical observations. In the current \nimplementation, Random Forest regressors are employed to \nestimate changes in tumor size and tumor count, allowing the \nframework to approximate subsequent patient states \nfollowing each treatment decision. Rather than serving as the \nprimary contribution, these predictive models function as \ntransition approximators within the simulation environment, \nenabling repeated evaluation of treatment trajectories under \ndifferent clinical scenarios. The simulated patient trajectories \nprovide the reinforcement learning agent with an interactive \nenvironment in which treatment strategies can be iteratively \nevaluated and refined to optimize sequential decision -\nmaking. Cumulative changes in tumor size and tumor count \nserve as performance indicators, guiding the agent toward \ntreatment policies that minimize long -term tumor \nprogression. Figure 1 p resents an overview of the proposed \ndecision-support framework and the overall study workflow.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B090:0002",
+      "source_ref": "Papers/Expanded_Collection/B090_Enhancing_Personalized_Bladder_Cancer_Treatment_Through_Reinforcement_Learning_A_Recurrent_Patient_State_Trans.pdf",
+      "source_version": "paper-version:B090:sha256-93eb4edca399",
+      "source_hash": "93eb4edca39907b4a2c59d4c9fcb585004f074fbe446bc7e4bfa77f6875bc5a0",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "Within the MDP framework, states represent the patient's \nclinical condition, encompassing tumor size, tumor count, \ntreatment duration, and the recurrence count of administered \ntreatments, while treatments constitute the available actions \nthat govern transitions between successive patient states. To \naccurately represent disease progression over time, an \nenumeration feature is incorporated to distinguish individual \ntreatment episodes by tracking the treatment sequence for \neach patient, thereby facilitating recurrent event modeling \nthroughout the simulation process.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B090:0003",
+      "source_ref": "Papers/Expanded_Collection/B090_Enhancing_Personalized_Bladder_Cancer_Treatment_Through_Reinforcement_Learning_A_Recurrent_Patient_State_Trans.pdf",
+      "source_version": "paper-version:B090:sha256-93eb4edca399",
+      "source_hash": "93eb4edca39907b4a2c59d4c9fcb585004f074fbe446bc7e4bfa77f6875bc5a0",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "Let 𝑋 = {𝑥𝑖}𝑖=1𝑛  be a set of features, where each feature \nvector x i includes clinical variables related to the patient's \ntreatment and tumor status, \n𝑥𝑖 = [𝑡𝑟𝑒𝑎𝑡𝑚𝑒𝑛𝑡, 𝑛𝑢𝑚𝑏𝑒𝑟 𝑜𝑓 𝑡𝑢𝑚𝑜𝑟𝑠, 𝑡𝑢𝑚𝑜𝑟 𝑠𝑖𝑧𝑒, 𝑟𝑒𝑐𝑢𝑟𝑟𝑒𝑛𝑐𝑒 𝑟𝑎𝑡𝑒,𝑡𝑟𝑒𝑎𝑡𝑚𝑒𝑛𝑡 𝑠𝑡𝑎𝑟𝑡, 𝑡𝑟𝑒𝑎𝑡𝑚𝑒𝑛𝑡 𝑠𝑡𝑜𝑝 ]  (1) \nWe define the target variables ysize and ynumber  as the expected \nchanges in tumor size and count, respectively. We model \nthem as, \n𝑦𝑠𝑖𝑧𝑒 = 𝑓𝑠𝑖𝑧𝑒(𝑋)  𝑎𝑛𝑑  𝑦𝑛𝑢𝑚𝑏𝑒𝑟 = 𝑓𝑛𝑢𝑚𝑏𝑒𝑟(𝑋)  (2) \nwhere f size",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B090:0004",
+      "source_ref": "Papers/Expanded_Collection/B090_Enhancing_Personalized_Bladder_Cancer_Treatment_Through_Reinforcement_Learning_A_Recurrent_Patient_State_Trans.pdf",
+      "source_version": "paper-version:B090:sha256-93eb4edca399",
+      "source_hash": "93eb4edca39907b4a2c59d4c9fcb585004f074fbe446bc7e4bfa77f6875bc5a0",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "The reward 𝑅𝑖𝑗 for each iteration depends on specific \nconditions: \n \n𝑅𝑖𝑗 ={+10 if Δ𝑆𝑖(j) > 0 (size reduction)−10 if Δ𝑆𝑖(j) < 0 (size increase)\n0 if Δ𝑆𝑖(j) < 0 (No change)\n (8) \n \nAn additional reward is added based on tumor count \nchanges: \n𝑅𝑖𝑗 +={ +10 if Δ𝑆𝑖(j) > 0 (Count reduction)−10 𝐢𝐟 𝚫𝑆𝑖(𝐣) < 𝟎 (𝐂𝐨𝐮𝐧𝐭 𝐢𝐧𝐜𝐫𝐞𝐚𝐬𝐞)\n \n (9) \nPenalties are applied based on recurrence status, \n𝑅𝑖𝑗 +={ − 10 if recurrence R = 1 (tumor recurrence)−100 𝐢𝐟 𝐑 = 𝟐 (𝐝𝐞𝐚𝐭𝐡 𝐟𝐫𝐨𝐦 𝐛𝐥𝐚𝐝𝐝𝐞𝐫 𝐝𝐢𝐬𝐞𝐚𝐬𝐞)\n−5 𝐢𝐟 𝐑 = 𝟑 (𝐝𝐞𝐚𝐭𝐡 𝐟𝐫𝐨𝐦 𝐨𝐭𝐡𝐞𝐫 𝐜𝐚𝐮𝐬𝐞𝐬)\n (10) \nThe total reward for each patient i over all iterations is: \n𝑅𝑖  =  ∑ 𝑅𝑖𝑗𝑀𝑗=1   (11)",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B090:0005",
+      "source_ref": "Papers/Expanded_Collection/B090_Enhancing_Personalized_Bladder_Cancer_Treatment_Through_Reinforcement_Learning_A_Recurrent_Patient_State_Trans.pdf",
+      "source_version": "paper-version:B090:sha256-93eb4edca399",
+      "source_hash": "93eb4edca39907b4a2c59d4c9fcb585004f074fbe446bc7e4bfa77f6875bc5a0",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "The Q-Network was trained for 100 episodes, as this duration \nwas sufficient for learning, as evidenced by the results and \nanalysis section. A batch size of 32 was used to sample mini-\nbatches from the replay buffer, helping stabilize training by \nreducing va riance and improving convergence. The \noptimizer employed a learning rate of α=0.001, controlling \nthe step size for gradient updates. The replay buffer, with a \ncapacity of 10,000, stored past experiences (s, a, r, s'), \nallowing each training step to sample a batch of experiences \nto minimize correlations between consecutive samples and \nenhance learning stability. To further stabilize training, the \ntarget network was updated every 10 episodes, \nsynchronizing its weights with the Q -network. This Q -\nNetwork and DQ N framework enable sequential decision -\nmaking in bladder cancer treatment by selecting actions \n(treatment choices) that maximize cumulative future \nrewards, supporting an effective and data -driven treatment \nstrategy.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B090:0006",
+      "source_ref": "Papers/Expanded_Collection/B090_Enhancing_Personalized_Bladder_Cancer_Treatment_Through_Reinforcement_Learning_A_Recurrent_Patient_State_Trans.pdf",
+      "source_version": "paper-version:B090:sha256-93eb4edca399",
+      "source_hash": "93eb4edca39907b4a2c59d4c9fcb585004f074fbe446bc7e4bfa77f6875bc5a0",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "The selected treatment is set to 1, with \nall other treatments set to 0, creating a unique \nidentifier for each treatment. \n3. Column Consistency: To ensure compatibility \nwith the predictive models, reorder the input data \naccording to the feature order used during model \ntraining. \n4. Predict Tumor Characteristics Post -Treatment: \nPass the prepared input through trained models \nto estimate the tumor’s expected size and count \nafter the treatment. The model trained on tumor \nsize produces the predicted size, while the model \ntrained on tumor count produces the predicted \nnumber of tumors. \n5. Return Results: Provide the predicted tumor size \nand count as the output. \nEnd Algorithm \n \nAlgorithm 3: Experience Replay Sampling \nObjective: \nEnhance model stability and improve learning by \nuniformly sampling past experiences for model training, \nreducing the risk of overfitting to recent events. \nInputs: \n• A replay buffer containing past experiences in \nthe format of states, actions, rewards, next states, \nand completion flags. \n• Batch size, which specifies the number of \nexperiences to sample at each step. \nOutputs: \n• A structured batch of sampled experiences ready \nfor model training. \nProcedure: \n1. Sample Experiences from Buffer: Select a set \nnumber of past experiences from the replay \nbuffer, ensuring each experience is unique and \nrepresents diverse scenarios. \n2. Organize Batch Components: Extract each \nexperience component separately (states, \nactions, rewards, next states, and done flags) and \norganize them into structured arrays, which helps \nmaintain consistency in model input and output. \n3. Convert Arrays to PyTorch Tensors: Prepare \neach array for model training by converting them \ninto tensors. Continuous variables (states, next \nstates, rewards) are converted to float tensors, \nwhile discrete variables (actions, done flags) use \ninteger or binary representations. \n4. Return Tensors: The organized tensors are now \nready for use in model training, providing a \nbalanced representation of past experiences to \nrefine the model’s predictive accuracy. \n \nEnd Algorithm \n \nD. DQN Training Loop \nThe training loop of the Deep Q -Network (DQN) model is \ndesigned to iteratively adjust the neural network parameters, \noptimizing treatment actions for patients to maximize the \nreduction in tumor size and count. Each episode simulates a \ncomplete cycle of pat ient interactions, where the model \nlearns to predict outcomes of selected treatments and refines \nitself based on the cumulative rewards obtained.  For each \npatient, an initial state S includes features such as tumor \ncount number, tumor size size, recurrence recur, start time \nstart, and stop time stop. These features are encoded into a \nvector for the neural network. Action selection follows an \nepsilon ϵ-greedy policy, balancing exploration and \nexploitation. An action A (treatment selection) is chosen \nwith probability epsilon ϵ for a random action or 1−ϵ for the \naction maximizing the predicted reward. The selected \ntreatment action is applied, resulting in updated tumor size \nand count values. After applying a treatment, the reward R is \ncomputed based on the reduction in tumor size and count, \n𝑅 = (𝑡𝑢𝑚𝑜𝑟 𝑠𝑖𝑧𝑒 𝑐ℎ𝑎𝑛𝑔𝑒) + (𝑡𝑢𝑚𝑜𝑟 𝑐𝑜𝑢𝑛𝑡 𝑐ℎ𝑎𝑛𝑔𝑒) (17) \nA new state S′ is created based on the updated patient \ncharacteristics post -treatment. The experience tuple \n(S,A,R,S′,done) is stored in the replay buffer, where \"done\" \nindicates whether this is the last treatment in the sequence.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B090:0007",
+      "source_ref": "Papers/Expanded_Collection/B090_Enhancing_Personalized_Bladder_Cancer_Treatment_Through_Reinforcement_Learning_A_Recurrent_Patient_State_Trans.pdf",
+      "source_version": "paper-version:B090:sha256-93eb4edca399",
+      "source_hash": "93eb4edca39907b4a2c59d4c9fcb585004f074fbe446bc7e4bfa77f6875bc5a0",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 11,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "Known as the  \nBladder1 dataset, it encapsulates data from a comprehensive \nclinical study. This dataset is particularly significant as it \nincludes all three treatment arms and records all observed \nrecurrences for 118 subjects, with the maximum number of \nrecurrences documented be ing nine.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B090:0008",
+      "source_ref": "Papers/Expanded_Collection/B090_Enhancing_Personalized_Bladder_Cancer_Treatment_Through_Reinforcement_Learning_A_Recurrent_Patient_State_Trans.pdf",
+      "source_version": "paper-version:B090:sha256-93eb4edca399",
+      "source_hash": "93eb4edca39907b4a2c59d4c9fcb585004f074fbe446bc7e4bfa77f6875bc5a0",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 11,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "Recur captures the total \nnumber of recurrences per patient, highlighting disease \naggression or treatment response, thus guiding further \ninvestigation. Start and Stop mark the temporal boundaries \nof observation in tervals, enabling time -to-event analysis \ncritical for understanding recurrence dynamics. Status \nclassifies interval endpoints into 0 (censored, no event), 1 \n(recurrence), 2 (death from bladder cancer), and 3 (death \nfrom other or unknown causes), aiding nua nced survival \nanalysis and patient outcome assessment.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B090:0009",
+      "source_ref": "Papers/Expanded_Collection/B090_Enhancing_Personalized_Bladder_Cancer_Treatment_Through_Reinforcement_Learning_A_Recurrent_Patient_State_Trans.pdf",
+      "source_version": "paper-version:B090:sha256-93eb4edca399",
+      "source_hash": "93eb4edca39907b4a2c59d4c9fcb585004f074fbe446bc7e4bfa77f6875bc5a0",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "One-Hot Encode Treatment: Standardize the \nselected treatment label and encode it as a binary \nvariable. The selected treatment is set to 1, with \nall other treatments set to 0, creating a unique \nidentifier for each treatment. \n3. Column Consistency: To ensure compatibility \nwith the predictive models, reorder the input data \naccording to the feature order used during model \ntraining. \n4. Predict Tumor Characteristics Post -Treatment: \nPass the prepared input through trained models \nto estimate the tumor’s expected size and count \nafter the treatment. The model trained on tumor \nsize produces the predicted size, while the model \ntrained on tumor count produces the predicted \nnumber of tumors. \n5. Return Results: Provide the predicted tumor size \nand count as the output.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B090:0010",
+      "source_ref": "Papers/Expanded_Collection/B090_Enhancing_Personalized_Bladder_Cancer_Treatment_Through_Reinforcement_Learning_A_Recurrent_Patient_State_Trans.pdf",
+      "source_version": "paper-version:B090:sha256-93eb4edca399",
+      "source_hash": "93eb4edca39907b4a2c59d4c9fcb585004f074fbe446bc7e4bfa77f6875bc5a0",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "we split the data into \ntraining and test sets with a proportion p, (X train,ysize, train\n,ynumber, train) and (X test,ysize, test,ynumber, test) where ppp",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B090:0011",
+      "source_ref": "Papers/Expanded_Collection/B090_Enhancing_Personalized_Bladder_Cancer_Treatment_Through_Reinforcement_Learning_A_Recurrent_Patient_State_Trans.pdf",
+      "source_version": "paper-version:B090:sha256-93eb4edca399",
+      "source_hash": "93eb4edca39907b4a2c59d4c9fcb585004f074fbe446bc7e4bfa77f6875bc5a0",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 13,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "the model is \nexposed to 29,399 simulated episodes, where it explores a \nwide range of treat ment-action combinations and their \ncorresponding effects. This episode log captures diverse",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B090:0012",
+      "source_ref": "Papers/Expanded_Collection/B090_Enhancing_Personalized_Bladder_Cancer_Treatment_Through_Reinforcement_Learning_A_Recurrent_Patient_State_Trans.pdf",
+      "source_version": "paper-version:B090:sha256-93eb4edca399",
+      "source_hash": "93eb4edca39907b4a2c59d4c9fcb585004f074fbe446bc7e4bfa77f6875bc5a0",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 14,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "To further assess overfitting risks, a Random \nForest model was trained on permuted labels, resulting in \ndrastically lower feature importance scores and weak \npredictive performance, confirming that our original model \ncaptures true relationships rather than spurious correlations.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B090:0013",
+      "source_ref": "Papers/Expanded_Collection/B090_Enhancing_Personalized_Bladder_Cancer_Treatment_Through_Reinforcement_Learning_A_Recurrent_Patient_State_Trans.pdf",
+      "source_version": "paper-version:B090:sha256-93eb4edca399",
+      "source_hash": "93eb4edca39907b4a2c59d4c9fcb585004f074fbe446bc7e4bfa77f6875bc5a0",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 16,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "The Cumulative Reward of \n63918.87 reflects DQN’s superior exploration and \nexploitation capabilities, achieving a higher c umulative \nreward compared to all other methods.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B090:0014",
+      "source_ref": "Papers/Expanded_Collection/B090_Enhancing_Personalized_Bladder_Cancer_Treatment_Through_Reinforcement_Learning_A_Recurrent_Patient_State_Trans.pdf",
+      "source_version": "paper-version:B090:sha256-93eb4edca399",
+      "source_hash": "93eb4edca39907b4a2c59d4c9fcb585004f074fbe446bc7e4bfa77f6875bc5a0",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 20,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "Although evaluating the framework across multiple clinical \ndatasets would provide additional evidence of robustness, \nsuch datasets were not accessible within the scope of this \nstudy.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B090:0015",
+      "source_ref": "Papers/Expanded_Collection/B090_Enhancing_Personalized_Bladder_Cancer_Treatment_Through_Reinforcement_Learning_A_Recurrent_Patient_State_Trans.pdf",
+      "source_version": "paper-version:B090:sha256-93eb4edca399",
+      "source_hash": "93eb4edca39907b4a2c59d4c9fcb585004f074fbe446bc7e4bfa77f6875bc5a0",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 21,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "Furthermore, the framework is intended to \nfunction as a clinical decision -support tool rather than an \nautonomous decision -making system. As with many AI -\ndriven healthcare applications, trust and clinical acceptance \nremain important challenges. Healthcare professionals may \nreasonably require additional validation, prospective studies, \nand explainable recommendations before incorporating such \nsystems into routine clinical practice. Accordingly, the \nproposed framework is designed to complement clinical \nexpertise by providi ng transparent, data -driven treatment \nrecommendations while preserving the clinician's \nresponsibility for final treatment decisions.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B090:0016",
+      "source_ref": "Papers/Expanded_Collection/B090_Enhancing_Personalized_Bladder_Cancer_Treatment_Through_Reinforcement_Learning_A_Recurrent_Patient_State_Trans.pdf",
+      "source_version": "paper-version:B090:sha256-93eb4edca399",
+      "source_hash": "93eb4edca39907b4a2c59d4c9fcb585004f074fbe446bc7e4bfa77f6875bc5a0",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "factors like patient quality of life and side effects \nwere not included in the dataset and were not incorporated \nvia synthetic approximations to avoid bias.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B090:0017",
+      "source_ref": "Papers/Expanded_Collection/B090_Enhancing_Personalized_Bladder_Cancer_Treatment_Through_Reinforcement_Learning_A_Recurrent_Patient_State_Trans.pdf",
+      "source_version": "paper-version:B090:sha256-93eb4edca399",
+      "source_hash": "93eb4edca39907b4a2c59d4c9fcb585004f074fbe446bc7e4bfa77f6875bc5a0",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 21,
+        "section_or_table": "Source methods/results; see review"
+      },
+      "content": "Consequently, integrating real-time clinical information and \nonline learning mechanisms represents an important direction \nfor future research.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    }
+  ],
+  "metric_results": [],
+  "capability_assessments": [
+    {
+      "subject_id": "model:B090:main",
+      "level": "L4",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_assertion_ids": [
+        "assertion:B090:0001",
+        "assertion:B090:0006",
+        "assertion:B090:0007",
+        "assertion:B090:0017",
+        "assertion:B090:0019"
+      ],
+      "rationale": "Learned RF successor module carries tumor state through multiple simulated treatments and provides DQN reward transitions. Reported simulated policy-return endpoint supports functional L4 within its own learned environment, not clinical validity or superiority."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "model:B090:main",
+      "facets": [
+        "R1"
+      ],
+      "environment_kind": "in_silico",
+      "scope": {
+        "model_version_id": "model:B090:main"
+      },
+      "evidence_ids": [
+        "evidence:B090:0001",
+        "evidence:B090:0005",
+        "evidence:B090:0013"
+      ],
+      "legacy_highest_label": null
+    }
+  ],
+  "gate_assessments": [
+    {
+      "gate_id": "G01",
+      "status": "unresolved",
+      "scope": {
+        "subject_id": "model:B090:main"
+      },
+      "rationale": "Source-aware research extraction; no release or clinical deployment assurance certified by this review."
+    }
+  ],
+  "legacy_cells": {
+    "A": "B090",
+    "B": "Enhancing Personalized Bladder Cancer Treatment Through Reinforcement Learning: A Recurrent Patient State Transition Decision Support Framework",
+    "C": "Chawla, Divyansh, Garg, Anshu, Singh, Isshaan",
+    "D": "2017",
+    "E": "Not reported",
+    "F": "Not reported",
+    "G": "https://arxiv.org/abs/2607.16916",
+    "H": "Papers/Expanded_Collection (B)",
+    "I": "B090_Enhancing_Personalized_Bladder_Cancer_Treatment_Through_Reinforcement_Learning_A_Recurrent_Patient_State_Trans.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not reported",
+    "N": "Oncology",
+    "O": "Bladder cancer",
+    "P": "Not reported",
+    "Q": "Patient clinical trajectory (EHR)",
+    "R": "Treatment recommendation / planning",
+    "S": "Not reported",
+    "T": "118 subjects in the Bladder1 recurrence dataset; maximum 9 documented recurrences",
+    "U": "Healthcare professionals / clinicians; decision support, with the clinician retaining final treatment decisions",
+    "V": "Select sequential bladder-cancer treatment options based on simulated patient state and predicted tumor response",
+    "W": "Simulator",
+    "X": "F2 EHR / ICU event & latent patient dynamics",
+    "Y": "Other",
+    "Z": "L4 Planning / control",
+    "AA": "L4 Planning / control",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "Yes",
+    "AE": "Yes",
+    "AF": "Yes",
+    "AG": "Not reported",
+    "AH": "Serial pipeline",
+    "AI": "Structured clinical variables: treatment; tumor count; tumor size; recurrence; treatment start time; treatment stop time",
+    "AJ": "Not reported",
+    "AK": "Not reported",
+    "AL": "Not reported",
+    "AM": "Not applicable",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Explicit physiological variables",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Conditioning on patient history",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Pharmacological treatment / dose",
+    "BC": "Discrete token / category",
+    "BD": "Treatment category, one-hot encoded; treatment start and stop times are included in transition inputs",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "Not reported",
+    "BJ": "Other",
+    "BK": "Visit / event index",
+    "BL": "Not reported",
+    "BM": "Not reported",
+    "BN": "Not reported",
+    "BO": "None (Markov)",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Predicted post-treatment tumor size and tumor count",
+    "BT": "Q-network action-value output for each available treatment",
+    "BU": "Reward based on tumor size and count reductions, with penalties for recurrence and death status",
+    "BV": "DQN squared temporal-difference error between predicted and target Q-values",
+    "BW": "Not reported",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "Not reported",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "RL on simulated MDP (DQN etc.)",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Not reported",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Not reported",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "Associational action-conditioning",
+    "CU": "Not reported",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Single agent",
+    "DB": "N/A",
+    "DC": "Experience replay buffer (capacity 10,000) storing states, actions, rewards, next states, and done flags",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "A2 Recommendation – clinician decides",
+    "DH": "Not reported",
+    "DI": "Clinical",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Not reported",
+    "DN": "Not reported",
+    "DO": "Not reported",
+    "DP": "Not reported",
+    "DQ": "Not reported",
+    "DR": "Not reported",
+    "DS": "Not reported",
+    "DT": "Not reported",
+    "DU": "Not reported",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "R1 Technical feasibility (synthetic/simulated)",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "Not reported",
+    "FD": "Not reported",
+    "FE": "Not reported",
+    "FF": "Not reported",
+    "FG": "Not reported",
+    "FH": "Not reported",
+    "FI": "Not reported",
+    "FJ": "Not reported",
+    "FK": "Not reported",
+    "FL": "Not reported",
+    "FM": "Not reported",
+    "FN": "Reported results (source excerpt): The propose d framework achieved a cumulative reward of 63,918.87, an average training loss per episode of 0.0056, and a policy improvement score of 6.62%, demonstrating effective sequential learning and robust treatment optimization within the simulated recurrent treatment environment.",
+    "FO": "Not reported",
+    "FP": "Not reported",
+    "FQ": "Not reported",
+    "FR": "Not reported",
+    "FS": "Reviewer mapping: M3 Belief-state service; M4 Action service; M5 Dynamics adapter; M6 Rollout service; M7 Outcome & causal layer; M8 Planner; M9 Safety & governance",
+    "FT": "Reviewer lesson: Keep the learned patient/scene simulator separate from the planner objective; constrain candidate actions and report closed-loop decision quality alongside model fidelity.",
+    "FU": "Reviewer mapping (KB §20): Causal-validity benchmarks",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Complete extracted PDF text read: title/abstract and introduction (pp. 1–4); methods and model/RL design (pp. 4–10); dataset, results, and relevant tables (pp. 11–19); discussion, conclusion, and limitations (pp. 20–21); references (pp. 22–23). | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "The PDF footer prints 2017, directly contradicting the prefilled metadata year 2026, so D is corrected to the printed year. Several result tables have broken column alignment in the text extraction; values were limited to clearly legible methods/narrative evidence. Demonstrated outcomes are from a simulated environment, not observed patient benefit. Evidence QA: 13/40 populated fields had a <=25-word quotation matching extracted PDF text (32.5%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 34 prior populated fields have a located source quotation; 7 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "Transition predictive metrics do not establish R2 without reproducible patient/time split and safe predictor availability.",
+    "RL policy evaluated in same learned environment; simulation expansion does not create independent patient evidence.",
+    "No empirical clinical utility, causally identified action effects, toxicities/QOL, external-cohort evaluation or operational EHR deployment.",
+    "Repeated/placeholder manuscript metadata and source inconsistencies preserved rather than repaired.",
+    "Single Codex source review; no independent human review, external source retrieval, code execution/replication or prospective clinical validation performed by reviewer.",
+    "All main-PDF pages including references/appendices read; every identified figure/table inspected. Referenced studies are bibliography only and do not transfer capabilities.",
+    "Mechanical schema/source/coverage checks establish necessary conditions and quote occurrence, not scientific truth or clinical safety."
+  ]
+}

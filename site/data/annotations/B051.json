@@ -1,0 +1,4666 @@
+{
+  "record_id": "annotation:B051:r4",
+  "paper_record_id": "B051",
+  "paper_version_id": "paper-version:B051:sha256-973352f62315",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:B051:tdmpc2",
+    "model:B051:sac",
+    "model:B051:sac-noaugmentation"
+  ],
+  "system_composition_ids": [
+    "system:B051:navigation"
+  ],
+  "world_type_ids": [
+    "WT_PROCEDURE"
+  ],
+  "profile_ids": [
+    "BP_CONTROLLER"
+  ],
+  "entities": [
+    {
+      "id": "paper:B051",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "B051",
+        "title": "Toward Safe Autonomous Robotic Endovascular Interventions using World Models",
+        "authors": [
+          "Harry Robertshaw",
+          "Nikola Fischer",
+          "Han-Ru Wu",
+          "Andrea Walker Perez",
+          "Weiyuan Deng",
+          "Benjamin Jackson",
+          "Christos Bergeles",
+          "Alejandro Granados",
+          "Thomas C Booth"
+        ],
+        "url": "https://arxiv.org/abs/2604.20151",
+        "contribution": "Adaptation and preclinical evaluation of a TD-MPC2 navigation controller against model-free SAC."
+      },
+      "provenance_evidence_ids": [
+        "e:B051:33"
+      ]
+    },
+    {
+      "id": "paper-version:B051:sha256-973352f62315",
+      "class_id": "PaperVersion",
+      "properties": {
+        "version_label": "arXiv:2604.20151v1",
+        "date_printed": "2026-04-22",
+        "publication_status": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+        "submission_status": "Submitted to IROS 2026; acceptance not established.",
+        "source_path": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+        "pdf_sha256": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+        "physical_pages": 7,
+        "hash_provenance": "Supplied source record; not recomputed.",
+        "inspection_provenance": "Current synthesis read all supplied page text and earlier automated image-review notes, not original page images."
+      },
+      "provenance_evidence_ids": [
+        "e:B051:01",
+        "e:B051:34"
+      ]
+    },
+    {
+      "id": "study:B051:navigation",
+      "class_id": "Study",
+      "properties": {
+        "design": "Comparative preclinical navigation study.",
+        "tasks": [
+          "A1",
+          "A2L",
+          "A2R",
+          "A3L",
+          "A3R"
+        ],
+        "scope": "Separately initialized guidewire/catheter tasks in the first phase of thrombectomy.",
+        "not_demonstrated": "Uninterrupted complete thrombectomy, thrombus retrieval, reperfusion or patient treatment.",
+        "statistics_as_reported": "Mean±standard deviation; two-tailed paired Student t-tests; significance threshold p=0.05.",
+        "statistical_limits": "Pairing unit, independent seeds, anatomical clustering, multiplicity control and checkpoint selection are insufficiently reported."
+      }
+    },
+    {
+      "id": "lineage:B051:navigation",
+      "class_id": "StudyLineage",
+      "properties": {
+        "documented_reuse": "Vasculatures, parameters and SAC replay-buffer data from reference [10].",
+        "extension_context": "Earlier endovascular world-model study [19].",
+        "related_local_record_candidate": "B105",
+        "limits": "Related primary documents were not retrieved. Exact participant/anatomy overlap, checkpoint inheritance and independent-study counts remain unresolved."
+      },
+      "provenance_evidence_ids": [
+        "e:B051:09",
+        "e:B051:24"
+      ]
+    },
+    {
+      "id": "model:B051:tdmpc2",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "TD-MPC2 multitask navigation agent",
+        "membership_assessment": "Source-supported core healthcare world-model implementation.",
+        "membership_basis": "Persistent recurrent procedural state and a learned action-conditioned latent transition used for navigation planning.",
+        "configuration": "Base TD-MPC2 with replay buffer 1×10^7 and an LSTM observation embedder.",
+        "planning_as_reported": "Short-horizon action-sequence optimization described as cross-entropy planning.",
+        "transition_coordinate": "Discrete device-navigation/control step.",
+        "transition_network": "Not reported",
+        "latent_dimension": "Not reported",
+        "loss_details": "Not reported",
+        "numerical_planning_horizon": "Not reported",
+        "checkpoint_identifier": "Not reported",
+        "noninheritance": "Unspecified TD-MPC2 losses, ensembles, stochasticity, search defaults and cited benchmark capabilities are not inherited."
+      },
+      "provenance_evidence_ids": [
+        "e:B051:07",
+        "e:B051:08",
+        "e:B051:09"
+      ]
+    },
+    {
+      "id": "model:B051:sac",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Multitask SAC with augmentation",
+        "role": "Model-free control comparator.",
+        "representation": "LSTM trajectory representation and feedforward device-control layers.",
+        "membership_assessment": "Not a learned-transition world model in the documented configuration."
+      },
+      "provenance_evidence_ids": [
+        "e:B051:06"
+      ]
+    },
+    {
+      "id": "model:B051:sac-noaugmentation",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "SAC without augmentation",
+        "role": "Physical A2R ablation comparator.",
+        "limits": "Not a TD-MPC2 dynamics, memory or planner ablation."
+      },
+      "provenance_evidence_ids": [
+        "e:B051:11",
+        "e:B051:19"
+      ]
+    },
+    {
+      "id": "system:B051:navigation",
+      "class_id": "SystemComposition",
+      "properties": {
+        "flow": "Tracked coordinates, target and previous action → recurrent embedding → learned latent transitions and planning → proximal device commands → new coordinate feedback.",
+        "simulation": "stEVE, SOFA v23.12 and BeamAdapter.",
+        "physical": "Clear V4 vascular phantom, fluoroscopic device tracking and catheter/guidewire manipulator.",
+        "authority": "Autonomous preclinical navigation; complete supervision, approval and escalation boundaries are not reported.",
+        "world": "Device–vascular procedural scene, not disease progression.",
+        "profile": "Controller research, not clinical deployment."
+      }
+    },
+    {
+      "id": "use:B051:research",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "purpose": "Preclinical autonomous endovascular navigation research.",
+        "environment": "Simulation and physical vascular phantom.",
+        "decision": "Catheter and guidewire movement toward sampled vessel targets.",
+        "future_users": "Generalist interventional radiologists are motivated as possible future users, not evaluated clinical users."
+      }
+    },
+    {
+      "id": "module:B051:embedding",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "function": "LSTM observation encoding and recurrent scene history.",
+        "inputs": "Current/previous device positions, target and previous action.",
+        "limits": "Posterior-belief and separated propagation/correction semantics are not established."
+      }
+    },
+    {
+      "id": "module:B051:dynamics",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "function": "Learned latent environment transitions for action planning.",
+        "coordinate": "Navigation/control step.",
+        "limits": "Standalone successor-state prediction fidelity is not reported."
+      }
+    },
+    {
+      "id": "module:B051:planner",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "function": "Model-coupled short-horizon action-sequence search.",
+        "method_as_reported": "Cross-entropy planning.",
+        "limits": "Numerical horizon, candidate count, iterations and executed-prefix/replanning protocol are not reported."
+      }
+    },
+    {
+      "id": "module:B051:physics",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "function": "External mechanical training/evaluation environment, distinct from learned TD-MPC2 dynamics.",
+        "assumptions": "Rigid vessel walls and empty lumen.",
+        "fitting": "Tensile-test-informed stiffness and bench-tuned friction.",
+        "limits": "Numerical parameters, calibration error and uncertainty are not reported."
+      }
+    },
+    {
+      "id": "state:B051:navigation",
+      "class_id": "StateSpec",
+      "properties": {
+        "observed": "Device coordinates, target and previous action.",
+        "guidewire": "Three distal points spaced 2 mm apart.",
+        "internal": "LSTM history and learned latent state.",
+        "geometry_boundary": "Vascular-geometry images are not agent inputs; centerlines nevertheless inform training reward."
+      }
+    },
+    {
+      "id": "action:B051:command",
+      "class_id": "ActionSpec",
+      "properties": {
+        "role_types": [
+          "procedural_or_robotic"
+        ],
+        "effect_channels": [
+          "physical_scene"
+        ],
+        "target": "Proximal catheter and guidewire.",
+        "parameters": "Translation and rotation speeds.",
+        "simulation_limits": [
+          "40 mm/s",
+          "180 degrees/s"
+        ],
+        "limits": "Proximal command limits are not distal tip-speed bounds. Physical enforcement and actuator calibration are incompletely specified."
+      }
+    },
+    {
+      "id": "time:B051:control",
+      "class_id": "TimeSpec",
+      "properties": {
+        "coordinate": "Discrete navigation/control step.",
+        "simulation_episode_limit": "200 steps, approximately 27 s.",
+        "physical_episode_limit": "5 minutes.",
+        "physical_interstep_delay": "0.5 s.",
+        "internal_prediction_horizon": "Short; numerical extent not reported.",
+        "distinction": "Exploration steps, training hours, episode duration and prediction horizon are separate quantities."
+      }
+    },
+    {
+      "id": "dataset:B051:anatomies",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "version": "Resource described in arXiv:2604.20151v1.",
+        "sources": "15 aortic-arch/cerebral CTAs, each combined with the same rescaled abdominal/thoracic CTA.",
+        "construction": "3D Slicer v5.10, extracted centerlines/radii and composite meshes.",
+        "arches": "13/15 Type-I, reported as 87%; remaining geometries Type-II.",
+        "limits": "Unique-patient independence, demographics and contributing-site counts are not established.",
+        "clinical_boundary": "Human imaging supplies anatomy; navigation outcomes and forces are simulated or measured in a phantom."
+      }
+    },
+    {
+      "id": "cohort:B051:train",
+      "class_id": "Cohort",
+      "properties": {
+        "count": 10,
+        "unit": "CTA-derived vascular anatomies",
+        "role": "Simulation training.",
+        "dependence": "Shared lower-body CTA."
+      }
+    },
+    {
+      "id": "cohort:B051:holdout",
+      "class_id": "Cohort",
+      "properties": {
+        "count": 5,
+        "unit": "Held-out upper vascular anatomies",
+        "arch_distribution": "80% Type-I; 20% Type-II.",
+        "evaluation_size_as_reported": "Table I n=250 across tasks.",
+        "environment": "in_silico",
+        "boundary": "Not held-out measured human navigation trajectories or outcomes."
+      }
+    },
+    {
+      "id": "cohort:B051:phantom",
+      "class_id": "Cohort",
+      "properties": {
+        "count": 1,
+        "unit": "Physical vascular phantom",
+        "anatomy": "Type-I geometry from simulation training.",
+        "repetitions": "Five per task per algorithm.",
+        "evaluation_size_as_reported": "Table II n=25 across tasks.",
+        "setting": "Mock operating room at St Thomas' Hospital."
+      }
+    },
+    {
+      "id": "protocol:B051:control",
+      "class_id": "EvaluationProtocol",
+      "properties": {
+        "success": "Target reached within episode limit.",
+        "procedure_time": "Successful episodes only.",
+        "path_ratio": "Unsuccessful episodes only; backtracking and repeated-travel treatment are incompletely specified.",
+        "force": "Simulated guidewire-tip force norm.",
+        "maximum_semantics": "Episode maxima averaged across evaluation episodes.",
+        "statistics": "Mean±SD and two-tailed paired Student t-tests.",
+        "limits": "No independently justified clinical acceptance threshold, effective-horizon tolerance or complete dependence protocol."
+      }
+    },
+    {
+      "id": "evaluation:B051:simulation",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "models": [
+          "model:B051:tdmpc2",
+          "model:B051:sac"
+        ],
+        "cohort_id": "cohort:B051:holdout",
+        "environment_kind": "in_silico",
+        "results": "Table I.",
+        "prediction_fidelity": "Not reported"
+      }
+    },
+    {
+      "id": "evaluation:B051:phantom",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "models": [
+          "model:B051:tdmpc2",
+          "model:B051:sac"
+        ],
+        "cohort_id": "cohort:B051:phantom",
+        "environment_kind": "physical_phantom",
+        "results": "Table II and Figure 4.",
+        "physical_force_measurement": "Future work, not demonstrated.",
+        "TD_MPC2_failure_fractions_as_reported": [
+          "50%, 4/8",
+          "25%, 2/8",
+          "13%, 1/9",
+          "13%, 1/10"
+        ],
+        "SAC_failure_fractions_as_reported": [
+          "40%, 4/10",
+          "30%, 3/10",
+          "20%, 2/10",
+          "10%, 1/10"
+        ],
+        "limits": "Inconsistent TD-MPC2 denominators retained."
+      }
+    },
+    {
+      "id": "evaluation:B051:augmentation",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "models": [
+          "model:B051:sac",
+          "model:B051:sac-noaugmentation"
+        ],
+        "environment_kind": "physical_phantom",
+        "task": "A2R only.",
+        "results": "Table III.",
+        "limits": "SAC-only ablation; success comparison p=0.549."
+      }
+    }
+  ],
+  "assertions": [
+    {
+      "id": "a:B051:data.provenance",
+      "subject_id": "dataset:B051:anatomies",
+      "feature_id": "data.provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "dataset_version_id": "dataset:B051:anatomies",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "e:B051:03",
+        "e:B051:04"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "CTA sources, mesh construction and anatomical partition are described."
+      ],
+      "criteria_missing": [
+        "Retained variable-level identifiers, acquisition/availability times and versioned transformation lineage."
+      ]
+    },
+    {
+      "id": "a:B051:data.provenance:phantom",
+      "subject_id": "system:B051:navigation",
+      "feature_id": "data.provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": "evaluation:B051:phantom",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [
+        "e:B051:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Fluoroscopy-to-coordinate processing and phantom anatomy origin are disclosed."
+      ],
+      "criteria_missing": [
+        "Frame-level timestamps, calibration records and versioned tracking-output lineage."
+      ]
+    },
+    {
+      "id": "a:B051:data.native_time",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Episode limits and imposed pauses do not establish retained acquisition timestamps."
+    },
+    {
+      "id": "a:B051:data.availability_time",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Acquisition and information-release times are not distinguished."
+    },
+    {
+      "id": "a:B051:data.availability_mask",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Missing/invalid-coordinate indicators and tracking-failure handling are unspecified."
+    },
+    {
+      "id": "a:B051:data.measurement_age",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Previous positions do not establish variable-specific freshness."
+    },
+    {
+      "id": "a:B051:data.irregular_time_handling",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Actual unequal intervals are not documented as transition inputs; discarding available unequal intervals is not established either."
+    },
+    {
+      "id": "a:B051:data.observation_process",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Coordinate extraction does not establish a conditional model of when, whether or why observations occur."
+    },
+    {
+      "id": "a:B051:data.clock_audit",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No target-specific witness-preservation audit is reported."
+    },
+    {
+      "id": "a:B051:data.harmonization",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Mesh radius matching does not establish a declared traceable observation-unit or coordinate schema."
+    },
+    {
+      "id": "a:B051:data.leakage_control",
+      "subject_id": "dataset:B051:anatomies",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": "evaluation:B051:simulation",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "e:B051:04",
+        "e:B051:09"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Ten/five anatomical partition and shared lower anatomy are disclosed."
+      ],
+      "criteria_missing": [
+        "Patient/site/time overlap audit, training-only preprocessing and checkpoint-selection controls."
+      ]
+    },
+    {
+      "id": "a:B051:data.leakage_control:phantom",
+      "subject_id": "system:B051:navigation",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": "evaluation:B051:phantom",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [
+        "e:B051:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Disclosed use of training anatomy is not automatically leakage for transfer research; test-informed tuning controls are unspecified."
+    },
+    {
+      "id": "a:B051:data.federation",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No federated training or site-local exchange protocol is reported."
+    },
+    {
+      "id": "a:B051:perception.encoder",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:02",
+        "e:B051:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "An operational LSTM embeds coordinate/history observations; isolated encoder evaluation is not reported."
+    },
+    {
+      "id": "a:B051:perception.foundation_reuse",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Code and replay-data reuse do not establish transferred foundation-encoder parameters."
+    },
+    {
+      "id": "a:B051:perception.latent_prediction",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Latent transitions are described without an explicit latent-target representation loss."
+    },
+    {
+      "id": "a:B051:perception.collapse_control",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No anti-collapse mechanism is specified; algorithm-family defaults are not inherited."
+    },
+    {
+      "id": "a:B051:perception.reconstruction",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Neither reconstruction nor an explicitly reconstruction-free complete objective is specified."
+    },
+    {
+      "id": "a:B051:perception.fusion",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "module_implementation_id": "module:B051:embedding"
+      },
+      "evidence_ids": [
+        "e:B051:02",
+        "e:B051:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The scoped embedder receives structured coordinates/history, target and commands. Fluoroscopy becomes coordinates upstream, while CTA constructs the environment; no two-modality fusion operation is defined."
+    },
+    {
+      "id": "a:B051:perception.availability_aware_fusion",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "module_implementation_id": "module:B051:embedding"
+      },
+      "evidence_ids": [
+        "e:B051:02",
+        "e:B051:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No multimodal fusion operation is defined in this coordinate-stream embedder scope. Missing tracking observations remain a separate reporting gap."
+    },
+    {
+      "id": "a:B051:state.persistent",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:07",
+        "e:B051:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Recurrent procedural history and learned latent state support successor simulation; standalone prediction validation is separate."
+    },
+    {
+      "id": "a:B051:state.belief_distribution",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "An LSTM does not by itself establish posterior/filtering-distribution semantics."
+    },
+    {
+      "id": "a:B051:state.propagate_correct",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Separate propagation/correction operations and missing-observation behavior are unspecified."
+    },
+    {
+      "id": "a:B051:state.online_assimilation",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": "evaluation:B051:phantom",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [
+        "e:B051:02",
+        "e:B051:05",
+        "e:B051:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "New tracked coordinates update recurrent procedural history during use. Bayesian filtering and online weight adaptation are not established."
+    },
+    {
+      "id": "a:B051:state.parameter_adaptation",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "History updates and individual mesh construction do not establish individual controller-parameter fitting."
+    },
+    {
+      "id": "a:B051:state.reusable",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "state.reusable",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "environment_kind": "mixed"
+      },
+      "evidence_ids": [
+        "e:B051:09",
+        "e:B051:13",
+        "e:B051:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "One multitask agent reuses its representation across five defined navigation tasks. Multiple clinical readout heads are not established, and physical A2L remains unsolved."
+    },
+    {
+      "id": "a:B051:state.sufficiency_test",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "The SAC augmentation ablation does not test TD-MPC2 state/history sufficiency."
+    },
+    {
+      "id": "a:B051:state.history_conditioning",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:02",
+        "e:B051:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Previous positions/actions and LSTM tip-path history condition the representation; personalized added value is not thereby demonstrated."
+    },
+    {
+      "id": "a:B051:state.personalization_audit",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No matched history-swap/withhold or population-prior control is reported."
+    },
+    {
+      "id": "a:B051:state.identity_consistency",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No specific latent-rollout identity/anatomy preservation mechanism is documented."
+    },
+    {
+      "id": "a:B051:state.interpretability",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Interpretable coordinate inputs and failure images do not establish interpretable latent-state semantics."
+    },
+    {
+      "id": "a:B051:state.temporal_memory",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "LSTM memory retains tip-path history; useful retention length and delayed-effect capture are not tested."
+    },
+    {
+      "id": "a:B051:action.explicit",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "action.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:04",
+        "e:B051:07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Settable proximal motion commands enter action-sequence simulation and selection."
+    },
+    {
+      "id": "a:B051:action.typed_roles",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:04",
+        "e:B051:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Recoverable device/motion semantics and procedural physical effects."
+      ],
+      "criteria_missing": [
+        "An explicit implemented role/effect-channel typing contract."
+      ],
+      "rationale": "The ontology mapping is reviewer interpretation, not an author-implemented action ontology."
+    },
+    {
+      "id": "a:B051:action.parameterized",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "action.parameterized",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:04",
+        "e:B051:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Device targets, proximal operations, speed units and simulation bounds."
+      ],
+      "criteria_missing": [
+        "Vector ordering, sign/scaling conventions and command hold duration."
+      ]
+    },
+    {
+      "id": "a:B051:action.schedule",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Action sequences lack sufficient command timing, cadence and duration semantics."
+    },
+    {
+      "id": "a:B051:action.bundle",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Independent device actuation does not establish joint-command or inherited-setting update semantics."
+    },
+    {
+      "id": "a:B051:action.constraints",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "action.constraints",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "e:B051:04"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": {
+        "proximal_translation_limit": "40 mm/s",
+        "proximal_rotation_limit": "180 degrees/s"
+      },
+      "rationale": "Simulation command bounds do not establish distal-force or clinical safety."
+    },
+    {
+      "id": "a:B051:action.constraints:phantom",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Physical enforcement of simulation bounds and force-triggered filtering are unspecified."
+    },
+    {
+      "id": "a:B051:action.grounding",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "action.grounding",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [
+        "e:B051:05",
+        "e:B051:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Commands map to executed physical catheter/guidewire translation and rotation."
+      ],
+      "criteria_missing": [
+        "Quantified actuator calibration and command-to-motion agreement."
+      ],
+      "rationale": "The broad ontology feature applies to direct commands; legacy BH specifically concerns latent actions."
+    },
+    {
+      "id": "a:B051:action.support",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Clipping, replay experience and augmentation do not establish context-conditioned candidate support."
+    },
+    {
+      "id": "a:B051:action.comparison",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No separate reported same-origin alternative-successor comparison is established. L4 does not automatically supply an L3 experiment."
+    },
+    {
+      "id": "a:B051:action.irreversibility",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Observed mechanical failures are not a reversibility/residual-harm assessment."
+    },
+    {
+      "id": "a:B051:dynamics.temporal",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:07",
+        "e:B051:08",
+        "e:B051:09"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": "Discrete device-navigation/control successor coordinate.",
+      "rationale": "Procedural transition time is distinct from training or optimizer iterations."
+    },
+    {
+      "id": "a:B051:dynamics.learned_hybrid",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:07",
+        "e:B051:08",
+        "e:B051:09"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": "Learned transition branch.",
+      "rationale": "The trained controller executes learned latent dynamics; an internally hybrid transition is not inferred."
+    },
+    {
+      "id": "a:B051:dynamics.action_conditioned",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:04",
+        "e:B051:07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Device-action sequences condition modeled consequences used by the optimizer. Separate prediction fidelity and causal validity are unestablished."
+    },
+    {
+      "id": "a:B051:dynamics.stochastic",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Random starts and action search do not establish conditional transition stochasticity."
+    },
+    {
+      "id": "a:B051:dynamics.mechanistic_prior",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "module_implementation_id": "module:B051:dynamics"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "External simulator mechanics and centerline reward do not establish mechanistic constraints inside learned dynamics."
+    },
+    {
+      "id": "a:B051:dynamics.hybrid",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Training through a mechanical environment is not an internally coupled mechanistic–learned transition."
+    },
+    {
+      "id": "a:B051:dynamics.multibackend_contract",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Comparison with model-free SAC does not establish interchangeable forward-dynamics backends."
+    },
+    {
+      "id": "a:B051:dynamics.multiscale",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Multiple navigation tasks and geometric scaling do not establish coupled dynamical scales."
+    },
+    {
+      "id": "a:B051:dynamics.multi_step_loss",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Traversed training targets and gradient/teacher-forcing behavior are unspecified."
+    },
+    {
+      "id": "a:B051:dynamics.temporal_abstraction",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Separately initialized tasks do not establish coordinated options or multirate transitions."
+    },
+    {
+      "id": "a:B051:dynamics.observation_decoder",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Tracking extracts observations; no latent-to-observable emission mapping is specified."
+    },
+    {
+      "id": "a:B051:dynamics.task_heads",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Predicted rewards are mentioned, but typed heads, targets and prediction horizons are insufficiently specified."
+    },
+    {
+      "id": "a:B051:rollout.one_step_evaluated",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Control endpoints do not measure predicted successors against later reference states."
+    },
+    {
+      "id": "a:B051:rollout.multistep",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Short-horizon sequence planning is described without sufficient transition-depth/generated-state-feedback detail to verify this complete criterion."
+    },
+    {
+      "id": "a:B051:rollout.teacher_forcing",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Replay training and measured control feedback do not specify teacher-forced prediction evaluation."
+    },
+    {
+      "id": "a:B051:rollout.reassimilation",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": "evaluation:B051:phantom",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [
+        "e:B051:02",
+        "e:B051:05",
+        "e:B051:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Measured coordinates update recurrent history during physical navigation."
+      ],
+      "criteria_missing": [
+        "Explicit correction/forecast-origin ordering relative to the next plan."
+      ]
+    },
+    {
+      "id": "a:B051:rollout.maximum_horizon",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Environment episode caps do not establish tested learned-model prediction extent."
+    },
+    {
+      "id": "a:B051:rollout.drift_test",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Timeouts and transfer failures are not prediction-error-versus-depth measurements."
+    },
+    {
+      "id": "a:B051:rollout.effective_horizon",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No horizon curve with tolerance, uncertainty and action-support justification is reported."
+    },
+    {
+      "id": "a:B051:rollout.sampled_futures",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Candidate actions and between-episode SD are not conditional future-trajectory distributions."
+    },
+    {
+      "id": "a:B051:rollout.horizon_enforcement",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Task timeouts are not evidence-supported prediction-horizon rejection/escalation."
+    },
+    {
+      "id": "a:B051:planning.model_use:sim",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "planning.model_use",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": "evaluation:B051:simulation",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "e:B051:07",
+        "e:B051:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Learned transition simulation guides optimization with measured control outcomes on held-out anatomy."
+    },
+    {
+      "id": "a:B051:planning.model_use:phantom",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "planning.model_use",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": "evaluation:B051:phantom",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [
+        "e:B051:05",
+        "e:B051:07",
+        "e:B051:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "The model-coupled controller executes physical navigation."
+    },
+    {
+      "id": "a:B051:planning.search_policy:sim",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": "evaluation:B051:simulation",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "e:B051:07",
+        "e:B051:08",
+        "e:B051:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "An operational optimizer uses latent transitions and predicted rewards with decision results."
+    },
+    {
+      "id": "a:B051:planning.search_policy:phantom",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": "evaluation:B051:phantom",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [
+        "e:B051:05",
+        "e:B051:07",
+        "e:B051:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Physical control evaluates the implemented model-coupled optimizer, not action-label prediction."
+    },
+    {
+      "id": "a:B051:planning.receding_horizon",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "MPC naming and feedback do not specify executed prefix, replanning operation and planning/execution horizons."
+    },
+    {
+      "id": "a:B051:planning.objective_separation",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Common training reward does not establish inference-time utility replacement without retraining dynamics."
+    },
+    {
+      "id": "a:B051:planning.uncertainty_use",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Predictive uncertainty is not documented as changing action choice."
+    },
+    {
+      "id": "a:B051:planning.exploitation_test",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": "evaluation:B051:phantom",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [
+        "e:B051:05",
+        "e:B051:14",
+        "e:B051:20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Narrow mismatched-dynamics route: model-selected actions are physically executed and failures recorded. Deliberate reward/support attacks, isolated exploitation causes and exploitation resistance are not established."
+    },
+    {
+      "id": "a:B051:planning.candidate_provenance",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:04",
+        "e:B051:07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Cross-entropy proposal method and simulation command bounds."
+      ],
+      "criteria_missing": [
+        "Candidate count, horizon, sampling details, eligibility/support and coverage assessment."
+      ]
+    },
+    {
+      "id": "a:B051:planning.hierarchical_policy",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Task-specific replay-generation agents do not establish an operational manager–worker policy."
+    },
+    {
+      "id": "a:B051:planning.closed_loop_test:sim",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": "evaluation:B051:simulation",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "e:B051:02",
+        "e:B051:04",
+        "e:B051:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Actions alter the simulation and resulting coordinates inform later decisions; precise MPC settings remain unresolved."
+    },
+    {
+      "id": "a:B051:planning.closed_loop_test:phantom",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": "evaluation:B051:phantom",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [
+        "e:B051:02",
+        "e:B051:05",
+        "e:B051:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Robot actions and new fluoroscopic coordinates form a physically evaluated control loop."
+    },
+    {
+      "id": "a:B051:uq.explicit",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "uq.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Between-episode SD and stochastic search are not specified predictive uncertainty."
+    },
+    {
+      "id": "a:B051:uq.decomposition",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Separate aleatoric/epistemic estimation procedures are not reported."
+    },
+    {
+      "id": "a:B051:uq.calibration_evaluated",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No probability, interval or predictive-set reliability/coverage test is reported."
+    },
+    {
+      "id": "a:B051:uq.trajectory_calibration",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Joint-path coverage and horizon-indexed reliability are not reported."
+    },
+    {
+      "id": "a:B051:uq.tolerance_met",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No calibration acceptance criterion is reported; force/significance thresholds are different quantities."
+    },
+    {
+      "id": "a:B051:uq.shift_detector",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Transfer evaluation and augmentation are not operational shift detection."
+    },
+    {
+      "id": "a:B051:uq.conformal",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No nonconformity score, conformal split or coverage assumptions are reported."
+    },
+    {
+      "id": "a:B051:causal.estimand",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Algorithm comparisons are not a declared intervention-effect estimand."
+    },
+    {
+      "id": "a:B051:causal.identification",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Engineering action conditioning does not establish an estimand-linked clinical identification argument."
+    },
+    {
+      "id": "a:B051:causal.assumptions",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Mechanical simplifications are not explicitly connected to causal-estimand identification."
+    },
+    {
+      "id": "a:B051:causal.sensitivity",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Geometric augmentation/holdouts do not quantify causal-assumption violations."
+    },
+    {
+      "id": "a:B051:causal.ground_truth_test",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No defined action-effect prediction is compared with potential-outcome/interventional-effect truth."
+    },
+    {
+      "id": "a:B051:causal.mechanistic_grounding",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "module_implementation_id": "module:B051:dynamics"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "External simulator properties are not mechanisms demonstrated inside the learned transition."
+    },
+    {
+      "id": "a:B051:causal.mechanistic_grounding:physics",
+      "subject_id": "module:B051:physics",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:B051:physics",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "e:B051:04"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Commands enter a mechanical environment using tensile-test-informed stiffness and bench-tuned friction."
+      ],
+      "criteria_missing": [
+        "Reconstructable numerical mechanism, calibration accuracy/uncertainty and validated applicability range."
+      ],
+      "rationale": "Not transferred to TD-MPC2 or patient treatment-effect identification."
+    },
+    {
+      "id": "a:B051:causal.effect_claim_gate",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "A combined estimand, identification, support, validation and sensitivity justification is not supplied."
+    },
+    {
+      "id": "a:B051:safety.hard_guard",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "e:B051:04"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Explicit proximal action-speed constraints."
+      ],
+      "criteria_missing": [
+        "Specified blocking/clipping and fail-response behavior."
+      ],
+      "rationale": "Limited command restrictions are not a validated force/tissue-safety shield."
+    },
+    {
+      "id": "a:B051:safety.hard_guard:phantom",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Physical action blocking and fail behavior are unspecified; simulation limits are not automatically inherited."
+    },
+    {
+      "id": "a:B051:safety.abstention",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Fixed termination does not establish support/uncertainty-triggered withholding with fallback."
+    },
+    {
+      "id": "a:B051:safety.human_escalation",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Informal expert involvement is not trigger-based operational escalation."
+    },
+    {
+      "id": "a:B051:safety.runtime_monitor",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:11"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "The collision monitor logs force; online hazard detection linked to protective action is unspecified."
+    },
+    {
+      "id": "a:B051:safety.kill_switch",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Timeouts and thermal pauses do not specify tested safe-stop residual effects or fallback."
+    },
+    {
+      "id": "a:B051:safety.threat_model",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No adversary, asset or attack-path analysis is reported."
+    },
+    {
+      "id": "a:B051:safety.red_team",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Difficult anatomy and naturally occurring failures are not documented injected attacks/faults."
+    },
+    {
+      "id": "a:B051:safety.privacy_controls",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "dataset_version_id": "dataset:B051:anatomies"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Ethics approval and mesh conversion do not specify operational privacy controls."
+    },
+    {
+      "id": "a:B051:safety.memorization_audit",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Anatomical generalization does not assess membership, re-identification or disclosure."
+    },
+    {
+      "id": "a:B051:safety.permissions",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Actuation integration does not establish identity-bound permission enforcement."
+    },
+    {
+      "id": "a:B051:safety.automation_bias",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No appropriate-reliance interface, override protocol or human-factors evaluation is reported."
+    },
+    {
+      "id": "a:B051:lifecycle.intended_use",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "intended_use_context_id": "use:B051:research"
+      },
+      "evidence_ids": [
+        "e:B051:05",
+        "e:B051:22",
+        "e:B051:31"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Purpose, procedural decisions, research environments and prospective users."
+      ],
+      "criteria_missing": [
+        "Complete supervision/approval allocation and clinical eligibility/autonomy limits."
+      ]
+    },
+    {
+      "id": "a:B051:lifecycle.model_card",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No organized version-pinned model/system card is identified."
+    },
+    {
+      "id": "a:B051:lifecycle.monitoring",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Experimental logging is not post-release monitoring with ownership and response rules."
+    },
+    {
+      "id": "a:B051:lifecycle.change_control",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Approval, revalidation and rollback procedures are unspecified."
+    },
+    {
+      "id": "a:B051:lifecycle.regulatory_mention",
+      "subject_id": "paper-version:B051:sha256-973352f62315",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No qualifying regulatory/reporting framework is reported; ethics and manuscript copyright are distinct."
+    },
+    {
+      "id": "a:B051:lifecycle.regulatory_evidence",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No scoped compliance/authorization dossier is reported; noncompliance is not inferred."
+    },
+    {
+      "id": "a:B051:lifecycle.ethics",
+      "subject_id": "dataset:B051:anatomies",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "dataset_version_id": "dataset:B051:anatomies",
+        "population": "CTA context explicitly associated with the approval statement"
+      },
+      "evidence_ids": [
+        "e:B051:03"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "value": "UK Research Ethics Committee 24/LO/0057",
+      "rationale": "Reported CTA ethics documentation, not inferred coverage of every scan, consent terms or intervention authorization."
+    },
+    {
+      "id": "a:B051:agent.role",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "agent.role",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:07",
+        "e:B051:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "An operational RL agent uses learned transitions and action search; no LLM role is inferred."
+    },
+    {
+      "id": "a:B051:agent.multiple",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "agent.multiple",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:09",
+        "e:B051:20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Runtime navigation uses one multitask agent. Separate replay-generation agents are preparation, not interacting runtime decision makers."
+    },
+    {
+      "id": "a:B051:agent.reflection",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "A specified feedback-driven proposal-revision loop is not supplied by the search-method name."
+    },
+    {
+      "id": "a:B051:agent.external_calls",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [
+        "e:B051:05",
+        "e:B051:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Operational tracking feedback and robotic actuation."
+      ],
+      "criteria_missing": [
+        "Explicit API boundary and permission-qualified external-operation contract."
+      ]
+    },
+    {
+      "id": "a:B051:agent.autonomy",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "e:B051:07",
+        "e:B051:09"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Agent-selected commands are executed by the simulation."
+      ],
+      "criteria_missing": [
+        "Explicit supervisory approval and override allocation."
+      ]
+    },
+    {
+      "id": "a:B051:agent.autonomy:phantom",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [
+        "e:B051:05",
+        "e:B051:14",
+        "e:B051:20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Autonomous device-command execution in a physical phantom."
+      ],
+      "criteria_missing": [
+        "Complete human supervision, approval and override boundary."
+      ],
+      "rationale": "No patient-care autonomy level is inferred."
+    },
+    {
+      "id": "a:B051:release.code",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Open-source dependencies do not establish release of study-specific modifications/configurations."
+    },
+    {
+      "id": "a:B051:release.weights",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No trained-navigation-weight release is identified."
+    },
+    {
+      "id": "a:B051:release.license",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:23"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "CC BY concerns an accepted manuscript, not separate code, weight or CTA-data terms."
+    },
+    {
+      "id": "a:B051:release.reproduced",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Independent version-pinned reproduction is not reported."
+    },
+    {
+      "id": "a:B051:evaluation.E1",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "One-step successor-prediction fidelity is not reported."
+    },
+    {
+      "id": "a:B051:evaluation.E2",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Sequence fidelity at multiple prediction depths is not reported."
+    },
+    {
+      "id": "a:B051:evaluation.E3",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Control-result distributions are not generated-state realism tests."
+    },
+    {
+      "id": "a:B051:evaluation.E4",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": "evaluation:B051:simulation",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "e:B051:11",
+        "e:B051:13",
+        "e:B051:21",
+        "e:B051:27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Simulated tip force/speed are assessed against an author-proposed injury reference. Threshold validity, all-contact bounds and physical tissue safety are not established."
+    },
+    {
+      "id": "a:B051:evaluation.E5",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "SDs and significance tests do not evaluate predictive calibration."
+    },
+    {
+      "id": "a:B051:evaluation.E6",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No fixed-origin action-edit prediction-response experiment is reported."
+    },
+    {
+      "id": "a:B051:evaluation.E7",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Physical control outcomes do not validate a defined counterfactual-effect prediction."
+    },
+    {
+      "id": "a:B051:evaluation.E8",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Anatomy-specific evaluation does not isolate correct-individual-history value."
+    },
+    {
+      "id": "a:B051:evaluation.E9:sim",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": "evaluation:B051:simulation",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "e:B051:07",
+        "e:B051:11",
+        "e:B051:12",
+        "e:B051:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "value": {
+        "TD_MPC2_success": "58±50%",
+        "SAC_success": "36±48%",
+        "reported_p": "p<0.001"
+      },
+      "rationale": "Higher aggregate simulated success accompanies longer successful-episode time and higher force summaries."
+    },
+    {
+      "id": "a:B051:evaluation.E9:phantom",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": "evaluation:B051:phantom",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [
+        "e:B051:05",
+        "e:B051:14",
+        "e:B051:16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "value": {
+        "TD_MPC2_success": "68±48%",
+        "SAC_success": "60±50%",
+        "reported_p": "p=0.567"
+      },
+      "rationale": "Physical decision evaluation exists, but success superiority/equivalence is not established; both fail A2L."
+    },
+    {
+      "id": "a:B051:evaluation.E10",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": [
+          "evaluation:B051:simulation",
+          "evaluation:B051:phantom"
+        ],
+        "environment_kind": "mixed"
+      },
+      "evidence_ids": [
+        "e:B051:05",
+        "e:B051:15",
+        "e:B051:20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Same controller/task definitions receive a quantified simulation-to-physical time comparison. Anatomy, timing, limits and successful subsets differ; matched-anatomy predictive agreement is not established."
+    },
+    {
+      "id": "a:B051:evaluation.E11",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": "evaluation:B051:phantom",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [
+        "e:B051:05",
+        "e:B051:14",
+        "e:B051:20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Simulation-to-physical transfer is tested; external clinical validation, fairness and unseen physical-anatomy transfer are not established."
+    },
+    {
+      "id": "a:B051:evaluation.E12",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No target-specific observation-clock/evidence-retention audit is reported."
+    },
+    {
+      "id": "a:B051:evaluation.E13",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "One expert tried the testbed and advised on catheter choice; no defined model-output review or controlled human comparator is reported."
+    },
+    {
+      "id": "a:B051:evaluation.E14",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "cohort_id": "cohort:B051:train",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "e:B051:09",
+        "e:B051:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "DGX A100 hardware, exploration steps and training hours."
+      ],
+      "criteria_missing": [
+        "Batch/parallel-load context and checkpoint-selection or matched-performance rules."
+      ],
+      "value": {
+        "result_checkpoint": "0.5×10^6 steps; 25 hours",
+        "stated_budget": "1×10^7 steps"
+      },
+      "rationale": "The physical interstep pause is not measured inference latency."
+    },
+    {
+      "id": "a:B051:evaluation.E15",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No actual-care utility/harms study is reported; a hospital-based phantom remains preclinical."
+    },
+    {
+      "id": "a:B051:dynamics.latent_transition",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:07",
+        "e:B051:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "An internal latent transition, not merely an encoder bottleneck, supports action planning."
+    },
+    {
+      "id": "a:B051:dynamics.value_equivalent",
+      "subject_id": "model:B051:tdmpc2",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Reward prediction and TD naming do not specify a value-equivalence objective or reconstruction boundary."
+    },
+    {
+      "id": "a:B051:sac:dynamics.learned_hybrid",
+      "subject_id": "model:B051:sac",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:sac"
+      },
+      "evidence_ids": [
+        "e:B051:06"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Explicitly model-free critic/actor control, not a learned forward environment transition."
+    },
+    {
+      "id": "a:B051:sac:agent.role",
+      "subject_id": "model:B051:sac",
+      "feature_id": "agent.role",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:sac"
+      },
+      "evidence_ids": [
+        "e:B051:06"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Operational model-free RL controller."
+    },
+    {
+      "id": "a:B051:sac:perception.encoder",
+      "subject_id": "model:B051:sac",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:sac"
+      },
+      "evidence_ids": [
+        "e:B051:06"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "LSTM trajectory representation and feedforward control are described."
+    },
+    {
+      "id": "a:B051:sac:agent.multiple",
+      "subject_id": "model:B051:sac",
+      "feature_id": "agent.multiple",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:sac"
+      },
+      "evidence_ids": [
+        "e:B051:06",
+        "e:B051:09"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The evaluated multitask SAC is one controller; preparation agents do not communicate at runtime."
+    },
+    {
+      "id": "a:B051:sac:agent.external_calls",
+      "subject_id": "model:B051:sac",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:sac",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [
+        "e:B051:05",
+        "e:B051:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Robot actuation and tracking feedback."
+      ],
+      "criteria_missing": [
+        "Explicit API and permission contract."
+      ]
+    },
+    {
+      "id": "a:B051:sac:evaluation.E10",
+      "subject_id": "model:B051:sac",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B051:sac",
+        "evaluation_run_id": [
+          "evaluation:B051:simulation",
+          "evaluation:B051:phantom"
+        ],
+        "environment_kind": "mixed"
+      },
+      "evidence_ids": [
+        "e:B051:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Time discrepancy is quantified, with anatomical/subset matching limitations."
+    },
+    {
+      "id": "a:B051:sac:evaluation.E14",
+      "subject_id": "model:B051:sac",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B051:sac",
+        "cohort_id": "cohort:B051:train",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "e:B051:09",
+        "e:B051:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Hardware, exploration count and elapsed training time."
+      ],
+      "criteria_missing": [
+        "Batch/load and checkpoint-selection context."
+      ],
+      "value": {
+        "result_checkpoint": "4.5×10^6 steps; 75 hours",
+        "stated_budget": "1×10^7 steps"
+      }
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "r:B051:version",
+      "subject_id": "paper:B051",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:B051:sha256-973352f62315",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "effective_date": "2026-04-22"
+      },
+      "evidence_ids": [
+        "e:B051:01",
+        "e:B051:33",
+        "e:B051:34"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B051:study",
+      "subject_id": "paper-version:B051:sha256-973352f62315",
+      "predicate_id": "reportsStudy",
+      "object_id": "study:B051:navigation",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:13",
+        "e:B051:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed"
+    },
+    {
+      "id": "r:B051:model",
+      "subject_id": "paper-version:B051:sha256-973352f62315",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B051:tdmpc2",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:07",
+        "e:B051:08",
+        "e:B051:09"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "r:B051:sac",
+      "subject_id": "paper-version:B051:sha256-973352f62315",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B051:sac",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:sac"
+      },
+      "evidence_ids": [
+        "e:B051:06"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "r:B051:lineage",
+      "subject_id": "study:B051:navigation",
+      "predicate_id": "belongsToLineage",
+      "object_id": "lineage:B051:navigation",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "dataset_version_id": "dataset:B051:anatomies"
+      },
+      "evidence_ids": [
+        "e:B051:09",
+        "e:B051:24"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Explicit reuse/extension supports dependency tracking, not exact duplication or certified independence."
+    },
+    {
+      "id": "r:B051:composition",
+      "subject_id": "system:B051:navigation",
+      "predicate_id": "composesModel",
+      "object_id": "model:B051:tdmpc2",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:05",
+        "e:B051:07",
+        "e:B051:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "r:B051:use",
+      "subject_id": "system:B051:navigation",
+      "predicate_id": "hasUseContext",
+      "object_id": "use:B051:research",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "intended_use_context_id": "use:B051:research"
+      },
+      "evidence_ids": [
+        "e:B051:05",
+        "e:B051:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B051:world",
+      "subject_id": "model:B051:tdmpc2",
+      "predicate_id": "modelsWorld",
+      "object_id": "WT_PROCEDURE",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:04",
+        "e:B051:07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B051:embedding",
+      "subject_id": "system:B051:navigation",
+      "predicate_id": "hasModule",
+      "object_id": "module:B051:embedding",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "r:B051:dynamics",
+      "subject_id": "system:B051:navigation",
+      "predicate_id": "hasModule",
+      "object_id": "module:B051:dynamics",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:07",
+        "e:B051:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "r:B051:planner",
+      "subject_id": "system:B051:navigation",
+      "predicate_id": "hasModule",
+      "object_id": "module:B051:planner",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "r:B051:m5",
+      "subject_id": "module:B051:dynamics",
+      "predicate_id": "realizesModule",
+      "object_id": "M5",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:07",
+        "e:B051:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Operational learned latent transitions."
+      ],
+      "criteria_missing": [
+        "Complete typed replacement contract and prediction-validation dossier."
+      ]
+    },
+    {
+      "id": "r:B051:m8",
+      "subject_id": "module:B051:planner",
+      "predicate_id": "realizesModule",
+      "object_id": "M8",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:07",
+        "e:B051:13",
+        "e:B051:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Model-coupled search with control results."
+      ],
+      "criteria_missing": [
+        "Replaceability, complete search settings and support/uncertainty contracts."
+      ]
+    },
+    {
+      "id": "r:B051:state",
+      "subject_id": "module:B051:embedding",
+      "predicate_id": "maintainsState",
+      "object_id": "state:B051:navigation",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "r:B051:action",
+      "subject_id": "module:B051:dynamics",
+      "predicate_id": "acceptsAction",
+      "object_id": "action:B051:command",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "evidence_ids": [
+        "e:B051:04",
+        "e:B051:07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "r:B051:sim-cohort",
+      "subject_id": "evaluation:B051:simulation",
+      "predicate_id": "evaluatesOnCohort",
+      "object_id": "cohort:B051:holdout",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B051:simulation",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "e:B051:04",
+        "e:B051:13",
+        "e:B051:27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed"
+    },
+    {
+      "id": "r:B051:phantom-cohort",
+      "subject_id": "evaluation:B051:phantom",
+      "predicate_id": "evaluatesOnCohort",
+      "object_id": "cohort:B051:phantom",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B051:phantom",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [
+        "e:B051:05",
+        "e:B051:14",
+        "e:B051:28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed"
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "e:B051:01",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Submission notice"
+      },
+      "content": "This manuscript is a preprint and has been submitted to the IEEE/RSJ\nInternational Conference on Intelligent Robots and Systems (IROS) 2026.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:02",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 2,
+        "section_or_table": "II.A observations"
+      },
+      "content": "Observations com-\nprised current and previous device positions, target location,\nand previous action.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:03",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 2,
+        "section_or_table": "II.B"
+      },
+      "content": "A computed tomography angiography (CTA) scan of\nthe aortic arch and the cerebral vessels, and a CTA scan\nencompassing the abdominal and thoracic regions, includ-\ning the femoral arteries, descending aorta, and the aor-\ntic arch (obtained with UK Research Ethics Committee\n24/LO/0057), were processed into surface meshes using 3D\nSlicer (v5.10) [10]. The centerlines and radii for all scans\nwere extracted.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:04",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "II.B–C"
+      },
+      "content": "to generate a surface mesh to be loaded into the Simulation\nOpen Framework Architecture (SOFA, v23.12) [24]. This\nwas repeated for 15 aortic arch and cerebral vessel CTAs (15\nto capture anatomy heterogeneity associated with challenging\nreal-world navigation across diverse age/ethnicity/sex), with\nthe same CTA of the abdominal and thoracic regions (same\nCTA as anatomy is homogeneous and real-world navigation\nis not challenging) being scaled to fit each one. Type-I aortic\narches were found in 87% (13/15) of vasculatures, while the\nremaining were Type-II [25]. Five out of the 15 vasculatures\nwere used as a hold out dataset forin silicoevaluation\n(comprising 80% Type-I and 20% Type-II aortic arches).\nC. In silico testbed & data collection\nThein silicoenvironment utilized the stEVE frame-\nwork [17]. A0.0441”multipurpose (MP) catheter (Terumo,\nTokyo, Japan and0.035”guidewire (Terumo, Tokyo, Japan)\nwere used for allin siliconavigation tasks. The BeamAdapter\nplugin for SOFA was used to model these devices for thein\nsilicoenvironment [26]. This catheter type (straight) does\nnot have a shaped tip, but it remains possible for an expert\noperator to navigate into the right common carotid artery\n(RCCA). In contrast, when this catheter type is combined\nwith the acute angle of the left common carotid artery\n(LCCA), an expert operator cannot navigate the testbed – this\nallowed us to evaluate a superhuman additional navigation\ntask (A2L, Figure 1), and evaluate the full capabilities of the\nRL agents.\nThe simulation assumed rigid vessel walls (with an empty\nlumen). The simulation’s device behavior was determined\nby utilizing a tensile testing machine to measure the tensile\nstrength of the devices, which facilitated the calculation of\ntheir stiffness [27]. Friction between the wall and device was\niteratively tuned to mimic behavior in a test-bench setup.\nThis methodology has previously allowed the translation of\nautonomous endovascular navigation agents fromin silicoto\nin vitroaortic arch models [17].\nInputs (device rotation and translation speed) were applied\nat the proximal device end. Rotation and translation speed\nwere constrained to a maximum of 180 ◦ s−1 and 40mm s−1,\nrespectively [17]. Similar to a clinical scenario with fluo-\nroscopy, feedback during the navigation was given as 2D\n(x′, y′)tracking coordinates; no visual information showing\nthe geometry of the patient vasculature was given.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:05",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "II.D"
+      },
+      "content": "Ourin vitrotestbed consisted of a 3D-printed transparent\nphantom (Clear V4, Formlabs Inc., Somerville, USA), which\nutilized a vasculature from thein silicotraining dataset\n(Figure 1, Type-I aortic arch). Experiments were conducted\nin a mock operating room at St Thomas’ Hospital, London,\nUK. Corresponding to clinical MT, fluoroscopic images from\na mobile C-arm (Cios Spin, Siemens Healthineers, Erlangen,\nGermany) were used as an input to a device tip-tracking\nalgorithm that extracted the necessary coordinates for the\nstate-based RL algorithm [28]. Each task was carried out five\ntimes for both types of world model (Section II-E). Agents\nwere allowed5 minduringin vitroevaluation, to account for\nthe slower speed of the robotic manipulator (compared toin\nsilico).\nA robotic manipulator (Figure 2) was used to translate and\nrotate the catheter and guidewire independently [29].",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:06",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "II.E SAC"
+      },
+      "content": "Model-free SAC and model-based TD-MPC2 algorithms\nwere used to train the RL agents in this study. The SAC\nRL algorithm was implemented from the open-source stEVE\nframework [17], which has been shown to be the cur-\nrent state-of-the-art for autonomous endovascular interven-\ntions [18]. In SAC, the critic learns the value and the\nactor optimizes the critic directly to maximize cumulative\nrewards [13]. This is useful for continuous action spaces,\nleveraging experience replay for data efficiency, but requires\ntuning and struggles under high-dimensional inputs [14].\nThe SAC algorithm used here includes a Long Short-Term\nMemory (LSTM) layer for learning trajectory-dependent\nstate representations and feedforward layers for controlling\nthe devices [9].",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:07",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "II.E TD-MPC2"
+      },
+      "content": "The TD-MPC2 algorithm is designed for sample-\nefficient learning and effective planning in continuous action\nspaces, combining temporal difference learning with model-\npredictive control, while leveraging a learned dynamics\nmodel to simulate environment transitions and plan action\nsequences over a short horizon [16]. This approach enables\nthe agent to optimize actions based on both predicted rewards\nand task constraints while using limited real-world interac-\ntion. TD-MPC2 incorporates a latent dynamics model and\na cross-entropy planning method, meaning it is particularly",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:08",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "II.E configuration"
+      },
+      "content": "The base TD-MPC2 configuration was used but with an\nincreased replay buffer size (1×10 7), and an LSTM layer\nto function as an observation embedder, allowing storage of\nthe environment state at each step so that the vessel structure\ncould be estimated by the path of the device tip.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:09",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "II.F"
+      },
+      "content": "The RL training process is shown in Figure 3, where\nfive agents were trained using SAC (one for each defined\nphase in Figure 1). Each agent performed 250 navigation\nepisodes while recording trajectory data (trajectories, actions,\nrewards). This data was used to fill the replay buffers before\ntraining the multi-task agents for SAC and TD-MPC2. Each\nmodel was trained for1×10 7 exploration steps, where a\nnavigation task (or episode) was considered complete when\nthe target was reached. An episode termination of 200 steps\n(≈27 s) was set for computational efficiency. Training was\nperformed on an NVIDIA DGX A100 node (Santa Clara,\nCalifornia, USA). Models were trained on 10 patient-specific\nvascular anatomies. All models used were trained using the\nsame vasculatures, parameters, and SAC replay buffer data\nas in [10], allowing for validation of this proof-of-concept\nstudy usingin vitroand hold outin silicovasculatures, while\nalso measuring navigation safety.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:10",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "II.F augmentation"
+      },
+      "content": "The\nentire mesh was scaled randomly from0.7−1.3in three\ndimensions, and the mesh itself was rotated randomly from\nits origin by±30 ◦ in thexandyplane.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:11",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "II.G"
+      },
+      "content": "A collision monitor on the guidewire tip was implemented\nto record the tip contact forcesF x,y,z at each simulation\n[10].∥F x,y,z ∥was used to determine the maximum and the\nmean tip contact forces recorded duringin silicoevaluation.\nTo provide robust analysis of the previously proposed train-\ning pipeline [22], the mean/maximum guidewire tip speed\nwas also recorded duringin silicoevaluation. Additionally,\nan ablation study on the effectiveness of the applied data\naugmentation techniques was carried out to determine their\neffectiveness in translating agents fromin silicotoin vitro.\nThe ablation study was donein vitrousing the multi-task\nSAC agent onA 2R.\nDuring bothin silicoandin vitroevaluation the success\nrate (percentage of evaluation episodes where the target is\nreached), procedure time (time from the start of navigation\nto target point for successful episodes), path ratio (percent-\nage distance navigated to target location in unsuccessful\nepisodes, calculated by dividing guidewire tip total distance\ntraveled towards target point by the initial distance from\nguidewire tip to target point) and exploration steps (number\nof training steps taken to reach the point at which the results\nare provided) were recorded. Across all experiments and\nmetrics, reported values were mean±standard deviation,\nwhile comparative statistical analyses were conducted using\ntwo-tailed paired Student’st-tests with a predetermined\nsignificance threshold set atp= 0.05.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:12",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "III.A; Table I reference, not displayed table"
+      },
+      "content": "Results fromin silicoevaluation (Table I) favored TD-\nMPC2 over SAC with an increase in mean success rate (58%\nto 36% [p <0.001]) and mean path ratio (22% to 49%\n[p <0.001]), although taking nearly twice as long (17.1 s to\n9.6 s [p <0.001]). Increases in task success rate and path\nratio were seen when moving from a SAC to TD-MPC2\nagent:A 2L (SR:8%to38%[p <0.001], PR:21%to40%\n[p <0.001]),A 2R (SR:8%to52%[p <0.001], PR:24%to\n48%[p <0.001]), andA 3L (SR:16%to38%[p= 0.015],\nPR:21%to63%[p <0.001]). An increase in procedure\ntime was observed acrossA 1 andA 3R when moving from\nSAC to TD-MPC2.\nAn increase in mean and maximum tip force was found\nfor the TD-MPC2 navigations (mean:p <0.040, max:\np <0.005). No statistically significant difference was found\nbetween the examined models for mean or maximum tip\nspeed. Exploration steps recorded for SAC and TD-MPC2\nwere4.5×10 6 (reached after 75 hours) and0.5×10 6 (reached\nafter 25 hours), respectively.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:13",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "table",
+        "page": 5,
+        "section_or_table": "Table I data rows"
+      },
+      "content": "A1 SAC 94±24 8.1±0.925±90.10±0.04 0.35±0.05 41.3±3.0 85.0±21.8\nTD-MPC2 94±24 15.4±2.8*** 31±18 0.12±0.04 0.40±0.10*** 24.3±3.2*** 54.4±11.6***\nA2L SAC8±2715.4±11.321±110.12±0.12 0.66±0.29 14.6±7.6 90.2±44.5\nTD-MPC2 38±49*** 17.8±7.5 40±18*** 0.13±0.04 0.60±0.20 27.3±6.1*** 95.9±44.7\nA2R SAC8±2712.3±5.824±140.13±0.06 0.54±0.21 17.9±12.3 88.0±80.8\nTD-MPC2 52±50*** 20.2±6.8 48±21*** 0.14±0.05 0.63±0.18* 25.6±2.9*** 95.0±45.1\nA3L SAC16±3725.2±7.921±210.14±0.08 0.50±0.18 17.3±5.4 56.9±36.8\nTD-MPC2 38±49* 21.1±6.7 63±18*** 0.16±0.07 0.54±0.12 23.3±5.4*** 77.0±62.0\nA3R SAC54±506.4±5.720±300.18±0.13 0.46±0.14 34.7±23.7 93.9±112.0\nTD-MPC2 66±48 14.6±6.9*** 44±21* 0.19±0.05 0.57±0.10** 24.8±8.8*** 71.1±54.9\nMean SAC 36±48 9.6±6.9 22±19 0.13±0.09 0.50±0.22 24.6±16.0 82.2±65.9\nTD-MPC2 58±50*** 17.1±6.4*** 49±21*** 0.15±0.06* 0.55±0.16** 25.1±5.8 78.9±50.0",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:14",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "table",
+        "page": 5,
+        "section_or_table": "Table II data rows"
+      },
+      "content": "A1 SAC 100±0 46.2±3.6 –\nTD-MPC2 100±080.4±19.7 ∗∗ –\nA2L SAC 0±0 –47±11\nTD-MPC2 0±0 – 71±14 ∗\nA2R SAC40±5597.0±1.442±4\nTD-MPC2 60±55125.0±21.049±7\nA3L SAC 100±0 54.4±1.52 –\nTD-MPC2 100±1.5126.4±57.7 ∗ –\nA3R SAC 60±55 67.0±7.2 45±30\nTD-MPC2 80±45112.3±7.5 ∗∗∗ 43±0\nMean SAC 60±50 66.2±17.2 44±13\nTD-MPC2 68±48 111.0±37.3 ∗∗∗ 54±17 ∗",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:15",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "III.B time comparison"
+      },
+      "content": "A significant increase in procedure time\nwas observed when moving fromin silicotoin vitrofor\nboth TD-MPC2 (mean timein silico:17.1 s,in vitro:111.0 s\n[p <0.001]) and SAC (mean timein silico:9.6 s,in vitro:\n66.2 s[p <0.001]). This increase is caused by the delay\nbetween each step (0.5s) necessary for the robot to complete\nits movement, and to ensure that the motors did not overheat.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:16",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "III.B"
+      },
+      "content": "Evaluating the trained models on anin vitrotestbed\nshowed no difference in mean success rate between TD-\nMPC2 and SAC (p= 0.567).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:17",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "III.B failures"
+      },
+      "content": "Failure modes using SAC were due to: wrong branch\ncatheterization (40%,4/10), episode timeout at5mins (30%,\n3/10), device leaving the phantom at the origin of the\nascending aorta (20%,2/10), and unable to recover from\ndevice coiling (10%,1/10). The TD-MPC2 failure modes\nwere: episode timeout (50%,4/8), entering the LCCA during\nA2L but not utilizing the catheter effectively to reach the\ntarget further up the branch (25%,2/8), wrong branch\ncatheterization (13%,1/9), and device leaving the phantom\nat the origin of the ascending aorta (13%,1/10).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:18",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Augmentation result"
+      },
+      "content": "Thein vitroablation experiment of data augmentation (Ta-\nble III) showed that augmentation provided non-significant\nimprovement (40%to20%[p= 0.549]).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:19",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "table",
+        "page": 6,
+        "section_or_table": "Table III data rows"
+      },
+      "content": "SAC no augmentation20±5588.0±041±14\nSAC with augmentation 40±55 97.0±1.4 42±4",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:20",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "IV physical transfer and expert experience"
+      },
+      "content": "Both of the trained models were unable to performA 2L\nin vitro. Increasing vessel tortuosity and unfavorable carotid\nartery take-off angles from the aortic arch can increase\nendovascular navigation difficulty [30]. Techniques used to\nnavigate the LCCAin silicowere not able to be repli-\ncatedin vitro, potentially due to differences in friction and\ndevice properties. An expert interventional neuroradiologist\n(10 years as UK consultant; US attending equivalent) had\nexperimented on the testbed and confirmed that in a clinical\nscenario, specialist catheters would be used, namely a guide\ncatheter with a slightly bent tip, or a shaped slip catheter such\nas a Simmons 2, which has a reverse curve. In summary, in\nthe current work we have also shown that a singlein silico\ntrained world model can be effectively transferred to anin\nvitrotestbed to complete multiple, non-superhuman (i.e. not\nA2L), MT-relevant navigation tasks autonomously.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:21",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "IV safety interpretation"
+      },
+      "content": "Additionally, while significant\nincreases in mean and maximum force were recorded across\ntasks for TD-MPC2, all values recorded are well below\na proposed vessel rupture threshold of 1.5N[27].",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:22",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "V"
+      },
+      "content": "The\nproposed world model leverages existing open-source repos-\nitories to maximize reproducibility [17], [16]. TD-MPC2\nachieved superior generalization across hold out data com-\npared to SAC, with an increase in success rate and path ratio\nin silico. This is the first validation of an autonomous MT\nnavigation agent in anin vitrotestbed under fluoroscopic\nguidance. While improvements in generalization are needed\nbefore clinical deployment, thein vitroresults confirm that\nagents trainedin silicocan navigate multiple tasks in physical\nmodels.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:23",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Acknowledgment"
+      },
+      "content": "For the purpose of\nOpen Access, the Author has applied a CC BY public\ncopyright license to any Author Accepted Manuscript version\narising from this submission.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:24",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Reference [19]"
+      },
+      "content": "[19] H. Robertshaw, H.-R. Wu, A. Granados, and T. C. Booth, “World\nmodel for AI autonomous navigation in mechanical thrombectomy,”\ninproceedings of Medical Image Computing and Computer Assisted\nIntervention – MICCAI 2025, 2025.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:25",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "IV path-ratio interpretation"
+      },
+      "content": "Procedure times remained longer, and path ratios decreased\nunder TD-MPC2 across tasks.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:26",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "IV continuation"
+      },
+      "content": "vessel walls by, for example, using motor current as a proxy\nfor axial or rotational load, or possibly through analyzing the\nphysician’s muscular activity and motion patterns [31].",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:27",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "table",
+        "page": 5,
+        "section_or_table": "Table I caption"
+      },
+      "content": "TIP FORCE AND SPEED ARE REPORTED AS MEAN AND MAXIMUM VALUES,AVERAGED OVER ALL\nEVALUATION EPISODES FOR A GIVEN TASK. ASTERISKS DENOTE SIGNIFICANT DIFFERENCES BETWEENTD-MPC2ANDSAC (*p <0.05, **\np <0.01, ***p <0.001). MEAN ROW(BOTTOM)SHOWS AVERAGES ACROSS ALL TASKS(n= 250).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:28",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "table",
+        "page": 5,
+        "section_or_table": "Table II caption"
+      },
+      "content": "ASTERISKS DENOTE SIGNIFICANT DIFFERENCES BETWEENTD-MPC2\nANDSAC (*p <0.05, **p <0.01, ***p <0.001). MEAN ROW\n(BOTTOM)SHOWS AVERAGES ACROSS ALL TASKS(n= 25).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:29",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Equation 1 and preceding definition"
+      },
+      "content": "The dense reward function used across training is shown\nin Equation 1 [11].Pathlengthis defined as the distance\nbetween the guidewire tip and the target along the centerlines\nof the arteries, with∆pathlength representing the change in\npathlength at timetfrom the previous step at timet=−1.\nR=−0.00015−0.001·∆pathlength+\n(\n1if target reached\n0else\n(1)",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:30",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "III.B continuation and A2L path ratio"
+      },
+      "content": "60%[p= 0.547]). An increase in path ratio was observed\nwhen moving from SAC to TD-MPC2 forA 2L (47%to\n71%[p= 0.017]). Mean procedure time was significantly\nquicker in SAC across tasks (TD-MPC2: 111.0sto SAC:\n66.2s[p <0.001]).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:31",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "I prospective users"
+      },
+      "content": "AI-assistance into these systems may enable generalist in-\nterventional radiologists in peripheral hospitals (rather than\nspecialized interventional neuroradiologists) to perform MT\neffectively, and could enhance efficiency and safety [7].",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:32",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "III.B task success"
+      },
+      "content": "Additionally, no significant\ndifference was recorded across any of the individual tasks\ndespite higher success rates for TD-MPC2 compared to SAC\ninA 2R (60%to40%[p= 0.581]) andA 3R (80%to",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:33",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Title and byline"
+      },
+      "content": "Toward Safe Autonomous Robotic Endovascular Interventions using\nWorld Models\nHarry Robertshaw 1, Nikola Fischer 1, Han-Ru Wu 2, Andrea Walker Perez 1, Weiyuan Deng 1,\nBenjamin Jackson 1, Christos Bergeles 1, Alejandro Granados 1 and Thomas C Booth 1,3",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B051:34",
+      "source_ref": "Papers/Expanded_Collection/B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+      "source_version": "paper-version:B051:sha256-973352f62315",
+      "source_hash": "973352f62315cfb41921d339a1896965a6cd481974007da2ebb06d42c54f2bcc",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "arXiv identifier"
+      },
+      "content": "arXiv:2604.20151v1  [cs.RO]  22 Apr 2026",
+      "verification_status": "entailment_reviewed"
+    }
+  ],
+  "metric_results": [
+    {
+      "id": "metric:B051:sim-td",
+      "metric": "Table I navigation/control endpoints",
+      "value": {
+        "task_order": [
+          "A1",
+          "A2L",
+          "A2R",
+          "A3L",
+          "A3R",
+          "Mean"
+        ],
+        "success_percent": [
+          "94±24",
+          "38±49",
+          "52±50",
+          "38±49",
+          "66±48",
+          "58±50"
+        ],
+        "successful_episode_time_s": [
+          "15.4±2.8",
+          "17.8±7.5",
+          "20.2±6.8",
+          "21.1±6.7",
+          "14.6±6.9",
+          "17.1±6.4"
+        ],
+        "unsuccessful_episode_path_percent": [
+          "31±18",
+          "40±18",
+          "48±21",
+          "63±18",
+          "44±21",
+          "49±21"
+        ],
+        "mean_force_N": [
+          "0.12±0.04",
+          "0.13±0.04",
+          "0.14±0.05",
+          "0.16±0.07",
+          "0.19±0.05",
+          "0.15±0.06"
+        ],
+        "averaged_episode_maximum_force_N": [
+          "0.40±0.10",
+          "0.60±0.20",
+          "0.63±0.18",
+          "0.54±0.12",
+          "0.57±0.10",
+          "0.55±0.16"
+        ],
+        "mean_tip_speed_mm_s": [
+          "24.3±3.2",
+          "27.3±6.1",
+          "25.6±2.9",
+          "23.3±5.4",
+          "24.8±8.8",
+          "25.1±5.8"
+        ],
+        "averaged_episode_maximum_tip_speed_mm_s": [
+          "54.4±11.6",
+          "95.9±44.7",
+          "95.0±45.1",
+          "77.0±62.0",
+          "71.1±54.9",
+          "78.9±50.0"
+        ]
+      },
+      "unit_or_scale": "Endpoint-specific units in keys; not a combined score.",
+      "direction": "context_dependent",
+      "task": "Five separately initialized navigation tasks; success/path higher preferred, time/force/speed lower preferred as labeled by authors.",
+      "cohort_id": "cohort:B051:holdout",
+      "split_role": "Held-out upper anatomical meshes; simulated outcomes; caption n=250.",
+      "horizon": "Episode cap 200 steps, approximately 27 s; not the internal prediction horizon.",
+      "model_version_id": "model:B051:tdmpc2",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "type": "SD",
+        "success_p": {
+          "A2L": "<0.001",
+          "A2R": "<0.001",
+          "A3L": "0.015",
+          "Mean": "<0.001"
+        },
+        "table_markers": {
+          "success": [
+            "",
+            "***",
+            "***",
+            "*",
+            "",
+            "***"
+          ],
+          "time": [
+            "***",
+            "",
+            "",
+            "",
+            "***",
+            "***"
+          ],
+          "path": [
+            "",
+            "***",
+            "***",
+            "***",
+            "*",
+            "***"
+          ],
+          "mean_force": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "*"
+          ],
+          "maximum_force": [
+            "***",
+            "",
+            "*",
+            "",
+            "**",
+            "**"
+          ],
+          "mean_speed": [
+            "***",
+            "***",
+            "***",
+            "***",
+            "",
+            ""
+          ],
+          "maximum_speed": [
+            "***",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        },
+        "marker_definition": "* p<0.05; ** p<0.01; *** p<0.001.",
+        "prose_force_p": {
+          "mean": "<0.040",
+          "maximum": "<0.005"
+        },
+        "limits": "No confidence intervals or anatomy/seed-level uncertainty; nonsignificance is not equivalence."
+      },
+      "baseline_id": "model:B051:sac",
+      "source_evidence_ids": [
+        "e:B051:11",
+        "e:B051:12",
+        "e:B051:13",
+        "e:B051:27"
+      ]
+    },
+    {
+      "id": "metric:B051:sim-sac",
+      "metric": "Table I navigation/control endpoints",
+      "value": {
+        "task_order": [
+          "A1",
+          "A2L",
+          "A2R",
+          "A3L",
+          "A3R",
+          "Mean"
+        ],
+        "success_percent": [
+          "94±24",
+          "8±27",
+          "8±27",
+          "16±37",
+          "54±50",
+          "36±48"
+        ],
+        "successful_episode_time_s": [
+          "8.1±0.9",
+          "15.4±11.3",
+          "12.3±5.8",
+          "25.2±7.9",
+          "6.4±5.7",
+          "9.6±6.9"
+        ],
+        "unsuccessful_episode_path_percent": [
+          "25±9",
+          "21±11",
+          "24±14",
+          "21±21",
+          "20±30",
+          "22±19"
+        ],
+        "mean_force_N": [
+          "0.10±0.04",
+          "0.12±0.12",
+          "0.13±0.06",
+          "0.14±0.08",
+          "0.18±0.13",
+          "0.13±0.09"
+        ],
+        "averaged_episode_maximum_force_N": [
+          "0.35±0.05",
+          "0.66±0.29",
+          "0.54±0.21",
+          "0.50±0.18",
+          "0.46±0.14",
+          "0.50±0.22"
+        ],
+        "mean_tip_speed_mm_s": [
+          "41.3±3.0",
+          "14.6±7.6",
+          "17.9±12.3",
+          "17.3±5.4",
+          "34.7±23.7",
+          "24.6±16.0"
+        ],
+        "averaged_episode_maximum_tip_speed_mm_s": [
+          "85.0±21.8",
+          "90.2±44.5",
+          "88.0±80.8",
+          "56.9±36.8",
+          "93.9±112.0",
+          "82.2±65.9"
+        ]
+      },
+      "unit_or_scale": "Endpoint-specific units in keys; not a combined score.",
+      "direction": "context_dependent",
+      "task": "Five simulated navigation tasks; success/path higher preferred, time/force/speed lower preferred as labeled.",
+      "cohort_id": "cohort:B051:holdout",
+      "split_role": "Held-out upper anatomies; simulated outcomes; caption n=250.",
+      "horizon": "Episode endpoint/within-episode summary; cap approximately 27 s.",
+      "model_version_id": "model:B051:sac",
+      "uncertainty_status": "reported",
+      "uncertainty": "Mean±SD; time conditions on success, path on failure; force/speed maxima average episode maxima.",
+      "source_evidence_ids": [
+        "e:B051:11",
+        "e:B051:13",
+        "e:B051:27"
+      ]
+    },
+    {
+      "id": "metric:B051:phantom-td",
+      "metric": "Table II physical navigation endpoints",
+      "value": {
+        "task_order": [
+          "A1",
+          "A2L",
+          "A2R",
+          "A3L",
+          "A3R",
+          "Mean"
+        ],
+        "success_percent": [
+          "100±0",
+          "0±0",
+          "60±55",
+          "100±1.5",
+          "80±45",
+          "68±48"
+        ],
+        "successful_episode_time_s": [
+          "80.4±19.7",
+          "–",
+          "125.0±21.0",
+          "126.4±57.7",
+          "112.3±7.5",
+          "111.0±37.3"
+        ],
+        "unsuccessful_episode_path_percent": [
+          "–",
+          "71±14",
+          "49±7",
+          "–",
+          "43±0",
+          "54±17"
+        ]
+      },
+      "unit_or_scale": "Percent and seconds as keyed; not a combined score.",
+      "direction": "context_dependent",
+      "task": "Five physical navigation tasks; success/path higher preferred, time lower preferred.",
+      "cohort_id": "cohort:B051:phantom",
+      "split_role": "One simulation-training anatomy; five trials/task/algorithm; caption n=25.",
+      "horizon": "Up to five minutes per task.",
+      "model_version_id": "model:B051:tdmpc2",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "type": "Reported SD; unexplained 100±1.5% retained.",
+        "success_p": {
+          "Mean": "0.567",
+          "A2R": "0.581",
+          "A3R": "0.547"
+        },
+        "A2L_path_ratio_p": "0.017",
+        "table_markers": {
+          "time": [
+            "**",
+            "",
+            "",
+            "*",
+            "***",
+            "***"
+          ],
+          "path": [
+            "",
+            "*",
+            "",
+            "",
+            "",
+            "*"
+          ]
+        },
+        "limits": "Detailed prose attaches p=0.017 to A2L path ratio; aggregate Table II provides only a significance marker."
+      },
+      "baseline_id": "model:B051:sac",
+      "source_evidence_ids": [
+        "e:B051:05",
+        "e:B051:11",
+        "e:B051:14",
+        "e:B051:16",
+        "e:B051:28",
+        "e:B051:30",
+        "e:B051:32"
+      ]
+    },
+    {
+      "id": "metric:B051:phantom-sac",
+      "metric": "Table II physical navigation endpoints",
+      "value": {
+        "task_order": [
+          "A1",
+          "A2L",
+          "A2R",
+          "A3L",
+          "A3R",
+          "Mean"
+        ],
+        "success_percent": [
+          "100±0",
+          "0±0",
+          "40±55",
+          "100±0",
+          "60±55",
+          "60±50"
+        ],
+        "successful_episode_time_s": [
+          "46.2±3.6",
+          "–",
+          "97.0±1.4",
+          "54.4±1.52",
+          "67.0±7.2",
+          "66.2±17.2"
+        ],
+        "unsuccessful_episode_path_percent": [
+          "–",
+          "47±11",
+          "42±4",
+          "–",
+          "45±30",
+          "44±13"
+        ]
+      },
+      "unit_or_scale": "Percent and seconds as keyed; not a combined score.",
+      "direction": "context_dependent",
+      "task": "Five physical navigation tasks; success/path higher preferred, time lower preferred.",
+      "cohort_id": "cohort:B051:phantom",
+      "split_role": "One simulation-training anatomy; five trials/task/algorithm; caption n=25.",
+      "horizon": "Up to five minutes.",
+      "model_version_id": "model:B051:sac",
+      "uncertainty_status": "reported",
+      "uncertainty": "Mean±SD; printed A3L time 54.4±1.52 s retained; dashes are not zeros.",
+      "source_evidence_ids": [
+        "e:B051:11",
+        "e:B051:14",
+        "e:B051:28"
+      ]
+    },
+    {
+      "id": "metric:B051:augmentation-noaug",
+      "metric": "Table III physical A2R outcomes",
+      "value": {
+        "success": "20±55%",
+        "successful_time": "88.0±0 s",
+        "unsuccessful_path_ratio": "41±14%"
+      },
+      "unit_or_scale": "Metric-specific units retained.",
+      "direction": "context_dependent",
+      "task": "SAC A2R without augmentation; success/path higher preferred, time lower preferred.",
+      "cohort_id": "cohort:B051:phantom",
+      "split_role": "Physical ablation; stated protocol five repetitions/task.",
+      "horizon": "Up to five minutes.",
+      "model_version_id": "model:B051:sac-noaugmentation",
+      "uncertainty_status": "reported",
+      "uncertainty": "Reported mean±SD; unexplained 20±55% retained without replacement.",
+      "source_evidence_ids": [
+        "e:B051:18",
+        "e:B051:19"
+      ]
+    },
+    {
+      "id": "metric:B051:augmentation-aug",
+      "metric": "Table III physical A2R outcomes",
+      "value": {
+        "success": "40±55%",
+        "successful_time": "97.0±1.4 s",
+        "unsuccessful_path_ratio": "42±4%"
+      },
+      "unit_or_scale": "Metric-specific units retained.",
+      "direction": "context_dependent",
+      "task": "SAC A2R with augmentation; success/path higher preferred, time lower preferred.",
+      "cohort_id": "cohort:B051:phantom",
+      "split_role": "Physical ablation, not TD-MPC2 component isolation.",
+      "horizon": "Up to five minutes.",
+      "model_version_id": "model:B051:sac",
+      "uncertainty_status": "reported",
+      "uncertainty": "Mean±SD; success comparison p=0.549; narrative direction conflicts with table.",
+      "baseline_id": "model:B051:sac-noaugmentation",
+      "source_evidence_ids": [
+        "e:B051:18",
+        "e:B051:19"
+      ]
+    },
+    {
+      "id": "metric:B051:training-td",
+      "metric": "Result-checkpoint training cost",
+      "value": {
+        "exploration_steps": "0.5×10^6",
+        "elapsed_time": "25 hours"
+      },
+      "unit_or_scale": "Steps; hours.",
+      "direction": "context_dependent",
+      "task": "Multitask training on NVIDIA DGX A100.",
+      "cohort_id": "cohort:B051:train",
+      "split_role": "Training checkpoint, not clinical/prediction time.",
+      "horizon": "Checkpoint; stated total budget 1×10^7 steps.",
+      "model_version_id": "model:B051:tdmpc2",
+      "uncertainty_status": "not_reported",
+      "baseline_id": "model:B051:sac",
+      "source_evidence_ids": [
+        "e:B051:09",
+        "e:B051:12"
+      ]
+    },
+    {
+      "id": "metric:B051:training-sac",
+      "metric": "Result-checkpoint training cost",
+      "value": {
+        "exploration_steps": "4.5×10^6",
+        "elapsed_time": "75 hours"
+      },
+      "unit_or_scale": "Steps; hours.",
+      "direction": "context_dependent",
+      "task": "Multitask training on NVIDIA DGX A100.",
+      "cohort_id": "cohort:B051:train",
+      "split_role": "Training checkpoint, not clinical/prediction time.",
+      "horizon": "Checkpoint; stated total budget 1×10^7 steps.",
+      "model_version_id": "model:B051:sac",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "e:B051:09",
+        "e:B051:12"
+      ]
+    }
+  ],
+  "capability_assessments": [
+    {
+      "subject_id": "model:B051:tdmpc2",
+      "level": "L4",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": "evaluation:B051:simulation",
+        "environment_kind": "in_silico"
+      },
+      "evidence_assertion_ids": [
+        "a:B051:state.persistent",
+        "a:B051:dynamics.temporal",
+        "a:B051:dynamics.learned_hybrid",
+        "a:B051:dynamics.action_conditioned",
+        "a:B051:planning.model_use:sim",
+        "a:B051:planning.search_policy:sim",
+        "a:B051:evaluation.E9:sim"
+      ],
+      "rationale": "Implemented learned transitions support an optimizer with simulated control results. Separate L1/L2 predictive-fidelity and L3 comparison experiments are not inherited."
+    },
+    {
+      "subject_id": "model:B051:tdmpc2",
+      "level": "L4",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": "evaluation:B051:phantom",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_assertion_ids": [
+        "a:B051:state.persistent",
+        "a:B051:dynamics.temporal",
+        "a:B051:dynamics.learned_hybrid",
+        "a:B051:dynamics.action_conditioned",
+        "a:B051:planning.model_use:phantom",
+        "a:B051:planning.search_policy:phantom",
+        "a:B051:evaluation.E9:phantom"
+      ],
+      "rationale": "The model-coupled controller performs physical navigation with feedback and reported failures. This is bench control, not patient intervention."
+    },
+    {
+      "subject_id": "model:B051:sac",
+      "level": "not_world_model",
+      "scope": {
+        "model_version_id": "model:B051:sac"
+      },
+      "evidence_assertion_ids": [
+        "a:B051:sac:dynamics.learned_hybrid",
+        "a:B051:sac:agent.role"
+      ],
+      "rationale": "Explicitly model-free comparator; recurrent representation/control do not establish a learned environment transition."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "system:B051:navigation",
+      "facets": [
+        "R1"
+      ],
+      "environment_kind": "in_silico",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": "evaluation:B051:simulation"
+      },
+      "evidence_ids": [
+        "e:B051:04",
+        "e:B051:13",
+        "e:B051:27"
+      ],
+      "legacy_highest_label": "R1 Technical feasibility (synthetic/simulated)"
+    },
+    {
+      "subject_id": "system:B051:navigation",
+      "facets": [
+        "R1"
+      ],
+      "environment_kind": "physical_phantom",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": "evaluation:B051:phantom"
+      },
+      "evidence_ids": [
+        "e:B051:05",
+        "e:B051:14",
+        "e:B051:22"
+      ],
+      "legacy_highest_label": "R1 Technical feasibility (synthetic/simulated)"
+    }
+  ],
+  "gate_assessments": [
+    {
+      "gate_id": "G01",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "rationale": "Partition/transformations are described, but full provenance, availability, preprocessing and model-selection leakage controls are missing.",
+      "supporting_assertion_ids": [
+        "a:B051:data.provenance",
+        "a:B051:data.leakage_control"
+      ]
+    },
+    {
+      "gate_id": "G02",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "rationale": "Persistent learned transitions are implemented, but successor-prediction evaluation is not reported. L4 does not substitute for G02.",
+      "supporting_assertion_ids": [
+        "a:B051:state.persistent",
+        "a:B051:dynamics.temporal",
+        "a:B051:dynamics.learned_hybrid",
+        "a:B051:rollout.one_step_evaluated"
+      ]
+    },
+    {
+      "gate_id": "G03",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "rationale": "Prediction depth, drift and tolerance-defined usable horizon are not reported. Episode caps are not prediction horizons.",
+      "supporting_assertion_ids": [
+        "a:B051:rollout.maximum_horizon",
+        "a:B051:rollout.drift_test",
+        "a:B051:rollout.effective_horizon"
+      ]
+    },
+    {
+      "gate_id": "G04",
+      "status": "not_applicable",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "intended_use_context_id": "use:B051:research"
+      },
+      "rationale": "The scoped claim is navigation feasibility, not probabilistic guarantees or uncertainty-dependent decision rules. Uncertainty features remain not_reported."
+    },
+    {
+      "gate_id": "G05",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "rationale": "Command-conditioned planning exists, but timing, calibration, update/support semantics and prediction evaluation are incomplete.",
+      "supporting_assertion_ids": [
+        "a:B051:action.explicit",
+        "a:B051:action.parameterized",
+        "a:B051:dynamics.action_conditioned",
+        "a:B051:action.support"
+      ]
+    },
+    {
+      "gate_id": "G06",
+      "status": "not_applicable",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "intended_use_context_id": "use:B051:research"
+      },
+      "rationale": "No therapeutic-effect estimand or identified treatment-benefit assurance is evaluated. This does not endorse causal interpretation of device-conditioned predictions."
+    },
+    {
+      "gate_id": "G07",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "rationale": "Decisions and physical mismatch testing exist, but candidate support, complete search settings, reward-exploitation analysis and acceptance criteria are missing.",
+      "supporting_assertion_ids": [
+        "a:B051:planning.search_policy:sim",
+        "a:B051:evaluation.E9:sim",
+        "a:B051:planning.exploitation_test",
+        "a:B051:planning.candidate_provenance"
+      ]
+    },
+    {
+      "gate_id": "G08",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "rationale": "Simulation bounds provide partial guard evidence; physical guards, abstention, safe stops, injury measurement and justified safety acceptance are unestablished.",
+      "supporting_assertion_ids": [
+        "a:B051:safety.hard_guard",
+        "a:B051:safety.hard_guard:phantom",
+        "a:B051:safety.abstention"
+      ]
+    },
+    {
+      "gate_id": "G09",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2"
+      },
+      "rationale": "Transfer uses one training-anatomy phantom. Independent clinical/site transfer, overlap controls, subgroup behavior and composition acceptance remain insufficiently documented.",
+      "supporting_assertion_ids": [
+        "a:B051:evaluation.E11",
+        "a:B051:data.leakage_control"
+      ]
+    },
+    {
+      "gate_id": "G10",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "evaluation_run_id": "evaluation:B051:phantom"
+      },
+      "rationale": "Physical execution and quantified discrepancy are evidence, but matching/acceptance criteria do not establish transfer assurance. Informal expert involvement is not a defined human evaluation.",
+      "supporting_assertion_ids": [
+        "a:B051:evaluation.E10",
+        "a:B051:evaluation.E13"
+      ]
+    },
+    {
+      "gate_id": "G11",
+      "status": "not_applicable",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "intended_use_context_id": "use:B051:research"
+      },
+      "rationale": "Assessed use is preclinical research, not live patient/workflow utility. Anticipated access/transfer benefits are not realized outcomes."
+    },
+    {
+      "gate_id": "G12",
+      "status": "not_applicable",
+      "scope": {
+        "model_version_id": "model:B051:tdmpc2",
+        "intended_use_context_id": "use:B051:research"
+      },
+      "rationale": "No defined operational clinical release is reported. Research access gaps remain separate and do not establish authorization."
+    }
+  ],
+  "legacy_cells": {
+    "A": "B051",
+    "B": "Toward Safe Autonomous Robotic Endovascular Interventions using World Models",
+    "C": "Robertshaw, Harry, Fischer, Nikola, Wu, Han-Ru, Perez, Andrea Walker, Deng, Weiyuan, Jackson, Benjamin, et al.",
+    "D": "2026",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://arxiv.org/abs/2604.20151",
+    "H": "Papers/Expanded_Collection (B)",
+    "I": "B051_Toward_Safe_Autonomous_Robotic_Endovascular_Interventions_using_World_Models.pdf",
+    "J": "Primary method – application/adaptation of existing WM",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not reported",
+    "N": "Interventional / endovascular",
+    "O": "Mechanical thrombectomy navigation for acute ischemic stroke",
+    "P": "Operating room / interventional suite",
+    "Q": "Procedure / scene (surgery, acquisition)",
+    "R": "Robotic control / navigation",
+    "S": "Can TD-MPC2 guidewire/catheter navigation across multiple tasks and unseen patient-specific vasculatures, and transfer to a fluoroscopy-guided physical vascular phantom?",
+    "T": "Patient-specific vascular anatomies derived from CTA: 10 used for training and 5 held out for in-silico evaluation; in-vitro evaluation used one vascular phantom.",
+    "U": "Interventional radiologists (the paper motivates AI assistance for generalist interventional radiologists in peripheral hospitals).",
+    "V": "Autonomously select device movements to navigate a guidewire and catheter to a target vessel location.",
+    "W": "World model",
+    "X": "F9 Endovascular control",
+    "Y": "Not reported",
+    "Z": "L4 Planning / control",
+    "AA": "L4 Planning / control",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "Yes",
+    "AE": "Not reported",
+    "AF": "Yes",
+    "AG": "Yes",
+    "AH": "Not reported",
+    "AI": "Structured numerical device-position coordinates (current and previous); target coordinates; previous action; fluoroscopy-derived 2D device-tip tracking coordinates in vitro",
+    "AJ": "TD-MPC2 uses an LSTM layer as an observation embedder; the in-vitro device-tip tracking algorithm extracts coordinates from fluoroscopic images.",
+    "AK": "Not reported",
+    "AL": "Not reported",
+    "AM": "Not reported",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Not reported",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Not reported",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Surgical instrument / robot command",
+    "BC": "Continuous vector (dose / rate)",
+    "BD": "Guidewire and catheter rotation speed (maximum 180°/s) and translation speed (maximum 40 mm/s).",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "No",
+    "BH": "Not reported",
+    "BI": "TD-MPC2",
+    "BJ": "Not reported",
+    "BK": "Not reported",
+    "BL": "Not reported",
+    "BM": "Not reported",
+    "BN": "Not reported",
+    "BO": "Recurrent hidden state",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Not reported",
+    "BT": "Not reported",
+    "BU": "Dense reward: −0.00015 − 0.001·Δpathlength, with +1 when the target is reached and 0 otherwise.",
+    "BV": "Not reported",
+    "BW": "Not reported",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Training hardware: NVIDIA DGX A100 node. Reported exploration steps to the stated results: SAC 4.5×10^6 (75 hours); TD-MPC2 0.5×10^6 (25 hours).",
+    "CB": "Not reported",
+    "CC": "Not reported",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "Sampling MPC (CEM / MPPI / shooting)",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Not reported",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Not reported",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "None (predictive only)",
+    "CU": "None",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not reported",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Not reported",
+    "DN": "Not reported",
+    "DO": "Not reported",
+    "DP": "Not reported",
+    "DQ": "Not reported",
+    "DR": "Not reported",
+    "DS": "Not reported",
+    "DT": "Not reported",
+    "DU": "Not reported",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "R1 Technical feasibility (synthetic/simulated)",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "Not reported",
+    "FD": "Not reported",
+    "FE": "Not reported",
+    "FF": "Not reported",
+    "FG": "Not reported",
+    "FH": "Not reported",
+    "FI": "Not reported",
+    "FJ": "Not reported",
+    "FK": "Not reported",
+    "FL": "Not reported",
+    "FM": "Not reported",
+    "FN": "Reported results (source excerpt): In simulation, TDMPC2 demonstrates a significantly higher mean success rate than SAC (58%vs.36%,p <0.001), and mean tip contact forces of0.15 N, well below the proposed1.5 Nvessel rupture threshold. Mean success rates for TD-MPC2 (68%) were comparable to SAC (60%)in vitro, but TD-MPC2 achieved superior path ratios (p= 0.017) at the cost of longer procedure times (p <0.001).",
+    "FO": "Not reported",
+    "FP": "Not reported",
+    "FQ": "Not reported",
+    "FR": "Not reported",
+    "FS": "Reviewer mapping: M3 Belief-state service; M4 Action service; M5 Dynamics adapter; M7 Outcome & causal layer; M8 Planner; M9 Safety & governance",
+    "FT": "Reviewer lesson: Keep the learned patient/scene simulator separate from the planner objective; constrain candidate actions and report closed-loop decision quality alongside model fidelity.",
+    "FU": "Reviewer mapping (KB §20): Sim-to-real",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Complete extracted PDF text (pp. 1–7): title and abstract; introduction; Methods II.A–G; Results III.A–B and Tables I–III; Discussion; limitations; Conclusions; acknowledgments and references. Most relevant methods and results were checked across pp. 2–5; limitations/conclusions on pp. 5–6. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "A:I are omitted from values to preserve the prefilled workbook fields. Table I–III text extraction has substantial row/column alignment disruption; narrative results were readable and used where relevant. No clinical deployment or patient-level intervention was evaluated; the physical evaluation used a single vascular phantom. Evidence QA: 8/33 populated fields had a <=25-word quotation matching extracted PDF text (24.2%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 32 prior populated fields have a located source quotation; 1 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "Automated model review, not independent human verification or replication.",
+    "This synthesis read all seven supplied text pages and earlier image-review notes. Original page images were not directly supplied to this call.",
+    "Source path/hash and upstream call receipts are supplied provenance, not newly verified filesystem/API facts. No external cited paper, repository, raw data or supplement was accessed.",
+    "Batch-local statements in earlier page notes about unavailable other pages are not global source gaps: their combined coverage spans all seven pages.",
+    "All 128 catalogue features receive main-model dispositions. Auxiliary SAC and external-physics scopes are selectively assessed, not claimed separately exhaustive.",
+    "Raw evidence preserves extracted table row-merging artifacts. Structured table-cell separation also uses supplied upstream image transcriptions, not direct image reinspection here.",
+    "Implemented scope is separately initialized first-phase navigation, not continuous complete thrombectomy, clot retrieval, reperfusion or patient treatment.",
+    "CTA-derived anatomical holdouts have simulated navigation outcomes and do not establish held-out actual human clinical transition/outcome validation for R2/R3.",
+    "One physical phantom uses a simulation-training anatomy. Phantom control supports R1, not unseen physical-anatomy validation or R6.",
+    "An expert's informal testbed experience is human involvement but does not establish a defined model-output evaluation or R4.",
+    "Shared lower anatomy, ten training/five held-out upper geometries, predominantly Type-I arches and one phantom restrict generalization and independence.",
+    "Rigid empty vessels, incomplete material/friction calibration, unreported tracking errors, coordinate calibration, target tolerance and radiation dose limit safety interpretation.",
+    "Transition network, dimension, losses, stochasticity, pretrained parameters, useful history length, candidate count, prediction depth and exact replanning settings remain unreported; cited systems' capabilities are not inherited.",
+    "Implemented transitions/evaluated L4 decisions are distinct from unreported standalone predictive fidelity and a separate L3 matched-alternative experiment.",
+    "Training budget and earlier result checkpoints are preserved separately. Selection, seeds, pairing, clustering and multiplicity controls remain unclear.",
+    "Procedure time conditions on success and path ratio on failure. Algorithms/environments can therefore use different subsets; aggregate weighting and backtracking calculations are unclear.",
+    "Episode caps, physical pauses, exploration iterations and prediction horizon are separate. The 0.5 s pause is not inference latency.",
+    "Force maxima average episode maxima, not the greatest instantaneous force. The proposed cited 1.5 N reference is not validated here as a tissue/device-specific or universal clinical threshold.",
+    "Physical wall-force sensing is future work. Simulated logging, speed bounds and timeouts do not establish comprehensive protection or absence of injury.",
+    "Anomalous dispersions, inconsistent failure denominators and prose/table reversals are retained and queued without replacement values.",
+    "Nonsignificance is not equivalence; the SAC-only augmentation ablation does not isolate TD-MPC2 dynamics/planning.",
+    "Physical mismatch testing does not isolate model exploitation or validate clinical causal effects.",
+    "Open-source dependencies and manuscript CC BY do not establish study-specific code, weight, configuration or data release/licenses.",
+    "No gate pass, safety guarantee or deployment authorization is asserted.",
+    "No files were saved and no executable schema, graph, quotation or semantic validation was run."
+  ],
+  "notes": "Raw legacy cells remain unchanged historical extraction, including unsupported negatives, missing values and reviewer synthesis. New assertions follow the supplied operational criteria. Evidence contents contain contiguous supplied source passages only. Entailment_reviewed denotes automated contextual comparison, not independent human verification. The reported precheck concerns a reference-only Table I entry on physical page 4, not Equation 1. That upstream inventory label is retained separately from the actual Table I on page 5 and explicitly qualified in submission.review."
+}

@@ -1,0 +1,2682 @@
+{
+  "record_id": "annotation:B014:r1",
+  "paper_record_id": "B014",
+  "paper_version_id": "paper-version:B014:sha256-cf6ef8a6cfb9",
+  "annotation_status": "reviewed",
+  "model_version_ids": [
+    "model:B014:tfm:v1"
+  ],
+  "system_composition_ids": [
+    "system:B014:tfm-forecast"
+  ],
+  "world_type_ids": [
+    "WT_ORGAN"
+  ],
+  "profile_ids": [
+    "BP_FORECAST"
+  ],
+  "entities": [
+    {
+      "id": "paper:B014",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "B014",
+        "title": "Temporal Flow Matching for Learning Spatio-Temporal Trajectories in 4D Longitudinal Medical Imaging",
+        "canonical_url": "https://arxiv.org/abs/2508.21580",
+        "contribution_type": "Primary method – new model",
+        "membership": {
+          "legacy_value": "Include – core world model",
+          "legacy_status": "confirmed_world_model",
+          "primary_source_core_identity": "present",
+          "reason": "Implements a learned 4D spatio-temporal Flow Matching ODE transition (v_theta) that transports filled longitudinal 3D medical image history to a future target 3D scan.",
+          "counting_boundary": "Verified L1 autonomous-dynamics world model (WT_ORGAN)."
+        }
+      },
+      "provenance_evidence_ids": [
+        "evidence:B014:0001",
+        "evidence:B014:0002",
+        "evidence:B014:0003",
+        "evidence:B014:0009"
+      ]
+    },
+    {
+      "id": "paper-version:B014:sha256-cf6ef8a6cfb9",
+      "class_id": "PaperVersion",
+      "properties": {
+        "arxiv_identifier": "2508.21580v1",
+        "year": "2025",
+        "physical_pdf_pages": 12,
+        "source_path": "Papers/Expanded_Collection/B014_Temporal_Flow_Matching_for_Learning_Spatio_Temporal_Trajectories_in_4D_Longitudinal_Medical_Imaging.pdf",
+        "sha256": "cf6ef8a6cfb902a51e237653971fd0d3f319e0f73010bcd87996009d433fa00f"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B014:0001"
+      ]
+    },
+    {
+      "id": "model:B014:tfm:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "backbone": "TorchCFM Attention UNet predicting velocity field v_theta(X_tau, tau) at full spatial resolution",
+        "integration": "10-step ODE integration (Euler / Runge-Kutta)"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B014:0002",
+        "evidence:B014:0003",
+        "evidence:B014:0009"
+      ]
+    },
+    {
+      "id": "system:B014:tfm-forecast",
+      "class_id": "SystemComposition",
+      "properties": {
+        "flow": "Sparse 3D scan sequence I -> Sparsity Filling I' -> Flow Matching ODE integration v_theta -> Mean/last predicted target 3D scan I_hat_target"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B014:0002",
+        "evidence:B014:0003",
+        "evidence:B014:0009"
+      ]
+    },
+    {
+      "id": "use:B014:4d-medical-forecasting",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "purpose": "Future 3D medical image prediction from sparse/irregular longitudinal scans (cardiac Cine-MRI, stroke perfusion CT, glioma MRI).",
+        "environment": "Retrospective public imaging datasets"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B014:0001",
+        "evidence:B014:0005",
+        "evidence:B014:0010"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:B014:001",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "data.provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:002",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:003",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:004",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B014:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Missing context frames are explicitly represented and handled via Sparsity Filling (replacing missing frames with nearest available scan)."
+    },
+    {
+      "id": "assertion:B014:005",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:006",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B014:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Handles irregular/sparse follow-ups via dimension padding and Sparsity Filling."
+    },
+    {
+      "id": "assertion:B014:007",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:008",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:009",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:010",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:011",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:012",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "perception.encoder",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:013",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:014",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:015",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:016",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:017",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:018",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:019",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B014:0002",
+        "evidence:B014:0003",
+        "evidence:B014:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Maintains full-resolution 4D spatio-temporal state tensor X_tau in R^{T x D x H x W} transported along ODE flow from context I' to target."
+    },
+    {
+      "id": "assertion:B014:020",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:021",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:022",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:023",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:024",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:025",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:026",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B014:0002",
+        "evidence:B014:0003",
+        "evidence:B014:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Conditions prediction on the entire filled multi-timepoint context sequence I'."
+    },
+    {
+      "id": "assertion:B014:027",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:028",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:029",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:030",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B014:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Jointly processes T context frames via spatio-temporal UNet with cross-attention."
+    },
+    {
+      "id": "assertion:B014:031",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "action.explicit",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B014:0002",
+        "evidence:B014:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Autonomous observation-to-observation forecasting without settable treatment or control actions."
+    },
+    {
+      "id": "assertion:B014:032",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:033",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "action.parameterized",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:034",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:035",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:036",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:037",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:038",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:039",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:040",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:041",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B014:0002",
+        "evidence:B014:0003",
+        "evidence:B014:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Models temporal evolution from context scans to future target scan."
+    },
+    {
+      "id": "assertion:B014:042",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B014:0002",
+        "evidence:B014:0003",
+        "evidence:B014:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Learned velocity field v_theta(X_tau, tau) integrated via ODE solver."
+    },
+    {
+      "id": "assertion:B014:043",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B014:0002",
+        "evidence:B014:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "No action conditioning in the velocity field v_theta(X_tau, tau)."
+    },
+    {
+      "id": "assertion:B014:044",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B014:0002",
+        "evidence:B014:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Deterministic ODE integration from filled context I' (stochastic SDE sampling is explicitly listed as future work on p. 8)."
+    },
+    {
+      "id": "assertion:B014:045",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:046",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:047",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:048",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:049",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:050",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:051",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B014:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Directly outputs full-resolution 3D volumetric medical images."
+    },
+    {
+      "id": "assertion:B014:052",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:053",
+      "subject_id": "system:B014:tfm-forecast",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B014:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Evaluates next-target 3D scan prediction (NRMSE, SSIM, PSNR) across ACDC, ISLES, and Lumiere test sets (Table 2)."
+    },
+    {
+      "id": "assertion:B014:054",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:055",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:056",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:057",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:058",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:059",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:060",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:061",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:062",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "planning.model_use",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B014:0002",
+        "evidence:B014:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "No planner or policy coupled to TFM."
+    },
+    {
+      "id": "assertion:B014:063",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:064",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:065",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:066",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:067",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:068",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:069",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:070",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:071",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "uq.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:072",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:073",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:074",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:075",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:076",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:077",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:078",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:079",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:080",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:081",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:082",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:083",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:084",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:085",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:086",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:087",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:088",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:089",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:090",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:091",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:092",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:093",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:094",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:095",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:096",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B014:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Longitudinal disease progression, cardiac motion, and tumor growth imaging prediction."
+    },
+    {
+      "id": "assertion:B014:097",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:098",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:099",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:100",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:101",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:102",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:103",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "agent.role",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:104",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:105",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:106",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:107",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:108",
+      "subject_id": "paper:B014",
+      "feature_id": "release.code",
+      "assessment_state": "present",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B014:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Paper states 'Code will be published at https://github.com/MIC-DKFZ/Temporal-Flow-Matching' (not verified live)."
+    },
+    {
+      "id": "assertion:B014:109",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:110",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:111",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:112",
+      "subject_id": "system:B014:tfm-forecast",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B014:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Table 2 reports NRMSE, SSIM, and PSNR over 3 runs on held-out test sets for ACDC, ISLES, and Lumiere."
+    },
+    {
+      "id": "assertion:B014:113",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:114",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:115",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:116",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:117",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:118",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:119",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:120",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:121",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:122",
+      "subject_id": "system:B014:tfm-forecast",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B014:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Figure 3 evaluates zero-shot robustness to progressive masking of early (1->T) and late (T->1) context frames."
+    },
+    {
+      "id": "assertion:B014:123",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:124",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:125",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:126",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:127",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    },
+    {
+      "id": "assertion:B014:128",
+      "subject_id": "model:B014:tfm:v1",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B014:tfm:v1",
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 12-page paper."
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:B014:version",
+      "subject_id": "paper:B014",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:B014:sha256-cf6ef8a6cfb9",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "effective_date": "2025-08-29"
+      },
+      "evidence_ids": [
+        "evidence:B014:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:B014:0001",
+      "source_ref": "Papers/Expanded_Collection/B014_Temporal_Flow_Matching_for_Learning_Spatio_Temporal_Trajectories_in_4D_Longitudinal_Medical_Imaging.pdf",
+      "source_version": "paper-version:B014:sha256-cf6ef8a6cfb9",
+      "source_hash": "cf6ef8a6cfb902a51e237653971fd0d3f319e0f73010bcd87996009d433fa00f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Title, Abstract, and Footnote 1"
+      },
+      "content": "diseases or have other technical restrictions. To address\nthis fundamental gap, we introduce Temporal Flow Match-\ning (TFM), a unified generative trajectory method that (i)\naims to learn the underlying temporal distribution, (ii) by\ndesign can fall back to a nearest image predictor, i.e. pre-\ndicting the last context image (LCI), as a special case, and\n(iii) supports 3D volumes, multiple prior scans, and irregu-\nlar sampling. Extensive benchmarks on three public lon-\ngitudinal datasets show that TFM consistently surpasses\nspatio-temporal methods from natural imaging, establish-\ning a new state-of-the-art and robust baseline for4D medi-\ncal image prediction. 1\n1Code will be published at https://github.com/MIC-DKFZ/\nTemporal-Flow-Matching",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B014:0002",
+      "source_ref": "Papers/Expanded_Collection/B014_Temporal_Flow_Matching_for_Learning_Spatio_Temporal_Trajectories_in_4D_Longitudinal_Medical_Imaging.pdf",
+      "source_version": "paper-version:B014:sha256-cf6ef8a6cfb9",
+      "source_hash": "cf6ef8a6cfb902a51e237653971fd0d3f319e0f73010bcd87996009d433fa00f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Section 2.3 and Figure 2"
+      },
+      "content": "dimension as a fixed input dimension. With this, we propose\nTemporal Flow Matching(TFM), a generative model that\ndirectly learns transformations from each context image to\nthe target image within a unified spatio-temporal flow for-\nmulation. Unlike approaches that compress temporal infor-\nmation early, or operate on latent representation, TFM re-\ntains full spatial resolution. This is feasible because TFM\nhas a computational footprint comparable to other spatio-\ntemporal methods, which makes it able to afford this mod-\neling compute. By jointly processing the entire input se-\nquence, the model can leverage spatio-temporal dependen-\ncies between input images. To enable this, we define the",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B014:0003",
+      "source_ref": "Papers/Expanded_Collection/B014_Temporal_Flow_Matching_for_Learning_Spatio_Temporal_Trajectories_in_4D_Longitudinal_Medical_Imaging.pdf",
+      "source_version": "paper-version:B014:sha256-cf6ef8a6cfb9",
+      "source_hash": "cf6ef8a6cfb902a51e237653971fd0d3f319e0f73010bcd87996009d433fa00f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Algorithm 1 and Section 2.4"
+      },
+      "content": "To address missing context images, we apply sparsity filling, replacing them with the most recent available scan (see Fig. 2 for visualization). This ensures smoother inputs and more stable flow estimation across masked inputs. If missing frames occur before the first available scan, we fill them using the earliest available image. We denote the filled context sequence via I ′.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B014:0004",
+      "source_ref": "Papers/Expanded_Collection/B014_Temporal_Flow_Matching_for_Learning_Spatio_Temporal_Trajectories_in_4D_Longitudinal_Medical_Imaging.pdf",
+      "source_version": "paper-version:B014:sha256-cf6ef8a6cfb9",
+      "source_hash": "cf6ef8a6cfb902a51e237653971fd0d3f319e0f73010bcd87996009d433fa00f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Table 2 and Section 3.1"
+      },
+      "content": "[paraphrase (visual p.6)] ACDC: TFM NRMSE 0.040(0.012), SSIM 94.5(0.8)%, PSNR 30.51(1.56) vs LCI 0.056/93.3%/28.49; ISLES: TFM 0.041(0.007)/97.6(0.8)%/31.03(1.08) vs LCI 0.057/95.6%/28.39; Lumiere: TFM 0.069(0.007)/89.7(1.2)%/23.73(0.82) vs LCI 0.085/89.3%/21.55.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B014:0005",
+      "source_ref": "Papers/Expanded_Collection/B014_Temporal_Flow_Matching_for_Learning_Spatio_Temporal_Trajectories_in_4D_Longitudinal_Medical_Imaging.pdf",
+      "source_version": "paper-version:B014:sha256-cf6ef8a6cfb9",
+      "source_hash": "cf6ef8a6cfb902a51e237653971fd0d3f319e0f73010bcd87996009d433fa00f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Section 3.1 Datasets"
+      },
+      "content": "ACDC [3] is a cardiac MRI dataset for different states\nof the heart. Images are reshaped to [T, H, D, W] =\n[11, 32, 128, 128], where the target is a single image hav-\ning the same spatial dimensions. For the ACDC dataset, we\nrandomly mask out time points, in order to make it irregu-\nlar. We split the dataset into 80 training, 20 validation and\n50 test images. This dataset was used for method develop-\nment and ablations were done on the validation set.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B014:0006",
+      "source_ref": "Papers/Expanded_Collection/B014_Temporal_Flow_Matching_for_Learning_Spatio_Temporal_Trajectories_in_4D_Longitudinal_Medical_Imaging.pdf",
+      "source_version": "paper-version:B014:sha256-cf6ef8a6cfb9",
+      "source_hash": "cf6ef8a6cfb902a51e237653971fd0d3f319e0f73010bcd87996009d433fa00f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Figure 3 and Table 3"
+      },
+      "content": "[paraphrase (visual p.7)] Table 3 ablates Att UNet & Mean (NRMSE 0.0261, SSIM 96.04%, PSNR 32.30) vs No Att: Mean (0.0270), No Sparsity Filling (0.0444), and LCI+FM* (0.1029) on ACDC validation set.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B014:0007",
+      "source_ref": "Papers/Expanded_Collection/B014_Temporal_Flow_Matching_for_Learning_Spatio_Temporal_Trajectories_in_4D_Longitudinal_Medical_Imaging.pdf",
+      "source_version": "paper-version:B014:sha256-cf6ef8a6cfb9",
+      "source_hash": "cf6ef8a6cfb902a51e237653971fd0d3f319e0f73010bcd87996009d433fa00f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Section 4.1 Future Directions and Limitations"
+      },
+      "content": "• Explicit Continuous Time Modeling While our current\nsetting treats τ as abstract interpolation scalars, this can\nbe naturally extended to model continuous, real-valued\ntime steps. This would allow for more flexible predic-\ntions, ideal for clinical workflows.\n• Stochastic Generation It is technically simple to include\nstochastic sampling into TFM. This would allow TFM to\nsample multiple possible futures. This could be again\nvaluable in the clinical context for risk assessment and\nplanning. On a technical level, this only requires extend-\ning the ODE to SDE integration and adding noise during\ntraining (see step (6)1).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B014:0008",
+      "source_ref": "Papers/Expanded_Collection/B014_Temporal_Flow_Matching_for_Learning_Spatio_Temporal_Trajectories_in_4D_Longitudinal_Medical_Imaging.pdf",
+      "source_version": "paper-version:B014:sha256-cf6ef8a6cfb9",
+      "source_hash": "cf6ef8a6cfb902a51e237653971fd0d3f319e0f73010bcd87996009d433fa00f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 11,
+        "section_or_table": "Appendix B, Figure 5, Figure 6, Figure 7 (visual inspection)"
+      },
+      "content": "[paraphrase (visual p.11)] Figures 5 and 6 show qualitative predictions on Lumiere and ACDC against LCI and SimVP; Figure 7 quantifies LCI vs random NRMSE (ACDC 2.808%, ISLES 2.263%, Lumiere 5.999%).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B014:0009",
+      "source_ref": "Papers/Expanded_Collection/B014_Temporal_Flow_Matching_for_Learning_Spatio_Temporal_Trajectories_in_4D_Longitudinal_Medical_Imaging.pdf",
+      "source_version": "paper-version:B014:sha256-cf6ef8a6cfb9",
+      "source_hash": "cf6ef8a6cfb902a51e237653971fd0d3f319e0f73010bcd87996009d433fa00f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section 2.3 Inference (Eq. 7)"
+      },
+      "content": "12: Define integration grid {τ0 = 0, . . . , τN = 1} with n steps\n13: ˆX0:N ← ODEIntvθ, X0, {τ0, . . . , τN }\u0001 ▷ numerically integrate the network\n14: return ˆXN\nneural net vθ then predicts a velocity ˆuτ (2), and is trained\nvia (4). Inference is then done using eq. (1), i.e.\nˆX1 = X0 +\nZ 1\n0\nvθ(Xτ , τ)dτ. (7)\nIn practice, equation (7) can only be solved numeri-\ncally. This requires choosing an ODE solver (e.g. Eu-\nler or Runge-Kutta) and the number of integration steps",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Phase E repair verification against .work/kg_B014/p05.txt",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B014:0010",
+      "source_ref": "Papers/Expanded_Collection/B014_Temporal_Flow_Matching_for_Learning_Spatio_Temporal_Trajectories_in_4D_Longitudinal_Medical_Imaging.pdf",
+      "source_version": "paper-version:B014:sha256-cf6ef8a6cfb9",
+      "source_hash": "cf6ef8a6cfb902a51e237653971fd0d3f319e0f73010bcd87996009d433fa00f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Section 3.1 Datasets (ISLES and Lumiere splits)"
+      },
+      "content": "[T, H, D, W] = [7, 16, 128, 128]. This dataset is split into\n92 training, 23 validation and 34 test images.\nLumiere [19] is a longitudinal dataset of tumor growth in\ngliomas, consisting of 3D MRI scans. The images are re-\nshaped to [T, H, D, W] = [7, 96, 96, 64]. Since not all pa-\ntients have many acquisitions, weprepended zeros to ensure\npre-processing is consistent. For Lumiere we have 48 train-\ning, 12 validation and 14 test images. Example images from\ntwo timepoints for each dataset are shown in Figure 1.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Phase E repair verification against .work/kg_B014/p06.txt",
+      "review_date": "2026-11-21"
+    }
+  ],
+  "metric_results": [],
+  "capability_assessments": [
+    {
+      "subject_id": "model:B014:tfm:v1",
+      "level": "L1",
+      "scope": {
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_assertion_ids": [
+        "assertion:B014:019",
+        "assertion:B014:041",
+        "assertion:B014:042",
+        "assertion:B014:053"
+      ],
+      "rationale": "Implements learned Flow Matching ODE transition over longitudinal 3D medical image sequences and evaluates next-target scan prediction on ACDC, ISLES, and Lumiere without action conditioning."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "system:B014:tfm-forecast",
+      "facets": [
+        "R2"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "intended_use_context_id": "use:B014:4d-medical-forecasting"
+      },
+      "evidence_ids": [
+        "evidence:B014:0004",
+        "evidence:B014:0005",
+        "evidence:B014:0010"
+      ],
+      "legacy_highest_label": "R2 Retrospective internal validation"
+    }
+  ],
+  "gate_assessments": [],
+  "limitations": [
+    "Table 2 SimVP row on ISLES (0.124 / 52.8 / 21.21) is identical to ACDC, indicating a likely copy-paste typo in the paper.",
+    "Real-valued continuous time steps and stochastic sampling are not implemented (explicitly deferred to future work, p. 8)."
+  ],
+  "notes": "All 12 physical PDF pages read; Figures 2, 3, 4, 5, 6, 7 visually inspected.",
+  "legacy_cells": {
+    "A": "B014",
+    "B": "Temporal Flow Matching for Learning Spatio-Temporal Trajectories in 4D Longitudinal Medical Imaging",
+    "C": "Disch, Nico Albert, Kirchhoff, Yannick, Peretzke, Robin, Rokuss, Maximilian, Roy, Saikat, Ulrich, Constantin, et al.",
+    "D": "2025",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://arxiv.org/abs/2508.21580",
+    "H": "Papers/Expanded_Collection (B)",
+    "I": "B014_Temporal_Flow_Matching_for_Learning_Spatio_Temporal_Trajectories_in_4D_Longitudinal_Medical_Imaging.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not reported",
+    "N": "Radiology (multi-disease)",
+    "O": "Cardiac MRI (ACDC heart states/pathologies); glioma/glioblastoma longitudinal MRI (LUMIERE); stroke perfusion CT (ISLES 2024).",
+    "P": "Not reported",
+    "Q": "Tissue / organ",
+    "R": "Other",
+    "S": "Given a patient's prior medical image sequence, predict the target/future 3D medical image.",
+    "T": "Patients represented in ACDC cardiac MRI, LUMIERE glioma MRI, and ISLES 2024 stroke perfusion CT; eligibility criteria are not specified in the extracted methods.",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "Generative model",
+    "X": "F3 Longitudinal imaging & treatment response",
+    "Y": "Pixel/voxel generative (diffusion / flow / video)",
+    "Z": "L1 Temporal prediction",
+    "AA": "L1 Temporal prediction",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "No",
+    "AE": "No",
+    "AF": "No",
+    "AG": "No",
+    "AH": "Single model (no composition)",
+    "AI": "3D longitudinal medical image volumes: cardiac MRI (ACDC); glioma MRI (LUMIERE); perfusion CT (ISLES 2024).",
+    "AJ": "UNet velocity-field network, with cross-attention between time embeddings and spatial feature maps.",
+    "AK": "Not reported",
+    "AL": "Not reported",
+    "AM": "Not reported",
+    "AN": "Sparsity filling: replace missing context images with the most recent available scan; before the first available scan, use the earliest available image.",
+    "AO": "No",
+    "AP": "No",
+    "AQ": "Not reported",
+    "AR": "Image / voxel space",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Conditioning on patient history",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "None (no actions)",
+    "BC": "Not applicable",
+    "BD": "Not reported",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "Temporal Flow Matching (TFM)",
+    "BJ": "Flow matching",
+    "BK": "Continuous time (ODE / SDE / flow)",
+    "BL": "Inference uses 10 ODE integration steps (FM interpolation parameter τ from 0 to 1); no clinical-time step size is specified.",
+    "BM": "No",
+    "BN": "Not reported",
+    "BO": "Not reported",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Predicted target 3D medical image volume; inference reduces the predicted temporal dimension using the last predicted time channel or the mean across time.",
+    "BT": "Not reported",
+    "BU": "Not reported",
+    "BV": "Flow-matching velocity loss: squared discrepancy between the predicted velocity field and the target velocity (target-minus-filled-context images); optimized with AdamW.",
+    "BW": "No",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "One-step only",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "None",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Not reported",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Deterministic (none)",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "None (predictive only)",
+    "CU": "None",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not reported",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Yes",
+    "DN": "ACDC; ISLES 2024; LUMIERE",
+    "DO": "Imaging archive / registry",
+    "DP": "Public open",
+    "DQ": "ACDC: 80 training, 20 validation, 50 test images; ISLES: 92 training, 23 validation, 34 test images; LUMIERE: 48 training, 12 validation, 14 test images.",
+    "DR": "Not reported",
+    "DS": "Real-world data",
+    "DT": "Not reported",
+    "DU": "Not reported",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Test-set image prediction metrics reported: normalized RMSE (NRMSE), SSIM [%], and PSNR; the paper states TFM outperforms LCI across all datasets and metrics. Table 2's extracted row alignment is unclear, so no dataset-specific values are transcribed.",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Inference uses 10 ODE integration steps; the authors report that one function evaluation significantly reduces performance and that gains become marginal beyond five evaluations on one ACDC validation set.",
+    "EH": "Not reported",
+    "EI": "Compared with non-WM image-prediction baselines LCI, ConvLSTM, SimVP, and ViViT; authors report TFM outperforms LCI across all datasets and metrics.",
+    "EJ": "Not reported",
+    "EK": "Ablations: attention UNet vs no-attention UNet; mean vs last-frame aggregation; removal of sparsity filling; single-context LCI + FM.",
+    "EL": "ViViT on LUMIERE ran out of 40GB memory; without sparsity filling training was unstable/degraded; single-context LCI + FM showed poor performance and unstable training; SimVP produced negative SSIM and qualitatively noisy results on LUMIERE.",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "R2 Retrospective internal validation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Announced, not yet released",
+    "EX": "https://github.com/MIC-DKFZ/Temporal-Flow-Matching",
+    "EY": "Not reported",
+    "EZ": "Not applicable",
+    "FA": "Not reported",
+    "FB": "Full-resolution 3D image/voxel trajectory: a stack of context volumes is transformed toward repeated target volumes, with the network predicting image-space flow/differences.",
+    "FC": "0 – absent",
+    "FD": "1 – minimal",
+    "FE": "1 – minimal",
+    "FF": "0 – absent",
+    "FG": "No",
+    "FH": "No",
+    "FI": "Not applicable",
+    "FJ": "No",
+    "FK": "Yes",
+    "FL": "Image volumes (context) → image-space interpolation state Xτ → UNet velocity-field network with time/spatial cross-attention → ODE integration → target image volume; no planner.",
+    "FM": "Introduces Temporal Flow Matching for full-resolution 3D longitudinal image prediction using multiple, sparse/irregular context scans; proposes Difference Modeling and sparsity filling; benchmarks against spatio-temporal methods on ACDC, ISLES, and LUMIERE.",
+    "FN": "Authors report TFM outperforms LCI across all datasets and metrics and achieves top performance on each tested dataset/metric; image metrics include NRMSE, SSIM, and PSNR.",
+    "FO": "The authors cite scarcity of large, high-quality follow-up cohorts; global fixed-resolution sampling may miss localized details; data scarcity challenges conventional baselines; pretrained resources are not readily available.",
+    "FP": "Future work includes learned imputation or temporal interpolation priors, explicit continuous clinical-time modeling, stochastic generation, localized/patch-based modeling, and pretrained models fine-tuned for 4D prediction.",
+    "FQ": "Authors identify that most deep-learning methods analyze isolated time points or focus on classification/regression, while longitudinal imaging methods are technically constrained or disease-specific.",
+    "FR": "Evidence supports retrospective prediction of a target medical image from prior images, not treatment-effect identification, counterfactual treatment comparison, planning, clinical decision utility, or prospective benefit.",
+    "FS": "Reviewer mapping: M3 Belief-state service; M5 Dynamics adapter; M7 Outcome & causal layer",
+    "FT": "Reviewer lesson: Expose future-state forecasts through a time-aware dynamics interface and validate error versus horizon; treatment actions need separate evidence before intervention simulation.",
+    "FU": "Reviewer mapping (KB §20): Multiscale / continuous-time states",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Read all 12 pages of the complete extracted PDF text: title/abstract and introduction (pp. 1–2); methods, equations, and Algorithm 1 (pp. 3–5); dataset and experimental setup (p. 6); results, Tables 2–3, and masking figure (p. 7); discussion, limitations, conclusion, and future work (p. 8); references and appendices A–D including Table 4 (pp. 9–12). | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Low",
+    "FZ": "A:I were left untouched. No dataset-specific Table 2 metric values were transcribed because extracted table row alignment is ambiguous. The text extraction has line-wrap/OCR artifacts in equations and tables, but the relevant narrative, methods, and dataset splits were readable. TFM predicts one target image from context; its numerical ODE integration is not treated as multi-step clinical-time rollout. Authors' broad claims about clinical relevance are not evidence of treatment-effect identification or clinical utility. Evidence QA: 28/72 populated fields had a <=25-word quotation matching extracted PDF text (38.9%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 62 prior populated fields have a located source quotation; 10 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  }
+}

@@ -1,0 +1,4674 @@
+{
+  "record_id": "annotation:B012:r3",
+  "paper_record_id": "B012",
+  "paper_version_id": "paper-version:B012:sha256-a8e6abb7dcd3",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:B012:main",
+    "model:B012:probe"
+  ],
+  "system_composition_ids": [
+    "system:B012:research"
+  ],
+  "world_type_ids": [
+    "WT_EXPERT"
+  ],
+  "profile_ids": [
+    "BP_COMPONENT"
+  ],
+  "entities": [
+    {
+      "id": "paper:B012",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "B012",
+        "title": "A World Model of Radiologist Reading for Medical Image Representation Learning",
+        "authors": [
+          "Yiwei Li",
+          "Zihao Wu",
+          "Huaqin Zhao",
+          "Yifan Zhou",
+          "Chao Cao",
+          "Dajiang Zhu",
+          "Tianming Liu",
+          "Lin Zhao"
+        ],
+        "year": "2026",
+        "publication_status": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+        "url": "https://arxiv.org/abs/2605.23992",
+        "review_membership": "Include – component / supporting",
+        "membership_rationale": "The primary evaluated contribution is reusable visual representation refinement and an auxiliary expert-behavior predictor. Retain supporting inclusion while explicitly recording implemented expert-state dynamics. Lack of patient-physiology modeling is not, by itself, a reason to reject WT_EXPERT world-model identity. Promotion to the core-WM corpus is left for explicit adjudication of the ontology's B012 health-world/WM-use exception.",
+        "core_membership_assessment": "unknown",
+        "core_membership_resolution_needed": "Determine whether the documented expert-fixation successor coordinate and representation/probing use satisfy the project's core health-world/WM-use inclusion policy. Do not substitute a patient-only definition or infer nonmembership from supporting inclusion.",
+        "legacy_membership_preserved": true
+      },
+      "provenance_evidence_ids": [
+        "e:B012:01",
+        "e:B012:02",
+        "e:B012:26",
+        "e:B012:29"
+      ]
+    },
+    {
+      "id": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "class_id": "PaperVersion",
+      "properties": {
+        "version": "arXiv:2605.23992v1",
+        "version_date": "2026-05-17",
+        "source_path": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+        "pdf_pages": 17,
+        "pdf_sha256": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+        "hash_provenance": "Supplied source record; not recomputed.",
+        "pagination": "One-based physical PDF pages.",
+        "access": "Complete supplied text and prior automated page-image review notes; no PDF bytes or direct image pixels in this synthesis call.",
+        "bibliographic_check": "Against supplied page-1 text and page-review notes, not an external lookup."
+      },
+      "provenance_evidence_ids": [
+        "e:B012:01",
+        "e:B012:26",
+        "e:B012:29"
+      ]
+    },
+    {
+      "id": "study:B012:benchmarks",
+      "class_id": "Study",
+      "properties": {
+        "design": "Retrospective computational representation refinement, diagnostic transfer, and supervised scanpath probing.",
+        "environment": "Archived clinical radiographs and recorded human gaze.",
+        "not_demonstrated": [
+          "Prospective system use",
+          "Clinical effectiveness",
+          "Intervention effects"
+        ]
+      },
+      "provenance_evidence_ids": [
+        "e:B012:07",
+        "e:B012:08",
+        "e:B012:10",
+        "e:B012:12"
+      ]
+    },
+    {
+      "id": "model:B012:main",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "GazeWorld, main MedCLIP-Swin configuration",
+        "encoder": "MedCLIP-Swin, adapted during refinement; four stages, C=96, window 7, initial patch size 4, output dimension 768.",
+        "predictor": "Eight-layer causal Transformer; 12 heads; head dimension 64; hidden dimension 768; two-layer GELU MLP prediction head.",
+        "state": "Growing prefix of fixation tokens containing image features, spatial position, first-visit rank and dwell duration.",
+        "transition_coordinate": "Successive unique-patch first visits during reading of a fixed radiograph.",
+        "completion": "Two-layer cross-attention decoder predicts unvisited-patch representations.",
+        "targets": "Stop-gradient EMA encoder; momentum scheduled from 0.998 to 1.0.",
+        "training": "MIMIC-EYE; AdamW; learning rate 3×10^-4; weight decay 0.04; batch size 32; 15 epochs; LAR+λLSC, λ=1.0.",
+        "diagnostic_interface": "1536-dimensional encoder/predictor readout followed by logistic regression.",
+        "evidence_boundary": "Representation-quality evaluation, not reported direct latent-successor fidelity.",
+        "variant_boundary": "MGCA and EGMA initialization experiments do not supply properties or scores for this main checkpoint."
+      },
+      "provenance_evidence_ids": [
+        "e:B012:03",
+        "e:B012:04",
+        "e:B012:05",
+        "e:B012:06",
+        "e:B012:15",
+        "e:B012:27",
+        "e:B012:31"
+      ]
+    },
+    {
+      "id": "model:B012:probe",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Supervised scanpath decoder on frozen GazeWorld features",
+        "configuration": "Primary quantitative scope is Ours (MedCLIP). Res/CheX rows remain separately identified; their checkpoint identities are not assumed.",
+        "inputs": "Frozen image features, pathology-search category and initial fixation coordinate (0.5,0.5).",
+        "architecture": "448×448 input; 14×14 grid; 768-to-512 projection; six-layer, eight-head, 512-dimensional causal Transformer; cross-attention to all image patches.",
+        "state": "Growing fixation sequence and its hidden representations.",
+        "outputs": [
+          "196-way location softmax",
+          "Dwell-duration regression",
+          "Termination prediction"
+        ],
+        "objective": "Spatial CE + 0.1×duration L1 + 0.1×termination BCE.",
+        "transition_coordinate": "Successive expert fixation indices in a fixed image.",
+        "evaluated_output_length": "7 fixations",
+        "not_established": [
+          "Location sampling versus deterministic selection",
+          "Duration/termination performance separately",
+          "Effective horizon"
+        ],
+        "action_boundary": "Predicted fixation behavior is not a separately supplied intervention whose consequences are simulated."
+      },
+      "provenance_evidence_ids": [
+        "e:B012:08",
+        "e:B012:12",
+        "e:B012:19",
+        "e:B012:27",
+        "e:B012:28"
+      ]
+    },
+    {
+      "id": "system:B012:research",
+      "class_id": "SystemComposition",
+      "properties": {
+        "flow": "Pretrained encoder → gaze-ordered latent refinement and spatial completion → frozen diagnostic readout or separately supervised scanpath decoder.",
+        "models": [
+          "model:B012:main",
+          "model:B012:probe"
+        ],
+        "authority": "Offline predictions; no care-changing or physical execution evaluated.",
+        "module_boundary": "Implemented subresponsibilities do not establish complete M1–M10 services or interface-contract conformance."
+      },
+      "provenance_evidence_ids": [
+        "e:B012:02",
+        "e:B012:15",
+        "e:B012:19",
+        "e:B012:28"
+      ]
+    },
+    {
+      "id": "use:B012:research",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "purpose": "Medical image representation research, chest-radiograph classification and expert visual-search prediction.",
+        "setting": "Offline archived-data evaluation.",
+        "population": "Named radiograph/gaze resources; detailed patient and reader eligibility not_reported.",
+        "operational_user": "not_reported",
+        "clinical_authority": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "e:B012:07",
+        "e:B012:08",
+        "e:B012:18",
+        "e:B012:21"
+      ]
+    },
+    {
+      "id": "module:B012:encoder",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "responsibility": "M2 image encoding and gaze-conditioned refinement subresponsibility."
+      },
+      "provenance_evidence_ids": [
+        "e:B012:04",
+        "e:B012:06"
+      ]
+    },
+    {
+      "id": "module:B012:latent-predictor",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "responsibility": "M5 expert-successor latent prediction subresponsibility, not patient physiology."
+      },
+      "provenance_evidence_ids": [
+        "e:B012:03",
+        "e:B012:04",
+        "e:B012:05"
+      ]
+    },
+    {
+      "id": "module:B012:diagnostic-readout",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "responsibility": "M7 static diagnostic readout, not its causal subrole."
+      },
+      "provenance_evidence_ids": [
+        "e:B012:10",
+        "e:B012:15"
+      ]
+    },
+    {
+      "id": "module:B012:scanpath-decoder",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "responsibility": "Limited M6 expert-sequence generation subresponsibility."
+      },
+      "provenance_evidence_ids": [
+        "e:B012:12",
+        "e:B012:19"
+      ]
+    },
+    {
+      "id": "state:B012:reading-prefix",
+      "class_id": "StateSpec",
+      "properties": {
+        "form": "Ordered fixation-token history.",
+        "components": [
+          "768-dimensional visual content",
+          "Spatial embedding",
+          "Temporal rank",
+          "Projected dwell duration"
+        ],
+        "preprocessing": "Repeated visits merged, retaining first-visit order.",
+        "belief_semantics": "No maintained hidden-state posterior established."
+      },
+      "provenance_evidence_ids": [
+        "e:B012:03",
+        "e:B012:04"
+      ]
+    },
+    {
+      "id": "time:B012:fixation-index",
+      "class_id": "TimeSpec",
+      "properties": {
+        "coordinate": "Expert fixation index, not disease time.",
+        "acquisition": "60 Hz eye tracker; not a uniform model-step duration.",
+        "duration": "Recorded dwell duration; units and aggregation after revisit merging not_reported.",
+        "optimization": "Epochs, EMA steps and classifier iterations are optimization quantities."
+      },
+      "provenance_evidence_ids": [
+        "e:B012:04",
+        "e:B012:07",
+        "e:B012:15",
+        "e:B012:27"
+      ]
+    },
+    {
+      "id": "dataset:B012:mimic-eye",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "name": "MIMIC-EYE",
+        "role": "Gaze refinement",
+        "count": "3,032 frontal radiographs",
+        "split": "2,729 / 151 / 152 train/validation/test",
+        "raw_sequence_average": "47 fixations/image before unique-patch deduplication",
+        "version": "Bibliography names PhysioNet version 1.0.0; downloaded snapshot not pinned.",
+        "overlap_controls": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "e:B012:07"
+      ]
+    },
+    {
+      "id": "dataset:B012:gazesearch",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "name": "GazeSearch, ChestSearch protocol",
+        "relationship": "Described as derived from MIMIC-EYE.",
+        "counts": "3,870 training and 488 test samples",
+        "search_categories": "13 finding categories",
+        "reference_length": "Up to 7 fixations",
+        "validation_split": "Construction/count not_reported",
+        "release_snapshot": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "e:B012:08",
+        "e:B012:27",
+        "e:B012:30"
+      ]
+    },
+    {
+      "id": "cohort:B012:scanpath-test",
+      "class_id": "Cohort",
+      "properties": {
+        "dataset_id": "dataset:B012:gazesearch",
+        "count": 488,
+        "unit": "Test samples, not established unique patients or readers.",
+        "data_kind": "Actual radiographs and recorded human fixation references.",
+        "limitation": "Overlap with upstream representation refinement unresolved."
+      },
+      "provenance_evidence_ids": [
+        "e:B012:08",
+        "e:B012:12",
+        "e:B012:27",
+        "e:B012:30"
+      ]
+    },
+    {
+      "id": "cohort:B012:chexpert",
+      "class_id": "Cohort",
+      "properties": {
+        "resource": "CheXpert",
+        "resource_size": "224,316 images from 65,240 patients",
+        "zero_shot_subset": "5×200 class-assigned images; unique patient/image denominator unresolved.",
+        "endpoint_conflict": "Five competition pathologies in Appendix A.1 versus 14-class macro AUROC in Appendix B.",
+        "test_partition_details": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "e:B012:15",
+        "e:B012:18"
+      ]
+    },
+    {
+      "id": "cohort:B012:rsna",
+      "class_id": "Cohort",
+      "properties": {
+        "resource": "RSNA Pneumonia, described as 26,684 frontal radiographs from NIH ChestX-ray14.",
+        "task": "Binary pneumonia/normal classification.",
+        "citation_issue": "Cited Colak entry is pulmonary-embolism CT.",
+        "test_denominator": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "e:B012:18",
+        "e:B012:22"
+      ]
+    },
+    {
+      "id": "cohort:B012:siim",
+      "class_id": "Cohort",
+      "properties": {
+        "resource": "SIIM-ACR Pneumothorax, 12,047 radiographs.",
+        "task": "Masks converted to binary classification.",
+        "test_denominator": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "e:B012:18"
+      ]
+    },
+    {
+      "id": "evaluation:B012:diagnosis",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "model_version_id": "model:B012:main",
+        "tasks": "Frozen-feature classification at 1%, 10%, 100% labels and zero-shot transfer.",
+        "horizon": "Same-image diagnosis.",
+        "externality": "Excluded from gaze refinement according to authors; upstream initialization independence unresolved.",
+        "tables": "1, 2, 4, 5"
+      },
+      "provenance_evidence_ids": [
+        "e:B012:09",
+        "e:B012:10",
+        "e:B012:11",
+        "e:B012:13",
+        "e:B012:14"
+      ]
+    },
+    {
+      "id": "evaluation:B012:scanpath",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "model_version_id": "model:B012:probe",
+        "cohort_id": "cohort:B012:scanpath-test",
+        "protocol": "Supervised decoder; frozen image representation; seven emitted fixations; actual human reference gaze.",
+        "feedback": "Generated fixation history; no measured gaze supplied at inference.",
+        "metrics": "Whole-sequence ScanMatch, SED, STDE, MultiMatch.",
+        "not_established": [
+          "Isolated first-step fidelity",
+          "Multihorizon drift",
+          "Effective horizon",
+          "Calibration"
+        ]
+      },
+      "provenance_evidence_ids": [
+        "e:B012:08",
+        "e:B012:09",
+        "e:B012:12",
+        "e:B012:19",
+        "e:B012:27"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "a:B012:01",
+      "subject_id": "system:B012:research",
+      "feature_id": "data.provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:03",
+        "e:B012:04",
+        "e:B012:07",
+        "e:B012:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Sources, measured gaze attributes, hardware, splits and transformations are described."
+      ],
+      "criteria_missing": [
+        "Complete variable-level version/unit/acquisition/availability provenance is not established."
+      ]
+    },
+    {
+      "id": "a:B012:02",
+      "subject_id": "system:B012:research",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Order, dwell duration and recording cadence do not establish retention or recovery of event-onset timestamps."
+    },
+    {
+      "id": "a:B012:03",
+      "subject_id": "system:B012:research",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No collection-versus-release semantics or sequential information-availability audit is reported."
+    },
+    {
+      "id": "a:B012:04",
+      "subject_id": "system:B012:research",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Visited/unvisited partitions and attention masks are not documented missing/invalid-measurement indicators."
+    },
+    {
+      "id": "a:B012:05",
+      "subject_id": "system:B012:research",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:03",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Fixed-image reading has no carry-forward of asynchronously measured physiological variables; dwell duration is not measurement freshness."
+    },
+    {
+      "id": "a:B012:06",
+      "subject_id": "model:B012:main",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "evidence_ids": [
+        "e:B012:04"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Recorded dwell duration conditions fixation tokens."
+      ],
+      "criteria_missing": [
+        "Elapsed gaps between retained first visits, aggregation and timing-specific validation are not established."
+      ],
+      "rationale": "Duration conditioning is narrower than full native irregular-time modeling."
+    },
+    {
+      "id": "a:B012:07",
+      "subject_id": "model:B012:probe",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B012:probe"
+      },
+      "evidence_ids": [
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Ordinal positional encoding and a duration output do not establish input of actual unequal elapsed intervals."
+    },
+    {
+      "id": "a:B012:08",
+      "subject_id": "model:B012:main",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "evidence_ids": [
+        "e:B012:03",
+        "e:B012:04",
+        "e:B012:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Recorded selection defines latent targets; this branch does not sufficiently specify occurrence-time, selection or stopping probabilities."
+    },
+    {
+      "id": "a:B012:09",
+      "subject_id": "model:B012:probe",
+      "feature_id": "data.observation_process",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B012:probe"
+      },
+      "evidence_ids": [
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Image/task/history-conditioned location, dwell-duration and termination heads model expert observation behavior. Fixed-length evaluation does not validate termination."
+    },
+    {
+      "id": "a:B012:10",
+      "subject_id": "system:B012:research",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:03",
+        "e:B012:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Order ablations are not target/grid witness-preservation audits across timing, cell summaries and external channels."
+    },
+    {
+      "id": "a:B012:11",
+      "subject_id": "system:B012:research",
+      "feature_id": "data.harmonization",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:03",
+        "e:B012:32"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Image-frame normalization and nearest-patch coordinate mapping are specified."
+      ],
+      "criteria_missing": [
+        "Complete source-coordinate conversions, duration units and validated mappings are not reported."
+      ],
+      "rationale": "Limited spatial harmonization, not clinical terminology harmonization."
+    },
+    {
+      "id": "a:B012:12",
+      "subject_id": "system:B012:research",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:07",
+        "e:B012:08",
+        "e:B012:15",
+        "e:B012:30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Nominal splits do not establish image/patient/reader overlap checks, initialization independence or training-only preprocessing fits. Actual leakage is not asserted."
+    },
+    {
+      "id": "a:B012:13",
+      "subject_id": "system:B012:research",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No site-local training/query and artifact-exchange protocol is reported."
+    },
+    {
+      "id": "a:B012:14",
+      "subject_id": "system:B012:research",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:06",
+        "e:B012:10",
+        "e:B012:12",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Operational image-to-patch encoding is used in evaluated diagnostic and scanpath tasks; no acceptance tolerance is specified."
+    },
+    {
+      "id": "a:B012:15",
+      "subject_id": "system:B012:research",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:02",
+        "e:B012:06"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Named MedCLIP-Swin initialization is adapted and reused. Exact checkpoint/hash remains unpinned."
+    },
+    {
+      "id": "a:B012:16",
+      "subject_id": "model:B012:main",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B012:main",
+        "evaluation_run_id": "evaluation:B012:diagnosis"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:05",
+        "e:B012:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Latent next-fixation/completion objectives are implemented and ablated for downstream representation quality, not directly validated for latent fidelity."
+    },
+    {
+      "id": "a:B012:17",
+      "subject_id": "model:B012:probe",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B012:probe"
+      },
+      "evidence_ids": [
+        "e:B012:28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Complete decoder-only loss fits location, duration and termination, without latent-target prediction. Upstream refinement remains separate."
+    },
+    {
+      "id": "a:B012:18",
+      "subject_id": "model:B012:main",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "evidence_ids": [
+        "e:B012:05",
+        "e:B012:31"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Stop-gradient EMA targets provide a specified predictive-representation stabilization mechanism. Its anti-collapse interpretation is reviewer inference, not a demonstrated guarantee."
+    },
+    {
+      "id": "a:B012:19",
+      "subject_id": "model:B012:probe",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B012:probe"
+      },
+      "evidence_ids": [
+        "e:B012:28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Supervised decoder-only training does not optimize a latent-target encoder; upstream collapse controls are assessed separately."
+    },
+    {
+      "id": "a:B012:20",
+      "subject_id": "system:B012:research",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:05",
+        "e:B012:28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Reported refinement/probe objectives predict latent targets or successor gaze attributes, not reconstruction of input radiograph values. Upstream initialization training is excluded."
+    },
+    {
+      "id": "a:B012:21",
+      "subject_id": "model:B012:main",
+      "feature_id": "perception.fusion",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "evidence_ids": [
+        "e:B012:04"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Radiograph tokens interact with separately acquired gaze position, order and dwell duration in the fixation embedder."
+    },
+    {
+      "id": "a:B012:22",
+      "subject_id": "model:B012:probe",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B012:probe"
+      },
+      "evidence_ids": [
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Inference has one acquired observation modality, the image. A task category, fixed starting coordinate and generated history are not additional acquired modalities."
+    },
+    {
+      "id": "a:B012:23",
+      "subject_id": "model:B012:main",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No incomplete-gaze availability/quality policy is described. A different gaze-free inference construction does not establish availability-aware fusion."
+    },
+    {
+      "id": "a:B012:24",
+      "subject_id": "model:B012:probe",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B012:probe"
+      },
+      "evidence_ids": [
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No inference-time fusion of separately acquired modalities occurs; degraded-image robustness remains a separate question."
+    },
+    {
+      "id": "a:B012:25",
+      "subject_id": "model:B012:main",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "evidence_ids": [
+        "e:B012:03",
+        "e:B012:04"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "A fixation-token prefix is carried into successive expert-fixated latent predictions."
+    },
+    {
+      "id": "a:B012:26",
+      "subject_id": "model:B012:probe",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B012:probe",
+        "evaluation_run_id": "evaluation:B012:scanpath"
+      },
+      "evidence_ids": [
+        "e:B012:12",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "The evaluated decoder retains a growing fixation sequence for subsequent predictions."
+    },
+    {
+      "id": "a:B012:27",
+      "subject_id": "system:B012:research",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Carried states are point embeddings/history; observable-location softmax is not a maintained hidden-state posterior."
+    },
+    {
+      "id": "a:B012:28",
+      "subject_id": "system:B012:research",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:15",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Specified algorithms lack distinct prior propagation and measured-observation correction; EMA is a parameter update, not filtering."
+    },
+    {
+      "id": "a:B012:29",
+      "subject_id": "system:B012:research",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:09",
+        "e:B012:15",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Inference retains a fixed image and generated history, without newly measured gaze or patient evidence."
+    },
+    {
+      "id": "a:B012:30",
+      "subject_id": "model:B012:main",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B012:main",
+        "evaluation_run_id": "evaluation:B012:diagnosis"
+      },
+      "evidence_ids": [
+        "e:B012:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Backbone and predictor are frozen during probing, not fitted to each evaluated individual."
+    },
+    {
+      "id": "a:B012:31",
+      "subject_id": "model:B012:probe",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B012:probe"
+      },
+      "evidence_ids": [
+        "e:B012:27",
+        "e:B012:28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Cohort-level decoder training is specified, but no individual patient/reader fitting rule is reported."
+    },
+    {
+      "id": "a:B012:32",
+      "subject_id": "model:B012:main",
+      "feature_id": "state.reusable",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "evidence_ids": [
+        "e:B012:09",
+        "e:B012:15",
+        "e:B012:19",
+        "e:B012:30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "A gaze-refined frozen encoder representation feeds diagnostic and scanpath tasks."
+      ],
+      "criteria_missing": [
+        "Reuse of the identical maintained fixation-prefix/predictor state is not established; readout interfaces differ."
+      ]
+    },
+    {
+      "id": "a:B012:33",
+      "subject_id": "model:B012:probe",
+      "feature_id": "state.reusable",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B012:probe"
+      },
+      "evidence_ids": [
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "One hidden state supplies location, duration and termination heads; separate performance for each is not established."
+    },
+    {
+      "id": "a:B012:34",
+      "subject_id": "system:B012:research",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:13",
+        "e:B012:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Training-objective/order/initialization ablations assess representation quality, not omitted components or history of the carried state against successor targets. No probe-history sufficiency test is reported."
+    },
+    {
+      "id": "a:B012:35",
+      "subject_id": "model:B012:main",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "evidence_ids": [
+        "e:B012:04"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Within-image expert first-visit history conditions latent successors; not longitudinal patient history."
+    },
+    {
+      "id": "a:B012:36",
+      "subject_id": "model:B012:probe",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B012:probe",
+        "evaluation_run_id": "evaluation:B012:scanpath"
+      },
+      "evidence_ids": [
+        "e:B012:12",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Growing modeled fixation history conditions later outputs; reader-specific observed history is not supplied at inference."
+    },
+    {
+      "id": "a:B012:37",
+      "subject_id": "system:B012:research",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:12",
+        "e:B012:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No matched correct-individual versus swapped/withheld-history or population-prior control; random training order is different."
+    },
+    {
+      "id": "a:B012:38",
+      "subject_id": "system:B012:research",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:05",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No declared identity/anatomy-persistence constraint or loss. Fixed image context and causal attention alone are insufficient."
+    },
+    {
+      "id": "a:B012:39",
+      "subject_id": "model:B012:main",
+      "feature_id": "state.interpretability",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Token scaffolding has patch-position, fixation-order and duration semantics."
+      ],
+      "criteria_missing": [
+        "Latent content lacks a documented inspectable diagnostic/physiological mapping or faithful reasoning validation."
+      ]
+    },
+    {
+      "id": "a:B012:40",
+      "subject_id": "model:B012:probe",
+      "feature_id": "state.interpretability",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B012:probe"
+      },
+      "evidence_ids": [
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Explicit predicted fixation histories have inspectable spatial/order semantics."
+      ],
+      "criteria_missing": [
+        "Hidden content is not mapped to expert reasoning; decoded scanpaths are not validated explanations of diagnosis."
+      ]
+    },
+    {
+      "id": "a:B012:41",
+      "subject_id": "system:B012:research",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Causal attention retains prior fixation tokens/history. Useful long-term or delayed-effect memory is not established."
+    },
+    {
+      "id": "a:B012:42",
+      "subject_id": "system:B012:research",
+      "feature_id": "action.explicit",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Complete specified predictors take image/task/fixation history, not a separate settable action whose consequences are modeled."
+    },
+    {
+      "id": "a:B012:43",
+      "subject_id": "system:B012:research",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No separate action vocabulary exists to type; predicted fixation behavior is not a lifestyle intervention."
+    },
+    {
+      "id": "a:B012:44",
+      "subject_id": "system:B012:research",
+      "feature_id": "action.parameterized",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Coordinates, rank, duration and pathology task are state/context/output attributes, not a parameterized action-consequence query."
+    },
+    {
+      "id": "a:B012:45",
+      "subject_id": "system:B012:research",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "A recorded/predicted fixation sequence is not a supplied intervention schedule."
+    },
+    {
+      "id": "a:B012:46",
+      "subject_id": "system:B012:research",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No joint treatment settings are edited; multiple prediction heads are not treatment bundles."
+    },
+    {
+      "id": "a:B012:47",
+      "subject_id": "system:B012:research",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No candidate operations are queried/executed; attention masks and finite output grids are computational restrictions, not action contraindications."
+    },
+    {
+      "id": "a:B012:48",
+      "subject_id": "system:B012:research",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No latent-action or executable-command variable exists; patch representations and predicted gaze are not such actions."
+    },
+    {
+      "id": "a:B012:49",
+      "subject_id": "system:B012:research",
+      "feature_id": "action.support",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No alternative intervention is queried. Patch support is not historical treatment overlap."
+    },
+    {
+      "id": "a:B012:50",
+      "subject_id": "system:B012:research",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:12",
+        "e:B012:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Model comparisons, scanpath-reference comparisons and training-order ablations are not same-origin consequences of specified alternative actions."
+    },
+    {
+      "id": "a:B012:51",
+      "subject_id": "system:B012:research",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:15",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The scoped offline composition delivers no intervention or device actuation; future clinical reliance would require a separate hazard assessment."
+    },
+    {
+      "id": "a:B012:52",
+      "subject_id": "model:B012:main",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B012:main",
+        "time_horizon": "Next unique-patch fixation index"
+      },
+      "evidence_ids": [
+        "e:B012:03",
+        "e:B012:04"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Fixation history maps to a subsequent expert-fixated latent representation; not disease-time evolution."
+    },
+    {
+      "id": "a:B012:53",
+      "subject_id": "model:B012:probe",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B012:probe",
+        "evaluation_run_id": "evaluation:B012:scanpath",
+        "time_horizon": "Seven emitted fixation outputs"
+      },
+      "evidence_ids": [
+        "e:B012:12",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "A growing sequence predicts subsequently indexed expert behavior and is compared with recorded scanpaths."
+    },
+    {
+      "id": "a:B012:54",
+      "subject_id": "model:B012:main",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "evidence_ids": [
+        "e:B012:05",
+        "e:B012:27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Transition/predictor parameters are learned jointly from MIMIC-EYE. No mechanistic hybrid is claimed."
+    },
+    {
+      "id": "a:B012:55",
+      "subject_id": "model:B012:probe",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B012:probe",
+        "evaluation_run_id": "evaluation:B012:scanpath"
+      },
+      "evidence_ids": [
+        "e:B012:12",
+        "e:B012:27",
+        "e:B012:28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Supervised decoder parameters are trained and evaluated on recorded gaze; the image backbone remains frozen."
+    },
+    {
+      "id": "a:B012:56",
+      "subject_id": "system:B012:research",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "No separate settable action/regime enters the specified transitions. Predicted actions or task labels do not establish L2."
+    },
+    {
+      "id": "a:B012:57",
+      "subject_id": "model:B012:main",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Specified latent regression returns point vectors, not a random next-state process; optimization randomness is distinct."
+    },
+    {
+      "id": "a:B012:58",
+      "subject_id": "model:B012:probe",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B012:probe"
+      },
+      "evidence_ids": [
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "A categorical location distribution exists, but sampled versus deterministic evaluated decoding is unspecified. The decoding rule would resolve operational stochasticity."
+    },
+    {
+      "id": "a:B012:59",
+      "subject_id": "system:B012:research",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:05",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Expert ordering is domain-informed supervision, not a sufficiently specified anatomical, physical, symbolic or object-level transition constraint."
+    },
+    {
+      "id": "a:B012:60",
+      "subject_id": "system:B012:research",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:05",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Specified neural predictors, heads and EMA targets contain no operationally coupled mechanistic dynamical component."
+    },
+    {
+      "id": "a:B012:61",
+      "subject_id": "system:B012:research",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:14",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Encoder initialization variants/common probing do not establish interchangeable dynamics under a semantic contract."
+    },
+    {
+      "id": "a:B012:62",
+      "subject_id": "system:B012:research",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:06",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Encoder stages, input resolutions and multiple heads do not establish coupled world scales exchanging states."
+    },
+    {
+      "id": "a:B012:63",
+      "subject_id": "model:B012:main",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Observed-prefix next-target losses and parallel completion do not traverse two generated transitions."
+    },
+    {
+      "id": "a:B012:64",
+      "subject_id": "model:B012:probe",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B012:probe"
+      },
+      "evidence_ids": [
+        "e:B012:19",
+        "e:B012:28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Training loss is given, but reference/generated prefix use and gradients through generated successors are not."
+    },
+    {
+      "id": "a:B012:65",
+      "subject_id": "system:B012:research",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Specified sequence models have one fixation-index level, without coordinated temporal options/subgoals. Dwell duration and Swin depth are not such hierarchy."
+    },
+    {
+      "id": "a:B012:66",
+      "subject_id": "model:B012:main",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Predictive/completion branches emit latents, not observable values; the auxiliary scanpath decoder is separately scoped."
+    },
+    {
+      "id": "a:B012:67",
+      "subject_id": "model:B012:probe",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B012:probe",
+        "evaluation_run_id": "evaluation:B012:scanpath"
+      },
+      "evidence_ids": [
+        "e:B012:12",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Hidden states emit observable fixation predictions compared with recorded gaze; duration/termination are not separately validated."
+    },
+    {
+      "id": "a:B012:68",
+      "subject_id": "system:B012:research",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:10",
+        "e:B012:15",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Named same-image diagnostic and fixation-location readouts are evaluated; CheXpert endpoint conflict remains. Duration/termination are implemented only."
+    },
+    {
+      "id": "a:B012:69",
+      "subject_id": "model:B012:main",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "evidence_ids": [
+        "e:B012:05",
+        "e:B012:10",
+        "e:B012:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No direct held-out next-latent fidelity result; training losses and downstream probes are not that evaluation."
+    },
+    {
+      "id": "a:B012:70",
+      "subject_id": "model:B012:probe",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B012:probe",
+        "evaluation_run_id": "evaluation:B012:scanpath",
+        "cohort_id": "cohort:B012:scanpath-test",
+        "time_horizon": "Seven emitted fixation outputs"
+      },
+      "evidence_ids": [
+        "e:B012:08",
+        "e:B012:12",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Reference-based prediction of subsequently indexed expert behavior meets functional successor evaluation. It does not isolate first-step error or predict disease evolution."
+    },
+    {
+      "id": "a:B012:71",
+      "subject_id": "model:B012:main",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B012:main",
+        "evaluation_run_id": "evaluation:B012:diagnosis"
+      },
+      "evidence_ids": [
+        "e:B012:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The specified diagnostic path processes image-derived raster surrogate tokens rather than feeding back predicted latent successors."
+    },
+    {
+      "id": "a:B012:72",
+      "subject_id": "model:B012:probe",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B012:probe",
+        "evaluation_run_id": "evaluation:B012:scanpath",
+        "time_horizon": "Seven emitted fixation outputs"
+      },
+      "evidence_ids": [
+        "e:B012:09",
+        "e:B012:12",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Image-only inference extends generated fixation history across steps. The sampling/selection rule remains unspecified."
+    },
+    {
+      "id": "a:B012:73",
+      "subject_id": "model:B012:main",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Observed-prefix training is described, but no direct latent-sequence fidelity evaluation establishes its evaluated feedback protocol."
+    },
+    {
+      "id": "a:B012:74",
+      "subject_id": "model:B012:probe",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B012:probe",
+        "evaluation_run_id": "evaluation:B012:scanpath"
+      },
+      "evidence_ids": [
+        "e:B012:09",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Inference starts from a fixed center and does not receive measured gaze; references score outputs rather than supply intermediate inputs. Training remains separately unresolved."
+    },
+    {
+      "id": "a:B012:75",
+      "subject_id": "system:B012:research",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:09",
+        "e:B012:15",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Fixed image/generated-prefix inference contains no newly measured correction."
+    },
+    {
+      "id": "a:B012:76",
+      "subject_id": "model:B012:main",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "evidence_ids": [
+        "e:B012:07",
+        "e:B012:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Raw fixation count and raster context length are not evaluated latent forecast horizons."
+    },
+    {
+      "id": "a:B012:77",
+      "subject_id": "model:B012:probe",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B012:probe",
+        "evaluation_run_id": "evaluation:B012:scanpath",
+        "time_horizon": "Seven emitted fixation outputs"
+      },
+      "evidence_ids": [
+        "e:B012:12",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": {
+        "value": 7,
+        "unit": "fixation outputs",
+        "elapsed_time": "not_reported"
+      },
+      "rationale": "Reported output length, not seven post-initial transitions or a validated usable horizon."
+    },
+    {
+      "id": "a:B012:78",
+      "subject_id": "system:B012:research",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No common-protocol error/validity comparison across free-running depths is reported."
+    },
+    {
+      "id": "a:B012:79",
+      "subject_id": "system:B012:research",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:12",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No horizon curve, acceptance tolerance and uncertainty/support evidence; seven is a benchmark length."
+    },
+    {
+      "id": "a:B012:80",
+      "subject_id": "model:B012:main",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:05",
+        "e:B012:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Specified point latent predictions/deterministic raster extraction provide no future sample distribution."
+    },
+    {
+      "id": "a:B012:81",
+      "subject_id": "model:B012:probe",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B012:probe"
+      },
+      "evidence_ids": [
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Repeated-path sampling and explicit joint-path probability construction are not reported; a location softmax alone is insufficient."
+    },
+    {
+      "id": "a:B012:82",
+      "subject_id": "system:B012:research",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No supported-horizon rejection/escalation policy; fixed output length or termination prediction is not such assurance."
+    },
+    {
+      "id": "a:B012:83",
+      "subject_id": "system:B012:research",
+      "feature_id": "planning.model_use",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:15",
+        "e:B012:19",
+        "e:B012:28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Specified use is representation/readout prediction, not consequence ranking, action search or imagination-based policy learning."
+    },
+    {
+      "id": "a:B012:84",
+      "subject_id": "system:B012:research",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:15",
+        "e:B012:19",
+        "e:B012:28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "No optimizer/policy uses simulated consequences. AdamW/LBFGS fit parameters, not clinical or gaze actions in a predictive world."
+    },
+    {
+      "id": "a:B012:85",
+      "subject_id": "system:B012:research",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No executed plan prefix and new measured consequences exist from which to replan."
+    },
+    {
+      "id": "a:B012:86",
+      "subject_id": "system:B012:research",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:15",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No action utility/constraint optimization uses dynamics. Different readouts/task labels are not changed planning utilities."
+    },
+    {
+      "id": "a:B012:87",
+      "subject_id": "system:B012:research",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No consequence-based planner, risk budget or planning candidate filter is implemented."
+    },
+    {
+      "id": "a:B012:88",
+      "subject_id": "system:B012:research",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:19",
+        "e:B012:28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "There are no model-optimized plans to test for exploitation of dynamics errors."
+    },
+    {
+      "id": "a:B012:89",
+      "subject_id": "system:B012:research",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The patch output vocabulary is not an intervention candidate set scored using predicted consequences."
+    },
+    {
+      "id": "a:B012:90",
+      "subject_id": "system:B012:research",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No decision policy is implemented; encoder stages and prediction heads are not coordinated high-/low-level policies."
+    },
+    {
+      "id": "a:B012:91",
+      "subject_id": "system:B012:research",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:09",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No action outputs affect an environment that supplies newly measured consequences; the image remains fixed."
+    },
+    {
+      "id": "a:B012:92",
+      "subject_id": "model:B012:main",
+      "feature_id": "uq.explicit",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B012:main",
+        "module_implementation_id": "module:B012:latent-predictor"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Scoped latent predictor emits point vectors without uncertainty sets/distributions. EMA targets are not an uncertainty ensemble. Diagnostic classifier outputs are outside this negative scope."
+    },
+    {
+      "id": "a:B012:93",
+      "subject_id": "model:B012:probe",
+      "feature_id": "uq.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B012:probe"
+      },
+      "evidence_ids": [
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The 196-way location distribution has explicit target/support semantics; calibration, hidden-state belief and duration uncertainty do not follow."
+    },
+    {
+      "id": "a:B012:94",
+      "subject_id": "system:B012:research",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No separate aleatoric/epistemic estimators; comparison variants are not a reported uncertainty ensemble."
+    },
+    {
+      "id": "a:B012:95",
+      "subject_id": "system:B012:research",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:10",
+        "e:B012:11",
+        "e:B012:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No probability reliability/coverage test; accuracy, AUROC and scanpath similarity are not calibration."
+    },
+    {
+      "id": "a:B012:96",
+      "subject_id": "system:B012:research",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:12",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Neither joint-path nor fixation-indexed reliability is evaluated."
+    },
+    {
+      "id": "a:B012:97",
+      "subject_id": "system:B012:research",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No calibration acceptance criterion/result; no failed test or invented tolerance."
+    },
+    {
+      "id": "a:B012:98",
+      "subject_id": "system:B012:research",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No operational OOD statistic, threshold and response. Transfer tests and termination prediction do not establish one."
+    },
+    {
+      "id": "a:B012:99",
+      "subject_id": "system:B012:research",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No nonconformity score, calibration protocol or coverage/error-control assumptions."
+    },
+    {
+      "id": "a:B012:100",
+      "subject_id": "system:B012:research",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:02",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Targets are representations, labels and gaze, not effects of assigned intervention alternatives."
+    },
+    {
+      "id": "a:B012:101",
+      "subject_id": "system:B012:research",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No intervention-effect estimand; causal attention is sequence masking, not effect identification."
+    },
+    {
+      "id": "a:B012:102",
+      "subject_id": "system:B012:research",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:02",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Predictive tasks invoke no causal-effect identification assumptions. Ordinary predictive assumptions remain relevant."
+    },
+    {
+      "id": "a:B012:103",
+      "subject_id": "system:B012:research",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:13",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No causal estimand is targeted; order/objective ablations are not sensitivity to confounding or identification violations."
+    },
+    {
+      "id": "a:B012:104",
+      "subject_id": "system:B012:research",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:05",
+        "e:B012:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "EMA targets, labels and recorded gaze are predictive references, not defined intervention-effect ground truth."
+    },
+    {
+      "id": "a:B012:105",
+      "subject_id": "system:B012:research",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No physical/pharmacological action-to-state mechanism is queried."
+    },
+    {
+      "id": "a:B012:106",
+      "subject_id": "system:B012:research",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:02",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Scoped outputs are not intervention-effect estimates. This is not a passed causal-assurance claim."
+    },
+    {
+      "id": "a:B012:107",
+      "subject_id": "system:B012:research",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No safety-specific output/action blocker with fail behavior; attention masks and finite grids do not suffice."
+    },
+    {
+      "id": "a:B012:108",
+      "subject_id": "system:B012:research",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No uncertainty/support-triggered withholding and fallback. Scanpath termination is not safety abstention."
+    },
+    {
+      "id": "a:B012:109",
+      "subject_id": "system:B012:research",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No trigger, human recipient, response time or handoff fallback. Gaze contributors are not operational escalation recipients."
+    },
+    {
+      "id": "a:B012:110",
+      "subject_id": "system:B012:research",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No online hazard/failure signal and protective response."
+    },
+    {
+      "id": "a:B012:111",
+      "subject_id": "system:B012:research",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No safety-triggered stop/degradation/fallback; predicted termination does not establish one."
+    },
+    {
+      "id": "a:B012:112",
+      "subject_id": "system:B012:research",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No defined assets, adversaries or attack paths."
+    },
+    {
+      "id": "a:B012:113",
+      "subject_id": "system:B012:research",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No attack/fault-injection protocol; training ablations are not automatically adversarial tests."
+    },
+    {
+      "id": "a:B012:114",
+      "subject_id": "system:B012:research",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No study-specific operational privacy mechanism; a cited de-identified database's capabilities are not inherited."
+    },
+    {
+      "id": "a:B012:115",
+      "subject_id": "system:B012:research",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No copying, membership, re-identification or disclosure test; latent representations do not make privacy audit inapplicable."
+    },
+    {
+      "id": "a:B012:116",
+      "subject_id": "system:B012:research",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:15",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Specified offline prediction executes no external clinical/device actions. Dataset-access permissions remain a distinct unresolved obligation."
+    },
+    {
+      "id": "a:B012:117",
+      "subject_id": "system:B012:research",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:20",
+        "e:B012:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Qualitative explanation examples are not an evaluated reliance-management interface/protocol."
+    },
+    {
+      "id": "a:B012:118",
+      "subject_id": "system:B012:research",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:02",
+        "e:B012:21",
+        "e:B012:30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Research purpose, evaluated tasks, image domain and one-gaze-corpus limitation are explicit."
+      ],
+      "criteria_missing": [
+        "Operational user, decision point, permitted autonomy and deployment population boundaries are unspecified."
+      ]
+    },
+    {
+      "id": "a:B012:119",
+      "subject_id": "system:B012:research",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No organized versioned model/system card identified; the manuscript alone does not establish it."
+    },
+    {
+      "id": "a:B012:120",
+      "subject_id": "system:B012:research",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No post-release monitoring signals, cadence, ownership or response plan."
+    },
+    {
+      "id": "a:B012:121",
+      "subject_id": "system:B012:research",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Training EMA and frozen probing are not release-change approval, revalidation or rollback."
+    },
+    {
+      "id": "a:B012:122",
+      "subject_id": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No named framework captured; generic privacy-regulation wording is not a specific framework."
+    },
+    {
+      "id": "a:B012:123",
+      "subject_id": "system:B012:research",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No applicability/compliance/authorization evidence; neither approval nor denial inferred."
+    },
+    {
+      "id": "a:B012:124",
+      "subject_id": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No named study approval/exemption or consent determination; source-resource approvals are not inherited."
+    },
+    {
+      "id": "a:B012:125",
+      "subject_id": "system:B012:research",
+      "feature_id": "agent.role",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:15",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Specified pipeline contains ordinary visual/predictive modules and probes, not an LLM or acting/planning agent."
+    },
+    {
+      "id": "a:B012:126",
+      "subject_id": "system:B012:research",
+      "feature_id": "agent.multiple",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:05",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Branches, target encoders and output heads are not communicating decision-making agents."
+    },
+    {
+      "id": "a:B012:127",
+      "subject_id": "system:B012:research",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:05",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No agent proposal exists to critique/revise; gradient updates and autoregression are not reflection."
+    },
+    {
+      "id": "a:B012:128",
+      "subject_id": "system:B012:research",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:15",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No operational agent invokes external tools/systems. This does not assert that development software makes no network calls."
+    },
+    {
+      "id": "a:B012:129",
+      "subject_id": "system:B012:research",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:21",
+        "e:B012:30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Offline prediction is demonstrated, but operational proposal/approval/execution authority is unspecified."
+    },
+    {
+      "id": "a:B012:130",
+      "subject_id": "system:B012:research",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No proposed-model code release identified; comparator official implementations do not establish it."
+    },
+    {
+      "id": "a:B012:131",
+      "subject_id": "system:B012:research",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No refined-weight/decoder release statement; reuse of pretrained dependencies is not release of these artifacts."
+    },
+    {
+      "id": "a:B012:132",
+      "subject_id": "system:B012:research",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Separate code, weight and data terms are insufficiently reported."
+    },
+    {
+      "id": "a:B012:133",
+      "subject_id": "system:B012:research",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:16",
+        "e:B012:17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No independent reproduction of GazeWorld. Comparator reruns and automated review are not reproduction."
+    },
+    {
+      "id": "a:B012:134",
+      "subject_id": "model:B012:main",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "evidence_ids": [
+        "e:B012:05",
+        "e:B012:10",
+        "e:B012:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No direct held-out next-latent successor error; static probes do not substitute."
+    },
+    {
+      "id": "a:B012:135",
+      "subject_id": "model:B012:probe",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B012:probe",
+        "evaluation_run_id": "evaluation:B012:scanpath"
+      },
+      "evidence_ids": [
+        "e:B012:12",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Recorded-reference successor sequence prediction is quantitatively assessed."
+      ],
+      "criteria_missing": [
+        "Isolated next-fixation/first-step fidelity is not reported."
+      ]
+    },
+    {
+      "id": "a:B012:136",
+      "subject_id": "model:B012:main",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "evidence_ids": [
+        "e:B012:13",
+        "e:B012:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No free-running latent-sequence fidelity across horizons."
+    },
+    {
+      "id": "a:B012:137",
+      "subject_id": "model:B012:probe",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B012:probe",
+        "evaluation_run_id": "evaluation:B012:scanpath"
+      },
+      "evidence_ids": [
+        "e:B012:12",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Generated seven-output scanpaths are assessed against recorded human sequences."
+      ],
+      "criteria_missing": [
+        "Results at multiple separately identified horizons are not reported."
+      ]
+    },
+    {
+      "id": "a:B012:138",
+      "subject_id": "system:B012:research",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:12",
+        "e:B012:24",
+        "e:B012:25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No generated-sample distribution test; paired similarity and feature t-SNE are not distributional realism."
+    },
+    {
+      "id": "a:B012:139",
+      "subject_id": "system:B012:research",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:20",
+        "e:B012:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Qualitative maps/scanpaths do not test defined clinical/anatomical constraints; formal clinician-centered localization is future work."
+    },
+    {
+      "id": "a:B012:140",
+      "subject_id": "system:B012:research",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:10",
+        "e:B012:11",
+        "e:B012:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No reliability/coverage/sharpness evaluation with nominal-target context."
+    },
+    {
+      "id": "a:B012:141",
+      "subject_id": "system:B012:research",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:13",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No action-consequence input is evaluated; training-order changes are not action sensitivity."
+    },
+    {
+      "id": "a:B012:142",
+      "subject_id": "system:B012:research",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:02",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No causal/interventional estimand is targeted; recorded gaze agreement is factual predictive evaluation."
+    },
+    {
+      "id": "a:B012:143",
+      "subject_id": "system:B012:research",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:12",
+        "e:B012:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No matched correct-individual history/reader-context controls."
+    },
+    {
+      "id": "a:B012:144",
+      "subject_id": "system:B012:research",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:15",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No model-coupled decision selector/policy; diagnostic AUROC and predicted-scanpath similarity are predictive endpoints."
+    },
+    {
+      "id": "a:B012:145",
+      "subject_id": "system:B012:research",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:19",
+        "e:B012:30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No matched simulated/physical-or-clinical policy execution pair exists; predictive gaze agreement is different."
+    },
+    {
+      "id": "a:B012:146",
+      "subject_id": "model:B012:main",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B012:main",
+        "evaluation_run_id": "evaluation:B012:diagnosis"
+      },
+      "evidence_ids": [
+        "e:B012:09",
+        "e:B012:10",
+        "e:B012:11",
+        "e:B012:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": {
+        "supported": "Cross-dataset diagnostic representation transfer",
+        "not_established": [
+          "Strict independent external validation",
+          "Subgroup robustness",
+          "Missing-modality robustness",
+          "OOD detection"
+        ]
+      },
+      "rationale": "Transfer satisfies this feature's disjunctive criterion, not R3 or G09 acceptance."
+    },
+    {
+      "id": "a:B012:147",
+      "subject_id": "model:B012:probe",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B012:probe",
+        "evaluation_run_id": "evaluation:B012:scanpath"
+      },
+      "evidence_ids": [
+        "e:B012:08",
+        "e:B012:30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "A supervised split from a MIMIC-EYE-derived benchmark does not establish independent reader/cohort transfer or a distinct shift test."
+    },
+    {
+      "id": "a:B012:148",
+      "subject_id": "system:B012:research",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:03",
+        "e:B012:13",
+        "e:B012:32"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No target-specific audit of evidence retained after timing aggregation, revisit removal or spatial discretization."
+    },
+    {
+      "id": "a:B012:149",
+      "subject_id": "system:B012:research",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:12",
+        "e:B012:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Human gaze provides training/reference data, but no people reviewing/using model outputs are reported; no R4 inferred."
+    },
+    {
+      "id": "a:B012:150",
+      "subject_id": "system:B012:research",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:10",
+        "e:B012:27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Label fractions and optimizer settings are given, but no efficiency endpoint with the required hardware/load/cost context."
+    },
+    {
+      "id": "a:B012:151",
+      "subject_id": "system:B012:research",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:21",
+        "e:B012:30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No real-care/workflow model-use study measuring predeclared utility and harms."
+    },
+    {
+      "id": "a:B012:152",
+      "subject_id": "model:B012:main",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Predictor computes successor patch representations from fixation history; direct fidelity and recursive latent feedback are not established."
+    },
+    {
+      "id": "a:B012:153",
+      "subject_id": "model:B012:probe",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B012:probe"
+      },
+      "evidence_ids": [
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "A separately predicted latent successor carried across steps is not sufficiently specified; ordinary hidden states alone do not establish it."
+    },
+    {
+      "id": "a:B012:154",
+      "subject_id": "system:B012:research",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:05",
+        "e:B012:28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Complete reported objectives match representations/gaze attributes, not rewards, values or policy-equivalence contracts."
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "r:B012:01",
+      "subject_id": "paper:B012",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "effective_date": "2026-05-17"
+      },
+      "evidence_ids": [
+        "e:B012:01",
+        "e:B012:26"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B012:02",
+      "subject_id": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "predicate_id": "reportsStudy",
+      "object_id": "study:B012:benchmarks",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": [
+          "evaluation:B012:diagnosis",
+          "evaluation:B012:scanpath"
+        ]
+      },
+      "evidence_ids": [
+        "e:B012:10",
+        "e:B012:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B012:03",
+      "subject_id": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B012:main",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B012:04",
+      "subject_id": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B012:probe",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B012:probe",
+        "evaluation_run_id": "evaluation:B012:scanpath"
+      },
+      "evidence_ids": [
+        "e:B012:12",
+        "e:B012:19",
+        "e:B012:28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B012:05",
+      "subject_id": "system:B012:research",
+      "predicate_id": "composesModel",
+      "object_id": "model:B012:main",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:15",
+        "e:B012:30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B012:06",
+      "subject_id": "system:B012:research",
+      "predicate_id": "composesModel",
+      "object_id": "model:B012:probe",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B012:scanpath"
+      },
+      "evidence_ids": [
+        "e:B012:12",
+        "e:B012:28",
+        "e:B012:30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B012:07",
+      "subject_id": "model:B012:main",
+      "predicate_id": "modelsWorld",
+      "object_id": "WT_EXPERT",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B012:main",
+        "time_horizon": "Expert first-visit fixation index"
+      },
+      "evidence_ids": [
+        "e:B012:03",
+        "e:B012:04"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B012:08",
+      "subject_id": "model:B012:probe",
+      "predicate_id": "modelsWorld",
+      "object_id": "WT_EXPERT",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B012:probe",
+        "evaluation_run_id": "evaluation:B012:scanpath"
+      },
+      "evidence_ids": [
+        "e:B012:12",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "r:B012:09",
+      "subject_id": "module:B012:encoder",
+      "predicate_id": "realizesModule",
+      "object_id": "M2",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B012:main",
+        "module_implementation_id": "module:B012:encoder"
+      },
+      "evidence_ids": [
+        "e:B012:06"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Encoding/refinement subresponsibility only."
+    },
+    {
+      "id": "r:B012:10",
+      "subject_id": "module:B012:latent-predictor",
+      "predicate_id": "realizesModule",
+      "object_id": "M5",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B012:main",
+        "module_implementation_id": "module:B012:latent-predictor"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Expert-successor subresponsibility, not full contract conformance."
+    },
+    {
+      "id": "r:B012:11",
+      "subject_id": "module:B012:diagnostic-readout",
+      "predicate_id": "realizesModule",
+      "object_id": "M7",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "module_implementation_id": "module:B012:diagnostic-readout",
+        "evaluation_run_id": "evaluation:B012:diagnosis"
+      },
+      "evidence_ids": [
+        "e:B012:10",
+        "e:B012:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Predictive readout only."
+    },
+    {
+      "id": "r:B012:12",
+      "subject_id": "module:B012:scanpath-decoder",
+      "predicate_id": "realizesModule",
+      "object_id": "M6",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B012:probe",
+        "module_implementation_id": "module:B012:scanpath-decoder",
+        "evaluation_run_id": "evaluation:B012:scanpath"
+      },
+      "evidence_ids": [
+        "e:B012:12",
+        "e:B012:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Limited sequence-generation responsibility, not validated horizon assurance."
+    },
+    {
+      "id": "r:B012:13",
+      "subject_id": "model:B012:main",
+      "predicate_id": "demonstratesCapability",
+      "object_id": "L0",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B012:main",
+        "evaluation_run_id": "evaluation:B012:diagnosis"
+      },
+      "evidence_ids": [
+        "e:B012:04",
+        "e:B012:05",
+        "e:B012:10",
+        "e:B012:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Implemented expert-state predictive mechanism, demonstrated only through representation/downstream quality."
+    },
+    {
+      "id": "r:B012:14",
+      "subject_id": "model:B012:probe",
+      "predicate_id": "demonstratesCapability",
+      "object_id": "L1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B012:probe",
+        "evaluation_run_id": "evaluation:B012:scanpath",
+        "cohort_id": "cohort:B012:scanpath-test",
+        "time_horizon": "Seven emitted fixation outputs"
+      },
+      "evidence_ids": [
+        "e:B012:08",
+        "e:B012:12",
+        "e:B012:19",
+        "e:B012:28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Evaluated successor expert-behavior prediction, not intervention effects or planning."
+    },
+    {
+      "id": "r:B012:15",
+      "subject_id": "system:B012:research",
+      "predicate_id": "hasReadinessEvidence",
+      "object_id": "R2",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B012:probe",
+        "evaluation_run_id": "evaluation:B012:scanpath",
+        "cohort_id": "cohort:B012:scanpath-test",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "e:B012:08",
+        "e:B012:12",
+        "e:B012:27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Stated train/test evaluation on actual archived human data. Upstream overlap and independent split units remain unresolved."
+    },
+    {
+      "id": "r:B012:16",
+      "subject_id": "system:B012:research",
+      "predicate_id": "hasProfile",
+      "object_id": "BP_COMPONENT",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "evidence_ids": [
+        "e:B012:02",
+        "e:B012:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "e:B012:01",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Title"
+      },
+      "content": "A World Model of Radiologist Reading for Medical\nImage Representation Learning",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:02",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Section 2.3"
+      },
+      "content": "Thus, our contribution is not a new\nfoundation pretraining pipeline from scratch, but a gaze-ordered world-model refinement objective\nthat injects radiologist reading behavior into already pretrained medical encoders.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:03",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Section 3.1"
+      },
+      "content": "We assign each fixation to its nearest image patch and merge repeated\nvisits to the same patch while preserving the first-visit order.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:04",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 14,
+        "section_or_table": "Appendix B, fixation embedder and predictor"
+      },
+      "content": "Fixation embedder.For each visited patch si, the fixation embedder combines the visual patch\ntoken zsi with three fixation-specific signals: a two-dimensional spatial embedding of the patch\nlocation, a learned temporal-rank embedding for the fixation order i, and a projected dwell-duration\nfeature. The resulting fixation token is used as input to the causal predictor.\nAutoregressive predictor.The autoregressive predictor is an 8-layer causal Transformer with\n12 attention heads, head dimension 64, hidden dimension d= 768 , and a lower-triangular causal\nattention mask. It receives previously fixated tokens and predicts the semantic representation of the\nnext fixated patch. The prediction head is a two-layer MLP with GELU activation.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:05",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section 3.4"
+      },
+      "content": "The complete world-model pretraining objective combines autoregressive next-fixation prediction\nand spatial completion:\nLpre =L AR +λL SC.(12)\nDuring pretraining, the online visual encoder is optimized jointly with the fixation embedder, autore-\ngressive predictor, prediction head, and spatial-completion decoder. The target encoder receives no\ngradients and is updated only through EMA (6).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:06",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 14,
+        "section_or_table": "Appendix B, Backbone"
+      },
+      "content": "We use the MedCLIP Swin image encoder [Liu et al., 2021] as the online visual\nbackbone. The encoder has 4 stages, embedding dimension C= 96 , window size 7, patch size 4, and\noutput dimension d= 768 .",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:07",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 13,
+        "section_or_table": "Appendix A.1, MIMIC-EYE"
+      },
+      "content": "It records radiologist fixation sequences from 3,032 frontal chest\nradiographs during routine clinical reading sessions using a Tobii Pro Nano eye tracker (sampling\nrate 60 Hz). Each record contains a temporally ordered sequence of fixation coordinates (xt, yt) with\nassociated dwell durations. We split the data into 2,729 / 151 / 152 train/val/test following the official\npartition. Per-image fixation sequences average 47 fixation points; after de-duplication to unique\npatch indices, the resulting sequence is used as the causal order for world-model pretraining.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:08",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 13,
+        "section_or_table": "Appendix A.1, GazeSearch"
+      },
+      "content": "The ChestSearch split contains 3,870 training and 488 test samples, each consisting of a radiograph,\na target pathology label, and a ground-truth fixation sequence (up to 7 fixations).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:09",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Sections 4.2–4.3"
+      },
+      "content": "At evaluation, the visual encoder and predictor are frozen; downstream tasks\nuse only the resulting representations with no access to gaze data. Full architecture specifications,\nhyperparameters, and evaluation protocols are provided in Appendix B.\n4.3 Downstream Classification\nIf the world model has captured the invariants of expert reading, its representations should also\ntransfer to standard diagnostic tasks. We evaluate frozen backbone features for supervised and\nzero-shot classification on three external datasets that are not used during world-model pretraining.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:10",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "table",
+        "page": 6,
+        "section_or_table": "Table 1, EGMA and Ours"
+      },
+      "content": "EGMA [Ma et al., 2024] 71.21 79.79 85.45 82.49 84.73 88.09 87.17 87.91 88.98\nOurs78.37 83.41 87.61 83.27 85.75 90.15 87.85 90.48 94.27",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:11",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "table",
+        "page": 7,
+        "section_or_table": "Table 2"
+      },
+      "content": "Method CheXpert 5×200 RSNA SIIM-ACR\nAUROC↑Acc.↑/ F1↑AUROC↑Acc.↑/ F1↑AUROC↑Acc.↑/ F1↑\nCLIP [Radford et al., 2021] 15.50 19.60 / 10.99 21.67 23.46 / 19.87 42.13 46.11 / 40.13\nGLoRIA [Huang et al., 2021] 49.18 51.10 / 47.25 60.77 61.53 /60.09– - / -\nMGCA [Wang et al., 2022c] 42.53 43.39 / 39.67 59.19 60.82 / 59.57 36.60 38.45 / 34.95\nMedCLIP [Wang et al., 2022b] 56.63 57.40 / 55.72 58.08 62.17 / 40.06 56.17 56.89 / 55.44\nEGMA [Ma et al., 2024] 56.09 57.15 / 55.03 57.46 66.85 / 43.08 59.79 63.24 / 61.04\nOurs58.13 59.42/56.85 62.84 70.18/ 47.3164.29 66.59/63.26",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:12",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "table",
+        "page": 8,
+        "section_or_table": "Table 3"
+      },
+      "content": "Method Scanpath MultiMatch\nSM↑SED↓STDE↑Vec.↑Dir.↑Pos.↑\nGazeFormer [Mondal et al., 2023] 0.280 5.11 0.801 0.902 0.644 0.803\nHAT [Yang et al., 2024] 0.296 5.07 0.800 0.909 0.649 0.825\nGazeSearch [Pham et al., 2025] 0.351 4.89 0.809 0.917 0.679 0.829\nLogitGaze [Lvov and Pershin, 2025] 0.328 5.07 0.810 0.882 0.643 0.809\nLogitGaze-Med (Res) [Lvov and Pershin, 2025] 0.416 4.68 0.852 0.935 0.650 0.823\nLogitGaze-Med (CheX) [Lvov and Pershin, 2025] 0.419 4.68 0.855 0.938 0.651 0.823\nOurs (MedCLIP) 0.479 3.74 0.909 0.941 0.649 0.837\nOurs (Res) 0.484 3.66 0.9120.966 0.678 0.917\nOurs (CheX)0.489 3.630.911 0.966 0.6860.915",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:13",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "table",
+        "page": 9,
+        "section_or_table": "Table 4"
+      },
+      "content": "Variant CheXpert 5×200 RSNA SIIM-ACR\nAUROC↑Acc.↑/F1↑AUROC↑Acc.↑/F1↑AUROC↑Acc.↑/F1↑\nRaster-scan Order 52.18 55.21 / 51.58 50.39 62.46 / 42.30 53.50 56.22 / 50.16\nRandom Order 52.25 56.08 / 49.13 51.58 61.53 / 42.68 55.06 57.02 / 54.34\nAR Only 57.78 58.86 / 55.91 59.11 68.07 / 44.15 62.10 64.88 / 61.94\nSC Only 54.67 54.41 / 53.06 51.25 60.63 / 40.03 52.59 53.72 / 51.37\nOurs 58.13 59.42 / 56.85 62.84 70.18 / 47.31 64.29 66.59 / 63.26",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:14",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "table",
+        "page": 9,
+        "section_or_table": "Table 5"
+      },
+      "content": "MGCA 42.53 43.39 39.67 59.19 60.82 59.57 36.60 38.45 34.95\n+GazeWorld47.41 48.31 46.07 60.76 61.46 59.98 41.07 43.56 39.62\n∆+4.88 +4.92 +6.40 +1.57 +0.64 +0.41 +4.47 +5.11 +4.67\nEGMA 56.09 57.15 55.03 57.46 66.85 43.08 59.77 63.24 61.04\n+GazeWorld56.42 58.30 55.45 58.50 67.16 44.89 60.83 64.01 61.33\n∆+0.33 +1.15 +0.42 +1.04 +0.31 +1.81 +1.06 +0.77 +0.29\nMedCLIP 56.63 57.40 55.72 58.09 62.17 40.07 56.17 56.89 55.44\n+GazeWorld58.13 59.42 56.85 62.84 70.18 47.31 64.29 66.59 63.26\n∆+1.50 +2.02 +1.13 +4.75 +8.01 +7.24 +8.12 +9.70 +7.82",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:15",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "Appendix B, Linear probing"
+      },
+      "content": "For\neach image we extract a 1536-d feature by concatenating two halves: (i) the mean-pooled patch\ntokens of the online MedCLIP-Swin encoder ϕ, and (ii) the d-dimensional output of a learnable\nreadout token prepended to a deterministic raster-scan surrogate fixation sequence over theN patches\nand processed by the (frozen) causal predictor, followed by a learned linear projection back to d. No\ngaze annotations are used at probing time. Features are standardised per dimension (zero mean, unit\nvariance) and fed to an ℓ2-regularised logistic-regression classifier (LBFGS, C=1, 2000 iterations);\ntraining fractions are sampled with a fixed seed. We report 14-class macro AUROC on CheXpert and\nbinary AUROC on RSNA / SIIM-ACR. The backbone and predictor receive no gradient at probing\ntime.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:16",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 13,
+        "section_or_table": "Appendix A.2, classification provenance"
+      },
+      "content": "All classification numbers for BioViL, MedKLIP, MGCA, GLoRIA,\nPRIOR, MedCLIP, and EGMA in Tables 1 and 2 are taken from EGMA [Ma et al., 2024], which re-\nevaluated every method under a single downstream protocol.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:17",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "table",
+        "page": 16,
+        "section_or_table": "Table 6"
+      },
+      "content": "Method Backbone Pretrain data Resolution Source\nBioViL ResNet MIMIC-CXR224Rerun\nMedKLIP ResNet MIMIC-CXR224Rerun\nMGCA ResNet MIMIC-CXR224Rerun\nGLoRIA ResNet CheXpert224Rerun\nPRIOR ResNet MIMIC-CXR224Rerun\nMedCLIP Swin MIMIC-CXR224Rerun\nCheXWorld ViT MIMIC-CXR224Rerun\nEGMA Swin MIMIC-CXR + EYE224Rerun\nGazeFormer ViT ImageNet + COCO224Rerun\nHAT ResNet ImageNet224Reported (GazeSearch)\nGazeSearch ResNet ImageNet448Rerun\nLogitGaze-Med ResNet / CheX MIMIC-CXR + EYE448Reported (LogitGaze)\nOurs Swin MIMIC-CXR + EYE224/448Rerun",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:18",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 13,
+        "section_or_table": "Appendix A.1, diagnostic datasets"
+      },
+      "content": "CheXpert.CheXpert [Irvin et al., 2019] is a large-scale chest radiograph dataset containing 224,316\nimages from 65,240 patients at Stanford Hospital, labeled for 14 observations via an automated\nNLP labeler applied to radiology reports. We evaluate on 5 competition pathologies (Atelectasis,\nCardiomegaly, Consolidation, Edema, Pleural Effusion) under 1%, 10%, and 100% label fractions.\nFor zero-shot evaluation, we follow the CheXpert 5×200 protocol [Ma et al., 2024]: 200 images per\nclass, 5 pathologies.\nRSNA Pneumonia.The RSNA [Colak et al., 2021] Pneumonia Detection Challenge dataset\nprovides 26,684 frontal chest radiographs with bounding-box annotations for pneumonia opacities,\ncurated from the NIH ChestX-ray14 collection. We use the binary pneumonia/normal classification\ntask under1%,10%, and100%label fractions.\nSIIM-ACR Pneumothorax.The SIIM-ACR Pneumothorax Segmentation dataset [Zawacki et al.,\n2019] contains 12,047 chest radiographs with pixel-level pneumothorax masks. We convert it to a\nbinary classification task (pneumothorax-present vs. normal) and evaluate under 1%, 10%, and 100%\nlabel fractions.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:19",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 16,
+        "section_or_table": "Appendix D"
+      },
+      "content": "The input is resized to 448×448 , yielding a 14×14 patch grid (N= 196 ) for finer spatial resolution.\nPatch features are projected from d= 768 to ds = 512 via a linear layer. The decoder receives three\ninputs: the projected patch features, a learned task embedding t∈R ds indicating which pathology\nto search for (t∈ {0, . . . ,12}), and the initial fixation coordinate x0 = (0.5,0.5) , projected to ds\ndimensions.\nAt each step, the current fixation token queries the full set of patch features via cross-attention. A\ncausal Transformer (6 layers, 8 heads, dimension ds = 512) processes the growing fixation sequence\nwith temporal positional encoding. Three output heads operate on each hidden state ht: (i) a spatial\nhead, implemented as a 196-way softmax over the patch grid; (ii) a duration head that regresses\nfixation dwell time; and (iii) a termination head. Following the GazeSearch evaluation protocol, the\ndecoder emits 7 fixations at inference time.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:20",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "Appendix C"
+      },
+      "content": "Grad-CAM\nvisualizations are qualitative: they indicate which spatial regions most influence a particular logit but\ndo not provide localization guarantees.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:21",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "Limitations"
+      },
+      "content": "This study is limited to chest radiographs and one eye-tracking corpus. Future\nwork should evaluate larger multi-reader gaze datasets, broader imaging modalities, and formal\nclinician-centered localization studies.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:22",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 11,
+        "section_or_table": "Colak reference"
+      },
+      "content": "The rsna\npulmonary embolism ct dataset.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:23",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 14,
+        "section_or_table": "Appendix A.2, scanpath baselines"
+      },
+      "content": "We use the original paper results for LogitGaze-Med and evaluate GazeFormer, HAT,\nGazeSearch, and LogitGaze using their official implementations under the same protocol.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:24",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "figure",
+        "page": 17,
+        "section_or_table": "Figure 4 caption"
+      },
+      "content": "Each point\nrepresents a chest radiograph and is color-coded by its ground-truth pathology label.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:25",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 16,
+        "section_or_table": "Appendix E"
+      },
+      "content": "Since t-SNE [Van der Maaten and Hinton, 2008] is a qualitative projection and can be sensitive to\nhyperparameters, we use this visualization only as supporting evidence; the quantitative transfer\nresults in Tables 1 and 2 provide the primary evaluation of representation quality.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:26",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Preprint banner"
+      },
+      "content": "Preprint.\narXiv:2605.23992v1  [cs.CV]  17 May 2026",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:27",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "Appendix B, optimization and scanpath training"
+      },
+      "content": "Optimization.We train the world model on MIMIC-EYE using AdamW [Loshchilov and Hutter,\n2017] with learning rate 3×10 −4, weight decay 0.04, batch size 32, automatic mixed precision,\nand 15 training epochs. The online MedCLIP-Swin encoder, fixation embedder, causal predictor,\nautoregressive prediction head, and spatial-completion decoder are optimized jointly. The target\nencoder receives no gradients and is updated only through EMA.\nScanpath decoder.GazeSearch train split: 3,870 samples. AdamW, learning rate 5×10 −4, weight\ndecay 0.01, cosine annealing (ηmin = 10−6, Tmax = 30), batch size 16, 30 epochs. Best checkpoint\nselected by validation mean Euclidean distance; evaluation on 488 test samples.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:28",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 16,
+        "section_or_table": "Appendix D, loss and frozen-backbone boundary"
+      },
+      "content": "Lscan =L spatial(CE,196) + 0.1· Ldur(ℓ1) + 0.1· Lterm(BCE).(18)\nOnly the decoder parameters are trained during scanpath probing; the backbone remains frozen in\nthis probing stage. The scanpath loss is never back-propagated into the backbone.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:29",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Byline"
+      },
+      "content": "Yiwei Li∗\nUniversity of Georgia\nZihao Wu∗\nUniversity of Georgia\nHuaqin Zhao\nUniversity of Georgia\nYifan Zhou\nUniversity of Georgia\nChao Cao\nUniversity of Texas at Arlington\nDajiang Zhu\nUniversity of Texas at Arlington\nTianming Liu\nUniversity of Georgia\nLin Zhao†\nNew Jersey Institute of Technology",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:30",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Section 4.1, scanpath protocol"
+      },
+      "content": "We pretrain on MIMIC-EYE [Hsieh et al., 2023] and probe on Gaze-\nSearch [Pham et al., 2025], a refined scanpath benchmark derived from MIMIC-EYE with more\nprecise gaze-path annotations, under the ChestSearch protocol. For each backbone variant, we freeze\nthe pretrained visual encoder and train only the same lightweight scanpath decoder on top of its\npatch-level features; performance differences therefore reflect scanpath-relevant information already\nencoded in the frozen representations.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:31",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "Appendix B, EMA schedule"
+      },
+      "content": "The\nEMA momentum follows a cosine schedule from0.998to1.0.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "e:B012:32",
+      "source_ref": "Papers/Expanded_Collection/B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+      "source_version": "paper-version:B012:sha256-a8e6abb7dcd3",
+      "source_hash": "a8e6abb7dcd3cbfd2f3ba698ac1aa6d5b09fe938c9941a1c71c1a8b50d5b0555",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 14,
+        "section_or_table": "Appendix B, fixation preprocessing"
+      },
+      "content": "Fixation coordinates are normalized to the\nimage frame and mapped to the nearest patch index. Repeated visits to the same patch are merged\nwhile preserving the first-visit order, yielding a fixation-ordered sequence of unique visited patches",
+      "verification_status": "entailment_reviewed"
+    }
+  ],
+  "metric_results": [
+    {
+      "id": "metric:B012:supervised-chexpert",
+      "metric": "AUROC",
+      "value": {
+        "training_label_fractions": [
+          "1%",
+          "10%",
+          "100%"
+        ],
+        "GazeWorld": [
+          78.37,
+          83.41,
+          87.61
+        ],
+        "EGMA": [
+          71.21,
+          79.79,
+          85.45
+        ]
+      },
+      "unit_or_scale": "Printed 0–100-style scale; not rescaled.",
+      "direction": "higher_better",
+      "task": "Frozen-feature CheXpert classification; five-versus-14-label endpoint unresolved.",
+      "cohort_id": "cohort:B012:chexpert",
+      "split_role": "Reported downstream evaluation; test denominator and partition unit not_reported.",
+      "horizon": "Same-image diagnosis",
+      "model_version_id": "model:B012:main",
+      "uncertainty_status": "not_reported",
+      "baseline_id": "EGMA; result provenance conflicting",
+      "source_evidence_ids": [
+        "e:B012:10",
+        "e:B012:15",
+        "e:B012:16",
+        "e:B012:17",
+        "e:B012:18"
+      ]
+    },
+    {
+      "id": "metric:B012:supervised-rsna",
+      "metric": "AUROC",
+      "value": {
+        "training_label_fractions": [
+          "1%",
+          "10%",
+          "100%"
+        ],
+        "GazeWorld": [
+          83.27,
+          85.75,
+          90.15
+        ],
+        "EGMA": [
+          82.49,
+          84.73,
+          88.09
+        ]
+      },
+      "unit_or_scale": "Printed 0–100-style scale.",
+      "direction": "higher_better",
+      "task": "Frozen-feature binary pneumonia classification; citation mismatch unresolved.",
+      "cohort_id": "cohort:B012:rsna",
+      "split_role": "Reported downstream evaluation; detailed test partition not_reported.",
+      "horizon": "Same-image diagnosis",
+      "model_version_id": "model:B012:main",
+      "uncertainty_status": "not_reported",
+      "baseline_id": "EGMA; result provenance conflicting",
+      "source_evidence_ids": [
+        "e:B012:10",
+        "e:B012:18",
+        "e:B012:22"
+      ]
+    },
+    {
+      "id": "metric:B012:supervised-siim",
+      "metric": "AUROC",
+      "value": {
+        "training_label_fractions": [
+          "1%",
+          "10%",
+          "100%"
+        ],
+        "GazeWorld": [
+          87.85,
+          90.48,
+          94.27
+        ],
+        "EGMA": [
+          87.17,
+          87.91,
+          88.98
+        ]
+      },
+      "unit_or_scale": "Printed 0–100-style scale.",
+      "direction": "higher_better",
+      "task": "Frozen-feature binary pneumothorax classification.",
+      "cohort_id": "cohort:B012:siim",
+      "split_role": "Reported downstream evaluation; detailed test partition not_reported.",
+      "horizon": "Same-image diagnosis",
+      "model_version_id": "model:B012:main",
+      "uncertainty_status": "not_reported",
+      "baseline_id": "EGMA; result provenance conflicting",
+      "source_evidence_ids": [
+        "e:B012:10",
+        "e:B012:18"
+      ]
+    },
+    {
+      "id": "metric:B012:zero-chexpert",
+      "metric": "AUROC; Accuracy; F1",
+      "value": {
+        "AUROC": 58.13,
+        "Accuracy": 59.42,
+        "F1": 56.85
+      },
+      "unit_or_scale": "Printed 0–100-style scales; threshold/F1 averaging not_reported.",
+      "direction": "higher_better",
+      "task": "Zero-shot CheXpert 5×200 classification.",
+      "cohort_id": "cohort:B012:chexpert",
+      "split_role": "Reported zero-shot subset; unique patient/image independence unresolved.",
+      "horizon": "Same-image diagnosis",
+      "model_version_id": "model:B012:main",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "e:B012:11",
+        "e:B012:18"
+      ]
+    },
+    {
+      "id": "metric:B012:zero-rsna",
+      "metric": "AUROC; Accuracy; F1",
+      "value": {
+        "GazeWorld": {
+          "AUROC": 62.84,
+          "Accuracy": 70.18,
+          "F1": 47.31
+        },
+        "comparator_F1": {
+          "GLoRIA": 60.09,
+          "MGCA": 59.57
+        }
+      },
+      "unit_or_scale": "Printed 0–100-style scales; threshold/F1 averaging not_reported.",
+      "direction": "higher_better",
+      "task": "Zero-shot pneumonia classification; GazeWorld is not highest on F1.",
+      "cohort_id": "cohort:B012:rsna",
+      "split_role": "Reported zero-shot evaluation; test denominator not_reported.",
+      "horizon": "Same-image diagnosis",
+      "model_version_id": "model:B012:main",
+      "uncertainty_status": "not_reported",
+      "baseline_id": "GLoRIA and MGCA, Table 2",
+      "source_evidence_ids": [
+        "e:B012:11"
+      ]
+    },
+    {
+      "id": "metric:B012:zero-siim",
+      "metric": "AUROC; Accuracy; F1",
+      "value": {
+        "AUROC": 64.29,
+        "Accuracy": 66.59,
+        "F1": 63.26
+      },
+      "unit_or_scale": "Printed 0–100-style scales; threshold/F1 averaging not_reported.",
+      "direction": "higher_better",
+      "task": "Zero-shot pneumothorax classification.",
+      "cohort_id": "cohort:B012:siim",
+      "split_role": "Reported zero-shot evaluation; test denominator not_reported.",
+      "horizon": "Same-image diagnosis",
+      "model_version_id": "model:B012:main",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "e:B012:11"
+      ]
+    },
+    {
+      "id": "metric:B012:probe-medclip",
+      "metric": "ScanMatch; SED; STDE; MultiMatch vector/direction/position",
+      "value": {
+        "Ours_MedCLIP": {
+          "ScanMatch": 0.479,
+          "SED": 3.74,
+          "STDE": 0.909,
+          "MultiMatch_vector": 0.941,
+          "MultiMatch_direction": 0.649,
+          "MultiMatch_position": 0.837
+        },
+        "LogitGaze_Med_CheX": {
+          "ScanMatch": 0.419,
+          "SED": 4.68,
+          "STDE": 0.855,
+          "MultiMatch_vector": 0.938,
+          "MultiMatch_direction": 0.651,
+          "MultiMatch_position": 0.823
+        },
+        "directions": {
+          "ScanMatch": "higher_better",
+          "SED": "lower_better",
+          "STDE": "higher_better",
+          "MultiMatch_vector": "higher_better",
+          "MultiMatch_direction": "higher_better",
+          "MultiMatch_position": "higher_better"
+        }
+      },
+      "unit_or_scale": "Printed metric-specific scores; not pooled.",
+      "direction": "context_dependent",
+      "task": "Supervised MedCLIP frozen-feature scanpath probe.",
+      "cohort_id": "cohort:B012:scanpath-test",
+      "split_role": "ChestSearch test, 488 samples.",
+      "horizon": "Seven emitted fixations; whole-sequence metrics.",
+      "model_version_id": "model:B012:probe",
+      "uncertainty_status": "not_reported",
+      "baseline_id": "LogitGaze-Med (CheX), reported comparator",
+      "source_evidence_ids": [
+        "e:B012:08",
+        "e:B012:12",
+        "e:B012:19"
+      ]
+    }
+  ],
+  "capability_assessments": [
+    {
+      "subject_id": "model:B012:main",
+      "level": "L0",
+      "scope": {
+        "model_version_id": "model:B012:main",
+        "evaluation_run_id": "evaluation:B012:diagnosis",
+        "world_type": "WT_EXPERT",
+        "transition_coordinate": "Unique-patch expert fixation index"
+      },
+      "evidence_assertion_ids": [
+        "a:B012:16",
+        "a:B012:25",
+        "a:B012:52",
+        "a:B012:54",
+        "a:B012:69",
+        "r:B012:07",
+        "r:B012:13"
+      ],
+      "rationale": "Implemented learned expert-state successor mechanism is evaluated through representation quality. Its direct predictive fidelity is not reported. Supporting inclusion and core-membership adjudication remain separate from this functional assessment."
+    },
+    {
+      "subject_id": "model:B012:probe",
+      "level": "L1",
+      "scope": {
+        "model_version_id": "model:B012:probe",
+        "evaluation_run_id": "evaluation:B012:scanpath",
+        "cohort_id": "cohort:B012:scanpath-test",
+        "world_type": "WT_EXPERT",
+        "transition_coordinate": "Successor expert fixation index",
+        "maximum_evaluated_output_length": "7 fixations",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_assertion_ids": [
+        "a:B012:26",
+        "a:B012:53",
+        "a:B012:55",
+        "a:B012:70",
+        "a:B012:72",
+        "r:B012:08",
+        "r:B012:14"
+      ],
+      "rationale": "Reported reference-based expert-sequence prediction supports auxiliary L1. It does not validate the main latent predictor, isolated one-step fidelity, disease forecasting, intervention effects or L2–L4."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "system:B012:research",
+      "facets": [
+        "R2"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "model_version_id": "model:B012:probe",
+        "evaluation_run_id": "evaluation:B012:scanpath",
+        "cohort_id": "cohort:B012:scanpath-test",
+        "design": "Stated 3,870 training and 488 test samples with reported actual-human-reference outcomes.",
+        "limits": "Upstream refinement overlap, patient/reader partitioning and validation construction remain unresolved. No strict externality, output-reader study or prospective facet inferred."
+      },
+      "evidence_ids": [
+        "e:B012:08",
+        "e:B012:12",
+        "e:B012:27"
+      ],
+      "legacy_highest_label": "R2 Retrospective internal validation"
+    }
+  ],
+  "gate_assessments": [
+    {
+      "gate_id": "G01",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "rationale": "Provenance is partial; overlap, partition units, information-access boundaries and preprocessing-fit scope are unresolved.",
+      "supporting_assertion_ids": [
+        "a:B012:01",
+        "a:B012:03",
+        "a:B012:12"
+      ]
+    },
+    {
+      "gate_id": "G02",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B012:main"
+      },
+      "rationale": "Implemented expert-state dynamics lack direct successor-latent evaluation.",
+      "supporting_assertion_ids": [
+        "a:B012:25",
+        "a:B012:52",
+        "a:B012:54",
+        "a:B012:69"
+      ]
+    },
+    {
+      "gate_id": "G02",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B012:probe",
+        "evaluation_run_id": "evaluation:B012:scanpath"
+      },
+      "rationale": "Successor prediction is evaluated, but non-leaky reference independence and context-specific acceptance evidence are incomplete. L1 is not an assurance-gate pass.",
+      "supporting_assertion_ids": [
+        "a:B012:12",
+        "a:B012:26",
+        "a:B012:53",
+        "a:B012:55",
+        "a:B012:70"
+      ]
+    },
+    {
+      "gate_id": "G03",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B012:probe",
+        "evaluation_run_id": "evaluation:B012:scanpath"
+      },
+      "rationale": "Seven outputs are tested without multihorizon drift, acceptance tolerance or effective-horizon evidence.",
+      "supporting_assertion_ids": [
+        "a:B012:77",
+        "a:B012:78",
+        "a:B012:79",
+        "a:B012:137"
+      ]
+    },
+    {
+      "gate_id": "G04",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "rationale": "No probabilistic guarantee or uncertainty-dependent decision claim is assessed. Location probabilities exist; calibration remains not_reported.",
+      "supporting_assertion_ids": [
+        "a:B012:93",
+        "a:B012:95",
+        "a:B012:96"
+      ]
+    },
+    {
+      "gate_id": "G05",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "rationale": "No action-consequence query or matched alternative-action experiment.",
+      "supporting_assertion_ids": [
+        "a:B012:42",
+        "a:B012:50",
+        "a:B012:56"
+      ]
+    },
+    {
+      "gate_id": "G06",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "rationale": "Outputs are not intervention-effect estimands; causal attention does not change this.",
+      "supporting_assertion_ids": [
+        "a:B012:100",
+        "a:B012:106"
+      ]
+    },
+    {
+      "gate_id": "G07",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "rationale": "No model-coupled action optimizer or control policy.",
+      "supporting_assertion_ids": [
+        "a:B012:83",
+        "a:B012:84"
+      ]
+    },
+    {
+      "gate_id": "G08",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "rationale": "Restricted to offline research without care-changing/physical execution, not a clinical safety clearance. Unreported safeguards remain visible.",
+      "supporting_assertion_ids": [
+        "a:B012:107",
+        "a:B012:108",
+        "a:B012:118"
+      ]
+    },
+    {
+      "gate_id": "G09",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B012:main",
+        "evaluation_run_id": "evaluation:B012:diagnosis"
+      },
+      "rationale": "Transfer results exist, but upstream overlap, endpoint consistency, externality and subgroup/shift evidence remain incomplete.",
+      "supporting_assertion_ids": [
+        "a:B012:12",
+        "a:B012:146"
+      ]
+    },
+    {
+      "gate_id": "G10",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:B012:research",
+        "claim_boundary": "Clinician-centered interpretability/localization relevance"
+      },
+      "rationale": "Archived gaze and qualitative plots do not establish actual human review/use of outputs or clinically useful explanations.",
+      "supporting_assertion_ids": [
+        "a:B012:39",
+        "a:B012:40",
+        "a:B012:139",
+        "a:B012:149"
+      ]
+    },
+    {
+      "gate_id": "G11",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "rationale": "Selected profile is offline component research, not demonstrated live clinical utility.",
+      "supporting_assertion_ids": [
+        "a:B012:151"
+      ]
+    },
+    {
+      "gate_id": "G12",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:B012:research"
+      },
+      "rationale": "No operational deployment/release is assessed. Ethics, privacy and asset terms remain applicable unresolved research questions.",
+      "supporting_assertion_ids": [
+        "a:B012:114",
+        "a:B012:124",
+        "a:B012:130",
+        "a:B012:131",
+        "a:B012:132"
+      ]
+    }
+  ],
+  "legacy_cells": {
+    "A": "B012",
+    "B": "A World Model of Radiologist Reading for Medical Image Representation Learning",
+    "C": "Yiwei Li; Zihao Wu; Huaqin Zhao; Yifan Zhou; Chao Cao; Dajiang Zhu; Tianming Liu; Lin Zhao",
+    "D": "2026",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://arxiv.org/abs/2605.23992",
+    "H": "Papers/Expanded_Collection (B)",
+    "I": "B012_A_World_Model_of_Radiologist_Reading_for_Medical_Image_Representation_Learning.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – component / supporting",
+    "M": "Not applicable",
+    "N": "Radiology (multi-disease)",
+    "O": "Chest radiograph findings including atelectasis, cardiomegaly, consolidation, edema, pleural effusion, pneumonia, and pneumothorax",
+    "P": "Not reported",
+    "Q": "Clinician / expert behaviour",
+    "R": "Representation learning / diagnosis",
+    "S": "Do gaze-ordered image representations support diagnostic transfer and task-directed scanpath prediction?",
+    "T": "Not reported",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "World model",
+    "X": "Not reported",
+    "Y": "Predictive-latent (JEPA-style)",
+    "Z": "L1 Temporal prediction",
+    "AA": "L1 Temporal prediction",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "Not reported",
+    "AE": "Not reported",
+    "AF": "Not applicable",
+    "AG": "Not reported",
+    "AH": "Not reported",
+    "AI": "Chest radiograph images; eye-tracking fixation coordinates; fixation dwell durations",
+    "AJ": "MedCLIP-Swin visual encoder",
+    "AK": "MedCLIP-Swin",
+    "AL": "Not reported",
+    "AM": "Fixation embedder combines visual patch tokens with 2-D spatial embeddings, temporal-rank embeddings, and projected dwell-duration features",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Continuous latent vector",
+    "AS": "768-dimensional patch representations",
+    "AT": "Not reported",
+    "AU": "Yes",
+    "AV": "Not reported",
+    "AW": "Not reported",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Grad-CAM visualizations of pathology-logit activations; authors describe these as qualitative, not formal localization evaluations",
+    "BA": "Not reported",
+    "BB": "Behavioural / lifestyle",
+    "BC": "Trajectory / pose / skeleton",
+    "BD": "Fixation coordinates mapped to nearest patch; temporal order/rank; dwell duration",
+    "BE": "Not applicable",
+    "BF": "Not reported",
+    "BG": "Not applicable",
+    "BH": "Not applicable",
+    "BI": "GazeWorld",
+    "BJ": "Transformer (autoregressive)",
+    "BK": "Visit / event index",
+    "BL": "One next-fixation prediction step; fixation order is the temporal index",
+    "BM": "Not reported",
+    "BN": "Not reported",
+    "BO": "Attention context window",
+    "BP": "Prefix of previously visited unique fixation patches; raw sequences average 47 fixation points per image",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Predicts the latent representation of the next fixated patch and representations for unvisited image patches",
+    "BT": "Diagnostic linear probes; downstream scanpath decoder with spatial, dwell-duration, and termination heads",
+    "BU": "Not applicable",
+    "BV": "Lpre = LAR + λLSC; SmoothL1 latent next-fixation prediction and spatial-completion losses",
+    "BW": "Not reported",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "Not reported",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "Not reported",
+    "CI": "Not applicable",
+    "CJ": "Not applicable",
+    "CK": "Not applicable",
+    "CL": "Not applicable",
+    "CM": "Not applicable",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Deterministic (none)",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "Not reported",
+    "CU": "Not reported",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not applicable",
+    "DB": "Not applicable",
+    "DC": "Not applicable",
+    "DD": "Not applicable",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Not reported",
+    "DN": "Not reported",
+    "DO": "Not reported",
+    "DP": "Not reported",
+    "DQ": "Not reported",
+    "DR": "Not reported",
+    "DS": "Not reported",
+    "DT": "Not reported",
+    "DU": "Not reported",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "R2 Retrospective internal validation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "Not reported",
+    "FD": "Not reported",
+    "FE": "Not reported",
+    "FF": "Not reported",
+    "FG": "Not reported",
+    "FH": "Not reported",
+    "FI": "Not reported",
+    "FJ": "Not reported",
+    "FK": "Not reported",
+    "FL": "Not reported",
+    "FM": "Not reported",
+    "FN": "Reported results (source excerpt): On the GazeSearch benchmark, a generic decoder trained on the same frozen features outperforms the purpose-built LogitGaze-Med by over 16% in ScanMatch and 22% in SED, despite not being explicitly trained to predict gaze.",
+    "FO": "Not reported",
+    "FP": "Not reported",
+    "FQ": "Not reported",
+    "FR": "Not reported",
+    "FS": "Reviewer mapping: M3 Belief-state service; M5 Dynamics adapter; M7 Outcome & causal layer",
+    "FT": "Reviewer lesson: Expose future-state forecasts through a time-aware dynamics interface and validate error versus horizon; treatment actions need separate evidence before intervention simulation.",
+    "FU": "Reviewer mapping (KB §20): Multiscale / continuous-time states",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Complete extracted PDF text read, PDF pp. 1–17: title/abstract; introduction and related work; methods §§3.1–3.4; experiment setup, results and ablations §§4.1–4.5; conclusion and limitations; Tables 1–6; Appendices A–E (dataset details, implementation, heatmap protocol, scanpath decoder, and representation visualization). | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "A:I left unchanged by omission. The paper models radiologist visual-search/fixation behavior and learned image representations, not disease evolution or treatment effects; no causal identification is claimed. PDF text was available throughout, but table layouts are partly disrupted in extraction, so no table metrics were transcribed. Limitations state the study is confined to chest radiographs and one eye-tracking corpus; future work calls for larger multi-reader datasets, broader modalities, and clinician-centered localization studies (PDF p. 9). Evidence QA: 28/34 populated fields had a <=25-word quotation matching extracted PDF text (82.4%). Confidence is conservative; review this row where exact quote checks were incomplete. Schema normalization (source details retained): BB normalized to 'Behavioural / lifestyle'; source detail: Behavioral / lifestyle Codex audit: 28 prior populated fields have a located source quotation; 6 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "Automated model review, not independent human verification, replication or clinical validation.",
+    "This synthesis reviewed all 17 supplied text pages and all supplied page-image review notes, not direct image pixels. Earlier calls provide the recorded image coverage.",
+    "Source hash and earlier API receipts were supplied, not recomputed or reopened.",
+    "No executable JSON Schema validation, automated quote matching, cross-reference checker, graph assembly, code inspection or external retrieval was performed in this call.",
+    "Main latent-predictor L0 and auxiliary expert-sequence L1 must remain separate. Neither demonstrates disease-time forecasting, action effects or planning.",
+    "Supporting inclusion is retained; core-WM membership remains explicitly unresolved under the B012 exception. WT_EXPERT is not rejected merely because it is not patient physiology.",
+    "Nominal split counts do not resolve image/patient/reader overlap, initialization-data lineage or training-only standardization.",
+    "R2 is scoped to stated retrospective actual-human-data scanpath testing. It is not a certification of leakage-free testing, R3 externality, R4 output evaluation or patient benefit.",
+    "Five-pathology versus 14-class CheXpert endpoints conflict; borrowed-versus-rerun classification provenance and HAT provenance also conflict.",
+    "RSNA Pneumonia radiograph evaluation cites a pulmonary-embolism CT reference.",
+    "Table 2 versus Table 5 reports MedCLIP RSNA AUROC/F1 as 58.08/40.06 versus 58.09/40.07, and EGMA SIIM AUROC as 59.79 versus 59.77. Both values are retained.",
+    "Headline tables provide no uncertainty intervals, repeated-seed variation or significance tests.",
+    "Zero-shot scoring/prompts, thresholds, F1 averaging, label uncertainty and multilabel handling remain insufficiently described.",
+    "Prepended readout access under causal masking and readout/projection training stage are unclear.",
+    "Full-image contextualization may expose unvisited-region content through visited tokens; this is unresolved information isolation, not demonstrated leakage.",
+    "Revisits are removed. Duration units/aggregation, invalid-gaze handling and degenerate loss cases are unspecified. AR and SC target normalization differ as printed.",
+    "Seven emitted fixations are a protocol length, not an effective horizon. Multihorizon drift and trajectory calibration are unreported.",
+    "Res/CheX scanpath variants remain unexpanded labels; their scores are not attributed to the MedCLIP probe.",
+    "Improvement is not universal across metrics: scanpath direction-score exceptions and MGCA refinement's higher RSNA F1 are preserved.",
+    "Grad-CAM, qualitative trajectories and t-SNE do not validate localization, diagnostic explanation faithfulness or clinician benefit.",
+    "Code/weights/licenses, study ethics, operational privacy/security and lifecycle evidence are not sufficiently reported, not inferred absent.",
+    "Raw legacy cells are preserved, including erroneous action categories and stale physical-page/review notes."
+  ],
+  "notes": "All 128 operational feature IDs have explicit dispositions, retaining 154 necessary scoped assertions. System-level dispositions apply only to the declared two-model offline composition; model-specific differences are separate. Evidence contents are contiguous source passages without quote wrappers or reviewer commentary. The previously flagged e:B012:08 is replaced with the exact ChestSearch split sentence and its physical page. Additional passages pin gaze-derived benchmark provenance, encoder timing, coordinate preprocessing and supervised-decoder boundaries. No source or workbook was edited."
+}

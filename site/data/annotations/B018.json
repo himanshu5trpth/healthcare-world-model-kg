@@ -1,0 +1,2657 @@
+{
+  "record_id": "annotation:B018:r1",
+  "paper_record_id": "B018",
+  "paper_version_id": "paper-version:B018:sha256-b2be440741cb",
+  "annotation_status": "reviewed",
+  "model_version_ids": [
+    "model:B018:progformer-s:v1",
+    "model:B018:progformer-i:v1"
+  ],
+  "system_composition_ids": [
+    "system:B018:progformer-forecast"
+  ],
+  "world_type_ids": [
+    "WT_ORGAN"
+  ],
+  "profile_ids": [
+    "BP_FORECAST"
+  ],
+  "entities": [
+    {
+      "id": "paper:B018",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "B018",
+        "title": "ProgFormer: Hierarchical Voxel Diffusion Transformer for Longitudinal Brain MRI Prediction",
+        "canonical_url": "https://arxiv.org/abs/2607.27537",
+        "contribution_type": "Primary method – new model",
+        "membership": {
+          "legacy_value": "Include – core world model",
+          "legacy_status": "confirmed_world_model",
+          "primary_source_core_identity": "present",
+          "reason": "Implements a hierarchical voxel-space Diffusion Transformer (conditional flow matching) that predicts future 3D structural brain MRI from longitudinal scan history and age/covariate conditioning.",
+          "counting_boundary": "Verified L1 autonomous-dynamics world model (WT_ORGAN)."
+        }
+      },
+      "provenance_evidence_ids": [
+        "evidence:B018:0001",
+        "evidence:B018:0002"
+      ]
+    },
+    {
+      "id": "paper-version:B018:sha256-b2be440741cb",
+      "class_id": "PaperVersion",
+      "properties": {
+        "arxiv_identifier": "2607.27537v1",
+        "year": "2026",
+        "physical_pdf_pages": 9,
+        "source_path": "Papers/Expanded_Collection/B018_ProgFormer_Hierarchical_Voxel_Diffusion_Transformer_for_Longitudinal_Brain_MRI_Prediction.pdf",
+        "sha256": "b2be440741cb9511eea3031f6ac2c0b81cf55f0204ca5ea48f8ad5f375e83f9d"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B018:0001"
+      ]
+    },
+    {
+      "id": "model:B018:progformer-s:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "variant": "Sequential (ProgFormer-S), L_c=8 coarse blocks, L_f=4 fine blocks, K=100 Euler steps"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B018:0001",
+        "evidence:B018:0005"
+      ]
+    },
+    {
+      "id": "model:B018:progformer-i:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "variant": "Interleaved (ProgFormer-I), N_stage=4 stages"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B018:0005"
+      ]
+    },
+    {
+      "id": "system:B018:progformer-forecast",
+      "class_id": "SystemComposition",
+      "properties": {
+        "flow": "Observed 3D sMRI history H_T + target age/covariates -> Coarse patch DiT + Fine voxel DiT -> K=100 Euler flow integration -> Predicted 3D sMRI x_hat^(T+1)"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B018:0001",
+        "evidence:B018:0003"
+      ]
+    },
+    {
+      "id": "use:B018:longitudinal-brain-mri",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "purpose": "Forecasting future 3D structural brain MRI in Alzheimer's disease progression.",
+        "environment": "Retrospective multi-cohort research (ADNI, AIBL, OASIS)"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B018:0001",
+        "evidence:B018:0005"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:B018:001",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "data.provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:002",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "data.native_time",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Explicitly records chronological acquisition ages a(1) < ... < a(T) and target age a(T+1) with interval Delta a_T."
+    },
+    {
+      "id": "assertion:B018:003",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:004",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Padding mask prevents zero-padded missing visits from acting as keys/values in temporal MHSA."
+    },
+    {
+      "id": "assertion:B018:005",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:006",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0002",
+        "evidence:B018:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Uses continuous age embeddings e_age(a(i)) and target interval Delta a_T to handle irregular visit spacing and variable history lengths."
+    },
+    {
+      "id": "assertion:B018:007",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:008",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:009",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "data.harmonization",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "N4 bias correction, skull stripping, affine registration to MNI152, resampling to 2.25 mm^3, and intensity normalization."
+    },
+    {
+      "id": "assertion:B018:010",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0004",
+        "evidence:B018:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Subject-wise 80/5/15 splits; SynthSeg anatomical loss weights are not provided at inference; Figure 5 sequential rollout uses model's own earlier predictions."
+    },
+    {
+      "id": "assertion:B018:011",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:012",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "perception.encoder",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:013",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:014",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:015",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:016",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:017",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:018",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:019",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0002",
+        "evidence:B018:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Maintains longitudinal history H_T and coarse spatio-temporal patch representations C conditioned via causal temporal attention."
+    },
+    {
+      "id": "assertion:B018:020",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:021",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:022",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:023",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:024",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:025",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:026",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0002",
+        "evidence:B018:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Causal temporal MHSA attends across observed scans x^(1)..x^(T) at each patch location."
+    },
+    {
+      "id": "assertion:B018:027",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:028",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:029",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:030",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Explicitly aggregates multi-visit history via causal temporal attention."
+    },
+    {
+      "id": "assertion:B018:031",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "action.explicit",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Autonomous disease-progression forecasting conditioned on age and covariates, without settable treatment/intervention actions."
+    },
+    {
+      "id": "assertion:B018:032",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:033",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "action.parameterized",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:034",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:035",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:036",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:037",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:038",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:039",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:040",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:041",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0002",
+        "evidence:B018:0004",
+        "evidence:B018:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Models longitudinal brain MRI progression across chronological acquisition ages."
+    },
+    {
+      "id": "assertion:B018:042",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0001",
+        "evidence:B018:0004",
+        "evidence:B018:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Learned hierarchical Diffusion Transformer velocity field integrated via 100 Euler steps."
+    },
+    {
+      "id": "assertion:B018:043",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "No settable action conditioning."
+    },
+    {
+      "id": "assertion:B018:044",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0001",
+        "evidence:B018:0004",
+        "evidence:B018:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Flow matching starts from Gaussian noise y_0 ~ N(0, I) to sample from the conditional future scan distribution."
+    },
+    {
+      "id": "assertion:B018:045",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:046",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:047",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:048",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:049",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:050",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:051",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Directly predicts voxel-space 3D MRI without a separate autoencoder."
+    },
+    {
+      "id": "assertion:B018:052",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:053",
+      "subject_id": "system:B018:progformer-forecast",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Evaluates pairwise and trajectory future-scan prediction on ADNI, AIBL, and OASIS (Table 1: PSNR, SSIM, R-MAE)."
+    },
+    {
+      "id": "assertion:B018:054",
+      "subject_id": "system:B018:progformer-forecast",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Figure 5 demonstrates sequential multi-age prediction (ages 85, 87, 89 from age 81 baseline) using earlier predicted scans."
+    },
+    {
+      "id": "assertion:B018:055",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:056",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:057",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:058",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:059",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:060",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:061",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:062",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "planning.model_use",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "No planner or policy coupled to ProgFormer."
+    },
+    {
+      "id": "assertion:B018:063",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:064",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:065",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:066",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:067",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:068",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:069",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:070",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:071",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "uq.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:072",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:073",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:074",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:075",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:076",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:077",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:078",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:079",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:080",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:081",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:082",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:083",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:084",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:085",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:086",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:087",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:088",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:089",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:090",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:091",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:092",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:093",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:094",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:095",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:096",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Analysis and forecasting of Alzheimer's disease structural brain progression."
+    },
+    {
+      "id": "assertion:B018:097",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:098",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:099",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:100",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:101",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:102",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:103",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "agent.role",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:104",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:105",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:106",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:107",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:108",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:109",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:110",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:111",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:112",
+      "subject_id": "system:B018:progformer-forecast",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Table 1 reports PSNR, SSIM, and R-MAE across ADNI, AIBL, and OASIS."
+    },
+    {
+      "id": "assertion:B018:113",
+      "subject_id": "system:B018:progformer-forecast",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Figure 5 evaluates multi-step sequential prediction at ages 85, 87, and 89 with voxel-wise error maps."
+    },
+    {
+      "id": "assertion:B018:114",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:115",
+      "subject_id": "system:B018:progformer-forecast",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "R-MAE evaluates anatomical regional volume fidelity (hippocampus, amygdala, lateral ventricles, thalamus, CSF)."
+    },
+    {
+      "id": "assertion:B018:116",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:117",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:118",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:119",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:120",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:121",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:122",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:123",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:124",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:125",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:126",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:127",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B018:128",
+      "subject_id": "model:B018:progformer-s:v1",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B018:progformer-s:v1",
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:B018:version",
+      "subject_id": "paper:B018",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:B018:sha256-b2be440741cb",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "effective_date": "2026-07-30"
+      },
+      "evidence_ids": [
+        "evidence:B018:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:B018:0001",
+      "source_ref": "Papers/Expanded_Collection/B018_ProgFormer_Hierarchical_Voxel_Diffusion_Transformer_for_Longitudinal_Brain_MRI_Prediction.pdf",
+      "source_version": "paper-version:B018:sha256-b2be440741cb",
+      "source_hash": "b2be440741cb9511eea3031f6ac2c0b81cf55f0204ca5ea48f8ad5f375e83f9d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Title and Abstract"
+      },
+      "content": "To address these challenges, we propose ProgFormer, a hierarchical voxel-space Diffusion Transformer for longitudinal brain MRI prediction. ProgFormer uses a coarse pathway to perform the primary volumetric prediction from 3D patch tokens. This pathway models overall brain structure and longitudinal context. The fine pathway then uses the coarse representations as spatio-temporal grounding for voxel-\nlevel refinement within individual patches. The two pathways jointly estimate a velocity field directly in voxel space through conditional flow matching, enabling end-to-end prediction without a separately learned image autoencoder. The predicted future scan is then generated from Gaussian noise by integrating the estimated velocity field over a sequence of Euler steps.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B018:0002",
+      "source_ref": "Papers/Expanded_Collection/B018_ProgFormer_Hierarchical_Voxel_Diffusion_Transformer_for_Longitudinal_Brain_MRI_Prediction.pdf",
+      "source_version": "paper-version:B018:sha256-b2be440741cb",
+      "source_hash": "b2be440741cb9511eea3031f6ac2c0b81cf55f0204ca5ea48f8ad5f375e83f9d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Section 3.1 Task Formulation"
+      },
+      "content": "Wedenotetheageintervalbetweenthelastacquisitionage\nofx (T) and the target age by∆aT =a (T+1) −a (T).\nTheobservedlongitudinalhistoryandcovariatevectorare\ndefined as\nHT = (x(i), a(i))Ti=1, a (1) <· · ·< a(T) ,\ncT = [a(T) ,∆a T , g(T) , ξ]. (1)\nGivenH T andc T, the task is to predictx(T+1) at target age\na(T+1).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B018:0003",
+      "source_ref": "Papers/Expanded_Collection/B018_ProgFormer_Hierarchical_Voxel_Diffusion_Transformer_for_Longitudinal_Brain_MRI_Prediction.pdf",
+      "source_version": "paper-version:B018:sha256-b2be440741cb",
+      "source_hash": "b2be440741cb9511eea3031f6ac2c0b81cf55f0204ca5ea48f8ad5f375e83f9d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Section 3.4 Coarse Pathway and Figure 2"
+      },
+      "content": "we apply a lower-triangular causal mask so that each token can attend only to itself and earlier inputs. Because the flow state occupies the final position, ezT+1,n can attend to the spatially updated tokens from all observed scans at that location, while the observed-scan tokens cannot attend to the flow state. To support different numbers of observed scans, shorter input sequences are zero-padded to a common length. A padding mask prevents the padded tokens from being used as keys or values in temporal MHSA.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B018:0004",
+      "source_ref": "Papers/Expanded_Collection/B018_ProgFormer_Hierarchical_Voxel_Diffusion_Transformer_for_Longitudinal_Brain_MRI_Prediction.pdf",
+      "source_version": "paper-version:B018:sha256-b2be440741cb",
+      "source_hash": "b2be440741cb9511eea3031f6ac2c0b81cf55f0204ca5ea48f8ad5f375e83f9d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section 3.7 Training and Inference"
+      },
+      "content": "Training objective.Before training, SynthSeg (Billot et al.\n2023) is applied to each ground-truth future scanx(T+1) to ob-\ntain an anatomical label mapS(T+1) ∈ RD×H×W, whereRis\nthe set of SynthSeg labels. Each voxelqstores the labelS(T+1) (q)\nof its anatomical region. The label map is used only to construct\nthe loss weights and is not provided to ProgFormer or used during\ninference.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B018:0005",
+      "source_ref": "Papers/Expanded_Collection/B018_ProgFormer_Hierarchical_Voxel_Diffusion_Transformer_for_Longitudinal_Brain_MRI_Prediction.pdf",
+      "source_version": "paper-version:B018:sha256-b2be440741cb",
+      "source_hash": "b2be440741cb9511eea3031f6ac2c0b81cf55f0204ca5ea48f8ad5f375e83f9d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Table 1 and Section 4.1 (visual inspection)"
+      },
+      "content": "[paraphrase (visual p.6)] Table 1 and Section 4.1 (p. 6): All T1-weighted scans undergo N4 bias correction, skull stripping, affine registration to MNI152, resampling to 2.25 mm^3, and intensity normalization; each cohort (ADNI, AIBL, OASIS) is split subject-wise into 80%, 5%, and 15% training, validation, and test sets. Trajectory ProgFormer-S achieves ADNI PSNR 27.90+-1.63, SSIM 96.17+-2.04, R-MAE 0.192+-0.118; AIBL 26.96+-2.51 / 93.84+-2.71 / 0.321+-0.173; OASIS 27.17+-1.50 / 93.45+-2.48 / 0.344+-0.253.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B018:0006",
+      "source_ref": "Papers/Expanded_Collection/B018_ProgFormer_Hierarchical_Voxel_Diffusion_Transformer_for_Longitudinal_Brain_MRI_Prediction.pdf",
+      "source_version": "paper-version:B018:sha256-b2be440741cb",
+      "source_hash": "b2be440741cb9511eea3031f6ac2c0b81cf55f0204ca5ea48f8ad5f375e83f9d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Table 2 Component Ablations"
+      },
+      "content": "[paraphrase (visual p.6)] Table 2 ablates ProgFormer-S on ADNI (Pairwise / Trajectory): removing Coarse Pathway collapses PSNR to 7.23+-0.19 / 7.63+-0.17; removing Fine Pathway drops PSNR to 24.79+-1.27 / 26.49+-1.59; removing Cross-Attn. drops PSNR to 24.79+-1.48 / 26.13+-1.56; removing Region Weights drops PSNR to 24.75+-1.19 / 24.45+-1.13 (full model 26.39+-1.68 / 27.90+-1.63).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B018:0007",
+      "source_ref": "Papers/Expanded_Collection/B018_ProgFormer_Hierarchical_Voxel_Diffusion_Transformer_for_Longitudinal_Brain_MRI_Prediction.pdf",
+      "source_version": "paper-version:B018:sha256-b2be440741cb",
+      "source_hash": "b2be440741cb9511eea3031f6ac2c0b81cf55f0204ca5ea48f8ad5f375e83f9d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Figure 5 and Section 4.2 (visual inspection)"
+      },
+      "content": "Figure 5 shows sequential predictions from the observed scan at age 81 to ages 85, 87, and 89. For later predictions, the pairwise baselines use their most recent prediction, whereas ProgFormer uses the baseline scan and its earlier predictions. Ground-truth follow-\nups are used only for visualization and error calculation.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B018:0008",
+      "source_ref": "Papers/Expanded_Collection/B018_ProgFormer_Hierarchical_Voxel_Diffusion_Transformer_for_Longitudinal_Brain_MRI_Prediction.pdf",
+      "source_version": "paper-version:B018:sha256-b2be440741cb",
+      "source_hash": "b2be440741cb9511eea3031f6ac2c0b81cf55f0204ca5ea48f8ad5f375e83f9d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section 3.7 Inference"
+      },
+      "content": "of Figure 3. Generation starts fromy0 ∼ N(0,I), whileH T,\na(T+1),andcremainfixed.ForKEulersteps,let∆τ= 1/Kand\nτk =k∆τ. At stepk, ProgFormer predicts\nνk =ν θ\n\u0010\nyk, τk | HT , a(T+1) ,c T+1\n\u0011\n,(22)\nand updates the current flow state as\nyk+1 =y k + ∆τ νk.(23)\nTheupdatedstatey k+1 andflowtimeτ k+1 arethenusedinthenext\nstep. AfterKupdates, the final state is returned as the predicted\nfuture MRI,bx(T+1) =y K.",
+      "verification_status": "entailment_reviewed"
+    }
+  ],
+  "metric_results": [],
+  "capability_assessments": [
+    {
+      "subject_id": "model:B018:progformer-s:v1",
+      "level": "L1",
+      "scope": {
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_assertion_ids": [
+        "assertion:B018:019",
+        "assertion:B018:041",
+        "assertion:B018:042",
+        "assertion:B018:053"
+      ],
+      "rationale": "Implements hierarchical voxel-space Diffusion Transformer (conditional flow matching) over longitudinal 3D brain MRI and evaluates pairwise and trajectory future-scan prediction on ADNI, AIBL, and OASIS."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "system:B018:progformer-forecast",
+      "facets": [
+        "R2"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "intended_use_context_id": "use:B018:longitudinal-brain-mri"
+      },
+      "evidence_ids": [
+        "evidence:B018:0005"
+      ],
+      "legacy_highest_label": "R2 Retrospective internal validation"
+    }
+  ],
+  "gate_assessments": [],
+  "limitations": [
+    "No uncertainty calibration or code/weight release link reported in the 9-page paper.",
+    "Multi-step Figure 5 shows a single qualitative ADNI subject rather than aggregate multi-step quantitative drift curves."
+  ],
+  "notes": "All 9 physical PDF pages read; Figures 2, 5, 6 and Tables 1, 2 visually inspected.",
+  "legacy_cells": {
+    "A": "B018",
+    "B": "ProgFormer: Hierarchical Voxel Diffusion Transformer for Longitudinal Brain MRI Prediction",
+    "C": "Ding, Dexuan, Qi, Yuankai, Zhou, Luping, Yang, Jian, Sheng, Quan Z., Yang, Ming-Hsuan",
+    "D": "2026",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://arxiv.org/abs/2607.27537",
+    "H": "Papers/Expanded_Collection (B)",
+    "I": "B018_ProgFormer_Hierarchical_Voxel_Diffusion_Transformer_for_Longitudinal_Brain_MRI_Prediction.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not reported",
+    "N": "Neurology / neuro-oncology",
+    "O": "Alzheimer’s disease progression",
+    "P": "Not reported",
+    "Q": "Tissue / organ",
+    "R": "Disease progression forecasting",
+    "S": "Forecast a future structural brain MRI from observed longitudinal scans and target age.",
+    "T": "Not reported",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "Generative model",
+    "X": "F3 Longitudinal imaging & treatment response",
+    "Y": "Pixel/voxel generative (diffusion / flow / video)",
+    "Z": "L1 Temporal prediction",
+    "AA": "L1 Temporal prediction",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "No",
+    "AE": "Yes",
+    "AF": "Not reported",
+    "AG": "Not reported",
+    "AH": "Not reported",
+    "AI": "3D T1-weighted structural MRI scans; acquisition ages; diagnosis; sex; target age; flow time; Gaussian-noise flow state",
+    "AJ": "3D convolutional patch embedding; coarse Transformer pathway with spatial and causal temporal attention; fine pathway with voxel self-attention and coarse-to-fine cross-attention",
+    "AK": "Not reported",
+    "AL": "Not reported",
+    "AM": "Flow time, target age, and covariates are embedded independently and combined by element-wise addition.",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Image / voxel space",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Conditioning on patient history",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "None (no actions)",
+    "BC": "Not applicable",
+    "BD": "Not applicable",
+    "BE": "Not applicable",
+    "BF": "Not applicable",
+    "BG": "Not applicable",
+    "BH": "Not applicable",
+    "BI": "ProgFormer",
+    "BJ": "Transformer (autoregressive)",
+    "BK": "Continuous time (ODE / SDE / flow)",
+    "BL": "Flow time τ ∈ [0, 1]; inference uses K = 100 Euler steps.",
+    "BM": "Not reported",
+    "BN": "Not reported",
+    "BO": "Not reported",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Generated future structural MRI scan in voxel space",
+    "BT": "Coarse patch-velocity and fine voxel-velocity heads; their velocities are summed.",
+    "BU": "Not reported",
+    "BV": "Weighted conditional flow-matching loss on squared velocity error, with voxel weights based on anatomical labels.",
+    "BW": "Not reported",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "8× NVIDIA A100 80GB GPUs",
+    "CB": "Not reported",
+    "CC": "Open-loop multi-step",
+    "CD": "Observed age 81; predicted follow-ups at ages 85, 87, and 89",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "None",
+    "CI": "Not applicable",
+    "CJ": "Not applicable",
+    "CK": "Not applicable",
+    "CL": "Not applicable",
+    "CM": "Not applicable",
+    "CN": "Not reported",
+    "CO": "Not applicable",
+    "CP": "Generative sampling (diffusion / flow)",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "None (predictive only)",
+    "CU": "None",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not reported",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Not reported",
+    "DN": "Not reported",
+    "DO": "Not reported",
+    "DP": "Not reported",
+    "DQ": "Not reported",
+    "DR": "Not reported",
+    "DS": "Not reported",
+    "DT": "Not reported",
+    "DU": "Not reported",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "R2 Retrospective internal validation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "Not reported",
+    "FD": "Not reported",
+    "FE": "Not reported",
+    "FF": "Not reported",
+    "FG": "Not reported",
+    "FH": "Not reported",
+    "FI": "Not reported",
+    "FJ": "Not reported",
+    "FK": "Not reported",
+    "FL": "Not reported",
+    "FM": "Not reported",
+    "FN": "Pairwise ProgFormer-S PSNR was 26.39 on ADNI, 26.95 on AIBL and 26.32 on OASIS. ProgFormer-I regional MAE was 0.230, 0.223 and 0.281, respectively. History improved image fidelity but regional gains varied by cohort.",
+    "FO": "Not reported",
+    "FP": "Not reported",
+    "FQ": "Not reported",
+    "FR": "Not reported",
+    "FS": "Reviewer mapping: M3 Belief-state service; M5 Dynamics adapter; M6 Rollout service; M7 Outcome & causal layer",
+    "FT": "Reviewer lesson: Expose future-state forecasts through a time-aware dynamics interface and validate error versus horizon; treatment actions need separate evidence before intervention simulation.",
+    "FU": "Reviewer mapping (KB §20): Multiscale / continuous-time states",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "PDF pp. 1–9. Read title/abstract and introduction (pp. 1–3); task formulation, model, flow-matching objective, and inference methods (pp. 3–5); cohort setup, preprocessing, training details, Tables 1–2, result text, and Figures 5–6 (pp. 6–7); conclusion and references (pp. 8–9). No separate limitations section appears. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "The extraction is complete and relevant result tables were legible. The paper demonstrates retrospective longitudinal MRI prediction, not treatment simulation or clinical action planning; no clinical deployment evaluation is reported. A:I were left untouched. Evidence QA: 9/36 populated fields had a <=25-word quotation matching extracted PDF text (25%). Confidence is conservative; review this row where exact quote checks were incomplete. Schema normalization (source details retained): Y normalized to 'Pixel/voxel generative (diffusion / flow / video)'; source detail: Pixel/voxel generative (diffusion / flow) Codex audit: 31 prior populated fields have a located source quotation; 5 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  }
+}

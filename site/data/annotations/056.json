@@ -1,0 +1,3181 @@
+{
+  "record_id": "annotation:056:r1",
+  "paper_record_id": "056",
+  "paper_version_id": "paper-version:056:sha256-fbb3495aa4e5",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [],
+  "system_composition_ids": [],
+  "world_type_ids": [],
+  "profile_ids": [],
+  "entities": [
+    {
+      "id": "paper:056",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "056",
+        "title": "CORTEX: Composite Overlay for Risk Tiering and Exposure in Operational AI Systems"
+      },
+      "provenance_evidence_ids": [
+        "evidence:056:0001"
+      ]
+    },
+    {
+      "id": "paper-version:056:sha256-fbb3495aa4e5",
+      "class_id": "PaperVersion",
+      "properties": {
+        "version": "Research Square v1 posted 15 September 2025",
+        "doi": "10.21203/rs.3.rs-7377133/v1",
+        "physical_pages": 37,
+        "printed_body_pages": 36
+      },
+      "provenance_evidence_ids": [
+        "evidence:056:0001"
+      ]
+    },
+    {
+      "id": "module:056:cortex-risk-score:v1",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "name": "CORTEX five-layer risk scoring and simulation",
+        "membership": "supporting_governance_component",
+        "formula": "U=1-exp(-k*L*I); score=.35U+.15C+.15G+.10T+.10E+.15R",
+        "default_modifiers": {
+          "C": 0.7,
+          "G": 0.75,
+          "T": 0.6,
+          "E": 0.7,
+          "R": 0.6
+        },
+        "raw_table14_results": {
+          "source_page": 24,
+          "scenario": "General-purpose public-facing productivity AI, author-assigned parameter uncertainty",
+          "sampling_count_reported": 1000,
+          "split": "Not applicable: no held-out prediction task",
+          "columns": [
+            "composite",
+            "P50",
+            "P90",
+            "SD"
+          ],
+          "rows": [
+            {
+              "vulnerability": "Discriminatory Outcomes",
+              "values": [
+                0.77,
+                0.769,
+                0.7834,
+                0.011
+              ]
+            },
+            {
+              "vulnerability": "Prompt Injection",
+              "values": [
+                0.756,
+                0.7548,
+                0.7706,
+                0.012
+              ]
+            },
+            {
+              "vulnerability": "Training Data Poisoning",
+              "values": [
+                0.756,
+                0.7559,
+                0.7706,
+                0.0116
+              ]
+            },
+            {
+              "vulnerability": "PII Leakage",
+              "values": [
+                0.756,
+                0.7551,
+                0.7696,
+                0.0115
+              ]
+            },
+            {
+              "vulnerability": "Deepfake/Synthetic Media",
+              "values": [
+                0.756,
+                0.7543,
+                0.7695,
+                0.0115
+              ]
+            },
+            {
+              "vulnerability": "Feedback Loop Abuse",
+              "values": [
+                0.438,
+                0.4413,
+                0.4534,
+                0.0112
+              ]
+            },
+            {
+              "vulnerability": "UI-Induced Overtrust",
+              "values": [
+                0.438,
+                0.4417,
+                0.4537,
+                0.0114
+              ]
+            },
+            {
+              "vulnerability": "Adversarial AI Infrastructure Lifecycle",
+              "values": [
+                0.512,
+                0.5112,
+                0.5253,
+                0.013
+              ]
+            },
+            {
+              "vulnerability": "Human-AI Escalation Failures",
+              "values": [
+                0.543,
+                0.5421,
+                0.5563,
+                0.015
+              ]
+            },
+            {
+              "vulnerability": "Lack Monitoring/Audit Trails",
+              "values": [
+                0.543,
+                0.5427,
+                0.5554,
+                0.0113
+              ]
+            }
+          ],
+          "scope_unresolved_reason": "Parameter normalization/curvature and seed/code cannot reconcile numeric scores with stated k=3; not measured clinical risk"
+        },
+        "contradictory_simulation_count": {
+          "page12_default": 10000,
+          "page23_demonstration": 1000
+        },
+        "raw_healthcare_modifier_defaults": {
+          "source_page": 18,
+          "C": 0.9,
+          "G": 0.95,
+          "T": 0.8,
+          "E": 0.85,
+          "R": 0.8
+        }
+      },
+      "provenance_evidence_ids": [
+        "evidence:056:0003",
+        "evidence:056:0006",
+        "evidence:056:0007",
+        "evidence:056:0004",
+        "evidence:056:0005"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:056:0001",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "absent",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [
+        "evidence:056:0003",
+        "evidence:056:0004",
+        "evidence:056:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Risk scores are recomputed from sampled scoring parameters. No carried health state or patient-time transition exists; future operational monitoring is proposed."
+    },
+    {
+      "id": "assertion:056:0002",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "absent",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [
+        "evidence:056:0003",
+        "evidence:056:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "No latent health state-transition model is present in this risk-scoring pipeline."
+    },
+    {
+      "id": "assertion:056:0003",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "uq.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [
+        "evidence:056:0004",
+        "evidence:056:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "confidence": "medium",
+      "rationale": "Specified parameter distributions induce composite risk-score distributions with P50/P90/SD; these are scoring uncertainty, not calibrated health outcome uncertainty."
+    },
+    {
+      "id": "assertion:056:0004",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Simulated percentiles are not calibration against observed event frequencies; no held-out event risk validation is reported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0005",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [
+        "evidence:056:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Taxonomy names threat groups and attack patterns, but deployment-specific assets, adversary capability/access assumptions and testable boundaries are not operationally scoped.",
+      "criteria_met": [
+        "Threat categories enumerated"
+      ],
+      "criteria_missing": [
+        "Scoped adversary/assets/access assumptions and validation"
+      ]
+    },
+    {
+      "id": "assertion:056:0006",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [
+        "evidence:056:0006",
+        "evidence:056:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "The framework explicitly supports risk scoring and audit triage for general-purpose public-facing AI in the demonstrated scenario."
+    },
+    {
+      "id": "assertion:056:0007",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "present",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [
+        "evidence:056:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Regulatory and governance frameworks determine proposed modifier bands; this is author alignment discussion, not approval/certification evidence."
+    },
+    {
+      "id": "assertion:056:0008",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [
+        "evidence:056:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Risk re-scoring and dashboards are intended uses; telemetry triggers, longitudinal audits and CI/CD integration remain future work.",
+      "criteria_met": [
+        "Monitoring and re-scoring goal"
+      ],
+      "criteria_missing": [
+        "Operational trigger, responsibility and tested longitudinal monitoring"
+      ]
+    },
+    {
+      "id": "assertion:056:0009",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "data.provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [
+        "evidence:056:0002",
+        "evidence:056:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Public incident repositories are named and categories mapped, but dated extract, incident IDs and reproducible mapping/adjudication protocol are unavailable.",
+      "criteria_met": [
+        "Repository sources and category counts"
+      ],
+      "criteria_missing": [
+        "Incident-level versioned extract and mapping provenance"
+      ]
+    },
+    {
+      "id": "assertion:056:0010",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0011",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0012",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0013",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0014",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0015",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0016",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0017",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0018",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0019",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0020",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "perception.encoder",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0021",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0022",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0023",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0024",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0025",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0026",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0027",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "state.persistent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0028",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0029",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0030",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0031",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0032",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0033",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0034",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0035",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0036",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0037",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0038",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0039",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "action.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0040",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0041",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "action.parameterized",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0042",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0043",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0044",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0045",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0046",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0047",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0048",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0049",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0050",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0051",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0052",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0053",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0054",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0055",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0056",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0057",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0058",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0059",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0060",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0061",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0062",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0063",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0064",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0065",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0066",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0067",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0068",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0069",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "planning.model_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0070",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0071",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0072",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0073",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0074",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0075",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0076",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0077",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0078",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0079",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0080",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0081",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0082",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0083",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0084",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0085",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0086",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0087",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0088",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0089",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0090",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0091",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0092",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0093",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0094",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0095",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0096",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0097",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0098",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0099",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0100",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0101",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0102",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0103",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0104",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "agent.role",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0105",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0106",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0107",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0108",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0109",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0110",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0111",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0112",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0113",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0114",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0115",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0116",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0117",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0118",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0119",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0120",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0121",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0122",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0123",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0124",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0125",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0126",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0127",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:056:0128",
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "After full-source review this operational feature is not specified or tested for the CORTEX implementation. Cataloguing a risk or recommending controls for other systems does not show CORTEX implements those controls; risk-parameter simulation is not patient dynamics, planning or clinical validation.",
+      "missingness_reason": "paper_silent_after_review"
+    }
+  ],
+  "relation_assertions": [],
+  "evidence_fragments": [
+    {
+      "id": "evidence:056:0001",
+      "source_ref": "Papers/056_2025_CORTEX Composite Overlay for Risk Tiering and Exposure in Operational AI Systems.pdf",
+      "source_version": "paper-version:056:sha256-fbb3495aa4e5",
+      "source_hash": "fbb3495aa4e54a2bebf9ebbb69bb060a4db09ea9e7ce52c3cb18f47c6371c64d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 2,
+        "section_or_table": "Abstract"
+      },
+      "content": "This paper introduces CORTEX (Composite Overlay for Risk Tiering and Exposure), a multi-layered risk scoring framework",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:056:0002",
+      "source_ref": "Papers/056_2025_CORTEX Composite Overlay for Risk Tiering and Exposure in Operational AI Systems.pdf",
+      "source_version": "paper-version:056:sha256-fbb3495aa4e5",
+      "source_hash": "fbb3495aa4e54a2bebf9ebbb69bb060a4db09ea9e7ce52c3cb18f47c6371c64d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Taxonomy"
+      },
+      "content": "We have manually mapped each of the 1,200+ incidents into one of these 29 vulnerability groups",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:056:0003",
+      "source_ref": "Papers/056_2025_CORTEX Composite Overlay for Risk Tiering and Exposure in Operational AI Systems.pdf",
+      "source_version": "paper-version:056:sha256-fbb3495aa4e5",
+      "source_hash": "fbb3495aa4e54a2bebf9ebbb69bb060a4db09ea9e7ce52c3cb18f47c6371c64d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 12,
+        "section_or_table": "Final composite formula"
+      },
+      "content": "The final risk score is computed as a weighted overlay of the utility-transformed severity core and five modifier dimensions:",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:056:0004",
+      "source_ref": "Papers/056_2025_CORTEX Composite Overlay for Risk Tiering and Exposure in Operational AI Systems.pdf",
+      "source_version": "paper-version:056:sha256-fbb3495aa4e5",
+      "source_hash": "fbb3495aa4e54a2bebf9ebbb69bb060a4db09ea9e7ce52c3cb18f47c6371c64d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 23,
+        "section_or_table": "Demonstration"
+      },
+      "content": "Each vulnerability was simulated using 1,000 random samples",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:056:0005",
+      "source_ref": "Papers/056_2025_CORTEX Composite Overlay for Risk Tiering and Exposure in Operational AI Systems.pdf",
+      "source_version": "paper-version:056:sha256-fbb3495aa4e5",
+      "source_hash": "fbb3495aa4e54a2bebf9ebbb69bb060a4db09ea9e7ce52c3cb18f47c6371c64d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 12,
+        "section_or_table": "Layer5"
+      },
+      "content": "default: 10,000",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:056:0006",
+      "source_ref": "Papers/056_2025_CORTEX Composite Overlay for Risk Tiering and Exposure in Operational AI Systems.pdf",
+      "source_version": "paper-version:056:sha256-fbb3495aa4e5",
+      "source_hash": "fbb3495aa4e54a2bebf9ebbb69bb060a4db09ea9e7ce52c3cb18f47c6371c64d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 24,
+        "section_or_table": "Table14"
+      },
+      "content": "[paraphrase Table 14 visual inspection] Ten vulnerability groups have composite scores, P50/P90 and standard deviations under general-purpose productivity-tool default modifiers; these are model-generated scores, not validated event probabilities or clinical outcomes.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:056:0007",
+      "source_ref": "Papers/056_2025_CORTEX Composite Overlay for Risk Tiering and Exposure in Operational AI Systems.pdf",
+      "source_version": "paper-version:056:sha256-fbb3495aa4e5",
+      "source_hash": "fbb3495aa4e54a2bebf9ebbb69bb060a4db09ea9e7ce52c3cb18f47c6371c64d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 18,
+        "section_or_table": "Table10"
+      },
+      "content": "[paraphrase Table 10] Healthcare diagnostic assistant modifier defaults are C=.90,G=.95,T=.80,E=.85,R=.80; this is a recommended hypothetical system type, not a deployed or tested healthcare model.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:056:0008",
+      "source_ref": "Papers/056_2025_CORTEX Composite Overlay for Risk Tiering and Exposure in Operational AI Systems.pdf",
+      "source_version": "paper-version:056:sha256-fbb3495aa4e5",
+      "source_hash": "fbb3495aa4e54a2bebf9ebbb69bb060a4db09ea9e7ce52c3cb18f47c6371c64d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 33,
+        "section_or_table": "Conclusion"
+      },
+      "content": "Impact scoring still leans heavily on expert judgment",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:056:0009",
+      "source_ref": "Papers/056_2025_CORTEX Composite Overlay for Risk Tiering and Exposure in Operational AI Systems.pdf",
+      "source_version": "paper-version:056:sha256-fbb3495aa4e5",
+      "source_hash": "fbb3495aa4e54a2bebf9ebbb69bb060a4db09ea9e7ce52c3cb18f47c6371c64d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 33,
+        "section_or_table": "Conclusion"
+      },
+      "content": "Integration with DevOps and CI/CD pipelines would allow re-scoring",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:056:0010",
+      "source_ref": "Papers/056_2025_CORTEX Composite Overlay for Risk Tiering and Exposure in Operational AI Systems.pdf",
+      "source_version": "paper-version:056:sha256-fbb3495aa4e5",
+      "source_hash": "fbb3495aa4e54a2bebf9ebbb69bb060a4db09ea9e7ce52c3cb18f47c6371c64d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 37,
+        "section_or_table": "Data availability"
+      },
+      "content": "No new datasets were generated during the current study.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:056:0011",
+      "source_ref": "Papers/056_2025_CORTEX Composite Overlay for Risk Tiering and Exposure in Operational AI Systems.pdf",
+      "source_version": "paper-version:056:sha256-fbb3495aa4e5",
+      "source_hash": "fbb3495aa4e54a2bebf9ebbb69bb060a4db09ea9e7ce52c3cb18f47c6371c64d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 31,
+        "section_or_table": "Figures8/11"
+      },
+      "content": "[paraphrase visual/source comparison] Figure 8 gives risk-dependent radar sensitivity profiles, but Equation 2 assigns the same fixed modifier weights to every vulnerability; the perturbation protocol/normalization needed to reconcile these is not supplied. Figure 11 heatmap values are .05–.40, substantially larger than Table 14 simulation standard deviations .0110–.0150; they have no reconciled units/protocol.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:056:0012",
+      "source_ref": "Papers/056_2025_CORTEX Composite Overlay for Risk Tiering and Exposure in Operational AI Systems.pdf",
+      "source_version": "paper-version:056:sha256-fbb3495aa4e5",
+      "source_hash": "fbb3495aa4e54a2bebf9ebbb69bb060a4db09ea9e7ce52c3cb18f47c6371c64d",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 27,
+        "section_or_table": "Lack monitoring"
+      },
+      "content": "lowering R from 0.60 to 0.55 caused a score increase of 0.02–0.03",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    }
+  ],
+  "metric_results": [],
+  "capability_assessments": [
+    {
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "level": "not_world_model",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_assertion_ids": [
+        "assertion:056:0001"
+      ],
+      "rationale": "Risk-score parameter simulation lacks implemented health-state transitions."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "module:056:cortex-risk-score:v1",
+      "facets": [
+        "R1"
+      ],
+      "environment_kind": "in_silico",
+      "scope": {
+        "module_implementation_id": "module:056:cortex-risk-score:v1",
+        "environment_kind": "in_silico",
+        "population": "General-purpose public-facing AI vulnerabilities, not a patient cohort",
+        "time_horizon": "Independent parameter samples; no health-world transition"
+      },
+      "evidence_ids": [
+        "evidence:056:0004",
+        "evidence:056:0006"
+      ]
+    }
+  ],
+  "gate_assessments": [],
+  "legacy_cells": {
+    "A": "056",
+    "B": "CORTEX: Composite Overlay for Risk Tiering and Exposure in Operational AI Systems",
+    "C": "Kin‐Choong Yow; Jamel Baili; Yongwon Cho; Yunyoung Nam",
+    "D": "2025",
+    "E": "Research Square",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://doi.org/10.21203/rs.3.rs-7377133/v1",
+    "H": "Papers (numbered 001–099)",
+    "I": "056_2025_CORTEX Composite Overlay for Risk Tiering and Exposure in Operational AI Systems.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Exclude",
+    "M": "No learned or hybrid dynamics",
+    "N": "Not reported",
+    "O": "Not reported",
+    "P": "Not reported",
+    "Q": "Not reported",
+    "R": "Not reported",
+    "S": "Not reported",
+    "T": "Not reported",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "Other",
+    "X": "Not a world model",
+    "Y": "Not reported",
+    "Z": "Not a world model",
+    "AA": "Not a world model",
+    "AB": "Not reported",
+    "AC": "Not reported",
+    "AD": "Not reported",
+    "AE": "Not reported",
+    "AF": "Not reported",
+    "AG": "Not reported",
+    "AH": "Not reported",
+    "AI": "Not reported",
+    "AJ": "Not reported",
+    "AK": "Not reported",
+    "AL": "Not reported",
+    "AM": "Not reported",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Not reported",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Not reported",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Not reported",
+    "BC": "Not reported",
+    "BD": "Not reported",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "Not reported",
+    "BJ": "Not reported",
+    "BK": "Not reported",
+    "BL": "Not reported",
+    "BM": "Not reported",
+    "BN": "Not reported",
+    "BO": "Not reported",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Not reported",
+    "BT": "Not reported",
+    "BU": "Not reported",
+    "BV": "Not reported",
+    "BW": "Not reported",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "Not reported",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "Not reported",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Not reported",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Not reported",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "Not reported",
+    "CU": "Not reported",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not reported",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Not reported",
+    "DN": "Not reported",
+    "DO": "Not reported",
+    "DP": "Not reported",
+    "DQ": "Not reported",
+    "DR": "Not reported",
+    "DS": "Not reported",
+    "DT": "Not reported",
+    "DU": "Not reported",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "Not reported",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "Not reported",
+    "FD": "Not reported",
+    "FE": "Not reported",
+    "FF": "Not reported",
+    "FG": "Not reported",
+    "FH": "Not reported",
+    "FI": "Not reported",
+    "FJ": "Not reported",
+    "FK": "Not reported",
+    "FL": "Not reported",
+    "FM": "Not reported",
+    "FN": "CORTEX organizes more than 1,200 AI incidents into 29 vulnerability groups within seven domains and proposes a five-layer risk scoring architecture. These taxonomy/scoring counts do not establish WM dynamics, predictive clinical effectiveness or calibrated prospective risk.",
+    "FO": "Not reported",
+    "FP": "Not reported",
+    "FQ": "Not reported",
+    "FR": "Not reported",
+    "FS": "Not applicable",
+    "FT": "Not reported",
+    "FU": "Not applicable",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Title/abstract and introduction (printed pp. 1–2); literature review/background (pp. 3–5); methodology and scoring architecture (pp. 6–11); risk scorecard/results and relevant Tables 1–15 (pp. 11–31); conclusion and limitations (p. 32); remaining references and declarations (pp. 33–36). | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "This is a cross-sector AI risk-governance scorecard, not a healthcare world model; healthcare is mentioned as an example domain, not as the evaluated task. Table 14's result columns are partly misaligned in the extracted text, but that does not affect the exclusion/classification. A:I were left untouched. Evidence QA: 7/7 populated fields had a <=25-word quotation matching extracted PDF text (100%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 7 prior populated fields have a located source quotation; 0 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "Model-assisted source review, no independent human review or verification of external standards/incident repositories.",
+    "No clinical cohort, clinical deployment, held-out event prediction or prospective validation. R1 refers only to technical scoring simulations.",
+    "Parameter normalization and k are inconsistent across equation, plots and table; no supplied code/seed resolves reproducibility.",
+    "Residual-risk direction in prose contradicts positive .15R coefficient; fixed modifier weights do not support unexplained vulnerability-specific sensitivity claims.",
+    "Counts and manual mapping of 1200+ incidents are claimed without incident-level extract, adjudication or coverage accounting."
+  ]
+}

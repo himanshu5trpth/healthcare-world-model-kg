@@ -1,0 +1,4739 @@
+{
+  "record_id": "annotation:B057:r3",
+  "paper_record_id": "B057",
+  "paper_version_id": "paper-version:B057:sha256-2745cf5218cf",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:B057:student",
+    "model:B057:runtime",
+    "model:B057:teacher",
+    "model:B057:s4-table2",
+    "model:B057:s4-taehv",
+    "model:B057:s2-vae",
+    "model:B057:s4-vae"
+  ],
+  "system_composition_ids": [
+    "system:B057:interactive"
+  ],
+  "world_type_ids": [
+    "WT_PROCEDURE"
+  ],
+  "profile_ids": [
+    "BP_FORECAST",
+    "BP_CONTROLLER"
+  ],
+  "entities": [
+    {
+      "id": "paper:B057",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "B057",
+        "title": "NVIDIA Cosmos-H-Dreams: Real-Time Generative Physics Simulation for Surgical Robotics",
+        "authors": [
+          "Javier Gamazo Tejero",
+          "Lukas Zbinden",
+          "Keyur Sheth",
+          "Raghavendra K M",
+          "Nadim Daher",
+          "Diego Granero Maraña",
+          "Filip Binkiewicz",
+          "Patrick Thornycroft",
+          "Mahdi Azizian",
+          "Sean D. Huver"
+        ],
+        "year": "2026",
+        "publication_status": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+        "url": "https://arxiv.org/abs/2608.24199",
+        "membership": "Source-supported core procedural world model; not clinically validated physics simulation."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:01",
+        "evidence:B057:05",
+        "evidence:B057:12"
+      ]
+    },
+    {
+      "id": "paper-version:B057:sha256-2745cf5218cf",
+      "class_id": "PaperVersion",
+      "properties": {
+        "source_path": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+        "pdf_sha256": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+        "hash_provenance": "Supplied source record; not recomputed.",
+        "physical_pages": 20,
+        "arxiv_version": "2608.24199v2",
+        "arxiv_margin_date": "27 Aug 2026",
+        "header_date": "2026-8-28",
+        "review_boundary": "Current synthesis received all page texts and earlier automated image-review notes, not image pixels."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:01",
+        "evidence:B057:02"
+      ]
+    },
+    {
+      "id": "study:B057:bench",
+      "class_id": "Study",
+      "properties": {
+        "design": "Recorded-action replay, autoregressive drift analysis, external-controller simulation, physical-dVRK agreement comparison, and runtime benchmarking.",
+        "quantitative_environment": "Preclinical tabletop suture-pad tasks",
+        "clinical_validation": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:11",
+        "evidence:B057:15",
+        "evidence:B057:20"
+      ]
+    },
+    {
+      "id": "model:B057:student",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Two-step causal student with TAEHV decoding",
+        "configuration_scope": "Table 2 two-step TAEHV row and corresponding primary runtime configuration",
+        "backbone": "Cosmos-Predict2.5 action-conditioned latent video DiT",
+        "state": "Generated visual latents and streaming KV context",
+        "world_coordinate": "Procedural video frames with aligned robot-action samples",
+        "training": "Cached-target causal warmup followed by Self Forcing/DMD",
+        "default_block": "12 generated frames",
+        "denoising_steps": 2,
+        "checkpoint_revision": "not_reported",
+        "causal_word_meaning": "Temporal information access, not identified surgical intervention effects."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:05",
+        "evidence:B057:08",
+        "evidence:B057:12",
+        "evidence:B057:28"
+      ]
+    },
+    {
+      "id": "model:B057:runtime",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Cosmos-H-Dreams causal simulator used for closed-loop policy evaluation",
+        "configuration_boundary": "Policy evaluation does not explicitly pin student checkpoint, denoising-step count, or decoder. Not automatically identical to the Table 2 two-step configuration.",
+        "state": "Streaming generated visual/context history",
+        "transition": "Learned action-conditioned autoregressive video generation",
+        "coupling": "External-controller evaluation in a simulator",
+        "not_demonstrated": [
+          "Internal lookahead optimizer",
+          "Policy learning in imagined trajectories",
+          "Synthetic-training improvement on a physical robot",
+          "Patient-care control"
+        ]
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:05",
+        "evidence:B057:09",
+        "evidence:B057:14",
+        "evidence:B057:15"
+      ]
+    },
+    {
+      "id": "model:B057:teacher",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Bidirectional tabletop teacher",
+        "objective": "Rectified-flow latent velocity regression",
+        "training_horizons_frames": [
+          13,
+          25,
+          49,
+          73
+        ],
+        "checkpoint_boundary": "Exact Table 2 teacher checkpoint/horizon is not pinned.",
+        "protocol_boundary": "Bidirectional clip generation is not the student's streaming KV-cache protocol."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:07",
+        "evidence:B057:12",
+        "evidence:B057:30"
+      ]
+    },
+    {
+      "id": "model:B057:s4-table2",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Table 2 four-step causal student",
+        "decoder": "not_reported",
+        "identity_boundary": "Not equated with either Table 4 four-step decoder variant."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:12"
+      ]
+    },
+    {
+      "id": "model:B057:s4-taehv",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Table 4 Balanced 1",
+        "denoising_steps": 4,
+        "decoder": "TAEHV",
+        "block_frames": 12
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:18"
+      ]
+    },
+    {
+      "id": "model:B057:s2-vae",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Table 4 Balanced 2",
+        "denoising_steps": 2,
+        "decoder": "VAE",
+        "block_frames": 12
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:18"
+      ]
+    },
+    {
+      "id": "model:B057:s4-vae",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Table 4 Highest quality",
+        "denoising_steps": 4,
+        "decoder": "VAE",
+        "block_frames": 12
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:18"
+      ]
+    },
+    {
+      "id": "model:B057:foundation",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Cosmos-H-Surgical-Simulator initialization",
+        "role": "Inherited multi-embodiment checkpoint",
+        "boundary": "Its data coverage and cited capabilities are not inherited as downstream validation."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:03",
+        "evidence:B057:19"
+      ]
+    },
+    {
+      "id": "model:B057:baseline",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Reported Cosmos-Surg-dVRK baseline",
+        "related_record": "B104",
+        "rerun_status": "not_reported",
+        "boundary": "Distinct from Cosmos-H-Surgical-Simulator initialization."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:15",
+        "evidence:B057:19"
+      ]
+    },
+    {
+      "id": "system:B057:interactive",
+      "class_id": "SystemComposition",
+      "properties": {
+        "flow": "Initial real RGB frame → encoder → visual latent/KV state → action-conditioned DiT → decoded video → external operator/policy. Policy actions return to the generator; a separate video classifier scores task outcomes.",
+        "interfaces": [
+          "Keyboard/WebRTC",
+          "Meta Quest/WebSocket/WebXR",
+          "Policy/TCP",
+          "Versius console input conversion"
+        ],
+        "authority_boundary": "Commands advance simulated scenes; clinical actuation authority is not established."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:05",
+        "evidence:B057:09",
+        "evidence:B057:14"
+      ]
+    },
+    {
+      "id": "context:B057:bench",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "purpose": "Interactive preclinical simulation and external-policy evaluation",
+        "users": "Researchers, simulator operators, learned policies",
+        "environment": "Generated tabletop scenes and physical dVRK suture-pad comparators",
+        "boundary": "Clinical validation, human training benefit, synthetic-training transfer, and intraoperative support remain future applications."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:09",
+        "evidence:B057:20",
+        "evidence:B057:21"
+      ]
+    },
+    {
+      "id": "dataset:B057:open-h",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "name": "Open-H-Embodiment",
+        "role": "Inherited foundation pretraining",
+        "reported_size": "32 datasets; 9 embodiments; on the order of 22M frames",
+        "recordings": "In-vivo and ex-vivo",
+        "sampling": "CMR Versius 50%, equally divided across four procedure datasets; remaining 50% proportional to other dataset frame counts.",
+        "exact_release": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:03"
+      ]
+    },
+    {
+      "id": "dataset:B057:tabletop",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "name": "dVRK tabletop mixture from Cosmos-Surg-dVRK, including SutureBot",
+        "reported_size": "On the order of one million frames at 10 Hz",
+        "content": "Suturing, knot tying, failures, and out-of-distribution episodes",
+        "split_boundary": "Entire predecessor-dataset use and 12 held-out episodes are both reported; exact episode membership/disjointness remains unresolved."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:04",
+        "evidence:B057:11"
+      ]
+    },
+    {
+      "id": "cohort:B057:quality",
+      "class_id": "Cohort",
+      "properties": {
+        "unit": "Preclinical tabletop suturing episode",
+        "reported_count": 12,
+        "split": "Reported held-out; construction not_reported",
+        "reference": "Corresponding real recorded tabletop videos",
+        "count_boundary": "Not the denominator for policy or latency experiments."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:11",
+        "evidence:B057:20"
+      ]
+    },
+    {
+      "id": "cohort:B057:policy",
+      "class_id": "Cohort",
+      "properties": {
+        "unit": "Controller checkpoint/task configuration, not participant",
+        "policy_checkpoints": 6,
+        "policy_families": [
+          "π0",
+          "GR00T N1",
+          "GR00T N1.5"
+        ],
+        "tasks": [
+          "pickup",
+          "throw",
+          "handover",
+          "knot tie"
+        ],
+        "trial_denominators": "not_reported",
+        "same_origin_matching": "Insufficiently documented for L3."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:15",
+        "evidence:B057:16"
+      ]
+    },
+    {
+      "id": "evaluation:B057:quality",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "models": [
+          "model:B057:teacher",
+          "model:B057:s4-table2",
+          "model:B057:student"
+        ],
+        "cohort_id": "cohort:B057:quality",
+        "protocol": "Recorded-action replay; score later generated versus real frames, excluding shared initial frame. Paired metrics macro-averaged by episode; FVD uses pooled 17-frame I3D features.",
+        "horizon": "Complete available episodes; exact maximum not_reported",
+        "acceptance_tolerance": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ]
+    },
+    {
+      "id": "evaluation:B057:policy",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "model_id": "model:B057:runtime",
+        "cohort_id": "cohort:B057:policy",
+        "coupling": "External-controller evaluation in a simulator",
+        "protocol": "Policy observes synthesized frame, emits actions, simulator advances; classifier scores generated outcomes; compare simulated and physical-dVRK success rates.",
+        "configuration_classifier_validation_and_denominators": "Insufficiently reported."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:14",
+        "evidence:B057:15",
+        "evidence:B057:16"
+      ]
+    },
+    {
+      "id": "evaluation:B057:drift",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "comparison": "Students described as identically configured, distilled from progressive H=73 versus short H=13 teachers",
+        "student_step_decoder_identity": "not_reported",
+        "protocol": "Full autoregressive trajectories; segmented FVD",
+        "reported_windowing": "Contiguous 5-second windows",
+        "issue": "Earlier image-review notes describe approximately three-second marker spacing; unresolved.",
+        "result": "Progressive-teacher curve lower; degradation remains."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:13",
+        "evidence:B057:17",
+        "evidence:B057:20"
+      ]
+    },
+    {
+      "id": "evaluation:B057:runtime",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "hardware": "Single NVIDIA RTX PRO 6000 Blackwell Workstation Edition GPU",
+        "settings": "Tables 1, 4, and 5",
+        "endpoint": "Critical-path generation and throughput, not full action-to-photon latency",
+        "repetitions_and_variability": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:10",
+        "evidence:B057:18",
+        "evidence:B057:22"
+      ]
+    },
+    {
+      "id": "module:B057:classifier",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "responsibility": "Generated-trajectory task success/failure readout",
+        "architecture_calibration_standalone_accuracy": "not_reported sufficiently; not inherited from predecessor"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:14"
+      ]
+    },
+    {
+      "id": "module:B057:student-dmd",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "responsibility": "Phase 2 student Self Forcing/DMD objective; not inherited autoencoder training"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:08"
+      ]
+    },
+    {
+      "id": "module:B057:inherited-autoencoder",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "responsibility": "Inherited observation encoder/decoder training scope; historical objectives insufficiently reported"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:10",
+        "evidence:B057:27"
+      ]
+    },
+    {
+      "id": "module:B057:teacher-objective",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "responsibility": "Section 4.2 tabletop teacher fine-tuning objective only"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:07"
+      ]
+    },
+    {
+      "id": "lineage:B057:B104",
+      "class_id": "StudyLineage",
+      "properties": {
+        "related_record": "B104",
+        "documented_dependence": "Predecessor tabletop data foundation and evaluation protocol reused.",
+        "not_established": "Exact episode overlap, baseline rerun, or exact study duplication."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B057:04",
+        "evidence:B057:14",
+        "evidence:B057:19"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "B057:a001",
+      "subject_id": "model:B057:student",
+      "feature_id": "data.provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "dataset_version_id": "dataset:B057:tabletop"
+      },
+      "evidence_ids": [
+        "evidence:B057:03",
+        "evidence:B057:04"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Named lineage, approximate size, acquisition cadence, and action preprocessing."
+      ],
+      "criteria_missing": [
+        "Retained variable-level source/unit/time provenance and exact dataset revisions."
+      ],
+      "rationale": "Source descriptions meet only part of measurement-level provenance."
+    },
+    {
+      "id": "B057:a002",
+      "subject_id": "model:B057:student",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Ten-Hz cadence and frame indices do not establish retained native timestamps."
+    },
+    {
+      "id": "B057:a003",
+      "subject_id": "model:B057:student",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Serving latency is not acquisition-versus-availability semantics for training queries."
+    },
+    {
+      "id": "B057:a004",
+      "subject_id": "model:B057:student",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [
+        "evidence:B057:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Clean-context/generation masks do not encode measured/missing/invalid observations."
+    },
+    {
+      "id": "B057:a005",
+      "subject_id": "model:B057:student",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Cache position does not establish variable-level measurement freshness."
+    },
+    {
+      "id": "B057:a006",
+      "subject_id": "model:B057:student",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Unequal intervals/dropped-frame handling is unreported; rectified-flow time is not procedural time."
+    },
+    {
+      "id": "B057:a007",
+      "subject_id": "model:B057:student",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Image-value generation does not model when, whether, or why measurements occur."
+    },
+    {
+      "id": "B057:a008",
+      "subject_id": "model:B057:student",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No target/grid witness-preservation audit is reported."
+    },
+    {
+      "id": "B057:a009",
+      "subject_id": "model:B057:foundation",
+      "feature_id": "data.harmonization",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:foundation",
+        "dataset_version_id": "dataset:B057:open-h"
+      },
+      "evidence_ids": [
+        "evidence:B057:03"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Native controls mapped to 44D schema, zero-padding, and per-embodiment normalization."
+      ],
+      "criteria_missing": [
+        "Complete field/unit/frame conversions and their validation."
+      ],
+      "rationale": "Inherited preparation is documented, not downstream cross-embodiment validation."
+    },
+    {
+      "id": "B057:a010",
+      "subject_id": "model:B057:student",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:04",
+        "evidence:B057:11"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Entire predecessor-dataset use and 12 held-out episodes require manifests and preprocessing-fit boundaries to reconcile. Neither leakage nor disjointness is established."
+    },
+    {
+      "id": "B057:a011",
+      "subject_id": "model:B057:student",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Multi-node optimization is not a site-local federated protocol."
+    },
+    {
+      "id": "B057:a012",
+      "subject_id": "model:B057:student",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [
+        "evidence:B057:05",
+        "evidence:B057:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Initial RGB observations become clean latent context; Table 1 names the Wan 2.1 runtime encoder."
+    },
+    {
+      "id": "B057:a013",
+      "subject_id": "model:B057:student",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [
+        "evidence:B057:05",
+        "evidence:B057:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Generator initialization is explicit; encoder-specific checkpoint version and adaptation are insufficiently documented."
+    },
+    {
+      "id": "B057:a014",
+      "subject_id": "model:B057:student",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [
+        "evidence:B057:07",
+        "evidence:B057:08",
+        "evidence:B057:28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Cached latent-velocity regression is explicit, but whether it constitutes a context-to-target representation objective rather than generative score distillation remains ambiguous. Target construction and encoder objectives would resolve this; no JEPA identity is inferred."
+    },
+    {
+      "id": "B057:a015",
+      "subject_id": "model:B057:student",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "EMA/frozen scores/stop-gradients have distillation roles; an anti-collapse property is not reported."
+    },
+    {
+      "id": "B057:a016",
+      "subject_id": "module:B057:student-dmd",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "module_implementation_id": "module:B057:student-dmd"
+      },
+      "evidence_ids": [
+        "evidence:B057:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Phase 2 explicitly uses distribution matching instead of paired pixel reconstruction. This absence does not extend to inherited autoencoder training."
+    },
+    {
+      "id": "B057:a017",
+      "subject_id": "model:B057:student",
+      "feature_id": "perception.fusion",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [
+        "evidence:B057:05",
+        "evidence:B057:06"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Visual latents and separately encoded robot kinematics interact through timestep/AdaLN modulation; kinematics supplies action conditioning."
+    },
+    {
+      "id": "B057:a018",
+      "subject_id": "model:B057:student",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Missing-modality behavior and quality/recency-aware fusion are not reported."
+    },
+    {
+      "id": "B057:a019",
+      "subject_id": "model:B057:student",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:05",
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Evaluated autoregressive generation carries visual latent/KV history into later predictions."
+    },
+    {
+      "id": "B057:a020",
+      "subject_id": "model:B057:student",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Stochastic future video does not establish a hidden-state posterior/filter."
+    },
+    {
+      "id": "B057:a021",
+      "subject_id": "model:B057:student",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "time_horizon": "After initial real frame in documented sessions"
+      },
+      "evidence_ids": [
+        "evidence:B057:05",
+        "evidence:B057:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The specified continuation uses actions and past generations, without a new-physical-observation correction operation."
+    },
+    {
+      "id": "B057:a022",
+      "subject_id": "model:B057:student",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality",
+        "time_horizon": "After initialization"
+      },
+      "evidence_ids": [
+        "evidence:B057:05",
+        "evidence:B057:11"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Later real frames are scoring references, not newly assimilated measurements."
+    },
+    {
+      "id": "B057:a023",
+      "subject_id": "model:B057:student",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "population": "Tabletop suture-pad scenes"
+      },
+      "evidence_ids": [
+        "evidence:B057:20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No individual patient measurements exist in the evaluated tabletop configuration for patient-specific fitting; embodiment/procedure fine-tuning is different."
+    },
+    {
+      "id": "B057:a024",
+      "subject_id": "model:B057:student",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Multiple controllers consuming video do not establish two typed readouts sharing the maintained internal state."
+    },
+    {
+      "id": "B057:a025",
+      "subject_id": "model:B057:student",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [
+        "evidence:B057:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Teacher-training horizon ablation does not isolate omitted student-state determinants or inference history."
+    },
+    {
+      "id": "B057:a026",
+      "subject_id": "model:B057:student",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [
+        "evidence:B057:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Initial scene and cached generated history condition later predictions; personalization value is separate."
+    },
+    {
+      "id": "B057:a027",
+      "subject_id": "model:B057:student",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No matched scene-history swap/withhold or generic-prior control is reported."
+    },
+    {
+      "id": "B057:a028",
+      "subject_id": "model:B057:student",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [
+        "evidence:B057:05",
+        "evidence:B057:27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Recent-token memory and appearance sink supply declared reference mechanisms, not guaranteed thread/anatomical consistency."
+    },
+    {
+      "id": "B057:a029",
+      "subject_id": "model:B057:student",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Inspectable video is not an interpretable mapping of latent/KV coordinates to entities or physics."
+    },
+    {
+      "id": "B057:a030",
+      "subject_id": "model:B057:student",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [
+        "evidence:B057:05",
+        "evidence:B057:27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Streaming KV context/local attention are operational; capacity and useful delayed-effect memory remain unreported."
+    },
+    {
+      "id": "B057:a031",
+      "subject_id": "model:B057:student",
+      "feature_id": "action.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:06",
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Settable robot-action chunks condition evaluated successor video."
+    },
+    {
+      "id": "B057:a032",
+      "subject_id": "model:B057:student",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [
+        "evidence:B057:03",
+        "evidence:B057:09"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Recoverable procedural meanings for pose/gripper and additional console signals."
+      ],
+      "criteria_missing": [
+        "Explicit field-level role/effect-channel typing."
+      ],
+      "rationale": "Unrelated therapeutic/administrative action classes are not required."
+    },
+    {
+      "id": "B057:a033",
+      "subject_id": "model:B057:student",
+      "feature_id": "action.parameterized",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [
+        "evidence:B057:03",
+        "evidence:B057:04",
+        "evidence:B057:06"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "20D/44D commands, normalization, and sample/frame alignment."
+      ],
+      "criteria_missing": [
+        "Complete dimension definitions, units, frames, transforms, and absolute/relative conventions."
+      ],
+      "rationale": "Vector width alone is not a complete executable contract."
+    },
+    {
+      "id": "B057:a034",
+      "subject_id": "model:B057:student",
+      "feature_id": "action.schedule",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:04",
+        "evidence:B057:06",
+        "evidence:B057:11"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Indexed action sequences drive replay; four action samples align with each compressed latent frame."
+    },
+    {
+      "id": "B057:a035",
+      "subject_id": "model:B057:student",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Joint vectors do not establish replacement/inheritance and required component-dependency semantics."
+    },
+    {
+      "id": "B057:a036",
+      "subject_id": "model:B057:student",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Workspace, collision, and permissible-command enforcement are not reported."
+    },
+    {
+      "id": "B057:a037",
+      "subject_id": "model:B057:student",
+      "feature_id": "action.grounding",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [
+        "evidence:B057:03",
+        "evidence:B057:04",
+        "evidence:B057:09"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Native robot controls/console signals map to simulator inputs."
+      ],
+      "criteria_missing": [
+        "Complete calibration, actuator/frame mappings, and cross-interface alignment validation."
+      ],
+      "rationale": "Semantic mapping is established more strongly than calibrated executable equivalence."
+    },
+    {
+      "id": "B057:a038",
+      "subject_id": "model:B057:student",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "OOD/failure training episodes do not estimate context-conditioned command support."
+    },
+    {
+      "id": "B057:a039",
+      "subject_id": "model:B057:student",
+      "feature_id": "action.comparison",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "This calculation fixes recorded actions and compares generators, not alternative actions. Absence is restricted to recorded-action fidelity evaluation."
+    },
+    {
+      "id": "B057:a040",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No reversibility/residual-harm analysis of represented operations is reported."
+    },
+    {
+      "id": "B057:a041",
+      "subject_id": "model:B057:student",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:05",
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "State advances over procedural video frames, not denoising time or optimization iterations."
+    },
+    {
+      "id": "B057:a042",
+      "subject_id": "model:B057:student",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:08",
+        "evidence:B057:12",
+        "evidence:B057:28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Warmup and Self Forcing/DMD train the executed neural transition; no mechanistic hybrid is inferred."
+    },
+    {
+      "id": "B057:a043",
+      "subject_id": "model:B057:student",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:06",
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Specified commands condition evaluated forecasts; this is not an identified causal effect or action-sensitivity ablation."
+    },
+    {
+      "id": "B057:a044",
+      "subject_id": "model:B057:student",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [
+        "evidence:B057:07",
+        "evidence:B057:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Conditional noise-driven diffusion/rectified-flow generation supplies stochastic video successors, not validated stochastic mechanics."
+    },
+    {
+      "id": "B057:a045",
+      "subject_id": "model:B057:student",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No operative mechanical, anatomical, conservation, object, or symbolic constraint is documented."
+    },
+    {
+      "id": "B057:a046",
+      "subject_id": "model:B057:student",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Teacher/student and serving integration do not establish mechanistic–learned coupling."
+    },
+    {
+      "id": "B057:a047",
+      "subject_id": "model:B057:student",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Decoder/step ablations and generic library compatibility do not establish interchangeable surgical dynamics under a semantic contract."
+    },
+    {
+      "id": "B057:a048",
+      "subject_id": "model:B057:student",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Resolutions, embodiments, horizons, and token compression do not establish coupled world scales."
+    },
+    {
+      "id": "B057:a049",
+      "subject_id": "model:B057:student",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "module_implementation_id": "module:B057:student-dmd"
+      },
+      "evidence_ids": [
+        "evidence:B057:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "DMD operates on self-rollout clips spanning successive predictions; one denoising step is differentiated and prior KV embeddings are detached."
+    },
+    {
+      "id": "B057:a050",
+      "subject_id": "model:B057:student",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [
+        "evidence:B057:05",
+        "evidence:B057:06"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The inspected generator repeats fixed action-folded latent/frame-block transitions without option/event/subgoal coordination. Compression and training curriculum are not such a hierarchy."
+    },
+    {
+      "id": "B057:a051",
+      "subject_id": "model:B057:student",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:10",
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "TAEHV emits evaluated successor RGB video."
+    },
+    {
+      "id": "B057:a052",
+      "subject_id": "module:B057:classifier",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "module_implementation_id": "module:B057:classifier",
+        "evaluation_run_id": "evaluation:B057:policy"
+      },
+      "evidence_ids": [
+        "evidence:B057:14",
+        "evidence:B057:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Separate video-based task success/failure readout; not an internal physiological/reward/causal head. Standalone validity is unreported."
+    },
+    {
+      "id": "B057:a053",
+      "subject_id": "model:B057:student",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Later generated frames are scored against corresponding later real observations. An isolated first-step number is not reported."
+    },
+    {
+      "id": "B057:a054",
+      "subject_id": "model:B057:student",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:05",
+        "evidence:B057:11",
+        "evidence:B057:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Generated context drives successive transitions, rather than only one block or factual-frame replacement."
+    },
+    {
+      "id": "B057:a055",
+      "subject_id": "model:B057:student",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:05",
+        "evidence:B057:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Continuation uses generated visual history; factual command inputs are not teacher-forcing of intermediate visual state."
+    },
+    {
+      "id": "B057:a056",
+      "subject_id": "model:B057:student",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:05",
+        "evidence:B057:11"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "No later measured physical image corrects the generated sequence."
+    },
+    {
+      "id": "B057:a057",
+      "subject_id": "model:B057:student",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:11",
+        "evidence:B057:17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Full episodes are evaluated but their maximum duration is unstated. Plot extent, T=140 examples, training horizon, and block length are not exact maxima."
+    },
+    {
+      "id": "B057:a058",
+      "subject_id": "evaluation:B057:drift",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B057:drift"
+      },
+      "evidence_ids": [
+        "evidence:B057:13",
+        "evidence:B057:17",
+        "evidence:B057:20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Segmented FVD assesses multiple recursive depths; progressive teachers reduce but do not eliminate degradation. Window labeling remains unresolved."
+    },
+    {
+      "id": "B057:a059",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No supported horizon combines a tolerance, uncertainty, action support, and model-specific performance curve."
+    },
+    {
+      "id": "B057:a060",
+      "subject_id": "model:B057:student",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [
+        "evidence:B057:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Implicit stochastic generation is documented, but repeated fixed-origin futures or explicit joint forecast-distribution outputs are not."
+    },
+    {
+      "id": "B057:a061",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Buffer/cache bounds do not enforce an empirically supported horizon."
+    },
+    {
+      "id": "B057:a062",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "planning.model_use",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B057:14",
+        "evidence:B057:15",
+        "evidence:B057:16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "value": {
+        "coupling": "External-controller evaluation in a simulator"
+      },
+      "rationale": "Modeled observations feed external-policy decisions and outcome comparisons; no lookahead or policy improvement is inferred."
+    },
+    {
+      "id": "B057:a063",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B057:14",
+        "evidence:B057:15",
+        "evidence:B057:16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "value": {
+        "coupling": "External-controller evaluation in a simulator"
+      },
+      "rationale": "This explicitly permitted ontology coupling supports scoped L4. Controllers react to modeled consequences; no optimization through, or training inside, this model is established."
+    },
+    {
+      "id": "B057:a064",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B057:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The documented loop updates from synthesized images, not newly measured physical observations after executing a plan prefix."
+    },
+    {
+      "id": "B057:a065",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:runtime"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Controller-agnostic serving does not itself demonstrate inference-time utility/constraint replacement."
+    },
+    {
+      "id": "B057:a066",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:runtime"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No uncertainty-dependent scores, risk budgets, or action filters are reported."
+    },
+    {
+      "id": "B057:a067",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy"
+      },
+      "evidence_ids": [
+        "evidence:B057:20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Agreement of external policies does not challenge model-optimized plans. Negative correlations establish mismatch, not planner exploitation."
+    },
+    {
+      "id": "B057:a068",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy"
+      },
+      "evidence_ids": [
+        "evidence:B057:09",
+        "evidence:B057:14",
+        "evidence:B057:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Identified external policies propose actions from generated observations."
+      ],
+      "criteria_missing": [
+        "Eligibility, support, and proposal-space coverage."
+      ],
+      "rationale": "Checkpoints are controllers, not candidate actions."
+    },
+    {
+      "id": "B057:a069",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:runtime"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No option/goal durations, termination, or control hierarchy is described; policy-reference capabilities are not inherited."
+    },
+    {
+      "id": "B057:a070",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B057:14",
+        "evidence:B057:15",
+        "evidence:B057:16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Actions advance the simulated environment and resulting synthesized observations feed subsequent decisions."
+    },
+    {
+      "id": "B057:a071",
+      "subject_id": "model:B057:student",
+      "feature_id": "uq.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [
+        "evidence:B057:07",
+        "evidence:B057:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": {
+        "mechanism": "Implicit conditional generative video distribution",
+        "calibration": "not_reported"
+      },
+      "rationale": "Minimal distributional semantics only; not validated surgical-risk uncertainty."
+    },
+    {
+      "id": "B057:a072",
+      "subject_id": "model:B057:student",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Teacher/student/fake-score networks do not estimate aleatoric and epistemic components."
+    },
+    {
+      "id": "B057:a073",
+      "subject_id": "model:B057:student",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "FVD, fidelity, correlation, ranking violations, and mean bias are not reliability/coverage tests."
+    },
+    {
+      "id": "B057:a074",
+      "subject_id": "model:B057:student",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Segmented FVD does not assess trajectory coverage or reliability."
+    },
+    {
+      "id": "B057:a075",
+      "subject_id": "model:B057:student",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No calibration acceptance criterion or achieved coverage is reported."
+    },
+    {
+      "id": "B057:a076",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "OOD training and outcome classification do not establish a support detector and response."
+    },
+    {
+      "id": "B057:a077",
+      "subject_id": "model:B057:student",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No conformal score, calibration split, or coverage assumptions are reported."
+    },
+    {
+      "id": "B057:a078",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No explicit population/outcome/horizon/intervention contrast defines a causal estimand."
+    },
+    {
+      "id": "B057:a079",
+      "subject_id": "model:B057:student",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Temporal masking/action conditioning is not an identification strategy."
+    },
+    {
+      "id": "B057:a080",
+      "subject_id": "model:B057:student",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No identification assumptions are tied to a causal estimand."
+    },
+    {
+      "id": "B057:a081",
+      "subject_id": "model:B057:student",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Decoder/step/horizon ablations are not sensitivity analyses for causal assumptions."
+    },
+    {
+      "id": "B057:a082",
+      "subject_id": "evaluation:B057:quality",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:11"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Factual replay does not validate a defined action-effect contrast against interventional truth."
+    },
+    {
+      "id": "B057:a083",
+      "subject_id": "model:B057:student",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Action embeddings enter a neural generator, not a documented calibrated mechanical intervention model."
+    },
+    {
+      "id": "B057:a084",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "The necessary estimand, identification/mechanism, support, sensitivity, and validation package is not reported."
+    },
+    {
+      "id": "B057:a085",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No command/output rejection guard with fail behavior is reported; buffering is not such a guard."
+    },
+    {
+      "id": "B057:a086",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No uncertainty/support-triggered deferral and fallback are reported."
+    },
+    {
+      "id": "B057:a087",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Human control interfaces do not establish triggered escalation, responder availability, timing, or fallback."
+    },
+    {
+      "id": "B057:a088",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Outcome scoring is not documented to trigger a protective response to hazards."
+    },
+    {
+      "id": "B057:a089",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Safe stop and residual queued-action effects are not specified; CPU encoding fallback is not a safety stop."
+    },
+    {
+      "id": "B057:a090",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No asset/adversary/attack-path analysis is reported."
+    },
+    {
+      "id": "B057:a091",
+      "subject_id": "study:B057:bench",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Natural failures and OOD training are not documented fault-injection/adversarial evaluation."
+    },
+    {
+      "id": "B057:a092",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "dataset_version_id": "dataset:B057:open-h"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Operational privacy controls for inherited recordings and release are not documented."
+    },
+    {
+      "id": "B057:a093",
+      "subject_id": "model:B057:student",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No copying, membership, re-identification, or disclosure testing is reported."
+    },
+    {
+      "id": "B057:a094",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Protocol names/session IDs do not establish enforced authentication and operation permissions."
+    },
+    {
+      "id": "B057:a095",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Publication limitations do not establish an implemented reliance/override protocol or human-factors study."
+    },
+    {
+      "id": "B057:a096",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [
+        "evidence:B057:09",
+        "evidence:B057:14",
+        "evidence:B057:20",
+        "evidence:B057:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Research purpose, users/controllers, simulated decision point, environment, and evidence limits."
+      ],
+      "criteria_missing": [
+        "A released-use policy specifying permitted autonomy and authority limits."
+      ],
+      "rationale": "Operational roles are known; a complete permitted-use envelope is not."
+    },
+    {
+      "id": "B057:a097",
+      "subject_id": "paper-version:B057:sha256-2745cf5218cf",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [
+        "evidence:B057:01",
+        "evidence:B057:07",
+        "evidence:B057:20",
+        "evidence:B057:24"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Organized versioned technical report documents lineage, configurations, assets, results, and limits."
+      ],
+      "criteria_missing": [
+        "Exact checkpoint/code/data revisions and asset-specific validation/access linkage."
+      ],
+      "rationale": "Partial reporting responsibility, not a separately inspected complete model card."
+    },
+    {
+      "id": "B057:a098",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Post-release signals, thresholds, cadence, owner, response, and revalidation triggers are not specified."
+    },
+    {
+      "id": "B057:a099",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Training curriculum/future backbone adaptation is not approval, revalidation, and rollback governance."
+    },
+    {
+      "id": "B057:a100",
+      "subject_id": "paper-version:B057:sha256-2745cf5218cf",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No named regulatory/clinical reporting framework was captured in the supplied paper."
+    },
+    {
+      "id": "B057:a101",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No use/version/jurisdiction-specific compliance or authorization evidence is reported."
+    },
+    {
+      "id": "B057:a102",
+      "subject_id": "paper-version:B057:sha256-2745cf5218cf",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "dataset_version_id": [
+          "dataset:B057:open-h",
+          "dataset:B057:tabletop"
+        ]
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Named approval/exemption/consent scope is not reported here or inherited from cited data sources."
+    },
+    {
+      "id": "B057:a103",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "agent.role",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy"
+      },
+      "evidence_ids": [
+        "evidence:B057:14",
+        "evidence:B057:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "External learned controllers consume generated observations and emit actions; the DiT is not thereby a conversational LLM."
+    },
+    {
+      "id": "B057:a104",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "agent.multiple",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy"
+      },
+      "evidence_ids": [
+        "evidence:B057:14",
+        "evidence:B057:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "One controller operates per evaluated loop; alternative checkpoints, generator, and classifier are not interacting agents."
+    },
+    {
+      "id": "B057:a105",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:runtime"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Sequential reaction is not an explicit proposal/critique/revision mechanism."
+    },
+    {
+      "id": "B057:a106",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy"
+      },
+      "evidence_ids": [
+        "evidence:B057:09"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Policy and simulator exchange generated frames/actions over TCP."
+      ],
+      "criteria_missing": [
+        "Explicit permissions and operation restrictions."
+      ],
+      "rationale": "Communication does not establish clinical write/actuation authority."
+    },
+    {
+      "id": "B057:a107",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B057:14",
+        "evidence:B057:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "The policy supplies commands and simulation advances without an intervening human gate in the described loop; clinical authority is not established."
+    },
+    {
+      "id": "B057:a108",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "release.code",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [
+        "evidence:B057:23",
+        "evidence:B057:24"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Explicit paper-documented release and deployment repository, not independently checked accessibility, contents, license, or reproduction."
+    },
+    {
+      "id": "B057:a109",
+      "subject_id": "model:B057:student",
+      "feature_id": "release.weights",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [
+        "evidence:B057:24",
+        "evidence:B057:25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Model-specific location and explicit tabletop-checkpoint release."
+      ],
+      "criteria_missing": [
+        "Exact revision, per-configuration mapping, and access/license conditions."
+      ],
+      "rationale": "All teacher/ablation weights and current accessibility are not established."
+    },
+    {
+      "id": "B057:a110",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Separate legal terms for code, weights, and data are not supplied; open labels/copyright are insufficient."
+    },
+    {
+      "id": "B057:a111",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No independent pinned execution/results are reported or performed by this review."
+    },
+    {
+      "id": "B057:a112",
+      "subject_id": "model:B057:student",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": {
+        "LPIPS": 0.1212,
+        "PSNR": 24.38,
+        "mean_L1": 0.0561
+      },
+      "rationale": "Paired successor-frame errors aggregate full rollouts, not an isolated one-step experiment. No acceptance tolerance or dispersion is reported."
+    },
+    {
+      "id": "B057:a113",
+      "subject_id": "evaluation:B057:drift",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B057:drift"
+      },
+      "evidence_ids": [
+        "evidence:B057:13",
+        "evidence:B057:17",
+        "evidence:B057:20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Multiple free-running depths are assessed; improved drift is not a tolerance-defined effective horizon."
+    },
+    {
+      "id": "B057:a114",
+      "subject_id": "model:B057:student",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": {
+        "FVD": 265.36,
+        "features": "Pooled 17-frame I3D clips"
+      },
+      "rationale": "Distributional video realism against real tabletop references, not physical-law validity or calibration."
+    },
+    {
+      "id": "B057:a115",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B057:16",
+        "evidence:B057:26"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Targeted qualitative teacher/student comparisons identify hallucinated folded/crossing thread geometry."
+      ],
+      "criteria_missing": [
+        "Defined geometric/mechanical violation protocol, reference, and incidence/error measurements."
+      ],
+      "rationale": "Specific failure examples are shown, not complete physical-plausibility validation."
+    },
+    {
+      "id": "B057:a116",
+      "subject_id": "model:B057:student",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No nominal-target reliability/coverage/sharpness assessment is reported."
+    },
+    {
+      "id": "B057:a117",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Policy comparisons do not document controlled action changes from matched initial history."
+    },
+    {
+      "id": "B057:a118",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No defined causal estimand and corresponding interventional validation reference are reported."
+    },
+    {
+      "id": "B057:a119",
+      "subject_id": "model:B057:student",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No matched correct-versus-swapped/withheld/prior context comparison is reported."
+    },
+    {
+      "id": "B057:a120",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B057:14",
+        "evidence:B057:15",
+        "evidence:B057:16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "value": {
+        "Pearson_r": 0.696,
+        "MMRV": "0.23 ± 0.09",
+        "mean_bias": -0.12
+      },
+      "rationale": "Classifier-scored external-policy outcomes and agreement are evaluated; no policy improvement attributable to model use or clinical utility is demonstrated."
+    },
+    {
+      "id": "B057:a121",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy",
+        "environment_kind": "mixed"
+      },
+      "evidence_ids": [
+        "evidence:B057:15",
+        "evidence:B057:16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "value": {
+        "task_Pearson_r": {
+          "pickup": 0.67,
+          "throw": 0.77,
+          "handover": -0.39,
+          "knot_tie": -0.24
+        }
+      },
+      "rationale": "Matched task/policy success-rate agreement with physical tabletop dVRK is measured; denominators and correlation intervals are unreported."
+    },
+    {
+      "id": "B057:a122",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [
+        "evidence:B057:20",
+        "evidence:B057:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No explicit external-site/cohort, held-out embodiment/procedure, subgroup, missing-modality, or OOD test is reported. E10 is retained separately; synthetic-training transfer remains future work."
+    },
+    {
+      "id": "B057:a123",
+      "subject_id": "model:B057:student",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No target-specific observation-clock evidence audit is reported."
+    },
+    {
+      "id": "B057:a124",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [
+        "evidence:B057:09",
+        "evidence:B057:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Live control demonstrations lack a defined participant study with use/review outcomes. Automated scoring is not expert evaluation."
+    },
+    {
+      "id": "B057:a125",
+      "subject_id": "model:B057:student",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:runtime"
+      },
+      "evidence_ids": [
+        "evidence:B057:10",
+        "evidence:B057:18",
+        "evidence:B057:22",
+        "evidence:B057:29"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": {
+        "hardware": "Single NVIDIA RTX PRO 6000 Blackwell GPU",
+        "Table1_resolution": "288 × 512",
+        "Table1_8_frames": {
+          "initial_encode_ms": 143,
+          "conditioning_ms": "<1",
+          "DiT_ms": 47,
+          "decode_ms": 4,
+          "KV_ms": 22,
+          "render_ms": 3,
+          "total_inference_ms": 51,
+          "FPS": 159
+        },
+        "Table1_12_frames": {
+          "initial_encode_ms": 143,
+          "conditioning_ms": "<1",
+          "DiT_ms": 69,
+          "decode_ms": 5,
+          "KV_ms": 33,
+          "render_ms": 6,
+          "total_inference_ms": 74,
+          "FPS": 161
+        },
+        "Table4_fast_12_frames": {
+          "inference_ms": 74.7,
+          "FPS": 161,
+          "LPIPS": 0.121
+        },
+        "Table5_resolution": "544 × 960; prose calls it 540p",
+        "Table5_8_frames": {
+          "initial_encode_ms": 156,
+          "conditioning_ms": "<1",
+          "DiT_ms": 249,
+          "decode_ms": 14,
+          "KV_ms": 119,
+          "CPU_render_ms": 36,
+          "total_inference_ms": 263,
+          "FPS": 31
+        },
+        "Table5_12_frames": {
+          "initial_encode_ms": 156,
+          "conditioning_ms": "<1",
+          "DiT_ms": 371,
+          "decode_ms": 25,
+          "KV_ms": 183,
+          "CPU_render_ms": 54,
+          "total_inference_ms": 396,
+          "FPS": 30
+        },
+        "separate_downstream_optimization": {
+          "before_ms": 98.4,
+          "after_ms": 82.1,
+          "reported_factor": 1.2,
+          "reported_bandwidth": "Approximately 10× less",
+          "reported_encoding": "25% faster"
+        }
+      },
+      "rationale": "Measured generation efficiency, not full action-to-photon latency. Preserve reported totals/FPS and 74 versus 74.7 ms; asynchronous KV and other stages are not all included. No deadline tolerance or latency distribution is supplied."
+    },
+    {
+      "id": "B057:a126",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [
+        "evidence:B057:20",
+        "evidence:B057:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No real-care/workflow utility-and-harm study is reported; clinical validation remains future work."
+    },
+    {
+      "id": "B057:a127",
+      "subject_id": "model:B057:student",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:05",
+        "evidence:B057:08",
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Successor visual representations are generated, retained across predictions, and decoded; not merely an encoder bottleneck."
+    },
+    {
+      "id": "B057:a128",
+      "subject_id": "model:B057:student",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [
+        "evidence:B057:08",
+        "evidence:B057:28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Specified student objectives match velocity targets/video distributions, not reward/value/policy equivalence."
+    },
+    {
+      "id": "B057:a129",
+      "subject_id": "module:B057:inherited-autoencoder",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "module_implementation_id": "module:B057:inherited-autoencoder"
+      },
+      "evidence_ids": [
+        "evidence:B057:10",
+        "evidence:B057:27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Historical reconstruction objectives are not inferred solely from VAE/Wan/TAEHV names; distinct from Phase 2 DMD."
+    },
+    {
+      "id": "B057:a130",
+      "subject_id": "module:B057:teacher-objective",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:teacher",
+        "module_implementation_id": "module:B057:teacher-objective"
+      },
+      "evidence_ids": [
+        "evidence:B057:07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Section 4.2 specifies latent velocity loss, not direct observed-image reconstruction; no inference about inherited encoder training."
+    },
+    {
+      "id": "B057:a131",
+      "subject_id": "model:B057:teacher",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:teacher",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:07",
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Teacher predicts later video from context; student streaming behavior is not inherited."
+    },
+    {
+      "id": "B057:a132",
+      "subject_id": "model:B057:teacher",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:teacher",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:07",
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Executed teacher fine-tuning learns conditional video dynamics."
+    },
+    {
+      "id": "B057:a133",
+      "subject_id": "model:B057:teacher",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:teacher",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:06",
+        "evidence:B057:07",
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Action-conditioned teacher future-video results are separate from student results."
+    },
+    {
+      "id": "B057:a134",
+      "subject_id": "model:B057:teacher",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:teacher"
+      },
+      "evidence_ids": [
+        "evidence:B057:07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Gaussian-noise rectified flow supplies conditional video randomness, not validated mechanical stochasticity."
+    },
+    {
+      "id": "B057:a135",
+      "subject_id": "model:B057:teacher",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:teacher"
+      },
+      "evidence_ids": [
+        "evidence:B057:07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Conditional future video is generated in latent space."
+    },
+    {
+      "id": "B057:a136",
+      "subject_id": "model:B057:teacher",
+      "feature_id": "uq.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:teacher"
+      },
+      "evidence_ids": [
+        "evidence:B057:07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Minimal implicit conditional-video distribution; calibration/risk validity are not established."
+    },
+    {
+      "id": "B057:a137",
+      "subject_id": "model:B057:teacher",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:teacher",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Later observations have reference-based evaluation; isolated one-step or recursive-teacher tests are not inferred."
+    },
+    {
+      "id": "B057:a138",
+      "subject_id": "model:B057:teacher",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:teacher",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": {
+        "LPIPS": 0.0864,
+        "PSNR": 25.92,
+        "mean_L1": 0.0513
+      },
+      "rationale": "Whole-rollout paired successor errors, not isolated first-step values."
+    },
+    {
+      "id": "B057:a139",
+      "subject_id": "model:B057:teacher",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:teacher",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": {
+        "FVD": 170.13
+      },
+      "rationale": "Teacher-specific distributional reference comparison."
+    },
+    {
+      "id": "B057:a140",
+      "subject_id": "model:B057:teacher",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:teacher",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Observable video is scored; exact Table 2 teacher decoder is not pinned."
+    },
+    {
+      "id": "B057:a141",
+      "subject_id": "model:B057:teacher",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:teacher",
+        "module_implementation_id": "module:B057:teacher-objective"
+      },
+      "evidence_ids": [
+        "evidence:B057:07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Specified fine-tuning preserves generative latent velocity, not reward/value/policy predictions."
+    },
+    {
+      "id": "B057:a142",
+      "subject_id": "model:B057:s4-table2",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:s4-table2",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "RGB outputs are evaluated; decoder identity remains unreported."
+    },
+    {
+      "id": "B057:a143",
+      "subject_id": "model:B057:s4-table2",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:s4-table2",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Future video receives reference-based evaluation; four denoising steps are not the world horizon."
+    },
+    {
+      "id": "B057:a144",
+      "subject_id": "model:B057:s4-table2",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:s4-table2",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": {
+        "LPIPS": 0.1187,
+        "PSNR": 24.48,
+        "mean_L1": 0.0538
+      },
+      "rationale": "Paired whole-rollout errors; no formal acceptance threshold is reported."
+    },
+    {
+      "id": "B057:a145",
+      "subject_id": "model:B057:s4-table2",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:s4-table2",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": {
+        "FVD": 257.16
+      },
+      "rationale": "Distributional evaluation exists without reported uncertainty/tolerance."
+    },
+    {
+      "id": "B057:a146",
+      "subject_id": "model:B057:s4-taehv",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:s4-taehv",
+        "evaluation_run_id": "evaluation:B057:runtime"
+      },
+      "evidence_ids": [
+        "evidence:B057:18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "TAEHV execution and output quality are reported for this configuration."
+    },
+    {
+      "id": "B057:a147",
+      "subject_id": "model:B057:s4-taehv",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:s4-taehv",
+        "evaluation_run_id": "evaluation:B057:runtime"
+      },
+      "evidence_ids": [
+        "evidence:B057:18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": {
+        "block_frames": 12,
+        "inference_ms": 136.9,
+        "FPS": 87,
+        "LPIPS": 0.118
+      },
+      "rationale": "Single RTX PRO 6000 Blackwell block-generation benchmark, not complete interaction latency."
+    },
+    {
+      "id": "B057:a148",
+      "subject_id": "model:B057:s2-vae",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:s2-vae",
+        "evaluation_run_id": "evaluation:B057:runtime"
+      },
+      "evidence_ids": [
+        "evidence:B057:18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "VAE emission variant is evaluated separately."
+    },
+    {
+      "id": "B057:a149",
+      "subject_id": "model:B057:s2-vae",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:s2-vae",
+        "evaluation_run_id": "evaluation:B057:runtime"
+      },
+      "evidence_ids": [
+        "evidence:B057:18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": {
+        "block_frames": 12,
+        "inference_ms": 179,
+        "FPS": 67,
+        "LPIPS": 0.117
+      },
+      "rationale": "Single RTX PRO 6000 Blackwell generation benchmark; clinical deadline satisfaction is not established."
+    },
+    {
+      "id": "B057:a150",
+      "subject_id": "model:B057:s4-vae",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:s4-vae",
+        "evaluation_run_id": "evaluation:B057:runtime"
+      },
+      "evidence_ids": [
+        "evidence:B057:18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Four-step VAE output is separately evaluated."
+    },
+    {
+      "id": "B057:a151",
+      "subject_id": "model:B057:s4-vae",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:s4-vae",
+        "evaluation_run_id": "evaluation:B057:runtime"
+      },
+      "evidence_ids": [
+        "evidence:B057:18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": {
+        "block_frames": 12,
+        "inference_ms": 243,
+        "FPS": 49,
+        "LPIPS": 0.115
+      },
+      "rationale": "Single RTX PRO 6000 Blackwell benchmark. Highest quality is the table's label, not physical/clinical superiority."
+    },
+    {
+      "id": "B057:a152",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B057:05",
+        "evidence:B057:09",
+        "evidence:B057:14",
+        "evidence:B057:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Evaluated causal simulator retains generated context between policy action chunks; exact decoder/step identity remains separate."
+    },
+    {
+      "id": "B057:a153",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B057:05",
+        "evidence:B057:14",
+        "evidence:B057:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Actions repeatedly advance successor procedural-frame observations."
+    },
+    {
+      "id": "B057:a154",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B057:08",
+        "evidence:B057:14",
+        "evidence:B057:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "The policy experiment executes trained neural video dynamics, not fixed handwritten rules."
+    },
+    {
+      "id": "B057:a155",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B057:06",
+        "evidence:B057:14",
+        "evidence:B057:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Settable policy commands drive generated successors; outcome agreement varies by task."
+    },
+    {
+      "id": "B057:a156",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy"
+      },
+      "evidence_ids": [
+        "evidence:B057:14",
+        "evidence:B057:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Aggregate policy-success agreement does not establish reference-based successor-state fidelity for this unpinned configuration. L4 does not inherit a lower-level prediction test."
+    },
+    {
+      "id": "B057:a157",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy"
+      },
+      "evidence_ids": [
+        "evidence:B057:14",
+        "evidence:B057:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Alternative controllers are compared, but matching of initial scenes/histories is insufficiently documented for L3."
+    },
+    {
+      "id": "B057:a158",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B057:14",
+        "evidence:B057:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Successive action/generated-observation exchanges form simulated task trajectories."
+    },
+    {
+      "id": "B057:a159",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy"
+      },
+      "evidence_ids": [
+        "evidence:B057:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Policy feedback uses synthesized images, not replacement factual intermediate states."
+    },
+    {
+      "id": "B057:a160",
+      "subject_id": "model:B057:runtime",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy"
+      },
+      "evidence_ids": [
+        "evidence:B057:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The specified loop has generated feedback, not newly measured physical corrections."
+    },
+    {
+      "id": "B057:a161",
+      "subject_id": "evaluation:B057:policy",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "evaluation_run_id": "evaluation:B057:policy"
+      },
+      "evidence_ids": [
+        "evidence:B057:15",
+        "evidence:B057:16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Genuine E10 agreement lacks a specified causal contrast and matched interventional-validation design."
+    },
+    {
+      "id": "B057:a162",
+      "subject_id": "system:B057:interactive",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B057:09"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Separate human-driven mode accepts operator commands advancing generated scenes; not a participant study or clinical actuation authorization."
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "B057:r01",
+      "subject_id": "paper:B057",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:B057:sha256-2745cf5218cf",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "effective_date": "2026-08-27"
+      },
+      "evidence_ids": [
+        "evidence:B057:01",
+        "evidence:B057:02"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "ArXiv-margin date; the differing header date is retained."
+    },
+    {
+      "id": "B057:r02",
+      "subject_id": "paper-version:B057:sha256-2745cf5218cf",
+      "predicate_id": "reportsStudy",
+      "object_id": "study:B057:bench",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "environment_kind": "mixed"
+      },
+      "evidence_ids": [
+        "evidence:B057:11",
+        "evidence:B057:15",
+        "evidence:B057:20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed"
+    },
+    {
+      "id": "B057:r03",
+      "subject_id": "paper-version:B057:sha256-2745cf5218cf",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B057:student",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:student"
+      },
+      "evidence_ids": [
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "B057:r04",
+      "subject_id": "system:B057:interactive",
+      "predicate_id": "composesModel",
+      "object_id": "model:B057:runtime",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy"
+      },
+      "evidence_ids": [
+        "evidence:B057:09",
+        "evidence:B057:14",
+        "evidence:B057:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed"
+    },
+    {
+      "id": "B057:r05",
+      "subject_id": "model:B057:student",
+      "predicate_id": "modelsWorld",
+      "object_id": "WT_PROCEDURE",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:05",
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Instrument/thread/suture-pad evolution over procedural frames."
+    },
+    {
+      "id": "B057:r06",
+      "subject_id": "model:B057:runtime",
+      "predicate_id": "modelsWorld",
+      "object_id": "WT_PROCEDURE",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy"
+      },
+      "evidence_ids": [
+        "evidence:B057:14",
+        "evidence:B057:15",
+        "evidence:B057:20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed"
+    },
+    {
+      "id": "B057:r07",
+      "subject_id": "model:B057:student",
+      "predicate_id": "demonstratesCapability",
+      "object_id": "L2",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "evidence_ids": [
+        "evidence:B057:05",
+        "evidence:B057:06",
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Specified-action successor prediction, not an identified intervention effect."
+    },
+    {
+      "id": "B057:r08",
+      "subject_id": "model:B057:runtime",
+      "predicate_id": "demonstratesCapability",
+      "object_id": "L4",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy",
+        "environment_kind": "in_silico"
+      },
+      "evidence_ids": [
+        "evidence:B057:14",
+        "evidence:B057:15",
+        "evidence:B057:16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Only the ontology's external-controller-evaluation-in-a-simulator coupling; no internal optimizer, imagined-policy training, or L3 test is implied."
+    },
+    {
+      "id": "B057:r09",
+      "subject_id": "system:B057:interactive",
+      "predicate_id": "hasReadinessEvidence",
+      "object_id": "R1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench",
+        "environment_kind": "mixed",
+        "population": "Preclinical tabletop episodes and robot-policy trials"
+      },
+      "evidence_ids": [
+        "evidence:B057:11",
+        "evidence:B057:15",
+        "evidence:B057:20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed"
+    },
+    {
+      "id": "B057:r10",
+      "subject_id": "study:B057:bench",
+      "predicate_id": "belongsToLineage",
+      "object_id": "lineage:B057:B104",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "dataset_version_id": "dataset:B057:tabletop"
+      },
+      "evidence_ids": [
+        "evidence:B057:04",
+        "evidence:B057:14",
+        "evidence:B057:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Explicit data/protocol reuse, not proof of exact duplication."
+    },
+    {
+      "id": "B057:r11",
+      "subject_id": "system:B057:interactive",
+      "predicate_id": "hasUseContext",
+      "object_id": "context:B057:bench",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "evidence_ids": [
+        "evidence:B057:09",
+        "evidence:B057:20",
+        "evidence:B057:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "B057:r12",
+      "subject_id": "system:B057:interactive",
+      "predicate_id": "hasModule",
+      "object_id": "module:B057:classifier",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "module_implementation_id": "module:B057:classifier",
+        "evaluation_run_id": "evaluation:B057:policy"
+      },
+      "evidence_ids": [
+        "evidence:B057:14",
+        "evidence:B057:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "B057:r13",
+      "subject_id": "module:B057:classifier",
+      "predicate_id": "realizesModule",
+      "object_id": "M7",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "module_implementation_id": "module:B057:classifier"
+      },
+      "evidence_ids": [
+        "evidence:B057:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Outcome-readout responsibility only, not causal inference."
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:B057:01",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Header, title, byline"
+      },
+      "content": "2026-8-28\nNVIDIA Cosmos-H-Dreams: Real-Time Generative Physics\nSimulation for Surgical Robotics\nJavier Gamazo Tejero1,†, Lukas Zbinden1,†, Keyur Sheth1, Raghavendra K M1, Nadim Daher1, Diego Granero\nMaraña2, Filip Binkiewicz2, Patrick Thornycroft2, Mahdi Azizian1, Sean D. Huver1\n1NVIDIA, 2CMR Surgical\n† Equal contribution",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:02",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "arXiv margin"
+      },
+      "content": "arXiv:2608.24199v2  [cs.RO]  27 Aug 2026",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:03",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Section 2.1"
+      },
+      "content": "In total it spans\n32 datasets, 9 robotic embodiments, and on the order of 22M frames, unified under the same 44D action space.\nThe dataset contains bothin-vivoandex-vivorecordings, acquired with a number of different systems such as\nthe CMR Versius or the dVRK. Each dataset is converted to the unified action representation by mapping its\nnative controls onto the shared dual-arm pose/gripper block and zero-padding unused dimensions, and each is\nnormalized using per-embodiment statistics.\nBecause the datasets differ in size by orders of magnitude, we use a two-level sampling mixture: CMR Versius\ncontributes 50% of the pre-training distribution, divided equally among its four procedure datasets, while\nthe remaining 50% is allocated among the non-CMR datasets in proportion to their frame counts.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:04",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Section 2.2"
+      },
+      "content": "We post-train on the dVRK suturing dataset introduced in Cosmos-Surg-dVRK (Zbinden et al., 2025). We\ndeliberately use the entire dataset, including the failure episodes, following prior work showing that failure\nepisodes are beneficial for model learning. Concretely, the tabletop mixture combines the SutureBot (Haworth\net al., 2025) suturing and knot-tying data with failure and out-of-distribution episodes. Together, these data\ncomprise on the order of one million frames at10 Hz and are expressed in the dual-arm20D dVRK action\nformat (padded to44D).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:05",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Sections 3–3.1"
+      },
+      "content": "The model component ofCosmos-H-Dreams is an action-conditioned video world model that predicts short\nsequences of future frames conditioned on chunks of robot actions. To support interactive control from surgical\npolicies or human inputs, the model performs generation autoregressively. At each inference step, the model\ningests the next action chunk and generates the corresponding frames conditioned on this action chunk.\nAccordingly, the model adopts a causal formulation in which each prediction depends only on the current\naction chunk and past generations through a streaming KV cache that enables long-term context and efficient\nmemory utilization. The model is built in two stages from the same backbone: a bidirectional teacher that\nlearns action-conditioned surgical dynamics, and a distilled causal student (Sec. 4).\nThe model is built on Cosmos-Predict2.5 (NVIDIA, 2025c), the action-conditionable diffusion transformer (DiT)\nin the Cosmos WFM platform (Agarwal et al., 2025).\n3.1. Model Conditioning\nAs depicted in Fig. 1, the model’s outputs are conditioned on the following inputs:\n• First RGB frame:A non-generated frame that starts the simulation. It is encoded as clean latent tokens\nand fed to the first inference step through an additional binary mask channel appended to the latent\ninput that marks which frames are clean context versus to-be-generated.\n• Memory cache:A streaming KV cache retains previously generated tokens to preserve temporal context.\nIn addition to the most recent tokens, it may retain memory sinks that provide stable long-range reference\ninformation, such as the first frame.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:06",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section 3.1"
+      },
+      "content": "Actions are injected into the DiT through the timestep/AdaLN modulation pathway rather than as separate\nattention tokens, which keeps the per-step overhead negligible. Because the tokenizer compresses time by4×,\neach latent frame corresponds to4 consecutive action steps; we therefore fold the4 action vectors for a latent\nframe into a single4×44 = 176-dimensional input and pass it through two multi-layer perceptrons (MLPs).\nThe first MLP produces a per-latent-frame embedding that is added to the diffusion timestep embedding;\nthe second produces a three-way embedding that is added to the AdaLN-LoRA modulation (the shift, scale,\nand gate signals) of the transformer blocks. Action embeddings are zeroed on latent frames marked as clean\nconditioning input, so the action chunk modulates exactly the frames it is responsible for.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:07",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Section 4.2"
+      },
+      "content": "Objective.Following Cosmos-Predict2.5, the teacher is trained with a rectified-flow objective (Liu et al., 2022).\nLet x denote a clean latent video,𝜖∼𝒩(0, 𝐼) , and 𝑡∈[0,1] a time drawn from a logit-normal distribution.\nWithx 𝑡 = (1−𝑡)x +𝑡𝜖and velocity targetv 𝑡 =𝜖−x, the modelu 𝜃 minimizes\nℒ=E x,𝑡\n[︀\n‖u𝜃(x𝑡, 𝑡; c)−v𝑡‖2 ]︀,(1)\nwhere, in our setting, the conditioningc comprises the action chunk (Sec. 3.1) and the clean context frame(s)\nmarked by the condition mask. The teacher is bidirectional (full-sequence attention).\nHorizon.We use horizon to mean the clip length in video frames: a horizon-𝐻 teacher consumes one context\nframe and predicts𝐻−1 frames, corresponding to1 + (𝐻−1)/4latent frames.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:08",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Section 4.3"
+      },
+      "content": "Self Forcing closes this gap by training on self-generated context: the\nstudent performs an autoregressive self-rollout, generating each latent frame conditioned on its own previous\noutputs through a𝐾-step diffusion process (𝐾∈{2,4} in our setting). To keep training tractable, gradients\nare backpropagated through a single randomly chosen denoising step per iteration, and gradients are detached\nfrom the KV-cache embeddings of previous frames so that gradient flow is confined to the current frame.\nDistribution Matching Distillation.Self Forcing aligns the distribution of self-generated video clips with the\ndata distribution using Distribution Matching Distillation (DMD) (Yin et al., 2024), rather than supervising\nindividual frames with a pixel-wise reconstruction loss.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:09",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "Section 5.2"
+      },
+      "content": "• Keyboard over WebRTC.A browser client opens a WebRTC peer connection; key events are streamed to\nthe server over a data channel and synthesized frames are streamed back over a WebRTC video track.\nThe server reports per-block events (block index, frames enqueued) so the client can pace playback.\n• Meta Quest over WebSocket/WebXR.Because headset network conditions are less suitable for WebRTC\ndata channels, the Quest client uses a WebSocket to send per-hand pose-delta and trigger messages, and\nthe synthesized video is presented in the headset.\n• Surgical Policy over TCP Socket.We connectCosmos-H-Dreams and a surgical policy model over a raw\nTCP socket. Generated frames are streamed to the policy, which produces the next actions to accomplish\na task. These are sent back toCosmos-H-Dreams, which closes the loop by generating new frames.\n• Surgical Robot Console.In further experiments, we successfully integratedCosmos-H-Dreamswith CMR\nSurgical’s Versius console. Dual-arm pose, gripper, energy, and thumbstick signals are converted into the\nunified action message and forwarded to the engine.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:10",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "table",
+        "page": 10,
+        "section_or_table": "Table 1"
+      },
+      "content": "Stage8-frame chunks12-frame chunks\nInitial frame encode143 ms 143 ms\nConditioning encode<1 ms<1 ms\nDiffusion DiT (2steps)47 ms 69 ms\nRGB decode (TAEHV (Boer Bohan, 2025))4 ms 5 ms\nKV-cache update22 ms 33 ms\nRender loop (NVENC)3 ms 6 ms\nTotal inference51 ms 74 ms\nInference FPS159 161\nTable 1: Per-block inference budget forCosmos-H-Dreamson a single NVIDIA RTX PRO 6000 Blackwell\nWorkstation Edition GPU at288×512(8or12pixel frames per block,2-step student, Wan 2.1 encoder (Wan\net al., 2025), TAEHV decoder (Boer Bohan, 2025)). The KV-cache update runs on a side thread and is\nexcluded from the critical-path total.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:11",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "Section 6.1"
+      },
+      "content": "We assess simulation fidelity by replaying recorded action sequences from 12 held-out suturing episodes and\ncomparing each synthesized rollout with its corresponding real video. Metrics cover the complete available\nrolloutofeachepisode, excludingthesharedrealconditioningframe. Wereportcomplementaryannotation-free\nmetrics: Fréchet Video Distance (FVD), computed from pooled 17-frame I3D clip features, for distribution-\nlevel video quality; LPIPS for paired perceptual similarity; PSNR for pixel-level reconstruction quality; and\nmean L1 error for absolute frame-wise deviation. LPIPS, PSNR, and L1 are computed over every aligned\nreal–generated frame and macro-averaged across episodes so that each episode contributes equally.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:12",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "table",
+        "page": 10,
+        "section_or_table": "Table 2"
+      },
+      "content": "Model FVD↓LPIPS↓PSNR↑Mean L1↓\nBidirectional teacher 170.13 0.0864 25.92 0.0513\nCausal student (4-step) 257.16 0.1187 24.48 0.0538\nCausal student (2-step, TAEHV) 265.36 0.1212 24.38 0.0561\nTable 2: Simulation quality on suturing episodes. Metrics cover the complete available rollout after excluding\nthe real conditioning frame; paired metrics are macro-averaged across episodes.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:13",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "Section 6.1 rollout stability"
+      },
+      "content": "We further quantify degradation over time with segmented\nFVD in Fig. 4 for two students with identical configurations but trained with different teachers. We roll out full\ntest-set trajectories autoregressively, then split each rollout into contiguous 5-second windows and compute\nFVD against the real video distribution.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:14",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "Section 6.2"
+      },
+      "content": "Following the protocol of Cosmos-Surg-dVRK (Zbinden et al., 2025), we place a surgical policy inside\nCosmos-H-Dreams: at each step the policy observes the last synthesized frame, emits an action chunk, and\nthe simulator advances. A trained video classifier scores the task outcome (e.g., success/failure of a suture\nthrow) from the generated rollout, yielding a fully automated, online evaluation.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:15",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "table",
+        "page": 11,
+        "section_or_table": "Section 6.2 continuation and Table 3"
+      },
+      "content": "dVRK success rates using Pearson correlation, mean maximum rank violation (MMRV), and mean bias, across\nsix policy checkpoints: half-training and full-training checkpoints from three policy families (𝜋0 (Black et al.,\n2024), GR00T N1 (NVIDIA et al., 2025) and GR00T N1.5). Together, these metrics measure linear sim-to-real\nagreement, preservation of policy ranking, and systematic over- or underestimation of real-world success.\nEvaluation method Pearson𝑟↑Avg. MMRV↓Mean bias→0\nCosmos-Surg-dVRK0.756 0.10±0.04 0.153\nCosmos-H-Dreams0.696 0.23±0.09−0.12\nTable 3: Sim-to-real policy-evaluation agreement forCosmos-H-Dreamsand the offlineCosmos-Surg-dVRK\nbaseline. Pearson𝑟measures linear agreement between simulated and real dVRK success rates, MMRV\nmeasures policy-ranking violations, and mean bias measures systematic error in predicted success rates.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:16",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 11,
+        "section_or_table": "Section 6.2 results"
+      },
+      "content": "The results in Tab. 3 and Fig. 5 show moderate overall agreement betweenCosmos-H-Dreams and real-world\npolicy rollouts, with a Pearson correlation of0.696 and an MMRV of0.23±0.09 when pooling the four tasks.\nHowever, performancevariessubstantiallyacrosstasks. Agreementisrelativelystrongforpickupandthrow, with\ncorrelations of𝑟= 0.67 and 𝑟= 0.77, respectively, whereas handover and knot tie yield negative correlations\nof 𝑟=−0.39 and 𝑟=−0.24 . As illustrated in Fig. 6, these failures are primarily associated with scenes\ncontaining multiple overlapping fine structures.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:17",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "figure",
+        "page": 12,
+        "section_or_table": "Figure 4 caption"
+      },
+      "content": "Figure 4: Segmented FVD over contiguous 5-second windows along full autoregressive rollouts, comparing\nstudents trained with different-horizon teachers.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:18",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "table",
+        "page": 12,
+        "section_or_table": "Table 4"
+      },
+      "content": "Setting Diffusion steps Decoder type Inference (ms)↓Inference FPS↑LPIPS↓\nHighest throughput2TAEHV74.7 1610.121\nBalanced 14TAEHV136.9 870.118\nBalanced 22VAE179 670.117\nHighest quality4VAE243 490.115\nTable 4: Inference FPS, latency and visual quality for four different configurations, ranging from highest\nthroughput (lower latency) to highest quality (highest latency). Visual quality is measured with LPIPS on the\ntest set. All of the configurations are set to generate 12 frames per inference step.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:19",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 13,
+        "section_or_table": "Section 7.3"
+      },
+      "content": "We use the same data foundation but turn the offline generator\ninto an interactive, real-time simulator:Cosmos-H-Surgical-Simulatorprovides multi-embodiment initialization,\nwhile the single-embodiment model served byCosmos-H-Dreams lets a human operator or a policy generate\nactions in real time and observe the consequences within the control loop.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:20",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 14,
+        "section_or_table": "Section 8"
+      },
+      "content": "Cosmos-H-Dreams is therefore not yet a substitute for offline evaluation on fine bimanual manipulation. Our\nquantitative evidence is further limited to dVRK tabletop suturing, with12 held-out episodes for the simulation-\nquality metrics. Transfer of synthetically generated episodes to real-robot policy training remains future\nwork. Finally, reported throughput characterizes critical-path generation; end-to-end action-to-photon latency\nadditionally includes encode and transport (Sec. 5.3), and long-horizon drift is alleviated by the progressive\nlong-context teacher rather than eliminated.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:21",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "Section 9"
+      },
+      "content": "An important direction\nfor future work is to extend and validateCosmos-H-Dreamson clinical surgical procedures, which present richer\nanatomy, more complex tissue interactions, and longer task horizons than the tabletop suturing setting studied\nhere. Looking further ahead, sufficiently accurate and thoroughly validated low-latency models could enable\nintraoperative decision-making by allowing surgeons to visualize possible outcomes of candidate actions before\nexecution.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:22",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "table",
+        "page": 16,
+        "section_or_table": "Appendix A, Table 5"
+      },
+      "content": "Stage8-frame chunks12-frame chunks\nInitial frame encode156 ms 156 ms\nConditioning encode<1 ms<1 ms\nDiffusion DiT (2steps)249 ms 371 ms\nRGB decode14 ms 25 ms\nKV-cache update119 ms 183 ms\nRender loop (CPU)36 ms 54 ms\nTotal inference263 ms 396 ms\nInference FPS31 30\nTable 5: Per-block inference budget forCosmos-H-Dreams on a single NVIDIA RTX PRO 6000 Blackwell GPU at\n544×960(8or12pixel frames per block,2-step student, Wan 2.1 encoder (Wan et al., 2025), TAEHV\ndecoder (Boer Bohan, 2025)). The KV-cache update runs on a side thread and is excluded from the\ncritical-path total.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:23",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "We releaseCosmos-H-Dreamsas an open surgical simulation\nsystem",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:24",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Resource boxes"
+      },
+      "content": "Open-Source Code\nCosmos-H-Dreams(deployment stack)github.com/isaac-for-healthcare/Cosmos-H-Dreams\nCosmos-H-Surgical-Simulator(foundation model)github.com/NVIDIA-Medtech/Cosmos-H-Surgical-Simulator\nOpen-Weight Model Checkpoints\nCosmos-H-Dreamshuggingface.co/nvidia/Cosmos-H-Dreams\nCosmos-H-Surgical-Simulatorhuggingface.co/nvidia/Cosmos-H-Surgical-Simulator",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:25",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Released tabletop checkpoint"
+      },
+      "content": "The resulting tabletop checkpoint is the model component released withCosmos-H-Dreams\nand the primary model artifact we release. The clinical regimes are sketched as a direct extension of the same\npipeline.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:26",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "figure",
+        "page": 14,
+        "section_or_table": "Figure 6"
+      },
+      "content": "Figure 6: Generative errors due to complex fine structures. The distilled model (right) may hallucinate the\ngeometry of the thread when it folds or crosses over itself, a failure mode far weaker in the teacher (left).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:27",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Section 5.1"
+      },
+      "content": "Additional opti-\nmizations include a fixed-size streaming KV cache with asynchronous updates, local-window temporal attention\nwith an appearance sink (Xiao et al., 2024), lightweight latent encoders and decoders from TAEHV (Boer Bohan,\n2025), and the precomputation of operations that remain constant across denoising steps.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:28",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Section 4.3 causal warmup"
+      },
+      "content": "We initialize the causal student from the teacher’s EMA weights and train it to\nimitate the cached teacher latents with a simple regression objective, matching the student’s velocity prediction\nto the cached target.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:29",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "Downstream acceleration"
+      },
+      "content": "First, the H.264 bitstream requires\napproximately 10× less network bandwidth than the corresponding MJPEG stream. Second, at our target\nresolution, NVENC encoding is25% faster than MJPEG encoding. Combined with GPU-resident postprocessing,\nthese changes reduce downstream latency by a factor of1.20, from98.4 msto 82.1 mson an NVIDIA RTX PRO\n6000 Blackwell Workstation Edition GPU.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B057:30",
+      "source_ref": "Papers/Expanded_Collection/B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+      "source_version": "paper-version:B057:sha256-2745cf5218cf",
+      "source_hash": "2745cf5218cf35f79ef837b5316467ddf1c93238885c64c4f99c470499e290c5",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Section 4.2 teacher curriculum"
+      },
+      "content": "To improve stability over long task rollouts (NVIDIA, 2026), we continue training the teacher at increasing\nhorizons (25, 49, and73 frames), warm-starting the teacher at each horizon from the previous, shorter-horizon\nteacher. The horizon-73 teacher is the longest we train for the tabletop regime.",
+      "verification_status": "entailment_reviewed"
+    }
+  ],
+  "metric_results": [
+    {
+      "id": "metric:B057:teacher",
+      "metric": "Table 2 separately named fidelity endpoints",
+      "value": {
+        "FVD": 170.13,
+        "LPIPS": 0.0864,
+        "PSNR": 25.92,
+        "mean_L1": 0.0513
+      },
+      "unit_or_scale": "FVD feature distance; LPIPS score; PSNR unit and L1 normalization not explicitly specified.",
+      "direction": "context_dependent",
+      "task": "Recorded-action future-video replay; lower FVD/LPIPS/L1 and higher PSNR are better.",
+      "cohort_id": "cohort:B057:quality",
+      "split_role": "Reported held-out; exact disjointness unresolved.",
+      "horizon": "Complete available episodes, initial frame excluded; durations not_reported.",
+      "model_version_id": "model:B057:teacher",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ]
+    },
+    {
+      "id": "metric:B057:s4",
+      "metric": "Table 2 separately named fidelity endpoints",
+      "value": {
+        "FVD": 257.16,
+        "LPIPS": 0.1187,
+        "PSNR": 24.48,
+        "mean_L1": 0.0538
+      },
+      "unit_or_scale": "FVD feature distance; LPIPS score; PSNR unit and L1 normalization not explicitly specified.",
+      "direction": "context_dependent",
+      "task": "Recorded-action future-video replay; lower FVD/LPIPS/L1 and higher PSNR are better.",
+      "cohort_id": "cohort:B057:quality",
+      "split_role": "Reported held-out; exact disjointness unresolved.",
+      "horizon": "Complete available episodes, initial frame excluded.",
+      "model_version_id": "model:B057:s4-table2",
+      "uncertainty_status": "not_reported",
+      "baseline_id": "model:B057:teacher",
+      "source_evidence_ids": [
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ]
+    },
+    {
+      "id": "metric:B057:s2",
+      "metric": "Table 2 separately named fidelity endpoints",
+      "value": {
+        "FVD": 265.36,
+        "LPIPS": 0.1212,
+        "PSNR": 24.38,
+        "mean_L1": 0.0561
+      },
+      "unit_or_scale": "FVD feature distance; LPIPS score; PSNR unit and L1 normalization not explicitly specified.",
+      "direction": "context_dependent",
+      "task": "Recorded-action future-video replay; lower FVD/LPIPS/L1 and higher PSNR are better.",
+      "cohort_id": "cohort:B057:quality",
+      "split_role": "Reported held-out; exact disjointness unresolved.",
+      "horizon": "Complete available episodes, initial frame excluded.",
+      "model_version_id": "model:B057:student",
+      "uncertainty_status": "not_reported",
+      "baseline_id": "model:B057:teacher",
+      "source_evidence_ids": [
+        "evidence:B057:11",
+        "evidence:B057:12"
+      ]
+    },
+    {
+      "id": "metric:B057:agreement",
+      "metric": "Separate sim-to-real agreement endpoints",
+      "value": {
+        "Pearson_r": 0.696,
+        "MMRV": "0.23 ± 0.09",
+        "mean_bias": -0.12,
+        "task_r": {
+          "pickup": 0.67,
+          "throw": 0.77,
+          "handover": -0.39,
+          "knot_tie": -0.24
+        }
+      },
+      "unit_or_scale": "Pearson r dimensionless, higher better; MMRV lower better; reported success-rate bias targets zero.",
+      "direction": "context_dependent",
+      "task": "Generated versus physical-dVRK policy success rates across four tabletop tasks.",
+      "cohort_id": "cohort:B057:policy",
+      "split_role": "Six controller checkpoints; rollout denominators and independence controls not_reported.",
+      "horizon": "Task rollouts; durations not_reported.",
+      "model_version_id": "model:B057:runtime",
+      "uncertainty_status": "reported",
+      "uncertainty": "Meaning of MMRV ±0.09 undefined; correlation/bias intervals not_reported.",
+      "baseline_id": "model:B057:baseline",
+      "source_evidence_ids": [
+        "evidence:B057:15",
+        "evidence:B057:16"
+      ]
+    },
+    {
+      "id": "metric:B057:baseline",
+      "metric": "Reported predecessor agreement endpoints",
+      "value": {
+        "Pearson_r": 0.756,
+        "MMRV": "0.10 ± 0.04",
+        "mean_bias": 0.153
+      },
+      "unit_or_scale": "Pearson r dimensionless, higher better; MMRV lower better; bias targets zero.",
+      "direction": "context_dependent",
+      "task": "Table 3 offline Cosmos-Surg-dVRK comparator, not current-system performance.",
+      "cohort_id": "cohort:B057:policy",
+      "split_role": "Baseline rerun and exact shared episode identity not_reported.",
+      "horizon": "Task rollouts; durations not_reported.",
+      "model_version_id": "model:B057:baseline",
+      "uncertainty_status": "reported",
+      "uncertainty": "Meaning of MMRV ±0.04 undefined.",
+      "source_evidence_ids": [
+        "evidence:B057:15"
+      ]
+    }
+  ],
+  "capability_assessments": [
+    {
+      "subject_id": "model:B057:student",
+      "level": "L2",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality",
+        "cohort_id": "cohort:B057:quality"
+      },
+      "evidence_assertion_ids": [
+        "B057:a019",
+        "B057:a041",
+        "B057:a042",
+        "B057:a043",
+        "B057:a053"
+      ],
+      "rationale": "Persistent learned procedural state and specified-action successor-video results support L2. No same-origin alternative-action test is inherited."
+    },
+    {
+      "subject_id": "model:B057:runtime",
+      "level": "L4",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy",
+        "environment_kind": "in_silico"
+      },
+      "evidence_assertion_ids": [
+        "B057:a152",
+        "B057:a153",
+        "B057:a154",
+        "B057:a155",
+        "B057:a062",
+        "B057:a063",
+        "B057:a070",
+        "B057:a120"
+      ],
+      "rationale": "Only the ontology's external-controller evaluation in a simulator category. No internal lookahead, imagined-policy training, separate L3 experiment, lower-level fidelity test, physical WM control, or clinical benefit follows. Exact student checkpoint/decoder/step identity remains unresolved."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "system:B057:interactive",
+      "facets": [
+        "R1"
+      ],
+      "environment_kind": "mixed",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench",
+        "population": "Preclinical tabletop episodes and robotic-policy trials",
+        "environment_kind": [
+          "in_silico",
+          "physical_phantom"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:B057:11",
+        "evidence:B057:15",
+        "evidence:B057:20"
+      ],
+      "legacy_highest_label": "R1 Technical feasibility (synthetic/simulated)"
+    }
+  ],
+  "gate_assessments": [
+    {
+      "gate_id": "G01",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "rationale": "Partial provenance and unresolved split/preprocessing boundaries prevent a pass, without establishing leakage.",
+      "supporting_assertion_ids": [
+        "B057:a001",
+        "B057:a010"
+      ]
+    },
+    {
+      "gate_id": "G02",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "rationale": "State, learned transition, and successor evaluation exist, but the required non-leaky reference remains unresolved.",
+      "supporting_assertion_ids": [
+        "B057:a019",
+        "B057:a041",
+        "B057:a042",
+        "B057:a053",
+        "B057:a010"
+      ]
+    },
+    {
+      "gate_id": "G03",
+      "status": "unresolved",
+      "scope": {
+        "evaluation_run_id": "evaluation:B057:drift"
+      },
+      "rationale": "Drift testing exists; exact maximum, tolerance, uncertainty, support, and effective horizon are insufficiently reported.",
+      "supporting_assertion_ids": [
+        "B057:a057",
+        "B057:a058",
+        "B057:a059"
+      ]
+    },
+    {
+      "gate_id": "G04",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "rationale": "Selected demonstrated use makes no probabilistic coverage guarantee or uncertainty-dependent decision claim. Such claims would activate this gate."
+    },
+    {
+      "gate_id": "G05",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B057:student",
+        "evaluation_run_id": "evaluation:B057:quality"
+      },
+      "rationale": "Action-conditioned prediction exists; complete units/frames, constraints, and support are unresolved.",
+      "supporting_assertion_ids": [
+        "B057:a031",
+        "B057:a033",
+        "B057:a036",
+        "B057:a038",
+        "B057:a043"
+      ]
+    },
+    {
+      "gate_id": "G06",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "rationale": "Selected predictive simulator/policy-evaluation interpretation does not assert an identified causal estimand. This exemption supplies no assurance for future surgical-effect or intraoperative counterfactual claims."
+    },
+    {
+      "gate_id": "G07",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy"
+      },
+      "rationale": "External-controller outcomes are evaluated; model-optimized-plan exploitation, action-space coverage, and decision-objective assurance are unreported.",
+      "supporting_assertion_ids": [
+        "B057:a062",
+        "B057:a063",
+        "B057:a067",
+        "B057:a120"
+      ]
+    },
+    {
+      "gate_id": "G08",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "rationale": "For consequential reliance on simulator-based policy judgments, hard guards and abstention/fail behavior are not established. Reporting gaps are not observed safety failures.",
+      "supporting_assertion_ids": [
+        "B057:a085",
+        "B057:a086",
+        "B057:a087"
+      ]
+    },
+    {
+      "gate_id": "G09",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "rationale": "Selected evaluated-use scope is tabletop research, not external patient/site/procedure generalization assurance. Broad foundation training does not pass this gate."
+    },
+    {
+      "gate_id": "G10",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B057:runtime",
+        "evaluation_run_id": "evaluation:B057:policy"
+      },
+      "rationale": "Physical-bench agreement is evaluated and is negative on two tasks. Trial denominators, classifier validity, uncertainty, and acceptance criteria remain unresolved; no human study is inferred.",
+      "supporting_assertion_ids": [
+        "B057:a121",
+        "B057:a124"
+      ]
+    },
+    {
+      "gate_id": "G11",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "rationale": "Selected preclinical use does not claim realized live-care/workflow utility; proposed future benefit is not validated."
+    },
+    {
+      "gate_id": "G12",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "context:B057:bench"
+      },
+      "rationale": "An operational research simulator is released. Version/access reporting is partial; monitoring, change control, privacy/security assessment, and governance applicability are insufficiently documented. No blanket medical-device authorization requirement is imposed.",
+      "supporting_assertion_ids": [
+        "B057:a096",
+        "B057:a097",
+        "B057:a098",
+        "B057:a099",
+        "B057:a108",
+        "B057:a109",
+        "B057:a110"
+      ]
+    }
+  ],
+  "legacy_cells": {
+    "A": "B057",
+    "B": "NVIDIA Cosmos-H-Dreams: Real-Time Generative Physics Simulation for Surgical Robotics",
+    "C": "Tejero, Javier Gamazo, Zbinden, Lukas, Sheth, Keyur, M, Raghavendra K, Daher, Nadim, Maraña, Diego Granero, et al.",
+    "D": "2026",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://arxiv.org/abs/2608.24199",
+    "H": "Papers/Expanded_Collection (B)",
+    "I": "B057_NVIDIA_Cosmos_H_Dreams_Real_Time_Generative_Physics_Simulation_for_Surgical_Robotics.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not applicable",
+    "N": "Surgery (general / robotic)",
+    "O": "Tabletop robotic suturing",
+    "P": "Not reported",
+    "Q": "Procedure / scene (surgery, acquisition)",
+    "R": "Surgical simulation / video generation",
+    "S": "Can a real-time action-conditioned surgical video simulator generate plausible future frames in response to robot kinematics and support closed-loop policy evaluation?",
+    "T": "dVRK tabletop suturing; simulation-quality evaluation used 12 held-out suturing episodes.",
+    "U": "Human operators and learned surgical policies; the paper also describes a surgical robot console interface.",
+    "V": "Evaluate surgical policies in a simulated closed loop and compare simulated policy outcomes with real dVRK outcomes.",
+    "W": "World model",
+    "X": "F8 Surgical simulation & world-action models",
+    "Y": "Pixel/voxel generative (diffusion / flow / video)",
+    "Z": "L4 Planning / control",
+    "AA": "L4 Planning / control",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "Yes",
+    "AE": "Yes",
+    "AF": "Yes",
+    "AG": "Yes",
+    "AH": "Closed-loop simulator",
+    "AI": "RGB surgical video frames; robot-kinematics/action vectors.",
+    "AJ": "Cosmos-Predict2.5 action-conditionable diffusion transformer (DiT); first RGB frame encoded as clean latent tokens by a VAE.",
+    "AK": "Cosmos-H-Surgical-Simulator checkpoint (initialized from Cosmos-Predict2.5).",
+    "AL": "Not reported",
+    "AM": "Robot-action embeddings are injected through timestep/AdaLN modulation; actions are folded into 176-dimensional inputs and processed by two MLPs.",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Not reported",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Not reported",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Surgical instrument / robot command",
+    "BC": "Continuous vector (dose / rate)",
+    "BD": "Unified 44D action vector; tabletop dVRK actions are 20D and padded to 44D; robot-console inputs include dual-arm pose, gripper, energy, and thumbstick signals.",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "Cosmos-H-Dreams",
+    "BJ": "Diffusion",
+    "BK": "Fixed discrete steps",
+    "BL": "The dVRK tabletop mixture comprises about one million frames at 10 Hz; the real-time student generates 12-frame blocks.",
+    "BM": "Not reported",
+    "BN": "Not reported",
+    "BO": "Attention context window",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Generated RGB surgical-video frames (future-frame blocks).",
+    "BT": "Not reported",
+    "BU": "Not reported",
+    "BV": "Teacher: rectified-flow objective. Student: causal warmup regression matching velocity predictions to cached teacher latents, followed by Self Forcing with Distribution Matching Distillation (DMD).",
+    "BW": "Yes",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Open weights",
+    "CA": "Teacher training reported per-GPU batch size 16 on 8 nodes of 8 GPUs (effective batch 1024); horizon-73 teacher example used per-GPU batch size 4 (effective batch 256).",
+    "CB": "At 288 × 512 on one NVIDIA RTX PRO 6000 Blackwell Workstation Edition GPU, Table 1 reports 74 ms total inference per 12-frame block and 161 inference FPS; Table 4 reports 74.7 ms and 161 FPS for the highest-throughput setting.",
+    "CC": "Not reported",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Yes",
+    "CG": "Not reported",
+    "CH": "Other",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Not reported",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Not reported",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "None (predictive only)",
+    "CU": "Not reported",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not reported",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Not reported",
+    "DN": "Not reported",
+    "DO": "Not reported",
+    "DP": "Not reported",
+    "DQ": "Not reported",
+    "DR": "Not reported",
+    "DS": "Not reported",
+    "DT": "Not reported",
+    "DU": "Not reported",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "R1 Technical feasibility (synthetic/simulated)",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "Not reported",
+    "FD": "Not reported",
+    "FE": "Not reported",
+    "FF": "Not reported",
+    "FG": "Not reported",
+    "FH": "Not reported",
+    "FI": "Not reported",
+    "FJ": "Not reported",
+    "FK": "Not reported",
+    "FL": "Not reported",
+    "FM": "Not reported",
+    "FN": "Reported results (source excerpt): By distilling the resulting bidirectional teacher into a causal, few-step student with Self Forcing, we turn a passive video generator into a controllable surgical simulator that streams at roughly 160 inference FPS on a single NVIDIA RTX PRO 6000 Blackwell workstation GPU.",
+    "FO": "Not reported",
+    "FP": "Not reported",
+    "FQ": "Not reported",
+    "FR": "Not reported",
+    "FS": "Reviewer mapping: M4 Action service; M5 Dynamics adapter; M6 Rollout service; M10 Clinician interface & lifecycle",
+    "FT": "Reviewer lesson: Separate the streaming generative simulator from the external controller interface; measure end-to-end latency and physical validity as well as FPS.",
+    "FU": "Reviewer mapping (KB §20): Sim-to-real",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Complete extracted PDF text (20 pages) read: title/abstract (p. 1), contents (p. 2), introduction (p. 3), data (p. 4), architecture (p. 5), training (pp. 6–8), inference/serving (pp. 8–9), experiments and results including Tables 1–4 and Figures 3–6 (pp. 10–13), limitations and conclusion (pp. 14–15), higher-resolution appendix and Table 5 (p. 16), contributors and references (pp. 17–20). | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "Corrected the abbreviated prefilled author list to the full PDF byline. Demonstrated action-conditioned video simulation and retrospective closed-loop policy evaluation do not establish causal identification or clinical efficacy. Evidence centers on dVRK tabletop suturing; the paper states transfer of generated episodes to real-robot policy training remains future work. No unreadable tables or extraction issues encountered. Evidence QA: 36/42 populated fields had a <=25-word quotation matching extracted PDF text (85.7%). Confidence is conservative; review this row where exact quote checks were incomplete. Schema normalization (source details retained): BO normalized to 'Attention context window'; source detail: Streaming KV-cache memory retaining previously generated tokens; local-window temporal attention with an appearance sink. Codex audit: 38 prior populated fields have a located source quotation; 5 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "Automated model review, not independent human verification or replication. Current synthesis received all extracted text and earlier automated page-image notes, not image pixels.",
+    "All twenty page texts and corresponding supplied image-review notes were considered, including figures, tables, appendices, contributors, and references. Earlier chunk-local missing-page statements do not mean pages are missing from this combined package.",
+    "Source hash/path/page count were supplied, not recomputed. Repositories, checkpoint files, licenses, split manifests, cited originals, and physical systems were not accessed.",
+    "All 128 catalogue feature IDs have dispositions. Teacher and decoder variants retain targeted additional scopes, not fabricated complete separate implementations. No executable schema, cross-reference, quotation-occurrence, coverage, or graph validation was run.",
+    "Quantitative validation is preclinical tabletop dVRK activity. Real video/hardware does not establish R2 actual human/clinical validation; input interfaces alone do not establish R4 or R6.",
+    "The 12 held-out episodes apply to simulation-quality metrics, not policy or runtime denominators. Entire-dataset training language and holdout construction remain unresolved, not proven leakage.",
+    "L2 is supported for the identified two-step TAEHV quality configuration. L4 is restricted to the runtime model's external-controller simulator coupling; its exact checkpoint/decoder/steps are not pinned.",
+    "Runtime policy-success agreement is not recoded as a successor-fidelity experiment. L4 does not establish separate L1/L2/L3 tests, model-based lookahead, or imagined-policy training.",
+    "No same-origin alternative-action comparison or identified surgical intervention effect is established. Causal attention/rectified-flow time/denoising steps must not be confused with identification or clinical time.",
+    "Distillation worsens all Table 2 fidelity endpoints. Hallucinated thread geometry and negative handover/knot-tie correlations limit utility despite positive pooled agreement.",
+    "Classifier validity, policy trial denominators, pooling, baseline rerun status, and the meaning of MMRV ± are insufficiently reported. Predecessor data/protocol reuse is dependent evidence.",
+    "No uncertainty decomposition, calibration acceptance, action-support guarantee, abstention policy, or tolerance-defined effective horizon is established.",
+    "Figure 4's stated contiguous five-second windows and approximately three-second marker spacing described in earlier image notes need reconciliation. No visual estimates were promoted to exact metric values.",
+    "Table 1 reports 74 ms while Table 4 reports 74.7 ms. Reported FPS/latency values are preserved without recalculation. Critical-path generation excludes stages and is not complete action-to-photon latency.",
+    "Separate downstream latency changes of 98.4 to 82.1 ms, factor 1.20, approximately 10× lower bandwidth, and 25% faster encoding are author-reported measurements, not full end-to-end latency.",
+    "Appendix A calls 544 × 960 nominal 540p and reports CPU encoding fallback. Higher-resolution fidelity and policy agreement are not established.",
+    "Action units/reference frames, constraints, support, and complete conversion semantics are insufficient for a validated interoperable action contract.",
+    "Perceptual/video metrics and the physics-simulation title do not prove biomechanical correctness, conservation, or physical causal fidelity.",
+    "Clinical-procedure validation, synthetic-to-real policy-training benefit, human training effectiveness, intraoperative support, and Cosmos 3 adaptation remain future work.",
+    "Header date and arXiv-margin date differ by one day; both are preserved. Release dates and exact artifact revisions are not inferred from either date.",
+    "Scoped reconstruction dispositions now identify separate modules/objectives, avoiding a false conflict between Phase 2 loss absence and unreported inherited autoencoder objectives.",
+    "The exact upstream Appendix B inventory label identified by the supplied precheck is included. The external precheck was not rerun here."
+  ],
+  "notes": "Raw legacy cells are retained verbatim as historical extraction, not automatically endorsed. Assertions a001–a128 cover the full catalogue in supplied order; a129–a162 retain distinct model/objective/evaluation scopes. Appearance-sink assertions cite the actual serving-method passage. The candidate's runtime successor-evaluation assertion a156 is corrected to not_reported because aggregate policy-success agreement cannot substitute for scope-matched successor fidelity. No gate passes, no clinical authorization is produced, and no files or graph were written. Reviewer blueprint synthesis: separate simulator from controller; evaluate task-level agreement, fine-structure errors, supported horizon, and complete interaction latency before consequential reliance."
+}

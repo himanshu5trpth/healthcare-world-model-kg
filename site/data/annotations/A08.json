@@ -1,0 +1,4081 @@
+{
+  "record_id": "annotation:A08:r1",
+  "paper_record_id": "A08",
+  "paper_version_id": "paper-version:A08:sha256-465a627db3ac",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:A08:echoworld-encoder:v1",
+    "model:A08:echoclip:v1",
+    "model:A08:usfm:v1",
+    "model:A08:seqaware:v1",
+    "model:A08:usguide:v1",
+    "model:A08:dt:v1"
+  ],
+  "system_composition_ids": [
+    "system:A08:echoworld:v1"
+  ],
+  "world_type_ids": [
+    "WT_ACQUISITION"
+  ],
+  "profile_ids": [
+    "BP_FORECAST"
+  ],
+  "entities": [
+    {
+      "id": "paper:A08",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "A08",
+        "title": "EchoWorld: Learning Motion-Aware World Models for Echocardiography Probe Guidance",
+        "year": 2025,
+        "doi": "https://arxiv.org/abs/2504.13065"
+      }
+    },
+    {
+      "id": "paper-version:A08:sha256-465a627db3ac",
+      "class_id": "PaperVersion",
+      "properties": {
+        "sha256": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32",
+        "source_path": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+        "pdf_pages": 11,
+        "version_basis": "PDF identified by SHA-256 against assignments.json; title page read."
+      }
+    },
+    {
+      "id": "study:A08:echoworld",
+      "class_id": "Study",
+      "properties": {
+        "description": "JEPA-style spatial and motion world model pretraining on robot-recorded cardiac ultrasound, then fine-tuned with motion-aware attention to regress probe movement to ten standard planes.",
+        "independent_study_claim": "single group; own pipeline"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A08:0001",
+        "evidence:A08:0008"
+      ]
+    },
+    {
+      "id": "system:A08:echoworld:v1",
+      "class_id": "SystemComposition",
+      "properties": {
+        "description": "ViT encoders pretrained with a latent predictor conditioned on masked regions and probe motion, followed by a motion-aware attention guidance head that regresses relative probe movement.",
+        "implementation_stage": "evaluation (retrospective offline)",
+        "world_model_status": "supporting component"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A08:0001",
+        "evidence:A08:0016"
+      ]
+    },
+    {
+      "id": "model:A08:echoworld-encoder:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "ViT-Small context and EMA target encoders with a six-block predictor, spatial and motion pretraining tasks and a motion-aware attention head",
+        "world_model_status": "supporting component"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A08:0008",
+        "evidence:A08:0009",
+        "evidence:A08:0019"
+      ]
+    },
+    {
+      "id": "use:A08:echocardiography-probe-guidance",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "population": "patients undergoing routine cardiac ultrasound",
+        "user": "sonographers or autonomous scanning systems",
+        "decision": "probe movement to reach standard planes",
+        "autonomy": "research only"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A08:0001",
+        "evidence:A08:0022"
+      ]
+    },
+    {
+      "id": "cohort:A08:cardiac-ultrasound-scans-356",
+      "class_id": "Cohort",
+      "properties": {
+        "description": "356 robot-recorded routine cardiac ultrasound scans, 284 train and 72 test with no patient overlap"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A08:0017",
+        "evidence:A08:0018"
+      ]
+    },
+    {
+      "id": "evalrun:A08:probe-guidance-single-frame-and-sequential",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "description": "Offline mean absolute probe movement error under single-frame and sequential protocols with ablations",
+        "split_role": "patient-disjoint scan split"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A08:0018",
+        "evidence:A08:0024",
+        "evidence:A08:0026"
+      ]
+    },
+    {
+      "id": "model:A08:echoclip:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "EchoCLIP single-frame baseline",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A08:0026"
+      ]
+    },
+    {
+      "id": "model:A08:usfm:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "USFM single-frame baseline",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A08:0026"
+      ]
+    },
+    {
+      "id": "model:A08:seqaware:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "Sequence-aware guidance framework",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A08:0026"
+      ]
+    },
+    {
+      "id": "model:A08:usguide:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "US-GuideNet guidance framework",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A08:0026"
+      ]
+    },
+    {
+      "id": "model:A08:dt:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "algorithm": "Decision Transformer baseline",
+        "world_model_status": "baseline or variant"
+      },
+      "provenance_evidence_ids": [
+        "evidence:A08:0026"
+      ]
+    },
+    {
+      "id": "metric:A08:0001",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Single-frame average error over translation and rotation = 8.15"
+      }
+    },
+    {
+      "id": "metric:A08:0002",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Sequential protocol average error = 7.05"
+      }
+    },
+    {
+      "id": "metric:A08:0003",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Single-frame average error = 8.37"
+      }
+    },
+    {
+      "id": "metric:A08:0004",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Single-frame average error = 8.42"
+      }
+    },
+    {
+      "id": "metric:A08:0005",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Sequential protocol average error = 7.42"
+      }
+    },
+    {
+      "id": "metric:A08:0006",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Sequential protocol average error = 7.72"
+      }
+    },
+    {
+      "id": "metric:A08:0007",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Sequential protocol average error = 7.44"
+      }
+    },
+    {
+      "id": "metric:A08:0008",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Single-frame average error, both world modeling tasks = 8.15"
+      }
+    },
+    {
+      "id": "metric:A08:0009",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Single-frame average error, neither world modeling task = 9.07"
+      }
+    },
+    {
+      "id": "metric:A08:0010",
+      "class_id": "MetricResult",
+      "properties": {
+        "summary": "Sequential average error without motion information = 7.98"
+      }
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:A08:0001",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "data.provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0006",
+        "evidence:A08:0007",
+        "evidence:A08:0017"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Robot-recorded routine scans with 30 fps video and pose"
+      ],
+      "criteria_missing": [
+        "Full dataset description, which the paper places in an appendix not present in this PDF"
+      ],
+      "rationale": "Appendix absent.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A08:0002",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "data.native_time",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0006",
+        "evidence:A08:0017"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Frames and probe poses are recorded synchronously.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A08:0003",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0004",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0005",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0006",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0007",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0008",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0009",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0010",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0018"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Training and test scans have no patient overlap.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0011",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0012",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0008",
+        "evidence:A08:0019"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Vision transformers encode ultrasound frames.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0013",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Pretraining uses the authors own ultrasound data and baselines reuse other models.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0014",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0008",
+        "evidence:A08:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Target features are predicted in latent space.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0015",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0009",
+        "evidence:A08:0012"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "An EMA target encoder and a contrastive objective guard against collapse.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0016",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0020"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "A separately trained diffusion decoder for visualization"
+      ],
+      "criteria_missing": [
+        "Reconstruction inside the model"
+      ],
+      "rationale": "Visualization only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A08:0017",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "perception.fusion",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0015",
+        "evidence:A08:0014"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Visual and motion features are fused by motion-aware attention.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0018",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0019",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "state.persistent",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0014",
+        "evidence:A08:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "A history of image and pose features is attended over at each step"
+      ],
+      "criteria_missing": [
+        "A latent state propagated and updated across steps"
+      ],
+      "rationale": "History is re-encoded.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A08:0020",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0021",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0022",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0023",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0024",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0025",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0026",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0027",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0028",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described or not evaluated in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0029",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "state.interpretability",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0021"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Attention score and t-SNE visualizations"
+      ],
+      "criteria_missing": [
+        "A test of what the state encodes"
+      ],
+      "rationale": "Qualitative.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A08:0030",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0014",
+        "evidence:A08:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Sampled past frames and poses are retained with decayed density.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0031",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "action.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0006",
+        "evidence:A08:0011"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Probe movements in six degrees of freedom are explicit actions.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0032",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0033",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "action.parameterized",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0011",
+        "evidence:A08:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Actions are continuous relative poses.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0034",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0035",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0036",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0037",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "action.grounding",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Poses are recorded from the robot arm in an anatomical coordinate system.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A08:0038",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0039",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0040",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0041",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0011"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Motion world modeling predicts target frame features from a relative pose between frames of one scan"
+      ],
+      "criteria_missing": [
+        "Temporal dynamics over ordered steps"
+      ],
+      "rationale": "Frame pairs.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A08:0042",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0011",
+        "evidence:A08:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The transition between frames is learned.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0043",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0011",
+        "evidence:A08:0021"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "A predictor conditioned on probe motion"
+      ],
+      "criteria_missing": [
+        "A quantitative test of predicted features or motion sensitivity of the predictor"
+      ],
+      "rationale": "Qualitative visualization only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A08:0044",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "The predictor is deterministic.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0045",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0046",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0047",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0048",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0049",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0050",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0051",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0020"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "A diffusion decoder used for qualitative probing"
+      ],
+      "criteria_missing": [
+        "A decoder in the prediction path"
+      ],
+      "rationale": "Visualization only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A08:0052",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "A head regresses movement to target planes.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0053",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0021",
+        "evidence:A08:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Qualitative visualization of predicted features decoded to images"
+      ],
+      "criteria_missing": [
+        "A quantitative one-step prediction metric"
+      ],
+      "rationale": "No metric.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A08:0054",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No rollout is described or evaluated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0055",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No rollout is described or evaluated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0056",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No rollout is described or evaluated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0057",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No rollout is described or evaluated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0058",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No rollout is described or evaluated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0059",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No rollout is described or evaluated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0060",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No rollout is described or evaluated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0061",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No rollout is described or evaluated.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0062",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "planning.model_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] Probe movement is regressed from history with no search over predicted futures.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0063",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] Probe movement is regressed from history with no search over predicted futures.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0064",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] Probe movement is regressed from history with no search over predicted futures.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0065",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] Probe movement is regressed from history with no search over predicted futures.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0066",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] Probe movement is regressed from history with no search over predicted futures.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0067",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] Probe movement is regressed from history with no search over predicted futures.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0068",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] Probe movement is regressed from history with no search over predicted futures.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0069",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] Probe movement is regressed from history with no search over predicted futures.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0070",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] Probe movement is regressed from history with no search over predicted futures.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0071",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "uq.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0072",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0073",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0074",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0075",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0076",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0077",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0078",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0079",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0080",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0081",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0082",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0083",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0084",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0085",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0086",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0087",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0088",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0089",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0090",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0091",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0092",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0093",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0094",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0095",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0096",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "partial",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0022",
+        "evidence:A08:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Assisting inexperienced sonographers or autonomous scanning"
+      ],
+      "criteria_missing": [
+        "Intended user, decision point and permitted autonomy specified"
+      ],
+      "rationale": "Motivation only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A08:0097",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0098",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0099",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0100",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0101",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0102",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0103",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "agent.role",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No language-model agent or multi-agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0104",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No language-model agent or multi-agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0105",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No language-model agent or multi-agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0106",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No language-model agent or multi-agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0107",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "[use] No language-model agent or multi-agent component is described.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0108",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "release.code",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "A code link is stated in the abstract.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A08:0109",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0110",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0111",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such item is described in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0112",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0026",
+        "evidence:A08:0027"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Probe movement regression error is reported, with no direct metric of predicted next features.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A08:0113",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0114",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0115",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0021"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Decoded images look anatomically plausible"
+      ],
+      "criteria_missing": [
+        "A review of plausibility"
+      ],
+      "rationale": "Qualitative.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A08:0116",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0117",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0028"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Removing motion information raises guidance error"
+      ],
+      "criteria_missing": [
+        "Perturbation of the predictor inputs"
+      ],
+      "rationale": "Downstream ablation only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A08:0118",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0119",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0120",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:A08:0024",
+        "evidence:A08:0022"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "criteria_met": [
+        "Offline error against expert-demonstrated movement in sequential protocol"
+      ],
+      "criteria_missing": [
+        "Closed-loop acquisition success"
+      ],
+      "rationale": "Offline imitation error only.",
+      "confidence": "medium"
+    },
+    {
+      "id": "assertion:A08:0121",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0122",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0123",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0124",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0125",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0126",
+      "subject_id": "system:A08:echoworld:v1",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No such evaluation is reported in the text read.",
+      "confidence": "not_assessed"
+    },
+    {
+      "id": "assertion:A08:0127",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0011",
+        "evidence:A08:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The transition acts in latent feature space.",
+      "confidence": "high"
+    },
+    {
+      "id": "assertion:A08:0128",
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance",
+        "environment_kind": "retrospective_human_records",
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not described in the text read.",
+      "confidence": "not_assessed"
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:A08:0001",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "a motion-aware world modeling framework for probe guidance",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0002",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "more than one million ultrasound images from over 200 routine scans",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0003",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "as validated by qualitative analysis",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0004",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "Code is available at",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0005",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "2"
+      },
+      "content": "it can potentially function as a simulator for free-hand cardiac ultrasound scanning",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0006",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "3"
+      },
+      "content": "We collect expert demonstration data where the sonographer controls a robot arm with a probe",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0007",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "3"
+      },
+      "content": "A detailed introduction of the dataset can be found in the appendix",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0008",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "4"
+      },
+      "content": "joint-embedding predictive architecture (JEPA)",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0009",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "4"
+      },
+      "content": "is an exponential moving average (EMA) of the context encoder",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0010",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "4"
+      },
+      "content": "several contiguous regions of the image are masked, and the model is tasked with predicting the features",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0011",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "4"
+      },
+      "content": "A single mask token carries these motion features",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0012",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "4"
+      },
+      "content": "we employ a contrastive objective [53]",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0013",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "4"
+      },
+      "content": "balances the scale of the two losses",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0014",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "4"
+      },
+      "content": "the probe guidance model predicts the probe movements to reach target planes by processing a sequence of visual-motion signal",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0015",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "4"
+      },
+      "content": "encoding the pairwise pose differences into the key",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0016",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "4"
+      },
+      "content": "aggregated features are fed into a prediction head to regress the probe",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0017",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "5"
+      },
+      "content": "Our dataset comprises 356 routine cardiac ultrasound scans",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0018",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "5"
+      },
+      "content": "The data is divided into 284 scans for training and 72 scans for testing, with no overlap in patients between the two splits",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0019",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "5"
+      },
+      "content": "300 epochs on four A100 GPUs",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0020",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "5"
+      },
+      "content": "we train a generative model that maps the predicted features",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0021",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "5"
+      },
+      "content": "EchoWorld simulates ultrasound scanning",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0022",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "5"
+      },
+      "content": "real-person experiments is both costly and time-consuming",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0023",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "5"
+      },
+      "content": "head is attached to each visual backbone to predict probe",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0024",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "5"
+      },
+      "content": "every timestep across 30 test scans where all planes are visited",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0025",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "5"
+      },
+      "content": "following a decayed density rate",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0026",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "table",
+        "page": 7,
+        "section_or_table": "Table 1"
+      },
+      "content": "[paraphrase of Table 1, p. 7] Mean absolute error averaged over translation (mm) and rotation (degrees) for ten planes. Single-frame, no ultrasound pretraining: Scratch 9.07, DeiT 8.63, DINOv2 8.52. Single-frame, ultrasound pretraining: BioMedCLIP 8.74, LVM-Med 8.73, US-MoCo 8.71, US-MAE 8.46, USFM 8.42, EchoCLIP 8.37, EchoWorld 8.15. Sequential protocol with the same backbone: US-GuideNet 7.72, Decision Transformer 7.44, Sequence-aware 7.42, EchoWorld 7.05.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0027",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "table",
+        "page": 8,
+        "section_or_table": "Table 2"
+      },
+      "content": "[paraphrase of Table 2, p. 8] Single-frame average error by world modeling task: neither 9.07, motion only 8.62, spatial only 8.38, both 8.15.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0028",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "table",
+        "page": 8,
+        "section_or_table": "Table 3"
+      },
+      "content": "[paraphrase of Table 3, p. 8] Sequential protocol average error by motion information: DeiT backbone without 8.62 and with 7.53, EchoWorld backbone without 7.98 and with 7.05.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0029",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "5"
+      },
+      "content": "EchoWorld achieves the lowest error in 16 out of 20 translation/rotation errors",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    },
+    {
+      "id": "evidence:A08:0030",
+      "source_ref": "Papers/Recommended_Additions/A08_EchoWorld.pdf",
+      "source_version": "paper-version:A08:sha256-465a627db3ac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "5"
+      },
+      "content": "These baseline frameworks are reproduced using our own dataset to ensure a fair comparison",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Claude Sonnet 5.5 (direct reviewer; not independent human review)",
+      "review_date": "2026-11-21",
+      "source_hash": "465a627db3ac07c9741853b8d18e1e90ecbf93536923de898a9b9532b69d2e32"
+    }
+  ],
+  "metric_results": [
+    {
+      "id": "metric:A08:0001",
+      "metric": "Single-frame average error over translation and rotation",
+      "value": 8.15,
+      "unit_or_scale": "mixed mm and degrees",
+      "direction": "lower_better",
+      "task": "probe movement regression",
+      "cohort_id": "cohort:A08:cardiac-ultrasound-scans-356",
+      "split_role": "held-out scans",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A08:echoworld-encoder:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "8.15",
+      "source_evidence_ids": [
+        "evidence:A08:0026"
+      ]
+    },
+    {
+      "id": "metric:A08:0002",
+      "metric": "Sequential protocol average error",
+      "value": 7.05,
+      "unit_or_scale": "mixed mm and degrees",
+      "direction": "lower_better",
+      "task": "probe movement regression",
+      "cohort_id": "cohort:A08:cardiac-ultrasound-scans-356",
+      "split_role": "held-out scans",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A08:echoworld-encoder:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "7.05",
+      "source_evidence_ids": [
+        "evidence:A08:0026"
+      ]
+    },
+    {
+      "id": "metric:A08:0003",
+      "metric": "Single-frame average error",
+      "value": 8.37,
+      "unit_or_scale": "mixed mm and degrees",
+      "direction": "lower_better",
+      "task": "probe movement regression",
+      "cohort_id": "cohort:A08:cardiac-ultrasound-scans-356",
+      "split_role": "held-out scans",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A08:echoclip:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "8.37",
+      "source_evidence_ids": [
+        "evidence:A08:0026"
+      ]
+    },
+    {
+      "id": "metric:A08:0004",
+      "metric": "Single-frame average error",
+      "value": 8.42,
+      "unit_or_scale": "mixed mm and degrees",
+      "direction": "lower_better",
+      "task": "probe movement regression",
+      "cohort_id": "cohort:A08:cardiac-ultrasound-scans-356",
+      "split_role": "held-out scans",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A08:usfm:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "8.42",
+      "source_evidence_ids": [
+        "evidence:A08:0026"
+      ]
+    },
+    {
+      "id": "metric:A08:0005",
+      "metric": "Sequential protocol average error",
+      "value": 7.42,
+      "unit_or_scale": "mixed mm and degrees",
+      "direction": "lower_better",
+      "task": "probe movement regression",
+      "cohort_id": "cohort:A08:cardiac-ultrasound-scans-356",
+      "split_role": "held-out scans",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A08:seqaware:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "7.42",
+      "source_evidence_ids": [
+        "evidence:A08:0026"
+      ]
+    },
+    {
+      "id": "metric:A08:0006",
+      "metric": "Sequential protocol average error",
+      "value": 7.72,
+      "unit_or_scale": "mixed mm and degrees",
+      "direction": "lower_better",
+      "task": "probe movement regression",
+      "cohort_id": "cohort:A08:cardiac-ultrasound-scans-356",
+      "split_role": "held-out scans",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A08:usguide:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "7.72",
+      "source_evidence_ids": [
+        "evidence:A08:0026"
+      ]
+    },
+    {
+      "id": "metric:A08:0007",
+      "metric": "Sequential protocol average error",
+      "value": 7.44,
+      "unit_or_scale": "mixed mm and degrees",
+      "direction": "lower_better",
+      "task": "probe movement regression",
+      "cohort_id": "cohort:A08:cardiac-ultrasound-scans-356",
+      "split_role": "held-out scans",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A08:dt:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "7.44",
+      "source_evidence_ids": [
+        "evidence:A08:0026"
+      ]
+    },
+    {
+      "id": "metric:A08:0008",
+      "metric": "Single-frame average error, both world modeling tasks",
+      "value": 8.15,
+      "unit_or_scale": "mixed mm and degrees",
+      "direction": "lower_better",
+      "task": "pretraining ablation",
+      "cohort_id": "cohort:A08:cardiac-ultrasound-scans-356",
+      "split_role": "held-out scans",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A08:echoworld-encoder:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "8.15",
+      "source_evidence_ids": [
+        "evidence:A08:0027"
+      ]
+    },
+    {
+      "id": "metric:A08:0009",
+      "metric": "Single-frame average error, neither world modeling task",
+      "value": 9.07,
+      "unit_or_scale": "mixed mm and degrees",
+      "direction": "lower_better",
+      "task": "pretraining ablation",
+      "cohort_id": "cohort:A08:cardiac-ultrasound-scans-356",
+      "split_role": "held-out scans",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A08:echoworld-encoder:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "9.07",
+      "source_evidence_ids": [
+        "evidence:A08:0027"
+      ]
+    },
+    {
+      "id": "metric:A08:0010",
+      "metric": "Sequential average error without motion information",
+      "value": 7.98,
+      "unit_or_scale": "mixed mm and degrees",
+      "direction": "lower_better",
+      "task": "motion ablation",
+      "cohort_id": "cohort:A08:cardiac-ultrasound-scans-356",
+      "split_role": "held-out scans",
+      "horizon": "not applicable (single time point)",
+      "model_version_id": "model:A08:echoworld-encoder:v1",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": null,
+      "raw_reported_value": "7.98",
+      "source_evidence_ids": [
+        "evidence:A08:0028"
+      ]
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:A08:0001",
+      "subject_id": "paper:A08",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:A08:sha256-465a627db3ac",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance"
+      },
+      "evidence_ids": [
+        "evidence:A08:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:A08:0002",
+      "subject_id": "paper-version:A08:sha256-465a627db3ac",
+      "predicate_id": "reportsStudy",
+      "object_id": "study:A08:echoworld",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance"
+      },
+      "evidence_ids": [
+        "evidence:A08:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:A08:0003",
+      "subject_id": "system:A08:echoworld:v1",
+      "predicate_id": "hasUseContext",
+      "object_id": "use:A08:echocardiography-probe-guidance",
+      "assessment_state": "present",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance"
+      },
+      "evidence_ids": [
+        "evidence:A08:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A08:0004",
+      "subject_id": "system:A08:echoworld:v1",
+      "predicate_id": "hasProfile",
+      "object_id": "BP_FORECAST",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance"
+      },
+      "evidence_ids": [
+        "evidence:A08:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Latent predictive pretraining followed by regression of probe movement, with no rollout, planner or controller loop."
+    },
+    {
+      "id": "relation:A08:0005",
+      "subject_id": "paper-version:A08:sha256-465a627db3ac",
+      "predicate_id": "reportsModel",
+      "object_id": "model:A08:echoworld-encoder:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:A08:echoworld-encoder:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0026"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:A08:0006",
+      "subject_id": "paper-version:A08:sha256-465a627db3ac",
+      "predicate_id": "reportsModel",
+      "object_id": "model:A08:echoclip:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:A08:echoclip:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0026"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:A08:0007",
+      "subject_id": "paper-version:A08:sha256-465a627db3ac",
+      "predicate_id": "reportsModel",
+      "object_id": "model:A08:usfm:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:A08:usfm:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0026"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:A08:0008",
+      "subject_id": "paper-version:A08:sha256-465a627db3ac",
+      "predicate_id": "reportsModel",
+      "object_id": "model:A08:seqaware:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:A08:seqaware:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0026"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:A08:0009",
+      "subject_id": "paper-version:A08:sha256-465a627db3ac",
+      "predicate_id": "reportsModel",
+      "object_id": "model:A08:usguide:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:A08:usguide:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0026"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:A08:0010",
+      "subject_id": "paper-version:A08:sha256-465a627db3ac",
+      "predicate_id": "reportsModel",
+      "object_id": "model:A08:dt:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:A08:dt:v1"
+      },
+      "evidence_ids": [
+        "evidence:A08:0026"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:A08:0011",
+      "subject_id": "system:A08:echoworld:v1",
+      "predicate_id": "composesModel",
+      "object_id": "model:A08:echoworld-encoder:v1",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:A08:echoworld-encoder:v1",
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance"
+      },
+      "evidence_ids": [
+        "evidence:A08:0001",
+        "evidence:A08:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "relation:A08:0012",
+      "subject_id": "evalrun:A08:probe-guidance-single-frame-and-sequential",
+      "predicate_id": "evaluatesOnCohort",
+      "object_id": "cohort:A08:cardiac-ultrasound-scans-356",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A08:probe-guidance-single-frame-and-sequential"
+      },
+      "evidence_ids": [
+        "evidence:A08:0018"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:A08:0013",
+      "subject_id": "paper-version:A08:sha256-465a627db3ac",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M2",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance"
+      },
+      "evidence_ids": [
+        "evidence:A08:0008",
+        "evidence:A08:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reviewer mapping: image and pose encoders and an action regression head."
+    },
+    {
+      "id": "relation:A08:0014",
+      "subject_id": "paper-version:A08:sha256-465a627db3ac",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M4",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance"
+      },
+      "evidence_ids": [
+        "evidence:A08:0008",
+        "evidence:A08:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reviewer mapping: image and pose encoders and an action regression head."
+    },
+    {
+      "id": "relation:A08:0015",
+      "subject_id": "evalrun:A08:probe-guidance-single-frame-and-sequential",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A08:0001",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A08:probe-guidance-single-frame-and-sequential"
+      },
+      "evidence_ids": [
+        "evidence:A08:0026"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A08:0016",
+      "subject_id": "evalrun:A08:probe-guidance-single-frame-and-sequential",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A08:0002",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A08:probe-guidance-single-frame-and-sequential"
+      },
+      "evidence_ids": [
+        "evidence:A08:0026"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A08:0017",
+      "subject_id": "evalrun:A08:probe-guidance-single-frame-and-sequential",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A08:0003",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A08:probe-guidance-single-frame-and-sequential"
+      },
+      "evidence_ids": [
+        "evidence:A08:0026"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A08:0018",
+      "subject_id": "evalrun:A08:probe-guidance-single-frame-and-sequential",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A08:0004",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A08:probe-guidance-single-frame-and-sequential"
+      },
+      "evidence_ids": [
+        "evidence:A08:0026"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A08:0019",
+      "subject_id": "evalrun:A08:probe-guidance-single-frame-and-sequential",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A08:0005",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A08:probe-guidance-single-frame-and-sequential"
+      },
+      "evidence_ids": [
+        "evidence:A08:0026"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A08:0020",
+      "subject_id": "evalrun:A08:probe-guidance-single-frame-and-sequential",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A08:0006",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A08:probe-guidance-single-frame-and-sequential"
+      },
+      "evidence_ids": [
+        "evidence:A08:0026"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A08:0021",
+      "subject_id": "evalrun:A08:probe-guidance-single-frame-and-sequential",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A08:0007",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A08:probe-guidance-single-frame-and-sequential"
+      },
+      "evidence_ids": [
+        "evidence:A08:0026"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A08:0022",
+      "subject_id": "evalrun:A08:probe-guidance-single-frame-and-sequential",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A08:0008",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A08:probe-guidance-single-frame-and-sequential"
+      },
+      "evidence_ids": [
+        "evidence:A08:0027"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A08:0023",
+      "subject_id": "evalrun:A08:probe-guidance-single-frame-and-sequential",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A08:0009",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A08:probe-guidance-single-frame-and-sequential"
+      },
+      "evidence_ids": [
+        "evidence:A08:0027"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:A08:0024",
+      "subject_id": "evalrun:A08:probe-guidance-single-frame-and-sequential",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:A08:0010",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evalrun:A08:probe-guidance-single-frame-and-sequential"
+      },
+      "evidence_ids": [
+        "evidence:A08:0028"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    }
+  ],
+  "capability_assessments": [
+    {
+      "subject_id": "system:A08:echoworld:v1",
+      "level": "not_world_model",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance"
+      },
+      "evidence_assertion_ids": [
+        "assertion:A08:0019",
+        "assertion:A08:0041",
+        "assertion:A08:0042",
+        "assertion:A08:0053"
+      ],
+      "rationale": "Downgraded from L0 to not_world_model because implemented core world-model identity is not met: state.persistent (assertion:A08:0019) is partial (historical frames are re-encoded rather than propagating an updated latent state across steps), dynamics.temporal (assertion:A08:0041) is partial (motion pretraining predicts target features across arbitrary frame pairs rather than ordered rollouts), and the JEPA predictor is discarded at guidance time and shown only via qualitative RCDM visualizations (assertion:A08:0053). EchoWorld is therefore classed as a supporting representation-learning component rather than a core world model."
+    },
+    {
+      "subject_id": "model:A08:echoworld-encoder:v1",
+      "level": "not_world_model",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance"
+      },
+      "evidence_assertion_ids": [
+        "assertion:A08:0019",
+        "assertion:A08:0041",
+        "assertion:A08:0042",
+        "assertion:A08:0053"
+      ],
+      "rationale": "Downgraded from L0 to not_world_model because implemented core world-model identity is not met: state.persistent (assertion:A08:0019) is partial (historical frames are re-encoded rather than propagating an updated latent state across steps), dynamics.temporal (assertion:A08:0041) is partial (motion pretraining predicts target features across arbitrary frame pairs rather than ordered rollouts), and the JEPA predictor is discarded at guidance time and shown only via qualitative RCDM visualizations (assertion:A08:0053). EchoWorld is therefore classed as a supporting representation-learning component rather than a core world model."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "system:A08:echoworld:v1",
+      "facets": [
+        "R2"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance"
+      },
+      "evidence_ids": [
+        "evidence:A08:0018",
+        "evidence:A08:0024",
+        "evidence:A08:0026"
+      ],
+      "legacy_highest_label": "R2 Retrospective internal validation"
+    }
+  ],
+  "gate_assessments": [
+    {
+      "gate_id": "G01",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance"
+      },
+      "rationale": "Downgraded from pass to unresolved: although training and test scans are reported to have no patient overlap (assertion:A08:0010, specification), full dataset provenance is relegated to an appendix absent from this PDF (assertion:A08:0001, partial at specification), so G01 required features at implementation stage are not satisfied.",
+      "supporting_assertion_ids": [
+        "assertion:A08:0001",
+        "assertion:A08:0010"
+      ]
+    },
+    {
+      "gate_id": "G02",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance"
+      },
+      "rationale": "The motion-conditioned feature prediction is shown only qualitatively, so prediction fidelity is not scored.",
+      "supporting_assertion_ids": [
+        "assertion:A08:0053"
+      ]
+    },
+    {
+      "gate_id": "G03",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance"
+      },
+      "rationale": "No multi-step prediction is claimed.",
+      "supporting_assertion_ids": [
+        "assertion:A08:0054"
+      ]
+    },
+    {
+      "gate_id": "G05",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:A08:echocardiography-probe-guidance"
+      },
+      "rationale": "No planning or intervention comparison is evaluated.",
+      "supporting_assertion_ids": [
+        "assertion:A08:0039"
+      ]
+    }
+  ],
+  "legacy_cells": {
+    "A": "A08",
+    "B": "EchoWorld: Learning Motion-Aware World Models for Echocardiography Probe Guidance",
+    "C": "Yang Yue, Yulin Wang, Haojun Jiang, Pan Liu, Shiji Song, Gao Huang",
+    "D": "2025",
+    "E": "Not reported",
+    "F": "Not reported",
+    "G": "https://arxiv.org/abs/2504.13065",
+    "H": "Papers/Recommended_Additions (A)",
+    "I": "A08_EchoWorld.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not reported",
+    "N": "Cardiology / cardiovascular",
+    "O": "Not reported",
+    "P": "Not reported",
+    "Q": "Procedure / scene (surgery, acquisition)",
+    "R": "Image acquisition guidance",
+    "S": "Can historical ultrasound images and probe poses support prediction of probe movement needed to reach an unvisited target standard plane?",
+    "T": "Patients undergoing routine cardiac ultrasound examinations; detailed inclusion criteria and patient characteristics are not reported.",
+    "U": "Sonographers, including less-experienced operators; longer-term aspiration includes autonomous scanning systems.",
+    "V": "The probe movement needed to reach a selected target standard echocardiographic plane.",
+    "W": "World model",
+    "X": "F7 Acquisition / ultrasound guidance",
+    "Y": "Predictive-latent (JEPA-style)",
+    "Z": "L2 Action-conditioned prediction",
+    "AA": "L2 Action-conditioned prediction",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "Yes",
+    "AE": "Not reported",
+    "AF": "Not reported",
+    "AG": "Not reported",
+    "AH": "Serial pipeline",
+    "AI": "Ultrasound image frames; probe poses and relative 6-DOF pose differences",
+    "AJ": "Vision Transformer (ViT-Small) context/target encoders; motion encoder Aψ (architecture not specified)",
+    "AK": "Not reported",
+    "AL": "Masked-region feature prediction with L1 loss; motion-conditioned feature prediction with InfoNCE contrastive loss; guidance movement regression with L1 loss.",
+    "AM": "Motion-aware attention: pairwise relative-pose features are embedded into per-query key/value features and fused with visual frame tokens.",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Continuous latent vector",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Not reported",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Acquisition / probe motion",
+    "BC": "Trajectory / pose / skeleton",
+    "BD": "Relative probe pose: x, y, z translation and yaw, pitch, roll Euler angles; units and action timing are not specified.",
+    "BE": "Not applicable",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "EchoWorld",
+    "BJ": "Not reported",
+    "BK": "Not reported",
+    "BL": "Not reported",
+    "BM": "Not reported",
+    "BN": "Not reported",
+    "BO": "Attention context window",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Predicted target visual features; an RCDM diffusion model maps predicted features to ultrasound images for qualitative visualization.",
+    "BT": "Guidance prediction head regresses probe movement toward target standard planes.",
+    "BU": "Not reported",
+    "BV": "Lspatial masked-feature L1 loss; Lmotion InfoNCE loss (combined as Lspatial + λLmotion, λ = 0.1); Lguide L1 movement-regression loss.",
+    "BW": "Not reported",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "Not reported",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "None",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Not reported",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Not reported",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "Associational action-conditioning",
+    "CU": "Not reported",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not reported",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Yes",
+    "DN": "Unnamed routine cardiac ultrasound scan dataset",
+    "DO": "Robotic platform recordings",
+    "DP": "Not reported",
+    "DQ": "356 routine scans and approximately one million image frames; 284 scans for training and 72 for testing.",
+    "DR": "Not reported",
+    "DS": "Real-world data",
+    "DT": "Not reported",
+    "DU": "Patient-level split",
+    "DV": "No",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Single-frame probe-guidance comparison: EchoWorld had the lowest error in 16/20 translation/rotation subtasks and beat the best alternative (EchoCLIP) by 0.22 in average MAE; sequential protocol compared with US-GuideNet, Decision-T, and Seq-aware, with EchoWorld reported to outperform them.",
+    "EJ": "Not reported",
+    "EK": "Ablated spatial and motion world-modeling tasks jointly and separately, and tested the motion-aware guidance module with/without motion signals and with DeiT versus EchoWorld backbones.",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "R2 Retrospective internal validation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Yes – public repository",
+    "EX": "https://github.com/LeapLabTHU/EchoWorld",
+    "EY": "Not reported",
+    "EZ": "Not applicable",
+    "FA": "Not reported",
+    "FB": "Per-frame learned ultrasound visual features (pooled ViT patch embeddings) plus relative probe-pose motion features; predicts target-frame features.",
+    "FC": "Not reported",
+    "FD": "2 – moderate",
+    "FE": "2 – moderate",
+    "FF": "0 – absent",
+    "FG": "Yes",
+    "FH": "Not reported",
+    "FI": "Not applicable",
+    "FJ": "Yes",
+    "FK": "Not reported",
+    "FL": "ViT-Small encodes ultrasound images and a motion encoder embeds relative 6-DOF probe pose; a JEPA-style predictor learns masked anatomical and motion-conditioned target features. A motion-aware attention module aggregates historical image-motion tokens, and a guidance head regresses movement toward a target plane. A diffusion decoder is used for image visualizations; no planner is implemented.",
+    "FM": "Introduces a cardiac-ultrasound JEPA-style pretraining framework combining masked anatomical feature prediction and motion-conditioned feature prediction, followed by motion-aware attention for probe guidance.",
+    "FN": "EchoWorld reports the lowest error in 16 of 20 single-frame translation/rotation subtasks and a 0.22 lower averaged MAE than EchoCLIP; it also reports outperforming tested guidance baselines in the sequential protocol.",
+    "FO": "Not reported",
+    "FP": "Not reported",
+    "FQ": "The authors identify limited work on representation learning for ultrasound probe guidance and on integrating visual observations with motion data to model motion-induced visual changes.",
+    "FR": "The visual-change evidence is qualitative and does not establish faithful free-running multi-step video simulation; movement-error evaluation on collected scans does not demonstrate causal treatment effects, closed-loop robot success, or prospective clinical benefit.",
+    "FS": "Reviewer mapping: M3 Belief-state service; M4 Action service; M5 Dynamics adapter; M7 Outcome & causal layer",
+    "FT": "Reviewer lesson: Pass the paper’s specified action and time context explicitly into the state-transition interface; preserve the boundary between predictive action sensitivity and identified intervention effects.",
+    "FU": "Reviewer mapping (KB §20): Weak interventional validation",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Complete 11-page extracted PDF text: title/abstract (PDF p. 1); introduction and related work (PDF pp. 1–3); cardiac-ultrasound background, dataset, notation, and methods §§3–4 (PDF pp. 3–6); implementation details, evaluation protocols, results §§5.1–5.3, and Tables 1–3 (PDF pp. 6–8); conclusion (PDF p. 8); remaining references (PDF pp. 8–11). The paper has no separate limitations section. Relevant tables and all extracted pages were inspected. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Low",
+    "FZ": "A:I preserved; no direct contradiction in the PDF required correction. Table 1 text extraction has broken row/column alignment, so per-plane numbers were not transcribed; the authors’ legible narrative summary supports the reported 16/20 and 0.22 comparison. The study evaluates probe-acquisition guidance, not cardiovascular treatment response. No standalone limitations section was present. Schema references to KB §19.1 and §20 were not accompanied by those module/open-problem definitions, so FS and FU use descriptive mappings without assigning KB IDs. Evidence QA: 5/59 populated fields had a <=25-word quotation matching extracted PDF text (8.5%). Confidence is conservative; review this row where exact quote checks were incomplete. Schema normalization (source details retained): BC normalized to 'Trajectory / pose / skeleton'; source detail: Continuous vector (6-DOF pose differences) Codex audit: 44 prior populated fields have a located source quotation; 15 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "All 11 local PDF pages were previously read as text; references on pp9–11 were already read as bibliography entries. Targeted 2026-11-22 visual review inspected physical pp1,3,4,6, resolving missing local visual coverage. P1 has no displayed figure; Figures 3,4,6 occur on pp3,4,6 respectively. Existing visual review on pp2,5,7,8 is reused with original attribution. The external appendix cited in the paper is not included in this PDF, so unavailable dataset/baseline details remain unresolved.",
+    "The legacy row was read from the root workbook (read only). Saved API drafts for A08 were not opened.",
+    "Schema validity and quote occurrence do not establish semantic correctness. One reviewer pass, no independent human review."
+  ],
+  "notes": "EchoWorld pretrains ViT encoders with a JEPA-style latent predictor on masked anatomical regions and on probe-motion-conditioned frame prediction, then fine-tunes a motion-aware attention head to regress relative probe movement to ten standard planes. On 72 held-out scans the single-frame average error is 8.15 against 8.37 for EchoCLIP, and the sequential protocol gives 7.05 against 7.42 for the best reproduced framework. The motion-conditioned predictor is evaluated only by decoded images. Classified not_world_model (supporting component), G01 unresolved, R2. Source points: errors average millimetres and degrees, no variance, offline imitation error only, appendix absent."
+}

@@ -1,0 +1,4945 @@
+{
+  "record_id": "annotation:091:complete-criteria-review",
+  "paper_record_id": "091",
+  "paper_version_id": "paper-version:091:sha256-cf2020bfe4e2",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "091:m:lidc",
+    "091:m:chest",
+    "091:m:hist",
+    "091:m:wisconsin",
+    "091:m:brain",
+    "091:m:pima"
+  ],
+  "system_composition_ids": [
+    "091:system"
+  ],
+  "world_type_ids": [],
+  "profile_ids": [
+    "BP_COMPONENT"
+  ],
+  "entities": [
+    {
+      "id": "paper:091",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "091",
+        "title": "The Trust-Aware XAI (TAXAI) framework: a quantitative model for interpretable and reliable clinical AI systems",
+        "authors": [
+          "Mahua Pal",
+          "Himadri Nath Saha",
+          "Amlan Chakrabarti"
+        ],
+        "year": "2026",
+        "venue": "Scientific Reports",
+        "volume": "16",
+        "article_number": "15455",
+        "doi": "10.1038/s41598-026-44167-3",
+        "publication_status": "Peer-reviewed journal",
+        "contribution_type": "Evaluation / audit / benchmark",
+        "legacy_inclusion": "Exclude",
+        "reviewer_inclusion_recommendation": "Include – component / supporting",
+        "membership_boundary": "The documented main benchmark pipelines are not core healthcare world models. Component relevance is a separate judgment."
+      },
+      "provenance_evidence_ids": [
+        "091:e01",
+        "091:e04",
+        "091:e17"
+      ]
+    },
+    {
+      "id": "paper-version:091:sha256-cf2020bfe4e2",
+      "class_id": "PaperVersion",
+      "properties": {
+        "source_path": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+        "pdf_sha256": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+        "hash_provenance": "Supplied source record; not recomputed.",
+        "physical_pages": 20,
+        "received": "8 November 2025",
+        "accepted": "10 March 2026",
+        "bibliographic_boundary": "Read from supplied source material; no independent publisher lookup.",
+        "supplements": "Referenced but unavailable in this review."
+      }
+    },
+    {
+      "id": "091:study:main",
+      "class_id": "Study",
+      "properties": {
+        "design": "Author-reported computational demonstrations on public human-derived diagnostic benchmarks.",
+        "contribution": "Existing classifiers and explainers evaluated through a normalized Trust Index.",
+        "execution_boundary": "Author execution is documented; independent reproduction was not performed.",
+        "human_evaluation": "No human-subject experimentation; clinician-centered validation is future work."
+      },
+      "provenance_evidence_ids": [
+        "091:e05",
+        "091:e07",
+        "091:e18",
+        "091:e19"
+      ]
+    },
+    {
+      "id": "091:study:supp",
+      "class_id": "Study",
+      "properties": {
+        "description": "Mentioned exploratory tumor-kinetics evaluation using longitudinal brain MRI cases.",
+        "reported_location": "Supplementary Tables S9–S10",
+        "status": "Methods and results unavailable.",
+        "boundary": "Not equated with the main static Figshare classifier. Model identity, state, transition, horizon, data provenance, and predictive results remain unassessed."
+      },
+      "provenance_evidence_ids": [
+        "091:e08"
+      ]
+    },
+    {
+      "id": "091:system",
+      "class_id": "SystemComposition",
+      "properties": {
+        "name": "Trust-Aware Explainable Artificial Intelligence (TAXAI)",
+        "pipeline": "Independent diagnostic classifier → post-hoc explainer → fidelity, alignment, and compliance/reliability metrics → normalized Trust Index.",
+        "formula": "TI = αF + βI + γC",
+        "top_level_constraints": "Nonnegative coefficients summing to one; components normalized to [0,1].",
+        "policy_weights_F_I_C": {
+          "equal": "1/3, 1/3, 1/3",
+          "performance_driven": "0.4, 0.3, 0.3",
+          "regulatory_or_ethics_centric": "0.3, 0.2, 0.5"
+        },
+        "data_driven_weight_optimization": "Explicitly an extension, not a reported optimization.",
+        "reported_sensitivity": {
+          "TI": "Variation less than 0.03 under moderate weight perturbations.",
+          "alignment": "p = 10%, 20%, 30%; ΔI < 0.05.",
+          "boundary": "Complete perturbation designs, paired outputs, and numerical uncertainty are not supplied."
+        },
+        "feedback": "Conceptual development/refinement workflow, not demonstrated patient-state assimilation or clinical control.",
+        "trust_boundary": "Boundedness and score stability do not validate human trust, patient safety, cross-dataset comparability, legal compliance, or deployment readiness."
+      },
+      "provenance_evidence_ids": [
+        "091:e02",
+        "091:e03",
+        "091:e10",
+        "091:e21",
+        "091:e30"
+      ]
+    },
+    {
+      "id": "091:ctx",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "scope_contract": "Shared assertions concern only the six main-paper static benchmark pipelines and their TAXAI scoring composition. They exclude 091:study:supp.",
+        "purpose": "Research explanation evaluation, model comparison, auditing, and governance assessment.",
+        "users": "Developers and regulators are named; clinical experts appear in conceptual feedback and future studies.",
+        "environment": "Offline public diagnostic-benchmark analysis.",
+        "population_limits": "Eligibility, evaluated-subset counts, patient/slide grouping, and dataset versions are incomplete.",
+        "authority": "No demonstrated execution of treatment recommendations, EHR writes, or device actions."
+      },
+      "provenance_evidence_ids": [
+        "091:e06",
+        "091:e18",
+        "091:e29"
+      ]
+    },
+    {
+      "id": "091:protocol",
+      "class_id": "EvaluationProtocol",
+      "properties": {
+        "general_imaging_split": "Stratified 75/10/15 training/validation/test.",
+        "histopathology_specific_split": "70% training, 30% validation.",
+        "split_resolution": "Unresolved; retain both descriptions.",
+        "tabular_split": "70% training, 30% held-out test; five-fold KFold restricted to training.",
+        "tabular_TI": "Fold-wise TI averaging is described; final held-out-test TI is not explicit.",
+        "randomization": "Tabular random_state = 88 given as an example; imaging described as three independent runs with fixed seeds.",
+        "statistical_reporting": "Mean ± SD, 95% confidence intervals, paired t-tests or Wilcoxon tests, effect sizes, and p < 0.05 are described; numerical uncertainty/test outputs are absent from Table 2.",
+        "leakage_limits": "Patient/slide boundaries, duplicate control, augmentation timing, fold-local ADASYN, and normalization fitting are not adequately established."
+      },
+      "provenance_evidence_ids": [
+        "091:e11",
+        "091:e12",
+        "091:e13",
+        "091:e15",
+        "091:e27"
+      ]
+    },
+    {
+      "id": "091:m:lidc",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "LIDC–IDRI LightGBM with SHAP and ELI5",
+        "task": "Static benign-versus-malignant lung classification.",
+        "version_boundary": "Reported configuration, not a released checkpoint.",
+        "unresolved": "Image-to-feature derivation, labels, evaluated subset, and dataset release."
+      },
+      "provenance_evidence_ids": [
+        "091:e05"
+      ]
+    },
+    {
+      "id": "091:m:chest",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "NIH ChestXray-14 CNN with Grad-CAM",
+        "task_as_reported": "Pneumonia/COVID diagnosis.",
+        "unresolved": "COVID-label provenance/additional cohort and detailed CNN configuration."
+      },
+      "provenance_evidence_ids": [
+        "091:e05"
+      ]
+    },
+    {
+      "id": "091:m:hist",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Kaggle Lung Histopathology CNN with SHAP and LIME",
+        "task_as_reported": "Multiclass staging (Adenocarcinoma/Squamous/Benign).",
+        "task_boundary": "The listed classes do not establish a clinical stage target.",
+        "architecture": "Three convolutional blocks, 32 → 64 → 128 filters; pooling; BatchNormalization; dense 256; dropout 0.5; multiclass softmax.",
+        "training": "Adam; categorical cross-entropy; 22 epochs; batch size 32.",
+        "time_boundary": "Epochs are optimization iterations, not clinical time.",
+        "modality_conflict": "Named histopathology but also described as CT-derived/CT images.",
+        "split_conflict": "General 75/10/15 versus specific 70/30."
+      },
+      "provenance_evidence_ids": [
+        "091:e05",
+        "091:e13",
+        "091:e14"
+      ]
+    },
+    {
+      "id": "091:m:wisconsin",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Wisconsin diagnostic LightGBM",
+        "task": "Static binary cancer classification.",
+        "hyperparameters": "50 leaves; learning rate 0.1; feature fraction 0.8; maximum depth 12.",
+        "preprocessing": "ADASYN before fitting; fold-local placement unresolved.",
+        "explainers": "SHAP in Table 2; tabular Methods additionally name LIME and ELI5."
+      },
+      "provenance_evidence_ids": [
+        "091:e05",
+        "091:e15"
+      ]
+    },
+    {
+      "id": "091:m:brain",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Figshare Brain MRI CNN with SHAP",
+        "task": "Static tumor-type classification.",
+        "boundary": "Not identified with the supplementary longitudinal investigation."
+      },
+      "provenance_evidence_ids": [
+        "091:e05",
+        "091:e08"
+      ]
+    },
+    {
+      "id": "091:m:pima",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Pima XGBoost with SHAP and LIME",
+        "task": "Risk-classification benchmark; no declared future-state horizon."
+      },
+      "provenance_evidence_ids": [
+        "091:e05"
+      ]
+    },
+    {
+      "id": "091:d:lidc",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "name": "LIDC–IDRI",
+        "release": "not_reported",
+        "description": "Lung CT; feature-based classification reported."
+      },
+      "provenance_evidence_ids": [
+        "091:e05"
+      ]
+    },
+    {
+      "id": "091:d:chest",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "name": "NIH ChestXray-14",
+        "release": "not_reported",
+        "reported_resource_size": "112,120 scans from 30,805 patients",
+        "evaluated_subset": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "091:e16"
+      ]
+    },
+    {
+      "id": "091:d:hist",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "name": "Kaggle Lung Histopathology Dataset",
+        "release": "not_reported",
+        "reported_resource_size": "12,000 images",
+        "modality": "Conflicting histopathology and CT descriptions."
+      },
+      "provenance_evidence_ids": [
+        "091:e05",
+        "091:e13"
+      ]
+    },
+    {
+      "id": "091:d:wisconsin",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "name": "Breast Cancer Wisconsin Diagnostic Dataset",
+        "release": "not_reported",
+        "reported_resource_size": "569 samples, 30 biomarkers",
+        "terminology_boundary": "Biomarkers is the source's wording."
+      },
+      "provenance_evidence_ids": [
+        "091:e16"
+      ]
+    },
+    {
+      "id": "091:d:brain",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "name": "Figshare Brain MRI Dataset",
+        "release": "not_reported",
+        "reported_resource_size": "3,264 images",
+        "patient_count": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "091:e05"
+      ]
+    },
+    {
+      "id": "091:d:pima",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "name": "Pima Indians Diabetes Dataset",
+        "reported_source": "UCI Machine Learning Repository",
+        "release_and_count": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "091:e05"
+      ]
+    },
+    {
+      "id": "091:c:lidc",
+      "class_id": "Cohort",
+      "properties": {
+        "dataset_id": "091:d:lidc",
+        "eligibility_and_evaluated_count": "not_reported"
+      }
+    },
+    {
+      "id": "091:c:chest",
+      "class_id": "Cohort",
+      "properties": {
+        "dataset_id": "091:d:chest",
+        "evaluated_count_and_COVID_label_source": "not_reported"
+      }
+    },
+    {
+      "id": "091:c:hist",
+      "class_id": "Cohort",
+      "properties": {
+        "dataset_id": "091:d:hist",
+        "patient_slide_grouping": "not_reported",
+        "partition": "Unreconciled 75/10/15 and 70/30 descriptions."
+      }
+    },
+    {
+      "id": "091:c:wisconsin",
+      "class_id": "Cohort",
+      "properties": {
+        "dataset_id": "091:d:wisconsin",
+        "partition": "Reported 70% training/30% test; five-fold CV within training.",
+        "exact_counts": "not_reported",
+        "environment": "Retrospective human diagnostic benchmark."
+      }
+    },
+    {
+      "id": "091:c:brain",
+      "class_id": "Cohort",
+      "properties": {
+        "dataset_id": "091:d:brain",
+        "patient_grouping_and_evaluated_count": "not_reported"
+      }
+    },
+    {
+      "id": "091:c:pima",
+      "class_id": "Cohort",
+      "properties": {
+        "dataset_id": "091:d:pima",
+        "eligibility_and_evaluated_count": "not_reported"
+      }
+    },
+    {
+      "id": "091:claim:trust",
+      "class_id": "Claim",
+      "properties": {
+        "author_claim": "Stable, comparable trust quantification and ethical/regulatory alignment; a layer is said to ensure fairness, reproducibility, and privacy.",
+        "boundary": "Computational aggregation does not establish human-trust calibration, privacy safeguards, legal compliance, or clinical readiness."
+      },
+      "provenance_evidence_ids": [
+        "091:e23",
+        "091:e31"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "091:a001",
+      "subject_id": "091:system",
+      "feature_id": "data.provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": [
+          "091:m:hist",
+          "091:m:wisconsin"
+        ],
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e13",
+        "091:e15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Named inputs linked to resizing/normalization/augmentation or ADASYN transformations."
+      ],
+      "criteria_missing": [
+        "Dataset releases and variable-level source/unit/timing lineage.",
+        "Resolution of modality ambiguity and fold-local transformation provenance."
+      ]
+    },
+    {
+      "id": "091:a002",
+      "subject_id": "091:system",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Actual acquisition/event-time retention is not established. Runs and epochs are not clinical timestamps."
+    },
+    {
+      "id": "091:a003",
+      "subject_id": "091:system",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Feature-release timing relative to diagnostic queries is not audited; neither correct handling nor temporal leakage is established."
+    },
+    {
+      "id": "091:a004",
+      "subject_id": "091:system",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e13",
+        "091:e15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "Observation-validity indicators are not established; supplementary preprocessing is unavailable. Saliency masks are not missingness masks."
+    },
+    {
+      "id": "091:a005",
+      "subject_id": "091:system",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Independent diagnostic snapshots do not maintain carried-forward measurements in an asynchronous patient state."
+    },
+    {
+      "id": "091:a006",
+      "subject_id": "091:system",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The scoped static tasks contain no predecessor/successor time coordinate or prediction interval."
+    },
+    {
+      "id": "091:a007",
+      "subject_id": "091:system",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No conditional model of whether, when, or why clinical observations occur is specified. Attribution perturbation is different."
+    },
+    {
+      "id": "091:a008",
+      "subject_id": "091:system",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e13",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No temporal resampling grid or timing-dependent target distinction is defined. Spatial resizing is not clock resampling."
+    },
+    {
+      "id": "091:a009",
+      "subject_id": "091:system",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "Intensity/score normalization does not establish traceable clinical terminology and unit mappings; supplementary configurations are unavailable."
+    },
+    {
+      "id": "091:a010",
+      "subject_id": "091:system",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "091:m:lidc",
+          "091:m:chest",
+          "091:m:wisconsin",
+          "091:m:brain",
+          "091:m:pima"
+        ],
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e11",
+        "091:e12",
+        "091:e15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "Splits and training-only CV do not establish patient/source-boundary audits or training-only preprocessing. Fold-local ADASYN remains unresolved."
+    },
+    {
+      "id": "091:a011",
+      "subject_id": "091:system",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Public-data use supplies no site-local retention or federated artifact-exchange protocol."
+    },
+    {
+      "id": "091:a012",
+      "subject_id": "091:system",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": [
+          "091:m:chest",
+          "091:m:hist",
+          "091:m:brain"
+        ],
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Reported CNNs map images to classifier features. Only the histopathology configuration has detailed layers; no evolving state follows from encoding."
+    },
+    {
+      "id": "091:a013",
+      "subject_id": "091:system",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "091:m:lidc",
+          "091:m:chest",
+          "091:m:hist",
+          "091:m:brain",
+          "091:m:pima"
+        ],
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "No used pretrained checkpoint/adaptation is identified. Custom layers and training epochs do not establish from-scratch initialization."
+    },
+    {
+      "id": "091:a014",
+      "subject_id": "091:m:hist",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "091:m:hist",
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The specified fitting procedure targets class labels through categorical cross-entropy, not target representations. Unknown earlier pretraining is excluded from this negative."
+    },
+    {
+      "id": "091:a015",
+      "subject_id": "091:system",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "091:m:hist",
+          "091:m:wisconsin"
+        ],
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e14",
+        "091:e15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Specified supervised CNN fitting and direct-feature LightGBM do not train predictive embeddings requiring this anti-collapse mechanism; unknown pretraining is excluded."
+    },
+    {
+      "id": "091:a016",
+      "subject_id": "091:m:hist",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "091:m:hist",
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The specified fitting objective and output are label cross-entropy and softmax, not image reconstruction. Unreported pretraining is excluded."
+    },
+    {
+      "id": "091:a017",
+      "subject_id": "091:system",
+      "feature_id": "perception.fusion",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Separate models analyze separate datasets. Combining explanation methods or F/I/C scores is not multimodal observation fusion."
+    },
+    {
+      "id": "091:a018",
+      "subject_id": "091:system",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No joint multimodal fusion operation exists in the documented composition. Within-model missingness remains a separate reporting question."
+    },
+    {
+      "id": "091:a019",
+      "subject_id": "091:system",
+      "feature_id": "state.persistent",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e14",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Independent inputs map to static labels and explanation scores; activations, fitted parameters, and TI are not carried health-world states."
+    },
+    {
+      "id": "091:a020",
+      "subject_id": "091:system",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e14",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No hidden evolving patient state is filtered. A classifier softmax is not a history-conditioned belief over such a state."
+    },
+    {
+      "id": "091:a021",
+      "subject_id": "091:system",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Static inference contains neither propagated state priors nor observation-conditioned state correction."
+    },
+    {
+      "id": "091:a022",
+      "subject_id": "091:system",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17",
+        "091:e30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No individual forecast state is maintained. Proposed model-development recalibration is not patient-state assimilation."
+    },
+    {
+      "id": "091:a023",
+      "subject_id": "091:system",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e03",
+        "091:e30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No patient-specific parameter-fitting rule is reported. Domain-selected trust weights and generic recalibration do not establish one."
+    },
+    {
+      "id": "091:a024",
+      "subject_id": "091:system",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No maintained world state exists to reuse across readouts. Reusing an audit formula across separately fitted models is framework reuse."
+    },
+    {
+      "id": "091:a025",
+      "subject_id": "091:m:wisconsin",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "091:m:wisconsin",
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e26"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "Feature-reduction benefit lacks a subset and matched results. Index-component ablation is not state-determinant sufficiency; supplementary ablations are unavailable."
+    },
+    {
+      "id": "091:a026",
+      "subject_id": "091:system",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Scoped inputs are independent diagnostic snapshots, not subject histories used to infer a current evolving state or forecast."
+    },
+    {
+      "id": "091:a027",
+      "subject_id": "091:system",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No individualized trajectory forecast is evaluated. Local static explanations are not personalized dynamics."
+    },
+    {
+      "id": "091:a028",
+      "subject_id": "091:system",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No identity/anatomy is propagated through generated world states. Attribution stability is not transition-level identity preservation."
+    },
+    {
+      "id": "091:a029",
+      "subject_id": "091:system",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The component explains independent predictions, not maintained world-state coordinates. Attribution and decomposable audit scores do not supply that parent state."
+    },
+    {
+      "id": "091:a030",
+      "subject_id": "091:system",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e14",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Documented snapshot-classifier paths carry no subject history. Fitted weights, folds, and model-refresh feedback are not temporal memory."
+    },
+    {
+      "id": "091:a031",
+      "subject_id": "091:system",
+      "feature_id": "action.explicit",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Inputs are images/features, not separated settable healthcare commands. Occlusion, augmentation, thresholds, and index weights are analysis operations."
+    },
+    {
+      "id": "091:a032",
+      "subject_id": "091:system",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No health-world action input exists to classify by role or effect channel."
+    },
+    {
+      "id": "091:a033",
+      "subject_id": "091:system",
+      "feature_id": "action.parameterized",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No healthcare-action query requires dose, route, duration, or command-frame semantics."
+    },
+    {
+      "id": "091:a034",
+      "subject_id": "091:system",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e14",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No time-indexed intervention is queried. Epochs and repeated runs are not intervention schedules."
+    },
+    {
+      "id": "091:a035",
+      "subject_id": "091:system",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No joint treatment/device-setting intervention is represented. F/I/C aggregation is not treatment-bundle composition."
+    },
+    {
+      "id": "091:a036",
+      "subject_id": "091:system",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No candidate healthcare-action space exists. Simplex constraints bound index arithmetic, not clinical actions."
+    },
+    {
+      "id": "091:a037",
+      "subject_id": "091:system",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No clinical, robotic, or learned latent action requires an executable mapping."
+    },
+    {
+      "id": "091:a038",
+      "subject_id": "091:system",
+      "feature_id": "action.support",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No alternative healthcare regimes are queried; action overlap/support has no regime target."
+    },
+    {
+      "id": "091:a039",
+      "subject_id": "091:system",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No successors under settable healthcare actions are predicted. Comparing explainers, weights, or masks is not functional L3."
+    },
+    {
+      "id": "091:a040",
+      "subject_id": "091:system",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e06",
+        "091:e18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The experiment neither issues executable interventions nor actuates care/devices. This does not imply downstream score use is harmless."
+    },
+    {
+      "id": "091:a041",
+      "subject_id": "091:system",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e14",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The main operation classifies independent inputs and aggregates explanations; it does not advance health state over time or another successor coordinate."
+    },
+    {
+      "id": "091:a042",
+      "subject_id": "091:system",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "There is no health-world successor transition to classify as learned/hybrid. Learned classifier parameters are not learned dynamics."
+    },
+    {
+      "id": "091:a043",
+      "subject_id": "091:system",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Neither a world transition nor a settable healthcare-action pathway exists in the scoped mechanism."
+    },
+    {
+      "id": "091:a044",
+      "subject_id": "091:system",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e14",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No next-state process is defined. Softmax, dropout, randomized explainers, and run variability are not stochastic world transitions."
+    },
+    {
+      "id": "091:a045",
+      "subject_id": "091:system",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e09",
+        "091:e14",
+        "091:e15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Permitted anatomical/literature scoring references are not demonstrated constraints on representation learning or predictive inference."
+    },
+    {
+      "id": "091:a046",
+      "subject_id": "091:system",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e14",
+        "091:e15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Narrative hybrid/neuro-symbolic superiority identifies no coupled mechanistic–learned configuration. Classifier/explainer/arithmetic composition alone is insufficient."
+    },
+    {
+      "id": "091:a047",
+      "subject_id": "091:system",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No dynamics backend with state/action/time/successor semantics exists to exchange. Cross-model explanation scoring is different."
+    },
+    {
+      "id": "091:a048",
+      "subject_id": "091:system",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Separate datasets/tasks have no cross-scale state exchange. Three audit layers do not establish coupled biological scales."
+    },
+    {
+      "id": "091:a049",
+      "subject_id": "091:system",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e14",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Documented training traverses no health-world transitions. Multiple epochs are not multi-step dynamics training."
+    },
+    {
+      "id": "091:a050",
+      "subject_id": "091:system",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No temporal transition process supports options/subgoals or multi-timescale coordination. Audit layers and CNN depth are different hierarchies."
+    },
+    {
+      "id": "091:a051",
+      "subject_id": "091:system",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e14",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Documented outputs are task values, attributions, and TI, not emitted observations from world state. Attribution overlays are not emission decoders."
+    },
+    {
+      "id": "091:a052",
+      "subject_id": "091:m:hist",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "091:m:hist",
+        "intended_use_context_id": "091:ctx",
+        "time_horizon": "Same-image classification; not forecasting."
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": "Multiclass softmax on CNN features for Adenocarcinoma/Squamous/Benign.",
+      "rationale": "A typed static readout is documented and evaluated; it supplies neither persistent world state nor clinical staging. No acceptance criterion is declared."
+    },
+    {
+      "id": "091:a053",
+      "subject_id": "091:system",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Scoped targets are static classes and explanation behavior, not later states or justified successor observations. This is nonperformance, not failed forecasting."
+    },
+    {
+      "id": "091:a054",
+      "subject_id": "091:system",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No successor-state prediction chain exists to feed generated health states recursively."
+    },
+    {
+      "id": "091:a055",
+      "subject_id": "091:system",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No sequential forecasts or intermediate states exist to replace with ground truth. Supervised labels are not teacher-forced sequence evaluation."
+    },
+    {
+      "id": "091:a056",
+      "subject_id": "091:system",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17",
+        "091:e30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No prediction/execution episode is followed by measured world-state correction. Development feedback is not re-assimilation."
+    },
+    {
+      "id": "091:a057",
+      "subject_id": "091:system",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Static classifications have no forecast extent. Epochs, folds, and threshold choices are not prediction horizons."
+    },
+    {
+      "id": "091:a058",
+      "subject_id": "091:system",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e10",
+        "091:e17",
+        "091:e21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No forecast depths exist. Attribution/weight sensitivity is not free-running error versus clinical horizon."
+    },
+    {
+      "id": "091:a059",
+      "subject_id": "091:system",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "There is no forecast-time axis or supported extent. TI sensitivity bounds are not forecast acceptance tolerances."
+    },
+    {
+      "id": "091:a060",
+      "subject_id": "091:system",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e14",
+        "091:e17",
+        "091:e27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Static class probabilities and run variation are not conditional future trajectories preserving temporal dependence."
+    },
+    {
+      "id": "091:a061",
+      "subject_id": "091:system",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No temporal simulation request or supported forecast extent is exposed by the audit operation."
+    },
+    {
+      "id": "091:a062",
+      "subject_id": "091:system",
+      "feature_id": "planning.model_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17",
+        "091:e29"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Proposed model selection uses explanation scores, not simulated health-world consequences; it is not the defined WM decision pathway."
+    },
+    {
+      "id": "091:a063",
+      "subject_id": "091:system",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e03",
+        "091:e14",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No world-model action optimizer/policy exists. Adam fitting and policy-selected index coefficients are not such decision policies."
+    },
+    {
+      "id": "091:a064",
+      "subject_id": "091:system",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17",
+        "091:e30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No plan, executed prefix, measured update, or planning/execution horizon exists. Model refresh is not replanning."
+    },
+    {
+      "id": "091:a065",
+      "subject_id": "091:system",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e02",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No learned transition is supplied to a planner. Changing audit weights does not demonstrate objective-independent dynamics."
+    },
+    {
+      "id": "091:a066",
+      "subject_id": "091:system",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No modeled-consequence action selection exists to modify through uncertainty penalties, constraints, or risk budgets."
+    },
+    {
+      "id": "091:a067",
+      "subject_id": "091:system",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17",
+        "091:e21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No plans are optimized in a learned environment. Weight sensitivity is not planner-exploitation testing."
+    },
+    {
+      "id": "091:a068",
+      "subject_id": "091:system",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No candidate healthcare-action regimes exist. Classifiers, explainers, and occluded regions are not action candidates."
+    },
+    {
+      "id": "091:a069",
+      "subject_id": "091:system",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Three audit layers are not a goal/option/action policy hierarchy with duration and termination semantics."
+    },
+    {
+      "id": "091:a070",
+      "subject_id": "091:system",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e06",
+        "091:e17",
+        "091:e30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Offline explanation evaluation does not involve actions changing an environment and resulting observations feeding later decisions."
+    },
+    {
+      "id": "091:a071",
+      "subject_id": "091:m:hist",
+      "feature_id": "uq.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "091:m:hist",
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": "Softmax categorical predictive distribution over the reported tissue classes.",
+      "rationale": "Narrow distribution-representation judgment only; it establishes neither calibration nor validated uncertainty decomposition or posterior correctness."
+    },
+    {
+      "id": "091:a072",
+      "subject_id": "091:system",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "F/I/C are audit components, not predictive aleatoric/epistemic estimators. Run variation does not establish separate uncertainty sources."
+    },
+    {
+      "id": "091:a073",
+      "subject_id": "091:system",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "No executed probability-frequency/coverage protocol and result is supplied. Accuracy, TI stability, normalization terminology, and score CIs are insufficient; supplements remain unavailable."
+    },
+    {
+      "id": "091:a074",
+      "subject_id": "091:system",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Static outputs have no horizon-indexed trajectory or joint path whose reliability could be measured."
+    },
+    {
+      "id": "091:a075",
+      "subject_id": "091:system",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e10",
+        "091:e21",
+        "091:e27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "No predictive calibration acceptance target and measured attainment are supplied. ΔI and TI sensitivity bounds are not calibration tolerances."
+    },
+    {
+      "id": "091:a076",
+      "subject_id": "091:system",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No operational out-of-support statistic, threshold, and response is specified. Benchmark breadth and stability are not shift detection."
+    },
+    {
+      "id": "091:a077",
+      "subject_id": "091:system",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No nonconformity score, conformal calibration split, sets, or coverage assumptions are specified. Attribution percentiles and ordinary CIs are not conformal prediction."
+    },
+    {
+      "id": "091:a078",
+      "subject_id": "091:system",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Explanation evaluation targets no population intervention-effect contrast. Occlusion references are not clinical intervention estimands."
+    },
+    {
+      "id": "091:a079",
+      "subject_id": "091:system",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No clinical intervention-effect estimand is targeted. Attribution methods do not supply clinical causal identification."
+    },
+    {
+      "id": "091:a080",
+      "subject_id": "091:system",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No intervention effects are identified. Simplex, normalization, and statistical-test assumptions are not assumptions tied to a causal estimand."
+    },
+    {
+      "id": "091:a081",
+      "subject_id": "091:system",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e10",
+        "091:e21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No identified intervention estimate exists to stress for confounding/censoring/positivity violations. Weight/threshold sensitivity addresses another target."
+    },
+    {
+      "id": "091:a082",
+      "subject_id": "091:system",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e09",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No action-effect predictions require potential-outcome/interventional references. Diagnostic labels and occlusion masks are not counterfactual clinical ground truth."
+    },
+    {
+      "id": "091:a083",
+      "subject_id": "091:system",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No healthcare action enters a physical/pharmacological state-transition mechanism in the documented main implementation."
+    },
+    {
+      "id": "091:a084",
+      "subject_id": "091:system",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e04",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The score is not an intervention-effect or therapeutic-benefit estimate. Trust construct validity is a different assurance question."
+    },
+    {
+      "id": "091:a085",
+      "subject_id": "091:system",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No output/use blocking mechanism and fail behavior are specified. Score boundedness is not a safety guard; offline research does not make safeguards irrelevant."
+    },
+    {
+      "id": "091:a086",
+      "subject_id": "091:system",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No reject/defer trigger, withheld-output state, or fallback is specified. Low TI is not itself abstention."
+    },
+    {
+      "id": "091:a087",
+      "subject_id": "091:system",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e07",
+        "091:e30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Conceptual feedback supplies no operational trigger, available responder, timing, or fallback. Future human studies do not establish escalation."
+    },
+    {
+      "id": "091:a088",
+      "subject_id": "091:system",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e07",
+        "091:e30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No online hazard detector is connected to a protective response. Proposed dashboards and offline stability scores are insufficient."
+    },
+    {
+      "id": "091:a089",
+      "subject_id": "091:system",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Safe termination, degraded scoring, and fallback effects are not specified/tested; no physical emergency-stop requirement is invented."
+    },
+    {
+      "id": "091:a090",
+      "subject_id": "091:system",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Governance discussion defines no assets, adversaries, or attack paths involving data, reference signals, models, scores, and interfaces."
+    },
+    {
+      "id": "091:a091",
+      "subject_id": "091:system",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e10",
+        "091:e21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Generic input/threshold/weight perturbations lack defined attack or fault scenarios and measured safety-output consequences."
+    },
+    {
+      "id": "091:a092",
+      "subject_id": "091:system",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e18",
+        "091:e31"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "The privacy assertion supplies no operational de-identification, access, encryption, DP, federation, or minimization mechanism. Public-data use is insufficient."
+    },
+    {
+      "id": "091:a093",
+      "subject_id": "091:system",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No copying, membership, re-identification, or attribute-disclosure test is documented. Repeated-run agreement is not disclosure assessment."
+    },
+    {
+      "id": "091:a094",
+      "subject_id": "091:system",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e06",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The benchmark operation has no external clinical/device read-write-actuation authority. Ordinary dataset access and future integrations require separate assessment."
+    },
+    {
+      "id": "091:a095",
+      "subject_id": "091:system",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e07",
+        "091:e18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Explanations and a trust-labeled score do not establish appropriate-reliance, override, or uncertainty-communication safeguards. Human-factors validation is future work."
+    },
+    {
+      "id": "091:a096",
+      "subject_id": "091:system",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e06",
+        "091:e18",
+        "091:e29"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Research purpose, developer/regulator users, audit/model-selection uses, and no-prospective-deployment boundary."
+      ],
+      "criteria_missing": [
+        "Detailed target population.",
+        "Operational decision point and workflow.",
+        "Permitted autonomy, approval responsibility, and enforceable downstream-use limits."
+      ]
+    },
+    {
+      "id": "091:a097",
+      "subject_id": "091:system",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "No identified card pins model/data releases, assets, limits, and validation. Article methods are not automatically a model card; supplementary resources are unavailable."
+    },
+    {
+      "id": "091:a098",
+      "subject_id": "091:system",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e07",
+        "091:e30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Future dashboards lack release-specific signals, thresholds, cadence, owners, responses, and revalidation triggers."
+    },
+    {
+      "id": "091:a099",
+      "subject_id": "091:system",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Proposed recalibration lacks versioned approval/revalidation and executable rollback. It also does not establish an uncontrolled deployed self-updating system."
+    },
+    {
+      "id": "091:a100",
+      "subject_id": "paper-version:091:sha256-cf2020bfe4e2",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e23",
+        "091:e24",
+        "091:e34",
+        "091:e35"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": [
+        "GDPR",
+        "FDA GMLP",
+        "EU AI Act",
+        "IMDRF SaMD",
+        "EU MDR",
+        "FDA AI/ML SaMD Action Plan",
+        "FUTURE-AI"
+      ],
+      "rationale": "Includes explicit discussion and bibliography mentions. Naming does not establish applicability, compliance, authorization, or guideline adherence."
+    },
+    {
+      "id": "091:a101",
+      "subject_id": "091:system",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e23",
+        "091:e24"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No product/version/use/jurisdiction/date-specific requirements assessment, conformity evidence, or authorization is supplied. Denial/noncompliance is not inferred."
+    },
+    {
+      "id": "091:a102",
+      "subject_id": "091:system",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e18",
+        "091:e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "Public-data reuse and no human-subject experimentation are stated, but no named approval/exemption/waiver determination is supplied."
+    },
+    {
+      "id": "091:a103",
+      "subject_id": "091:system",
+      "feature_id": "agent.role",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e14",
+        "091:e15",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The inspected pipeline contains ordinary classifiers, explainers, and scoring modules, not operational LLM/decision agents. RAG/ontology citations are not implementation."
+    },
+    {
+      "id": "091:a104",
+      "subject_id": "091:system",
+      "feature_id": "agent.multiple",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The ordinary-module pipeline has no interacting decision agents. Multiple classifiers, explainers, and trust layers are not agents."
+    },
+    {
+      "id": "091:a105",
+      "subject_id": "091:system",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17",
+        "091:e30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No proposal-making agent exists to critique/refine proposals. Development feedback is not agent reflection."
+    },
+    {
+      "id": "091:a106",
+      "subject_id": "091:system",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17",
+        "091:e18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No agent invokes tools. Development libraries/downloads are not operational agent calls; absence of all network activity is not asserted."
+    },
+    {
+      "id": "091:a107",
+      "subject_id": "091:system",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e06",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "This offline scoring experiment has no action-proposing/executing agent. Future clinical/model-selection authority is not assigned an autonomy level."
+    },
+    {
+      "id": "091:a108",
+      "subject_id": "091:system",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e18",
+        "091:e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "No accessible version-specific authors' code release is identified. Pseudocode/libraries are insufficient; supplementary resources and repositories were not accessed."
+    },
+    {
+      "id": "091:a109",
+      "subject_id": "091:system",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "No released fitted classifier/checkpoint with access conditions is established. TI coefficients and hyperparameters are not released trained model weights."
+    },
+    {
+      "id": "091:a110",
+      "subject_id": "091:system",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e18",
+        "091:e20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "Article CC BY-NC-ND 4.0 does not establish separate software, checkpoint, and dataset terms. Public availability is not an asset license."
+    },
+    {
+      "id": "091:a111",
+      "subject_id": "091:system",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e19",
+        "091:e27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "Author reruns and manuscript review are not independent execution. No external replication search or execution occurred."
+    },
+    {
+      "id": "091:a112",
+      "subject_id": "091:system",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "All scoped benchmark targets are static classes/risk labels and explanation scores. Explanation fidelity is not transition-successor fidelity."
+    },
+    {
+      "id": "091:a113",
+      "subject_id": "091:system",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No future sequence is generated or forecast at multiple horizons in the scoped configurations."
+    },
+    {
+      "id": "091:a114",
+      "subject_id": "091:system",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No clinical observation/trajectory sample distribution is generated. Attribution maps and class probabilities are not that target."
+    },
+    {
+      "id": "091:a115",
+      "subject_id": "091:system",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e09",
+        "091:e10",
+        "091:e32"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Clinical explanation alignment is relevant, but results lack traceable dataset-specific anatomical/clinical references. Mask agreement may measure cross-explainer or model-dependent consistency instead."
+    },
+    {
+      "id": "091:a116",
+      "subject_id": "091:system",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "Held-out predictive reliability/coverage/sharpness with nominal-target context is not supplied. Fold/run score intervals are not predictive calibration."
+    },
+    {
+      "id": "091:a117",
+      "subject_id": "091:system",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No settable healthcare actions have predicted consequences. Explanation perturbations are not healthcare-action sensitivity."
+    },
+    {
+      "id": "091:a118",
+      "subject_id": "091:system",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No interventional/counterfactual clinical estimand is evaluated. Attribution and occlusion references do not create one."
+    },
+    {
+      "id": "091:a119",
+      "subject_id": "091:system",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No patient-history-conditioned forecast is evaluated. Local static explanations are not personalized forecasts."
+    },
+    {
+      "id": "091:a120",
+      "subject_id": "091:system",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e29"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No TAXAI-guided selection consequences, regret, success, or decision-quality endpoint is measured. TI is not demonstrated decision benefit."
+    },
+    {
+      "id": "091:a121",
+      "subject_id": "091:system",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17",
+        "091:e18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No matched simulator-to-physical/clinical transfer is involved. Worked index arithmetic is not a simulated clinical environment."
+    },
+    {
+      "id": "091:a122",
+      "subject_id": "091:system",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e07",
+        "091:e10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "rationale": "Different fitted classifiers across benchmarks show breadth, not transfer of a pinned model/common trust scale. No identified subgroup/shift result accompanies fairness formulas."
+    },
+    {
+      "id": "091:a123",
+      "subject_id": "091:system",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e13",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No measurement timeline/grid or timing-dependent target distinction invokes the temporal witness audit. Spatial preprocessing is different."
+    },
+    {
+      "id": "091:a124",
+      "subject_id": "091:system",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e07",
+        "091:e18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "No human-subject experimentation is explicitly stated; clinician/expert studies are future work. Diagram boxes and author review are not participant evaluations."
+    },
+    {
+      "id": "091:a125",
+      "subject_id": "091:system",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e18",
+        "091:e26",
+        "091:e28"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "Runtime is defined and supplementary reporting asserted, but measurements, units, exact hardware/load, and variability are unavailable. CPU/GPU labels are insufficient."
+    },
+    {
+      "id": "091:a126",
+      "subject_id": "091:system",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e06",
+        "091:e07",
+        "091:e18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Explicit computational/no-human-experiment scope supports nonperformance of real-care/workflow utility evaluation. Classification accuracy and TI stability are not patient benefit."
+    },
+    {
+      "id": "091:a127",
+      "subject_id": "091:system",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e14",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No world transition exists to locate in latent versus observation space. A CNN bottleneck alone is insufficient."
+    },
+    {
+      "id": "091:a128",
+      "subject_id": "091:system",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No learned transition preserves rewards/values/policies. TI is an audit aggregate, not value-equivalent dynamics."
+    },
+    {
+      "id": "091:a129",
+      "subject_id": "091:system",
+      "feature_id": "data.provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "091:m:lidc",
+          "091:m:chest",
+          "091:m:brain",
+          "091:m:pima"
+        ],
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "Names/resource totals alone do not establish variable-level provenance. Releases, subset lineage, transformations, and timing are incomplete; COVID labels and LIDC features require clarification."
+    },
+    {
+      "id": "091:a130",
+      "subject_id": "091:m:hist",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "091:m:hist",
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e11",
+        "091:e13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "value": {
+        "general": "75/10/15 training/validation/test",
+        "specific": "70% training, 30% validation"
+      },
+      "rationale": "Exception versus incompatible protocol is unresolved; retain both. Neither leakage nor leakage freedom follows. Patient/slide grouping and augmentation timing are also unresolved."
+    },
+    {
+      "id": "091:a131",
+      "subject_id": "091:m:wisconsin",
+      "feature_id": "perception.encoder",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "091:m:wisconsin",
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The documented path directly consumes supplied diagnostic features, applies ADASYN, and fits LightGBM; no preceding observation-to-representation encoder is specified."
+    },
+    {
+      "id": "091:a132",
+      "subject_id": "091:system",
+      "feature_id": "perception.encoder",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "091:m:lidc",
+          "091:m:pima"
+        ],
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "LIDC image-to-feature derivation and Pima-specific mapping are incomplete. The detailed Wisconsin path is not transferred automatically."
+    },
+    {
+      "id": "091:a133",
+      "subject_id": "091:m:wisconsin",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "091:m:wisconsin",
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The specified direct-feature LightGBM path has no observation encoder to initialize from a foundation checkpoint."
+    },
+    {
+      "id": "091:a134",
+      "subject_id": "091:system",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "091:m:lidc",
+          "091:m:chest",
+          "091:m:wisconsin",
+          "091:m:brain",
+          "091:m:pima"
+        ],
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "Complete objective/pretraining sets are unavailable. Explanation fidelity is not a latent-target learning loss."
+    },
+    {
+      "id": "091:a135",
+      "subject_id": "091:system",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "091:m:lidc",
+          "091:m:chest",
+          "091:m:brain",
+          "091:m:pima"
+        ],
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "Representation objectives/pretraining are insufficient to resolve dependency or mechanisms. No collapsed representations are inferred."
+    },
+    {
+      "id": "091:a136",
+      "subject_id": "091:system",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "091:m:lidc",
+          "091:m:chest",
+          "091:m:wisconsin",
+          "091:m:brain",
+          "091:m:pima"
+        ],
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "Complete objectives/pretraining are unavailable. Surrogate reproduction of classifier outputs is not observation reconstruction."
+    },
+    {
+      "id": "091:a137",
+      "subject_id": "091:system",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "091:m:lidc",
+          "091:m:chest",
+          "091:m:wisconsin",
+          "091:m:brain",
+          "091:m:pima"
+        ],
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "Named targets establish tasks, but state/representation-to-head mapping and full output semantics are incomplete. The detailed histopathology softmax is not transferred."
+    },
+    {
+      "id": "091:a138",
+      "subject_id": "091:system",
+      "feature_id": "uq.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "091:m:lidc",
+          "091:m:chest",
+          "091:m:wisconsin",
+          "091:m:brain",
+          "091:m:pima"
+        ],
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e27"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "Configuration-specific uncertainty-output semantics are incomplete. AUC, model family, TI, and run variation do not substitute for a declared predictive distribution."
+    },
+    {
+      "id": "091:s01",
+      "subject_id": "091:study:supp",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable",
+      "rationale": "Actual scan intervals and timestamp retention cannot be assessed."
+    },
+    {
+      "id": "091:s02",
+      "subject_id": "091:study:supp",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable",
+      "rationale": "Longitudinal cases alone do not establish elapsed-time inputs."
+    },
+    {
+      "id": "091:s03",
+      "subject_id": "091:study:supp",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s04",
+      "subject_id": "091:study:supp",
+      "feature_id": "perception.encoder",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable",
+      "rationale": "The static Figshare CNN is not identified with this model."
+    },
+    {
+      "id": "091:s05",
+      "subject_id": "091:study:supp",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s06",
+      "subject_id": "091:study:supp",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s07",
+      "subject_id": "091:study:supp",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s08",
+      "subject_id": "091:study:supp",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s09",
+      "subject_id": "091:study:supp",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s10",
+      "subject_id": "091:study:supp",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s11",
+      "subject_id": "091:study:supp",
+      "feature_id": "state.persistent",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable",
+      "rationale": "Temporal regression may or may not maintain an evolving state; the mention does not decide."
+    },
+    {
+      "id": "091:s12",
+      "subject_id": "091:study:supp",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s13",
+      "subject_id": "091:study:supp",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s14",
+      "subject_id": "091:study:supp",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s15",
+      "subject_id": "091:study:supp",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s16",
+      "subject_id": "091:study:supp",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s17",
+      "subject_id": "091:study:supp",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s18",
+      "subject_id": "091:study:supp",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable",
+      "rationale": "Longitudinal data availability does not establish conditioning on earlier scans."
+    },
+    {
+      "id": "091:s19",
+      "subject_id": "091:study:supp",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s20",
+      "subject_id": "091:study:supp",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s21",
+      "subject_id": "091:study:supp",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s22",
+      "subject_id": "091:study:supp",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s23",
+      "subject_id": "091:study:supp",
+      "feature_id": "action.explicit",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable",
+      "rationale": "Tumor kinetics does not imply settable treatment conditioning."
+    },
+    {
+      "id": "091:s24",
+      "subject_id": "091:study:supp",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s25",
+      "subject_id": "091:study:supp",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable",
+      "rationale": "No supplied transition equations distinguish state advancement from direct regression or auditing an existing predictor."
+    },
+    {
+      "id": "091:s26",
+      "subject_id": "091:study:supp",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s27",
+      "subject_id": "091:study:supp",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s28",
+      "subject_id": "091:study:supp",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s29",
+      "subject_id": "091:study:supp",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s30",
+      "subject_id": "091:study:supp",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable",
+      "rationale": "Regression endpoint, units, horizon, and readout mapping are unavailable."
+    },
+    {
+      "id": "091:s31",
+      "subject_id": "091:study:supp",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable",
+      "rationale": "The mention supplies no successor target/reference and numerical prediction result."
+    },
+    {
+      "id": "091:s32",
+      "subject_id": "091:study:supp",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s33",
+      "subject_id": "091:study:supp",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s34",
+      "subject_id": "091:study:supp",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s35",
+      "subject_id": "091:study:supp",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study.",
+        "time_horizon": "not_reported"
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s36",
+      "subject_id": "091:study:supp",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s37",
+      "subject_id": "091:study:supp",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s38",
+      "subject_id": "091:study:supp",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s39",
+      "subject_id": "091:study:supp",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s40",
+      "subject_id": "091:study:supp",
+      "feature_id": "planning.model_use",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s41",
+      "subject_id": "091:study:supp",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s42",
+      "subject_id": "091:study:supp",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s43",
+      "subject_id": "091:study:supp",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s44",
+      "subject_id": "091:study:supp",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s45",
+      "subject_id": "091:study:supp",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s46",
+      "subject_id": "091:study:supp",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    },
+    {
+      "id": "091:s47",
+      "subject_id": "091:study:supp",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_assessed",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "evidence_ids": [
+        "091:e08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "full_text_unavailable"
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "091:r01",
+      "subject_id": "paper:091",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:091:sha256-cf2020bfe4e2",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e01"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Version mapping uses supplied source metadata; hash not recomputed."
+    },
+    {
+      "id": "091:r02",
+      "subject_id": "paper-version:091:sha256-cf2020bfe4e2",
+      "predicate_id": "reportsStudy",
+      "object_id": "091:study:main",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Author-reported execution, not independent reproduction or successful clinical validation."
+    },
+    {
+      "id": "091:r03",
+      "subject_id": "091:system",
+      "predicate_id": "hasUseContext",
+      "object_id": "091:ctx",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e06",
+        "091:e18",
+        "091:e29"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "091:r04",
+      "subject_id": "091:system",
+      "predicate_id": "hasReadinessEvidence",
+      "object_id": "R2",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "091:m:wisconsin",
+        "dataset_version_id": "091:d:wisconsin",
+        "cohort_id": "091:c:wisconsin",
+        "intended_use_context_id": "091:ctx",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "091:e12",
+        "091:e15",
+        "091:e16",
+        "091:e18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Stated holdout evaluation on actual human diagnostic data supports reported internal retrospective classifier evidence. It does not validate TI against human trust or exclude preprocessing leakage."
+    },
+    {
+      "id": "091:r05",
+      "subject_id": "091:system",
+      "predicate_id": "hasProfile",
+      "object_id": "BP_COMPONENT",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e04",
+        "091:e17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Supporting explanation-audit relevance, not core-WM membership."
+    },
+    {
+      "id": "091:r06",
+      "subject_id": "paper-version:091:sha256-cf2020bfe4e2",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M9",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e09",
+        "091:e22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Component-wise auditing informs assurance research, not an implemented safety guard or demonstrated safety."
+    },
+    {
+      "id": "091:r07",
+      "subject_id": "paper-version:091:sha256-cf2020bfe4e2",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M10",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_ids": [
+        "091:e07",
+        "091:e23",
+        "091:e29"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Informs inspectable audit reporting and evidence boundaries, not clinician validation, operational lifecycle management, or authorization."
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "091:e01",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Title"
+      },
+      "content": "The Trust-Aware XAI (TAXAI) \nframework: a quantitative model \nfor interpretable and reliable \nclinical AI systems",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e02",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Equation 1 and constraints"
+      },
+      "content": "TI = αF + βI + γC (1)\nsubject to (α, β, γ) ≥ 0 And α + β + γ = 1\nEach component is normalized within [0, 1], ensuring 0 ≤ TI ≤ 1.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e03",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Data-driven weighting"
+      },
+      "content": "The framework additionally defines a data-driven weight calibration protocol that may be applied in future \nempirical studies using externally provided reference trust signals. In the present work, this formulation is \nincluded to demonstrate extensibility rather than as a reported optimization.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e04",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Experimental qualification"
+      },
+      "content": "Table 2 results are provided as illustrative benchmark demonstrations of TAXAI and should not be interpreted \nas externally validated clinical performance claims.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e05",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "table",
+        "page": 6,
+        "section_or_table": "Table 2"
+      },
+      "content": "Domain Dataset Model/XAI Method Task Accuracy/Metrics\nTrust \nIndex \n(TI) Key Insights\nRadiology \n(CT)\nLIDC–IDRI \n(Lung CT)\nLightGBM + SHAP + ELI5 \n(Fig. 1) Binary lung cancer classification (benign vs. malignant)\nAcc = 93.9%;\nPrec = 93.0%;\n Rec = 97.2%; \nSpec = 88.8%\n≈ 0.90–\n0.94\nFeature \nattribution \nhighlights \ndominant \nbiomarkers; \nexplanations \nillustrate stable \nmodel behavior \nunder TAXAI \nevaluation\nRadiology \n(X-ray)\nNIH \nChestXray-14 \n(112,120 \nscans)3\nCNN + Grad-CAM \n(Fig. 2) Pneumonia/COVID diagnosis AUC = 0.94; Recall = 0.91 0.88\nGrad-CAM \nvisualizations \nillustrate spatial \nattribution \npatterns without \nassuming \nclinician-\nannotated \nground truth\nHistopathology \nimages\nKaggle Lung \nHistopathology \n(12,000 \nimages)\nCNN + SHAP + LIME \n(Fig. 3) Multiclass staging (Adenocarcinoma/Squamous/Benign)\nAcc ≈ 91% (hold-out \nvalidation); Macro-F1 \n≈ 0.90; Spec ≈ 0.89\n0.90–\n0.94 \n(F≈0.93, \nI≈0.91, \nC≈0.90)\nExplanation \nfidelity and \nstability are \nquantitatively \ncaptured \nthrough TAXAI’s \nTrust Index \ncomponents \nunder repeated-\nrun evaluation\nOncology\nBreast Cancer \nWisconsin \nDiagnostic \nDataset\nLightGBM + SHAP \n(Fig. 4) Binary classification Acc = 99%;F1 ≈ 0.99 0.90\nFeature reduction \nimproves \ninterpretability \nwhile preserving \npredictive \nperformance. \nHigh predictive \naccuracy with \nconsistent SHAP-\nbased feature \nattribution; \nperformance \nstability \nconfirmed \nthrough cross-\nvalidation\nNeurology\nFigshare Brain \nMRI\n(3264 images)\nCNN + SHAP Tumor type classification Acc = 98.2%; Fid = 0.93 (Fidelity score) 0.91\nSaliency maps \ndemonstrate \nconsistent \nlocalization \nacross folds \nunder TAXAI \nassessment\nTabular \n(non-imaging \nbenchmark)\nPima Indians \nDiabetes \nDataset (UCI \nMachine \nLearning \nRepository)\nXGBoost + SHAP + LIME Risk prediction Acc = 87%, F1 = 0.85 0.85\nDemonstrates \nTAXAI \ngeneralizability \nbeyond imaging-\nbased medical \ntasks",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e06",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "Human-centered validation and clinical scope"
+      },
+      "content": "This study focuses on computational validation of trust quantification rather than prospective clinical deployment.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e07",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "Future human validation"
+      },
+      "content": "Although the present study focuses on computational validation, future work will incorporate clinician-in-\nthe-loop evaluation and expert annotation studies to quantify alignment between TAXAI explanations and \nclinical reasoning.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e08",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "Supplementary longitudinal application"
+      },
+      "content": "To explore the potential extension of TAXAI toward longitudinal clinical prediction tasks, \nan illustrative tumor kinetics validation experiment using longitudinal brain MRI cases was conducted. The \ndetailed experimental setup, regression evaluation metrics, and Trust Index computation for this exploratory \nstudy are reported in the Supplementary Information (Tables S9–S10).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e09",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 13,
+        "section_or_table": "Reference explanation construction"
+      },
+      "content": "For datasets without explicit explanation ground truth, TAXAI constructs reference alignment signals using \none of the following proxy strategies:\n• Clinical priors: anatomically plausible regions (e.g., lung fields in chest imaging) extracted via standard seg-\nmentation templates.\n• Perturbation-based pseudo-ground truth: regions whose occlusion produces the largest prediction drop.\n• Concept-level references:  ranked clinical features (e.g., perimeter_worst, concavity) derived from estab -\nlished diagnostic literature in tabular datasets.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e10",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 14,
+        "section_or_table": "Threshold sensitivity"
+      },
+      "content": "Across datasets, alignment scores remained stable across thresholds, with variations below ΔI < 0.05 within \nsmall variation margins (ΔI < 0.05), indicating that Trust Index conclusions are not driven by a single threshold \nchoice.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e11",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 16,
+        "section_or_table": "Imaging split"
+      },
+      "content": "Imaging demonstrations were conducted using a stratified 75/10/15 split corresponding to training, validation, \nand held-out test sets, respectively. The validation set was used for model tuning and early stopping, while final \nperformance and Trust Index values were computed on the independent test set to ensure unbiased evaluation.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e12",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 16,
+        "section_or_table": "Tabular split"
+      },
+      "content": "For tabular benchmarks, data were first partitioned into 70% training and 30% held-out test subsets. Five-fold \ncross-validation (KFold, n_splits = 5) was applied exclusively within the training portion to assess robustness, \nand fold-wise Trust Index values were averaged. Final performance metrics were computed on the independent \n30% test set.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e13",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 17,
+        "section_or_table": "Histopathology preprocessing"
+      },
+      "content": "All CT-derived images were resized to 224 × 224, intensity-normalized to [0,1], and augmented using rotation, \ntranslation, zoom, and horizontal flipping. A standard hold-out split (70% training, 30% validation) was applied.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e14",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 17,
+        "section_or_table": "CNN architecture and training"
+      },
+      "content": "A convolutional neural network (CNN) classifier was implemented with three convolutional blocks:\n• Conv2D filters: 32 → 64 → 128\n• MaxPooling after each block\n• BatchNormalization for training stability\n• Dense layer (256 units) with Dropout (0.5)\n• Softmax output layer for multiclass classification\nTraining was performed using Adam optimization with categorical cross-entropy loss over 22 epochs and batch \nsize 32.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e15",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 17,
+        "section_or_table": "Wisconsin tabular pipeline"
+      },
+      "content": "Tabular benchmarks were evaluated using LightGBM classifiers trained on structured diagnostic features. Class \nimbalance was addressed using ADASYN oversampling prior to model fitting. Detailed dataset characteristics, \nincluding class distribution, acquisition context, and stratified data splitting protocols, are provided in the \nSupplementary Information (Table S6) to ensure transparency of the experimental setup.\nCross-validation and hyperparameters\nPerformance was estimated using fivefold cross-validation. Key hyperparameters included:\n• Gradient boosting with 50 leaves\n• Learning rate = 0.1\n• Feature fraction = 0.8\n• Maximum depth = 12",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e16",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "table",
+        "page": 18,
+        "section_or_table": "Table 6, NIH and Wisconsin rows"
+      },
+      "content": "Radiology NIH ChestXray-14 (112,120 scans from 30,805 patients) Chest X-ray images Pneumonia and COVID-19 detection; gradient-based explainability illustration (Grad CAM) and fidelity assessment without assuming clinician-annotated ground truth\nOncology Breast Cancer Wisconsin Diagnostic Dataset Tabular data (569 samples, 30 biomarkers) Binary cancer classification; feature attribution and dimensional interpretability analysis using SHAP under the TAXAI framework",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e17",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 16,
+        "section_or_table": "Experimental protocol"
+      },
+      "content": "Since TAXAI is a framework for quantifying \ntrust in explanations rather than proposing a new predictive model, all evaluations are conducted by attaching \nestablished explainability methods (e.g., SHAP , LIME, Grad-CAM, ELI5) to standard ML/DL classifiers under \ncontrolled experimental settings.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e18",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 18,
+        "section_or_table": "Implementation and transparency"
+      },
+      "content": "All implementations were executed in Python (v3.10 +) using widely adopted libraries including TensorFlow/\nKeras, Scikit-learn, LightGBM, SHAP , and LIME. Imaging benchmarks were evaluated on GPU-enabled \nenvironments, while tabular experiments were performed on CPU-based execution. Full hyperparameter \nconfigurations, confusion matrices, per-class metrics, and reproducibility resources are provided in the \nSupplementary Information. Confusion matrices are reported in Supplementary Fig. S1–S2, and per-class \nmetrics in Supplementary Table S1–S2 (Table 6).\nIn the interest of transparency, all underlying data for this study are publicly available and were employed \nsolely for methodological demonstration and framework-level evaluation; no proprietary clinical data or \nhuman-subject experimentation was conducted.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e19",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 19,
+        "section_or_table": "Author contributions"
+      },
+      "content": "Mahua Pal developed the main idea, executed and implemented the experiments, and analyzed the results.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e20",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 20,
+        "section_or_table": "Article license"
+      },
+      "content": "Creative Commons Attribution-NonCommercial-NoDerivatives \n4.0 International License",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e21",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Sensitivity analysis"
+      },
+      "content": "the Trust \nIndex remained stable, with TI varying by less than 0.03 under moderate perturbations of the weighting coef-\nficients (α, β, γ), confirming robustness to reasonable weight selection.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e22",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 14,
+        "section_or_table": "Compliance and reliability"
+      },
+      "content": "This component fuses fairness, stability, and reproducibility.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e23",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "Governance positioning"
+      },
+      "content": "It is designed to align with international regulatory principles \nreflected in frameworks such as GDPR, FDA GMLP , and the EU AI Act, supporting transparent, fair, and \nauditable AI evaluation in healthcare contexts.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e24",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "Regulatory pathway"
+      },
+      "content": "Explainable AI systems designed for medical decision support may fall under the regulatory category of \nSoftware as a Medical Device (SaMD) as defined by the International Medical Device Regulators Forum (IMDRF). \nUnder this framework, AI systems that analyze medical data and generate diagnostic or risk-assessment outputs \nare subject to regulatory oversight by authorities such as the U.S. Food and Drug Administration (FDA) 48 and \nregulatory bodies operating under the European Union Medical Device Regulation (EU MDR) framework 49, \nalong with similar national regulatory authorities.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e25",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 19,
+        "section_or_table": "Additional information"
+      },
+      "content": "The online version contains supplementary material available at",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e26",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 12,
+        "section_or_table": "Reproducibility"
+      },
+      "content": "Ablation and runtime cost are reported in Supplementary Table S3–S4.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e27",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 16,
+        "section_or_table": "Runs and confidence intervals"
+      },
+      "content": "Tabular experiments were executed under fixed randomization controls (e.g., random_state = 88), while imaging \nexperiments were repeated across 3 independent runs with fixed seeds. All results are reported as mean ± SD \nacross folds or runs.\nConfidence intervals\nTrust Index stability is quantified using 95% confidence intervals derived from fold-wise or repeated-run \ndistributions.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e28",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 17,
+        "section_or_table": "Efficiency measurement"
+      },
+      "content": "Efficiency is defined as the runtime cost per explanation instance under identical compute settings, ensuring \ncomparisons reflect explainer overhead rather than training variability.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e29",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "Intended-use classification"
+      },
+      "content": "the TAXAI \nframework can assist developers and regulators by providing structured measures of model transparency \nand trustworthiness, which may support regulatory documentation related to algorithmic accountability, \nexplainability, and risk management.\nBy transforming explanation outputs into quantifiable trust indicators, TAXAI provides a reproducible \nevaluation framework that can support model selection, auditing, and governance assessment for medical AI \nsystems.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e30",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "Feedback phase"
+      },
+      "content": "Insights from domain-informed evaluation signals and governance audits are used iterative-\nly to recalibrate model parameters.\nThis multi-phase process operationalizes TAXAI as a closed-loop trust pipeline, reinforcing human-AI \ncollaboration and continuous improvement.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e31",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "Ethical compliance and reliability layer"
+      },
+      "content": "This layer ensures fairness, reproducibility, and privacy across datasets.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e32",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Alignment computation"
+      },
+      "content": "For imaging datasets, Interpretability Alignment was computed via Dice overlap between explanation masks, \nwhereas for tabular datasets it was derived from rank-based agreement of feature attributions; stability was \nconfirmed through sensitivity analysis over varying threshold choices.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e33",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Equation (6): worked example"
+      },
+      "content": "TI = (1 /3 × 0.92) + (1/3 × 0.85) + (1/3 × 0.88) = 0.883.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e34",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 19,
+        "section_or_table": "Reference 46"
+      },
+      "content": "FUTURE-AI: international consensus guideline for trustworthy and deployable artificial intelligence in \nhealthcare.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "091:e35",
+      "source_ref": "Papers/091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+      "source_version": "paper-version:091:sha256-cf2020bfe4e2",
+      "source_hash": "cf2020bfe4e24134834ad538b1d31f8ab09dd54e0ff5c669e4ee8b0aceb22afb",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 19,
+        "section_or_table": "Reference 48"
+      },
+      "content": "Action Plan, ” FDA, 2021.",
+      "verification_status": "entailment_reviewed"
+    }
+  ],
+  "metric_results": [
+    {
+      "id": "091:metric:lidc",
+      "metric": "Reported classification metrics and Trust Index",
+      "value": {
+        "accuracy": "93.9%",
+        "precision": "93.0%",
+        "recall": "97.2%",
+        "specificity": "88.8%",
+        "TI": "≈0.90–0.94"
+      },
+      "unit_or_scale": "Classification percentages; TI dimensionless [0,1].",
+      "direction": "context_dependent",
+      "task": "Static benign/malignant lung classification and illustrative explanation scoring.",
+      "cohort_id": "091:c:lidc",
+      "split_role": "LIDC-specific partition unresolved; general imaging protocol reported.",
+      "horizon": "Static diagnosis; no forecast horizon.",
+      "model_version_id": "091:m:lidc",
+      "uncertainty_status": "not_reported",
+      "baseline_id": null,
+      "source_evidence_ids": [
+        "091:e04",
+        "091:e05"
+      ]
+    },
+    {
+      "id": "091:metric:chest",
+      "metric": "Reported classification metrics and Trust Index",
+      "value": {
+        "AUC": "0.94",
+        "recall": "0.91",
+        "TI": "0.88"
+      },
+      "unit_or_scale": "Dimensionless; AUC type not further defined.",
+      "direction": "context_dependent",
+      "task": "Pneumonia/COVID diagnosis as reported; COVID-label provenance unresolved.",
+      "cohort_id": "091:c:chest",
+      "split_role": "General imaging 75/10/15; evaluated subset not stated.",
+      "horizon": "Static diagnosis.",
+      "model_version_id": "091:m:chest",
+      "uncertainty_status": "not_reported",
+      "baseline_id": null,
+      "source_evidence_ids": [
+        "091:e04",
+        "091:e05",
+        "091:e11"
+      ]
+    },
+    {
+      "id": "091:metric:hist",
+      "metric": "Reported classification metrics, Trust Index, and approximate components",
+      "value": {
+        "accuracy": "≈91%",
+        "macro_F1": "≈0.90",
+        "specificity": "≈0.89",
+        "TI": "0.90–0.94",
+        "F": "≈0.93",
+        "I": "≈0.91",
+        "C": "≈0.90"
+      },
+      "unit_or_scale": "Accuracy percent; other quantities dimensionless [0,1].",
+      "direction": "context_dependent",
+      "task": "Adenocarcinoma/Squamous/Benign classification, called staging by source; explanation evaluation.",
+      "cohort_id": "091:c:hist",
+      "split_role": "Hold-out validation; general 75/10/15 and specific 70/30 descriptions unresolved.",
+      "horizon": "Static classification; epochs are not clinical time.",
+      "model_version_id": "091:m:hist",
+      "uncertainty_status": "not_reported",
+      "baseline_id": null,
+      "raw_reported_value": "TI 0.90–0.94 (F≈0.93, I≈0.91, C≈0.90)",
+      "source_evidence_ids": [
+        "091:e04",
+        "091:e05",
+        "091:e11",
+        "091:e13"
+      ]
+    },
+    {
+      "id": "091:metric:wisconsin",
+      "metric": "Reported classification metrics and Trust Index",
+      "value": {
+        "accuracy": "99%",
+        "F1": "≈0.99",
+        "TI": "0.90"
+      },
+      "unit_or_scale": "Accuracy percent; F1/TI dimensionless.",
+      "direction": "context_dependent",
+      "task": "Static binary cancer classification and explanation scoring.",
+      "cohort_id": "091:c:wisconsin",
+      "split_role": "Final predictive performance assigned to 30% held-out test; TI described as training-fold averaged, test TI not explicit.",
+      "horizon": "Static diagnosis.",
+      "model_version_id": "091:m:wisconsin",
+      "uncertainty_status": "not_reported",
+      "baseline_id": null,
+      "source_evidence_ids": [
+        "091:e04",
+        "091:e05",
+        "091:e12"
+      ]
+    },
+    {
+      "id": "091:metric:brain",
+      "metric": "Reported accuracy, explanation fidelity, and Trust Index",
+      "value": {
+        "accuracy": "98.2%",
+        "fidelity": "0.93",
+        "TI": "0.91"
+      },
+      "unit_or_scale": "Accuracy percent; fidelity/TI dimensionless.",
+      "direction": "context_dependent",
+      "task": "Static tumor-type classification, not longitudinal forecasting.",
+      "cohort_id": "091:c:brain",
+      "split_role": "Across-fold consistency claimed; relationship to general test partition unresolved.",
+      "horizon": "Static classification.",
+      "model_version_id": "091:m:brain",
+      "uncertainty_status": "not_reported",
+      "baseline_id": null,
+      "source_evidence_ids": [
+        "091:e04",
+        "091:e05"
+      ]
+    },
+    {
+      "id": "091:metric:pima",
+      "metric": "Reported risk-classification metrics and Trust Index",
+      "value": {
+        "accuracy": "87%",
+        "F1": "0.85",
+        "TI": "0.85"
+      },
+      "unit_or_scale": "Accuracy percent; F1/TI dimensionless.",
+      "direction": "context_dependent",
+      "task": "Risk-classification benchmark and explanation assessment; no temporal target established.",
+      "cohort_id": "091:c:pima",
+      "split_role": "General tabular 70/30; exact counts and test-set TI unresolved.",
+      "horizon": "No reported forecast horizon.",
+      "model_version_id": "091:m:pima",
+      "uncertainty_status": "not_reported",
+      "baseline_id": null,
+      "source_evidence_ids": [
+        "091:e04",
+        "091:e05",
+        "091:e12"
+      ]
+    }
+  ],
+  "capability_assessments": [
+    {
+      "subject_id": "091:system",
+      "level": "not_world_model",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "evidence_assertion_ids": [
+        "091:a019",
+        "091:a041",
+        "091:a053",
+        "091:a112"
+      ],
+      "rationale": "Main configurations evaluate static classification/explanations, without persistent health-world state advancement or WM-inspired temporal representation objectives. CNN features do not qualify them for L0."
+    },
+    {
+      "subject_id": "091:study:supp",
+      "level": "unknown",
+      "scope": {
+        "population": "Unreviewed supplementary longitudinal brain MRI study."
+      },
+      "evidence_assertion_ids": [
+        "091:s11",
+        "091:s25",
+        "091:s26",
+        "091:s31"
+      ],
+      "rationale": "The exploratory study mention does not supply evaluated L1 or core-WM evidence. Main-pipeline negatives are not transferred to unavailable supplementary methods."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "091:system",
+      "facets": [
+        "R2"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "model_version_id": "091:m:wisconsin",
+        "dataset_version_id": "091:d:wisconsin",
+        "cohort_id": "091:c:wisconsin",
+        "endpoint": "Author-reported held-out static classifier performance, not human validation of TI."
+      },
+      "evidence_ids": [
+        "091:e05",
+        "091:e12",
+        "091:e15",
+        "091:e16",
+        "091:e18"
+      ],
+      "legacy_highest_label": "R2 Retrospective internal validation"
+    }
+  ],
+  "gate_assessments": [
+    {
+      "gate_id": "G01",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "rationale": "Partial provenance, unreconciled imaging partitions, and missing grouping/preprocessing audits prevent a pass without proving leakage.",
+      "supporting_assertion_ids": [
+        "091:a001",
+        "091:a010",
+        "091:a129",
+        "091:a130"
+      ]
+    },
+    {
+      "gate_id": "G02",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "rationale": "BP_COMPONENT retains a static explanation-audit contribution without requiring temporal dynamics.",
+      "supporting_assertion_ids": [
+        "091:a019",
+        "091:a041",
+        "091:r05"
+      ]
+    },
+    {
+      "gate_id": "G02",
+      "status": "unresolved",
+      "scope": {
+        "population": "Supplementary longitudinal brain MRI study."
+      },
+      "rationale": "Supplementary predictive method and results are unavailable.",
+      "supporting_assertion_ids": [
+        "091:s11",
+        "091:s25",
+        "091:s26",
+        "091:s31"
+      ]
+    },
+    {
+      "gate_id": "G03",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "rationale": "Main outputs are static, not multi-time forecasts.",
+      "supporting_assertion_ids": [
+        "091:a054",
+        "091:a057"
+      ]
+    },
+    {
+      "gate_id": "G04",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "091:ctx",
+        "population": "Explanation-score aggregation, not a predictive uncertainty guarantee."
+      },
+      "rationale": "No forecast-coverage guarantee or uncertainty-dependent action is claimed for the audit operation. Classifier calibration remains unresolved.",
+      "supporting_assertion_ids": [
+        "091:a073",
+        "091:a075"
+      ]
+    },
+    {
+      "gate_id": "G05",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "rationale": "No healthcare-action-conditioned transition is queried.",
+      "supporting_assertion_ids": [
+        "091:a031",
+        "091:a043"
+      ]
+    },
+    {
+      "gate_id": "G06",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "rationale": "Main outputs are not intervention-effect estimates.",
+      "supporting_assertion_ids": [
+        "091:a078",
+        "091:a084"
+      ]
+    },
+    {
+      "gate_id": "G07",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "rationale": "No WM-coupled action optimizer/policy is assessed. Classifier fitting and index-weight selection are different operations.",
+      "supporting_assertion_ids": [
+        "091:a062",
+        "091:a063"
+      ]
+    },
+    {
+      "gate_id": "G08",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "091:ctx",
+        "population": "Offline methodological demonstration only."
+      },
+      "rationale": "No operational care-affecting release is being authorized. Proposed clinical/governance use would require a new assessment; unreported safeguards are not safety evidence.",
+      "supporting_assertion_ids": [
+        "091:a085",
+        "091:a086",
+        "091:a096"
+      ]
+    },
+    {
+      "gate_id": "G09",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "091:ctx",
+        "population": "Cross-domain comparability/generalizability claims."
+      },
+      "rationale": "Benchmark breadth does not establish external transfer of a pinned model or common trust-scale validity.",
+      "supporting_assertion_ids": [
+        "091:a122"
+      ]
+    },
+    {
+      "gate_id": "G10",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "091:ctx",
+        "population": "Human-reasoning alignment and trust interpretation."
+      },
+      "rationale": "Relevant human studies are explicitly future work. This is unmet evidence, not a failed executed alignment test.",
+      "supporting_assertion_ids": [
+        "091:a115",
+        "091:a124"
+      ]
+    },
+    {
+      "gate_id": "G11",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "rationale": "Realized prospective care/workflow benefit is not demonstrated or evaluated in the bounded research use.",
+      "supporting_assertion_ids": [
+        "091:a126"
+      ]
+    },
+    {
+      "gate_id": "G12",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "091:ctx"
+      },
+      "rationale": "No operational clinical product release is assessed. Article publication and framework citations do not establish authorization/monitoring.",
+      "supporting_assertion_ids": [
+        "091:a098",
+        "091:a099",
+        "091:a101"
+      ]
+    }
+  ],
+  "legacy_cells": {
+    "A": "091",
+    "B": "The Trust-Aware XAI (TAXAI) framework: a quantitative model for interpretable and reliable clinical AI systems",
+    "C": "Mahua Pal; Himadri Nath Saha; Amlan Chakrabarti",
+    "D": "2026",
+    "E": "scientific reports",
+    "F": "Not reported",
+    "G": "https://doi.org/10.1038/s41598-026-44167-3",
+    "H": "Papers (numbered 001–099)",
+    "I": "091_2026_The Trust-Aware XAI (TAXAI) framework a quantitative model for interpretable and reliable clinical AI systems.pdf",
+    "J": "Evaluation / audit / benchmark",
+    "K": "Not reported",
+    "L": "Exclude",
+    "M": "Static prediction – no state evolution",
+    "N": "Multi-specialty / general medicine",
+    "O": "Lung cancer (benign/malignant, including adenocarcinoma and squamous cell carcinoma), pneumonia/COVID-19, breast cancer, brain tumors, and diabetes",
+    "P": "Not reported",
+    "Q": "Not reported",
+    "R": "Evaluation / audit methodology",
+    "S": "How can trust in explanations for clinical classification and risk prediction be quantitatively assessed and compared across models and datasets?",
+    "T": "Not reported",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "Other",
+    "X": "Not a world model",
+    "Y": "Not reported",
+    "Z": "Not a world model",
+    "AA": "Not a world model",
+    "AB": "Not reported",
+    "AC": "No",
+    "AD": "Not reported",
+    "AE": "Not reported",
+    "AF": "Not reported",
+    "AG": "Not reported",
+    "AH": "Not reported",
+    "AI": "Not reported",
+    "AJ": "Not reported",
+    "AK": "Not reported",
+    "AL": "Not reported",
+    "AM": "Not reported",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Not reported",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Not reported",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Not reported",
+    "BC": "Not reported",
+    "BD": "Not reported",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "Not reported",
+    "BJ": "Not reported",
+    "BK": "Not reported",
+    "BL": "Not reported",
+    "BM": "Not reported",
+    "BN": "Not reported",
+    "BO": "Not reported",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Not reported",
+    "BT": "Not reported",
+    "BU": "Not reported",
+    "BV": "Not reported",
+    "BW": "Not reported",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "Not reported",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "Not reported",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Not reported",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Not reported",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "Not reported",
+    "CU": "Not reported",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not reported",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Yes",
+    "DN": "LIDC–IDRI, NIH ChestXray-14, Kaggle Lung Histopathology Dataset, Breast Cancer Wisconsin Diagnostic Dataset, Figshare Brain MRI Dataset, Pima Indians Diabetes Dataset",
+    "DO": "Multiple",
+    "DP": "Public open",
+    "DQ": "NIH ChestXray-14 — 112,120 scans, Kaggle Lung Histopathology Dataset — 12,000 images, Breast Cancer Wisconsin Diagnostic Dataset — 569 samples, Figshare Brain MRI Dataset — 3,264 images",
+    "DR": "Not reported",
+    "DS": "Real-world data",
+    "DT": "Not reported",
+    "DU": "Multiple",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "R2 Retrospective internal validation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "Not reported",
+    "FD": "Not reported",
+    "FE": "Not reported",
+    "FF": "Not reported",
+    "FG": "Not reported",
+    "FH": "Not reported",
+    "FI": "Not reported",
+    "FJ": "Not reported",
+    "FK": "Not reported",
+    "FL": "Standard ML/DL classifiers with explainers (SHAP, LIME, Grad-CAM, ELI5) feed fidelity, interpretability-alignment, and compliance scoring, then normalized aggregation into a Trust Index; no state-transition model or planner is described in the main Methods.",
+    "FM": "Proposes TAXAI, a normalized Trust Index combining explanation fidelity, interpretability alignment, and compliance/reliability to compare explanation behavior across models, datasets, and modalities.",
+    "FN": "Reported Trust Index values were approximately 0.85–0.94 across benchmark tasks. The paper reports threshold-related alignment variation below ΔI < 0.05 and Trust Index variation below 0.03 under moderate weight perturbations.",
+    "FO": "Authors state that the study is computational validation rather than prospective clinical deployment and that clinician-in-the-loop and multi-institutional validation remain future needs.",
+    "FP": "Automated trust dashboards, cross-institutional benchmarking, real-time multimodal interpretability, clinician-in-the-loop studies, and regulatory calibration.",
+    "FQ": "Authors identify the lack of a standardized framework aggregating explanation fidelity, alignment with clinician reasoning, and governance/compliance into a comparable quantitative trust score.",
+    "FR": "The reported main-paper evidence does not demonstrate a persistent world state, a learned/hybrid state transition, action-conditioned forecasts, counterfactual rollouts, or planning/control. Results primarily concern static classifiers and explanation trust scores, not clinical benefit or prospective deployment. The paper mentions longitudinal MRI/tumor-kinetics work in supplementary material, but its methods and results are not present in the supplied main-PDF text, so that temporal claim cannot be verified here.",
+    "FS": "Not applicable",
+    "FT": "For an audit layer, keep fidelity, clinical-alignment, and compliance components separately interpretable, then aggregate them with explicit normalized weights; evaluate stability across thresholds and weighting choices independently of any forecasting or control claim.",
+    "FU": "Not applicable",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "PDF pp. 1–3 (title, abstract, introduction and claimed gap), pp. 4–8 (results and Tables 1–3), pp. 9–10 (discussion, clinical scope and methods overview), pp. 11–17 (methods, metric definitions, evaluation protocol and data tables), and pp. 18–20 (remaining text, references and declarations). | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "A:I retained unchanged from prefilled metadata. The supplied 20-page main-paper text references an exploratory longitudinal brain-MRI/tumor-kinetics study in supplementary material, but does not include that study's methods/results; no WM state-transition evidence can be verified from the declared inputs. No table was unreadable in the supplied text. No external systems were accessed. Evidence QA: 23/28 populated fields had a <=25-word quotation matching extracted PDF text (82.1%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 26 prior populated fields have a located source quotation; 2 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "Automated model review, not independent human verification, clinical audit, or experimental replication.",
+    "This synthesis received all main-paper text and earlier page-image review notes, not raw images. Visual coverage refers to the recorded earlier API page calls.",
+    "Supplementary Information was not supplied/retrieved. Its temporal study, statistics, ablations, runtimes, complexity, confusion matrices, and reproducibility resources remain unreviewed.",
+    "All 128 catalogue features have main-context dispositions, with model-specific exceptions. The uninspected supplementary study is not represented as a comprehensively reviewed model.",
+    "The supplied source hash was retained, not recomputed.",
+    "No executable schema validator, graph checker, file write, repository inspection, retrieval, or canonical admission was performed.",
+    "Author-reported illustrative benchmark execution is not independent reproduction.",
+    "Imaging partitions, histopathology/CT modality descriptions, COVID-label provenance, evaluated-subset counts, and patient/slide grouping remain unresolved.",
+    "Potential leakage is neither established nor excluded; augmentation, ADASYN, and normalization fitting boundaries are incomplete.",
+    "Dataset resource counts retain their original units and are not test counts or pooled patient totals.",
+    "Table 2 lacks numerical SDs, confidence intervals, p-values, and effect sizes despite reporting protocols elsewhere.",
+    "Histopathology TI 0.90–0.94 and F≈0.93/I≈0.91/C≈0.90 are retained unchanged; paired weights/components and rounding/run details are needed.",
+    "Anatomical templates, model-dependent occlusion references, and rank agreement are not actual clinician evaluation.",
+    "A compensatory bounded aggregate does not establish trust construct validity, clinical safety, legal conformity, or a clinical release threshold.",
+    "R2 is restricted to reported held-out actual-human diagnostic-classifier evidence, particularly Wisconsin. It does not validate TI against human trust or establish supplementary temporal capability.",
+    "No automatic R0 is assigned; worked arithmetic does not establish R1 clinical-simulation feasibility. Readiness facets are not inherited.",
+    "Article licensing is distinct from software, weights, and dataset terms.",
+    "Raw legacy cells, including historical reviewer statements, are preserved as supplied rather than endorsed as current evidence."
+  ],
+  "notes": "Main result: a non-WM explanation-evaluation component with potential M9/M10 research relevance. Supplementary temporal capability remains unresolved. The visual-inventory omission of Equation (6) is repaired explicitly. No saved-output, independent-verification, clinical-benefit, causal-validity, or authorization claim is made."
+}

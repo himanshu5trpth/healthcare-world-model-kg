@@ -1,0 +1,2720 @@
+{
+  "record_id": "annotation:B043:r1",
+  "paper_record_id": "B043",
+  "paper_version_id": "paper-version:B043:sha256-982d29cdcdd2",
+  "annotation_status": "reviewed",
+  "model_version_ids": [
+    "model:B043:cdit-wm:v1"
+  ],
+  "system_composition_ids": [
+    "system:B043:robotic-neck-us"
+  ],
+  "world_type_ids": [
+    "WT_ACQUISITION"
+  ],
+  "profile_ids": [
+    "BP_CONTROLLER"
+  ],
+  "entities": [
+    {
+      "id": "paper:B043",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "B043",
+        "title": "Action-Conditioned World Model for Goal Plane Guidance in Robotic Neck Ultrasound",
+        "canonical_url": "https://arxiv.org/abs/2607.21918",
+        "contribution_type": "Primary method – new model",
+        "membership": {
+          "legacy_value": "Include – core world model",
+          "legacy_status": "confirmed_world_model",
+          "primary_source_core_identity": "present",
+          "reason": "Action-conditioned latent CDiT ultrasound world model used in actor-critic RL to fine-tune a goal-conditioned robotic probe-guidance policy, evaluated in real-world closed-loop scanning.",
+          "counting_boundary": "Verified L4 decision-coupled world model (WT_ACQUISITION)."
+        }
+      },
+      "provenance_evidence_ids": [
+        "evidence:B043:0001",
+        "evidence:B043:0002",
+        "evidence:B043:0003"
+      ]
+    },
+    {
+      "id": "paper-version:B043:sha256-982d29cdcdd2",
+      "class_id": "PaperVersion",
+      "properties": {
+        "arxiv_identifier": "2607.21918v3",
+        "year": "2026",
+        "physical_pdf_pages": 9,
+        "source_path": "Papers/Expanded_Collection/B043_Action_Conditioned_World_Model_for_Goal_Plane_Guidance_in_Robotic_Neck_Ultrasound.pdf",
+        "sha256": "982d29cdcdd28937e1b4f06520f348bce727bf600e4014b76f2a48cfeadb4bac"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B043:0001"
+      ]
+    },
+    {
+      "id": "model:B043:cdit-wm:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "backbone": "Frozen VAE + Conditional Diffusion Transformer (CDiT) world model + goal-conditioned temporal transformer actor-critic policy"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B043:0002",
+        "evidence:B043:0003"
+      ]
+    },
+    {
+      "id": "system:B043:robotic-neck-us",
+      "class_id": "SystemComposition",
+      "properties": {
+        "flow": "Live US frames -> Frozen VAE -> Goal-conditioned policy (trained via frozen CDiT WM rollouts) -> 6-axis RM65-B robot + low-level force safety controller"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B043:0003",
+        "evidence:B043:0006"
+      ]
+    },
+    {
+      "id": "use:B043:robotic-neck-ultrasound",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "purpose": "Protocol-driven sequential goal-plane probe guidance in robotic carotid and thyroid ultrasound.",
+        "environment": "Subject-disjoint offline trajectories (20 subjects) + real-world closed-loop robotic trials"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B043:0004",
+        "evidence:B043:0006"
+      ]
+    },
+    {
+      "id": "study:B043:human-eval",
+      "class_id": "HumanStudy",
+      "properties": {
+        "subject_id": "system:B043:robotic-neck-us",
+        "actual_human_participants": true,
+        "human_participant_roles": "Human experts performing counterfactual-action identification (Section III-B, Table II) and live human subject(s) undergoing ethics-approved closed-loop robotic neck ultrasound scanning (Section III-D, Fig. 7, Table IV; CASIA ethics ref IA21-2502-020302).",
+        "reporting_limits": "Exact number of human expert raters, blinding protocol, inter-rater reliability, and exact number/demographics/volunteer-vs-patient status of human subjects scanned across the 20 real-world trials per task are not reported."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B043:0007",
+        "evidence:B043:0009",
+        "evidence:B043:0010",
+        "evidence:B043:0006"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:B043:001",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "data.provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:002",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "data.native_time",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Explicitly conditions on temporal offset Delta t via embedding e_Delta(Delta t)."
+    },
+    {
+      "id": "assertion:B043:003",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:004",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:005",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:006",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:007",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:008",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:009",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:010",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Split by individual (20 subjects) rather than frames to prevent temporal leakage."
+    },
+    {
+      "id": "assertion:B043:011",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:012",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Frozen VAE encoder maps ultrasound frames to compact latent states S_t."
+    },
+    {
+      "id": "assertion:B043:013",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:014",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:015",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:016",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:017",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:018",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:019",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0002",
+        "evidence:B043:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Latent ultrasound context S_{t-c+1:t} updated with rolled-out S_hat_{t+1} during Stage 2 RL."
+    },
+    {
+      "id": "assertion:B043:020",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:021",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:022",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:023",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:024",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:025",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:026",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0002",
+        "evidence:B043:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Conditions on c recent context frames and previous action history."
+    },
+    {
+      "id": "assertion:B043:027",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:028",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:029",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:030",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:031",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "action.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "6-DoF relative probe motion a_{t->t+Delta t} with multi-scale cosine embedding."
+    },
+    {
+      "id": "assertion:B043:032",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:033",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "action.parameterized",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "6-DoF translation and rotation normalized by dataset-specific scales; discrete single-axis 5-bin parameterization for policy."
+    },
+    {
+      "id": "assertion:B043:034",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:035",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:036",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:037",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:038",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:039",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "action.comparison",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0009",
+        "evidence:B043:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Compares recorded action vs 3 incorrect actions from same trajectory and zero-action baseline (Table II, Fig. 4)."
+    },
+    {
+      "id": "assertion:B043:040",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:041",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Predicts future ultrasound latent S_{t+Delta t} at offset Delta t."
+    },
+    {
+      "id": "assertion:B043:042",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Learned Conditional Diffusion Transformer (CDiT) f_theta."
+    },
+    {
+      "id": "assertion:B043:043",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "CDiT conditioned on 6-DoF relative probe motion embedding e_a."
+    },
+    {
+      "id": "assertion:B043:044",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0002",
+        "evidence:B043:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Diffusion sampling models conditional distribution over future ultrasound appearance."
+    },
+    {
+      "id": "assertion:B043:045",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:046",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:047",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:048",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:049",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:050",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:051",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Frozen VAE decoder reconstructs ultrasound frames I_hat_{t+Delta t}."
+    },
+    {
+      "id": "assertion:B043:052",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:053",
+      "subject_id": "system:B043:robotic-neck-us",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Evaluates future-frame prediction (LPIPS, SSIM, uLPIPS, USFM) from 0.5s to 60s (Fig. 4)."
+    },
+    {
+      "id": "assertion:B043:054",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:055",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:056",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:057",
+      "subject_id": "system:B043:robotic-neck-us",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Evaluated up to 60 seconds (Fig. 4) and 30 seconds (Table II)."
+    },
+    {
+      "id": "assertion:B043:058",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:059",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:060",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:061",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:062",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "planning.model_use",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Frozen world model generates imagined next states S_hat_{t+1} and progress rewards R_t for actor-critic RL policy fine-tuning."
+    },
+    {
+      "id": "assertion:B043:063",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0003",
+        "evidence:B043:0011",
+        "evidence:B043:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Actor-critic RL policy fine-tuned inside the frozen CDiT ultrasound world model is evaluated offline (Table III: improved motion-bin accuracy and Stop F1) and in real-world closed-loop robotic neck ultrasound scanning (Table IV: carotid Goal 2 success 0.70 vs 0.30 supervised-only; thyroid Goal 4 success 0.65 vs 0.00 supervised-only)."
+    },
+    {
+      "id": "assertion:B043:064",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:065",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:066",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:067",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:068",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:069",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:070",
+      "subject_id": "system:B043:robotic-neck-us",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0010",
+        "evidence:B043:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Real-world closed-loop robotic ultrasound trials (20 trials per task): 70% carotid Goal 2, 65% thyroid Goal 4 (Table IV)."
+    },
+    {
+      "id": "assertion:B043:071",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "uq.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:072",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:073",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:074",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:075",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:076",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:077",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:078",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:079",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:080",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:081",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:082",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:083",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:084",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:085",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0010",
+        "evidence:B043:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "For subject safety during real-world robotic trials, z and ry axes are controlled by a low-level force/torque safety module."
+    },
+    {
+      "id": "assertion:B043:086",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:087",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:088",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:089",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:090",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:091",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:092",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:093",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:094",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:095",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:096",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Goal-plane probe guidance in robotic carotid and thyroid ultrasound."
+    },
+    {
+      "id": "assertion:B043:097",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:098",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:099",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:100",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:101",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:102",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Ethical approval from CAS Institute of Automation local ethics committee (IA21-2502-020302)."
+    },
+    {
+      "id": "assertion:B043:103",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "agent.role",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:104",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:105",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:106",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:107",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:108",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:109",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:110",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:111",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:112",
+      "subject_id": "system:B043:robotic-neck-us",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Fig. 4 evaluates LPIPS, SSIM, uLPIPS, USFM across time offsets."
+    },
+    {
+      "id": "assertion:B043:113",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:114",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:115",
+      "subject_id": "system:B043:robotic-neck-us",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Fig. 5 evaluates anatomical organ segmentation Dice (UltraSAM3) on predicted frames."
+    },
+    {
+      "id": "assertion:B043:116",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:117",
+      "subject_id": "system:B043:robotic-neck-us",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0009",
+        "evidence:B043:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Counterfactual-action discrimination (Table II) and Correct vs Zero-action curves (Fig. 4)."
+    },
+    {
+      "id": "assertion:B043:118",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:119",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:120",
+      "subject_id": "system:B043:robotic-neck-us",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Table IV real-world closed-loop goal-plane success rate, steps, and execution time."
+    },
+    {
+      "id": "assertion:B043:121",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:122",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:123",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:124",
+      "subject_id": "system:B043:robotic-neck-us",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [
+        "evidence:B043:0009",
+        "evidence:B043:0010",
+        "evidence:B043:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "pass",
+      "rationale": "Human experts perform counterfactual-action identification (reaching 91.7% carotid and 100% thyroid accuracy at 20 s; Section III-B, Table II), and live human subject(s) undergo ethics-approved closed-loop robotic neck ultrasound scanning (Fig. 7, Table IV, 20 trials per task; exact expert rater count and unique real-world subject count unreported)."
+    },
+    {
+      "id": "assertion:B043:125",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:126",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:127",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    },
+    {
+      "id": "assertion:B043:128",
+      "subject_id": "model:B043:cdit-wm:v1",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B043:cdit-wm:v1",
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in the 9-page paper."
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:B043:version",
+      "subject_id": "paper:B043",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:B043:sha256-982d29cdcdd2",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "effective_date": "2026-10-21"
+      },
+      "evidence_ids": [
+        "evidence:B043:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:B043:0001",
+      "source_ref": "Papers/Expanded_Collection/B043_Action_Conditioned_World_Model_for_Goal_Plane_Guidance_in_Robotic_Neck_Ultrasound.pdf",
+      "source_version": "paper-version:B043:sha256-982d29cdcdd2",
+      "source_hash": "982d29cdcdd28937e1b4f06520f348bce727bf600e4014b76f2a48cfeadb4bac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "In real-world closed loop experiments, the framework achieves success rates of 70.0% for carotid guidance and 65.0% for thyroid guidance. These results demonstrate the potential of learned ultrasound dynamics for training goal-directed robotic probe navigation within protocol-constrained organ specific tasks.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B043:0002",
+      "source_ref": "Papers/Expanded_Collection/B043_Action_Conditioned_World_Model_for_Goal_Plane_Guidance_in_Robotic_Neck_Ultrasound.pdf",
+      "source_version": "paper-version:B043:sha256-982d29cdcdd2",
+      "source_hash": "982d29cdcdd28937e1b4f06520f348bce727bf600e4014b76f2a48cfeadb4bac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Section II-B"
+      },
+      "content": "As shown in Fig. 2, the model predicts the future ultrasound observation by jointly considering recent visual context, the relative probe motion, and the temporal offset. As stated in the problem formulation, we encode ultrasound frames into a compact latent representation using a frozen V AE encoder enc. Operating in the V AE latent space reduces the spatial redundancy of ultrasound images while preserving the speckle texture, anatomical boundaries, and acoustic shadow patterns that are important for navigation. To implement the world modelW, we employ a Conditional Diffusion Transformer (CDiT) [14] with learnable parameters θ. The functionf θ models the ultrasound dynamics by predicting noise during the diffusion process. The latent dynamics are modeled as follows. During training, Gaussian noiseεis added to the target latent according to a diffusion stepτ: Sτt+∆t = √ ¯ατ St+∆t + p1− ¯ατ ε,ε∼N(0,I),(4) where ¯ατ is the cumulative noise schedule. The transformer receives the noisy future latent tokensS τt+∆t and predicts the injected noise conditioned on the context latents, the 6-DoF relative action, the relative time, and the diffusion step:",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B043:0003",
+      "source_ref": "Papers/Expanded_Collection/B043_Action_Conditioned_World_Model_for_Goal_Plane_Guidance_in_Robotic_Neck_Ultrasound.pdf",
+      "source_version": "paper-version:B043:sha256-982d29cdcdd2",
+      "source_hash": "982d29cdcdd28937e1b4f06520f348bce727bf600e4014b76f2a48cfeadb4bac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Section II-C Stage 2 RL fine-tuning"
+      },
+      "content": "The second training stageis to fine-tune the same policy with the frozen ultrasound world model described above using actor-critic RL. For a selected current goalG k, the actor predicts an action axis, a motion bin and a stop decision from the current context. If the stop decision is not triggered, the predicted bins are converted back into a valid relative probe motiona t→t+1 . The frozen world model then rolls out the next latent ultrasound state:",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B043:0004",
+      "source_ref": "Papers/Expanded_Collection/B043_Action_Conditioned_World_Model_for_Goal_Plane_Guidance_in_Robotic_Neck_Ultrasound.pdf",
+      "source_version": "paper-version:B043:sha256-982d29cdcdd2",
+      "source_hash": "982d29cdcdd28937e1b4f06520f348bce727bf600e4014b76f2a48cfeadb4bac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section III-A"
+      },
+      "content": "(1) whether the latent diffusion world model can serve as an action-conditioned simulator of ultrasound appearance, (2) whether the learned predictor can estimate useful probe actions from recent ultrasound observations. All experiments are conducted on a self-collected neck ultrasound trajectory dataset from 20 people. Each sample contains",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B043:0005",
+      "source_ref": "Papers/Expanded_Collection/B043_Action_Conditioned_World_Model_for_Goal_Plane_Guidance_in_Robotic_Neck_Ultrasound.pdf",
+      "source_version": "paper-version:B043:sha256-982d29cdcdd2",
+      "source_hash": "982d29cdcdd28937e1b4f06520f348bce727bf600e4014b76f2a48cfeadb4bac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Figure 4, Table II, Figure 5 (visual inspection)"
+      },
+      "content": "[paraphrase (visual p.6)] Fig. 4 plots LPIPS, SSIM, uLPIPS, and USFM across 0.5–60 s horizons (Correct vs Zero-action, Last-frame copy, and VAE reconstruction) for carotid, thyroid, and random-sweep trajectories; Table II reports counterfactual-action deltas and human-expert identification accuracy (reaching 91.7% for carotid and 100.0% for thyroid at 20 s, and 100.0%/83.3% at 30 s); Fig. 5 boxplots show higher UltraSAM3 segmentation Dice scores after predicted actions than before across carotid and thyroid goals.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B043:0006",
+      "source_ref": "Papers/Expanded_Collection/B043_Action_Conditioned_World_Model_for_Goal_Plane_Guidance_in_Robotic_Neck_Ultrasound.pdf",
+      "source_version": "paper-version:B043:sha256-982d29cdcdd2",
+      "source_hash": "982d29cdcdd28937e1b4f06520f348bce727bf600e4014b76f2a48cfeadb4bac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Section III-D and Table IV"
+      },
+      "content": "controlled by a low level force control module following [18]. We evaluate carotid and thyroid scanning tasks from nearby off target initial views in Table IV. For Goalk, the success rate is the proportion of trials that the robot reaches thekth goal plane without manual intervention and within 100 seconds. WM-guided fine-tuning improves closed-loop navigation over supervised learning, increasing the final success rate from 0.30 to 0.70 for carotid and from 0.00 to 0.65 for thyroid, while reducing execution time at thyroid Goal 3 from 83.2 s to 28.2 s. As shown in Table.III, these gains correspond to improved",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B043:0007",
+      "source_ref": "Papers/Expanded_Collection/B043_Action_Conditioned_World_Model_for_Goal_Plane_Guidance_in_Robotic_Neck_Ultrasound.pdf",
+      "source_version": "paper-version:B043:sha256-982d29cdcdd2",
+      "source_hash": "982d29cdcdd28937e1b4f06520f348bce727bf600e4014b76f2a48cfeadb4bac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Ethics footnote"
+      },
+      "content": "*This study obtained ethical approval from the Institute of Automation, Chinese Academy of Sciences local ethics committee (study title: Ultrasound Robot Motion Perception and Control Based on Multimodal Sensing, study reference: IA21-2502-020302).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B043:0008",
+      "source_ref": "Papers/Expanded_Collection/B043_Action_Conditioned_World_Model_for_Goal_Plane_Guidance_in_Robotic_Neck_Ultrasound.pdf",
+      "source_version": "paper-version:B043:sha256-982d29cdcdd2",
+      "source_hash": "982d29cdcdd28937e1b4f06520f348bce727bf600e4014b76f2a48cfeadb4bac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Section II-B Inference and VAE decoder"
+      },
+      "content": "At inference stage, the model starts from Gaussian latent noise and iteratively denoises it under the specified contextaction-time condition. The generated latent is then decoded into an ultrasound frame using the V AE decoderdec: ˆIt+∆t =dec ˆSt+∆t \u0001 ,(9) which provides the predicted visual consequence of the candidate probe motion. By modeling future observations as a conditional distribution instead of a deterministic regression target, the latent diffusion world model can better handle the ambiguity and appearance uncertainty caused by tissue deformation, probe pressure variation, and acoustic artifacts.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B043:0009",
+      "source_ref": "Papers/Expanded_Collection/B043_Action_Conditioned_World_Model_for_Goal_Plane_Guidance_in_Robotic_Neck_Ultrasound.pdf",
+      "source_version": "paper-version:B043:sha256-982d29cdcdd2",
+      "source_hash": "982d29cdcdd28937e1b4f06520f348bce727bf600e4014b76f2a48cfeadb4bac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section III-B Action discrimination"
+      },
+      "content": "and less consistent improvements at longer horizons. These results suggest that the world model captures action-dependent ultrasound dynamics more reliably in structured neck scanning trajectories. Action discrimination.To further evaluate action sensitivity, we conduct a counterfactual-action experiment, as shown in Table II. For each sample, we compare predictions using the recorded action with those using three incorrect actions from the same trajectory, preferentially selected within 20% of the recorded action magnitude. The visual context and temporal offset remain unchanged. We report differences in LPIPS, SSIM, uLPIPS, and USFM, along with identification accuracy, defined as the proportion of cases in which human experts correctly identify the prediction generated using the",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B043:0010",
+      "source_ref": "Papers/Expanded_Collection/B043_Action_Conditioned_World_Model_for_Goal_Plane_Guidance_in_Robotic_Neck_Ultrasound.pdf",
+      "source_version": "paper-version:B043:sha256-982d29cdcdd2",
+      "source_hash": "982d29cdcdd28937e1b4f06520f348bce727bf600e4014b76f2a48cfeadb4bac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Section III-D Physical setup (Fig. 7)"
+      },
+      "content": "A 6-axis force/torque sensor (PhotonR75, Haptron, China) is integrated into the robot end-effector to measure the probe to skin interaction during scanning. In each trial, the robot starts from an off-target neck view and receives live ultrasound frames. The goal-conditioned predictor, with or without WM fine-tuning, estimates the next discrete corrective motion and executed in a closed loop. The trial ends after all goal planes are reached or the maximum step number is exceeded. For subject safety, onlyx,y,r x, and rz are sent as position commands, whilezandr y directions are",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B043:0011",
+      "source_ref": "Papers/Expanded_Collection/B043_Action_Conditioned_World_Model_for_Goal_Plane_Guidance_in_Robotic_Neck_Ultrasound.pdf",
+      "source_version": "paper-version:B043:sha256-982d29cdcdd2",
+      "source_hash": "982d29cdcdd28937e1b4f06520f348bce727bf600e4014b76f2a48cfeadb4bac",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Section III-C Table III action predictor evaluation"
+      },
+      "content": "World-model-guided fine-tuning addresses different weaknesses of supervised learning across the two tasks. For carotid guidance, the supervised policy already predicts the active axis accurately, but performs poorly on several motion bins. Finetuning substantially improves the x, y, rx, ry, and rz bin accuracies, while Stop F1 increases from 0.835 to 0.883. However, z-bin accuracy decreases from 0.970 to 0.851. For thyroid guidance, supervised learning already achieves high accuracy on several motion bins, leaving less room for improvement. Fine-tuning mainly improves the weaker x-bin accuracy from 0.482 to 0.667 and Stop F1 from 0.704 to 0.762. These results suggest that world-model-guided fine-tuning can complement supervised learning by refining task-dependent weaknesses, although the improvements are not uniform across motion dimensions.",
+      "verification_status": "entailment_reviewed"
+    }
+  ],
+  "metric_results": [],
+  "capability_assessments": [
+    {
+      "subject_id": "model:B043:cdit-wm:v1",
+      "level": "L4",
+      "scope": {
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound"
+      },
+      "evidence_assertion_ids": [
+        "assertion:B043:019",
+        "assertion:B043:031",
+        "assertion:B043:041",
+        "assertion:B043:042",
+        "assertion:B043:043",
+        "assertion:B043:062",
+        "assertion:B043:063",
+        "assertion:B043:120"
+      ],
+      "rationale": "Action-conditioned latent CDiT ultrasound world model used to fine-tune a goal-conditioned robotic probe-guidance policy via actor-critic RL, validated in real-world closed-loop scanning."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "system:B043:robotic-neck-us",
+      "facets": [
+        "R2",
+        "R4"
+      ],
+      "environment_kind": "mixed",
+      "scope": {
+        "intended_use_context_id": "use:B043:robotic-neck-ultrasound",
+        "note": "R2 subject-disjoint offline evaluation (20 human subjects); R4 human-expert counterfactual-action identification (Table II) and ethics-approved real-world closed-loop robotic neck ultrasound trials on live human subject(s) (Fig. 7, Table IV, 20 trials per task; exact expert/subject counts unreported)."
+      },
+      "evidence_ids": [
+        "evidence:B043:0001",
+        "evidence:B043:0004",
+        "evidence:B043:0006",
+        "evidence:B043:0007",
+        "evidence:B043:0009",
+        "evidence:B043:0010"
+      ],
+      "legacy_highest_label": "R4 Prospective human feasibility"
+    }
+  ],
+  "gate_assessments": [],
+  "limitations": [
+    "Single-axis discrete action formulation limits coordinated multi-axis corrections.",
+    "Force-torque measurements are used only in low-level safety control, not as world-model inputs.",
+    "Exact number of human expert raters in Table II and exact count/demographics/volunteer-vs-patient status of live human subjects in the 20-trial real-world evaluation (Fig. 7, Table IV) are not reported."
+  ],
+  "notes": "All 9 physical PDF pages read (inherited from saved_work/B043/api_results/pages_*.json + direct read); Figures 2, 4, 5 and Table II inspected.",
+  "legacy_cells": {
+    "A": "B043",
+    "B": "Action-Conditioned World Model for Goal Plane Guidance in Robotic Neck Ultrasound",
+    "C": "Fan, Siqi, Liu, Ran, Yang, Zixuan, Fu, Xiaoyu, Gao, Xiaoqing, Xing, Yingqi, et al.",
+    "D": "2026",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://arxiv.org/abs/2607.21918",
+    "H": "Papers/Expanded_Collection (B)",
+    "I": "B043_Action_Conditioned_World_Model_for_Goal_Plane_Guidance_in_Robotic_Neck_Ultrasound.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not reported",
+    "N": "Radiology (multi-disease)",
+    "O": "Not reported",
+    "P": "Not reported",
+    "Q": "Procedure / scene (surgery, acquisition)",
+    "R": "Image acquisition guidance",
+    "S": "Can the model predict future neck ultrasound observations under probe motion, and can a policy guide the probe to ordered target planes?",
+    "T": "Self-collected neck ultrasound trajectories from 20 people.",
+    "U": "Not reported",
+    "V": "Select corrective probe motions and stop decisions for sequential target-plane acquisition.",
+    "W": "World model",
+    "X": "F7 Acquisition / ultrasound guidance",
+    "Y": "Latent generative (VAE / RSSM)",
+    "Z": "L4 Planning / control",
+    "AA": "L4 Planning / control",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "Yes",
+    "AE": "Not reported",
+    "AF": "Yes",
+    "AG": "Yes",
+    "AH": "Serial pipeline",
+    "AI": "Ultrasound image frames; synchronized relative 6-DoF probe motions/poses; temporal offsets; previous probe actions and goal-plane image latents for the policy.",
+    "AJ": "Frozen VAE image encoder/decoder; Conditional Diffusion Transformer (CDiT) for latent ultrasound dynamics; temporal transformer for the goal-conditioned policy.",
+    "AK": "Not reported",
+    "AL": "Not reported",
+    "AM": "World-model CDiT conditions future latent tokens on encoded context, embedded relative probe motion, temporal offset and diffusion step; policy combines context latent tokens, previous-action tokens and pooled goal-plane latents.",
+    "AN": "Not reported",
+    "AO": "Yes",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Continuous latent vector",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Yes",
+    "AV": "Not reported",
+    "AW": "Not reported",
+    "AX": "Not reported",
+    "AY": "Yes",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Acquisition / probe motion",
+    "BC": "Continuous vector (dose / rate)",
+    "BD": "Relative 6-DoF probe translation and rotation; temporal offset; translation/rotation normalized by dataset-specific scales. Policy outputs a single-axis motion bin.",
+    "BE": "Not applicable",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "Action-conditioned latent diffusion ultrasound world model (descriptive label; no distinct acronym stated).",
+    "BJ": "Diffusion",
+    "BK": "Irregular timestamps (Δt as input)",
+    "BL": "Not reported",
+    "BM": "Yes",
+    "BN": "Not reported",
+    "BO": "Attention context window",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Decoded predicted future ultrasound frame from the future latent state.",
+    "BT": "Goal-conditioned policy axis, motion-bin and stop heads.",
+    "BU": "Reward for progress toward and proximity to the active goal plane, correct stopping, and penalties for large or abrupt probe motions; actor-critic value estimates expected future return.",
+    "BV": "World-model diffusion noise-prediction MSE; weighted axis/bin/stop cross-entropy imitation loss; actor-critic policy updates from world-model reward and value-regression loss.",
+    "BW": "Not reported",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "Not reported",
+    "CD": "30 s (maximum reported prediction offset).",
+    "CE": "Not reported",
+    "CF": "Yes",
+    "CG": "Not reported",
+    "CH": "Imagined policy learning (actor–critic / Dreamer)",
+    "CI": "Not reported",
+    "CJ": "Yes",
+    "CK": "Maximize goal-plane progress/proximity and successful stopping, with penalties on action magnitude and changes between consecutive actions.",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Yes",
+    "CP": "Generative sampling (diffusion / flow)",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "Associational action-conditioning",
+    "CU": "Not reported",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Single agent",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Yes",
+    "DI": "Clinical",
+    "DJ": "Yes",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Yes",
+    "DN": "Self-collected neck ultrasound trajectory dataset (no separate dataset name stated).",
+    "DO": "Not reported",
+    "DP": "Not reported",
+    "DQ": "20 people; 184 carotid, 150 thyroid and 17 random-sweep trajectories.",
+    "DR": "Not reported",
+    "DS": "Real-world data",
+    "DT": "Not reported",
+    "DU": "Patient-level split",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Real-robot closed-loop success: 70.0% for carotid guidance and 65.0% for thyroid guidance (abstract/conclusion).",
+    "ED": "Not reported",
+    "EE": "Human experts compared predictions generated with the recorded action against predictions using incorrect actions; identification accuracy was reported.",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Compared with supervised-only policy, world-model fine-tuning raised final real-world success from 0.30 to 0.70 for carotid and 0.00 to 0.65 for thyroid.",
+    "EJ": "Not reported",
+    "EK": "Ablated goal conditioning in each training stage and compared supervised-only policies with world-model-guided fine-tuning; reported task-specific axis/bin accuracy and Stop F1.",
+    "EL": "Single-axis actions can fail when a target view requires coordinated multi-axis corrections, leaving residual pose errors; generalization beyond neck ultrasound is unverified.",
+    "EM": "For subject safety, only x, y, rx and rz were sent as position commands; z and ry were controlled by a low-level force-control module.",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Ethical approval from the Institute of Automation, Chinese Academy of Sciences local ethics committee; study reference IA21-2502-020302.",
+    "ES": "Yes",
+    "ET": "R6 Prospective interventional / feasibility",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "1 – minimal",
+    "FD": "1 – minimal",
+    "FE": "1 – minimal",
+    "FF": "3 – strong",
+    "FG": "Yes",
+    "FH": "Yes",
+    "FI": "Yes",
+    "FJ": "Yes",
+    "FK": "Yes",
+    "FL": "Ultrasound frames → frozen VAE latent context → conditional diffusion transformer conditioned on relative probe motion and Δt → decoded future ultrasound frame; a temporal-transformer policy combines context, action history and goal-bank latents, then outputs axis/bin/stop actions and is fine-tuned with frozen-world-model rewards for closed-loop robot guidance.",
+    "FM": "Learn neck-ultrasound action dynamics with a latent conditional diffusion world model and use its predicted action consequences to fine-tune a goal-conditioned probe-motion policy for sequential target-plane guidance.",
+    "FN": "In real-world closed-loop experiments, reported success was 70.0% for carotid and 65.0% for thyroid guidance; authors also report action-dependent anatomy predictions and task-specific gains from world-model-guided fine-tuning.",
+    "FO": "The single-axis action formulation cannot make coordinated multi-axis corrections; probe-induced image changes are not separated from physiology/contact variation; generalization beyond neck scanning is unverified; force information is not an input to either learned model.",
+    "FP": "Expand the dataset to more diverse anatomies, incorporate respiratory/temporal motion cues, and add force-torque measurements for pressure-aware dynamics and contact-stable guidance.",
+    "FQ": "Expert trajectories and plane annotations are expensive, while explicit physics-based ultrasound simulators struggle to reproduce tissue deformation, probe pressure and acoustic artifacts.",
+    "FR": "Evidence supports action-conditioned local neck-ultrasound dynamics and robot-guidance feasibility only; the action-discrimination experiment is not causal identification, and the paper does not establish broad anatomical generalization, clinical benefit or external validation.",
+    "FS": "Reviewer mapping: M3 Belief-state service; M4 Action service; M5 Dynamics adapter; M7 Outcome & causal layer; M8 Planner; M9 Safety & governance",
+    "FT": "Reviewer lesson: Keep the learned patient/scene simulator separate from the planner objective; constrain candidate actions and report closed-loop decision quality alongside model fidelity.",
+    "FU": "Reviewer mapping (KB §20): Sim-to-real",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Title page and Abstract (p. 1); Introduction (pp. 1–2); Methods/problem formulation, world-model dynamics, goal-conditioned policy, losses and reward (pp. 2–4); experimental setup, dataset/Table I, world-model evaluation/Figs. 4–5 and Table II, action-predictor evaluation/Table III, real-world robot experiments/Table IV (pp. 5–7); limitations, Discussion, future work and Conclusion (p. 7); References (p. 8). | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Low",
+    "FZ": "A:I preserved; the metadata fields were not changed. Extracted Table II–IV alignment is partly degraded, so numeric outcome fields use only aggregate values stated explicitly in the prose/abstract/conclusion. No causal identification method or assumptions are reported; action conditioning and the action-discrimination experiment are not treated as causal counterfactual identification. R6 reflects the reported live, physical robot feasibility trials; no external validation or clinical benefit is established. No workbook edits or external actions were made. Evidence QA: 26/81 populated fields had a <=25-word quotation matching extracted PDF text (32.1%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 71 prior populated fields have a located source quotation; 10 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  }
+}

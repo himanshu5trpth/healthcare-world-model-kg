@@ -1,0 +1,4763 @@
+{
+  "record_id": "annotation:B047:r5",
+  "paper_record_id": "B047",
+  "paper_version_id": "paper-version:B047:sha256-8f78e580a544",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:B047:wm:sata",
+    "model:B047:wm:zero-shot",
+    "model:B047:wm:action-category",
+    "model:B047:wm:sata-plus-five",
+    "model:B047:wm:original-plus-five",
+    "model:B047:idm:adapted",
+    "model:B047:policy:gr00t",
+    "model:B047:policy:pi05-reported"
+  ],
+  "system_composition_ids": [
+    "system:B047:synthetic-policy-training"
+  ],
+  "world_type_ids": [
+    "WT_PROCEDURE"
+  ],
+  "profile_ids": [
+    "BP_COMPARE",
+    "BP_COMPONENT"
+  ],
+  "entities": [
+    {
+      "id": "paper:B047",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "B047",
+        "title": "Cosmos-H-Surgical: Learning Surgical Robot Policies from Videos via World Modeling",
+        "authors": [
+          "Yufan He",
+          "Pengfei Guo",
+          "Mengya Xu",
+          "Zhaoshuo Li",
+          "Andriy Myronenko",
+          "Dillan Imans",
+          "Bingjie Liu",
+          "Dongren Yang",
+          "Mingxue Gu",
+          "Yongnan Ji",
+          "Yueming Jin",
+          "Ren Zhao",
+          "Baiyong Shen",
+          "Daguang Xu"
+        ],
+        "url": "https://arxiv.org/abs/2512.23162",
+        "contribution_type": "Primary method – new model",
+        "membership_assessment": {
+          "category": "Include – core world model",
+          "stage": "implementation",
+          "supporting_assertion_ids": [
+            "assertion:B047:019",
+            "assertion:B047:041",
+            "assertion:B047:042"
+          ],
+          "boundary": "Learned origin-scene to future-video state evolution within a block prediction. Recurrent cross-call persistence, filtering and identified physical dynamics are not established."
+        },
+        "independent_study_count": "not_established"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:01",
+        "evidence:B047:08"
+      ]
+    },
+    {
+      "id": "paper-version:B047:sha256-8f78e580a544",
+      "class_id": "PaperVersion",
+      "properties": {
+        "source_path": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+        "sha256": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+        "hash_basis": "Supplied source record; not recomputed.",
+        "physical_pages": 15,
+        "version_identifier": "arXiv:2512.23162v4",
+        "arxiv_version_date": "2026-03-11",
+        "displayed_document_date": "2026-03-12",
+        "source_record_year": "2025",
+        "version_year": "2026",
+        "publication_status": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+        "embedded_supplement_pages": [
+          12,
+          13,
+          14,
+          15
+        ],
+        "review_basis": "Complete supplied text and earlier API page-image review notes; this synthesis received no image pixels."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:01",
+        "evidence:B047:02"
+      ]
+    },
+    {
+      "id": "study:B047:main",
+      "class_id": "Study",
+      "properties": {
+        "design": "Surgical-video generation, matched-prompt examples, expert video ratings, few-shot adaptation and offline robot-command prediction.",
+        "clinical_deployment": "not_reported",
+        "learned_policy_physical_execution": "not_established",
+        "citation_boundary": "Cited systems supply context, not inherited implementation or validation."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:10",
+        "evidence:B047:11",
+        "evidence:B047:12",
+        "evidence:B047:19"
+      ]
+    },
+    {
+      "id": "system:B047:synthetic-policy-training",
+      "class_id": "SystemComposition",
+      "properties": {
+        "composition_pattern": "Serial pipeline",
+        "flow": [
+          "Surgical video/text → Cosmos-Predict2.5 LoRA adaptation",
+          "Embodiment demonstrations → task-specific generator and IDM adaptation",
+          "Initial frame and procedural text → future video",
+          "Generated frame pairs → pseudo-kinematics",
+          "Synthetic and real video/action pairs → VLA policy training",
+          "Held-out bench recordings → offline command-prediction MSE"
+        ],
+        "policy_coupling": "Synthetic-trajectory-assisted policy training",
+        "online_rollout_search": "not_established",
+        "profile_scopes": {
+          "BP_COMPARE": "Exploratory procedural-text alternatives",
+          "BP_COMPONENT": "Inverse labeling and policy-training contributions"
+        }
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:09",
+        "evidence:B047:16",
+        "evidence:B047:17",
+        "evidence:B047:18",
+        "evidence:B047:19"
+      ]
+    },
+    {
+      "id": "context:B047:research",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "purpose": "Surgical-video generation and data-efficient robot-policy research",
+        "bench_task": "Needle pickup and hand-over on a rubber pad",
+        "clinical_population": "not_reported",
+        "operational_user_and_execution_authority": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:05",
+        "evidence:B047:18"
+      ]
+    },
+    {
+      "id": "model:B047:wm:sata",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Cosmos-H-Surgical",
+        "base": "Cosmos-Predict2.5",
+        "adaptation": "SATA LoRA adaptation in transformer attention and feed-forward layers",
+        "objective": "Latent flow matching",
+        "author_family_description": "Diffusion-based latent video prediction",
+        "inputs": [
+          "Initial observed frame",
+          "Procedural text prompt"
+        ],
+        "output": "Future latent-video block decoded to frames",
+        "numerical_robot_action_input": "not_established",
+        "recursive_world_feedback": "not_reported",
+        "parameter_count_and_lora_rank": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:22"
+      ]
+    },
+    {
+      "id": "model:B047:wm:zero-shot",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Zero-Shot",
+        "configuration": "Original Cosmos-Predict2.5 without surgical adaptation"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:10",
+        "evidence:B047:13"
+      ]
+    },
+    {
+      "id": "model:B047:wm:action-category",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Action-Category",
+        "configuration": "Adaptation with coarse category-level captions"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:10"
+      ]
+    },
+    {
+      "id": "model:B047:wm:sata-plus-five",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Cosmos-H-Surgical, five-trajectory adaptation",
+        "configuration": "SATA adaptation followed by five bench-task trajectories"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:13",
+        "evidence:B047:14"
+      ]
+    },
+    {
+      "id": "model:B047:wm:original-plus-five",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Finetuned-Orig",
+        "configuration": "Original checkpoint adapted with five bench-task trajectories without SATA adaptation"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:13"
+      ]
+    },
+    {
+      "id": "model:B047:idm:adapted",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Embodiment-specific IDM configuration set",
+        "identity_limit": "Groups the explicitly reported 5/10/20-demonstration configurations; not a single pinned weight artifact.",
+        "initialization": "DreamGen pretrained Franka IDM",
+        "encoder_label_in_Figure_3": "SigLIP-2",
+        "inputs": "Two frames separated by 16 video frames",
+        "output": "Intervening action labels",
+        "configuration_factors": "66 out-of-domain episodes plus 5, 10 or 20 task episodes",
+        "training": "10k optimization steps at learning rate 1e-4",
+        "standalone_pseudo_action_accuracy": "not_reported",
+        "forward_world_model_membership": "Not assigned"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:04",
+        "evidence:B047:09",
+        "evidence:B047:17"
+      ]
+    },
+    {
+      "id": "model:B047:policy:gr00t",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "GR00T N1.5 policy configuration set",
+        "identity_limit": "Data budgets and training recipes are separate reported configurations, not one pooled trained artifact.",
+        "inputs": "Current image, instruction and robot state",
+        "output": "Actions for 16 future video frames",
+        "real_demonstration_conditions": [
+          5,
+          10,
+          20
+        ],
+        "synthetic_video_conditions": [
+          0,
+          56,
+          560
+        ],
+        "main_training_schedule": "Real-only: 200 steps; augmented: 400 steps followed by 200 real-data steps; learning rate 1e-4.",
+        "supplementary_conditions": "Three-view real inputs and 1k/10k fine-tuning",
+        "evaluation": "Offline command-prediction MSE on 40 held-out bench episodes",
+        "executed_policy_task_success": "not_reported",
+        "world_model_membership": "Not assigned to the policy component"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:09",
+        "evidence:B047:15",
+        "evidence:B047:18",
+        "evidence:B047:19",
+        "evidence:B047:31"
+      ]
+    },
+    {
+      "id": "model:B047:policy:pi05-reported",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Reported supplementary π0.5 configuration",
+        "identity_status": "conflicting",
+        "rival_descriptions": [
+          "Section 8.2 and Figure 14 title identify π0.5.",
+          "Figure 14 caption identifies GR00T N1.5 initialization."
+        ],
+        "checkpoint_specific_results": "Unresolved"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:24",
+        "evidence:B047:28"
+      ]
+    },
+    {
+      "id": "module:B047:wm:dynamics",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "responsibility": "Origin-scene encoding, text-conditioned latent-video prediction and decoding",
+        "boundary": "Not a demonstrated belief filter or interchangeable-backend service"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:22"
+      ]
+    },
+    {
+      "id": "module:B047:wm:rollout",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "responsibility": "Conditional future-video generation and seeded sampling",
+        "boundary": "Recursive state feedback and effective horizon unresolved"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:16"
+      ]
+    },
+    {
+      "id": "module:B047:idm:pseudo-labeling",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "responsibility": "Infer embodiment-specific action labels from endpoint frames",
+        "boundary": "Not an action-support or safety service"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:09",
+        "evidence:B047:17"
+      ]
+    },
+    {
+      "id": "state:B047:video-latent",
+      "class_id": "StateSpec",
+      "properties": {
+        "representation": "Encoded origin scene and predicted spatiotemporal video latents",
+        "coordinate": "Video-frame succession",
+        "dimension": "not_reported",
+        "posterior_or_cross_call_persistence": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:08"
+      ]
+    },
+    {
+      "id": "action:B047:text-behavior",
+      "class_id": "ActionSpec",
+      "properties": {
+        "representation": "Procedural behavior text",
+        "role_types": [
+          "procedural_or_robotic"
+        ],
+        "effect_channels": [
+          "physical_scene"
+        ],
+        "authority": "hypothetical_query",
+        "alternatives": [
+          "One handover",
+          "Two handovers",
+          "Three handovers",
+          "Needle puncture"
+        ],
+        "boundary": "Settable semantic generation commands, not validated actuator commands"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:12"
+      ]
+    },
+    {
+      "id": "action:B047:robot-kinematics",
+      "class_id": "ActionSpec",
+      "properties": {
+        "representation": "20 bilateral translation/orientation/jaw components",
+        "translation_unit": "meters",
+        "jaw_unit": "radians",
+        "orientation": "6D rotation representation per instrument, not six rotation angles",
+        "reference_frame": "Endoscope",
+        "role": "Recorded labels, IDM targets/pseudo-labels and policy outputs; not demonstrated generator inputs",
+        "execution_limits": "Offset/position semantics, control cadence and actuator conversion incompletely specified"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:04",
+        "evidence:B047:06",
+        "evidence:B047:07",
+        "evidence:B047:09"
+      ]
+    },
+    {
+      "id": "time:B047:coordinates",
+      "class_id": "TimeSpec",
+      "properties": {
+        "world_coordinate": "Video-frame index; frame rate not_reported",
+        "idm_endpoint_separation_frames": 16,
+        "policy_output_extent_frames": 16,
+        "generator_maximum_extent": "not_reported",
+        "noise_coordinate": "Flow interpolation t in [0,1], not surgical time",
+        "optimization_coordinate": "200, 400, 1k and 10k steps are optimization iterations"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:09",
+        "evidence:B047:18",
+        "evidence:B047:22",
+        "evidence:B047:26",
+        "evidence:B047:27"
+      ]
+    },
+    {
+      "id": "dataset:B047:sata",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "name": "Surgical Action–Text Alignment (SATA)",
+        "version": "Snapshot described in reviewed v4; release identifier not_reported",
+        "reported_size": "2,447 clips; over 300k frames; eight surgery types",
+        "reported_action_counts": {
+          "needle_grasping": 689,
+          "needle_puncture": 989,
+          "suture_pulling": 475,
+          "knotting": 294
+        },
+        "Table_3_columns": [
+          "Knotting",
+          "Needle Grasping",
+          "Needle Puncture",
+          "Suture Pulling"
+        ],
+        "Table_3_rows": {
+          "AutoLaparo": [
+            47,
+            9,
+            42,
+            30
+          ],
+          "GraSP": [
+            37,
+            "–",
+            1,
+            28
+          ],
+          "HeiCo": [
+            16,
+            3,
+            6,
+            4
+          ],
+          "Multiypass140": [
+            1,
+            "–",
+            "–",
+            "–"
+          ],
+          "SAR-RARP50": [
+            118,
+            677,
+            940,
+            413
+          ],
+          "SurgicalActions160": [
+            7,
+            "–",
+            "–",
+            "–"
+          ],
+          "YouTube": [
+            68,
+            "–",
+            "–",
+            "–"
+          ]
+        },
+        "dash_policy": "Preserved as printed, not converted to verified zeros",
+        "patient_recording_site_counts": "not_reported",
+        "evaluation_partition_and_overlap": "not_reported",
+        "license": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:03",
+        "evidence:B047:25"
+      ]
+    },
+    {
+      "id": "dataset:B047:bench60",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "name": "Needle Pickup and Hand-Over recordings",
+        "environment": "Anonymized commercial endoscopic robot and rubber pad",
+        "size": "60 successful teleoperated episodes; average 217 frames",
+        "split": "Last 40 reserved; remaining episodes supply 5/10/20 training conditions",
+        "clinical_patient_records": false,
+        "operator_session_independence": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:04",
+        "evidence:B047:05",
+        "evidence:B047:15"
+      ]
+    },
+    {
+      "id": "dataset:B047:ood66",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "name": "Out-of-domain robot-motion episodes",
+        "size": "66 episodes; around 60k action-frame pairs",
+        "roles": [
+          "IDM training",
+          "Generation origins"
+        ],
+        "selected_origins": 56,
+        "selection": "Suitable needle and forceps configurations",
+        "pipeline_wide_holdout": "not_established"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:04",
+        "evidence:B047:14",
+        "evidence:B047:17"
+      ]
+    },
+    {
+      "id": "cohort:B047:policy-test40",
+      "class_id": "Cohort",
+      "properties": {
+        "unit": "Successful bench demonstration episode",
+        "count": 40,
+        "sampling": "Last 40 of 60 recordings",
+        "clinical_patient_cohort": false
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:15",
+        "evidence:B047:31"
+      ]
+    },
+    {
+      "id": "cohort:B047:video-origins56",
+      "class_id": "Cohort",
+      "properties": {
+        "unit": "Selected bench-scene initial frame",
+        "count": 56,
+        "role": "Condition generated continuations",
+        "generation_success_denominator": "Incompletely specified"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:14",
+        "evidence:B047:16"
+      ]
+    },
+    {
+      "id": "cohort:B047:sata-evaluation",
+      "class_id": "Cohort",
+      "properties": {
+        "unit": "Surgical video evaluation sample",
+        "count": "not_reported",
+        "split_and_overlap_controls": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:10"
+      ]
+    },
+    {
+      "id": "human-study:B047:expert-ratings",
+      "class_id": "HumanStudy",
+      "properties": {
+        "participants": "One surgeon and two residents",
+        "task": "Rate generated-video alignment, tool consistency and anatomical structure",
+        "scale": "1–3, higher better",
+        "sample_descriptions": [
+          "Main text: 50 video samples",
+          "Supplement: 50 videos evaluated by each expert"
+        ],
+        "scoring_descriptions": [
+          "Independent scoring",
+          "Surgeon supervision/guidance"
+        ],
+        "unique_allocation_blinding_agreement": "not_reported",
+        "independent_external_review": "not_established",
+        "subject_id": "model:B047:wm:sata",
+        "actual_human_participants": true,
+        "participant_count": 3,
+        "sample_count_reported": 50
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:11",
+        "evidence:B047:21",
+        "evidence:B047:30"
+      ]
+    },
+    {
+      "id": "evaluation:B047:sata-generation",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "models": [
+          "model:B047:wm:sata",
+          "model:B047:wm:zero-shot",
+          "model:B047:wm:action-category"
+        ],
+        "cohort_id": "cohort:B047:sata-evaluation",
+        "endpoints": "FVD and VBench DD/IQ/OC",
+        "horizon": "Future video; extent not_reported"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:10"
+      ]
+    },
+    {
+      "id": "evaluation:B047:matched-prompts",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "model_id": "model:B047:wm:sata",
+        "protocol": "Four procedural commands from the same conditioning frame",
+        "result_type": "Selected qualitative futures",
+        "causal_identification": "not_established"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:12"
+      ]
+    },
+    {
+      "id": "evaluation:B047:expert-ratings",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "human_study_id": "human-study:B047:expert-ratings",
+        "endpoint": "Generated-video ratings, not clinical utility"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:11",
+        "evidence:B047:21",
+        "evidence:B047:30"
+      ]
+    },
+    {
+      "id": "evaluation:B047:fewshot-generation",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "models": [
+          "model:B047:wm:sata-plus-five",
+          "model:B047:wm:original-plus-five",
+          "model:B047:wm:zero-shot"
+        ],
+        "cohort_id": "cohort:B047:video-origins56",
+        "endpoints": "Generated-video completeness, FVD and VBench",
+        "physical_policy_success": "Not measured by Table 2"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:13",
+        "evidence:B047:14",
+        "evidence:B047:32",
+        "evidence:B047:33"
+      ]
+    },
+    {
+      "id": "evaluation:B047:policy-prediction",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "model_id": "model:B047:policy:gr00t",
+        "cohort_id": "cohort:B047:policy-test40",
+        "endpoint": "Offline 20-dimensional action-prediction MSE",
+        "uncertainty": "Captioned SD; aggregation basis and training repetitions not_reported",
+        "exact_chart_values": "Not printed; visual estimates excluded"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:19",
+        "evidence:B047:31"
+      ]
+    },
+    {
+      "id": "evaluation:B047:policy-supplement",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "conditions": "Three-view real input, 1k/10k fine-tuning, reported π0.5 substitution",
+        "endpoint": "Offline action MSE",
+        "issues": [
+          "Similar Figures 12/13 in earlier image notes",
+          "Figure 14 model-identity conflict",
+          "Unspecified uncertainty aggregation"
+        ]
+      },
+      "provenance_evidence_ids": [
+        "evidence:B047:23",
+        "evidence:B047:24",
+        "evidence:B047:26",
+        "evidence:B047:27",
+        "evidence:B047:28"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:B047:001",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "data.provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "dataset_version_id": "dataset:B047:sata"
+      },
+      "evidence_ids": [
+        "evidence:B047:03",
+        "evidence:B047:25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Source attribution, reannotation and source-by-action counts."
+      ],
+      "criteria_missing": [
+        "Clip-level transformation lineage, native timestamps and release identity."
+      ]
+    },
+    {
+      "id": "assertion:B047:002",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Frame indices and synchronization do not establish retained acquisition timestamps."
+    },
+    {
+      "id": "assertion:B047:003",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No release-latency contract. Retrospective IDM endpoint inputs are not automatically policy leakage."
+    },
+    {
+      "id": "assertion:B047:004",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Variable camera counts do not establish measured/missing/invalid masks."
+    },
+    {
+      "id": "assertion:B047:005",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:006",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Flow interpolation is not elapsed surgical time."
+    },
+    {
+      "id": "assertion:B047:007",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Rendering frames does not model observation timing, availability or selection."
+    },
+    {
+      "id": "assertion:B047:008",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:009",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "data.harmonization",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "dataset_version_id": "dataset:B047:sata"
+      },
+      "evidence_ids": [
+        "evidence:B047:03",
+        "evidence:B047:25"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Cross-source reannotation into defined action categories."
+      ],
+      "criteria_missing": [
+        "Traceable clip-level semantic mappings, adjudication and temporal schema."
+      ]
+    },
+    {
+      "id": "assertion:B047:010",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:sata-generation"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "SATA partition, source/patient/recording overlap and preprocessing-fit audits are unspecified."
+    },
+    {
+      "id": "assertion:B047:011",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:012",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "module_implementation_id": "module:B047:wm:dynamics"
+      },
+      "evidence_ids": [
+        "evidence:B047:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "assertion:B047:013",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [
+        "evidence:B047:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": "Cosmos-Predict2.5 with LoRA adaptation"
+    },
+    {
+      "id": "assertion:B047:014",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [
+        "evidence:B047:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Generative latent-velocity supervision does not establish a separate context-to-target representation-learning objective."
+    },
+    {
+      "id": "assertion:B047:015",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:016",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "module_implementation_id": "module:B047:wm:dynamics"
+      },
+      "evidence_ids": [
+        "evidence:B047:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "value": {
+        "scope_limit": "Specified surgical LoRA adaptation objective",
+        "absent": "Direct decoded-observation reconstruction loss",
+        "implemented": "Flow-velocity MSE"
+      },
+      "rationale": "The specified loss targets velocity, not decoded observations. No absence is assigned to foundation autoencoder pretraining."
+    },
+    {
+      "id": "assertion:B047:017",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "perception.fusion",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Image and text jointly condition the prediction network. Precise attention-level fusion is unspecified."
+    },
+    {
+      "id": "assertion:B047:018",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Variable camera counts alone do not establish availability/quality/recency conditioning."
+    },
+    {
+      "id": "assertion:B047:019",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "time_horizon": "Encoded origin scene to future video block"
+      },
+      "evidence_ids": [
+        "evidence:B047:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Origin-scene features carry into predicted future-scene latents. This is block-predictive state, not recurrent cross-call persistence or filtering."
+    },
+    {
+      "id": "assertion:B047:020",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Future-video sampling is not a filtering posterior over current hidden state."
+    },
+    {
+      "id": "assertion:B047:021",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "time_horizon": "Within the specified fixed-origin generation call"
+      },
+      "evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The specified operation receives initial context without an arriving-measurement correction operation. Noise-flow updates are not observation correction."
+    },
+    {
+      "id": "assertion:B047:022",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "time_horizon": "Within each fixed-origin generation call"
+      },
+      "evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "This forecast uses baseline context without later measurements. Embodiment fine-tuning is not state assimilation."
+    },
+    {
+      "id": "assertion:B047:023",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Embodiment/task adaptation does not establish individual-patient fitting."
+    },
+    {
+      "id": "assertion:B047:024",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Different prompts remain one video-output task; IDM consumes images rather than a demonstrated shared-state readout."
+    },
+    {
+      "id": "assertion:B047:025",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Caption and data-budget ablations do not establish state/history sufficiency."
+    },
+    {
+      "id": "assertion:B047:026",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "time_horizon": "Observed context at generation origin"
+      },
+      "evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The specified observed context is one snapshot, not preceding observations/actions. Future behavior instructions are not measured history."
+    },
+    {
+      "id": "assertion:B047:027",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:028",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Consistency ratings do not identify a consistency-specific memory, constraint or loss."
+    },
+    {
+      "id": "assertion:B047:029",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Decoded videos do not establish internal latent semantics."
+    },
+    {
+      "id": "assertion:B047:030",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "time_horizon": "Observed context of the specified generation call"
+      },
+      "evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "No additional observed-history context or cross-call memory enters this operation. Future-block processing is not measured-history memory."
+    },
+    {
+      "id": "assertion:B047:031",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "action.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:matched-prompts"
+      },
+      "evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": "Settable high-level procedural text",
+      "rationale": "Behavior commands are separate from the observed scene. Numerical-control conditioning is not established."
+    },
+    {
+      "id": "assertion:B047:032",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [
+        "evidence:B047:03",
+        "evidence:B047:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Defined procedural categories with tool/tissue meanings."
+      ],
+      "criteria_missing": [
+        "Separate operative role/effect-channel representation."
+      ]
+    },
+    {
+      "id": "assertion:B047:033",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "action.parameterized",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:matched-prompts"
+      },
+      "evidence_ids": [
+        "evidence:B047:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Behavior identity, instrument side, repetition and ordering."
+      ],
+      "criteria_missing": [
+        "Timing/duration and executable motion parameterization."
+      ],
+      "rationale": "IDM/policy kinematic units cannot fill the generator-command contract."
+    },
+    {
+      "id": "assertion:B047:034",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "action.schedule",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:matched-prompts"
+      },
+      "evidence_ids": [
+        "evidence:B047:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Ordered high-level handover events."
+      ],
+      "criteria_missing": [
+        "Explicit event timing/index mapping, cadence or duration."
+      ]
+    },
+    {
+      "id": "assertion:B047:035",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Bilateral concatenation does not establish bundle/update/inheritance semantics."
+    },
+    {
+      "id": "assertion:B047:036",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Normalization and initial-scene selection are not action, force or workspace guards."
+    },
+    {
+      "id": "assertion:B047:037",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "action.grounding",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:matched-prompts"
+      },
+      "evidence_ids": [
+        "evidence:B047:03",
+        "evidence:B047:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": "Semantic grounding to named procedural operations",
+      "rationale": "Supports the semantic branch, not validated text-to-actuator control or causal tissue response."
+    },
+    {
+      "id": "assertion:B047:038",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Class frequencies are not a tested context-conditioned support criterion."
+    },
+    {
+      "id": "assertion:B047:039",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "action.comparison",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:matched-prompts",
+        "environment_kind": "synthetic_data",
+        "time_horizon": "Multiframe alternatives; duration not_reported"
+      },
+      "evidence_ids": [
+        "evidence:B047:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": {
+        "same_initial_context": true,
+        "distinct_alternatives": 4,
+        "comparison_type": "Qualitative procedural-command futures"
+      },
+      "rationale": "Supports functional L3, not identified intervention effects, aggregate success or optimization."
+    },
+    {
+      "id": "assertion:B047:040",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:041",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "time_horizon": "Surgical video-frame succession"
+      },
+      "evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:10",
+        "evidence:B047:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Later scene observations are generated and evaluated. This is distinct from denoising-time evolution or a validated physical law."
+    },
+    {
+      "id": "assertion:B047:042",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "LoRA parameters learn future-video prediction: the learned branch, not mechanistic hybridization."
+    },
+    {
+      "id": "assertion:B047:043",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:matched-prompts"
+      },
+      "evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:12",
+        "evidence:B047:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": "High-level procedural-text conditioning",
+      "rationale": "Same-origin command changes demonstrate semantic input dependence, not numerical-action physical dynamics."
+    },
+    {
+      "id": "assertion:B047:044",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "time_horizon": "Conditional future-video block"
+      },
+      "evidence_ids": [
+        "evidence:B047:16",
+        "evidence:B047:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Noise-seeded conditional future generation, not established physiological process noise or calibrated uncertainty."
+    },
+    {
+      "id": "assertion:B047:045",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Rich captions and learned interaction priors do not establish explicit mechanistic constraints."
+    },
+    {
+      "id": "assertion:B047:046",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:047",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Checkpoint ablations are not integration-tested backend interchangeability."
+    },
+    {
+      "id": "assertion:B047:048",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:049",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [
+        "evidence:B047:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Joint video-velocity supervision does not specify optimization through successive predicted world transitions."
+    },
+    {
+      "id": "assertion:B047:050",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Composed prompts do not establish coordinated option-level and primitive-level transitions."
+    },
+    {
+      "id": "assertion:B047:051",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:sata-generation"
+      },
+      "evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "assertion:B047:052",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Separate IDM/policy outputs and expert scores are not typed outcome heads on the propagated scene state."
+    },
+    {
+      "id": "assertion:B047:053",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": [
+          "model:B047:wm:sata",
+          "model:B047:wm:sata-plus-five"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:B047:10",
+        "evidence:B047:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Whole-video realism/completeness does not establish separately indexed successor fidelity against matched targets. Policy MSE cannot substitute."
+    },
+    {
+      "id": "assertion:B047:054",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Multiframe block generation does not establish recursive transitions consuming generated history."
+    },
+    {
+      "id": "assertion:B047:055",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:matched-prompts",
+        "time_horizon": "Within initial-frame-conditioned blocks"
+      },
+      "evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:12",
+        "evidence:B047:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The specified generation receives no intermediate reference frames. Training-time teacher forcing and recursive generation are separate questions."
+    },
+    {
+      "id": "assertion:B047:056",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:matched-prompts",
+        "time_horizon": "Within fixed-origin generated blocks"
+      },
+      "evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:12",
+        "evidence:B047:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "No newly measured scene corrects this generated block."
+    },
+    {
+      "id": "assertion:B047:057",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Handover count, average recording length and the IDM/policy 16-frame extents do not specify the generator's maximum tested horizon."
+    },
+    {
+      "id": "assertion:B047:058",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:059",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:060",
+      "subject_id": "model:B047:wm:sata-plus-five",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata-plus-five",
+        "cohort_id": "cohort:B047:video-origins56",
+        "environment_kind": "synthetic_data"
+      },
+      "evidence_ids": [
+        "evidence:B047:16",
+        "evidence:B047:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": {
+        "single_rollout_videos": 56,
+        "multi_rollout_videos": 560,
+        "generation_seeds": 10
+      },
+      "rationale": "Conditional future-video samples, not ten independent policy-training replications or calibrated path coverage."
+    },
+    {
+      "id": "assertion:B047:061",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:062",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "planning.model_use",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t",
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [
+        "evidence:B047:16",
+        "evidence:B047:17",
+        "evidence:B047:18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": "Synthetic-trajectory-assisted policy training",
+      "rationale": "Generated futures and inferred action labels train the policy; online rollout search is not inferred."
+    },
+    {
+      "id": "assertion:B047:063",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t",
+        "evaluation_run_id": "evaluation:B047:policy-prediction"
+      },
+      "evidence_ids": [
+        "evidence:B047:09",
+        "evidence:B047:18",
+        "evidence:B047:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": "Implemented synthetic-assisted learned policy",
+      "rationale": "Implementation is established. Sufficient decision/control evaluation for L4 is a separate unmet evidence requirement, not an absent policy mechanism."
+    },
+    {
+      "id": "assertion:B047:064",
+      "subject_id": "model:B047:policy:gr00t",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "An action chunk does not establish executed-prefix feedback and replanning."
+    },
+    {
+      "id": "assertion:B047:065",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:066",
+      "subject_id": "model:B047:policy:gr00t",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:067",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B047:policy-prediction"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Held-out command MSE does not test optimized plans under independent or adversarial dynamics."
+    },
+    {
+      "id": "assertion:B047:068",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:matched-prompts"
+      },
+      "evidence_ids": [
+        "evidence:B047:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Specified alternatives and common origin."
+      ],
+      "criteria_missing": [
+        "Eligibility, support, coverage and example-selection protocol."
+      ]
+    },
+    {
+      "id": "assertion:B047:069",
+      "subject_id": "model:B047:policy:gr00t",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:070",
+      "subject_id": "model:B047:policy:gr00t",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t",
+        "evaluation_run_id": "evaluation:B047:policy-prediction",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [
+        "evidence:B047:19",
+        "evidence:B047:31"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "This experiment compares predicted commands with recorded labels; its outputs do not act on the environment with subsequent measured feedback. Absence is experiment-scoped."
+    },
+    {
+      "id": "assertion:B047:071",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "uq.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "environment_kind": "synthetic_data"
+      },
+      "evidence_ids": [
+        "evidence:B047:16",
+        "evidence:B047:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": "Uncalibrated conditional future-video sample distribution",
+      "rationale": "Not demonstrated calibrated risk, uncertainty decomposition or a current-state posterior."
+    },
+    {
+      "id": "assertion:B047:072",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:073",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:074",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:075",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:076",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Out-of-domain training data do not establish an operational detector."
+    },
+    {
+      "id": "assertion:B047:077",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:078",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Prompt comparisons do not define a population/outcome/horizon causal contrast."
+    },
+    {
+      "id": "assertion:B047:079",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Inverse dynamics and text conditioning are not causal identification."
+    },
+    {
+      "id": "assertion:B047:080",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:081",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Training-step and data-size ablations are not identification-assumption sensitivity analyses."
+    },
+    {
+      "id": "assertion:B047:082",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:083",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Latent flow velocity is not instrument/tissue velocity or a calibrated intervention mechanism."
+    },
+    {
+      "id": "assertion:B047:084",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:085",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Bench use and scene selection are not blockers with defined fail behavior."
+    },
+    {
+      "id": "assertion:B047:086",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:087",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Teleoperation, annotation and separate reader evaluation are not operational escalation."
+    },
+    {
+      "id": "assertion:B047:088",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:089",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Platform safeguards cannot be inherited without documentation."
+    },
+    {
+      "id": "assertion:B047:090",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:091",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Natural generation failures are not defined attack/fault-injection tests."
+    },
+    {
+      "id": "assertion:B047:092",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Public/synthetic data and privacy concerns do not establish operational privacy controls."
+    },
+    {
+      "id": "assertion:B047:093",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:094",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:095",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:096",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [
+        "evidence:B047:05",
+        "evidence:B047:18",
+        "evidence:B047:20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "criteria_met": [
+        "Research purpose, task and bench setting."
+      ],
+      "criteria_missing": [
+        "Operational user/responsibility, permitted authority and clinical decision/population boundary."
+      ]
+    },
+    {
+      "id": "assertion:B047:097",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "No card identified in the paper; external linked documentation was not inspected."
+    },
+    {
+      "id": "assertion:B047:098",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:099",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Experimental adaptation is not approval, revalidation or rollback governance."
+    },
+    {
+      "id": "assertion:B047:100",
+      "subject_id": "paper-version:B047:sha256-8f78e580a544",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Generic regulatory/privacy constraints are mentioned without a named framework."
+    },
+    {
+      "id": "assertion:B047:101",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:102",
+      "subject_id": "study:B047:main",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "population": "Video sources, teleoperators and expert raters"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Approval/exemption/consent documentation is unreported, not demonstrated absent."
+    },
+    {
+      "id": "assertion:B047:103",
+      "subject_id": "model:B047:policy:gr00t",
+      "feature_id": "agent.role",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t",
+        "evaluation_run_id": "evaluation:B047:policy-prediction"
+      },
+      "evidence_ids": [
+        "evidence:B047:09",
+        "evidence:B047:18",
+        "evidence:B047:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": "VLA action-chunk policy evaluated offline",
+      "rationale": "Not evidence of an LLM world simulator or clinically deployed agent."
+    },
+    {
+      "id": "assertion:B047:104",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "agent.multiple",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [
+        "evidence:B047:09",
+        "evidence:B047:16",
+        "evidence:B047:17",
+        "evidence:B047:18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The specified generator–labeler–policy pipeline is not communicating decision agents. Two forceps do not establish two agents."
+    },
+    {
+      "id": "assertion:B047:105",
+      "subject_id": "model:B047:policy:gr00t",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Generative iterations are not feedback-based proposal critique."
+    },
+    {
+      "id": "assertion:B047:106",
+      "subject_id": "model:B047:policy:gr00t",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:107",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t",
+        "evaluation_run_id": "evaluation:B047:policy-prediction",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [
+        "evidence:B047:04",
+        "evidence:B047:09",
+        "evidence:B047:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Human-teleoperated collection and offline policy prediction distinguished."
+      ],
+      "criteria_missing": [
+        "Learned-policy execution, approval, supervision, override and hand-off boundary."
+      ]
+    },
+    {
+      "id": "assertion:B047:108",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "release.code",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [
+        "evidence:B047:29"
+      ],
+      "verification_status": "occurrence_only",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "Code URL is printed; accessibility, revision and pipeline coverage were not checked."
+    },
+    {
+      "id": "assertion:B047:109",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "release.weights",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [
+        "evidence:B047:29"
+      ],
+      "verification_status": "occurrence_only",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "Printed Model URL does not verify downloadable evaluated weights or access terms."
+    },
+    {
+      "id": "assertion:B047:110",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "extraction_limited",
+      "rationale": "Separate asset terms are unreported in the paper; repositories were not inspected. Copyright is not an open license."
+    },
+    {
+      "id": "assertion:B047:111",
+      "subject_id": "study:B047:main",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:112",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": [
+          "model:B047:wm:sata",
+          "model:B047:wm:sata-plus-five"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:B047:10",
+        "evidence:B047:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No separately indexed, matched-reference one-step fidelity result."
+    },
+    {
+      "id": "assertion:B047:113",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:sata-generation"
+      },
+      "evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Future-video performance evaluated."
+      ],
+      "criteria_missing": [
+        "Multiple explicit horizons and horizon-indexed fidelity/drift."
+      ]
+    },
+    {
+      "id": "assertion:B047:114",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:sata-generation"
+      },
+      "evidence_ids": [
+        "evidence:B047:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Executed FVD comparison for conditional surgical-video generation."
+      ],
+      "criteria_missing": [
+        "Defined evaluation count, reference-sample construction and partition/overlap protocol."
+      ],
+      "rationale": "Metric existence is established; a complete distributional evaluation protocol is not."
+    },
+    {
+      "id": "assertion:B047:115",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:expert-ratings"
+      },
+      "evidence_ids": [
+        "evidence:B047:11",
+        "evidence:B047:21",
+        "evidence:B047:30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Defined tool/anatomy criteria receive human ratings. This is perceived plausibility, not mechanical accuracy, adverse-case coverage or safety validation."
+    },
+    {
+      "id": "assertion:B047:116",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:117",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:matched-prompts"
+      },
+      "evidence_ids": [
+        "evidence:B047:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Procedural commands change while origin context is fixed: qualitative sensitivity, not effect-size accuracy."
+    },
+    {
+      "id": "assertion:B047:118",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:119",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No matched correct-versus-swapped/withheld origin/history control."
+    },
+    {
+      "id": "assertion:B047:120",
+      "subject_id": "model:B047:policy:gr00t",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t",
+        "evaluation_run_id": "evaluation:B047:policy-prediction",
+        "cohort_id": "cohort:B047:policy-test40"
+      },
+      "evidence_ids": [
+        "evidence:B047:18",
+        "evidence:B047:19",
+        "evidence:B047:31"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Model-assisted task policy assessed using held-out recorded-command error."
+      ],
+      "criteria_missing": [
+        "Decision endpoint beyond imitation error, such as executed success, regret or qualified policy value."
+      ],
+      "rationale": "Decision-related proxy evidence is insufficient for demonstrated L4."
+    },
+    {
+      "id": "assertion:B047:121",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Synthetic augmentation and offline real-recording evaluation are not matched simulated/executed outcome agreement."
+    },
+    {
+      "id": "assertion:B047:122",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:matched-prompts"
+      },
+      "evidence_ids": [
+        "evidence:B047:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": "Qualitative compositional behavior-shift test",
+      "rationale": "Longer handovers differ from stated single-handover curation. Selected examples do not establish prevalence or exclusion from foundation pretraining."
+    },
+    {
+      "id": "assertion:B047:123",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B047:124",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:expert-ratings",
+        "population": "One surgeon and two residents",
+        "environment_kind": "synthetic_data"
+      },
+      "evidence_ids": [
+        "evidence:B047:11",
+        "evidence:B047:21",
+        "evidence:B047:30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Actual author-reported raters and outcomes; guidance, allocation and agreement remain unclear. Independent external review is not inferred."
+    },
+    {
+      "id": "assertion:B047:125",
+      "subject_id": "model:B047:wm:sata-plus-five",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata-plus-five",
+        "evaluation_run_id": "evaluation:B047:fewshot-generation"
+      },
+      "evidence_ids": [
+        "evidence:B047:13",
+        "evidence:B047:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Five-trajectory adaptation budget and comparative generation results."
+      ],
+      "criteria_missing": [
+        "Hardware/load, measured compute cost and total pretraining/adaptation expense."
+      ],
+      "rationale": "Limited adaptation-sample evidence, not real-time capability or five-demonstration total training."
+    },
+    {
+      "id": "assertion:B047:126",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No real-care/workflow utility-and-harms study. Offline MSE and video ratings are not patient benefit."
+    },
+    {
+      "id": "assertion:B047:127",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "module_implementation_id": "module:B047:wm:dynamics"
+      },
+      "evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Scene prediction operates in video latents before decoding; recursive feedback and latent superiority are not inferred."
+    },
+    {
+      "id": "assertion:B047:128",
+      "subject_id": "model:B047:wm:sata",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "module_implementation_id": "module:B047:wm:dynamics"
+      },
+      "evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:22",
+        "evidence:B047:18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "The specified generator objective is video-velocity matching, not reward/value/policy equivalence. Separate imitation training does not change it."
+    },
+    {
+      "id": "assertion:B047:129",
+      "subject_id": "model:B047:policy:gr00t",
+      "feature_id": "data.provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t",
+        "dataset_version_id": "dataset:B047:bench60"
+      },
+      "evidence_ids": [
+        "evidence:B047:04",
+        "evidence:B047:05",
+        "evidence:B047:06",
+        "evidence:B047:07",
+        "evidence:B047:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Bench/task origin, synchronization, units/frame and preprocessing."
+      ],
+      "criteria_missing": [
+        "Stream version, native sample times, transformation lineage and operator/session identities."
+      ]
+    },
+    {
+      "id": "assertion:B047:130",
+      "subject_id": "model:B047:policy:gr00t",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Shared coordinates and normalization do not establish source-specific semantic/unit conversion mappings."
+    },
+    {
+      "id": "assertion:B047:131",
+      "subject_id": "model:B047:policy:gr00t",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t",
+        "cohort_id": "cohort:B047:policy-test40"
+      },
+      "evidence_ids": [
+        "evidence:B047:15",
+        "evidence:B047:17",
+        "evidence:B047:31"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Last 40 task episodes reserved; remaining task episodes supply training subsets."
+      ],
+      "criteria_missing": [
+        "Training-only normalization and operator/session/duplicate/cross-pool/pretraining overlap audits."
+      ],
+      "rationale": "Episode holdout is not complete leakage control or a clinical temporal split."
+    },
+    {
+      "id": "assertion:B047:132",
+      "subject_id": "model:B047:wm:sata-plus-five",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata-plus-five",
+        "cohort_id": "cohort:B047:video-origins56"
+      },
+      "evidence_ids": [
+        "evidence:B047:14",
+        "evidence:B047:17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Five adaptation trajectories distinguished from declared held-out origins."
+      ],
+      "criteria_missing": [
+        "Overlap/preprocessing audit and pipeline-wide independence; origin-source episodes also train IDM."
+      ]
+    },
+    {
+      "id": "assertion:B047:133",
+      "subject_id": "model:B047:idm:adapted",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:idm:adapted"
+      },
+      "evidence_ids": [
+        "evidence:B047:09",
+        "evidence:B047:17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Operational two-frame encoding for inverse labeling; Figure 3's SigLIP-2 label is recorded in earlier image notes."
+    },
+    {
+      "id": "assertion:B047:134",
+      "subject_id": "model:B047:policy:gr00t",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t"
+      },
+      "evidence_ids": [
+        "evidence:B047:09",
+        "evidence:B047:18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "assertion:B047:135",
+      "subject_id": "model:B047:idm:adapted",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:idm:adapted"
+      },
+      "evidence_ids": [
+        "evidence:B047:17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": "DreamGen pretrained Franka IDM; exact revision/freezing unspecified"
+    },
+    {
+      "id": "assertion:B047:136",
+      "subject_id": "model:B047:policy:gr00t",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t"
+      },
+      "evidence_ids": [
+        "evidence:B047:18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": "GR00T N1.5 checkpoint; not attributed to disputed Figure 14"
+    },
+    {
+      "id": "assertion:B047:137",
+      "subject_id": "model:B047:wm:zero-shot",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:wm:zero-shot"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Foundation encoder/decoder pretraining losses are not established by the surgical adaptation loss."
+    },
+    {
+      "id": "assertion:B047:138",
+      "subject_id": "model:B047:policy:gr00t",
+      "feature_id": "perception.fusion",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t"
+      },
+      "evidence_ids": [
+        "evidence:B047:09"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Image, instruction and robot state jointly condition action prediction, distinct from generator inputs."
+    },
+    {
+      "id": "assertion:B047:139",
+      "subject_id": "model:B047:policy:gr00t",
+      "feature_id": "state.interpretability",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t"
+      },
+      "evidence_ids": [
+        "evidence:B047:04",
+        "evidence:B047:06",
+        "evidence:B047:07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": "Supplied explicit kinematic state only",
+      "rationale": "Named position/orientation/jaw variables are inspectable. Internal latent interpretability and user-interface validation are not inferred."
+    },
+    {
+      "id": "assertion:B047:140",
+      "subject_id": "model:B047:policy:gr00t",
+      "feature_id": "action.parameterized",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t",
+        "time_horizon": "16 future frames; cadence not_reported"
+      },
+      "evidence_ids": [
+        "evidence:B047:06",
+        "evidence:B047:07",
+        "evidence:B047:09",
+        "evidence:B047:15"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Bilateral components, meters, jaw radians, 6D rotations, endoscope frame and frame indexing."
+      ],
+      "criteria_missing": [
+        "Offset/position execution semantics, control cadence and actuator conversion."
+      ]
+    },
+    {
+      "id": "assertion:B047:141",
+      "subject_id": "model:B047:policy:gr00t",
+      "feature_id": "action.schedule",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t",
+        "time_horizon": "16 future video frames"
+      },
+      "evidence_ids": [
+        "evidence:B047:09"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Frame-indexed output sequence, not demonstrated execution or a numerical schedule input to the generator."
+    },
+    {
+      "id": "assertion:B047:142",
+      "subject_id": "model:B047:idm:adapted",
+      "feature_id": "action.grounding",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:idm:adapted"
+      },
+      "evidence_ids": [
+        "evidence:B047:09",
+        "evidence:B047:17",
+        "evidence:B047:20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Embodiment-specific video-to-kinematics mapping trained with measured labels."
+      ],
+      "criteria_missing": [
+        "Standalone held-out pseudo-label precision/calibration and execution validation."
+      ]
+    },
+    {
+      "id": "assertion:B047:143",
+      "subject_id": "model:B047:policy:gr00t",
+      "feature_id": "uq.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Generative action heads do not establish reported per-query uncertainty. Test-error SD is a different quantity."
+    },
+    {
+      "id": "assertion:B047:144",
+      "subject_id": "model:B047:policy:gr00t",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t",
+        "evaluation_run_id": "evaluation:B047:policy-prediction"
+      },
+      "evidence_ids": [
+        "evidence:B047:09",
+        "evidence:B047:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The component predicts command labels, not successor world states. Recorded state/action vector equality does not change the output's operational role."
+    },
+    {
+      "id": "assertion:B047:145",
+      "subject_id": "model:B047:idm:adapted",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B047:idm:adapted"
+      },
+      "evidence_ids": [
+        "evidence:B047:09"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Inverse labeling uses both endpoint observations to infer intervening actions, rather than predicting a forward successor."
+    },
+    {
+      "id": "assertion:B047:146",
+      "subject_id": "model:B047:wm:sata-plus-five",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata-plus-five",
+        "evaluation_run_id": "evaluation:B047:fewshot-generation"
+      },
+      "evidence_ids": [
+        "evidence:B047:13",
+        "evidence:B047:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Future-video quality/completeness evaluated after adaptation."
+      ],
+      "criteria_missing": [
+        "Multiple explicit horizons and horizon-indexed fidelity."
+      ]
+    },
+    {
+      "id": "assertion:B047:147",
+      "subject_id": "model:B047:wm:sata-plus-five",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata-plus-five",
+        "evaluation_run_id": "evaluation:B047:fewshot-generation"
+      },
+      "evidence_ids": [
+        "evidence:B047:13",
+        "evidence:B047:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "FVD results and 56 selected conditioning origins reported."
+      ],
+      "criteria_missing": [
+        "Reference-distribution construction and exact generated-sample protocol for Table 2."
+      ]
+    },
+    {
+      "id": "assertion:B047:148",
+      "subject_id": "model:B047:wm:sata-plus-five",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata-plus-five",
+        "evaluation_run_id": "evaluation:B047:fewshot-generation"
+      },
+      "evidence_ids": [
+        "evidence:B047:13",
+        "evidence:B047:14",
+        "evidence:B047:20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": "Few-shot adapted transfer to a task-specific bench embodiment",
+      "rationale": "Not zero-shot embodiment transfer or independent clinical validation."
+    },
+    {
+      "id": "assertion:B047:149",
+      "subject_id": "model:B047:policy:gr00t",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t",
+        "evaluation_run_id": "evaluation:B047:policy-prediction"
+      },
+      "evidence_ids": [
+        "evidence:B047:15",
+        "evidence:B047:16",
+        "evidence:B047:18",
+        "evidence:B047:31"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "criteria_met": [
+        "Performance compared across sample budgets; optimization steps reported."
+      ],
+      "criteria_missing": [
+        "Hardware/load, measured latency/cost, equal-total-training controls and physical interaction efficiency."
+      ],
+      "rationale": "Main augmented conditions receive additional optimization steps."
+    },
+    {
+      "id": "assertion:B047:150",
+      "subject_id": "model:B047:wm:sata-plus-five",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata-plus-five"
+      },
+      "evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:13",
+        "evidence:B047:14"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Explicit further adaptation retains the described latent-video predictor; no architectural change is reported."
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:B047:version",
+      "subject_id": "paper:B047",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:B047:sha256-8f78e580a544",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "effective_date": "2026-03-11"
+      },
+      "evidence_ids": [
+        "evidence:B047:01",
+        "evidence:B047:02"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B047:study",
+      "subject_id": "paper-version:B047:sha256-8f78e580a544",
+      "predicate_id": "reportsStudy",
+      "object_id": "study:B047:main",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "environment_kind": "mixed"
+      },
+      "evidence_ids": [
+        "evidence:B047:10",
+        "evidence:B047:13",
+        "evidence:B047:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B047:model",
+      "subject_id": "paper-version:B047:sha256-8f78e580a544",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B047:wm:sata",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:10"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B047:compose-wm",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "predicate_id": "composesModel",
+      "object_id": "model:B047:wm:sata-plus-five",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata-plus-five"
+      },
+      "evidence_ids": [
+        "evidence:B047:16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "relation:B047:compose-idm",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "predicate_id": "composesModel",
+      "object_id": "model:B047:idm:adapted",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:idm:adapted"
+      },
+      "evidence_ids": [
+        "evidence:B047:17"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested"
+    },
+    {
+      "id": "relation:B047:compose-policy",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "predicate_id": "composesModel",
+      "object_id": "model:B047:policy:gr00t",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t"
+      },
+      "evidence_ids": [
+        "evidence:B047:18",
+        "evidence:B047:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B047:world",
+      "subject_id": "model:B047:wm:sata",
+      "predicate_id": "modelsWorld",
+      "object_id": "WT_PROCEDURE",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "evidence_ids": [
+        "evidence:B047:03",
+        "evidence:B047:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B047:context",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "predicate_id": "hasUseContext",
+      "object_id": "context:B047:research",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [
+        "evidence:B047:05",
+        "evidence:B047:18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B047:state",
+      "subject_id": "module:B047:wm:dynamics",
+      "predicate_id": "maintainsState",
+      "object_id": "state:B047:video-latent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "module_implementation_id": "module:B047:wm:dynamics"
+      },
+      "evidence_ids": [
+        "evidence:B047:08"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Within-block origin/future state, not recurrent posterior maintenance."
+    },
+    {
+      "id": "relation:B047:M5",
+      "subject_id": "module:B047:wm:dynamics",
+      "predicate_id": "realizesModule",
+      "object_id": "M5",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "module_implementation_id": "module:B047:wm:dynamics"
+      },
+      "evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Transition/emission responsibility, not complete backend pluggability."
+    },
+    {
+      "id": "relation:B047:text-action",
+      "subject_id": "module:B047:wm:dynamics",
+      "predicate_id": "acceptsAction",
+      "object_id": "action:B047:text-behavior",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:matched-prompts"
+      },
+      "evidence_ids": [
+        "evidence:B047:08",
+        "evidence:B047:12",
+        "evidence:B047:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B047:L3",
+      "subject_id": "model:B047:wm:sata",
+      "predicate_id": "demonstratesCapability",
+      "object_id": "L3",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:matched-prompts",
+        "environment_kind": "synthetic_data"
+      },
+      "evidence_ids": [
+        "evidence:B047:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Qualitative matched procedural-command futures, not identified intervention effects."
+    },
+    {
+      "id": "relation:B047:test-cohort",
+      "subject_id": "evaluation:B047:policy-prediction",
+      "predicate_id": "evaluatesOnCohort",
+      "object_id": "cohort:B047:policy-test40",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:policy:gr00t",
+        "cohort_id": "cohort:B047:policy-test40",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [
+        "evidence:B047:15",
+        "evidence:B047:31"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B047:R1",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "predicate_id": "hasReadinessEvidence",
+      "object_id": "R1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B047:policy-prediction",
+        "environment_kind": "physical_phantom"
+      },
+      "evidence_ids": [
+        "evidence:B047:05",
+        "evidence:B047:15",
+        "evidence:B047:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Offline bench-recording feasibility, not patient intervention."
+    },
+    {
+      "id": "relation:B047:R4",
+      "subject_id": "system:B047:synthetic-policy-training",
+      "predicate_id": "hasReadinessEvidence",
+      "object_id": "R4",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:expert-ratings",
+        "environment_kind": "synthetic_data",
+        "population": "One surgeon and two residents"
+      },
+      "evidence_ids": [
+        "evidence:B047:11",
+        "evidence:B047:21",
+        "evidence:B047:30"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "Generator-component reader evidence only, not clinical use of the policy composition."
+    },
+    {
+      "id": "relation:B047:informs-M8",
+      "subject_id": "paper-version:B047:sha256-8f78e580a544",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M8",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "evidence_ids": [
+        "evidence:B047:18",
+        "evidence:B047:19",
+        "evidence:B047:20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Synthetic-assisted policy-training relevance, not proof of evaluated L4 control."
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:B047:01",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Title"
+      },
+      "content": "Cosmos-H-Surgical: Learning Surgical Robot\nPolicies from Videos via World Modeling",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:02",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "arXiv margin"
+      },
+      "content": "arXiv:2512.23162v4  [cs.RO]  11 Mar 2026",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:03",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 4,
+        "section_or_table": "3.1 SATA"
+      },
+      "content": "action–text alignment dataset comprising 2,447\nexpert-annotated video clips (over 300k frames)\ncollected across 8 different surgery types. Each clip\ncaptures one of four fundamental actions: needle\ngrasping (689), needle puncture (989), suture pulling\n(475), and knotting (294), which provides diverse\nvisualandproceduralcoverage. SATAiscuratedbyag-\ngregating and re-annotating videos from credentialed\nYouTube surgical channels [32] and publicly available\ndatasets, including GraSP [33], SAR-RARP50 [34],\nMultiypass140 [35], SurgicalActions160 [36], Auto-\nLaparo [37], and HeiCo [38].",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:04",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 4,
+        "section_or_table": "3.1 demonstrations and state"
+      },
+      "content": "We collected a total of 60 successful human-\nteleoperated demonstrations for training and testing.\nEach episode includes synchronized endoscopic video\n(average length: 217 frames) and corresponding action\nkinematics. In addition to these task-specific demon-\nstrations, we also utilized 66 out-of-domain episodes\n(around 60k action frames pairs) depicting general\nrobot movements unrelated to the needle pickup task.\nThese data are used to pretrain a foundational inverse\ndynamics model (IDM) for the surgical robot, provid-\ning transferable motion understanding across tasks.\nThe robot states are the same as the action\nkinematics with the same dimension and values.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:05",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 4,
+        "section_or_table": "3.1 bench setting"
+      },
+      "content": "we evaluate\nour method using the “Needle Pickup and Hand-Over”\ntask on rubber pad. The experiments are conducted\non a commercial endoscopic surgical system (robot\nand manufacturer anonymized), which consists of a\nstereo endoscope and two articulated robotic forceps\n(left and right arms).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:06",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 5,
+        "section_or_table": "3.1 translation"
+      },
+      "content": "represents the translational\noffset (cartesian coordinates) of the left forcep tip\nwith respect to the endoscope frame (represented\nby meters).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:07",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 5,
+        "section_or_table": "3.1 jaw and reference frame"
+      },
+      "content": "indicates the gripper jaw opening in\nradians.\nThe same definitions apply for the right forcep\nwithp 𝑅,r 𝑅, and𝑔𝑅. This yields a total of 20 control\ndimensions. All translation and rotation components\nare expressed relative to the endoscope’s coordinate\nframe to ensure view-consistent control.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:08",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 5,
+        "section_or_table": "3.2 LoRA and scene prediction"
+      },
+      "content": "We adopt Low-Rank Adaptation (LoRA) [41] to effi-\ncientlyspecializeCosmos-Predict2.5[ 1]forthesurgical\ndomain while preserving its general video modeling\ncapabilities. LoRAmodulesareinsertedintothetrans-\nformer’s attention and feed-forward layers, enabling\nparameter-efficient finetuning with minimal forgetting.\nDuring adaptation, the model learns to predict future\nlatent video frames conditioned on an initial observa-\ntion and text prompt. Given an initial frame𝐼0, the\nworld model produces a rollout^𝐼1 :𝑇 =𝒲𝜃 (𝐼0), where\n𝒲𝜃 denotes Cosmos-Predict2.5 [1] augmented with\nLoRA adapters. A spatiotemporal encoder extracts\nfeatures from𝐼0, a transformer-based latent dynamics\nmodule models temporal evolution, and a decoder re-\nconstructs the predicted frames.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:09",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 5,
+        "section_or_table": "3.3 IDM and policy"
+      },
+      "content": "These two\nmodels predict robotic actions with DIT [44] and flow\nmatching heads [42]. The major difference is that\nIDM’s inputs are two frames from the same video\n(T = 16 frames apart), and the model predicts the\nrobot actions for every frame between these two input\nframes, while the GR00T policy model takes the\ncurrent frame and text prompt, together with the\nrobot state to predict the actions for future 16 frames.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:10",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "table",
+        "page": 6,
+        "section_or_table": "Table 1"
+      },
+      "content": "Method FVD↓DD↑IQ↑OC↑\nZero-shot 175.4 26.9 48.7 18.0\nAction-category 143.0 26.5 49.0 18.1\nCosmos-H-Surgical106.5 62.4 49.3 21.5",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:11",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 6,
+        "section_or_table": "Human Expert Evaluation"
+      },
+      "content": "Three surgical\nexperts (one surgeon supervising two residents)\nindependently evaluated 50 video samples generated\nby different world model variants using athree-level\nclinical quality rubric(scores from 1 to 3, higher\nis better) across the following criteria:",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:12",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 6,
+        "section_or_table": "New Behavior Generalization; Figure 5 displayed on page 7"
+      },
+      "content": "Figure 5 presents representative video rollouts gen-\nerated from the same conditioning frame under four\ndistinct textual prompts: one-time/two-time/three-\ntime needle handover, and needle puncture. The\nmulti-step handover cases are particularly noteworthy,\nbecause during data curation all multi-time handovers\nare decomposed into single handover segments.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:13",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "table",
+        "page": 7,
+        "section_or_table": "Table 2"
+      },
+      "content": "Method FT PT SR↑FVD↓DD↑IQ↑OC↑\nZero-shot✗ ✗0.0 235.2 53.6 70.3 20.1\nFinetuned-Orig✓ ✗51.8 212.5 85.7 72.0 21.1\nCosmos-H-Surgical✓ ✓73.2 207.1 89.3 73.3 22.4",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:14",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 7,
+        "section_or_table": "Few-Shot Adaptation"
+      },
+      "content": "Forevaluation,wegenerate\nvideosfrom56hold-outinitialframesselectedfrom\nthe 66 out-of-domain episodes described in Section 3.1.\nThese frames are chosen based on proper initial needle\nand forceps configurations to ensure physically mean-\ningfultaskinitializationandcomparablescenecontext.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:15",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 8,
+        "section_or_table": "4.2 split and preprocessing"
+      },
+      "content": "For the 60 human teleoperated data from surgical\nrobots, we split the last 40 as held out test set. For the\nrest of the data we perform experiments by gradually\nincreasing the training data number. We use 5, 10,\nand 20 data for finetuning the world model, IDM, and\nthe GR00T policy. All videos are resized to 224×224\nand augmented with color jitter, and the jaw opening\nand cartesian actions are normalized with min-max\nnormalization.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:16",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 8,
+        "section_or_table": "World Model Rollouts"
+      },
+      "content": "We finetune Cosmos-\nH-Surgical using 5, 10, and 20 real-world videos and\neach finetuned model is used to generate synthetic\nvideos conditioned on the initial frames from the\nout-of-domain episodes. In total, two sets of56\nsingle-rollout(1×) and560 multi-rollout(10×,\ngenerated with 10 random seeds) synthetic videos are\ngenerated for each data regime.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:17",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 8,
+        "section_or_table": "IDM training"
+      },
+      "content": "IDM model training, we use the out-of-the-domain\nepisodes together with varying 5, 10, 20 (thus three\nseparate IDMs) training episodes. We started from\nthe pretrained Franka IDM checkpoint from Dream-\nGen [5] and finetuned the model for 10k steps with a\nlearningrateof1e-4. TheIDMisthenusedtogenerate\npseudo-labeled kinematics for the synthetic videos.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:18",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 8,
+        "section_or_table": "Policy training"
+      },
+      "content": "we start from the pretrained GR00T N1.5 checkpoint\nwhichisastrongstartingpoint. Ourbasepolicy(Real\nOnly) is the model finetuned only with 5, 10, 20\nreal training data with learning rate 1e-4, 200 steps.\nFor 56 and 560 synthetic data (Real+Synthetic,\nReal+Synthetic 10x), we first finetune with learn-\ning rate 1e-4 for 400 steps, then we further finetune\nwith 5, 10, 20 real training data with learning rate\n1e-4 and 200 steps.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:19",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 8,
+        "section_or_table": "Policy evaluation"
+      },
+      "content": "We calculate the\nmean square error (MSE) for all 20 dimension action\nprediction compared with groundtruth and averaged\nacross all test data. The result is shown in Fig. 8. We\nseparate the cartesian, rotation and jaw since they\nhave different physical meaning.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:20",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 8,
+        "section_or_table": "Conclusion limitations"
+      },
+      "content": "It requires finetuning datasets from unseen robot\nembodiments for both world model and IDM, which\nrequire additional data curation efforts. Meanwhile,\npseudo-kinematics from IDM still lack ground-truth\nprecisionandmayintroduceresidualnoise.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:21",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 12,
+        "section_or_table": "Supplementary Section 6"
+      },
+      "content": "a human expert study with 3 surgical experts (one\nsurgeon guides two residents to rate generated videos).\nEach expert independently evaluated 50 videos\ngenerated by different world model variants using a\nthree-level clinical quality rubric(scores from 1\nto 3, higher is better) across the following criteria:",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:22",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 12,
+        "section_or_table": "Supplementary Section 7"
+      },
+      "content": "The model predicts this velocity via a network\n𝑢𝜃(𝐼𝑡,𝑡,𝑐), where𝑐 represents the conditioning frame\n𝐼0 and corresponding text prompt, and parameters\n𝜃 correspond to the trainable LoRA adapters. The\nflow-matching loss is then the mean squared error\n(MSE) between predicted and ground-truth velocities:",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:23",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 13,
+        "section_or_table": "8.2 single-view generation"
+      },
+      "content": "SurgeWorldgeneratesonlysingle-viewsynthetic\nvideos. However, downstream surgical robots may use\nmultiple cameras for multi-view policy learning.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:24",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 13,
+        "section_or_table": "8.2 other VLA"
+      },
+      "content": "WesimplychangetheGR00Tpolicyto\n𝜋0.5 and repeated the experiments as shown in Fig. 14.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:25",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "table",
+        "page": 14,
+        "section_or_table": "Table 3"
+      },
+      "content": "Dataset Knotting Needle Grasping Needle Puncture Suture Pulling\nAutoLaparo [37] 47 9 42 30\nGraSP [33] 37 – 1 28\nHeiCo [38] 16 3 6 4\nMultiypass140 [35] 1 – – –\nSAR-RARP50 [34] 118 677 940 413\nSurgicalActions160 [36] 7 – – –\nYouTube [32] 68 – – –",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:26",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "figure",
+        "page": 14,
+        "section_or_table": "Figure 12 caption"
+      },
+      "content": "1k step finetuning: Trajectory MSE (Standard deviation) on 40 test data.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:27",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "figure",
+        "page": 15,
+        "section_or_table": "Figure 13 caption"
+      },
+      "content": "10k step finetuning. Trajectory MSE (Standard deviation) on 40 test data.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:28",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "figure",
+        "page": 15,
+        "section_or_table": "Figure 14 caption"
+      },
+      "content": "starting from GR00T N1.5 pretrained checkpoint (Real)",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:29",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Asset links"
+      },
+      "content": "Code:https://github.com/NVIDIA-Medtech/Cosmos-H-Surgical\nModel:https://huggingface.co/nvidia/Cosmos-H-Surgical",
+      "verification_status": "occurrence_only"
+    },
+    {
+      "id": "evidence:B047:30",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "figure",
+        "page": 7,
+        "section_or_table": "Figure 6 labels; spatial mapping supplied by earlier image-review notes"
+      },
+      "content": "2.79\n2.81\n2.73\n2.82\n2.18\n1.86\n2.23\n2.45\n1.38\n1.14\n1.26\n1.73",
+      "verification_status": "occurrence_only"
+    },
+    {
+      "id": "evidence:B047:31",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "figure",
+        "page": 9,
+        "section_or_table": "Figure 8 caption"
+      },
+      "content": "Trajectory MSE (Standard deviation) on 40 test data.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:32",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 7,
+        "section_or_table": "Generated-video completeness criterion, continued on page 8"
+      },
+      "content": "To assess the success\nrate, surgical experts evaluate the completeness of the",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:B047:33",
+      "source_ref": "Papers/Expanded_Collection/B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+      "source_version": "paper-version:B047:sha256-8f78e580a544",
+      "source_hash": "8f78e580a5447d2244c343d03f4aac0294932717e56fd06e1a6cc4d07a7f47b9",
+      "locator": {
+        "kind": "section",
+        "page": 8,
+        "section_or_table": "Completeness criterion continuation and Table 2 result"
+      },
+      "content": "trajectories in the generated videos.\nAsshowninTable2,Cosmos-H-Surgicalachievesthe\nbestoverallperformance,witha73.2%successrateand\nthelowestFVDamongallvariants.",
+      "verification_status": "entailment_reviewed"
+    }
+  ],
+  "metric_results": [
+    {
+      "id": "metric:B047:t1-sata",
+      "metric": "Table 1 video-generation metric vector",
+      "value": {
+        "FVD": 106.5,
+        "DD": 62.4,
+        "IQ": 49.3,
+        "OC": 21.5
+      },
+      "unit_or_scale": "Reported benchmark scores; FVD lower better, DD/IQ/OC higher per paper",
+      "direction": "context_dependent",
+      "task": "SATA surgical-video generation",
+      "cohort_id": "cohort:B047:sata-evaluation",
+      "split_role": "Evaluation; partition and count not_reported",
+      "horizon": "Future video block; extent not_reported",
+      "model_version_id": "model:B047:wm:sata",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "evidence:B047:10"
+      ]
+    },
+    {
+      "id": "metric:B047:t1-category",
+      "metric": "Table 1 video-generation metric vector",
+      "value": {
+        "FVD": 143.0,
+        "DD": 26.5,
+        "IQ": 49.0,
+        "OC": 18.1
+      },
+      "unit_or_scale": "Reported benchmark scores; FVD lower better, DD/IQ/OC higher per paper",
+      "direction": "context_dependent",
+      "task": "SATA surgical-video generation",
+      "cohort_id": "cohort:B047:sata-evaluation",
+      "split_role": "Evaluation; partition and count not_reported",
+      "horizon": "Future video block; extent not_reported",
+      "model_version_id": "model:B047:wm:action-category",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "evidence:B047:10"
+      ]
+    },
+    {
+      "id": "metric:B047:t1-zero",
+      "metric": "Table 1 video-generation metric vector",
+      "value": {
+        "FVD": 175.4,
+        "DD": 26.9,
+        "IQ": 48.7,
+        "OC": 18.0
+      },
+      "unit_or_scale": "Reported benchmark scores; FVD lower better, DD/IQ/OC higher per paper",
+      "direction": "context_dependent",
+      "task": "SATA surgical-video generation",
+      "cohort_id": "cohort:B047:sata-evaluation",
+      "split_role": "Evaluation; partition and count not_reported",
+      "horizon": "Future video block; extent not_reported",
+      "model_version_id": "model:B047:wm:zero-shot",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "evidence:B047:10"
+      ]
+    },
+    {
+      "id": "metric:B047:t2-sata",
+      "metric": "Table 2 generated-video completeness and quality vector",
+      "value": {
+        "SR_percent": 73.2,
+        "FVD": 207.1,
+        "DD": 89.3,
+        "IQ": 73.3,
+        "OC": 22.4
+      },
+      "unit_or_scale": "SR percent; other benchmark scores. FVD lower better, remaining directions higher per paper",
+      "direction": "context_dependent",
+      "task": "Five-trajectory adaptation; SR is expert-judged generated-video completeness, not physical policy success",
+      "cohort_id": "cohort:B047:video-origins56",
+      "split_role": "56 selected origins; exact generated-sample/rater denominator incompletely specified",
+      "horizon": "Generated task video; duration not_reported",
+      "model_version_id": "model:B047:wm:sata-plus-five",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "evidence:B047:13",
+        "evidence:B047:14",
+        "evidence:B047:32",
+        "evidence:B047:33"
+      ]
+    },
+    {
+      "id": "metric:B047:t2-original",
+      "metric": "Table 2 generated-video completeness and quality vector",
+      "value": {
+        "SR_percent": 51.8,
+        "FVD": 212.5,
+        "DD": 85.7,
+        "IQ": 72.0,
+        "OC": 21.1
+      },
+      "unit_or_scale": "SR percent; other benchmark scores. FVD lower better, remaining directions higher per paper",
+      "direction": "context_dependent",
+      "task": "Direct five-trajectory adaptation without SATA; generated-video evaluation",
+      "cohort_id": "cohort:B047:video-origins56",
+      "split_role": "Selected origins; reference/sample construction incomplete",
+      "horizon": "Generated task video; duration not_reported",
+      "model_version_id": "model:B047:wm:original-plus-five",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "evidence:B047:13",
+        "evidence:B047:32",
+        "evidence:B047:33"
+      ]
+    },
+    {
+      "id": "metric:B047:t2-zero",
+      "metric": "Table 2 generated-video completeness and quality vector",
+      "value": {
+        "SR_percent": 0.0,
+        "FVD": 235.2,
+        "DD": 53.6,
+        "IQ": 70.3,
+        "OC": 20.1
+      },
+      "unit_or_scale": "SR percent; other benchmark scores. FVD lower better, remaining directions higher per paper",
+      "direction": "context_dependent",
+      "task": "Zero-shot bench-scene video generation",
+      "cohort_id": "cohort:B047:video-origins56",
+      "split_role": "Selected origins; reference/sample construction incomplete",
+      "horizon": "Generated task video; duration not_reported",
+      "model_version_id": "model:B047:wm:zero-shot",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "evidence:B047:13",
+        "evidence:B047:32",
+        "evidence:B047:33"
+      ]
+    },
+    {
+      "id": "metric:B047:expert-sata",
+      "metric": "Figure 6 mean expert-rating vector",
+      "value": {
+        "alignment": 2.81,
+        "tool_consistency": 2.73,
+        "anatomical_structure": 2.82,
+        "displayed_average": 2.79
+      },
+      "unit_or_scale": "Means of ordinal 1–3 ratings; displayed average copied, not calculated",
+      "direction": "higher_better",
+      "task": "Generated-video review; spatial value mapping from earlier image-review notes",
+      "cohort_id": "human-study:B047:expert-ratings",
+      "split_role": "50 samples/videos as described; unique allocation ambiguous",
+      "horizon": "Whole generated video; duration not_reported",
+      "model_version_id": "model:B047:wm:sata",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "evidence:B047:11",
+        "evidence:B047:21",
+        "evidence:B047:30"
+      ]
+    },
+    {
+      "id": "metric:B047:expert-category",
+      "metric": "Figure 6 mean expert-rating vector",
+      "value": {
+        "alignment": 1.86,
+        "tool_consistency": 2.23,
+        "anatomical_structure": 2.45,
+        "displayed_average": 2.18
+      },
+      "unit_or_scale": "Means of ordinal 1–3 ratings; displayed average copied, not calculated",
+      "direction": "higher_better",
+      "task": "Generated-video review; spatial value mapping from earlier image-review notes",
+      "cohort_id": "human-study:B047:expert-ratings",
+      "split_role": "50 samples/videos as described; unique allocation ambiguous",
+      "horizon": "Whole generated video; duration not_reported",
+      "model_version_id": "model:B047:wm:action-category",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "evidence:B047:11",
+        "evidence:B047:21",
+        "evidence:B047:30"
+      ]
+    },
+    {
+      "id": "metric:B047:expert-zero",
+      "metric": "Figure 6 mean expert-rating vector",
+      "value": {
+        "alignment": 1.14,
+        "tool_consistency": 1.26,
+        "anatomical_structure": 1.73,
+        "displayed_average": 1.38
+      },
+      "unit_or_scale": "Means of ordinal 1–3 ratings; displayed average copied, not calculated",
+      "direction": "higher_better",
+      "task": "Generated-video review; spatial value mapping from earlier image-review notes",
+      "cohort_id": "human-study:B047:expert-ratings",
+      "split_role": "50 samples/videos as described; unique allocation ambiguous",
+      "horizon": "Whole generated video; duration not_reported",
+      "model_version_id": "model:B047:wm:zero-shot",
+      "uncertainty_status": "not_reported",
+      "source_evidence_ids": [
+        "evidence:B047:11",
+        "evidence:B047:21",
+        "evidence:B047:30"
+      ]
+    }
+  ],
+  "capability_assessments": [
+    {
+      "subject_id": "model:B047:wm:sata",
+      "level": "L3",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:matched-prompts",
+        "environment_kind": "synthetic_data"
+      },
+      "evidence_assertion_ids": [
+        "assertion:B047:019",
+        "assertion:B047:041",
+        "assertion:B047:042",
+        "assertion:B047:031",
+        "assertion:B047:043",
+        "assertion:B047:039"
+      ],
+      "rationale": "Four settable procedural-text alternatives produce compared future scenes from the same origin. Functional qualitative L3 does not establish numerical-control dynamics or causal identification. Separate one-step fidelity and all lower-level tests are not inherited. A synthetic-assisted policy is implemented, but offline command imitation is insufficient here for demonstrated L4 decision/control capability. Horizon description: Qualitative same-origin multiframe alternatives; duration not_reported. No numerical horizon is reported for Figure5. The scope retains the exact model and matched-prompt evaluation; implementation descriptions of that same model are not different tested time regimes."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "system:B047:synthetic-policy-training",
+      "facets": [
+        "R1"
+      ],
+      "environment_kind": "physical_phantom",
+      "scope": {
+        "evaluation_run_id": "evaluation:B047:policy-prediction",
+        "endpoint": "Offline command prediction from rubber-pad demonstrations",
+        "boundary": "Bench recordings, not learned-policy closed-loop execution or actual human clinical validation"
+      },
+      "evidence_ids": [
+        "evidence:B047:04",
+        "evidence:B047:05",
+        "evidence:B047:15",
+        "evidence:B047:19"
+      ],
+      "legacy_highest_label": null
+    },
+    {
+      "subject_id": "model:B047:wm:sata",
+      "facets": [
+        "R4"
+      ],
+      "environment_kind": "synthetic_data",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:expert-ratings",
+        "endpoint": "Author-reported surgeon/resident video ratings",
+        "boundary": "Human video-reader assessment of the generator component only; not composed-policy effectiveness, autonomous care, patient validation or an independent replication."
+      },
+      "evidence_ids": [
+        "evidence:B047:11",
+        "evidence:B047:21",
+        "evidence:B047:30"
+      ],
+      "legacy_highest_label": "R4 Expert / reader evaluation"
+    }
+  ],
+  "gate_assessments": [
+    {
+      "gate_id": "G01",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "context:B047:research"
+      },
+      "rationale": "Source attribution and episode holdout are partial. Overlap, availability semantics and training-only preprocessing are insufficiently established.",
+      "supporting_assertion_ids": [
+        "assertion:B047:001",
+        "assertion:B047:010",
+        "assertion:B047:129",
+        "assertion:B047:131",
+        "assertion:B047:132"
+      ]
+    },
+    {
+      "gate_id": "G02",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "rationale": "Learned scene prediction exists; scope-matched successor-reference fidelity is not established by whole-video realism alone.",
+      "supporting_assertion_ids": [
+        "assertion:B047:019",
+        "assertion:B047:041",
+        "assertion:B047:042",
+        "assertion:B047:053"
+      ]
+    },
+    {
+      "gate_id": "G03",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata"
+      },
+      "rationale": "Generator maximum extent, cadence, drift curve, acceptance tolerance and effective horizon are unreported.",
+      "supporting_assertion_ids": [
+        "assertion:B047:054",
+        "assertion:B047:057",
+        "assertion:B047:058",
+        "assertion:B047:059",
+        "assertion:B047:113"
+      ]
+    },
+    {
+      "gate_id": "G04",
+      "status": "not_applicable",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "purpose": "Descriptive video generation and augmentation"
+      },
+      "rationale": "The adopted research interpretation asserts neither probabilistic guarantees nor uncertainty-dependent decisions. Calibration remains not_reported; risk-dependent use would make this gate applicable."
+    },
+    {
+      "gate_id": "G05",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:matched-prompts"
+      },
+      "rationale": "Semantic commands and matched alternatives exist; sufficient parameterization, timing and context-conditioned support remain unresolved.",
+      "supporting_assertion_ids": [
+        "assertion:B047:031",
+        "assertion:B047:033",
+        "assertion:B047:034",
+        "assertion:B047:038",
+        "assertion:B047:039",
+        "assertion:B047:043"
+      ]
+    },
+    {
+      "gate_id": "G06",
+      "status": "not_applicable",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "purpose": "Exploratory generated-video alternatives"
+      },
+      "rationale": "No identified intervention-effect interpretation is adopted. Therapeutic or physically identified effect assurance would require a separate causal/mechanistic assessment."
+    },
+    {
+      "gate_id": "G07",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "context:B047:research",
+        "purpose": "Downstream robot-policy capability"
+      },
+      "rationale": "An assisted policy is implemented, but sufficient decision/control endpoints and exploitation/mismatch tests are missing.",
+      "supporting_assertion_ids": [
+        "assertion:B047:062",
+        "assertion:B047:063",
+        "assertion:B047:067",
+        "assertion:B047:120"
+      ]
+    },
+    {
+      "gate_id": "G08",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "context:B047:research",
+        "purpose": "Proposed physical surgical-policy use"
+      },
+      "rationale": "Hazard-matched guards, abstention, safe stop and escalation tests are unreported. Safe autonomy is not established.",
+      "supporting_assertion_ids": [
+        "assertion:B047:085",
+        "assertion:B047:086",
+        "assertion:B047:087",
+        "assertion:B047:089"
+      ]
+    },
+    {
+      "gate_id": "G09",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "context:B047:research",
+        "purpose": "Composition and embodiment transfer"
+      },
+      "rationale": "Qualitative composition and adapted-transfer tests exist, but overlap controls and independent composition validation remain insufficient.",
+      "supporting_assertion_ids": [
+        "assertion:B047:122",
+        "assertion:B047:148",
+        "assertion:B047:131",
+        "assertion:B047:132"
+      ]
+    },
+    {
+      "gate_id": "G10",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B047:wm:sata",
+        "evaluation_run_id": "evaluation:B047:expert-ratings",
+        "purpose": "Credible human plausibility assessment"
+      },
+      "rationale": "Actual ratings establish R4 existence; sampling, allocation, guidance, blinding and reliability remain insufficient for an assurance pass.",
+      "supporting_assertion_ids": [
+        "assertion:B047:115",
+        "assertion:B047:124"
+      ]
+    },
+    {
+      "gate_id": "G11",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "context:B047:research",
+        "purpose": "Offline generation and bench-recording study"
+      },
+      "rationale": "The demonstrated use is not live patient/workflow benefit evaluation. Prospective utility remains not_reported."
+    },
+    {
+      "gate_id": "G12",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "context:B047:research",
+        "purpose": "Research artifact without established operational product release"
+      },
+      "rationale": "No defined operational product/use/jurisdiction release is established. Research links do not authorize clinical use; asset access and governance remain unresolved."
+    }
+  ],
+  "legacy_cells": {
+    "A": "B047",
+    "B": "Cosmos-H-Surgical: Learning Surgical Robot Policies from Videos via World Modeling",
+    "C": "He, Yufan, Guo, Pengfei, Xu, Mengya, Li, Zhaoshuo, Myronenko, Andriy, Imans, Dillan, et al.",
+    "D": "2026",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://arxiv.org/abs/2512.23162",
+    "H": "Papers/Expanded_Collection (B)",
+    "I": "B047_Cosmos_H_Surgical_Learning_Surgical_Robot_Policies_from_Videos_via_World_Modeling.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not reported",
+    "N": "Surgery (general / robotic)",
+    "O": "Not reported",
+    "P": "Not reported",
+    "Q": "Procedure / scene (surgery, acquisition)",
+    "R": "Surgical simulation / video generation",
+    "S": "Whether text-conditioned surgical video rollouts and inverse-dynamics pseudo-kinematics can improve a robot policy for needle pick-up and hand-over.",
+    "T": "Not reported",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "World model",
+    "X": "F8 Surgical simulation & world-action models",
+    "Y": "Pixel/voxel generative (diffusion / flow / video)",
+    "Z": "L2 Action-conditioned prediction",
+    "AA": "L2 Action-conditioned prediction",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "Yes",
+    "AE": "Yes",
+    "AF": "Yes",
+    "AG": "No",
+    "AH": "Serial pipeline",
+    "AI": "Endoscopic surgical video frames; text descriptions/prompts; robot-state/action kinematics",
+    "AJ": "Spatiotemporal encoder; transformer-based latent dynamics module; video decoder",
+    "AK": "Cosmos-Predict2.5 pretrained video model; GR00T N1.5 policy checkpoint; pretrained Franka IDM checkpoint from DreamGen",
+    "AL": "Not reported",
+    "AM": "Not reported",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Continuous latent vector",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Not reported",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Procedure / surgery",
+    "BC": "Text / language",
+    "BD": "Text prompts describe instruments, spatial relationships, anatomy, and tool–tissue interaction; robot kinematics are a separate 20-dimensional continuous action vector.",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "Cosmos-H-Surgical; inverse dynamics model (IDM); GR00T N1.5",
+    "BJ": "Diffusion",
+    "BK": "Not reported",
+    "BL": "Not reported",
+    "BM": "Yes",
+    "BN": "Not reported",
+    "BO": "Not reported",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Future latent video frames decoded into surgical video rollouts; IDM-generated pseudo-kinematics paired with generated videos for policy training.",
+    "BT": "Not reported",
+    "BU": "Not reported",
+    "BV": "Flow-matching objective: mean squared error between predicted and ground-truth latent velocities.",
+    "BW": "Not reported",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "Open-loop multi-step",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "Not reported",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Not reported",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Generative sampling (diffusion / flow)",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "None (predictive only)",
+    "CU": "None",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not reported",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Yes",
+    "DN": "SATA; YouTube surgical videos; GraSP; SAR-RARP50; Multiypass140; SurgicalActions160; AutoLaparo; HeiCo; human-teleoperated robot demonstrations; out-of-domain robot episodes",
+    "DO": "Not reported",
+    "DP": "Not reported",
+    "DQ": "SATA: 2,447 expert-annotated clips, over 300k frames, across 8 surgery types; 60 successful human-teleoperated demonstrations; 66 out-of-domain robot episodes.",
+    "DR": "Not reported",
+    "DS": "Both",
+    "DT": "Not reported",
+    "DU": "Multiple",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "SATA video generation: Cosmos-H-Surgical FVD 106.5, VBench dynamic degree 62.4, imaging quality 49.3, overall consistency 21.5; zero-shot FVD 175.4 and action-category FVD 143.0.",
+    "EA": "Three surgical experts rated generated videos on text–video alignment, tool consistency, and anatomical structure using a 1–3 rubric; Cosmos-H-Surgical had the highest ratings across all dimensions.",
+    "EB": "Not reported",
+    "EC": "Generated-video task success rate: 73.2% for Cosmos-H-Surgical, 51.8% for Finetuned-Orig, and 0.0% for Zero-shot.",
+    "ED": "Not reported",
+    "EE": "Independent ratings of 50 generated video samples by three surgical experts, using a three-level rubric for text–video alignment, tool consistency, and anatomy.",
+    "EF": "3 surgical experts: one surgeon supervising two residents.",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Video-generation baselines: Zero-shot (FVD 175.4) and Action-category (FVD 143.0), versus Cosmos-H-Surgical (FVD 106.5). Few-shot video success: Zero-shot 0.0%, Finetuned-Orig 51.8%, Cosmos-H-Surgical 73.2%.",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Reported failures include hallucinated incorrect instruments in Zero-shot generation, wrong action initiation by Action-category generation, and residual noise/inaccuracy in IDM pseudo-kinematics.",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Yes",
+    "ET": "R4 Expert / reader evaluation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Yes – public repository",
+    "EX": "https://github.com/NVIDIA-Medtech/Cosmos-H-Surgical",
+    "EY": "Yes",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "A visual latent state: a spatiotemporal encoder maps the conditioning frame to latent features, latent dynamics predict future video frames, and a decoder reconstructs them; text conditions generation.",
+    "FC": "1 – minimal",
+    "FD": "0 – absent",
+    "FE": "1 – minimal",
+    "FF": "0 – absent",
+    "FG": "Yes",
+    "FH": "No",
+    "FI": "Not applicable",
+    "FJ": "No",
+    "FK": "Yes",
+    "FL": "Initial surgical frame and text prompt → spatiotemporal encoder → transformer-based latent video dynamics trained with flow matching → decoded future frames. IDM maps video-frame pairs to pseudo robot kinematics. Generated video–action pairs augment real demonstrations to train GR00T N1.5, which predicts future robot actions from frame, prompt, and robot state; no world-model planner is described.",
+    "FM": "The authors curate SATA, fine-tune Cosmos-Predict2.5 into Cosmos-H-Surgical for surgical video generation, and combine generated video with IDM pseudo-kinematics to augment surgical robot policy training.",
+    "FN": "On SATA, Cosmos-H-Surgical reached FVD 106.5 (versus 143.0 action-category and 175.4 zero-shot). In few-shot video evaluation it achieved 73.2% success (versus 51.8% Finetuned-Orig and 0.0% Zero-shot). Authors report lower action-prediction MSE with synthetic data, but plotted MSE values were not transcribed.",
+    "FO": "The model requires embodiment-specific fine-tuning data for both the world model and IDM; IDM pseudo-kinematics lack ground-truth precision and may contain residual noise; SATA does not cover all publicly available datasets.",
+    "FP": "Extend SATA to more complex and broader procedures and improve IDM pseudo-kinematics.",
+    "FQ": "The authors identify a scarcity of surgical datasets pairing high-fidelity video with synchronized robot kinematics/control, and limitations in prior work around narrow tasks, weak text grounding, and lack of kinematic integration.",
+    "FR": "Evidence supports text-conditioned surgical video generation and offline robot-policy data augmentation, not identified treatment effects, clinical benefit, autonomous in-vivo surgery, or broad generalization across embodiments/procedures. The robot-policy evaluation is on held-out demonstrations; expert ratings concern generated videos.",
+    "FS": "Reviewer mapping: M3 Belief-state service; M4 Action service; M5 Dynamics adapter; M6 Rollout service; M7 Outcome & causal layer",
+    "FT": "Reviewer lesson: Pass the paper’s specified action and time context explicitly into the state-transition interface; preserve the boundary between predictive action sensitivity and identified intervention effects.",
+    "FU": "Reviewer mapping (KB §20): Weak interventional validation",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Full extracted PDF pp. 1–15: title/abstract, introduction, related work, Methods §§3.1–3.3, Experiments §§4.1–4.2, conclusion/limitations, references, and supplementary material including expert-rating criteria, training objective, additional results, and Table 3. Tables 1–3 and figure captions were inspected; plotted chart values were not relied on where text extraction was unclear. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "The prefilled year 2025 is directly contradicted by the PDF version header dated 11 Mar 2026; D is corrected. Most quantitative text tables were readable, but some plotted figure values (notably the human-rating radar and action-MSE graphs) were not reliably extractable and were not transcribed. The supplied files did not include the referenced KB §19–20 crosswalk, so no module/open-problem IDs are assigned. Evidence QA: 29/68 populated fields had a <=25-word quotation matching extracted PDF text (42.6%). Confidence is conservative; review this row where exact quote checks were incomplete. Schema normalization (source details retained): DU normalized to 'Multiple'; source detail: For the 60 teleoperated episodes, the last 40 were held out for testing; training used 5, 10, or 20 demonstrations. World-model evaluation also used 56 hold-out initial frames from 66 out-of-domain episodes. Codex audit: 62 prior populated fields have a located source quotation; 8 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "Automated model review, not independent human verification or replication.",
+    "This synthesis read complete supplied text and all earlier image-review notes but received no image pixels. Earlier API page-call provenance reports image/text coverage of all 15 physical pages.",
+    "The supplied hash and page-call receipts were not independently recomputed or queried. No executable schema, coverage, quotation or graph validation ran in this call.",
+    "Raw legacy cells are copied from the supplied candidate. Their historical extraction and restoration claims are not independently verified here; no external immutable workbook comparison was possible.",
+    "Core membership concerns learned block-predictive procedural-scene evolution, not recurrent belief filtering or a clinically validated physical simulator.",
+    "L3 rests on selected qualitative same-origin procedural-text alternatives. Numerical robot controls are IDM targets/policy outputs, not demonstrated generator inputs.",
+    "Policy evaluation is offline command MSE. Table 2 success is generated-video completeness, not learned-policy robot execution. Demonstrated L4 is not established.",
+    "R1 and generator-component R4 are supported. Held-out actual human/clinical R2 validation, independent clinical R3 validation and prospective clinical facets are not established.",
+    "Generator maximum extent, frame cadence, recursive feedback, drift and effective horizon are unreported. Flow interpolation, video time and optimization iterations are separate coordinates.",
+    "SATA evaluation partition, source/patient/recording overlap and annotation agreement are insufficiently specified. Table 3 dashes and dataset spelling remain as reported.",
+    "The selected 56 origins come from a pool also used for IDM training. Declared holdout is component-specific, not pipeline-wide independence.",
+    "Independent scoring and surgeon guidance are both reported. Unique video allocation, blinding, agreement and rating uncertainty remain unclear.",
+    "Figure 6 axis/value mappings rely on earlier image-review notes; extracted labels alone prove occurrence, not spatial assignment. Policy-chart bar estimates are excluded.",
+    "Main synthetic-assisted policies receive more optimization steps than real-only baselines; the synthetic-data contribution is not isolated from this budget difference.",
+    "The six-policy count, Figure 14 checkpoint identity, similar Figures 12/13, unexplained SurgeWorld name, command-position semantics and uncertainty aggregation remain unresolved.",
+    "Stochastic sampling does not establish decomposition, calibration, support, privacy or safety. Ethics, safeguards, asset terms and lifecycle assurances are incompletely documented.",
+    "All 128 catalogue features have dispositions at relevant main-model or component scopes. Auxiliary configuration sets are not separately certified complete 128-feature annotations.",
+    "21 November 2026: all 15 pages including bibliography and supplementary pages reread locally. Expert reader study is explicitly linked only to the SATA generator, not the full synthetic-assisted policy composition. Qualitative same-origin prompt alternatives support functional L3, not causal identification. No numeric Figure5 rollout duration established."
+  ],
+  "notes": "Raw legacy cells remain historical provenance, not revised findings. Proposed field corrections appear only in submission.legacy_disagreements. Assertions 001–128 cover the supplied catalogue; 129–150 preserve necessary component/evaluation scopes. Planning-policy implementation is present at implementation stage; insufficient decision evaluation separately prevents L4. No file, source workbook or graph was modified or admitted by this response."
+}

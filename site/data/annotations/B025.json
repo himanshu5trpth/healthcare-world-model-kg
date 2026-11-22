@@ -1,0 +1,2830 @@
+{
+  "record_id": "annotation:B025:r1",
+  "paper_record_id": "B025",
+  "paper_version_id": "paper-version:B025:sha256-fd1da72409fc",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:B025:reported",
+    "model:B025:SDE:reported"
+  ],
+  "system_composition_ids": [],
+  "world_type_ids": [
+    "WT_ORGAN"
+  ],
+  "profile_ids": [
+    "BP_FORECAST"
+  ],
+  "entities": [
+    {
+      "id": "paper:B025",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "B025",
+        "title": "ImageFlowNet: Forecasting Multiscale Image-Level Trajectories of Disease Progression with Irregularly-Sampled Longitudinal Medical Images"
+      },
+      "provenance_evidence_ids": []
+    },
+    {
+      "id": "paper-version:B025:sha256-fd1da72409fc",
+      "class_id": "PaperVersion",
+      "properties": {
+        "source_path": "Papers/Expanded_Collection/B025_ImageFlowNet_Forecasting_Multiscale_Image_Level_Trajectories_of_Disease_Progression_with_Irregularly_Sampled_L.pdf",
+        "sha256": "fd1da72409fc451b03ef8d9ed3ebf4a0632eb588d4834de3a84ea8580aeb042f",
+        "physical_pages": 28
+      },
+      "provenance_evidence_ids": []
+    },
+    {
+      "id": "model:B025:reported",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "ImageFlowNet ODE",
+        "version_scope": "paper-version:B025:sha256-fd1da72409fc"
+      },
+      "provenance_evidence_ids": []
+    },
+    {
+      "id": "model:B025:SDE:reported",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "ImageFlowNet SDE",
+        "variant_boundary": "Stochastic conditional latent process; do not transfer stochasticity to deterministic ODE"
+      },
+      "provenance_evidence_ids": [
+        "evidence:B025:0003"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:B025:codex-a:001",
+      "subject_id": "model:B025:reported",
+      "feature_id": "data.native_time",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Observed scan times supply integration duration; elapsed clinical time is distinguished from optimizer iterations."
+    },
+    {
+      "id": "assertion:B025:codex-a:002",
+      "subject_id": "model:B025:reported",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "ODE/SDE integration evaluates arbitrary real elapsed scan intervals rather than requiring equally spaced visits."
+    },
+    {
+      "id": "assertion:B025:codex-a:003",
+      "subject_id": "model:B025:reported",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "UNet contraction layers encode multiscale patient images."
+    },
+    {
+      "id": "assertion:B025:codex-a:004",
+      "subject_id": "model:B025:reported",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Pixel MSE, visual feature, contrastive and trajectory regularization train the predicted future images."
+    },
+    {
+      "id": "assertion:B025:codex-a:005",
+      "subject_id": "model:B025:reported",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "ImageNet-pretrained ConvNeXT supplies the perceptual-loss encoder; it is not the learned patient-state backbone."
+    },
+    {
+      "id": "assertion:B025:codex-a:006",
+      "subject_id": "model:B025:reported",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Initial patient-image representations are retained as initial states and integrated to later clinical times."
+    },
+    {
+      "id": "assertion:B025:codex-a:007",
+      "subject_id": "model:B025:reported",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0006"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Test-time optimization fine-tunes flow fields using only previous patient observations before the last target; learning-rate/iteration sweeps include degraded outcomes."
+    },
+    {
+      "id": "assertion:B025:codex-a:008",
+      "subject_id": "model:B025:reported",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0001",
+        "evidence:B025:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Latent ODEs/SDEs map a patient initial image state to later disease images over elapsed clinical time."
+    },
+    {
+      "id": "assertion:B025:codex-a:009",
+      "subject_id": "model:B025:reported",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0001",
+        "evidence:B025:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Two-layer convolutional vector fields are learned jointly with image encoder/decoder from longitudinal training pairs."
+    },
+    {
+      "id": "assertion:B025:codex-a:010",
+      "subject_id": "model:B025:reported",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Separate hidden-layer flows evolve multiple spatial-resolution features, which recombine through UNet skip connections and decoder."
+    },
+    {
+      "id": "assertion:B025:codex-a:011",
+      "subject_id": "model:B025:reported",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Expansion path fuses evolved multiscale hidden features into a future observable image."
+    },
+    {
+      "id": "assertion:B025:codex-a:012",
+      "subject_id": "model:B025:reported",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Learned flow acts in hidden-layer representation spaces, not directly in raw image coordinates."
+    },
+    {
+      "id": "assertion:B025:codex-a:013",
+      "subject_id": "model:B025:reported",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0004",
+        "evidence:B025:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Predicted later image is compared against acquired future image in patient-disjoint retrospective partitions."
+    },
+    {
+      "id": "assertion:B025:codex-a:014",
+      "subject_id": "model:B025:reported",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0004",
+        "evidence:B025:0005",
+        "evidence:B025:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "confidence": "medium",
+      "rationale": "Future-image PSNR/SSIM/MAE/MSE and auxiliary lesion-mask DSC/HD are reported; metric-network data scope is a limitation. Evaluation is reported; this annotation does not establish a formal categorical acceptance outcome, so no pass/fail result is inferred."
+    },
+    {
+      "id": "assertion:B025:codex-a:015",
+      "subject_id": "model:B025:reported",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "confidence": "medium",
+      "rationale": "Single-GPU jobs, 2–5day training range, effective/actual batch sizes and SDE memory constraints are reported. Evaluation is reported; this annotation does not establish a formal categorical acceptance outcome, so no pass/fail result is inferred."
+    },
+    {
+      "id": "assertion:B025:codex-a:016",
+      "subject_id": "model:B025:SDE:reported",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:SDE:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0003",
+        "evidence:B025:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "SDE trajectories retain the same initial patient embedding."
+    },
+    {
+      "id": "assertion:B025:codex-a:017",
+      "subject_id": "model:B025:SDE:reported",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:SDE:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0003",
+        "evidence:B025:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "SDE integrates clinical-time latent trajectories from an initial image."
+    },
+    {
+      "id": "assertion:B025:codex-a:018",
+      "subject_id": "model:B025:SDE:reported",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:SDE:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0003",
+        "evidence:B025:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Drift and diffusion functions are learned from longitudinal image pairs."
+    },
+    {
+      "id": "assertion:B025:codex-a:019",
+      "subject_id": "model:B025:SDE:reported",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:SDE:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0003",
+        "evidence:B025:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Langevin-type SDE adds an explicit Brownian diffusion term."
+    },
+    {
+      "id": "assertion:B025:codex-a:020",
+      "subject_id": "model:B025:SDE:reported",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:SDE:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0003",
+        "evidence:B025:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Repeated SDE inference from the same initial image samples nonidentical future trajectories."
+    },
+    {
+      "id": "assertion:B025:codex-a:021",
+      "subject_id": "model:B025:SDE:reported",
+      "feature_id": "uq.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:SDE:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0003",
+        "evidence:B025:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "The conditional SDE sample distribution expresses future variation; no calibrated clinical coverage is established."
+    },
+    {
+      "id": "assertion:B025:codex-a:022",
+      "subject_id": "model:B025:SDE:reported",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:SDE:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0004",
+        "evidence:B025:0005"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "SDE future-image results are reported beside deterministic variants, with metric-specific rather than universal dominance."
+    },
+    {
+      "id": "assertion:B025:codex-a:023",
+      "subject_id": "model:B025:reported",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [
+        "evidence:B025:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Different SDE samples are alternative random outcomes, not separately specified clinical actions; no action-conditioned treatment model is evaluated."
+    },
+    {
+      "id": "assertion:B025:codex-a:024",
+      "subject_id": "model:B025:reported",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B025:reported"
+      },
+      "evidence_ids": [
+        "evidence:B025:0004",
+        "evidence:B025:0008",
+        "evidence:B025:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Met: Forecast train/validation/test split is explicitly at patient level. Missing: Retinal alignment may select an anchor using the complete series, and auxiliary lesion segmentators are trained on all images; their effects on forecast/evaluation leakage are not audited.",
+      "criteria_met": [
+        "Forecast train/validation/test split is explicitly at patient level."
+      ],
+      "criteria_missing": [
+        "Retinal alignment may select an anchor using the complete series, and auxiliary lesion segmentators are trained on all images; their effects on forecast/evaluation leakage are not audited."
+      ]
+    },
+    {
+      "id": "assertion:B025:codex-a:025",
+      "subject_id": "model:B025:reported",
+      "feature_id": "data.provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Measurements retain source, unit, acquisition/availability time, transformations and dataset/version identity. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:026",
+      "subject_id": "model:B025:reported",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: The time a value became usable is distinguished from collection time when latency matters, and training queries respect it. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:027",
+      "subject_id": "model:B025:reported",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: The model receives measured/missing/invalid status so placeholders are distinguishable from observed values. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:028",
+      "subject_id": "model:B025:reported",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Per-variable elapsed time since true observation is represented and updated under carry-forward/asynchrony. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:029",
+      "subject_id": "model:B025:reported",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A model/rule explicitly represents when, whether or why observations occur conditional on relevant state/acquisition context. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:030",
+      "subject_id": "model:B025:reported",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A target distinction and sampling grid are defined and witness preservation is tested across values, update/validity patterns, native timing and external acquisition channels, with unresolved allowed. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:031",
+      "subject_id": "model:B025:reported",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Source-specific units, terminology and measurement definitions map to a declared target schema with traceable conversions. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:032",
+      "subject_id": "model:B025:reported",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Local data stay at defined sites and an explicit federated training/query protocol exchanges specified artifacts. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:033",
+      "subject_id": "model:B025:reported",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A loss predicts a target representation from context rather than requiring observation reconstruction for that objective. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:034",
+      "subject_id": "model:B025:reported",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: The predictive objective includes a specified anti-collapse mechanism, constraint or proved property. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:035",
+      "subject_id": "model:B025:reported",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: At least two separately identified modalities interact in a stated fusion operation for model inference/training. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:036",
+      "subject_id": "model:B025:reported",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Fusion uses observed modality availability/quality/recency and defines behavior when a modality is missing. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:037",
+      "subject_id": "model:B025:reported",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A posterior/filtering distribution over hidden state is conditioned on observation history, with uncertainty semantics stated. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:038",
+      "subject_id": "model:B025:reported",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Prior evolution and observation-conditioned correction are distinct operations and missing observations do not cause fictitious measurement correction. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:039",
+      "subject_id": "model:B025:reported",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: The current individual state is updated from newly available observations during sequential use. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:040",
+      "subject_id": "model:B025:reported",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: The same state representation/checkpoint feeds at least two typed tasks/readouts without separately defining a new state model for each. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:041",
+      "subject_id": "model:B025:reported",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Ablations/probes test omitted history, variables or representations against the specified prediction/decision targets. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:042",
+      "subject_id": "model:B025:reported",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A subject's prior observations/actions affect the current inferred state or forecast through an explicit mechanism. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:043",
+      "subject_id": "model:B025:reported",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Matched history-swap/withhold, population-prior or analogous controls test whether the correct individual's information adds predictive value without leakage. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:044",
+      "subject_id": "model:B025:reported",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A declared memory, constraint or loss preserves the modeled entities, anatomy or patient identity through transitions. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:045",
+      "subject_id": "model:B025:reported",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: State variables/structures have a documented mapping to interpretable entities/physiology and users can inspect them. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:046",
+      "subject_id": "model:B025:reported",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Past observations/actions beyond the current supplied state are retained by a specified memory mechanism/context window. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:047",
+      "subject_id": "model:B025:reported",
+      "feature_id": "action.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A settable action/intervention/command is separated from state observations and conditions the relevant prediction. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:048",
+      "subject_id": "model:B025:reported",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Treatment, inquiry/acquisition, procedural, behavioral and operational roles are distinguished, with physiology/observation/system effect channels recorded. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:049",
+      "subject_id": "model:B025:reported",
+      "feature_id": "action.parameterized",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Applicable identity, target, dose/parameters, units, route, timing, duration and reference frame are specified sufficiently to interpret or execute a query. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:050",
+      "subject_id": "model:B025:reported",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Interventions include explicit start/stop/event times or sequence cadence and appropriate duration/dose semantics. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:051",
+      "subject_id": "model:B025:reported",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Joint interventions and unchanged/inherited settings have defined bundle/update semantics that preserve clinically or empirically linked components. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:052",
+      "subject_id": "model:B025:reported",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Explicit context-dependent bounds, contraindications or workspace rules restrict candidate actions. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:053",
+      "subject_id": "model:B025:reported",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Action variables map to known clinical operations, calibrated robot commands or a validated latent-to-executable mapping. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:054",
+      "subject_id": "model:B025:reported",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A context-conditioned coverage/overlap/support criterion is actually estimated or justified and tested for queried alternatives. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:055",
+      "subject_id": "model:B025:reported",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Physical/clinical reversibility and residual harm of proposed actions are assessed in the intended environment. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:056",
+      "subject_id": "model:B025:reported",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: The transition consumes a settable action/regime and prediction depends on it, with evaluated action-conditioned results required for L2. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:057",
+      "subject_id": "model:B025:reported",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Equations, conservation, anatomy, monotonicity, objects or symbolic structure constrain transition/representation learning or inference. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:058",
+      "subject_id": "model:B025:reported",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A mechanistic component and learned component are operationally coupled, with which quantities are fixed/fitted/learned stated. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:059",
+      "subject_id": "model:B025:reported",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: At least two implementations are exchanged under the same documented state/action/time/output semantics and compared or integration-tested. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:060",
+      "subject_id": "model:B025:reported",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Training loss/optimization traverses predicted states across at least two modeled transitions, with gradient/teacher-forcing behavior specified. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:061",
+      "subject_id": "model:B025:reported",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Options/events/subgoals define variable-duration or multi-timescale transitions with explicit higher/lower-level coordination. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:062",
+      "subject_id": "model:B025:reported",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Defined heads map states/trajectories to named outcomes with units, targets and horizons. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:063",
+      "subject_id": "model:B025:reported",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: At least two successive transitions use generated state/history without replacing every intermediate state by ground truth. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:064",
+      "subject_id": "model:B025:reported",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Ground-truth intermediate observations/states are fed into successive prediction steps during the evaluated sequence. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:065",
+      "subject_id": "model:B025:reported",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: After imagined prediction/execution, newly observed evidence corrects state before a subsequent forecast/plan. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:066",
+      "subject_id": "model:B025:reported",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: The furthest tested prediction extent is stated with time/step/frame units and cadence when known. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:067",
+      "subject_id": "model:B025:reported",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Free-running errors or validity violations are compared at multiple forecast depths under a common protocol. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:068",
+      "subject_id": "model:B025:reported",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A context/model-specific horizon is supported by an error/calibration/decision curve and explicit acceptance tolerance, uncertainty and action support. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:069",
+      "subject_id": "model:B025:reported",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A declared policy rejects, truncates with disclosure or escalates requests outside the context-specific supported horizon. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:070",
+      "subject_id": "model:B025:reported",
+      "feature_id": "planning.model_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Simulated states/outcomes feed candidate ranking, search, value/policy learning or a documented future-grounded decision pathway. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:071",
+      "subject_id": "model:B025:reported",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: An operational optimizer or policy uses modeled consequences/imagination with reported decision/control results for L4. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:072",
+      "subject_id": "model:B025:reported",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A plan is recomputed from updated real observations after executing a prefix, with planning and execution horizons stated. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:073",
+      "subject_id": "model:B025:reported",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A fixed learned transition can support changed utilities/constraints at decision time without retraining that transition, demonstrated or specified by stage. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:074",
+      "subject_id": "model:B025:reported",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Uncertainty changes scores, constraints, risk budgets or candidate acceptance during decision selection. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:075",
+      "subject_id": "model:B025:reported",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Plans optimized in the model are evaluated under independent/mismatched dynamics or adversarial support/reward checks to reveal model-error exploitation. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:076",
+      "subject_id": "model:B025:reported",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Sources, construction, eligibility, support and coverage of candidate actions are documented independently of unavailable future outcomes. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:077",
+      "subject_id": "model:B025:reported",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Higher-level goals/options and lower-level actions interact through defined durations/termination and model use. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:078",
+      "subject_id": "model:B025:reported",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Action outputs influence an environment and new environment observations feed subsequent decisions; environment kind is recorded. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:079",
+      "subject_id": "model:B025:reported",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Separate components have defined interpretations and estimation procedures with limitations explained. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:080",
+      "subject_id": "model:B025:reported",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Predicted probabilities/intervals/sets are compared with observed frequencies/coverage using a specified target, metric and validation sample. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:081",
+      "subject_id": "model:B025:reported",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Joint or explicitly horizon-indexed trajectory reliability is assessed under the deployment rollout/action regime. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:082",
+      "subject_id": "model:B025:reported",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A named calibration/coverage criterion is met with uncertainty under the intended cohort/horizon/action regime. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:083",
+      "subject_id": "model:B025:reported",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: An operational statistic/threshold identifies out-of-support data/actions with stated response and, at evaluation stage, measured detection performance. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:084",
+      "subject_id": "model:B025:reported",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A specified nonconformity score, calibration split and coverage/error-control assumptions define sets/alarms. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:085",
+      "subject_id": "model:B025:reported",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Intervention alternatives, population, outcomes, horizon and causal contrast are explicit. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:086",
+      "subject_id": "model:B025:reported",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: An estimand is linked to an identification argument/strategy using stated assumptions and observed/simulated data structure. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:087",
+      "subject_id": "model:B025:reported",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Relevant consistency, exchangeability, positivity, interference/censoring or mechanistic assumptions are explicitly tied to the estimand. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:088",
+      "subject_id": "model:B025:reported",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Analyses quantify impact of violations such as unmeasured confounding, censoring or model/positivity assumptions. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:089",
+      "subject_id": "model:B025:reported",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Validation compares defined action-effect predictions with known simulated potential outcomes, interventional experiments or appropriately qualified trial/causal benchmarks. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:090",
+      "subject_id": "model:B025:reported",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Actions enter a documented physical/pharmacological mechanism with identified/calibrated parameters and stated applicability. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:091",
+      "subject_id": "model:B025:reported",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Estimand, justified identification/mechanistic assumptions, support, relevant validation and sensitivity collectively support the particular causal interpretation, with residual uncertainty disclosed. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:092",
+      "subject_id": "model:B025:reported",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: An implemented mechanism blocks disallowed actions/outputs before the relevant operation, with defined fail behavior. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:093",
+      "subject_id": "model:B025:reported",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: The system can withhold a recommendation/action and enter a specified fallback or human-review route under defined triggers. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:094",
+      "subject_id": "model:B025:reported",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A trigger routes a case to a defined available human role with response/timing/fallback semantics. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:095",
+      "subject_id": "model:B025:reported",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Online signals detect a defined failure/hazard and trigger a specified protective response. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:096",
+      "subject_id": "model:B025:reported",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A stop/fallback mechanism and its physical/software residual effects are specified and tested at the recorded stage. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:097",
+      "subject_id": "model:B025:reported",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Assets, adversary capabilities and attack paths across data, state, action, rollout, objective and interfaces are explicitly analyzed. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:098",
+      "subject_id": "model:B025:reported",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Defined attacks/faults are injected and measured on the relevant trajectory/planner/safety outputs. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:099",
+      "subject_id": "model:B025:reported",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A defined de-identification, access, encryption, federation, differential privacy or data-minimization mechanism is operationally specified. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:100",
+      "subject_id": "model:B025:reported",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Synthetic outputs or representations are tested for copying, membership/re-identification or attribute disclosure under a declared threat model. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:101",
+      "subject_id": "model:B025:reported",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: External access/action permissions, identity and allowed operation scope are explicitly enforced. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:102",
+      "subject_id": "model:B025:reported",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Interface/protocol mechanisms address over-trust with appropriate uncertainty, limitations, override and, at evaluation stage, measured human factors. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:103",
+      "subject_id": "model:B025:reported",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Population, use purpose, user, decision point, environment and permitted autonomy are explicit. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:104",
+      "subject_id": "model:B025:reported",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: An organized report pins model/data versions, capability/evidence boundaries, assets and limitations. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:105",
+      "subject_id": "model:B025:reported",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Signals, thresholds, cadence, responsibility, response and revalidation triggers are declared for released use. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:106",
+      "subject_id": "model:B025:reported",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Updates have versioned approval/revalidation criteria and executable rollback/fallback boundaries. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:107",
+      "subject_id": "model:B025:reported",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A framework/standard is explicitly named in the paper/version and its statement is quoted/scoped. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:108",
+      "subject_id": "model:B025:reported",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Documented applicable requirements and evidence/authorization are connected to the intended use, jurisdiction, product/version and date. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:109",
+      "subject_id": "model:B025:reported",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Named approval/exemption and applicable data/human participation scope are documented. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:110",
+      "subject_id": "model:B025:reported",
+      "feature_id": "agent.role",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: An actual component role such as encoder, simulator, proposer, planner, equation discovery or reporting is operationally described. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:111",
+      "subject_id": "model:B025:reported",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: At least two distinct decision-making agents have defined roles, communication and coordination. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:112",
+      "subject_id": "model:B025:reported",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: The agent revises a proposal using explicit feedback/evidence before or after action under a defined loop. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:113",
+      "subject_id": "model:B025:reported",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: The agent invokes an external API/tool/system with stated read/write permissions and scope. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:114",
+      "subject_id": "model:B025:reported",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Who proposes, approves and executes actions is described for the actual simulated/physical/clinical context. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:115",
+      "subject_id": "model:B025:reported",
+      "feature_id": "release.code",
+      "assessment_state": "present",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [
+        "evidence:B025:0011"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "The paper identifies an official implementation as available at a named GitHub URL; this remains an author-reported release without repository execution."
+    },
+    {
+      "id": "assertion:B025:codex-a:116",
+      "subject_id": "model:B025:reported",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: The relevant trained weights/parameters are released under stated access conditions and version. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:117",
+      "subject_id": "model:B025:reported",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Explicit terms govern code, weights and data separately. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:118",
+      "subject_id": "model:B025:reported",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: An independent run pins code/data/configuration and reports replication outcomes. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:119",
+      "subject_id": "model:B025:reported",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Free-running or explicitly block-generated future sequence performance is evaluated at multiple horizons; protocols distinguish recursive from block prediction. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:120",
+      "subject_id": "model:B025:reported",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Generated sample distributions are compared with reference distributions using defined sample/conditional protocols. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:121",
+      "subject_id": "model:B025:reported",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Defined anatomical, mechanistic, contact, clinical or consistency constraints are tested, including adverse/rare cases where relevant. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:122",
+      "subject_id": "model:B025:reported",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Reliability/coverage/sharpness and nominal-target context are measured on held-out data under the stated prediction regime. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:123",
+      "subject_id": "model:B025:reported",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Predictions under controlled changes to specified action inputs are compared, with history and relevant context fixed or explicitly controlled. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:124",
+      "subject_id": "model:B025:reported",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A defined interventional/counterfactual validation reference and estimand are tested; simulated truth versus aggregate trial agreement are distinguished. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:125",
+      "subject_id": "model:B025:reported",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Correct individual history/context is compared with swapped/withheld/population-prior controls under matched forecasting conditions. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:126",
+      "subject_id": "model:B025:reported",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A model-coupled policy/decision is assessed with task success, regret, properly qualified off-policy value or another specified decision endpoint. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:127",
+      "subject_id": "model:B025:reported",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Matched tasks/policies are evaluated both in simulation and a specified physical/clinical environment and agreement/bias is quantified. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:128",
+      "subject_id": "model:B025:reported",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: At least one explicit independent-site/cohort, shift, subgroup, missing-modality or transfer test is reported; record each subfacet separately. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:129",
+      "subject_id": "model:B025:reported",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A target-specific preprocessing/measurement-clock audit tests evidence retention, including native/update/external witnesses as needed. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:130",
+      "subject_id": "model:B025:reported",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Actual people perform a defined review/use task with participant roles, sampling and outcomes recorded where available. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:131",
+      "subject_id": "model:B025:reported",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: A prospective or appropriately designed comparative real-care/workflow study measures a predeclared utility endpoint and harms for the scoped system. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:B025:codex-a:132",
+      "subject_id": "model:B025:reported",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Image-level clinical disease forecasting by deterministic/stochastic multiscale differential equations, with optional patient-history fine-tuning. No clinical intervention input or executed planner is evaluated. The source does not establish: Learned transition states are optimized to preserve decision-relevant rewards/values or policy predictions without claiming full observation reconstruction. No absence or successful evaluation is inferred.",
+      "missingness_reason": "paper_silent_after_review"
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:B025:codex-a:001",
+      "subject_id": "paper:B025",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:B025:sha256-fd1da72409fc",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [
+        "evidence:B025:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Source-pinned bibliographic/model attribution only; not an imported capability of cited systems."
+    },
+    {
+      "id": "relation:B025:codex-a:002",
+      "subject_id": "paper-version:B025:sha256-fd1da72409fc",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B025:reported",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [
+        "evidence:B025:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Source-pinned bibliographic/model attribution only; not an imported capability of cited systems."
+    },
+    {
+      "id": "relation:B025:codex-a:003",
+      "subject_id": "paper-version:B025:sha256-fd1da72409fc",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B025:SDE:reported",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "environment_kind": "unknown"
+      },
+      "evidence_ids": [
+        "evidence:B025:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Source-pinned bibliographic/model attribution only; not an imported capability of cited systems."
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:B025:0001",
+      "source_ref": "Papers/Expanded_Collection/B025_ImageFlowNet_Forecasting_Multiscale_Image_Level_Trajectories_of_Disease_Progression_with_Irregularly_Sampled_L.pdf",
+      "source_version": "paper-version:B025:sha256-fd1da72409fc",
+      "source_hash": "fd1da72409fc451b03ef8d9ed3ebf4a0632eb588d4834de3a84ea8580aeb042f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Source paragraph; see review for interpretation"
+      },
+      "content": "3.1 Learning Multiscale Spaces of Joint Patient Representations\nAs illustrated in Fig. 2 (A), we first learn joint embedding spaces for training samples in the hid-\nden layers within the contraction path of a UNet. Multiscale representations are extracted from an\ninput image xi acquired at time ti to produce B representations, one for each hidden layer, at R\nresolutions, which we denote {z(b)ti }Bb=1, with B ≥ R.\nDuring training, images are augmented with transformations that may naturally occur during acqui-\nsition, including reflection, rotation, shifting, rescaling, random brightness and contrast, and additive\nnoise. Augmented versions effectively enlarge the sample variety and better populate the joint em-\nbedding spaces. This increases the chance that, during inference, a new image is embedded close to\nimages seen in the training set and can leverage the learned dynamics around that local cohort.\n3.2 Learning Multiscale Flow Fields on Joint Patient Representations\nAs depicted in Fig. 2 (B), at each hidden layer that spans different granularities of the image, a\nflow field is learned to evolve the joint patient representations at that scale. The flow field f (b)θ\nparameterizes the flow gradient as described in Eqn (3a), so that, given an initial position and a\ntime duration, the trajectory can be computed through integration. f (b)θ is implemented as a 2-layer\nconvolutional neural network whose input and output dimensions match the dimension of z(b)ti . The\nlatent representation z(b)tj corresponding to the future time tj can be inferred using Eqn (3b), using\nEqn (4) or similar variants. Finally, these multiscale representations meet at the expansion path to\ncompose an output image. From now on, we will omit the superscript·(b) if the specific hidden layer\nis not emp",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B025:0002",
+      "source_ref": "Papers/Expanded_Collection/B025_ImageFlowNet_Forecasting_Multiscale_Image_Level_Trajectories_of_Disease_Progression_with_Irregularly_Sampled_L.pdf",
+      "source_version": "paper-version:B025:sha256-fd1da72409fc",
+      "source_hash": "fd1da72409fc451b03ef8d9ed3ebf4a0632eb588d4834de3a84ea8580aeb042f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Source paragraph; see review for interpretation"
+      },
+      "content": "1 Image reconstruction is achieved by MSE, attending to low-level features on the pixel level.\n2 Visual feature regularization guides the network to produce images that resemble the ground\ntruth on high-level features judged by a ConvNeXT [26] encoder pretrained on ImageNet [27].\n3 Contrastive learning regularization organizes a well-structured ImageFlowNet latent space, by\nencouraging proximity of representations from images within the same longitudinal series, following\nthe SimSiam formulation [28].\n4 Trajectory smoothness regularization leverages a theorem in convex optimization (Lemma 2.2\nin [29]) to enforce smoothness of trajectories by regularizing the norm of the field. Notably, this\nachieves Lipschitz continuity, satisfying a crucial assumption for our theoretical results.\nFull Trajectories Are Used for TrainingAlthough training is performed over pairs of observations,\nsince all samples within the longitudinal series are embedded in the same flow field fθ and trajecto-\nries between all pairs are used for optimization, the model is indeed trained by the full trajectories.\nInferring Trajectories During inference, for a new patient with one or more previous observations,\nwe can use any observation to serve as the starting point and obtain the future prediction using\nEqn (3b)",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B025:0003",
+      "source_ref": "Papers/Expanded_Collection/B025_ImageFlowNet_Forecasting_Multiscale_Image_Level_Trajectories_of_Disease_Progression_with_Irregularly_Sampled_L.pdf",
+      "source_version": "paper-version:B025:sha256-fd1da72409fc",
+      "source_hash": "fd1da72409fc451b03ef8d9ed3ebf4a0632eb588d4834de3a84ea8580aeb042f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Source paragraph; see review for interpretation"
+      },
+      "content": "ImageFlowNetSDE as a Stochastic Variant We formulate a Langevin-type SDE as an alterna-\ntive to our ODE, given by dz(b)τ = f (b)θ (z(b)τ )dτ + σ(b)ϕ (τ )dWτ for b ∈ [1, B]. This is motivated\nby stochasticity in patient trajectories and the need to model alternative outcomes from the same\nstarting point, which is not possible in a deterministic ODE. In this construction, we decompose\nthe dynamics into a deterministic drift function fθ and a stochastic diffusion term σϕ. This SDE is\nguaranteed to have a unique strong solution under mild assumptions [30].\nAn important characteristic unique to SDEs is their ability to model alternative trajectories due to the\nstochastic diffusion term. This feature enables SDEs to estimate uncertainty by generating multiple\ntrajectories to infer the distribution of potential outcomes. By analyzing the variability and frequency\nof these outcomes, we can quantify the likelihood of various progression trends.\n4 Theoretical Results\nA Position-Parameterized ODE Unlike the original version, our ODE is parameterized by time\nindirectly: fθ(zt) instead of fθ(zt, t). This altered formulation learns a more compact vector field\nwhich alleviates the data scarcity issue, and allows the space to model disease states regardless of the\ntime from disease onset. Importantly, we demonstrate that this formulation is theoretically equiv-\nalent in expressiveness to the original formulation (Proposition 4.1) and achieves better empirical\nperformance (Table 3 in the Empi",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B025:0004",
+      "source_ref": "Papers/Expanded_Collection/B025_ImageFlowNet_Forecasting_Multiscale_Image_Level_Trajectories_of_Disease_Progression_with_Irregularly_Sampled_L.pdf",
+      "source_version": "paper-version:B025:sha256-fd1da72409fc",
+      "source_hash": "fd1da72409fc451b03ef8d9ed3ebf4a0632eb588d4834de3a84ea8580aeb042f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Source paragraph; see review for interpretation"
+      },
+      "content": "5.3 Datasets\nRetinal Images We used longitudinal retinal images from the METforMIN study [40, 41] that\nmonitored patients across 12 clinical centers with geographic atrophy, an advanced form of age-\nrelated macular degeneration that is slowly progressive and can lead to loss of vision. The dataset\ncontains fundus autofluroscence images of 132 eyes over 2-5 visits at irregular intervals for a dura-\ntion of up to 24 months.\nBrain Multiple Sclerosis Images We used longitudinal FLAIR-weighted MRI scans from the\nLMSLS dataset [42] monitoring patients with Multiple Sclerosis (MS) over an average of 4.4 time\npoints for approximately 5 years. We obtained 79 longitudinal image series from this dataset.\nBrain Glioblastoma Images We used longitudinal contrastive T1-weighted MRI scans from the\nLUMIERE dataset [43] that tracked 91 glioblastoma (GBM) patients who underwent a pre-operative\nscan and repeated post-operative scans for up to 5 years. We obtained a set of 795 longitudinal image\nseries each with 2-18 time points. Only post-operative images are kept in each series to model the\nnatural change of tissues after surgery.\nFor all datasets, we took caution to avoid data leakage: data were partitioned on the level of longi-\ntudinal series into train/validation/test sets, and images from the same patient would only go to the\nsame set. Disease regions were delineated by standalone image segmentation networks, one for each\ndataset. We quantified image similarity using peak signal-to-noise ratio (PSNR) and structural sim-\nilarity index (SSIM), residual map similarity using mean absolute error (MAE) and mean squared\nerror (MSE), and disease region overlap using Dice-Sørensen coefficient (DSC) and Hausdorff dis-\ntance (HD). Disease regions were delineated by 3 standalone image segmentation networks, one for\neach dataset. Mean values and standard deviations are reported from 3 independent runs with dif-\nferent random seeds. Training and implementation details, as well as information about the metrics,\ncan be found in Appendices E and F.\n5.4 ImageFlowNet Forecasts Images and Preserve",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B025:0005",
+      "source_ref": "Papers/Expanded_Collection/B025_ImageFlowNet_Forecasting_Multiscale_Image_Level_Trajectories_of_Disease_Progression_with_Irregularly_Sampled_L.pdf",
+      "source_version": "paper-version:B025:sha256-fd1da72409fc",
+      "source_hash": "fd1da72409fc451b03ef8d9ed3ebf4a0632eb588d4834de3a84ea8580aeb042f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Source paragraph; see review for interpretation"
+      },
+      "content": "Table 1: Image forecasting performance: metric(xj, bxj). bxj = F (xi, ti, tj), ∀i < j.\n†Extrapolation methods use the entire history. “++” means using the 3 regularizations in Eqn (5).\nDataset Metric Linear † Cubic Spline† T-UNet T-Diffusion ImageFlowNetODE ImageFlowNetODE++ ImageFlowNet SDE ImageFlowNetSDE++\n[34] [35] [44] [38] (ours) (ours) (ours) (ours)\nRetinal PSNR ↑ 20.22± 0.00 19.79± 0.00 22.06± 0.33 22.29± 0.33 22.63± 0.26 22.74± 0.25 22.32± 0.29 22.89± 0.28\nImages SSIM ↑ 0.535± 0.000 0.505± 0.000 0.635± 0.015 0.624± 0.016 0.646± 0.012 0.647± 0.013 0.651± 0.015 0.651± 0.012\nall MAE ↓ 0.163± 0.000 0.177± 0.000 0.126± 0.005 0.122± 0.004 0.119± 0.004 0.118± 0.004 0.124± 0.005 0.115± 0.004\ncases MSE ↓ 0.050± 0.000 0.060± 0.000 0.029± 0.002 0.027± 0.002 0.024± 0.001 0.024± 0.001 0.027± 0.002 0.023± 0.001\n1 DSC ↑ 0.833± 0.000 0.756± 0.000 0.872± 0.012 0.867± 0.014 0.874± 0.012 0.873± 0.011 0.885± 0.011 0.883± 0.012\nHD ↓ 51.64± 0.00 54.30± 0.00 44.59± 4.66 44.41± 4.74 42.68± 4.82 47.10± 4.89 48.14± 4.87 45.14± 4.89\nminor PSNR ↑ 21.36± 0.00 21.08± 0.00 22.56± 0.55 22.99± 0.55 23.23± 0.34 23.44± 0.33 23.28± 0.36 23.63± 0.43\natrophy SSIM ↑ 0.599± 0.000 0.586± 0.000 0.662± 0.023 0.657± 0.024 0.682± 0.018 0.685± 0.018 0.693± 0.018 0.687± 0.019\ngrowth MAE ↓ 0.141± 0.000 0.147± 0.000 0.121± 0.007 0.114± 0.007 0.110± 0.005 0.108± 0.004 0.109± 0.005 0.106± 0.005\n2 MSE ↓ 0.038± 0.000 0.042± 0.000 0.027± 0.003 0.024± 0.002 0.021± 0.002 0.020± 0.002 0.021± 0.002 0.020± 0.002\nDSC ↑ 0.900± 0.000 0.874± 0.000 0.949± 0.004 0.949± 0.004 0.936± 0.009 0.939± 0.007 0.948± 0.005 0.948± 0.006\nHD ↓ 38.15± 0.00 41.67± 0.00 35.74± 5.67 29.40± 4.77 34.59± 6.20 39.86± 6.40 31.66± 5.21 36.98± 6.04\nmajor PSNR ↑ 19.02± 0.00 18.41± 0.00 21.40± 0.33 21.68± 0.32 21.94± 0.34 22.01± 0.33 22.01± 0.30 22.10± 0.31\natrophy SSIM ↑ 0.468± 0.000 0.420± 0.000 0.607± 0.017 0.588± 0.017 0.607± 0.014 0.606± 0.014 0.607± 0.014 0.613± 0.013\ngrowth MAE ↓ 0.186± 0.000 0.210± 0.000 0.135± 0.006 0.131± 0.006 0.129± 0.006 0.129± 0.006 0.128± 0.005 0.126± 0.005\n3 MSE ↓ 0.063± 0.000 0.080± 0.000 0.032± 0.003 0.030± 0.002 0.028± 0.002 0.028± 0.002 0.027± 0.002 0.027± 0.002\nDSC ↑ 0.762± 0.000 0.631± 0.000 0.784± 0.016 0.779± 0.019 0.807± 0.014 0.803± 0.012 0.817± 0.016 0.814± 0.017\nHD ↓ 65.97± 0.00 67.73± 0.00 61.43± 7.26 60.36± 7.37 51.28± 7.13 54.79± 7.19 65.65± 7.17 53.81± 7.49\nBrain PSNR ↑ 30.07± 0.00 29.56± 0.00 31.55± 0.20 31.57± 0.23 32.01± 0.19 32.34± 0.20 32.40± 0.20 32.41± 0.20\nMS SSIM ↑ 0.895± 0.000 0.888± 0.000 0.909± 0.003 0.907± 0.003 0.914± 0.002 0.915± 0.002 0.913± 0.002 0.915± 0.002\nImages MAE ↓ 0.028± 0.000 0.030± 0.000 0.024± 0.000 0.024± 0.001 0.023± 0.000 0.021± 0.000 0.021± 0.000 0.021± 0.000\n4 MSE ↓ 0.004± 0.000 0.005± 0.000 0.004± 0.000 0.004± 0.000 0.003± 0.000 0.003± 0.000 0.003± 0.000 0.003± 0.000\nDSC ↑ 0.739± 0.000 0.682± 0.000 0.774± 0.007 0.771± 0.007 0.775± 0.007 0.777± 0.007 0.777± 0.007 0.774± 0.007\nHD ↓ 22.73± 0.00 26.23± 0.00 22.00± 1.30 20.91± 1.23 22.38± 1.28 21.72± 1.16 22.21± 1.27 21.28± 1.27\nBrain PSNR ↑ 35.32± 0.00 33.60± 0.00 35.73± 0.13 35.49± 0.17 35.86± 0.12 35.90± 0.14 35.77± 0.12 35.79± 0.15\nGBM SSIM ↑ 0.929± 0.000 0.895± 0.000 0.935± 0.001 0.940± 0.001 0.940± 0.001 0.943± 0.001 0.937± 0.001 0.939± 0.001\nImages MAE ↓ 0.017± 0.000 0.024± 0.000 0.015± 0.000 0.014± 0.000 0.014± 0.000 0.014± 0.000 0.015± 0.000 0.015± 0.000\n5 MSE ↓ 0.002± 0.000 0.005± 0.000 0.001± 0.000 0.002± 0.000 0.001± 0.000 0.001± 0.000 0.001± 0.000 0.001± 0.000\nDSC ↑ 0.300± 0.00",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B025:0006",
+      "source_ref": "Papers/Expanded_Collection/B025_ImageFlowNet_Forecasting_Multiscale_Image_Level_Trajectories_of_Disease_Progression_with_Irregularly_Sampled_L.pdf",
+      "source_version": "paper-version:B025:sha256-fd1da72409fc",
+      "source_hash": "fd1da72409fc451b03ef8d9ed3ebf4a0632eb588d4834de3a84ea8580aeb042f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Source paragraph; see review for interpretation"
+      },
+      "content": "5.5 Test-Time Optimization Improves Prediction Leveraging the Entire Patient History\nWhile it only requires a single observation to infer the trajectory of a new patient, we can further\nimprove ImageFlowNet performance if we use the entire patient history to perform test-time opti-\nmization. More specifically, we could take the trained ImageFlowNet and fine-tune the flow fieldfθ\nwith the previous measurements {x1, x2, ..., xn−1}, and then predict xn with the fine-tuned model.\nTable 2: Effect of test-time optimization.\nIterations Learning Rate PSNR ↑ SSIM↑ MAE↓ MSE↓ DSC↑ HD↓\nN/A N/A 22.31 0.643 0.123 0.027 0.827 51.07\n1 10−4 22.52 0.646 0.120 0.025 0.829 48.97\n1 10−5 22.36 0.643 0.122 0.027 0.827 51.02\n1 10−6 22.31 0.643 0.123 0.027 0.827 51.07\n10 10−4 20.63 0.605 0.157 0.042 0.749 64.79\n10 10−5 22.59 0.646 0.119 0.025 0.829 49.92\n10 10−6 22.36 0.644 0.122 0.027 0.827 51.01\n100 10−4 19.63 0.571 0.177 0.056 0.726 70.12\n100 10−5 20.92 0.614 0.152 0.040 0.759 58.76\n100 10−6 22.61 0.646 0.119 0.025 0.829 49.74\nWe investigated the effect of test-time optimiza-\ntion using longitudinal series with at least 3 im-\nages from the retinal image dataset. The results\nfor ImageFlowNet ODE are summarized in Ta-\nble 2, and similar trends are observed in other\nmodel variants. This indicates the possibility of\ntrading computations for performance when the\npatient’s history is accessible.\n8",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B025:0007",
+      "source_ref": "Papers/Expanded_Collection/B025_ImageFlowNet_Forecasting_Multiscale_Image_Level_Trajectories_of_Disease_Progression_with_Irregularly_Sampled_L.pdf",
+      "source_version": "paper-version:B025:sha256-fd1da72409fc",
+      "source_hash": "fd1da72409fc451b03ef8d9ed3ebf4a0632eb588d4834de3a84ea8580aeb042f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "Source paragraph; see review for interpretation"
+      },
+      "content": "5.6 Modeling Alternative Trajectories from the Same Starting Point with ImageFlowNet SDE\nFigure 5: ImageFlowNet SDE alternative trajectories. Multiple infer-\nences predict non-identical disease progressions, and their vectors in\nthe joint representations space indeed follow different trajectories.\nIn Figure 5, we demon-\nstrate ImageFlowNet SDE’s\nability to model alternative\ntrajectories. The model\ninfers several trajectories\nfrom the same initial im-\nage, as indicated by the\nvaried predicted disease re-\ngions and the different rep-\nresentation vectors in the\nsame PHATE space. The\nminimal variation among\nthese inferences could stem\nfrom the absence of explicit\nencouragement to produce\nhighly divergent trajecto-\nries during training, which might be an interesting direction for future research.\n5.7 Ablations Studies\nTable 3: Flow field formulation.\nPSNR↑ SSIM↑ MAE↓ MSE↓ DSC↑ HD↓\nfθ(zt, t) 22.42 0.643 0.123 0.027 0.872 48.38\nfθ(zt) 22.63 0.646 0.119 0.024 0.874 42.68\nTable 4: Latent repres",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B025:0008",
+      "source_ref": "Papers/Expanded_Collection/B025_ImageFlowNet_Forecasting_Multiscale_Image_Level_Trajectories_of_Disease_Progression_with_Irregularly_Sampled_L.pdf",
+      "source_version": "paper-version:B025:sha256-fd1da72409fc",
+      "source_hash": "fd1da72409fc451b03ef8d9ed3ebf4a0632eb588d4834de3a84ea8580aeb042f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 26,
+        "section_or_table": "Source paragraph; see review for interpretation"
+      },
+      "content": "D.1 Retinal Images\nFor all images, we extracted descriptive keypoints with SuperRetina [32], a high-quality keypoint\ndetector trained on retinal images. Then we identified the keypoint correspondences for each image\npair in each longitudinal series with a k-nearest-neighbor matcher and considered any image pair\nthat has at least 15 keypoint correspondences a successful match. Next, we selected the image that\nproduced the most successful matches as the “anchor image”. Finally, we aligned all images in the\nlongitudinal series towards the “anchor image” using perspective transformation so that the degree\nof freedom is constrained to the adjustment of camera angle or position. As a post-processing step,\nfor each longitudinal series, we cropped all images with the biggest common foreground square so\nthat no image contained any background pixel outside the retina region.\nThe image registration process for a pair of images from the same longitudinal series is illustrated\nin Figure S2. It can be seen that all veins are aligned in the resulting images while atrophy borders\nare not. This is expected from perspective transformation and is exactly desirable for our task.\nFigure S2: Our image registration pipeline. (A) Moving and fixed images come from the same eye\nat different time points. (B) SuperRetina is used to detect consistent and de",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B025:0009",
+      "source_ref": "Papers/Expanded_Collection/B025_ImageFlowNet_Forecasting_Multiscale_Image_Level_Trajectories_of_Disease_Progression_with_Irregularly_Sampled_L.pdf",
+      "source_version": "paper-version:B025:sha256-fd1da72409fc",
+      "source_hash": "fd1da72409fc451b03ef8d9ed3ebf4a0632eb588d4834de3a84ea8580aeb042f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 27,
+        "section_or_table": "Source paragraph; see review for interpretation"
+      },
+      "content": "Hyperparamters and training details All experiments were performed on a SLURM server,\nwhere each job was allocated either an NVIDIA A100 GPU, an NVIDIA A5000 GPU, or an\nNVIDIA RTX 3090 GPU. All jobs can be completed within 2-5 days on a single GPU with 8\nCPU cores. T-Diffusion usually takes the longest to train. ImageFlowNet SDE variant may require\na 40-GB GPU (sometime that will still hit an OOM error if running too many function evaluations\nin the SDE) while all other methods can be trained on a 20-GB GPU. Experiments shared the same\nset of hyperparameters: learning rate = 0.0001, batch size = 64, number of epochs = 120. Adam\nwith decoupled weight decay (AdamW) [121] optimizer was used, along with a cosine annealing\nlearning rate scheduler with linear warmup. We used an exponential moving average (EMA) with\ndecay rate of 0.9 on the ImageFlowNet models.\nTo accommodate the GPU VRAM limits, we used gradient aggregation to trade efficiency for space\nwhile achieving the desired effective batch size — we used an actual batch size of 1, scaled the loss\nby 164, and updated the weights every 64 batches.\nTraining of the segmentation networks are described in the next section (Evaluation Metrics).\n27",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B025:0010",
+      "source_ref": "Papers/Expanded_Collection/B025_ImageFlowNet_Forecasting_Multiscale_Image_Level_Trajectories_of_Disease_Progression_with_Irregularly_Sampled_L.pdf",
+      "source_version": "paper-version:B025:sha256-fd1da72409fc",
+      "source_hash": "fd1da72409fc451b03ef8d9ed3ebf4a0632eb588d4834de3a84ea8580aeb042f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 28,
+        "section_or_table": "Source paragraph; see review for interpretation"
+      },
+      "content": "To perform atrophy segmentation, we separately trained three auxiliary image segmentation net-\nwork on all images, one for each dataset. All retinal images have their atrophy regions labeled by\nophthalmologists. All brain images have associated segmentation maps from the dataset providers.\nThese segmentators that we trained have an nn-UNet [123] architecture and were trained with an\nAdamW [121] optimizer at an initial learning rate of 0.001 for 120 epochs. With these networks, we\ncan segment the atrophy regions in both the real future image xj and the predicted future image bxj.\nDSC and HD can be computed on the segmentation masks between each pair of interest.\n28",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B025:0011",
+      "source_ref": "Papers/Expanded_Collection/B025_ImageFlowNet_Forecasting_Multiscale_Image_Level_Trajectories_of_Disease_Progression_with_Irregularly_Sampled_L.pdf",
+      "source_version": "paper-version:B025:sha256-fd1da72409fc",
+      "source_hash": "fd1da72409fc451b03ef8d9ed3ebf4a0632eb588d4834de3a84ea8580aeb042f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Source paragraph; see review for interpretation"
+      },
+      "content": "The official implementation is available at\nhttps://github.com/KrishnaswamyLab/ImageFlowNet.\n1 Introduction\nAdvances in medical imaging technologies such as X-ray, computed tomography (CT), optical co-\nherence tomography (OCT), and magnetic resonance",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B025:0012",
+      "source_ref": "Papers/Expanded_Collection/B025_ImageFlowNet_Forecasting_Multiscale_Image_Level_Trajectories_of_Disease_Progression_with_Irregularly_Sampled_L.pdf",
+      "source_version": "paper-version:B025:sha256-fd1da72409fc",
+      "source_hash": "fd1da72409fc451b03ef8d9ed3ebf4a0632eb588d4834de3a84ea8580aeb042f",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 11,
+        "section_or_table": "Source paragraph; see review for interpretation"
+      },
+      "content": "Limitations and Broader Impacts\nLimitations\nWe have not yet studied the capabilities of using ImageFlowNet in a clinical context for patient\ndiagnosis, which we plan to cover in a follow-up study. Meanwhile, two main areas for future\nimprovement are computational complexity and latent space organization. (1) Modeling multiscale\ndynamics through neural differential equations requires significant GPU space. Our experiments\ncan be run on a single 24 GB GPU, but it will pose challenges when we extend to dynamics of\nimages higher than 256 × 256 resolution. For those applications, reducing feature dimension, using\nfewer scales, or finding more efficient computations may be necessary. (2) There are still room for\nimproving the organization of the joint latent space. Future researchers can use additional patient-\nlevel information or image-level features to further organize the latent space according to disease\nstate and severity.\nBroader Impacts\nOur work can help us understand spatial-temporal systems, state transitions in longitudinal images,\nand in particular disease progression in longitudinal medical images. To the best of our knowledge,\nour work has no negative societal impact.\nAcknowledgements\nThis work was supported in part by the National Science Foundation (NSF Career Grant 2047856)\nand the National Institute of Health (NIH 1R01GM130847-01A1, NIH 1R01GM135929-01).\nReferences\n[1] Eman Nabrawi, Abdullah T Alanazi, and Eman Al Alkhaibari. Imaging in healthcare: A\nglance at the present and a glimpse into the future. Cureus, 15(3), 2023.\n[2] Karl Ricanek and Tamirat Tesafaye. ",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-21"
+    }
+  ],
+  "metric_results": [],
+  "capability_assessments": [
+    {
+      "subject_id": "model:B025:reported",
+      "level": "L1",
+      "scope": {
+        "model_version_id": "model:B025:reported"
+      },
+      "evidence_assertion_ids": [
+        "assertion:B025:codex-a:006",
+        "assertion:B025:codex-a:008",
+        "assertion:B025:codex-a:009",
+        "assertion:B025:codex-a:013"
+      ],
+      "rationale": "The carried patient embedding evolves over clinical elapsed time and future-image fidelity is evaluated. SDE branches are stochastic alternatives, not action comparisons or causal effects."
+    },
+    {
+      "subject_id": "model:B025:SDE:reported",
+      "level": "L1",
+      "scope": {
+        "model_version_id": "model:B025:SDE:reported"
+      },
+      "evidence_assertion_ids": [
+        "assertion:B025:codex-a:016",
+        "assertion:B025:codex-a:017",
+        "assertion:B025:codex-a:018",
+        "assertion:B025:codex-a:022"
+      ],
+      "rationale": "The carried patient embedding evolves over clinical elapsed time and future-image fidelity is evaluated. SDE branches are stochastic alternatives, not action comparisons or causal effects."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "model:B025:reported",
+      "facets": [
+        "R2"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "model_version_id": "model:B025:reported",
+        "population": "Retrospective retinal/MS/GBM imaging partitions; no actual-care effect evaluation"
+      },
+      "evidence_ids": [
+        "evidence:B025:0004",
+        "evidence:B025:0005"
+      ],
+      "legacy_highest_label": null
+    }
+  ],
+  "gate_assessments": [],
+  "legacy_cells": {
+    "A": "B025",
+    "B": "ImageFlowNet: Forecasting Multiscale Image-Level Trajectories of Disease Progression with Irregularly-Sampled Longitudinal Medical Images",
+    "C": "Liu, Chen, Xu, Ke, Shen, Liangbo L., Huguet, Guillaume, Wang, Zilong, Tong, Alexander, et al.",
+    "D": "2025",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://arxiv.org/abs/2406.14794",
+    "H": "Papers/Expanded_Collection (B)",
+    "I": "B025_ImageFlowNet_Forecasting_Multiscale_Image_Level_Trajectories_of_Disease_Progression_with_Irregularly_Sampled_L.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not applicable",
+    "N": "Multi-specialty / general medicine",
+    "O": "Geographic atrophy (advanced age-related macular degeneration); multiple sclerosis; glioblastoma",
+    "P": "Not reported",
+    "Q": "Tissue / organ",
+    "R": "Disease progression forecasting",
+    "S": "Given an earlier longitudinal medical image and elapsed time, what future image depicting disease progression is predicted?",
+    "T": "METforMIN: geographic atrophy in 132 eyes, 2–5 visits over up to 24 months; LMSLS: 79 longitudinal multiple-sclerosis image series averaging 4.4 time points over approximately 5 years; LUMIERE: 91 glioblastoma patients and 795 post-operative series with 2–18 time points, spanning up to 5 years.",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "None",
+    "X": "F3 Longitudinal imaging & treatment response",
+    "Y": "Other",
+    "Z": "L1 Temporal prediction",
+    "AA": "L1 Temporal prediction",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "No",
+    "AE": "Yes",
+    "AF": "Not reported",
+    "AG": "Not reported",
+    "AH": "Serial pipeline",
+    "AI": "Fundus autofluorescence images; FLAIR-weighted MRI; contrastive T1-weighted MRI",
+    "AJ": "UNet encoder/backbone; two-layer convolutional flow fields at hidden layers; expansion path with residual blocks reconstructs images",
+    "AK": "ImageNet-pretrained ConvNeXT encoder for visual-feature regularization",
+    "AL": "Not reported",
+    "AM": "Not applicable",
+    "AN": "Not reported",
+    "AO": "Yes",
+    "AP": "Partial",
+    "AQ": "Not reported",
+    "AR": "Continuous latent vector",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Per-patient fine-tuning",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Bottleneck latent representations visualized in 2D/3D PHATE; contrastive regularization showed fewer global-range connections and smoother transitions over time.",
+    "BA": "Not reported",
+    "BB": "None (no actions)",
+    "BC": "Not reported",
+    "BD": "Not reported",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "ImageFlowNet; ImageFlowNetSDE (stochastic variant)",
+    "BJ": "Neural ODE / CDE",
+    "BK": "Continuous time (ODE / SDE / flow)",
+    "BL": "Continuous-time integration across irregular visit intervals; retinal data span up to 24 months, MS approximately 5 years, and glioblastoma up to 5 years.",
+    "BM": "Yes",
+    "BN": "Trajectory-smoothness regularization on the learned flow field; authors state it enforces Lipschitz continuity.",
+    "BO": "None (Markov)",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Future medical images reconstructed from evolved multiscale latent representations; SDE variant generates alternative trajectories.",
+    "BT": "Not reported",
+    "BU": "Not reported",
+    "BV": "Image reconstruction MSE; pretrained-ConvNeXT visual-feature similarity loss; SimSiam contrastive regularization; flow-field trajectory-smoothness regularization.",
+    "BW": "No",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Experiments ran on NVIDIA A100, A5000, or RTX 3090 GPUs; jobs completed within 2–5 days on one GPU with 8 CPU cores. SDE may require a 40-GB GPU; other methods can train on 20-GB GPUs.",
+    "CB": "Not reported",
+    "CC": "Open-loop multi-step",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "Not reported",
+    "CI": "Not applicable",
+    "CJ": "Not applicable",
+    "CK": "Not applicable",
+    "CL": "Not applicable",
+    "CM": "Not applicable",
+    "CN": "Not reported",
+    "CO": "Not applicable",
+    "CP": "Stochastic latent",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "None (predictive only)",
+    "CU": "None",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not reported",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "A0 Offline analysis (no autonomy)",
+    "DH": "Not reported",
+    "DI": "None",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Not reported",
+    "DN": "Not reported",
+    "DO": "Not reported",
+    "DP": "Not reported",
+    "DQ": "Not reported",
+    "DR": "Not reported",
+    "DS": "Not reported",
+    "DT": "Not reported",
+    "DU": "Not reported",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "R2 Retrospective internal validation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "Not reported",
+    "FD": "Not reported",
+    "FE": "Not reported",
+    "FF": "Not reported",
+    "FG": "Not reported",
+    "FH": "Not reported",
+    "FI": "Not reported",
+    "FJ": "Not reported",
+    "FK": "Not reported",
+    "FL": "Not reported",
+    "FM": "Not reported",
+    "FN": "ImageFlowNet-SDE++ retinal forecasting PSNR was 22.89 ± 0.28 and SSIM 0.651 ± 0.012. Test-time adaptation could improve performance at suitable settings but excessive updates degraded it; Table 2 reports this sensitivity.",
+    "FO": "Not reported",
+    "FP": "Not reported",
+    "FQ": "Not reported",
+    "FR": "Not reported",
+    "FS": "Reviewer mapping: M3 Belief-state service; M5 Dynamics adapter; M6 Rollout service; M7 Outcome & causal layer",
+    "FT": "Reviewer lesson: Expose future-state forecasts through a time-aware dynamics interface and validate error versus horizon; treatment actions need separate evidence before intervention simulation.",
+    "FU": "Reviewer mapping (KB §20): Multiscale / continuous-time states",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Complete extracted PDF text, all 28 pages (PDF pp. 1–28): title/abstract; introduction and problem formulation; methods §§2–3; theoretical results; empirical results §§5.1–5.7 including Tables 1–7; related work; clinical implications; conclusion and limitations; appendices A–F including implementation details and evaluation metrics. Tables and figures were readable in the extracted text; no extraction issue identified. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "A:I left untouched except D: the printed conference year (2025) directly contradicts the prefilled 2024. Demonstrated capability is L1: future image prediction under elapsed time, with no treatment/action input or decision planner. Although the discussion gives an untreated-progression visualization example, the experiments do not compare treatment alternatives or identify causal effects. Retrospective dataset validation only; the paper states that clinical-context use has not yet been studied. SDE alternative trajectories are stochastic outcomes, not counterfactuals under alternative actions. Evidence QA: 34/44 populated fields had a <=25-word quotation matching extracted PDF text (77.3%). Confidence is conservative; review this row where exact quote checks were incomplete. Schema normalization (source details retained): CC normalized to 'Open-loop multi-step'; source detail: Open-loop continuous-time integration from an observed image to a future timestamp; no re-assimilation during the forecast is reported. Codex audit: 42 prior populated fields have a located source quotation; 3 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "All 28 physical pages covered by inherited page/image review plus new text review of bibliography/technical appendices and direct image checks pp9,24,26. Bibliographic entries do not count as retrieved primary studies.",
+    "Deterministic ODE and stochastic SDE configurations remain separate. SDE sample diversity is not a clinical treatment contrast and not demonstrated calibration.",
+    "Retinal anchor selection uses the full longitudinal series, and auxiliary lesion segmentators are trained on all images; a strict availability/metric independence audit is needed before stronger validation claims.",
+    "Appendix PSNR and DSC equations have apparent missing-square/factor-two notation relative to conventional definitions; authors name established implementations, but implementation was not retrieved or executed.",
+    "Appendix expressiveness/optimal-transport statements are author theoretical claims, not verification that a learned finite latent map is bijective or an optimal transport minimizer. No causal identification follows.",
+    "Test-time optimization can improve selected metrics but high learning rates or excess iterations degrade performance. No prospective diagnosis or demonstrated patient benefit.",
+    "Completed offline by Codex on 2026-11-21 using inherited page/image review receipts. Direct inspection this session is declared separately. No independent human verification or API call; local validation checks occurrence and necessary conditions, not all scientific entailment."
+  ]
+}

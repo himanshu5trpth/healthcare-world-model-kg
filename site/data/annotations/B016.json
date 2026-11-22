@@ -1,0 +1,4299 @@
+{
+  "record_id": "annotation:B016:r1",
+  "paper_record_id": "B016",
+  "paper_version_id": "paper-version:B016:sha256-f82fa7f53d1e",
+  "annotation_status": "reviewed",
+  "model_version_ids": [
+    "model:B016:cancer-jepa:v1",
+    "model:B016:rrr-anchor:v1"
+  ],
+  "system_composition_ids": [
+    "system:B016:forecast-and-audit:v1"
+  ],
+  "world_type_ids": [
+    "WT_ORGAN"
+  ],
+  "profile_ids": [
+    "BP_COMPONENT",
+    "BP_FORECAST"
+  ],
+  "entities": [
+    {
+      "id": "paper:B016",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "B016",
+        "title": "Patient, Place, Prior (P³): What Counts as Personalization in Medical World Models?",
+        "authors": [
+          "Xingrui Gu",
+          "Hanxue Gu",
+          "Yuxiang Zhang",
+          "Yang Yang"
+        ],
+        "primary_contribution": "Predictive-personalization audit with an original one-step latent forecasting implementation.",
+        "publication_status": "Preprint",
+        "canonical_url": "https://arxiv.org/abs/2610.09194",
+        "legacy_inclusion": "Include – component / supporting",
+        "reviewed_inclusion_recommendation": "Include – core world model",
+        "inclusion_rationale": "Cancer JEPA implements and evaluates a learned transition from longitudinal MRI representations to a future MRI representation. The paper also contributes the reusable P³ audit; this supporting role is retained separately.",
+        "bibliographic_verification_boundary": "Title, byline and version were checked against supplied page-one text and supplied page-review notes, not an independently retrieved publisher record."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B016:01",
+        "evidence:B016:02",
+        "evidence:B016:05"
+      ]
+    },
+    {
+      "id": "paper-version:B016:sha256-f82fa7f53d1e",
+      "class_id": "PaperVersion",
+      "properties": {
+        "arxiv_id": "2610.09194v1",
+        "version_date": "2026-10-06",
+        "year": "2026",
+        "physical_pdf_pages": 12,
+        "source_path": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+        "sha256": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129",
+        "hash_provenance": "Supplied source record; not recomputed in this response.",
+        "source_access": "Full extracted text for physical pages 1–12 and supplied page-level text/image review notes. Original PDF bytes and page-image pixels were not directly available in this response.",
+        "appendices_in_supplied_document": "No appendix appears in the supplied 12-page text or supplied visual inventories.",
+        "assessment_method": "Automated API model synthesis and skeptical second model pass over the supplied source text and preceding page-review notes; no independent human verification."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B016:01",
+        "evidence:B016:25"
+      ]
+    },
+    {
+      "id": "study:B016:forecast-attribution",
+      "class_id": "Study",
+      "properties": {
+        "design": "Retrospective observational latent-forecast evaluation and post-hoc predictive-attribution audit.",
+        "data_source": "Public I-SPY2 breast DCE-MRI resource.",
+        "clinical_population": "Patients with high-risk stage II–III breast cancer receiving neoadjuvant therapy.",
+        "development_reuse": "The validation cohort had previously been used during development.",
+        "test_partition": "A 90-patient partition is listed but neither accessed nor reported in these experiments.",
+        "independence_boundary": "No independent confirmatory test, external-site validation, prospective model use or independent replication is demonstrated."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B016:05",
+        "evidence:B016:06",
+        "evidence:B016:07"
+      ]
+    },
+    {
+      "id": "model:B016:cancer-jepa:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Cancer JEPA",
+        "version_identity": "Configuration reported in arXiv:2610.09194v1; checkpoint and code version not reported.",
+        "input": "Frozen T1 MRI representation, T1-minus-T0 representation change, T0-derived lesion core/ring occupancies, fixed spatial coordinates, forecast interval and observed context.",
+        "output": "One future T3 MRI latent representation, not decoded MRI or pathological complete response.",
+        "transition_coordinate": "Clinical examination time: T0/T1 history to T3 target; elapsed forecast interval enters in days.",
+        "architecture": "Fixed patient-conditioned RRR anchor plus a core-occupancy-gated neural correction using pointwise projections and context-modulated three-dimensional blocks.",
+        "representation_space": "Continuous spatial latent tensor, 1024 × 7 × 7 × 7.",
+        "training": "Occlusion-weighted, core-occupancy-weighted channel-averaged smooth-L1 error, normalized within patient and then across eligible patients.",
+        "inference": "Average predictions across fixed occlusion patterns.",
+        "core_world_model_assessment": {
+          "state": "Source-supported",
+          "basis": "Implemented predecessor and successor MRI latent states with a learned one-step temporal transition in healthcare scope.",
+          "evidence_stage": "implementation",
+          "evidence_ids": [
+            "evidence:B016:02",
+            "evidence:B016:03",
+            "evidence:B016:04",
+            "evidence:B016:05"
+          ],
+          "boundary": "Persistent state here means the declared predecessor/successor representation used by the transition; online belief filtering, continual state service and recursive rollout are not established."
+        },
+        "causal_interpretation": "Explicitly observational. Observed acquisition/clinical context is not an identified intervention.",
+        "uncertainty_boundary": "Occlusion averaging is not demonstrated epistemic/aleatoric decomposition or calibrated future-state uncertainty."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B016:02",
+        "evidence:B016:03",
+        "evidence:B016:04",
+        "evidence:B016:05",
+        "evidence:B016:08",
+        "evidence:B016:09",
+        "evidence:B016:10"
+      ]
+    },
+    {
+      "id": "model:B016:rrr-anchor:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Fixed reduced-rank regression anchor",
+        "mechanism": "Shrinkage of the latest latent representation toward a fitting-partition future mean, plus a regularized reduced-rank prediction of coarse spatial change.",
+        "inputs": "Pooled patient imaging history, lesion occupancies and observed context.",
+        "fitting": "Shrinkage, rank, regularization, standardization and dimensionality reduction fitted within the corresponding training partition.",
+        "status_during_neural_training_and_audit": "Fixed.",
+        "important_distinction": "Already patient-conditioned; it is not the population-average Prior control.",
+        "configuration_limits": "Selected shrinkage, rank, regularization and detailed pooling/restoration settings are not reported."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B016:03",
+        "evidence:B016:11"
+      ]
+    },
+    {
+      "id": "system:B016:forecast-and-audit:v1",
+      "class_id": "SystemComposition",
+      "properties": {
+        "flow": "T0/T1 SER MRI and T0 annotations → frozen 3DINO spatial representations and occupancies → patient-conditioned fixed RRR anchor plus masked neural correction → multiplicative core gate → one-step T3 latent forecast → MAE and P³ attribution comparisons.",
+        "planner": "No operational action optimizer or decision policy is part of the documented forecasting/audit configuration.",
+        "composition_kind": "Frozen-encoder forecasting pipeline with parallel anchor/correction branches and a post-hoc audit.",
+        "profile_scopes": {
+          "BP_COMPONENT": "Reusable P³ predictive-personalization audit.",
+          "BP_FORECAST": "Cancer JEPA one-step observational latent forecasting research."
+        },
+        "module_completeness": "Only the declared responsibilities are mapped; no complete M1–M10 clinical stack or validated interface conformance is asserted."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B016:02",
+        "evidence:B016:04",
+        "evidence:B016:10",
+        "evidence:B016:12"
+      ]
+    },
+    {
+      "id": "module:B016:encoder",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "name": "Frozen 3DINO representation encoder",
+        "responsibility": "M2 observation encoding.",
+        "input": "Resized volumetric SER MRI.",
+        "output": "1024 × 7 × 7 × 7 latent grid.",
+        "boundary": "The encoder is frozen; Cancer JEPA neither updates it nor maintains an EMA target encoder. Pretraining details and pretraining-cohort overlap are not established here."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B016:08",
+        "evidence:B016:13"
+      ]
+    },
+    {
+      "id": "module:B016:transition",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "name": "RRR-plus-neural-correction transition",
+        "responsibility": "M5 learned state transition; limited M6 one-step predictive query.",
+        "input": "Latest latent state and preceding change, occupancy maps, elapsed interval and observed context.",
+        "output": "Future examination latent representation.",
+        "spatial_constraint": "At a latent token with zero supplied core occupancy, the complete prediction equals the RRR anchor.",
+        "boundary": "An anatomical support constraint, not a physiological conservation law, causal model or clinical safety guard."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B016:03",
+        "evidence:B016:04",
+        "evidence:B016:09"
+      ]
+    },
+    {
+      "id": "module:B016:p3-audit",
+      "class_id": "ModuleImplementation",
+      "properties": {
+        "name": "Patient, Place, Prior audit",
+        "responsibility": "M7 predictive evaluation/attribution subrole.",
+        "input": "Frozen predictor, recipient target/context, recipient and donor histories, recipient and donor supports, population reference histories.",
+        "output": "Within-patient MAE contrasts and descriptive bootstrap intervals.",
+        "scope": "Cancer JEPA's neural correction; the recipient's RRR baseline remains fixed.",
+        "boundary": "Does not implement causal treatment-effect identification, clinical action selection, runtime abstention or an operational safety service."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B016:10",
+        "evidence:B016:12",
+        "evidence:B016:14",
+        "evidence:B016:15"
+      ]
+    },
+    {
+      "id": "state:B016:mri-history",
+      "class_id": "StateSpec",
+      "properties": {
+        "state_content": "C_i = (Z_i at T1, Z_i at T1 minus Z_i at T0); target is Z_i at T3.",
+        "representation": "Frozen examination encoding, not a direct biological-state measurement.",
+        "spatial_dimensions": "1024 × 7 × 7 × 7 per examination.",
+        "history": "Two observed examinations, T0 and T1; T2 is not supplied.",
+        "filtering": "No explicit prior/posterior assimilation mechanism reported."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B016:02",
+        "evidence:B016:05",
+        "evidence:B016:13",
+        "evidence:B016:16"
+      ]
+    },
+    {
+      "id": "time:B016:forecast",
+      "class_id": "TimeSpec",
+      "properties": {
+        "coordinate": "Clinical MRI examination time.",
+        "observed_visits": [
+          "T0 pretreatment",
+          "T1 early treatment"
+        ],
+        "target_visit": "T3 before surgery",
+        "excluded_intermediate_input": "T2 between regimens",
+        "elapsed_time_input": "Delta t = target time minus latest observed examination time, measured in days.",
+        "fixed_scaling": "s(Delta t) = min{log(1 + Delta t/30)/log 7, 3}.",
+        "maximum_clinical_forecast_interval": "not_reported",
+        "interpretation": "One transition across a variable clinical interval; neither the scale clamp nor bootstrap/occlusion counts establish a clinical horizon."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B016:02",
+        "evidence:B016:05",
+        "evidence:B016:09"
+      ]
+    },
+    {
+      "id": "context:B016:research",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "purpose": "Research on observational latent MRI forecasting and auditable personalization.",
+        "population": "I-SPY2 high-risk stage II–III breast cancer.",
+        "setting": "Retrospective analysis of clinical-trial imaging.",
+        "intended_user": "not_reported",
+        "clinical_decision_boundary": "No evaluated treatment-selection or care-delivery decision.",
+        "unsupported_uses": [
+          "Identified treatment effects",
+          "Autonomous lesion localization",
+          "Decoded future-image interpretation",
+          "Clinical treatment planning",
+          "Prospective patient benefit"
+        ]
+      },
+      "provenance_evidence_ids": [
+        "evidence:B016:05",
+        "evidence:B016:17",
+        "evidence:B016:18"
+      ]
+    },
+    {
+      "id": "dataset:B016:ispy2",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "name": "I-SPY2 public longitudinal breast DCE-MRI imaging resource",
+        "archive_citation": "Li et al., The Cancer Imaging Archive, 2022.",
+        "exact_release_or_archive_version": "not_reported",
+        "data_access": "Described as public; actual download access and license were not checked.",
+        "modalities": [
+          "Longitudinal breast DCE-MRI/SER representations",
+          "T0 lesion annotations",
+          "Observed acquisition/clinical context, components unspecified"
+        ],
+        "multicenter": true,
+        "number_of_sites": "not_reported",
+        "starting_patients": 595,
+        "quality_control_exclusions": 8,
+        "split_counts_as_reported": {
+          "training": 409,
+          "validation": 88,
+          "test_not_evaluated": 90
+        },
+        "partitioning": "Patient-disjoint; site-level independence not reported."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B016:05",
+        "evidence:B016:06",
+        "evidence:B016:19"
+      ]
+    },
+    {
+      "id": "cohort:B016:training",
+      "class_id": "Cohort",
+      "properties": {
+        "patients": 409,
+        "role": "RRR/neural model fitting and reference histories for the Prior control.",
+        "population": "I-SPY2 patients with required longitudinal imaging and spatial annotations.",
+        "overlap_with_validation": "Patient-disjoint as reported.",
+        "reference_role_boundary": "The Prior control preserves each recipient's support, context, baseline and target."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B016:06",
+        "evidence:B016:14"
+      ]
+    },
+    {
+      "id": "cohort:B016:validation-core",
+      "class_id": "Cohort",
+      "properties": {
+        "patients": 87,
+        "parent_validation_patients": 88,
+        "endpoint": "Primary T0-core latent MAE and primary-core P³ contrasts.",
+        "endpoint_exclusion": "One validation patient has zero core occupancy on the latent grid.",
+        "development_relationship": "Previously used during model development; not an untouched confirmatory holdout."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B016:07",
+        "evidence:B016:20"
+      ]
+    },
+    {
+      "id": "cohort:B016:validation-secondary",
+      "class_id": "Cohort",
+      "properties": {
+        "patients": 88,
+        "endpoint": "Secondary-region latent MAE.",
+        "regions_announced": [
+          "T0 disease bed",
+          "20-mm ring",
+          "Valid non-disease bed",
+          "Full shared grid"
+        ],
+        "development_relationship": "Previously used during model development.",
+        "reporting_boundary": "Table 1 gives disease-bed, ring and full-grid results, but no separate valid-non-disease-bed row."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B016:20",
+        "evidence:B016:21"
+      ]
+    },
+    {
+      "id": "protocol:B016:validation-p3",
+      "class_id": "EvaluationProtocol",
+      "properties": {
+        "future_target": "Frozen T3 SER MRI representation from T0/T1 history.",
+        "primary_metric": "Patient-level latent MAE within supplied T0 core.",
+        "factorial_conditions": {
+          "M": "Recipient history and recipient support.",
+          "H": "Donor history and recipient support.",
+          "L": "Recipient history and donor support.",
+          "B": "Same donor's history and support."
+        },
+        "fixed_across_conditions": [
+          "Recipient future target",
+          "RRR baseline",
+          "Forecast horizon",
+          "Observed protocol/context",
+          "Evaluation region and procedure",
+          "Occlusion pattern distribution"
+        ],
+        "donor_protocol": "32 deterministic patient permutations without self-matches.",
+        "occlusion_protocol": "Ten fixed occlusion patterns per condition.",
+        "prior_protocol": "Average corrections over all 409 training histories under each recipient's support/context before gating and evaluation.",
+        "bootstrap": "10,000 paired patient-level bootstrap replicates for descriptive 95% intervals.",
+        "sampling_unit": "Patient, not donor substitution or occlusion.",
+        "development_reuse": "All reported analyses are post-hoc and descriptive.",
+        "clinical_horizon_days": "not_reported",
+        "acceptance_threshold": "No clinical tolerance or deployment acceptance threshold reported."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B016:10",
+        "evidence:B016:12",
+        "evidence:B016:14",
+        "evidence:B016:15",
+        "evidence:B016:20"
+      ]
+    },
+    {
+      "id": "evaluation:B016:one-step-p3",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "models": [
+          "model:B016:cancer-jepa:v1",
+          "model:B016:rrr-anchor:v1"
+        ],
+        "protocol_id": "protocol:B016:validation-p3",
+        "environment": "Retrospective human clinical-trial imaging.",
+        "split_role": "Development-reused validation, not final test.",
+        "forecast_protocol": "One-step future-state prediction with occlusion averaging; no recursive forecast feedback.",
+        "primary_result": "Primary-core incremental improvement over RRR and incremental value over the matched population-average correction remain unresolved.",
+        "positive_attribution_results": "Own-history and matched-support contrasts have descriptive 95% intervals above zero.",
+        "clinical_validity_boundary": "No clinical endpoint, causal intervention response, decision-policy performance or prospective benefit evaluation."
+      },
+      "provenance_evidence_ids": [
+        "evidence:B016:05",
+        "evidence:B016:07",
+        "evidence:B016:15",
+        "evidence:B016:21",
+        "evidence:B016:22",
+        "evidence:B016:23"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:B016:001",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "data.provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "dataset_version_id": "dataset:B016:ispy2",
+        "intended_use_context_id": "context:B016:research"
+      },
+      "evidence_ids": [
+        "evidence:B016:05",
+        "evidence:B016:06",
+        "evidence:B016:13",
+        "evidence:B016:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "The source imaging resource, clinical population, acquisition visits and patient-disjoint partition counts are identified.",
+        "Input and target examinations are distinguished, and lesion occupancies are attributed to T0 annotations.",
+        "Registration, cropping, resizing, SER transformation and frozen-encoder processing are described."
+      ],
+      "criteria_missing": [
+        "The exact archive release and encoder checkpoint identities are not reported.",
+        "Complete variable-level provenance, units and acquisition-versus-availability timestamps are not documented.",
+        "The observed context variables and precise SER transformation are not sufficiently specified for complete input tracing."
+      ],
+      "confidence": "medium",
+      "rationale": "The paper supplies substantive source and transformation provenance, beyond a dataset name alone, but not the complete variable-level provenance contract. This concerns the reported forecasting pipeline, not an independently inspected provenance service."
+    },
+    {
+      "id": "assertion:B016:002",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "dataset_version_id": "dataset:B016:ispy2",
+        "time_horizon": "T0/T1 history to T3; forecast interval represented in days"
+      },
+      "evidence_ids": [
+        "evidence:B016:02",
+        "evidence:B016:09"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "confidence": "medium",
+      "rationale": "The model consumes the elapsed T1-to-target interval, but retention or reversible availability of the actual observation timestamps is not documented. The T0-to-T1 acquisition interval and native timestamp resolution are also unspecified. An elapsed forecast interval does not establish a native-observation timestamp contract."
+    },
+    {
+      "id": "assertion:B016:003",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "dataset_version_id": "dataset:B016:ispy2",
+        "intended_use_context_id": "context:B016:research"
+      },
+      "evidence_ids": [
+        "evidence:B016:02",
+        "evidence:B016:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "confidence": "medium",
+      "rationale": "Support is derived from prediction-time examinations, and future scans cannot determine crop placement. However, the paper does not distinguish scan acquisition time from the time images, annotations or clinical-context values became usable, or document release-latency-aware queries. Temporal source restrictions are not equivalent to explicit information-availability timestamps."
+    },
+    {
+      "id": "assertion:B016:004",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "module_implementation_id": "module:B016:transition",
+        "dataset_version_id": "dataset:B016:ispy2"
+      },
+      "evidence_ids": [
+        "evidence:B016:04",
+        "evidence:B016:06",
+        "evidence:B016:20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "confidence": "high",
+      "rationale": "The documented masks are deliberate history occlusions and anatomical occupancy maps. They do not establish measured/missing/invalid status for naturally unavailable observations. Selection of patients with required examinations and mention of valid evaluation regions likewise do not establish model-input availability masks."
+    },
+    {
+      "id": "assertion:B016:005",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "module_implementation_id": "module:B016:transition",
+        "time_horizon": "T0/T1 conditioning examinations and one T3 target"
+      },
+      "evidence_ids": [
+        "evidence:B016:02",
+        "evidence:B016:09"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "confidence": "medium",
+      "rationale": "The forecast interval is represented, but no per-variable time-since-measurement representation or freshness update is described. The context variables are incompletely enumerated, so their freshness handling cannot be determined. The global forecast interval is not coded as variable-level measurement age."
+    },
+    {
+      "id": "assertion:B016:006",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "module_implementation_id": "module:B016:transition",
+        "time_horizon": "Delta t = T3 acquisition time minus T1 acquisition time, measured in days"
+      },
+      "evidence_ids": [
+        "evidence:B016:02",
+        "evidence:B016:09",
+        "evidence:B016:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "The patient-specific elapsed forecast interval enters the observed context.",
+        "The forecast interval modulates the spatial blocks and explicitly scales the neural correction through s(Delta t)."
+      ],
+      "confidence": "high",
+      "rationale": "Real elapsed clinical time affects the implemented prediction rather than serving only as a visit label. This establishes interval-aware one-step forecasting, not continuous-time integration or complete handling of irregular history. No time-input ablation or interval-stratified validation is reported."
+    },
+    {
+      "id": "assertion:B016:007",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "dataset_version_id": "dataset:B016:ispy2"
+      },
+      "evidence_ids": [
+        "evidence:B016:02",
+        "evidence:B016:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "confidence": "high",
+      "rationale": "The paper describes the source trial's examination schedule and includes elapsed time and unspecified acquisition/clinical context. It does not sufficiently describe a conditional model or operational rule for when, whether or why measurements occur. A schedule description, context embedding and occlusion masks do not by themselves establish this feature."
+    },
+    {
+      "id": "assertion:B016:008",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "evaluation_run_id": "evaluation:B016:one-step-p3",
+        "dataset_version_id": "dataset:B016:ispy2"
+      },
+      "evidence_ids": [
+        "evidence:B016:10",
+        "evidence:B016:20",
+        "evidence:B016:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "confidence": "high",
+      "rationale": "P³ audits history use, supplied spatial support and comparison with a population-average correction. It does not report a temporal-grid witness-preservation audit across sampled values, update patterns, native timing and external acquisition channels. Spatial resizing or a zero-occupancy exclusion is not such an audit."
+    },
+    {
+      "id": "assertion:B016:009",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "dataset_version_id": "dataset:B016:ispy2"
+      },
+      "evidence_ids": [
+        "evidence:B016:13",
+        "evidence:B016:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "confidence": "medium",
+      "rationale": "Registration to T0, resizing, a fixed SER transform and projection to a common latent grid are reported. Source-specific units, terminology or measurement definitions mapped through traceable conversions to a declared semantic schema are not documented. Spatial alignment alone does not meet this feature's criterion."
+    },
+    {
+      "id": "assertion:B016:010",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "dataset_version_id": "dataset:B016:ispy2",
+        "evaluation_run_id": "evaluation:B016:one-step-p3",
+        "cohort_id": [
+          "cohort:B016:training",
+          "cohort:B016:validation-core",
+          "cohort:B016:validation-secondary"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:B016:03",
+        "evidence:B016:06",
+        "evidence:B016:07",
+        "evidence:B016:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Training, validation and test partitions are reported as patient-disjoint.",
+        "RRR shrinkage, rank, regularization, standardization and dimensionality reduction are fitted within the corresponding training partition.",
+        "The RRR and neural correction are fitted on training patients and frozen for the reported audit.",
+        "T0 determines the reference, disease-bed crop and supplied annotations; future examinations cannot determine crop placement."
+      ],
+      "criteria_missing": [
+        "Validation was previously used during development, so the reported comparisons do not constitute untouched held-out confirmation.",
+        "Encoder-pretraining overlap with study patients is not documented.",
+        "Complete availability checks for the unspecified acquisition/clinical context are not reported.",
+        "Site/time overlap checks and a comprehensive executed leakage audit are not reported."
+      ],
+      "confidence": "high",
+      "rationale": "Several explicit leakage-aware preparation mechanisms are implemented, but comprehensive assurance is incomplete. Reused validation limits independence; it does not by itself prove that future targets entered training or justify an assertion of actual leakage. No result is reported on the listed test partition."
+    },
+    {
+      "id": "assertion:B016:011",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "dataset_version_id": "dataset:B016:ispy2",
+        "intended_use_context_id": "context:B016:research"
+      },
+      "evidence_ids": [
+        "evidence:B016:06",
+        "evidence:B016:19"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "confidence": "high",
+      "rationale": "The source is a public multicenter imaging resource, but no site-local training/query protocol, exchanged artifacts or federated aggregation is described. Multicenter origin does not establish federation, and the paper does not explicitly document an incompatible identifiable-record pooling mechanism sufficient for an absence assertion."
+    },
+    {
+      "id": "assertion:B016:012",
+      "subject_id": "module:B016:encoder",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "module_implementation_id": "module:B016:encoder",
+        "dataset_version_id": "dataset:B016:ispy2"
+      },
+      "evidence_ids": [
+        "evidence:B016:08",
+        "evidence:B016:13",
+        "evidence:B016:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Frozen 3DINO maps resized volumetric SER MRI to a 1024 × 7 × 7 × 7 spatial representation.",
+        "These representations supply the longitudinal context and future target used in the reported forecasting experiments."
+      ],
+      "confidence": "high",
+      "rationale": "An operational observation-to-representation mapping is specified and used, rather than merely cited. Forecast evaluation does not independently establish encoder quality, clinical state sufficiency or the capabilities of the separately cited 3DINO study."
+    },
+    {
+      "id": "assertion:B016:013",
+      "subject_id": "module:B016:encoder",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "module_implementation_id": "module:B016:encoder"
+      },
+      "evidence_ids": [
+        "evidence:B016:08",
+        "evidence:B016:13",
+        "evidence:B016:api0:01"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "The reused encoder is named as 3DINO and associated with the Xu et al. 2025 reference.",
+        "Its used role and output dimensions are specified.",
+        "Adaptation status is explicit: the image encoder remains frozen."
+      ],
+      "criteria_missing": [
+        "The exact pretrained checkpoint, weight version or immutable artifact identifier is not reported."
+      ],
+      "confidence": "high",
+      "rationale": "Named pretrained-representation reuse is documented, but checkpoint-level provenance is insufficient for the feature's complete version-pinned criterion. No pretraining objective, cohort independence or performance is inherited from the cited encoder paper."
+    },
+    {
+      "id": "assertion:B016:014",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "module_implementation_id": "module:B016:transition",
+        "cohort_id": "cohort:B016:training",
+        "time_horizon": "One T3 target representation from T0/T1 history"
+      },
+      "evidence_ids": [
+        "evidence:B016:04",
+        "evidence:B016:05",
+        "evidence:B016:api0:02"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "The neural correction is trained against a frozen future-examination latent target.",
+        "The loss uses channel-averaged smooth-L1 error on occluded, core-occupied latent tokens, normalized within patient.",
+        "The objective does not require decoding or reconstructing MRI pixels."
+      ],
+      "confidence": "high",
+      "rationale": "The operational training objective predicts a target representation. This is not merely the presence of a latent bottleneck. The image encoder itself is not trained by this objective, and superiority over reconstruction-based training was not tested."
+    },
+    {
+      "id": "assertion:B016:015",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "module_implementation_id": "module:B016:encoder",
+        "cohort_id": "cohort:B016:training"
+      },
+      "evidence_ids": [
+        "evidence:B016:08",
+        "evidence:B016:api0:01"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "The shared image encoder defining context and target representations is frozen during Cancer JEPA fitting.",
+        "Consequently, the target representation cannot jointly adapt toward a trivial constant through the Cancer JEPA training objective."
+      ],
+      "confidence": "medium",
+      "rationale": "The positive assessment is narrowly scoped to the explicit fixed-target constraint preventing joint encoder/target collapse during this training stage. This is reviewer interpretation of the frozen-encoder mechanism, not an author-reported anti-collapse experiment. It does not establish that the pretrained representation is noncollapsed in every relevant sense, or that the trainable correction cannot underuse context. Occlusion discouraging copying is a separate mechanism and is not treated as proof of collapse prevention."
+    },
+    {
+      "id": "assertion:B016:016",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "module_implementation_id": "module:B016:transition",
+        "cohort_id": "cohort:B016:training"
+      },
+      "evidence_ids": [
+        "evidence:B016:04",
+        "evidence:B016:05",
+        "evidence:B016:api0:02"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "high",
+      "rationale": "The documented Cancer JEPA objective compares predicted and frozen target representations rather than reconstructed observations. The paper explicitly distinguishes its endpoint from a future MRI image. This scoped absence concerns raw-observation reconstruction during Cancer JEPA training, not the unknown pretraining objectives of the reused 3DINO encoder and not reconstruction of latent quantities."
+    },
+    {
+      "id": "assertion:B016:017",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "perception.fusion",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [
+        "evidence:B016:gap-fusion:6",
+        "evidence:B016:gap-fusion:7"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "confidence": "medium",
+      "rationale": "Criterion requires at least two separately identified modalities in a fusion operation. The implemented correction combines MRI latents, longitudinal differences, MRI-derived core/ring occupancy and non-spatial context using projections and context modulation. Multiple timepoints and derived maps of MRI are not independent modalities. The observed acquisition/clinical context a_i is not enumerated enough to establish a distinct second modality in the evaluated configuration. Thus combined-input processing is explicit, but multimodal fusion under this criterion remains unresolved after source review, not unassessed or proven absent."
+    },
+    {
+      "id": "assertion:B016:018",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:019",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "evaluation_run_id": "evaluation:B016:one-step-p3",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B016:02",
+        "evidence:B016:05",
+        "evidence:B016:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Section 4.1 (Eq. 9, p. 6) defines the longitudinal latent imaging history state C_i = (Z_i^{t_1}, Z_i^{t_1} - Z_i^{t_0}) on a 1024x7x7x7 frozen 3DINO grid carried into the one-step future-state transition F_theta(C_i, S_i, U_i) -> Z_i^{t_f} (T3). Boundary: one-step predecessor-to-successor state; online belief filtering and recursive multi-step rollout are not implemented."
+    },
+    {
+      "id": "assertion:B016:020",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:021",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:022",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:023",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:024",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:025",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:026",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:027",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:028",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:029",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:030",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:031",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "action.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:032",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:033",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "action.parameterized",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:034",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:035",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:036",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:037",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:038",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:039",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:040",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:041",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "evaluation_run_id": "evaluation:B016:one-step-p3",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B016:02",
+        "evidence:B016:09",
+        "evidence:B016:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Section 4.1 (Eq. 9, p. 6) and Section 4.3 (Eqs. 13-14, p. 7) implement a one-step clinical-time transition mapping T0/T1 imaging state history and elapsed forecast interval Delta t_i = t_f - t_1 (in days, scaled by s(Delta t)) to the preoperative T3 latent representation."
+    },
+    {
+      "id": "assertion:B016:042",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "evaluation_run_id": "evaluation:B016:one-step-p3",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B016:03",
+        "evidence:B016:04",
+        "evidence:B016:09"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Sections 4.2-4.4 (pp. 6-7) combine a learned patient-conditioned reduced-rank regression anchor B_i (shrinkage + regularized reduced-rank map A_psi fitted on 409 training patients) with a learned occlusion-trained 3D neural correction H_theta optimized via smooth-L1 latent prediction loss L_JEPA."
+    },
+    {
+      "id": "assertion:B016:043",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:044",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:045",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:046",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:047",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:048",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:049",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:050",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:051",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:052",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:053",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "evaluation_run_id": "evaluation:B016:one-step-p3",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B016:05",
+        "evidence:B016:07",
+        "evidence:B016:20",
+        "evidence:B016:21",
+        "evidence:B016:23"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Table 1 (p. 9) evaluates one-step T3 latent prediction MAE on the I-SPY2 validation cohort (N=87 primary T0 core: 0.5202; N=88 secondary regions: disease bed 0.4714, 20-mm ring 0.4680, full grid 0.4266). Outcome is mixed because validation was reused during development (post-hoc descriptive; test split N=90 untouched) and primary T0-core improvement over RRR (2.15e-3, 95% CI [-0.10, 4.25]) and Prior contrast (0.76e-3, 95% CI [-0.67, 2.19]) remain unresolved."
+    },
+    {
+      "id": "assertion:B016:054",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:055",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:056",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:057",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:058",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:059",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:060",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:061",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:062",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "planning.model_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:063",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:064",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:065",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:066",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:067",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:068",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:069",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:070",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:071",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "uq.explicit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:072",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:073",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:074",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:075",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:076",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:077",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:078",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:079",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:080",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:081",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:082",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:083",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:084",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:085",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:086",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:087",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:088",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:089",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:090",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:091",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:092",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:093",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:094",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:095",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:096",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:097",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:098",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:099",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:100",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:101",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:102",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:103",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "agent.role",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:104",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:105",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:106",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:107",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:108",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:109",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:110",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:111",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:112",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:113",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:114",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:115",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:116",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:117",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:118",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:119",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:120",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:121",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:122",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:123",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:124",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:125",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:126",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:127",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:128",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Not reported in saved_work/B016 or verified PDF pages."
+    },
+    {
+      "id": "assertion:B016:rrr:019",
+      "subject_id": "model:B016:rrr-anchor:v1",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B016:rrr-anchor:v1",
+        "evaluation_run_id": "evaluation:B016:one-step-p3",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B016:03",
+        "evidence:B016:11"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Section 4.2 (p. 6): 'The RRR baseline is patient-conditioned because it uses the patient's longitudinal imaging history' C_i = (Z_i^{t_1}, Delta Z_i) carried into one-step T3 latent prediction B_i."
+    },
+    {
+      "id": "assertion:B016:rrr:041",
+      "subject_id": "model:B016:rrr-anchor:v1",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B016:rrr-anchor:v1",
+        "evaluation_run_id": "evaluation:B016:one-step-p3",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B016:02",
+        "evidence:B016:03"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Section 4.2 Eqs. 10-11 (p. 6): maps T0/T1 imaging history, occupancy maps, and elapsed forecast horizon U_i = (Delta t_i, a_i) to the future T3 latent representation B_i."
+    },
+    {
+      "id": "assertion:B016:rrr:042",
+      "subject_id": "model:B016:rrr-anchor:v1",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B016:rrr-anchor:v1",
+        "evaluation_run_id": "evaluation:B016:one-step-p3",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B016:03",
+        "evidence:B016:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Section 4.2 (p. 6) and Section 5.2 (p. 8): shrinkage alpha, future partition mean mu^{t_f}_{fit}, and regularized reduced-rank linear map A_psi are fitted on the 409-patient training partition."
+    },
+    {
+      "id": "assertion:B016:rrr:053",
+      "subject_id": "model:B016:rrr-anchor:v1",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B016:rrr-anchor:v1",
+        "evaluation_run_id": "evaluation:B016:one-step-p3",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B016:05",
+        "evidence:B016:07",
+        "evidence:B016:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Table 1 (p. 9) reports one-step T3 latent prediction MAE for the fixed RRR anchor on development-reused I-SPY2 validation: T0 core 0.5224 (N=87), disease bed 0.4718, 20-mm ring 0.4683, full grid 0.4268 (N=88)."
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:B016:01",
+      "subject_id": "paper:B016",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:B016:sha256-f82fa7f53d1e",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "effective_date": "2026-10-06"
+      },
+      "evidence_ids": [
+        "evidence:B016:01"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Version identity follows the supplied title-page text and source record; the hash was not recomputed."
+    },
+    {
+      "id": "relation:B016:02",
+      "subject_id": "paper-version:B016:sha256-f82fa7f53d1e",
+      "predicate_id": "reportsStudy",
+      "object_id": "study:B016:forecast-attribution",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B016:one-step-p3",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B016:05",
+        "evidence:B016:21",
+        "evidence:B016:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed"
+    },
+    {
+      "id": "relation:B016:03",
+      "subject_id": "paper-version:B016:sha256-f82fa7f53d1e",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B016:cancer-jepa:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "evaluation_run_id": "evaluation:B016:one-step-p3"
+      },
+      "evidence_ids": [
+        "evidence:B016:02",
+        "evidence:B016:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed"
+    },
+    {
+      "id": "relation:B016:04",
+      "subject_id": "paper-version:B016:sha256-f82fa7f53d1e",
+      "predicate_id": "reportsModel",
+      "object_id": "model:B016:rrr-anchor:v1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B016:rrr-anchor:v1",
+        "evaluation_run_id": "evaluation:B016:one-step-p3"
+      },
+      "evidence_ids": [
+        "evidence:B016:03",
+        "evidence:B016:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported"
+    },
+    {
+      "id": "relation:B016:05",
+      "subject_id": "system:B016:forecast-and-audit:v1",
+      "predicate_id": "composesModel",
+      "object_id": "model:B016:cancer-jepa:v1",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [
+        "evidence:B016:04",
+        "evidence:B016:12"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B016:06",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "predicate_id": "modelsWorld",
+      "object_id": "WT_ORGAN",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "population": "High-risk stage II–III breast cancer",
+        "time_horizon": "T1 to T3, with T0/T1 history; numerical elapsed interval not reported"
+      },
+      "evidence_ids": [
+        "evidence:B016:02",
+        "evidence:B016:05",
+        "evidence:B016:16"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The evolving object is a breast MRI examination representation, not directly measured tumor biology."
+    },
+    {
+      "id": "relation:B016:07",
+      "subject_id": "system:B016:forecast-and-audit:v1",
+      "predicate_id": "hasUseContext",
+      "object_id": "context:B016:research",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "context:B016:research",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B016:05",
+        "evidence:B016:18"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B016:08",
+      "subject_id": "module:B016:encoder",
+      "predicate_id": "realizesModule",
+      "object_id": "M2",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "module_implementation_id": "module:B016:encoder"
+      },
+      "evidence_ids": [
+        "evidence:B016:08",
+        "evidence:B016:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Only observation encoding is established; comprehensive M2 robustness or interface validation is not implied."
+    },
+    {
+      "id": "relation:B016:09",
+      "subject_id": "module:B016:transition",
+      "predicate_id": "realizesModule",
+      "object_id": "M5",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "module_implementation_id": "module:B016:transition"
+      },
+      "evidence_ids": [
+        "evidence:B016:02",
+        "evidence:B016:03",
+        "evidence:B016:04"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Learned one-step latent transition; no backend interchangeability, physical mechanism or causal assurance is inferred."
+    },
+    {
+      "id": "relation:B016:10",
+      "subject_id": "module:B016:transition",
+      "predicate_id": "maintainsState",
+      "object_id": "state:B016:mri-history",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "module_implementation_id": "module:B016:transition"
+      },
+      "evidence_ids": [
+        "evidence:B016:02",
+        "evidence:B016:13"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Declared predecessor/successor latent state within the predictive operation, not a demonstrated online belief-state service."
+    },
+    {
+      "id": "relation:B016:11",
+      "subject_id": "module:B016:p3-audit",
+      "predicate_id": "realizesModule",
+      "object_id": "M7",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "module_implementation_id": "module:B016:p3-audit",
+        "evaluation_run_id": "evaluation:B016:one-step-p3"
+      },
+      "evidence_ids": [
+        "evidence:B016:10",
+        "evidence:B016:14",
+        "evidence:B016:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Predictive evaluation/attribution subrole only; neither clinical outcome readouts nor the causal subrole are established."
+    },
+    {
+      "id": "relation:B016:12",
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "predicate_id": "demonstratesCapability",
+      "object_id": "L1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "evaluation_run_id": "evaluation:B016:one-step-p3",
+        "cohort_id": "cohort:B016:validation-core",
+        "environment_kind": "retrospective_human_records",
+        "time_horizon": "One transition to T3 from T0/T1 history; clinical interval in days not numerically reported"
+      },
+      "evidence_ids": [
+        "evidence:B016:05",
+        "evidence:B016:21"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "rationale": "Actual future-latent forecast results support L1, despite unresolved superiority on the primary endpoint and reused development validation. Input substitutions are not clinical actions and do not establish L2/L3."
+    },
+    {
+      "id": "relation:B016:13",
+      "subject_id": "paper-version:B016:sha256-f82fa7f53d1e",
+      "predicate_id": "claimsCapability",
+      "object_id": "L1",
+      "assessment_state": "present",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1"
+      },
+      "evidence_ids": [
+        "evidence:B016:24"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The authors describe a one-step future-representation forecaster, not an evaluated treatment controller."
+    },
+    {
+      "id": "relation:B016:14",
+      "subject_id": "evaluation:B016:one-step-p3",
+      "predicate_id": "usesDataset",
+      "object_id": "dataset:B016:ispy2",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B016:one-step-p3",
+        "dataset_version_id": "dataset:B016:ispy2",
+        "environment_kind": "retrospective_human_records"
+      },
+      "evidence_ids": [
+        "evidence:B016:05",
+        "evidence:B016:06"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:B016:15",
+      "subject_id": "evaluation:B016:one-step-p3",
+      "predicate_id": "evaluatesOnCohort",
+      "object_id": "cohort:B016:validation-core",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B016:one-step-p3",
+        "cohort_id": "cohort:B016:validation-core"
+      },
+      "evidence_ids": [
+        "evidence:B016:07",
+        "evidence:B016:20",
+        "evidence:B016:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed"
+    },
+    {
+      "id": "relation:B016:16",
+      "subject_id": "evaluation:B016:one-step-p3",
+      "predicate_id": "followsProtocol",
+      "object_id": "protocol:B016:validation-p3",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "evaluation_run_id": "evaluation:B016:one-step-p3",
+        "cohort_id": "cohort:B016:validation-core"
+      },
+      "evidence_ids": [
+        "evidence:B016:14",
+        "evidence:B016:15",
+        "evidence:B016:20"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Protocol is reported, but not independently executed or verified."
+    },
+    {
+      "id": "relation:B016:17",
+      "subject_id": "system:B016:forecast-and-audit:v1",
+      "predicate_id": "hasReadinessEvidence",
+      "object_id": "R2",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "evaluation_run_id": "evaluation:B016:one-step-p3",
+        "environment_kind": "retrospective_human_records",
+        "cohort_id": "cohort:B016:validation-core"
+      },
+      "evidence_ids": [
+        "evidence:B016:07"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "rationale": "Scoped absence of a qualifying non-reused held-out validation evaluation in the reported experiments: the reported validation cohort was previously used during development, and the test partition was explicitly not evaluated. This does not deny the existence of actual clinical data or of an unevaluated patient-disjoint test partition."
+    },
+    {
+      "id": "relation:B016:18",
+      "subject_id": "paper-version:B016:sha256-f82fa7f53d1e",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M3",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B016:one-step-p3"
+      },
+      "evidence_ids": [
+        "evidence:B016:10",
+        "evidence:B016:22",
+        "evidence:B016:23"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "History-use controls inform state evaluation; they do not establish an implemented belief filter."
+    },
+    {
+      "id": "relation:B016:19",
+      "subject_id": "paper-version:B016:sha256-f82fa7f53d1e",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M9",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:B016:one-step-p3"
+      },
+      "evidence_ids": [
+        "evidence:B016:18",
+        "evidence:B016:23"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Provides a claim-auditing lesson, not an implemented runtime safeguard or demonstrated safety guarantee."
+    },
+    {
+      "id": "relation:B016:20",
+      "subject_id": "system:B016:forecast-and-audit:v1",
+      "predicate_id": "hasProfile",
+      "object_id": "BP_COMPONENT",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "module_implementation_id": "module:B016:p3-audit",
+        "intended_use_context_id": "context:B016:research"
+      },
+      "evidence_ids": [
+        "evidence:B016:10",
+        "evidence:B016:22"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Applies specifically to the reusable P³ audit contribution."
+    },
+    {
+      "id": "relation:B016:21",
+      "subject_id": "system:B016:forecast-and-audit:v1",
+      "predicate_id": "hasProfile",
+      "object_id": "BP_FORECAST",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "intended_use_context_id": "context:B016:research"
+      },
+      "evidence_ids": [
+        "evidence:B016:02",
+        "evidence:B016:04",
+        "evidence:B016:05"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Applies to the implemented one-step health-world transition. Profile selection is not a statement that its evidence gates pass."
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:B016:01",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Title, byline and arXiv marking"
+      },
+      "content": "Patient, Place, Prior (P 3): What Counts as Personalization in\nMedical World Models?\nXingrui Gu1 Hanxue Gu2 Yuxiang Zhang3 Yang Yang2\n1University of California, Berkeley\n2University of California, San Francisco\n3Southern Methodist University",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Automated API model review; supplied text and prior page-review notes",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:02",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Section 4.1, Equation 9"
+      },
+      "content": "The model receives the latest latent representation, its change from the preceding examination,\ncore and ring lesion occupancy maps, and observed context:\nCi =\n(\nZt1i ,∆Z i\n)\n,∆Z i =Z t1i −Z t0i ,\nSi =\n(\nOcorei , Oringi ), U i = (∆ti, ai), (9)\nwhere Ocorei and Oringi are fractional lesion occupancies derived only from examinations available\nat prediction time,∆ti =tf−t 1 is the forecast horizon, andai contains observed acquisition or\nclinical variables. The task is to learnFθ(Ci,Si,Ui)≈Z tfi . The resulting one-step transition is\nobservational;a i provides context rather than an identified causal intervention.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:03",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Section 4.2, Equations 10–11"
+      },
+      "content": "Strong continuity between serial MRI examinations makes persistence a competitive predictor. We\ntherefore construct a leakage-controlled RRR baseline that combines shrinkage toward a training-\npartition mean with change patterns learned through a low-rank linear map. Its shrinkage component\nis\nZshrinki =αZ t1i + (1−α)µ tffit,(10)\nwhere µtffit is the mean future representation in the corresponding model-fitting partition andα is\nselected without using outcomes from the prediction partition. A regularized reduced-rank mapAψ\nthen predicts the remaining coarse spatial change from pooled imaging history, lesion occupancy\nmaps, and observed context:\nBi =Z shrinki +U[A ψ(P(Ci,Si,Ui))].(11)\nHereP constructs a coarse representation andU restores it to the latent grid. Shrinkage, rank,\nregularization, standardization, and dimensionality reduction are fitted only within the corresponding\ntraining partition. Once constructed,Bi is fixed while the neural correction is trained.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:04",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Sections 4.3–4.4, Equations 13–17"
+      },
+      "content": "This multiplicative gate imposes an exact spatial constraint. For every tokenq,\nOcoreiq = 0 =⇒ˆZtfiq (Mi) =B iq.(15)\nRing occupancy informs the neural correction as surrounding context, whereas core occupancy\ndetermines where the correction can change the RRR baseline. The model therefore depends on\nexternally supplied lesion localization rather than performing autonomous lesion localization.\n4.4 Occlusion-based latent prediction objective\nThe neural correction is optimized only where imaging-history tokens are occluded and the supplied\ncore has non-zero occupancy. LetIM ={i :∑qMiqOcoreiq > 0} denote the eligible patients in a\nbatch. With ρ denoting channel-averaged smooth-ℓ1 error, the objective first normalizes within\npatient and then averages across patients:\nLJEPA = 1|IM| ∑i∈IM\n∑\nqMiqOcoreiq ρ(ˆZtfiq (Mi)−Z tfiq)∑\nqMiqOcoreiq .(16)\nOcclusion masks are sampled at multiple coverage levels. At inference, predictions are averaged\nover the same prespecified occlusion-mask distributionQM,\nˆZtfi = EM∼Q M\n[\nˆZtfi (M)],(17)\nwhich reduces dependence on any single occlusion pattern. Training and inference therefore use the\nsame family of history occlusions while the neural correction remains confined to the supplied lesion\ncore.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:05",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Section 5.1"
+      },
+      "content": "Our task forecasts the frozen latent representation of preoperative T3 signal-enhancement-ratio\nMRI from T0 and T1 imaging history; T2 is not provided as input. The endpoint is neither\npathological response, a causal treatment effect, nor a future MRI image, but an observational\none-step latent representation. Cancer JEPA is fitted only on the training cohort. Because the",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:06",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Section 5.1, cohort counts"
+      },
+      "content": "We began with 595 patients having the required longitudinal imaging and spatial annotations.\nEight patients were excluded by a prespecified fixed-coverage quality-control rule, yielding 409\ntraining, 88 validation, and 90 test patients. All partitions are patient-disjoint.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:07",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Section 5.1, evaluation independence"
+      },
+      "content": "one-step latent representation. Cancer JEPA is fitted only on the training cohort. Because the\nvalidation cohort had already been used during model development, all validation analyses are\npost-hoc and descriptive rather than independent or confirmatory. The present experiments neither\naccess nor report the test partition.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:08",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Section 4.1"
+      },
+      "content": "compared. Cancer JEPA follows the JEPA principle of predicting a target representation from\nencoded context rather than reconstructing pixels, but it neither updates the image encoder nor\nmaintains an exponential-moving-average target encoder (LeCun, 2022; Assran et al., 2023; Bardes\net al., 2024).",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:09",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Section 4.3, Equations 13–15"
+      },
+      "content": "Herep denotes fixed spatial coordinates,g embeds the non-spatial context, ands(∆t) = min{log(1 +\n∆t/30)/log 7, 3} is a fixed monotone scale for forecast intervals measured in days. Cancer JEPA\nadds the neural correction to the RRR baseline only within the supplied lesion core:\nˆZtfi (Mi) =B i +O corei ⊙Rθ(Ci,Si,Ui;Mi).(14)\nThis multiplicative gate imposes an exact spatial constraint. For every tokenq,\nOcoreiq = 0 =⇒ˆZtfiq (Mi) =B iq.(15)\nRing occupancy informs the neural correction as surrounding context, whereas core occupancy",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:10",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Section 4.5"
+      },
+      "content": "In Cancer JEPA, Patient replaces the T0/T1 imaging history used by the neural correction, Place\nreplaces the supplied core and ring lesion occupancy maps, and Prior averages neural corrections\nover training-cohort histories while preserving the patient’s lesion occupancy maps and observed\ncontext. The future target, RRR baseline, forecast horizon, evaluation procedure, and occlusion-\nmask distribution remain fixed. The comparisons therefore concern information used by the neural\ncorrection rather than every patient-conditioned component of the complete forecast.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:11",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Section 4.2"
+      },
+      "content": "The RRR baseline is patient-conditioned because it uses the patient’s longitudinal imaging\nhistory. It is distinct from the population-average prediction in Section 3.3: the baseline is part of\nCancer JEPA, whereas the latter is a post-hoc P3 control used to test the neural correction.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:12",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "figure",
+        "page": 4,
+        "section_or_table": "Figure 1 and caption"
+      },
+      "content": "[paraphrase (visual p.4)] Figure 1 shows (a) P3 audit contrasts (Patient: shuffling C_i vs C_j; Place: shuffling S_i vs S_j; Prior: patient-conditioned vs population-average neural correction, all with S_i, U_i, Z_i^T3 fixed) and (b) Cancer JEPA pipeline (T0/T1 longitudinal history C_i + core/ring support S_i -> occlusion-trained neural correction branch H_theta -> multiplicative core occupancy gate -> added to fixed RRR anchor B_i -> forecast Z_hat_i^T3 evaluated by latent MAE against frozen 3DINO T3 target Z_i^T3); MRI panels show real first-postcontrast I-SPY2 DCE anatomy with aligned SER overlay.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Caption checked against supplied text; visual description assessed from supplied automated image-review notes, not newly viewed pixels.",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:13",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Section 5.2"
+      },
+      "content": "All images use T0 as the fixed spatial reference. T1 and T3 are rigidly registered to T0, and future\nexaminations never determine crop placement. After a fixed SER intensity transform, a native\n643 field centered on the T0 disease bed is resized to1123 and encoded by frozen 3DINO into a\n1024× 7× 7× 7latent grid (Xu et al., 2025). Fractional core and 20-mm ring occupancies are\nprojected from T0 annotations to the same grid. The RRR baseline and Cancer JEPA are fitted",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:14",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "Section 5.3 continuation"
+      },
+      "content": "occlusion pattern remain fixed. The population-average control evaluates all 409 training-cohort\nimaging histories under each patient’s lesion occupancy maps and observed context, averaging neural\ncorrections before applying the patient’s core gate and evaluating the loss.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:15",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "Section 5.3 continuation, interval construction"
+      },
+      "content": "Errors are first averaged across occlusion patterns and substituted patients within each patient.\nWe then use 10,000 paired patient-level bootstrap replicates to estimate 95% confidence intervals,\ntreating patients rather than substitutions as the sampling units. All intervals describe post-hoc\ncomparisons on a validation cohort previously used during model development.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:16",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 2,
+        "section_or_table": "Section 2.1"
+      },
+      "content": "Self-supervised representations can transfer across medical imaging tasks (Litjens et al., 2017; Xu\net al., 2025), butZti may encode scanner hardware and acquisition protocols alongside anatomy\nand pathology (Dinsdale et al., 2021). We therefore treat it as an encoding of the observed MRI\nexamination, not a direct measurement of biological state.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:17",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Section 2.1 continuation"
+      },
+      "content": "(Gong et al., 2024). We therefore interpret Equation 2 as an observational forecast of an encoded\nfuture examination. Without assumptions governing treatment assignment, confounding, and\nidentifiability, it does not identify a causal response to an intervention (Prosperi et al., 2020).",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:18",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "Section 5.5 continuation"
+      },
+      "content": "Because these maps are externally supplied and core occupancy directly gates the correction, Place\nestablishes dependence on the provided spatial support rather than autonomous lesion localization.\nThe unresolved interaction provides no clear evidence that the value of either input changes with the\nidentity of the other. Crucially, Patient alone is insufficient to establish patient-specific predictive\nvalue: the Prior comparison does not show a clear advantage over the population-average neural\ncorrection under matched support and context. P3 therefore supports beneficial use of patient history\nand supplied spatial support in Cancer JEPA, while the present evidence does not establish predictive\nvalue beyond cohort-level dynamics. This attribution is distinct from the anchor comparison in",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:19",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Section 5.1, I-SPY2 description"
+      },
+      "content": "I-SPY2 is a multicenter, adaptively randomized phase II platform trial for patients with high-risk\nstage II–III breast cancer. It evaluates investigational regimens in the neoadjuvant setting and uses\npathological complete response as its primary clinical endpoint (Barker et al., 2009; Rugo et al.,\n2016). Its public imaging resource contains longitudinal breast DCE-MRI, derived parametric maps,\nand lesion annotations acquired under a standardized multicenter protocol (Li et al., 2022). MRI is",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:20",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Section 5.3"
+      },
+      "content": "The primary endpoint is patient-level latent mean absolute error (MAE) within the supplied T0\nlesion core. One validation patient has zero core occupancy on the latent grid, givingN = 87\nfor the primary analysis; T0 disease bed, 20-mm ring, valid non-disease bed, and full shared grid\nare secondary regions withN = 88. The four history–lesion-map conditions use 32 deterministic\npatient permutations without self-matches and ten fixed occlusion patterns per condition. The",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:21",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "table",
+        "page": 9,
+        "section_or_table": "Table 1"
+      },
+      "content": "[paraphrase (visual p.9)] Table 1 validation MAE (Cancer JEPA vs fixed RRR anchor): T0 core 0.5202 vs 0.5224 (Delta MAE 2.15e-3, 95% CI [-0.10, 4.25]); Disease bed 0.4714 vs 0.4718 (0.41 [0.14, 0.70]); 20-mm ring 0.4680 vs 0.4683 (0.25 [0.08, 0.42]); Full grid 0.4266 vs 0.4268 (0.20 [0.08, 0.34]); computed from unrounded errors.",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:22",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "table",
+        "page": 9,
+        "section_or_table": "Table 2"
+      },
+      "content": "[paraphrase (visual p.9)] Table 2 primary-core P3 contrasts (10^-3 MAE, descriptive paired 95% CIs): Patient (own vs. substituted history) 1.48 [0.09, 2.88]; Place (matched vs. substituted support) 0.99 [0.06, 1.88]; Patient-Place interaction 0.48 [-0.25, 1.18]; Prior (own history vs. population average) 0.76 [-0.67, 2.19].",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:23",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "Conclusion"
+      },
+      "content": "constrained latent predictor of future breast DCE-MRI representations. In the validation case\nstudy, the neural correction is more accurate with the patient’s longitudinal history and lesion\noccupancy maps than with substituted inputs, while its advantage over the matched population-\naverage correction and the complete model’s primary-core improvement over the RRR anchor remain\nunresolved. These results empirically separate patient conditioning, useful patient information, and",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:24",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Abstract"
+      },
+      "content": "(Prior). We also propose Cancer JEPA, a one-step model that forecasts frozen representations\nof future breast dynamic contrast-enhanced MRI examinations during neoadjuvant therapy. It\nadds a lesion-constrained neural correction, trained with an occlusion-based latent objective, to a\npatient-conditioned low-complexity reduced-rank regression baseline. This factorization permits",
+      "verification_status": "entailment_reviewed",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129"
+    },
+    {
+      "id": "evidence:B016:api0:01",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Section 4.1"
+      },
+      "content": "The frozen encoder defines the common latent space in which earlier and future examinations are compared.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Phase E repair restored from saved_work/B016/api_results/features_000.json and verified verbatim against .work/kg_B016/p06.txt",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B016:api0:02",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Section 4.1"
+      },
+      "content": "predicting a target representation from encoded context rather than reconstructing pixels",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Phase E repair restored from saved_work/B016/api_results/features_000.json and verified verbatim against .work/kg_B016/p06.txt",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B016:25",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "arXiv stamp"
+      },
+      "content": "arXiv:2610.09194v1  [cs.LG]  6 Oct 2026",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Phase E repair verified verbatim against .work/kg_B016/p01.txt",
+      "review_date": "2026-11-21"
+    },
+    {
+      "id": "evidence:B016:gap-fusion:6",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Sections4.1/4.3, model inputs and correction architecture"
+      },
+      "content": "The model receives the latest latent representation, its change from the preceding examination,\ncore and ring lesion occupancy maps, and observed context:",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex targeted source-gap review",
+      "review_date": "2026-11-22"
+    },
+    {
+      "id": "evidence:B016:gap-fusion:7",
+      "source_ref": "Papers/Expanded_Collection/B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+      "source_version": "paper-version:B016:sha256-f82fa7f53d1e",
+      "source_hash": "f82fa7f53d1e325ac971803c28a865e4217794153d13c351447f1393eafff129",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Sections4.1/4.3, model inputs and correction architecture"
+      },
+      "content": "From the masked history, core and ring occupancy, fixed spatial coordinates, and observed\ncontext, the neural branch predicts a latent correction. A pointwise projection first maps these\ninputs to a compact hidden field, condition-modulated three-dimensional blocks exchange local\ninformation, and a pointwise head produces the correction. Forecast horizon and observed context\nmodulate the spatial blocks:",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex targeted source-gap review",
+      "review_date": "2026-11-22"
+    }
+  ],
+  "metric_results": [
+    {
+      "id": "metric:B016:jepa-core",
+      "metric": "T0-core latent MAE",
+      "value": 0.5202,
+      "unit_or_scale": "Latent MAE; physical/clinical units not established",
+      "direction": "lower_better",
+      "task": "One-step T3 latent forecast from T0/T1",
+      "cohort_id": "cohort:B016:validation-core",
+      "split_role": "Post-hoc development-reused validation; 87 patients",
+      "horizon": "T1 to T3; elapsed days not reported",
+      "model_version_id": "model:B016:cancer-jepa:v1",
+      "uncertainty_status": "not_reported",
+      "baseline_id": "model:B016:rrr-anchor:v1",
+      "raw_reported_value": "0.5202",
+      "source_evidence_ids": [
+        "evidence:B016:21"
+      ]
+    },
+    {
+      "id": "metric:B016:rrr-core",
+      "metric": "T0-core latent MAE",
+      "value": 0.5224,
+      "unit_or_scale": "Latent MAE",
+      "direction": "lower_better",
+      "task": "One-step T3 latent forecast from T0/T1",
+      "cohort_id": "cohort:B016:validation-core",
+      "split_role": "Post-hoc development-reused validation; 87 patients",
+      "horizon": "T1 to T3; elapsed days not reported",
+      "model_version_id": "model:B016:rrr-anchor:v1",
+      "uncertainty_status": "not_reported",
+      "raw_reported_value": "0.5224",
+      "source_evidence_ids": [
+        "evidence:B016:21"
+      ]
+    },
+    {
+      "id": "metric:B016:jepa-bed",
+      "metric": "Disease-bed latent MAE",
+      "value": 0.4714,
+      "unit_or_scale": "Latent MAE",
+      "direction": "lower_better",
+      "task": "One-step T3 latent forecast",
+      "cohort_id": "cohort:B016:validation-secondary",
+      "split_role": "Post-hoc development-reused validation; 88 patients",
+      "horizon": "T1 to T3; elapsed days not reported",
+      "model_version_id": "model:B016:cancer-jepa:v1",
+      "uncertainty_status": "not_reported",
+      "baseline_id": "model:B016:rrr-anchor:v1",
+      "raw_reported_value": "0.4714",
+      "source_evidence_ids": [
+        "evidence:B016:21"
+      ]
+    },
+    {
+      "id": "metric:B016:rrr-bed",
+      "metric": "Disease-bed latent MAE",
+      "value": 0.4718,
+      "unit_or_scale": "Latent MAE",
+      "direction": "lower_better",
+      "task": "One-step T3 latent forecast",
+      "cohort_id": "cohort:B016:validation-secondary",
+      "split_role": "Post-hoc development-reused validation; 88 patients",
+      "horizon": "T1 to T3; elapsed days not reported",
+      "model_version_id": "model:B016:rrr-anchor:v1",
+      "uncertainty_status": "not_reported",
+      "raw_reported_value": "0.4718",
+      "source_evidence_ids": [
+        "evidence:B016:21"
+      ]
+    },
+    {
+      "id": "metric:B016:jepa-ring",
+      "metric": "20-mm-ring latent MAE",
+      "value": 0.468,
+      "unit_or_scale": "Latent MAE; 20 mm defines the spatial region",
+      "direction": "lower_better",
+      "task": "One-step T3 latent forecast",
+      "cohort_id": "cohort:B016:validation-secondary",
+      "split_role": "Post-hoc development-reused validation; 88 patients",
+      "horizon": "T1 to T3; elapsed days not reported",
+      "model_version_id": "model:B016:cancer-jepa:v1",
+      "uncertainty_status": "not_reported",
+      "baseline_id": "model:B016:rrr-anchor:v1",
+      "raw_reported_value": "0.4680",
+      "source_evidence_ids": [
+        "evidence:B016:21"
+      ]
+    },
+    {
+      "id": "metric:B016:rrr-ring",
+      "metric": "20-mm-ring latent MAE",
+      "value": 0.4683,
+      "unit_or_scale": "Latent MAE",
+      "direction": "lower_better",
+      "task": "One-step T3 latent forecast",
+      "cohort_id": "cohort:B016:validation-secondary",
+      "split_role": "Post-hoc development-reused validation; 88 patients",
+      "horizon": "T1 to T3; elapsed days not reported",
+      "model_version_id": "model:B016:rrr-anchor:v1",
+      "uncertainty_status": "not_reported",
+      "raw_reported_value": "0.4683",
+      "source_evidence_ids": [
+        "evidence:B016:21"
+      ]
+    },
+    {
+      "id": "metric:B016:jepa-grid",
+      "metric": "Full-grid latent MAE",
+      "value": 0.4266,
+      "unit_or_scale": "Latent MAE",
+      "direction": "lower_better",
+      "task": "One-step T3 latent forecast",
+      "cohort_id": "cohort:B016:validation-secondary",
+      "split_role": "Post-hoc development-reused validation; 88 patients",
+      "horizon": "T1 to T3; elapsed days not reported",
+      "model_version_id": "model:B016:cancer-jepa:v1",
+      "uncertainty_status": "not_reported",
+      "baseline_id": "model:B016:rrr-anchor:v1",
+      "raw_reported_value": "0.4266",
+      "source_evidence_ids": [
+        "evidence:B016:21"
+      ]
+    },
+    {
+      "id": "metric:B016:rrr-grid",
+      "metric": "Full-grid latent MAE",
+      "value": 0.4268,
+      "unit_or_scale": "Latent MAE",
+      "direction": "lower_better",
+      "task": "One-step T3 latent forecast",
+      "cohort_id": "cohort:B016:validation-secondary",
+      "split_role": "Post-hoc development-reused validation; 88 patients",
+      "horizon": "T1 to T3; elapsed days not reported",
+      "model_version_id": "model:B016:rrr-anchor:v1",
+      "uncertainty_status": "not_reported",
+      "raw_reported_value": "0.4268",
+      "source_evidence_ids": [
+        "evidence:B016:21"
+      ]
+    },
+    {
+      "id": "metric:B016:delta-core",
+      "metric": "RRR-minus-Cancer-JEPA T0-core MAE",
+      "value": 2.15,
+      "unit_or_scale": "10^-3 latent MAE",
+      "direction": "higher_better",
+      "task": "Incremental value of neural correction",
+      "cohort_id": "cohort:B016:validation-core",
+      "split_role": "Post-hoc development-reused validation; 87 patients",
+      "horizon": "One-step T3 target; elapsed days not reported",
+      "model_version_id": "model:B016:cancer-jepa:v1",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "interval": [
+          -0.1,
+          4.25
+        ],
+        "level": "95%",
+        "method": "10,000 paired patient-level bootstrap replicates",
+        "interpretation": "Descriptive; includes zero"
+      },
+      "baseline_id": "model:B016:rrr-anchor:v1",
+      "raw_reported_value": "2.15 [−0.10,4.25]",
+      "source_evidence_ids": [
+        "evidence:B016:15",
+        "evidence:B016:21"
+      ]
+    },
+    {
+      "id": "metric:B016:delta-bed",
+      "metric": "RRR-minus-Cancer-JEPA disease-bed MAE",
+      "value": 0.41,
+      "unit_or_scale": "10^-3 latent MAE",
+      "direction": "higher_better",
+      "task": "Incremental value of neural correction",
+      "cohort_id": "cohort:B016:validation-secondary",
+      "split_role": "Post-hoc development-reused validation; 88 patients",
+      "horizon": "One-step T3 target; elapsed days not reported",
+      "model_version_id": "model:B016:cancer-jepa:v1",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "interval": [
+          0.14,
+          0.7
+        ],
+        "level": "95%",
+        "method": "Paired patient-level bootstrap",
+        "interpretation": "Descriptive secondary-region interval"
+      },
+      "baseline_id": "model:B016:rrr-anchor:v1",
+      "raw_reported_value": "0.41 [0.14,0.70]",
+      "source_evidence_ids": [
+        "evidence:B016:15",
+        "evidence:B016:21"
+      ]
+    },
+    {
+      "id": "metric:B016:delta-ring",
+      "metric": "RRR-minus-Cancer-JEPA 20-mm-ring MAE",
+      "value": 0.25,
+      "unit_or_scale": "10^-3 latent MAE",
+      "direction": "higher_better",
+      "task": "Incremental value of neural correction",
+      "cohort_id": "cohort:B016:validation-secondary",
+      "split_role": "Post-hoc development-reused validation; 88 patients",
+      "horizon": "One-step T3 target; elapsed days not reported",
+      "model_version_id": "model:B016:cancer-jepa:v1",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "interval": [
+          0.08,
+          0.42
+        ],
+        "level": "95%",
+        "method": "Paired patient-level bootstrap",
+        "interpretation": "Descriptive secondary-region interval"
+      },
+      "baseline_id": "model:B016:rrr-anchor:v1",
+      "raw_reported_value": "0.25 [0.08,0.42]",
+      "source_evidence_ids": [
+        "evidence:B016:15",
+        "evidence:B016:21"
+      ]
+    },
+    {
+      "id": "metric:B016:delta-grid",
+      "metric": "RRR-minus-Cancer-JEPA full-grid MAE",
+      "value": 0.2,
+      "unit_or_scale": "10^-3 latent MAE",
+      "direction": "higher_better",
+      "task": "Incremental value of neural correction",
+      "cohort_id": "cohort:B016:validation-secondary",
+      "split_role": "Post-hoc development-reused validation; 88 patients",
+      "horizon": "One-step T3 target; elapsed days not reported",
+      "model_version_id": "model:B016:cancer-jepa:v1",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "interval": [
+          0.08,
+          0.34
+        ],
+        "level": "95%",
+        "method": "Paired patient-level bootstrap",
+        "interpretation": "Descriptive secondary-region interval"
+      },
+      "baseline_id": "model:B016:rrr-anchor:v1",
+      "raw_reported_value": "0.20 [0.08,0.34]",
+      "source_evidence_ids": [
+        "evidence:B016:15",
+        "evidence:B016:21"
+      ]
+    },
+    {
+      "id": "metric:B016:p3-patient",
+      "metric": "Patient contrast: substituted-history minus own-history MAE",
+      "value": 1.48,
+      "unit_or_scale": "10^-3 latent MAE",
+      "direction": "higher_better",
+      "task": "Neural-correction history-use audit with recipient RRR/support/context fixed",
+      "cohort_id": "cohort:B016:validation-core",
+      "split_role": "Post-hoc development-reused validation; 87 patients",
+      "horizon": "One-step T3 target; elapsed days not reported",
+      "model_version_id": "model:B016:cancer-jepa:v1",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "interval": [
+          0.09,
+          2.88
+        ],
+        "level": "95%",
+        "method": "Paired patient-level bootstrap",
+        "interpretation": "Descriptive evidence of beneficial use relative to individual donor histories"
+      },
+      "baseline_id": null,
+      "raw_reported_value": "1.48 [0.09,2.88]",
+      "source_evidence_ids": [
+        "evidence:B016:10",
+        "evidence:B016:15",
+        "evidence:B016:22"
+      ]
+    },
+    {
+      "id": "metric:B016:p3-place",
+      "metric": "Place contrast: substituted-support minus matched-support MAE",
+      "value": 0.99,
+      "unit_or_scale": "10^-3 latent MAE",
+      "direction": "higher_better",
+      "task": "Neural-correction supplied-support attribution with recipient history/RRR/context fixed",
+      "cohort_id": "cohort:B016:validation-core",
+      "split_role": "Post-hoc development-reused validation; 87 patients",
+      "horizon": "One-step T3 target; elapsed days not reported",
+      "model_version_id": "model:B016:cancer-jepa:v1",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "interval": [
+          0.06,
+          1.88
+        ],
+        "level": "95%",
+        "method": "Paired patient-level bootstrap",
+        "interpretation": "Supplied-support benefit, not autonomous localization"
+      },
+      "baseline_id": null,
+      "raw_reported_value": "0.99 [0.06,1.88]",
+      "source_evidence_ids": [
+        "evidence:B016:15",
+        "evidence:B016:18",
+        "evidence:B016:22"
+      ]
+    },
+    {
+      "id": "metric:B016:p3-interaction",
+      "metric": "Patient–Place interaction: (L−M)−(B−H)",
+      "value": 0.48,
+      "unit_or_scale": "10^-3 latent MAE",
+      "direction": "context_dependent",
+      "task": "Difference in support-substitution effects under recipient versus donor history",
+      "cohort_id": "cohort:B016:validation-core",
+      "split_role": "Post-hoc development-reused validation; 87 patients",
+      "horizon": "One-step T3 target; elapsed days not reported",
+      "model_version_id": "model:B016:cancer-jepa:v1",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "interval": [
+          -0.25,
+          1.18
+        ],
+        "level": "95%",
+        "method": "Paired patient-level bootstrap",
+        "interpretation": "Unresolved; not evidence of independence or no interaction"
+      },
+      "baseline_id": null,
+      "raw_reported_value": "0.48 [−0.25,1.18]",
+      "source_evidence_ids": [
+        "evidence:B016:12",
+        "evidence:B016:15",
+        "evidence:B016:22"
+      ]
+    },
+    {
+      "id": "metric:B016:p3-prior",
+      "metric": "Prior contrast: population-average-correction minus own-history-correction MAE",
+      "value": 0.76,
+      "unit_or_scale": "10^-3 latent MAE",
+      "direction": "higher_better",
+      "task": "Incremental history value beyond matched population-average neural correction; recipient RRR/support/context retained",
+      "cohort_id": "cohort:B016:validation-core",
+      "split_role": "Post-hoc development-reused validation; 87 patients",
+      "horizon": "One-step T3 target; elapsed days not reported",
+      "model_version_id": "model:B016:cancer-jepa:v1",
+      "uncertainty_status": "reported",
+      "uncertainty": {
+        "interval": [
+          -0.67,
+          2.19
+        ],
+        "level": "95%",
+        "method": "Paired patient-level bootstrap",
+        "interpretation": "Unresolved; neither superiority nor equivalence established"
+      },
+      "baseline_id": null,
+      "raw_reported_value": "0.76 [−0.67,2.19]",
+      "source_evidence_ids": [
+        "evidence:B016:10",
+        "evidence:B016:14",
+        "evidence:B016:15",
+        "evidence:B016:22"
+      ]
+    }
+  ],
+  "capability_assessments": [
+    {
+      "subject_id": "model:B016:cancer-jepa:v1",
+      "level": "L1",
+      "scope": {
+        "evaluation_run_id": "evaluation:B016:one-step-p3",
+        "environment_kind": "retrospective_human_records",
+        "population": "I-SPY2 high-risk stage II–III breast cancer",
+        "evaluation_independence": "Post-hoc reused-development validation"
+      },
+      "evidence_assertion_ids": [
+        "assertion:B016:019",
+        "assertion:B016:041",
+        "assertion:B016:042",
+        "assertion:B016:053",
+        "relation:B016:03",
+        "relation:B016:12"
+      ],
+      "rationale": "One-step T3 future-examination latent prediction from T0/T1 history (numeric elapsed days not reported) is implemented and evaluated via MAE on development-reused I-SPY2 validation (Table 1). L1 records functional one-step prediction capability, not independent confirmatory validation (R1 only, test split untouched), validated clinical usefulness, or unresolved primary-core superiority over RRR / population-average Prior. No settable clinical-action evaluation, matched alternative-treatment comparison, or model-coupled optimization result is shown."
+    },
+    {
+      "subject_id": "model:B016:rrr-anchor:v1",
+      "level": "L1",
+      "scope": {
+        "evaluation_run_id": "evaluation:B016:one-step-p3",
+        "environment_kind": "retrospective_human_records",
+        "evaluation_independence": "Post-hoc reused-development validation"
+      },
+      "evidence_assertion_ids": [
+        "assertion:B016:rrr:019",
+        "assertion:B016:rrr:041",
+        "assertion:B016:rrr:042",
+        "assertion:B016:rrr:053",
+        "relation:B016:04"
+      ],
+      "rationale": "The learned patient-conditioned RRR comparator implements T0/T1-to-T3 latent transition (Section 4.2 Eqs. 10-11) and has reported one-step future-latent prediction error on development-reused validation (Table 1). This does not establish confirmatory held-out generalization, online filtering, causal response, or planning."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "system:B016:forecast-and-audit:v1",
+      "facets": [
+        "R1"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "evaluation_run_id": "evaluation:B016:one-step-p3",
+        "population": "I-SPY2 high-risk stage II–III breast cancer",
+        "evidence_boundary": "Actual human imaging is evaluated, but only on validation previously used in development; listed test patients are not evaluated.",
+        "R2_disposition": "Not established under the non-reused held-out-validation criterion.",
+        "other_facets": "No R0 assignment to this implemented study; no synthetic/bench R1 experiment, independent external R3 evaluation, actual human output-review R4 study, prospective R5/R6 use, comparative effectiveness R7 or authorization-plus-monitoring R8 evidence is established."
+      },
+      "evidence_ids": [
+        "evidence:B016:05",
+        "evidence:B016:06",
+        "evidence:B016:07",
+        "evidence:B016:15"
+      ],
+      "legacy_highest_label": "R2 Retrospective internal validation"
+    }
+  ],
+  "gate_assessments": [
+    {
+      "gate_id": "G01",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "evaluation_run_id": "evaluation:B016:one-step-p3",
+        "intended_use_context_id": "context:B016:research"
+      },
+      "rationale": "Patient-disjoint partitions, training-only fitting, T0 crop placement and T0-derived support are reported. However, validation was reused during development; encoder-pretraining overlap, complete observed-context fields, QC thresholds and full leakage/provenance checks are not established. This prevents an evidence pass without proving actual leakage.",
+      "supporting_assertion_ids": [
+        "relation:B016:14",
+        "relation:B016:15",
+        "relation:B016:16",
+        "relation:B016:17"
+      ]
+    },
+    {
+      "gate_id": "G02",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "evaluation_run_id": "evaluation:B016:one-step-p3",
+        "intended_use_context_id": "context:B016:research"
+      },
+      "rationale": "A learned predecessor-to-future latent transition and actual future-prediction results are documented, supporting L1. A complete gate pass is withheld because non-leaky evaluation-reference assurance remains unresolved and feature assertions are intentionally deferred in this submission. Unresolved primary-core superiority is not itself an absence of prediction capability.",
+      "supporting_assertion_ids": [
+        "relation:B016:03",
+        "relation:B016:09",
+        "relation:B016:10",
+        "relation:B016:12",
+        "relation:B016:16"
+      ]
+    },
+    {
+      "gate_id": "G03",
+      "status": "not_applicable",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "time_horizon": "One future T3 target"
+      },
+      "rationale": "The reported implementation predicts one future examination. It does not claim a multi-time or recursive rollout. T0/T1 input history, occlusion samples and repeated bootstrap calculations are not forecast steps."
+    },
+    {
+      "gate_id": "G04",
+      "status": "not_applicable",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "intended_use_context_id": "context:B016:research"
+      },
+      "rationale": "The scoped output is an occlusion-averaged point forecast, with no probabilistic forecast guarantee or uncertainty-dependent clinical decision claim. Bootstrap intervals quantify contrast-estimation uncertainty, not calibrated future-state uncertainty. A future probabilistic-use claim would require this gate."
+    },
+    {
+      "gate_id": "G05",
+      "status": "not_applicable",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "intended_use_context_id": "context:B016:research"
+      },
+      "rationale": "Observed context and audit input substitutions are not specified executable treatment actions. The documented task is observational forecasting, not action-conditioned prediction or alternative clinical-regime exploration."
+    },
+    {
+      "gate_id": "G06",
+      "status": "not_applicable",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "intended_use_context_id": "context:B016:research"
+      },
+      "rationale": "The authors explicitly deny identified treatment-response interpretation for this observational forecast. P³ attributes predictive input use, not causal treatment effects. This exemption does not imply causal assurance."
+    },
+    {
+      "gate_id": "G07",
+      "status": "not_applicable",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "intended_use_context_id": "context:B016:research"
+      },
+      "rationale": "No planner, optimizer over clinical actions or learned decision policy is part of the scoped implementation. Training optimization and donor/mask averaging are not decision planning."
+    },
+    {
+      "gate_id": "G08",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "context:B016:research",
+        "environment_kind": "retrospective_human_records"
+      },
+      "rationale": "The selected profile is offline research with no operational clinical/procedural action channel. This gate would apply before consequential workflow use. The spatial gate is an architectural support constraint, not a demonstrated clinical hard guard."
+    },
+    {
+      "gate_id": "G09",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:B016:cancer-jepa:v1",
+        "population": "I-SPY2"
+      },
+      "rationale": "No external/site-held-out evaluation or composition-transfer validation is reported. Multicenter source-trial data do not establish external validation. The present evidence cannot support transfer beyond this development domain."
+    },
+    {
+      "gate_id": "G10",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "context:B016:research",
+        "environment_kind": "retrospective_human_records"
+      },
+      "rationale": "No user-review, workflow-usability or sim-to-real utility claim is evaluated. Clinical-trial participants supplying historical scans are not human raters of model outputs."
+    },
+    {
+      "gate_id": "G11",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "context:B016:research"
+      },
+      "rationale": "No prospective model deployment or realized workflow/patient-benefit claim is evaluated. The source trial's clinical endpoint does not become a model utility endpoint."
+    },
+    {
+      "gate_id": "G12",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "context:B016:research"
+      },
+      "rationale": "No defined operational release is described. This does not exempt a future release from intended-use, licensing, privacy/security, change-control, monitoring or jurisdiction-specific governance assessment."
+    }
+  ],
+  "legacy_cells": {
+    "A": "B016",
+    "B": "Patient, Place, Prior (P³): What Counts as Personalization in Medical World Models?",
+    "C": "Gu, Xingrui, Gu, Hanxue, Zhang, Yuxiang, Yang, Yang",
+    "D": "2026",
+    "E": "arXiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://arxiv.org/abs/2610.09194",
+    "H": "Papers/Expanded_Collection (B)",
+    "I": "B016_Patient_Place_Prior_P_3_What_Counts_as_Personalization_in_Medical_World_Models.pdf",
+    "J": "Evaluation / audit / benchmark",
+    "K": "Not reported",
+    "L": "Include – component / supporting",
+    "M": "Not reported",
+    "N": "Oncology",
+    "O": "High-risk stage II–III breast cancer",
+    "P": "Clinical trial / drug development",
+    "Q": "Tissue / organ",
+    "R": "Evaluation / audit methodology",
+    "S": "Does the forecast benefit from the patient's own longitudinal imaging history and patient-matched lesion support, and does it add value beyond a matched population-average prediction?",
+    "T": "I-SPY2 patients with high-risk stage II–III breast cancer and required longitudinal imaging and spatial annotations",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "Not reported",
+    "X": "F3 Longitudinal imaging & treatment response",
+    "Y": "Predictive-latent (JEPA-style)",
+    "Z": "L1 Temporal prediction",
+    "AA": "L1 Temporal prediction",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "Not reported",
+    "AE": "No",
+    "AF": "Not reported",
+    "AG": "Not reported",
+    "AH": "Not reported",
+    "AI": "Volumetric breast DCE-MRI (T0/T1 history; T3 target); frozen latent representations; fractional lesion core and 20-mm ring occupancy maps; observed acquisition/clinical context",
+    "AJ": "Frozen 3DINO volumetric image encoder; neural correction uses pointwise projections, condition-modulated 3D blocks, and a pointwise output head",
+    "AK": "Frozen pretrained 3DINO encoder",
+    "AL": "Not reported",
+    "AM": "Masked latent imaging history, lesion core/ring occupancy, and fixed coordinates are projected into a hidden field; observed context modulates the 3D blocks",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Image / voxel space",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Conditioning on patient history",
+    "AX": "In the post-hoc validation audit, own history beat substituted history (ΔMAE 1.48 × 10−3; 95% CI 0.09–2.88), while the matched-support Prior comparison was unresolved (0.76 × 10−3; 95% CI −0.67–2.19).",
+    "AY": "No",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Not reported",
+    "BC": "Not reported",
+    "BD": "Not reported",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "Cancer JEPA",
+    "BJ": "Not reported",
+    "BK": "Not reported",
+    "BL": "Not reported",
+    "BM": "Not reported",
+    "BN": "Not reported",
+    "BO": "Not reported",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Not reported",
+    "BT": "Not reported",
+    "BU": "Not reported",
+    "BV": "Occlusion-based masked latent prediction with patient-normalized smooth-ℓ1 error on eligible occluded tokens within the lesion core",
+    "BW": "No",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "One-step only",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "Not reported",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Not reported",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Not reported",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "None (predictive only)",
+    "CU": "None",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not reported",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Not reported",
+    "DN": "Not reported",
+    "DO": "Not reported",
+    "DP": "Not reported",
+    "DQ": "Not reported",
+    "DR": "Not reported",
+    "DS": "Not reported",
+    "DT": "Not reported",
+    "DU": "Not reported",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "R2 Retrospective internal validation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "Not reported",
+    "FD": "Not reported",
+    "FE": "Not reported",
+    "FF": "Not reported",
+    "FG": "Not reported",
+    "FH": "Not reported",
+    "FI": "Not reported",
+    "FJ": "Not reported",
+    "FK": "Not reported",
+    "FL": "Not reported",
+    "FM": "Not reported",
+    "FN": "History swaps and population-prior controls separate patient-history use from personalization. The descriptive 95% interval for the history-versus-population correction includes zero, so patient-specific value beyond the population correction is not established.",
+    "FO": "Not reported",
+    "FP": "Not reported",
+    "FQ": "Not reported",
+    "FR": "Not reported",
+    "FS": "Reviewer mapping: M3 Belief-state service; M7 Outcome & causal layer; M9 Safety & governance",
+    "FT": "Reviewer lesson: Require history-swap and population-prior controls before calling a shared latent forecast personalized.",
+    "FU": "Reviewer mapping (KB §20): Personalisation proof",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "PDF pages 1–10: title/abstract and introduction (pp. 1–2); preliminaries (pp. 2–3); methodology and model (pp. 3–7); cohort, methods, results, and Tables 1–2 (pp. 8–10); conclusion (p. 10). References on pp. 11–12 were not needed for extraction. No separate limitations section appears in the extracted text. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "The paper reports retrospective, post-hoc descriptive validation on a cohort previously used during model development; it states the test partition was not accessed or reported. Table text was readable. The paper's observational forecast does not establish a causal treatment effect, and the Prior comparison does not establish predictive value beyond the population-average correction. Evidence QA: 29/30 populated fields had a <=25-word quotation matching extracted PDF text (96.7%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 29 prior populated fields have a located source quotation; 1 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "This is automated API model review, not independent human verification or replication. The present synthesis is a skeptical second model pass over supplied text and preceding automated page-review notes, not a separately commissioned independent reviewer.",
+    "All 12 supplied text pages were read, including references. Original page-image pixels and PDF bytes were not provided to this response; visual findings are assessed from supplied notes that report image inspection of all 12 pages.",
+    "The supplied PDF hash and source availability were not independently recomputed or tested. The record is pinned to the supplied hash/version, not a newly retrieved artifact.",
+    "Feature assertions are intentionally empty by instruction. This submission is not a completed 128-feature annotation or a release-ready evidence record.",
+    "No programmatic JSON Schema validation, graph export, semantic validator execution, code execution, repository inspection or filesystem write was performed.",
+    "The only reported evaluation uses a validation cohort previously used during development. No result on the listed 90-patient test partition is reported; an untouched held-out R2 evaluation is not established.",
+    "The primary T0-core Cancer-JEPA-versus-RRR difference is 2.15 × 10^-3 MAE with descriptive 95% interval [−0.10,4.25] × 10^-3, leaving primary-endpoint superiority unresolved.",
+    "The Prior difference is 0.76 × 10^-3 MAE with descriptive 95% interval [−0.67,2.19] × 10^-3. Incremental value beyond the matched population-average neural correction is not established; neither equivalence nor no effect is established.",
+    "P³ substitutions affect the neural correction while holding the patient's already patient-conditioned RRR baseline fixed. Conclusions do not attribute all patient-specific information in the complete model.",
+    "Donor substitutions may introduce history–support compatibility shifts. Donor stratification, matching details and empirical compatibility-shift quantification are not reported.",
+    "The MRI latent representation may contain scanner/protocol information and is not a direct biological-state measurement. Clinical meaning of latent MAE and clinically acceptable tolerances are not established.",
+    "The forecast is one-step T3 latent prediction, not decoded future MRI, pathological complete response, survival, causal treatment response, recursive disease simulation or decision-policy performance.",
+    "Observed clinical/acquisition context is not fully enumerated; no specified executable action semantics or identified treatment intervention is demonstrated.",
+    "Core/ring support is externally supplied from T0 annotations. The method does not demonstrate autonomous lesion localization, and robustness to support errors, misregistration, new lesions or growth outside the original support is not established.",
+    "Maximum elapsed forecast time, forecast-time distribution and effective validated horizon are not reported. The fixed time-scaling clamp is not a validated horizon.",
+    "Occlusion averaging and bootstrap contrast intervals do not demonstrate calibrated predictive uncertainty, joint trajectory coverage or epistemic/aleatoric separation.",
+    "The public imaging resource is multicenter, but contributing-site count, site-held-out evaluation, subgroup analysis and independent external validation are not reported.",
+    "One validation patient has zero latent-grid core occupancy and is excluded from the primary endpoint. The initial eight-patient QC exclusion rule lacks reported thresholds and full reproducible details.",
+    "Detailed encoder architecture/pretraining objective, encoder-pretraining cohort overlap, selected RRR hyperparameters, neural widths/depth, optimizer, training duration, parameter count, compute, latency and exact occlusion distribution are not adequately reported in this paper.",
+    "Table 1 reports nonzero ring improvements despite a core-constrained correction. Coarse fractional-region overlap could explain this, but exact aggregation/overlap details are not sufficient to resolve it; no contradiction is asserted and reported values are retained.",
+    "The valid non-disease-bed secondary region is listed in the protocol but has no separate result in Table 1.",
+    "No actual clinician output-review study, prospective model use, clinical benefit, authorization, operational monitoring or independent replication is established. Trial randomization and cited systems' capabilities are not inherited.",
+    "Paper-specific ethics approval/waiver, privacy/security controls, code/weights/prompts availability, license and operational governance details are not reported sufficiently.",
+    "Some supplied page-review notes contain batch-local statements that other page ranges were unavailable. Those statements do not describe the combined 12-page text supplied here and are not treated as persistent full-text gaps.",
+    "22 November 2026: fusion feature assessed from full operational definition against Sections4.1/4.3(pp6–7) and Figure1(p4). Its unknown state now reflects insufficiently specified distinct modalities, not an omitted feature pass. Other feature judgments retained, not independently re-extracted in this targeted correction."
+  ],
+  "notes": "Raw legacy_cells are preserved unchanged. Proposed corrections and additions are recorded only in submission. Paper-level audit contribution and model-level learned forecasting implementation are distinguished. L1 is supported by reported future-latent results, while R2 is not established under the non-reused held-out clinical-validation requirement. No clinical validation, causal validity, safety guarantee or independent review is claimed. | Reused saved_work/B016, completed to 128 distinct features, and visually verified via rendered PNGs [3, 4]."
+}

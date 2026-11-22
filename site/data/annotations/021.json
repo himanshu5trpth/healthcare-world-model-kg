@@ -1,0 +1,3373 @@
+{
+  "record_id": "annotation:021:r1",
+  "paper_record_id": "021",
+  "paper_version_id": "paper-version:021:sha256-aae1f9fe78da",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:021:hybrid:v1"
+  ],
+  "system_composition_ids": [],
+  "world_type_ids": [
+    "WT_PHYSIOLOGY"
+  ],
+  "profile_ids": [
+    "BP_FORECAST"
+  ],
+  "entities": [
+    {
+      "id": "paper:021",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_id": "021",
+        "title": "Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning"
+      },
+      "provenance_evidence_ids": [
+        "evidence:021:0001"
+      ]
+    },
+    {
+      "id": "paper-version:021:sha256-aae1f9fe78da",
+      "class_id": "PaperVersion",
+      "properties": {
+        "year": 2026,
+        "journal": "Diagnostics16,2813",
+        "physical_pages": 26
+      },
+      "provenance_evidence_ids": [
+        "evidence:021:0001"
+      ]
+    },
+    {
+      "id": "model:021:hybrid:v1",
+      "class_id": "ModelVersion",
+      "properties": {
+        "name": "Hybrid Hovorka/LSTM glucose DT",
+        "membership": "core_world_model",
+        "healthcare_scope": true,
+        "transition_coordinate": "clinical time,6min simulation cadence",
+        "membership_limits": "Reported operative learned/physiological weighted prediction, but exact fusion fitting and evaluation provenance unresolved."
+      },
+      "provenance_evidence_ids": [
+        "evidence:021:0002",
+        "evidence:021:0003",
+        "evidence:021:0004",
+        "evidence:021:0009"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:021:0001",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "state.persistent",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0003",
+        "evidence:021:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Glucose/insulin state updated across clinical-time simulation steps."
+    },
+    {
+      "id": "assertion:021:0002",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0005",
+        "evidence:021:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "LSTM consumes ten preceding glucose observations."
+    },
+    {
+      "id": "assertion:021:0003",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0005",
+        "evidence:021:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Ten-step glucose context is specified for LSTM."
+    },
+    {
+      "id": "assertion:021:0004",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0003",
+        "evidence:021:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Explicit G(t+1),I(t+1) clinical-time updates."
+    },
+    {
+      "id": "assertion:021:0005",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0002",
+        "evidence:021:0004",
+        "evidence:021:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Learned LSTM transition prediction coupled to physiological branch in weighted fusion."
+    },
+    {
+      "id": "assertion:021:0006",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0002",
+        "evidence:021:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Figure3 operationally combines physiological prediction with trained LSTM prediction; exact adaptive weight fitting unresolved."
+    },
+    {
+      "id": "assertion:021:0007",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0002",
+        "evidence:021:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Bergman/Hovorka/circadian equations constrain physiological branch."
+    },
+    {
+      "id": "assertion:021:0008",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0009",
+        "evidence:021:0011"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Reported one-step-ahead glucose prediction against reference."
+    },
+    {
+      "id": "assertion:021:0009",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Evaluated forecast horizon explicitly one step ahead;24h is simulation window, not validated free-running horizon."
+    },
+    {
+      "id": "assertion:021:0010",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0009",
+        "evidence:021:0013",
+        "evidence:021:0011"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "confidence": "medium",
+      "rationale": "One-step RMSE/MAE/R2 with internal validation; negativeR2 and table inconsistencies retained."
+    },
+    {
+      "id": "assertion:021:0011",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "state.interpretability",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0003",
+        "evidence:021:0024"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Explicit glucose mg/dL and insulin physiological state; SHAP explains readout, not every latent coordinate."
+    },
+    {
+      "id": "assertion:021:0012",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "action.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0006",
+        "evidence:021:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Insulin/food/activity are separately settable simulator inputs; controlled action-conditioned forecast validation absent."
+    },
+    {
+      "id": "assertion:021:0013",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0006",
+        "evidence:021:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Insulin and lifestyle variables enter explicit transition equations; no action-effect evaluation supportingL2."
+    },
+    {
+      "id": "assertion:021:0014",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "uq.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Gaussian risk probabilities/empirical mean-spread and Bayesian rule specified; not predictive calibrated uncertainty."
+    },
+    {
+      "id": "assertion:021:0015",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0018"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Named institutional approval and consent for volunteer measurement study."
+    },
+    {
+      "id": "assertion:021:0016",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0019"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Restricted on-request data sharing justified by privacy/ethics; no formal privacy guarantee."
+    },
+    {
+      "id": "assertion:021:0017",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "data.provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0014",
+        "evidence:021:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Data collection source/sample contexts partly documented, clinical-versus-simulation sample mapping unresolved.",
+      "criteria_met": [
+        "Device/volunteer source and sample numbers"
+      ],
+      "criteria_missing": [
+        "Dataset/version, units/transforms and temporal record lineage"
+      ]
+    },
+    {
+      "id": "assertion:021:0018",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "80/20 and5fold reported; patient/time separation and train-only preprocessing unclear.",
+      "criteria_met": [
+        "Split proportions and fold count"
+      ],
+      "criteria_missing": [
+        "Patient/time partition and train-only fit audit"
+      ]
+    },
+    {
+      "id": "assertion:021:0019",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "action.parameterized",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0006",
+        "evidence:021:0022",
+        "evidence:021:0024",
+        "evidence:021:0025"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Dose/range and some timing shown; insulin units and route/reference semantics inconsistent.",
+      "criteria_met": [
+        "Dose unit/range and illustrative bolus/basal timing"
+      ],
+      "criteria_missing": [
+        "mU/L vsU correspondence, delivery route and executable schedule"
+      ]
+    },
+    {
+      "id": "assertion:021:0020",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0002",
+        "evidence:021:0023"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Personal parameters and periodic updates stated without complete estimation rule.",
+      "criteria_met": [
+        "Individual parameter adaptation block"
+      ],
+      "criteria_missing": [
+        "Fitting rule/data/identifiability and tested per-patient updating"
+      ]
+    },
+    {
+      "id": "assertion:021:0021",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0007",
+        "evidence:021:0022"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Rule-based recommendation specified, no candidate optimizer/policy details or decision-control endpoint.",
+      "criteria_met": [
+        "Rule-based recommendation and displayed bolus"
+      ],
+      "criteria_missing": [
+        "Operational search/policy coupling and evaluated control outcome"
+      ]
+    },
+    {
+      "id": "assertion:021:0022",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0022",
+        "evidence:021:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Clinician/patient prediction support and clinical judgment footer; deployment validation future.",
+      "criteria_met": [
+        "Dosing-support purpose/users and human decision boundary"
+      ],
+      "criteria_missing": [
+        "Pinned clinical workflow/environment and deployment limits"
+      ]
+    },
+    {
+      "id": "assertion:021:0023",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "partial",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0011"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Table5 reports prediction time.003364s without hardware/batch context.",
+      "criteria_met": [
+        "Prediction latency seconds"
+      ],
+      "criteria_missing": [
+        "Hardware and batch/load setup"
+      ]
+    },
+    {
+      "id": "assertion:021:0024",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0003",
+        "evidence:021:0004",
+        "evidence:021:0008"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Specified physiological/LSTM point transition is deterministic; risk readout probability is not a stochastic next-state process."
+    },
+    {
+      "id": "assertion:021:0025",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "planning.model_use",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0007",
+        "evidence:021:0022"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Predicted glucose and risk feed rule-based dosing recommendations at specification stage only."
+    },
+    {
+      "id": "assertion:021:0026",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0015",
+        "evidence:021:0009"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Only prediction/simulation results supplied; clinical validation and practical integration explicitly future. Volunteer sensor measurement is not DT treatment trial."
+    },
+    {
+      "id": "assertion:021:0027",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Declared hybrid explicit physiological/LSTM one-step predictor has no foundation/predictive-latent objective, belief filter, multiscale architecture or operational agent/tool system. Dashboard generative-AI label alone is not an implemented agent."
+    },
+    {
+      "id": "assertion:021:0028",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Declared hybrid explicit physiological/LSTM one-step predictor has no foundation/predictive-latent objective, belief filter, multiscale architecture or operational agent/tool system. Dashboard generative-AI label alone is not an implemented agent."
+    },
+    {
+      "id": "assertion:021:0029",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Declared hybrid explicit physiological/LSTM one-step predictor has no foundation/predictive-latent objective, belief filter, multiscale architecture or operational agent/tool system. Dashboard generative-AI label alone is not an implemented agent."
+    },
+    {
+      "id": "assertion:021:0030",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Declared hybrid explicit physiological/LSTM one-step predictor has no foundation/predictive-latent objective, belief filter, multiscale architecture or operational agent/tool system. Dashboard generative-AI label alone is not an implemented agent."
+    },
+    {
+      "id": "assertion:021:0031",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Declared hybrid explicit physiological/LSTM one-step predictor has no foundation/predictive-latent objective, belief filter, multiscale architecture or operational agent/tool system. Dashboard generative-AI label alone is not an implemented agent."
+    },
+    {
+      "id": "assertion:021:0032",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Declared hybrid explicit physiological/LSTM one-step predictor has no foundation/predictive-latent objective, belief filter, multiscale architecture or operational agent/tool system. Dashboard generative-AI label alone is not an implemented agent."
+    },
+    {
+      "id": "assertion:021:0033",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Declared hybrid explicit physiological/LSTM one-step predictor has no foundation/predictive-latent objective, belief filter, multiscale architecture or operational agent/tool system. Dashboard generative-AI label alone is not an implemented agent."
+    },
+    {
+      "id": "assertion:021:0034",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Declared hybrid explicit physiological/LSTM one-step predictor has no foundation/predictive-latent objective, belief filter, multiscale architecture or operational agent/tool system. Dashboard generative-AI label alone is not an implemented agent."
+    },
+    {
+      "id": "assertion:021:0035",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Declared hybrid explicit physiological/LSTM one-step predictor has no foundation/predictive-latent objective, belief filter, multiscale architecture or operational agent/tool system. Dashboard generative-AI label alone is not an implemented agent."
+    },
+    {
+      "id": "assertion:021:0036",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Declared hybrid explicit physiological/LSTM one-step predictor has no foundation/predictive-latent objective, belief filter, multiscale architecture or operational agent/tool system. Dashboard generative-AI label alone is not an implemented agent."
+    },
+    {
+      "id": "assertion:021:0037",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Declared hybrid explicit physiological/LSTM one-step predictor has no foundation/predictive-latent objective, belief filter, multiscale architecture or operational agent/tool system. Dashboard generative-AI label alone is not an implemented agent."
+    },
+    {
+      "id": "assertion:021:0038",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Declared hybrid explicit physiological/LSTM one-step predictor has no foundation/predictive-latent objective, belief filter, multiscale architecture or operational agent/tool system. Dashboard generative-AI label alone is not an implemented agent."
+    },
+    {
+      "id": "assertion:021:0039",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Declared hybrid explicit physiological/LSTM one-step predictor has no foundation/predictive-latent objective, belief filter, multiscale architecture or operational agent/tool system. Dashboard generative-AI label alone is not an implemented agent."
+    },
+    {
+      "id": "assertion:021:0040",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "not_applicable",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Declared hybrid explicit physiological/LSTM one-step predictor has no foundation/predictive-latent objective, belief filter, multiscale architecture or operational agent/tool system. Dashboard generative-AI label alone is not an implemented agent."
+    },
+    {
+      "id": "assertion:021:0041",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0042",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0043",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0044",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0045",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0046",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0047",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0048",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0049",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0050",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "perception.encoder",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0051",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0052",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0053",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0054",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0055",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0056",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0057",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0058",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0059",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0060",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0061",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0062",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0063",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "action.support",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0064",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0065",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0066",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0067",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0068",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0069",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0070",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0071",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0072",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0073",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0074",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0075",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0076",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0077",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0078",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0079",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0080",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0081",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0082",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0083",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0084",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0085",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0086",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0087",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0088",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0089",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0090",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0091",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0092",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0093",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0094",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0095",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0096",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0097",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0098",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0099",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0100",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0101",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0102",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0103",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0104",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0105",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0106",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0107",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0108",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0109",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0110",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0111",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0112",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "agent.role",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0113",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0114",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0115",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0116",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0117",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0118",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0119",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0120",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0121",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0122",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0123",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0124",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0125",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0126",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0127",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:021:0128",
+      "subject_id": "model:021:hybrid:v1",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "All26pages includingreferences,15figures,9tables andAlgorithm1 reviewed; criterion-specific implementation/evaluation is not established. Simulation/recommendation labels and volunteer data collection do not establish control, causality, calibration or prospective benefit.",
+      "missingness_reason": "paper_silent_after_review"
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:021:0001",
+      "subject_id": "paper:021",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:021:sha256-aae1f9fe78da",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0001"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Pinned journal PDF"
+    },
+    {
+      "id": "relation:021:0002",
+      "subject_id": "paper-version:021:sha256-aae1f9fe78da",
+      "predicate_id": "reportsModel",
+      "object_id": "model:021:hybrid:v1",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Hybrid predictor described/evaluated"
+    },
+    {
+      "id": "relation:021:0003",
+      "subject_id": "model:021:hybrid:v1",
+      "predicate_id": "modelsWorld",
+      "object_id": "WT_PHYSIOLOGY",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Glucose–insulin whole-patient metabolic state"
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:021:0001",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Title"
+      },
+      "content": "10.3390/diagnostics16172813",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0002",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Figure3"
+      },
+      "content": "[paraphrase from visually inspected Figure3] Hovorka physiological submodels and two-layer LSTM feed weighted hybrid fusion Ghybrid=wGMB+(1-w)GDD; diagram includes MSE/backpropagation, individual parameter updating and application risk/alerts/recommendation.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0003",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Equation1"
+      },
+      "content": "G(t + 1) = G(t)",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0004",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "Algorithm1"
+      },
+      "content": "Temporal dependencies are captured using LSTM-based sequence modelling for prediction.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0005",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "Equation13"
+      },
+      "content": "Gt−10",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0006",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "InsulinEffect"
+      },
+      "content": "The range is 0–20 U",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0007",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 16,
+        "section_or_table": "Algorithm1Step12"
+      },
+      "content": "Rule-based recommendations for insulin dosage",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0008",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 16,
+        "section_or_table": "Algorithm1Step10"
+      },
+      "content": "Probability of Hypoglycemia for G < 70 mg/dL",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0009",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 18,
+        "section_or_table": "6.4.4"
+      },
+      "content": "The prediction horizon is one step ahead",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0010",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 18,
+        "section_or_table": "6.4.4"
+      },
+      "content": "The samples for training and testing were 240 and 60",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0011",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 23,
+        "section_or_table": "Table9"
+      },
+      "content": "15.04146",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0012",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 23,
+        "section_or_table": "Table9"
+      },
+      "content": "11.89696",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0013",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 18,
+        "section_or_table": "Table4"
+      },
+      "content": "14.982 ± 0.688",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0014",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 12,
+        "section_or_table": "6.1"
+      },
+      "content": "201 volunteers",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0015",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 24,
+        "section_or_table": "ConclusionFuture"
+      },
+      "content": "validating its performance using clinical datasets",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0016",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 21,
+        "section_or_table": "Training"
+      },
+      "content": "the mean squared error (MSE) as the loss function.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0017",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 22,
+        "section_or_table": "Table6"
+      },
+      "content": "0.50045828",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0018",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 24,
+        "section_or_table": "Ethics"
+      },
+      "content": "8274/IEC/2022",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0019",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 25,
+        "section_or_table": "DataAvailability"
+      },
+      "content": "available on request",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0020",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 23,
+        "section_or_table": "Figure15/Table8"
+      },
+      "content": "[paraphrase from visual inspection] Figure15/p23 report discrete eigenvalues .4,.96; Table8 instead gives negative continuous eigenvalues -.472785...,-.957214... and a positive-definite Lyapunov P; matrices and scope correspondence are unspecified.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0021",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 16,
+        "section_or_table": "Algorithm1Step9"
+      },
+      "content": "[paraphrase from visual inspection] Algorithm1 prints V(x)=x^TPx positive deviations, then “Stability exists if V(x)<0”; its Lyapunov derivative notation and inequality are internally inconsistent.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0022",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 17,
+        "section_or_table": "Figure7"
+      },
+      "content": "[paraphrase from visual inspection] Figure7 displays insulin bolus4.5units, expected peak178mg/dL at32min and95% confidence; footer says clinical judgment essential before therapeutic action. These screenshot values are not a calibration evaluation or patient outcome.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0023",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 13,
+        "section_or_table": "6.2"
+      },
+      "content": "The parameters α, β, γ,",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0024",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "InsulinEquation3"
+      },
+      "content": "measured in mU/L",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:021:0025",
+      "source_ref": "Papers/021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+      "source_version": "paper-version:021:sha256-aae1f9fe78da",
+      "source_hash": "aae1f9fe78daa7afabb12a6453928d13fc4bd8444950337df58880248616cda3",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "CoefficientRanges"
+      },
+      "content": "mg/dL per U",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    }
+  ],
+  "metric_results": [],
+  "capability_assessments": [
+    {
+      "subject_id": "model:021:hybrid:v1",
+      "level": "L1",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_assertion_ids": [
+        "assertion:021:0001",
+        "assertion:021:0004",
+        "assertion:021:0005",
+        "assertion:021:0008",
+        "assertion:021:0010"
+      ],
+      "rationale": "One-step temporal forecast evaluated. Settable insulin equations exist, but no controlled specified-action future prediction evaluation supportsL2; no matched alternatives/optimizer-control outcomes supportL3/L4."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "model:021:hybrid:v1",
+      "facets": [
+        "R1"
+      ],
+      "environment_kind": "in_silico",
+      "scope": {
+        "model_version_id": "model:021:hybrid:v1",
+        "environment_kind": "mixed",
+        "population": "Reported201volunteers;300train/test samples, relationship unresolved",
+        "time_horizon": "One-step-ahead glucose prediction;6min cadence;24h simulation window"
+      },
+      "evidence_ids": [
+        "evidence:021:0009",
+        "evidence:021:0011",
+        "evidence:021:0015"
+      ]
+    }
+  ],
+  "gate_assessments": [],
+  "legacy_cells": {
+    "A": "021",
+    "B": "Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning",
+    "C": "Vathana Dennish; Babu Subramani; Vijayakumar Ponnusamy; Suganthi Kuppusamy; Janardhanan Subramonia Kumar; Nemanja Zdravković; Miloš Kostić",
+    "D": "2026",
+    "E": "diagnostics",
+    "F": "Peer-reviewed journal",
+    "G": "https://doi.org/10.3390/diagnostics16172813",
+    "H": "Papers (numbered 001–099)",
+    "I": "021_2026_Hybrid Digital Twin Framework for Personalized Diabetes Management Using Mathematical Modelling and Machine Learning.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Include – core world model",
+    "M": "Not reported",
+    "N": "Endocrinology / diabetes",
+    "O": "Diabetes mellitus; diabetic and prediabetic volunteers",
+    "P": "Home / wearable / remote",
+    "Q": "Whole-patient physiology",
+    "R": "Disease progression forecasting",
+    "S": "Can glucose at the next step be forecast from the current glucose–insulin state and lifestyle inputs?",
+    "T": "201 volunteers, age 25–78 years, including diabetic and prediabetic participants",
+    "U": "Clinicians and patients",
+    "V": "Insulin-dose and lifestyle recommendations to support diabetes management",
+    "W": "Digital twin",
+    "X": "F5 Mechanistic / hybrid digital twin",
+    "Y": "Hybrid mechanistic–learned",
+    "Z": "L2 Action-conditioned prediction",
+    "AA": "L4 Planning / control",
+    "AB": "Yes",
+    "AC": "Yes",
+    "AD": "Yes",
+    "AE": "No",
+    "AF": "No",
+    "AG": "No",
+    "AH": "Serial pipeline",
+    "AI": "Glucose/CGM readings; insulin level and dose/medication; carbohydrate/food intake; physical activity; sleep duration; patient-specific physiological parameters",
+    "AJ": "Not reported",
+    "AK": "Not reported",
+    "AL": "Not reported",
+    "AM": "Not reported",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Explicit physiological variables",
+    "AS": "2 state variables: glucose and insulin",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Patient-specific parameter fitting",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Mixed",
+    "BC": "Continuous vector (dose / rate)",
+    "BD": "Carbohydrate intake: 0–150 g/meal; physical activity: 0–10 MET·h/day; insulin: 0–20 U; sleep duration; medication input",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "Hybrid DT for Personalized Glucose Prediction",
+    "BJ": "Hybrid mechanistic + neural",
+    "BK": "Fixed discrete steps",
+    "BL": "6 min sampling interval; 24 h simulation; glucose prediction horizon reported as one step ahead",
+    "BM": "No",
+    "BN": "Bergman Minimal Model and Hovorka physiological equations; circadian insulin-sensitivity term; glucose/insulin transition equations",
+    "BO": "Recurrent hidden state",
+    "BP": "10 prior glucose values are provided to the LSTM",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Next-step glucose and insulin states; hyperglycemia and hypoglycemia risk probabilities",
+    "BT": "LSTM glucose prediction; Bayesian hyperglycemia/hypoglycemia risk estimation; SHAP feature attribution",
+    "BU": "Not reported",
+    "BV": "Mean squared error (MSE) loss",
+    "BW": "No",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "One-step only",
+    "CD": "One step ahead",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "None",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Not reported",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Bayesian / posterior",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "None (predictive only)",
+    "CU": "None",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not reported",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "A2 Recommendation – clinician decides",
+    "DH": "Not reported",
+    "DI": "Clinical",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Yes",
+    "DN": "Not reported",
+    "DO": "Multiple",
+    "DP": "Available on request",
+    "DQ": "201 volunteers (data section); 240 training and 60 testing samples (validation section); relationship between these counts is unclear",
+    "DR": "Not reported",
+    "DS": "Both",
+    "DT": "Not reported",
+    "DU": "Multiple",
+    "DV": "No",
+    "DW": "No",
+    "DX": "Five-fold results: RMSE 14.982 ± 0.688; MAE 12.467 ± 0.572; R² 0.094 ± 0.297",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Qualitative simulated responses are described: glucose rises after carbohydrate intake and falls during/after physical activity; no quantitative action-sensitivity analysis is reported.",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Digital Twin prediction time: 0.003364 s (Table 5)",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "SRM Medical College Hospital and Research Centre Institutional Ethics Committee, approval 8274/IEC/2022; informed consent reported",
+    "ES": "Yes",
+    "ET": "R2 Retrospective internal validation",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "1 – minimal",
+    "FD": "1 – minimal",
+    "FE": "2 – moderate",
+    "FF": "0 – absent",
+    "FG": "No",
+    "FH": "Yes",
+    "FI": "Not applicable",
+    "FJ": "Yes",
+    "FK": "No",
+    "FL": "Patient glucose/insulin and lifestyle inputs feed a physiology-based glucose–insulin transition (Bergman/Hovorka equations, circadian sensitivity, and LSTM); Bayesian risk estimation and SHAP support a decision-support output. No evaluated planner is described.",
+    "FM": "Authors combine physiological glucose–insulin modelling, lifestyle and circadian factors, probabilistic metabolic-risk estimation, and explainability in a personalized diabetes digital-twin framework.",
+    "FN": "The paper reports one-step prediction and five-fold metrics (RMSE 14.982 ± 0.688; MAE 12.467 ± 0.572; R² 0.094 ± 0.297). It also reports a 24 h simulation at 6 min sampling intervals and a Digital Twin prediction time of 0.003364 s.",
+    "FO": "The authors state that patient-specific calibration and parameter tuning are required; they also identify dependence on high-quality sensor data and uninterrupted connectivity, and note that physiological variability, sensor noise, and missing data may reduce accuracy.",
+    "FP": "The authors propose connecting real-time CGM, validating on clinical datasets, improving personalization and interpretability, adding cloud/interoperability and federated-learning/edge approaches, and conducting multicenter clinical validation.",
+    "FQ": "The authors identify limited personalization, lifestyle and circadian modelling, probabilistic risk assessment, explainability, and adaptive decision support in prior diabetes digital-twin approaches.",
+    "FR": "Results report a one-step-ahead glucose prediction and internal split/cross-validation, not prospective clinical deployment, improved patient outcomes, identified causal treatment effects, or demonstrated optimization of insulin-dose decisions. The relationship between the stated 201 volunteers and 240/60 training/testing samples is unclear, and reported metric tables are not fully consistent.",
+    "FS": "Reviewer mapping: M3 Belief-state service; M4 Action service; M5 Dynamics adapter; M7 Outcome & causal layer",
+    "FT": "Reviewer lesson: Pass the paper’s specified action and time context explicitly into the state-transition interface; preserve the boundary between predictive action sensitivity and identified intervention effects.",
+    "FU": "Reviewer mapping (KB §20): Weak interventional validation",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Complete extracted PDF text, pp. 1–26: title/abstract; introduction and related work; architecture and methods; physiological equations, algorithm and data collection; all results and relevant tables; limitations/future work, ethics/data statement, conclusion, and references. Particularly inspected pp. 1, 6–18, and 19–25. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Low",
+    "FZ": "Corrected the prefilled author field to match the PDF byline; preserved the other prefilled A:I fields. Evidence is inconsistent in places: Table 3 is poorly laid out, the reported 201 volunteers do not clearly reconcile with 240/60 training/testing samples, and metric values differ across Tables 4, 5, and 9. The paper explicitly reports one-step-ahead validation; dosing optimization and clinical benefit remain author claims rather than demonstrated clinical outcomes. The supplied materials do not include the KB key for mapping blueprint modules, so FS names the functions without assigning M-numbers. Evidence QA: 65/82 populated fields had a <=25-word quotation matching extracted PDF text (79.3%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 73 prior populated fields have a located source quotation; 10 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "No independent human scientific review, code reproduction or supplement inspection.",
+    "Primary numerical and mathematical inconsistencies limit confidence; retain exact reported values, no corrective invented numbers.",
+    "201volunteers vs300train/test samples and clinical-vs-simulation validation provenance unresolved;R2 not verified.",
+    "Volunteer sensor study is distinct from prospective therapeutic DT use; no causal effects or patient benefit established."
+  ]
+}

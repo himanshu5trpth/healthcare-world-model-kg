@@ -1,0 +1,4106 @@
+{
+  "record_id": "annotation:065:complete-criteria-review",
+  "paper_record_id": "065",
+  "paper_version_id": "paper-version:065:sha256-e53447c00367",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:065:ann:paper2020",
+    "model:065:bnn:paper2020"
+  ],
+  "system_composition_ids": [
+    "system:065:offline-comparison:paper2020"
+  ],
+  "world_type_ids": [],
+  "profile_ids": [
+    "BP_COMPONENT"
+  ],
+  "entities": [
+    {
+      "id": "paper:065",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_paper_id": "065",
+        "title": "Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach",
+        "authors": [
+          "Changro Lee",
+          "Keith Key-Ho Park"
+        ],
+        "year": "2020",
+        "journal": "Real Estate Management and Valuation",
+        "volume": "28",
+        "issue": "4",
+        "printed_pages": "15–23",
+        "doi": "10.1515/remav-2020-0028",
+        "screening_decision": "Exclude",
+        "primary_exclusion_reason": "Not healthcare",
+        "healthcare_scope": "absent for the implemented and evaluated task",
+        "verified_core_world_model_membership": false,
+        "provisional_core_membership": false,
+        "membership_rationale": "Both evaluated methods are static property-price regressors, without a persistent evolving world state or a successor-state transition. Healthcare appears as motivation, proposed applicability and cited literature.",
+        "generic_relevance": "Bayesian predictive uncertainty and the distinction between uncertainty characterization, calibration and validated selective prediction.",
+        "author_priority_claim": "First Bayesian deep-neural-network study of property-valuation uncertainty; not independently verified."
+      },
+      "provenance_evidence_ids": [
+        "evidence:065:identity",
+        "evidence:065:task",
+        "evidence:065:architecture",
+        "evidence:065:application-proposal"
+      ]
+    },
+    {
+      "id": "paper-version:065:sha256-e53447c00367",
+      "class_id": "PaperVersion",
+      "properties": {
+        "source_path": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+        "pdf_sha256": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+        "hash_provenance": "Supplied source record and earlier API review provenance; not recomputed by this synthesis call.",
+        "physical_pdf_pages": 9,
+        "printed_pagination": "15–23",
+        "bibliographic_verification": "Compared with supplied title-page text and earlier page-image review notes; no external publisher lookup.",
+        "source_access": "The current synthesis received all nine text pages and all nine image-review notes. Earlier documented API page calls received the text and rendered image of every page. This synthesis received no image pixels.",
+        "supplements": "No separate supplements supplied; no appendix identified in the nine-page article."
+      },
+      "provenance_evidence_ids": [
+        "evidence:065:identity",
+        "evidence:065:doi"
+      ]
+    },
+    {
+      "id": "study:065:s1",
+      "class_id": "Study",
+      "properties": {
+        "design": "Offline static regression comparison followed by descriptive predictive-uncertainty analysis.",
+        "domain": "Residential property valuation",
+        "location": "Gangnam-gu, Seoul, South Korea",
+        "transaction_years": "2011–2014",
+        "sample_unit": "House-sale observation",
+        "reported_total": 488,
+        "clinical_study": false,
+        "study_lineage": "not_reported",
+        "independent_replication": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:dataset",
+        "evidence:065:mse"
+      ]
+    },
+    {
+      "id": "model:065:ann:paper2020",
+      "class_id": "ModelVersion",
+      "properties": {
+        "author_name": "ANN",
+        "version_boundary": "Paper-described configuration; trained artifact, run identifier and weights not reported.",
+        "task": "Static house-price regression",
+        "architecture": "Fully connected feed-forward network",
+        "inputs": 13,
+        "hidden_layers": [
+          10,
+          10
+        ],
+        "outputs": 1,
+        "software": "Keras",
+        "output": "Maximum-normalized sale price",
+        "uncertainty_configuration": "Fixed-weight point predictor",
+        "exact_training_loss": "not_reported",
+        "world_coordinate": "None. Transaction year is a covariate, not a modeled transition coordinate."
+      },
+      "provenance_evidence_ids": [
+        "evidence:065:inputs",
+        "evidence:065:normalization",
+        "evidence:065:architecture",
+        "evidence:065:software",
+        "evidence:065:fixed-weights"
+      ]
+    },
+    {
+      "id": "model:065:bnn:paper2020",
+      "class_id": "ModelVersion",
+      "properties": {
+        "author_name": "BNN",
+        "version_boundary": "Paper-described configuration; trained artifact, run identifier and fitted variational parameters not reported.",
+        "task": "Static house-price regression with approximate Bayesian parameter uncertainty",
+        "architecture": "Fully connected Bayesian feed-forward network",
+        "inputs": 13,
+        "hidden_layers": [
+          10,
+          10
+        ],
+        "outputs": 1,
+        "software": "Keras",
+        "inference": "Variational Bayes; ELBO discussed; implementation follows the cited Blundell et al. approach.",
+        "exact_prior_likelihood_variational_family": "not_reported",
+        "predictive_draws_per_test_observation": 100,
+        "figure_2_point_prediction": "Per-observation median of 100 predictive simulations",
+        "uncertainty_summaries": [
+          "Predictive range",
+          "Predictive standard deviation"
+        ],
+        "authors_uncertainty_interpretation": "Epistemic uncertainty associated with weights; aleatoric uncertainty excluded from the reported analysis.",
+        "world_coordinate": "None. Parameter optimization and repeated predictive draws are not world transitions."
+      },
+      "provenance_evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:software",
+        "evidence:065:variational",
+        "evidence:065:mse-protocol",
+        "evidence:065:uncertainty-scope",
+        "evidence:065:draws"
+      ]
+    },
+    {
+      "id": "system:065:offline-comparison:paper2020",
+      "class_id": "SystemComposition",
+      "properties": {
+        "scope": "Executed offline prediction and uncertainty-analysis workflow",
+        "flow": "Tabular preprocessing → separate ANN and BNN predictions → held-out price-error comparison; BNN dispersion compared with ANN residuals and displayed geographically.",
+        "shared_feature_scope": "Shared system assertions apply to both paper-described regressors unless a narrower model or intended-use scope is specified.",
+        "not_established": "Operational combined ANN–BNN screening, lending, tax-assessment or clinical service",
+        "profile_rationale": "BP_COMPONENT denotes generic methodological relevance only, without changing exclusion or establishing a healthcare world model.",
+        "complete_blueprint_module_implementation": "Not asserted."
+      },
+      "provenance_evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:mse-protocol",
+        "evidence:065:draws",
+        "evidence:065:regression-band"
+      ]
+    },
+    {
+      "id": "dataset:065:gangnam-transactions:paper2020",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "descriptive_name": "Paper-described Gangnam-gu single-family house transactions",
+        "formal_dataset_name": "not_reported",
+        "underlying_release_identifier": "not_reported",
+        "acquisition_source": "not_reported",
+        "access_conditions": "not_reported",
+        "data_kind": "Actual nonclinical property-sale observations",
+        "transaction_years": "2011–2014",
+        "reported_observations": 488,
+        "inputs": [
+          "Road width",
+          "Building area",
+          "Site area",
+          "Year traded",
+          "Property age",
+          "Zone",
+          "Slope",
+          "Site shape",
+          "Site bearing",
+          "Building structure",
+          "Neighborhood characteristics",
+          "Longitude",
+          "Latitude"
+        ],
+        "units_reported": {
+          "road_width": "m",
+          "building_area": "m²",
+          "site_area": "m²",
+          "property_age": "year",
+          "raw_sale_price": "million KRW"
+        },
+        "preprocessing": "Categorical-to-ordinal conversion; explanatory-variable standardization; sale-price normalization by maximum sale price.",
+        "preprocessing_fit_partition": "not_reported",
+        "missing_data_handling": "not_reported",
+        "table_2_mappings": {
+          "zone": "Environment preservation → 1, …, Commerce → 8",
+          "slope": "Sloping → 1, Level → 2",
+          "site_shape": "Irregular → 1, Rectangular → 2",
+          "site_bearing": "North → 1, …, South → 3",
+          "building_structure": "Steel pipe → 1, …, Reinforced concrete frame → 3",
+          "neighborhood_characteristics": "Farmland and forest → 1, …, Downtown → 6"
+        },
+        "encoding_consultation": "KAPA valuation manuals and two field appraisers informed conversion; this is not model-output evaluation."
+      },
+      "provenance_evidence_ids": [
+        "evidence:065:dataset",
+        "evidence:065:inputs",
+        "evidence:065:normalization",
+        "evidence:065:table2",
+        "evidence:065:appraisers"
+      ]
+    },
+    {
+      "id": "cohort:065:all",
+      "class_id": "Cohort",
+      "properties": {
+        "population_kind": "Properties, not human participants",
+        "eligibility": "Single-family houses sold in Gangnam-gu during 2011–2014; detailed sampling criteria not reported.",
+        "count": 488,
+        "count_unit": "House-sale observations",
+        "table_1_column_order": [
+          "Minimum",
+          "Mean",
+          "Median",
+          "Maximum"
+        ],
+        "table_1_statistics": {
+          "sale_price_million_KRW": [
+            45,
+            2221,
+            1988,
+            13000
+          ],
+          "site_area_m2": [
+            7.3,
+            239.7,
+            224.6,
+            908.3
+          ],
+          "building_area_m2": [
+            65.8,
+            358.6,
+            316.8,
+            2088.0
+          ],
+          "property_age_year": [
+            1,
+            24.4,
+            24,
+            42
+          ]
+        },
+        "partial_ownership_caveat": "The minimum site-area observation concerns sale of one ownership share in a jointly owned site; comparability adjustment is not reported.",
+        "table_review_basis": "Supplied table text corroborated by earlier API image-review notes; no direct image retranscription by this synthesis."
+      },
+      "provenance_evidence_ids": [
+        "evidence:065:table1",
+        "evidence:065:ownership"
+      ]
+    },
+    {
+      "id": "cohort:065:train",
+      "class_id": "Cohort",
+      "properties": {
+        "parent_cohort_id": "cohort:065:all",
+        "count": 366,
+        "count_unit": "House-sale observations",
+        "reported_fraction": "75%",
+        "role": "Training",
+        "assignment": "Random split"
+      },
+      "provenance_evidence_ids": [
+        "evidence:065:dataset"
+      ]
+    },
+    {
+      "id": "cohort:065:test",
+      "class_id": "Cohort",
+      "properties": {
+        "parent_cohort_id": "cohort:065:all",
+        "count": 122,
+        "count_unit": "House-sale observations",
+        "reported_fraction": "25%",
+        "role": "Reserved test",
+        "assignment": "Random split",
+        "repeated_property_overlap_control": "not_reported",
+        "spatial_temporal_separation": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "evidence:065:dataset",
+        "evidence:065:mse-protocol"
+      ]
+    },
+    {
+      "id": "protocol:065:holdout",
+      "class_id": "EvaluationProtocol",
+      "properties": {
+        "task": "Static normalized-price regression",
+        "split": "366 training and 122 reserved test observations, randomly assigned",
+        "metric": "MSE",
+        "bnn_draws": "100 per test observation",
+        "aggregation_caveat": "Per-property median predictions are explicit for Figure 2; the reported BNN MSE wording does not resolve MSE of medians versus median simulation-specific error.",
+        "uncertainty_analysis": "BNN predictive range and standard deviation versus ANN residuals; geographic dispersion map.",
+        "residual_transformation": "not_reported sufficiently",
+        "calibration_protocol": "not_reported",
+        "threshold_selection_validation": "not_reported",
+        "architecture_selection": "Best in most trials asserted; selection protocol not reported.",
+        "random_seeds_repeated_run_variability": "not_reported"
+      },
+      "provenance_evidence_ids": [
+        "evidence:065:dataset",
+        "evidence:065:architecture",
+        "evidence:065:mse-protocol",
+        "evidence:065:draws",
+        "evidence:065:regression-band"
+      ]
+    },
+    {
+      "id": "evaluation:065:ann-test",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "model_version_id": "model:065:ann:paper2020",
+        "protocol_id": "protocol:065:holdout",
+        "dataset_version_id": "dataset:065:gangnam-transactions:paper2020",
+        "cohort_id": "cohort:065:test",
+        "endpoint": "Static normalized-price MSE",
+        "clinical_evaluation": false
+      },
+      "provenance_evidence_ids": [
+        "evidence:065:mse-protocol",
+        "evidence:065:mse"
+      ]
+    },
+    {
+      "id": "evaluation:065:bnn-test",
+      "class_id": "EvaluationRun",
+      "properties": {
+        "model_version_id": "model:065:bnn:paper2020",
+        "protocol_id": "protocol:065:holdout",
+        "dataset_version_id": "dataset:065:gangnam-transactions:paper2020",
+        "cohort_id": "cohort:065:test",
+        "endpoints": [
+          "Static normalized-price MSE",
+          "Descriptive uncertainty analysis"
+        ],
+        "clinical_evaluation": false,
+        "boundary": "No measured predictive coverage, selective-risk acceptance, post-filter error or referral benefit is reported."
+      },
+      "provenance_evidence_ids": [
+        "evidence:065:mse",
+        "evidence:065:draws",
+        "evidence:065:regression-band"
+      ]
+    },
+    {
+      "id": "outcome:065:normalized-price",
+      "class_id": "OutcomeSpec",
+      "properties": {
+        "target": "Sale price",
+        "raw_unit": "million KRW",
+        "transformation": "Divide by maximum sale price",
+        "prediction_kind": "Static regression",
+        "horizon": "Not applicable: no forecast-origin/successor coordinate.",
+        "clinical_outcome": false
+      },
+      "provenance_evidence_ids": [
+        "evidence:065:normalization"
+      ]
+    },
+    {
+      "id": "use:065:valuation-research",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "purpose": "Offline research on property-price prediction and uncertainty",
+        "population": "Gangnam-gu single-family house transactions",
+        "actual_operation": "Train and evaluate static regressors",
+        "action_execution": "No modeled or executed environmental action in the reported experiment.",
+        "clinical_use": false
+      },
+      "provenance_evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:dataset",
+        "evidence:065:architecture"
+      ]
+    },
+    {
+      "id": "use:065:proposed-screening",
+      "class_id": "IntendedUseContext",
+      "properties": {
+        "status": "Author-proposed extension, not established implementation",
+        "purpose": "Combine ANN valuation with BNN uncertainty screening and possible expert inspection",
+        "contexts": [
+          "Collateral valuation",
+          "Property tax assessment",
+          "Loan-related valuation"
+        ],
+        "reported_thresholds": {
+          "range": "6.0",
+          "standard_deviation": "0.75",
+          "acceptance_wording": "Range less than 6.0 or standard deviation less than 0.75",
+          "map_flag": "Range > 6.0"
+        },
+        "unresolved": "Scale, joint-rule interpretation, equality handling, fallback, threshold selection and measured benefit.",
+        "healthcare_application": "Medical diagnosis mentioned as possible reuse only."
+      },
+      "provenance_evidence_ids": [
+        "evidence:065:referral",
+        "evidence:065:threshold",
+        "evidence:065:filter",
+        "evidence:065:map-flag",
+        "evidence:065:application-proposal"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:065:data.provenance",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "data.provenance",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "dataset_version_id": "dataset:065:gangnam-transactions:paper2020"
+      },
+      "evidence_ids": [
+        "evidence:065:dataset",
+        "evidence:065:inputs",
+        "evidence:065:normalization"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Property type, location, transaction period, counts, several units and input transformations are described."
+      ],
+      "criteria_missing": [
+        "Underlying data source/release, variable-level source lineage and acquisition/availability metadata are insufficiently reported."
+      ]
+    },
+    {
+      "id": "assertion:065:data.native_time",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "dataset_version_id": "dataset:065:gangnam-transactions:paper2020"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Transaction year is supplied, but preservation or reversible availability of original transaction timestamps is not established."
+    },
+    {
+      "id": "assertion:065:data.availability_time",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "dataset_version_id": "dataset:065:gangnam-transactions:paper2020"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Collection and decision-time information availability are not distinguished. Future-information leakage is not demonstrated."
+    },
+    {
+      "id": "assertion:065:data.availability_mask",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "dataset_version_id": "dataset:065:gangnam-transactions:paper2020"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Missing/invalid-value counts, masks and placeholder treatment are not reported; complete inputs are not assumed."
+    },
+    {
+      "id": "assertion:065:data.measurement_age",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs",
+        "evidence:065:architecture"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The assessed static regressors do not carry asynchronous measurements through sequential updates. Property age is not elapsed time since measurement."
+    },
+    {
+      "id": "assertion:065:data.irregular_time_handling",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs",
+        "evidence:065:architecture"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No trajectory or elapsed-time transition is modeled. Sales spanning multiple years do not create an irregular-time forecasting task."
+    },
+    {
+      "id": "assertion:065:data.observation_process",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "dataset_version_id": "dataset:065:gangnam-transactions:paper2020"
+      },
+      "evidence_ids": [
+        "evidence:065:dataset",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Transaction sparsity is interpreted descriptively; no conditional model of transactions, sample selection or attribute observation is reported."
+    },
+    {
+      "id": "assertion:065:data.clock_audit",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "dataset_version_id": "dataset:065:gangnam-transactions:paper2020"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs",
+        "evidence:065:normalization"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No temporal resampling grid or timing-dependent event/history target is defined. No EndoClock regime is assigned."
+    },
+    {
+      "id": "assertion:065:data.harmonization",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "data.harmonization",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "dataset_version_id": "dataset:065:gangnam-transactions:paper2020"
+      },
+      "evidence_ids": [
+        "evidence:065:normalization",
+        "evidence:065:table2"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Ordinal encoding and numeric standardization are documented, but reconciliation of source-specific terminology, measurement definitions or incompatible units to a target schema is not sufficiently reported. Preprocessing alone is not promoted to semantic harmonization."
+    },
+    {
+      "id": "assertion:065:data.leakage_control",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "dataset_version_id": "dataset:065:gangnam-transactions:paper2020",
+        "cohort_id": "cohort:065:test"
+      },
+      "evidence_ids": [
+        "evidence:065:dataset",
+        "evidence:065:normalization",
+        "evidence:065:architecture"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "A random reserved holdout is stated. Training-only preprocessing, property-identity separation and architecture-selection/test separation are not established. Neither leakage nor its absence is demonstrated."
+    },
+    {
+      "id": "assertion:065:data.federation",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "dataset_version_id": "dataset:065:gangnam-transactions:paper2020"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No site-local retention or federated artifact-exchange protocol is reported. Distributed Bayesian references are not implementation evidence."
+    },
+    {
+      "id": "assertion:065:perception.encoder",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "dataset_version_id": "dataset:065:gangnam-transactions:paper2020"
+      },
+      "evidence_ids": [
+        "evidence:065:normalization",
+        "evidence:065:table2",
+        "evidence:065:architecture"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "value": "Tabular observation-to-feature adapter: ordinal conversion and standardization of 13 property inputs.",
+      "rationale": "Only the operational feature-adapter responsibility is established, not a separately evaluated learned encoder, persistent state or complete M2 service."
+    },
+    {
+      "id": "assertion:065:perception.foundation_reuse",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:065:ann:paper2020",
+          "model:065:bnn:paper2020"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:065:software"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No named pretrained checkpoint or transferred representation is identified. Keras and a cited inference approach are not pretrained encoder reuse."
+    },
+    {
+      "id": "assertion:065:perception.latent_prediction",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:065:ann:paper2020",
+          "model:065:bnn:paper2020"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:variational"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "The reported target is price, not a target representation. Exact losses are insufficiently specified to establish or exclude all auxiliary terms; hidden layers and ELBO terminology do not establish predictive-latent training."
+    },
+    {
+      "id": "assertion:065:perception.collapse_control",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:architecture"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The specified contribution is supervised scalar regression, not self-supervised joint-embedding representation prediction requiring an anti-collapse design. General optimization/convergence concerns are distinct."
+    },
+    {
+      "id": "assertion:065:perception.reconstruction",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:065:ann:paper2020",
+          "model:065:bnn:paper2020"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:variational"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No input-observation reconstruction loss is reported. Full executed losses are unspecified; ELBO does not imply a VAE or input reconstruction."
+    },
+    {
+      "id": "assertion:065:perception.fusion",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "perception.fusion",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "dataset_version_id": "dataset:065:gangnam-transactions:paper2020"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Each regressor receives one tabular attribute vector; numeric, categorical and geographic fields are not separately identified modalities."
+    },
+    {
+      "id": "assertion:065:perception.availability_aware_fusion",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "dataset_version_id": "dataset:065:gangnam-transactions:paper2020"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No multimodal fusion operation exists in the specified configuration. Missing tabular-value handling remains separately not_reported."
+    },
+    {
+      "id": "assertion:065:state.persistent",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "state.persistent",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:065:ann:paper2020",
+          "model:065:bnn:paper2020"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:inputs",
+        "evidence:065:architecture"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The documented feed-forward paths independently map property attributes to price. Hidden activations and fitted weight distributions are not evolving states carried between world-transition steps."
+    },
+    {
+      "id": "assertion:065:state.belief_distribution",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:variational"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No partially observed evolving individual state is estimated. The BNN posterior concerns static regression parameters, not a filtered world state."
+    },
+    {
+      "id": "assertion:065:state.propagate_correct",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:065:ann:paper2020",
+          "model:065:bnn:paper2020"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:inputs",
+        "evidence:065:variational"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The static prediction paths have no propagated state prior or observation-correction operation. Variational training updates are not filtering."
+    },
+    {
+      "id": "assertion:065:state.online_assimilation",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:mse-protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Independent property valuation defines no maintained individual state or sequential monitoring task into which arriving observations could be assimilated."
+    },
+    {
+      "id": "assertion:065:state.parameter_adaptation",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:dataset",
+        "evidence:065:architecture",
+        "evidence:065:variational"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The regressors are trained across transactions; there is no patient or analogous individual longitudinal parameter-fitting target. Population-level weight inference is not individual adaptation."
+    },
+    {
+      "id": "assertion:065:state.reusable",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No maintained world state is defined for multiple typed tasks. Median, range and standard deviation summarize one price target, not separate tasks."
+    },
+    {
+      "id": "assertion:065:state.sufficiency_test",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:065:ann:paper2020",
+          "model:065:bnn:paper2020"
+        ]
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No omitted-information, feature-removal or representation-sufficiency assessment is reported. Unspecified architecture trials do not establish such tests."
+    },
+    {
+      "id": "assertion:065:state.history_conditioning",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:065:ann:paper2020",
+          "model:065:bnn:paper2020"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:065:inputs",
+        "evidence:065:architecture"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The specified inputs are static property attributes, not ordered individual observations/actions. Transaction year and property age are covariates."
+    },
+    {
+      "id": "assertion:065:state.personalization_audit",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:inputs",
+        "evidence:065:architecture"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Neither regressor targets individualized longitudinal simulation or claims added value from the correct individual's history. Generic input-sufficiency testing remains separately not_reported."
+    },
+    {
+      "id": "assertion:065:state.identity_consistency",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Static price outputs do not transition or regenerate entities whose identity must persist through a rollout."
+    },
+    {
+      "id": "assertion:065:state.interpretability",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs",
+        "evidence:065:architecture"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "There is no maintained world state to inspect semantically. Named inputs and price-dispersion plots do not establish interpretable propagated hidden-state coordinates."
+    },
+    {
+      "id": "assertion:065:state.temporal_memory",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:065:ann:paper2020",
+          "model:065:bnn:paper2020"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:065:inputs",
+        "evidence:065:architecture"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The feed-forward configurations contain no recurrence, individual history window or temporal memory. Learned population weights are not individual temporal memory; this is not a defect for static regression."
+    },
+    {
+      "id": "assertion:065:action.explicit",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "action.explicit",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:065:ann:paper2020",
+          "model:065:bnn:paper2020"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:065:inputs",
+        "evidence:065:architecture"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The documented input list contains property and transaction attributes, without a separated intervention/command input. Covariate editing would not automatically supply action semantics."
+    },
+    {
+      "id": "assertion:065:action.typed_roles",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No modeled action space exists to classify by role or effect channel."
+    },
+    {
+      "id": "assertion:065:action.parameterized",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "action.parameterized",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No intervention or command input requires parameters, timing or units. Regression weights are not action attributes."
+    },
+    {
+      "id": "assertion:065:action.schedule",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No intervention sequence is modeled. Transaction year and predictive-draw count are not action timing."
+    },
+    {
+      "id": "assertion:065:action.bundle",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "A vector of observed property attributes is not a joint intervention with replacement or inheritance semantics."
+    },
+    {
+      "id": "assertion:065:action.constraints",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs",
+        "evidence:065:filter"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "There are no queried candidate actions to constrain. Proposed price-output screening is assessed separately as a safeguard proposal."
+    },
+    {
+      "id": "assertion:065:action.grounding",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs",
+        "evidence:065:architecture"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No explicit or latent action variable requires mapping to executable operations."
+    },
+    {
+      "id": "assertion:065:action.support",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "action.support",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No action regimes are queried. Sparse transaction coverage is predictive input support, not intervention positivity."
+    },
+    {
+      "id": "assertion:065:action.comparison",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs",
+        "evidence:065:mse-protocol",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Comparing regressors or repeated predictions does not compare specified actions from a matched origin; neither model accepts an action input."
+    },
+    {
+      "id": "assertion:065:action.irreversibility",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:mse-protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The executed experiment delivers no physical or clinical intervention. Consequences of a future financial service are outside this scope, not presumed reversible or harmless."
+    },
+    {
+      "id": "assertion:065:dynamics.temporal",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:065:ann:paper2020",
+          "model:065:bnn:paper2020"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:inputs",
+        "evidence:065:architecture",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The documented operator maps attributes to a static price, not a carried state to a successor. Transaction year, optimization iterations and predictive draws do not supply world-time evolution."
+    },
+    {
+      "id": "assertion:065:dynamics.learned_hybrid",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:variational"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No world-transition operator exists to classify as learned, estimated, fixed or hybrid. Trained static regression weights do not establish learned dynamics."
+    },
+    {
+      "id": "assertion:065:dynamics.action_conditioned",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs",
+        "evidence:065:architecture"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Neither a successor-state transition nor a settable intervention input is defined."
+    },
+    {
+      "id": "assertion:065:dynamics.stochastic",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "There is no next-state process. BNN predictive variability is recorded under uncertainty, not stochastic transition dynamics."
+    },
+    {
+      "id": "assertion:065:dynamics.mechanistic_prior",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:065:ann:paper2020",
+          "model:065:bnn:paper2020"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:065:table2",
+        "evidence:065:appraisers",
+        "evidence:065:variational"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Expert-informed ordinal inputs are reported, but no qualifying mechanistic equations, enforced monotonicity, conservation or symbolic relationship is specified. Generic and unspecified Bayesian weight priors do not establish mechanistic grounding."
+    },
+    {
+      "id": "assertion:065:dynamics.hybrid",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:065:ann:paper2020",
+          "model:065:bnn:paper2020"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:variational"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No operationally coupled mechanistic component is reported. Bayesian inference plus a neural network, or ANN–BNN comparison, is not inherently a mechanistic–learned hybrid."
+    },
+    {
+      "id": "assertion:065:dynamics.multibackend_contract",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:mse-protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Neither comparator is a state-transition backend. Matching regression dimensions does not establish common state/action/time dynamics semantics."
+    },
+    {
+      "id": "assertion:065:dynamics.multiscale",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs",
+        "evidence:065:architecture"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No evolving scales exchange states or constraints. Building, site and neighborhood inputs are static covariates; network depth is not coupled world scales."
+    },
+    {
+      "id": "assertion:065:dynamics.multi_step_loss",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:variational"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No sequence of modeled world transitions exists to train across. Exact static-regression losses remain a separate reporting gap."
+    },
+    {
+      "id": "assertion:065:dynamics.temporal_abstraction",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs",
+        "evidence:065:architecture"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No temporal process is modeled to aggregate into events, options or coordinated timescales."
+    },
+    {
+      "id": "assertion:065:dynamics.observation_decoder",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:normalization"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No maintained world state is decoded into observations. The scalar price is a static task readout, and an unspecified regression likelihood is not a world-emission model."
+    },
+    {
+      "id": "assertion:065:dynamics.task_heads",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": [
+          "model:065:ann:paper2020",
+          "model:065:bnn:paper2020"
+        ],
+        "cohort_id": "cohort:065:test",
+        "time_horizon": "Static target; no forecast displacement"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:normalization",
+        "evidence:065:mse"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": "One typed nonclinical sale-price readout from each feed-forward hidden representation.",
+      "rationale": "The target, units, normalization and output dimension are defined and evaluated. This generic readout does not establish a clinical head, a persistent world state or a causal layer. No acceptance tolerance is supplied."
+    },
+    {
+      "id": "assertion:065:rollout.one_step_evaluated",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "evaluation_run_id": [
+          "evaluation:065:ann-test",
+          "evaluation:065:bnn-test"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:mse-protocol",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The reported evaluation scores static prices and dispersion, without a forecast origin or successor-state target. Static MSE is not one-step transition fidelity."
+    },
+    {
+      "id": "assertion:065:rollout.multistep",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No successor-state operator exists to compose. The BNN's 100 simulations are repeated static draws, not free-running steps."
+    },
+    {
+      "id": "assertion:065:rollout.teacher_forcing",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:mse-protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "There are no intermediate sequence states that could be replaced by reference observations."
+    },
+    {
+      "id": "assertion:065:rollout.reassimilation",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:mse-protocol",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No forecast/execution/correction loop or maintained state exists. Calculating residuals from known prices is retrospective scoring."
+    },
+    {
+      "id": "assertion:065:rollout.maximum_horizon",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:dataset",
+        "evidence:065:mse-protocol",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The static target has no forecast displacement. Transaction years, sample size and predictive-draw count are not horizons."
+    },
+    {
+      "id": "assertion:065:rollout.drift_test",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:mse-protocol",
+        "evidence:065:draws",
+        "evidence:065:regression-band"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No recursive trajectory or horizon axis exists for compounding error. Predictive dispersion is not forecast depth."
+    },
+    {
+      "id": "assertion:065:rollout.effective_horizon",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:threshold"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No temporal forecast extent is defined. Price-dispersion screening cutoffs do not validate a horizon."
+    },
+    {
+      "id": "assertion:065:rollout.sampled_futures",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:mse-protocol",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The BNN samples a static price, not coherent temporal futures. Its implemented predictive sampling is retained under uq.explicit."
+    },
+    {
+      "id": "assertion:065:rollout.horizon_enforcement",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:filter"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The regressors accept no variable-horizon requests. Proposed uncertainty filtering is not horizon enforcement."
+    },
+    {
+      "id": "assertion:065:planning.model_use",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "planning.model_use",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research",
+        "evaluation_run_id": [
+          "evaluation:065:ann-test",
+          "evaluation:065:bnn-test"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:065:mse-protocol",
+        "evidence:065:draws",
+        "evidence:065:filter"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The executed paths evaluate static fidelity and uncertainty, not action ranking, search or policy learning. Proposed screening is kept in a separate intended-use scope."
+    },
+    {
+      "id": "assertion:065:planning.search_policy",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:065:ann:paper2020",
+          "model:065:bnn:paper2020"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:variational",
+        "evidence:065:mse-protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The implemented methods are regressors, not action optimizers or decision policies. Weight optimization and architecture trials are not planning through a world model."
+    },
+    {
+      "id": "assertion:065:planning.receding_horizon",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:mse-protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No plan, executed prefix, feedback controller or planning horizon exists."
+    },
+    {
+      "id": "assertion:065:planning.objective_separation",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:mse-protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "There is no dynamics–planner interface through which decision utilities could vary independently of learned transitions."
+    },
+    {
+      "id": "assertion:065:planning.uncertainty_use",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:draws",
+        "evidence:065:filter"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No planner or modeled action-selection operation exists. Proposed price withholding is a selective-prediction proposal, not demonstrated uncertainty-sensitive planning."
+    },
+    {
+      "id": "assertion:065:planning.exploitation_test",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:mse-protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No model-optimized plans exist whose exploitation of transition or reward errors could be tested."
+    },
+    {
+      "id": "assertion:065:planning.candidate_provenance",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Property rows and repeated price draws are not candidate actions or intervention regimes."
+    },
+    {
+      "id": "assertion:065:planning.hierarchical_policy",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "There is no decision policy to decompose into goals or options. Hidden neural layers are not policy hierarchy."
+    },
+    {
+      "id": "assertion:065:planning.closed_loop_test",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:dataset",
+        "evidence:065:mse-protocol",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Fixed held-out observations do not form an action–environment–feedback loop."
+    },
+    {
+      "id": "assertion:065:uq.explicit:ann",
+      "subject_id": "model:065:ann:paper2020",
+      "feature_id": "uq.explicit",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:065:ann:paper2020"
+      },
+      "evidence_ids": [
+        "evidence:065:fixed-weights",
+        "evidence:065:architecture",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The ANN is a fixed-weight point predictor. Residuals requiring observed sale prices are retrospective errors, not its predictive uncertainty output."
+    },
+    {
+      "id": "assertion:065:uq.explicit:bnn",
+      "subject_id": "model:065:bnn:paper2020",
+      "feature_id": "uq.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:065:bnn:paper2020",
+        "evaluation_run_id": "evaluation:065:bnn-test",
+        "cohort_id": "cohort:065:test"
+      },
+      "evidence_ids": [
+        "evidence:065:variational",
+        "evidence:065:uncertainty-scope",
+        "evidence:065:draws",
+        "evidence:065:regression-band"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "value": {
+        "mechanism": "Approximate Bayesian parameter inference with predictive sampling",
+        "draws_per_observation": 100,
+        "summaries": [
+          "Range",
+          "Standard deviation"
+        ],
+        "authors_interpretation": "Epistemic uncertainty",
+        "validated_calibration": "not_reported"
+      },
+      "rationale": "Uncertainty representation and descriptive analysis are documented; successful calibration or an accepted uncertainty tolerance is not."
+    },
+    {
+      "id": "assertion:065:uq.decomposition:ann",
+      "subject_id": "model:065:ann:paper2020",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:065:ann:paper2020"
+      },
+      "evidence_ids": [
+        "evidence:065:fixed-weights"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The standalone ANN supplies no predictive uncertainty components to decompose."
+    },
+    {
+      "id": "assertion:065:uq.decomposition:bnn",
+      "subject_id": "model:065:bnn:paper2020",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:065:bnn:paper2020",
+        "evaluation_run_id": "evaluation:065:bnn-test"
+      },
+      "evidence_ids": [
+        "evidence:065:uncertainty-scope"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The reported analysis explicitly excludes aleatoric uncertainty and does not estimate both components separately. This does not establish absence of all observation-noise contributions in the unspecified likelihood."
+    },
+    {
+      "id": "assertion:065:uq.calibration_evaluated:ann",
+      "subject_id": "model:065:ann:paper2020",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:065:ann:paper2020"
+      },
+      "evidence_ids": [
+        "evidence:065:fixed-weights",
+        "evidence:065:mse-protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The standalone ANN has no probabilistic output, predictive set or interval with nominal coverage semantics. Point-regression fit is a different assessment."
+    },
+    {
+      "id": "assertion:065:uq.calibration_evaluated:bnn",
+      "subject_id": "model:065:bnn:paper2020",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:065:bnn:paper2020",
+        "evaluation_run_id": "evaluation:065:bnn-test"
+      },
+      "evidence_ids": [
+        "evidence:065:draws",
+        "evidence:065:regression-band"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No nominal predictive target, observed coverage or reliability result is reported. The Figure 3 confidence band concerns the fitted regression line, not individual predictive coverage."
+    },
+    {
+      "id": "assertion:065:uq.trajectory_calibration",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Neither model predicts temporal paths. BNN static predictive calibration remains separately not_reported."
+    },
+    {
+      "id": "assertion:065:uq.tolerance_met:ann",
+      "subject_id": "model:065:ann:paper2020",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:065:ann:paper2020"
+      },
+      "evidence_ids": [
+        "evidence:065:fixed-weights"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No probabilistic uncertainty output exists in the standalone ANN to attach a coverage/calibration tolerance to."
+    },
+    {
+      "id": "assertion:065:uq.tolerance_met:bnn",
+      "subject_id": "model:065:bnn:paper2020",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:065:bnn:paper2020",
+        "evaluation_run_id": "evaluation:065:bnn-test"
+      },
+      "evidence_ids": [
+        "evidence:065:threshold",
+        "evidence:065:filter"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Range 6.0 and standard deviation 0.75 are proposed dispersion-screening cutoffs, not measured calibration tolerances. Their scale and selective-risk validity remain unresolved."
+    },
+    {
+      "id": "assertion:065:uq.shift_detector",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:draws",
+        "evidence:065:map-flag",
+        "evidence:065:referral"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Spatial uncertainty patterns and proposed screening do not establish an operational OOD detector with a shift reference and measured detection performance. ANN residuals are unavailable without true prices."
+    },
+    {
+      "id": "assertion:065:uq.conformal",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:065:ann:paper2020",
+          "model:065:bnn:paper2020"
+        ]
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No nonconformity score, conformal calibration split or coverage-control assumptions are reported. Residual analysis and proposed cutoffs are not conformal calibration; such a wrapper would remain applicable in principle."
+    },
+    {
+      "id": "assertion:065:causal.estimand",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "causal.estimand",
+      "assessment_state": "absent",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:inputs",
+        "evidence:065:mse-protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The defined target is factual static price prediction, without intervention alternatives or a causal contrast. ANN–BNN comparison is not an intervention estimand."
+    },
+    {
+      "id": "assertion:065:causal.identification",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:variational"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No causal estimand is targeted. Bayesian parameter inference is not causal identification."
+    },
+    {
+      "id": "assertion:065:causal.assumptions",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:variational"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No intervention-effect identification argument exists requiring estimand-linked assumptions. Weight priors and ordinal encodings are different modeling assumptions."
+    },
+    {
+      "id": "assertion:065:causal.sensitivity",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:generalization"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No causal effect or identification assumption is assessed. Possible prior/convergence explanations are not confounding-sensitivity analyses."
+    },
+    {
+      "id": "assertion:065:causal.ground_truth_test",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:mse-protocol",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Observed prices reference factual regression, not alternative intervention outcomes. Predictive draws are not potential outcomes under distinct actions."
+    },
+    {
+      "id": "assertion:065:causal.mechanistic_grounding",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs",
+        "evidence:065:architecture",
+        "evidence:065:appraisers"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No action-to-state physical or pharmacological mechanism is modeled. Expert advice for categorical preprocessing is not mechanistic intervention semantics."
+    },
+    {
+      "id": "assertion:065:causal.effect_claim_gate",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:filter"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Price outputs are not presented as identified intervention effects. Anticipated improvement from screening is an untested benefit proposal, not validated causal assurance."
+    },
+    {
+      "id": "assertion:065:safety.hard_guard",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:threshold",
+        "evidence:065:filter",
+        "evidence:065:map-flag"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Offline flags and proposed filtering are reported, but executed output blocking with defined fail behavior is not established."
+    },
+    {
+      "id": "assertion:065:safety.hard_guard:proposal",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "partial",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:065:proposed-screening"
+      },
+      "evidence_ids": [
+        "evidence:065:threshold",
+        "evidence:065:filter"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Restriction of user-visible predictions using stated dispersion cutoffs is proposed."
+      ],
+      "criteria_missing": [
+        "Threshold scale, combined-policy semantics, boundary/invalid-input behavior and fail response are unresolved."
+      ],
+      "rationale": "Partial author-proposed guard design only, not partial implementation or measured risk reduction."
+    },
+    {
+      "id": "assertion:065:safety.abstention",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:referral",
+        "evidence:065:filter"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No executed withholding/defer pathway, rejection fraction or post-filter result is established."
+    },
+    {
+      "id": "assertion:065:safety.abstention:proposal",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "safety.abstention",
+      "assessment_state": "partial",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:065:proposed-screening"
+      },
+      "evidence_ids": [
+        "evidence:065:referral",
+        "evidence:065:filter"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Withholding uncertain predictions and possible expert inspection are proposed."
+      ],
+      "criteria_missing": [
+        "A resolved reject policy and specified fallback linking rejected cases to a response are not provided."
+      ],
+      "rationale": "The proposal is distinct from implemented abstention."
+    },
+    {
+      "id": "assertion:065:safety.human_escalation",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:referral",
+        "evidence:065:appraisers"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No operational referral is reported. The two appraisers advised encoding, not case escalation or model-output review."
+    },
+    {
+      "id": "assertion:065:safety.human_escalation:proposal",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "partial",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "intended_use_context_id": "use:065:proposed-screening"
+      },
+      "evidence_ids": [
+        "evidence:065:referral"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "High uncertainty is a proposed trigger; a human expert conducting on-site inspection is the destination."
+      ],
+      "criteria_missing": [
+        "Routing, human availability, response timing and fallback semantics are unspecified."
+      ]
+    },
+    {
+      "id": "assertion:065:safety.runtime_monitor",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:draws",
+        "evidence:065:regression-band",
+        "evidence:065:referral"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Offline error–dispersion analysis is not an online failure detector coupled to an executed protective response."
+    },
+    {
+      "id": "assertion:065:safety.kill_switch",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:mse-protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The scoped offline experiment executes no external operational action or actuation sequence requiring safe-stop handling. This does not assess a future financial deployment."
+    },
+    {
+      "id": "assertion:065:safety.threat_model",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Assets, adversaries and attack paths are not analyzed. Nonclinical scope does not remove security relevance."
+    },
+    {
+      "id": "assertion:065:safety.red_team",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "evaluation_run_id": [
+          "evaluation:065:ann-test",
+          "evaluation:065:bnn-test"
+        ]
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No injected-attack, fault or adversarial-evaluation protocol is reported."
+    },
+    {
+      "id": "assertion:065:safety.privacy_controls",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "dataset_version_id": "dataset:065:gangnam-transactions:paper2020"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No de-identification, access restriction or comparable operational control is described. Geographic specificity establishes neither a privacy violation nor adequate protection."
+    },
+    {
+      "id": "assertion:065:safety.memorization_audit",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "dataset_version_id": "dataset:065:gangnam-transactions:paper2020"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No membership, copying, re-identification or attribute-disclosure audit is reported."
+    },
+    {
+      "id": "assertion:065:safety.permissions",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:mse-protocol",
+        "evidence:065:filter"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The executed workflow does not issue external financial/clinical decisions or actuate devices requiring operational write/execute permissions. Dataset access remains a separate reporting gap."
+    },
+    {
+      "id": "assertion:065:safety.automation_bias",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:referral",
+        "evidence:065:filter"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Confidence reporting and possible inspection are discussed, but an operational appropriate-reliance interface/protocol, override boundary or human-factors evaluation is not established."
+    },
+    {
+      "id": "assertion:065:lifecycle.intended_use",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "partial",
+      "evidence_stage": "specification",
+      "assertion_basis": "method_description",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:dataset",
+        "evidence:065:referral",
+        "evidence:065:filter"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "criteria_met": [
+        "Research purpose, property population, location and proposed valuation contexts are identified."
+      ],
+      "criteria_missing": [
+        "Complete operational user/workflow specification, decision authority, permitted autonomy and supported deployment limits are not provided."
+      ]
+    },
+    {
+      "id": "assertion:065:lifecycle.model_card",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:065:ann:paper2020",
+          "model:065:bnn:paper2020"
+        ]
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No version-pinned model/system card or equivalent organized release report is identified. A journal article and its PDF hash do not automatically satisfy this feature."
+    },
+    {
+      "id": "assertion:065:lifecycle.monitoring",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:proposed-screening"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No post-release signals, cadence, responsible owner, response or revalidation triggers are reported. Per-prediction screening is not a lifecycle plan."
+    },
+    {
+      "id": "assertion:065:lifecycle.change_control",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:proposed-screening"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Versioned update approval, revalidation and rollback are not reported. Training optimization is not operational change control."
+    },
+    {
+      "id": "assertion:065:lifecycle.regulatory_mention",
+      "subject_id": "paper-version:065:sha256-e53447c00367",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "unknown",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:appraisers"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "source_ambiguous",
+      "value": "Valuation manuals issued by Korea Association of Property Appraisers (KAPA)",
+      "rationale": "Professional guidance is referenced, but the exact manuals, versions and status as a qualifying standard/framework are unspecified. This is not compliance or authorization evidence."
+    },
+    {
+      "id": "assertion:065:lifecycle.regulatory_evidence",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:proposed-screening"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No jurisdiction/use/version-specific applicability assessment, compliance dossier or authorization is reported. No healthcare obligation is inferred."
+    },
+    {
+      "id": "assertion:065:lifecycle.ethics",
+      "subject_id": "study:065:s1",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "cohort_id": "cohort:065:all"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No approval, exemption or consent documentation is reported. Whether approval was required is not established."
+    },
+    {
+      "id": "assertion:065:agent.role",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "agent.role",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:065:ann:paper2020",
+          "model:065:bnn:paper2020"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:software",
+        "evidence:065:mse-protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The specified computational paths are feed-forward regressors and statistical analysis, not LLMs or decision-making agents."
+    },
+    {
+      "id": "assertion:065:agent.multiple",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Two comparator regressors are not interacting decision agents; no agent coordination is defined."
+    },
+    {
+      "id": "assertion:065:agent.reflection",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:variational"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No proposal-making agent exists to revise actions through feedback. Parameter fitting is not reflection."
+    },
+    {
+      "id": "assertion:065:agent.external_calls",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:software"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No operational agent tool-call boundary is defined. Keras use and map attribution are not inference-time agent calls."
+    },
+    {
+      "id": "assertion:065:agent.autonomy",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:mse-protocol",
+        "evidence:065:filter"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The actual experiment is non-agentic offline analysis, not an authorized system proposing or executing environmental actions. Proposed financial use is not demonstrated automation."
+    },
+    {
+      "id": "assertion:065:release.code",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:065:ann:paper2020",
+          "model:065:bnn:paper2020"
+        ]
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No study-code availability statement or repository is supplied. No external repository inspection was performed."
+    },
+    {
+      "id": "assertion:065:release.weights",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:065:ann:paper2020",
+          "model:065:bnn:paper2020"
+        ]
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No ANN checkpoint or BNN fitted variational parameters, samples or access conditions are reported as released."
+    },
+    {
+      "id": "assertion:065:release.license",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "dataset_version_id": "dataset:065:gangnam-transactions:paper2020"
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Separate code, model and data reuse terms are not reported. Article availability and map attribution do not establish these licenses."
+    },
+    {
+      "id": "assertion:065:release.reproduced",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:065:ann:paper2020",
+          "model:065:bnn:paper2020"
+        ]
+      },
+      "evidence_ids": [],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No independent execution is reported. Repeated predictive draws and automated annotation reviews are not reproduction."
+    },
+    {
+      "id": "assertion:065:evaluation.E1",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "absent",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "evaluation_run_id": [
+          "evaluation:065:ann-test",
+          "evaluation:065:bnn-test"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:architecture",
+        "evidence:065:mse-protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The complete reported fidelity assessment concerns static prices, not subsequent world states. Legitimate static MSE results are retained separately rather than relabeled E1."
+    },
+    {
+      "id": "assertion:065:evaluation.E2",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No multitime or successor-state trajectory exists to evaluate. Predictive draws are not horizons."
+    },
+    {
+      "id": "assertion:065:evaluation.E3:ann",
+      "subject_id": "model:065:ann:paper2020",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:065:ann:paper2020"
+      },
+      "evidence_ids": [
+        "evidence:065:fixed-weights",
+        "evidence:065:architecture"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The ANN is a point regressor without a generated predictive-sample distribution or distributional-generation objective."
+    },
+    {
+      "id": "assertion:065:evaluation.E3:bnn",
+      "subject_id": "model:065:bnn:paper2020",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:065:bnn:paper2020",
+        "evaluation_run_id": "evaluation:065:bnn-test"
+      },
+      "evidence_ids": [
+        "evidence:065:mse-protocol",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No defined generated-versus-reference price-distribution comparison is reported. Sampling and error–dispersion analysis do not establish distributional realism."
+    },
+    {
+      "id": "assertion:065:evaluation.E4",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:architecture"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "Static monetary outputs do not model anatomy, physiology, contact or evolving physical scenes requiring the defined physical/clinical plausibility tests."
+    },
+    {
+      "id": "assertion:065:evaluation.E5:ann",
+      "subject_id": "model:065:ann:paper2020",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:065:ann:paper2020"
+      },
+      "evidence_ids": [
+        "evidence:065:fixed-weights",
+        "evidence:065:mse-protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The standalone ANN supplies no probabilistic uncertainty output with a nominal calibration target."
+    },
+    {
+      "id": "assertion:065:evaluation.E5:bnn",
+      "subject_id": "model:065:bnn:paper2020",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:065:bnn:paper2020",
+        "evaluation_run_id": "evaluation:065:bnn-test"
+      },
+      "evidence_ids": [
+        "evidence:065:draws",
+        "evidence:065:regression-band"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No nominal-versus-observed coverage or reliability metric is reported. A residual–dispersion relationship and confidence band for its regression line do not satisfy calibration criteria."
+    },
+    {
+      "id": "assertion:065:evaluation.E6",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No specified intervention or command input exists whose controlled change could be tested."
+    },
+    {
+      "id": "assertion:065:evaluation.E7",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:mse-protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The factual prediction task defines no causal estimand or intervention-effect prediction to validate."
+    },
+    {
+      "id": "assertion:065:evaluation.E8",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs",
+        "evidence:065:architecture"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No individualized longitudinal forecasting objective or subject-history personalization claim is evaluated. Static conditional property predictions are not a patient-personalization study."
+    },
+    {
+      "id": "assertion:065:evaluation.E9",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:mse-protocol",
+        "evidence:065:draws",
+        "evidence:065:filter"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "The executed static-prediction configuration has no model-coupled policy or action-selection mechanism. The proposed decision extension is assessed separately."
+    },
+    {
+      "id": "assertion:065:evaluation.E9:proposal",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:proposed-screening"
+      },
+      "evidence_ids": [
+        "evidence:065:referral",
+        "evidence:065:threshold",
+        "evidence:065:filter"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No measured selective risk, retention fraction, post-filter MSE, referral benefit or lending/tax decision endpoint evaluates the proposed extension."
+    },
+    {
+      "id": "assertion:065:evaluation.E10",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:dataset",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No environmental simulator or matched simulation/physical execution exists. Posterior predictive draws against actual prices are not sim-to-real transfer."
+    },
+    {
+      "id": "assertion:065:evaluation.E11",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "cohort_id": "cohort:065:test"
+      },
+      "evidence_ids": [
+        "evidence:065:dataset",
+        "evidence:065:generalization",
+        "evidence:065:map-flag"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "No explicit external cohort, spatial/temporal holdout, controlled shift, subgroup-performance, missing-feature or transfer test is reported. The same-holdout uncertainty map is not such validation, and random splitting does not prove i.i.d. observations."
+    },
+    {
+      "id": "assertion:065:evaluation.E12",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "dataset_version_id": "dataset:065:gangnam-transactions:paper2020"
+      },
+      "evidence_ids": [
+        "evidence:065:inputs",
+        "evidence:065:normalization"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "There is no timing-dependent observation stream or temporal resampling operation for a clock-witness preservation audit."
+    },
+    {
+      "id": "assertion:065:evaluation.E13",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:appraisers",
+        "evidence:065:referral"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Two appraisers advised input conversion, not model-output assessment. No reported task has people rate, compare or use predictions; suggested inspection is not an executed reader/user study."
+    },
+    {
+      "id": "assertion:065:evaluation.E14",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": [
+          "model:065:ann:paper2020",
+          "model:065:bnn:paper2020"
+        ]
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:software",
+        "evidence:065:variational"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "missingness_reason": "paper_silent_after_review",
+      "rationale": "Architecture dimensions, software and efficiency motivation do not supply measured hardware-qualified latency, throughput, memory, training cost or sample efficiency."
+    },
+    {
+      "id": "assertion:065:evaluation.E15",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:application-proposal"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No clinical population, care task or healthcare workflow is studied. Mentioning medical diagnosis as possible reuse does not create clinical-utility evidence."
+    },
+    {
+      "id": "assertion:065:dynamics.latent_transition",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:variational"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No world transition exists whose representation could be latent. Hidden layers and parameter updates are not internal evolving-world states."
+    },
+    {
+      "id": "assertion:065:dynamics.value_equivalent",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:architecture"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "applicability_reason": "No transition/reward/policy contract is learned. Monetary property value is a regression target, not a reinforcement-learning value function."
+    }
+  ],
+  "relation_assertions": [
+    {
+      "id": "relation:065:version",
+      "subject_id": "paper:065",
+      "predicate_id": "hasVersion",
+      "object_id": "paper-version:065:sha256-e53447c00367",
+      "assessment_state": "present",
+      "evidence_stage": "specification",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "effective_date": "2020 journal version"
+      },
+      "evidence_ids": [
+        "evidence:065:identity",
+        "evidence:065:doi"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Bibliographic identity checked against supplied material; file identity uses supplied hash metadata."
+    },
+    {
+      "id": "relation:065:study",
+      "subject_id": "paper-version:065:sha256-e53447c00367",
+      "predicate_id": "reportsStudy",
+      "object_id": "study:065:s1",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "cohort_id": "cohort:065:all"
+      },
+      "evidence_ids": [
+        "evidence:065:dataset",
+        "evidence:065:mse-protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:065:ann",
+      "subject_id": "paper-version:065:sha256-e53447c00367",
+      "predicate_id": "reportsModel",
+      "object_id": "model:065:ann:paper2020",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:065:ann:paper2020"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:mse"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:065:bnn",
+      "subject_id": "paper-version:065:sha256-e53447c00367",
+      "predicate_id": "reportsModel",
+      "object_id": "model:065:bnn:paper2020",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:065:bnn:paper2020"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:mse",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:065:composition-ann",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "predicate_id": "composesModel",
+      "object_id": "model:065:ann:paper2020",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:065:ann:paper2020"
+      },
+      "evidence_ids": [
+        "evidence:065:mse-protocol",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "The offline analysis uses ANN predictions and residuals; no operational decision composition is implied."
+    },
+    {
+      "id": "relation:065:composition-bnn",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "predicate_id": "composesModel",
+      "object_id": "model:065:bnn:paper2020",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:065:bnn:paper2020"
+      },
+      "evidence_ids": [
+        "evidence:065:mse-protocol",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:065:use",
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "predicate_id": "hasUseContext",
+      "object_id": "use:065:valuation-research",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:dataset",
+        "evidence:065:mse-protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable"
+    },
+    {
+      "id": "relation:065:ann-capability",
+      "subject_id": "model:065:ann:paper2020",
+      "predicate_id": "demonstratesCapability",
+      "object_id": "not_world_model",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:065:ann:paper2020",
+        "evaluation_run_id": "evaluation:065:ann-test"
+      },
+      "evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:architecture",
+        "evidence:065:mse-protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Static regression provides neither successor prediction nor WM-inspired representation evaluation."
+    },
+    {
+      "id": "relation:065:bnn-capability",
+      "subject_id": "model:065:bnn:paper2020",
+      "predicate_id": "demonstratesCapability",
+      "object_id": "not_world_model",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:065:bnn:paper2020",
+        "evaluation_run_id": "evaluation:065:bnn-test"
+      },
+      "evidence_ids": [
+        "evidence:065:architecture",
+        "evidence:065:mse-protocol",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Bayesian parameter inference and repeated static draws do not establish world transitions or L0–L4 capabilities."
+    },
+    {
+      "id": "relation:065:ann-metric",
+      "subject_id": "evaluation:065:ann-test",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:065:ann-mse",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:065:ann:paper2020",
+        "cohort_id": "cohort:065:test"
+      },
+      "evidence_ids": [
+        "evidence:065:mse",
+        "evidence:065:mse-protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "No prespecified acceptance tolerance or inferential uncertainty is reported."
+    },
+    {
+      "id": "relation:065:bnn-metric",
+      "subject_id": "evaluation:065:bnn-test",
+      "predicate_id": "hasMetricResult",
+      "object_id": "metric:065:bnn-mse",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reported_result",
+      "scope": {
+        "model_version_id": "model:065:bnn:paper2020",
+        "cohort_id": "cohort:065:test"
+      },
+      "evidence_ids": [
+        "evidence:065:mse",
+        "evidence:065:mse-protocol"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_reported",
+      "rationale": "BNN has the larger reported MSE; aggregation wording remains ambiguous and no significance test is supplied."
+    },
+    {
+      "id": "relation:065:informs-M7",
+      "subject_id": "paper-version:065:sha256-e53447c00367",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M7",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "evaluation_run_id": "evaluation:065:bnn-test"
+      },
+      "evidence_ids": [
+        "evidence:065:mse",
+        "evidence:065:draws"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Generic relevance: distinguish point-prediction error from uncertainty characterization. No clinical or causal readout capability is inherited."
+    },
+    {
+      "id": "relation:065:informs-M9",
+      "subject_id": "paper-version:065:sha256-e53447c00367",
+      "predicate_id": "informsBlueprintModule",
+      "object_id": "M9",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "reviewer_synthesis",
+      "scope": {
+        "model_version_id": "model:065:bnn:paper2020"
+      },
+      "evidence_ids": [
+        "evidence:065:draws",
+        "evidence:065:regression-band",
+        "evidence:065:filter"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "rationale": "Generic relevance: calibration and selective-risk/referral validation must be separate from dispersion estimation. This is not implemented healthcare safety evidence."
+    }
+  ],
+  "evidence_fragments": [
+    {
+      "id": "evidence:065:identity",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Printed citation; journal page 15"
+      },
+      "content": "Citation: Lee, C., & Park, K. K.-H. (2020).  Representing uncertainty in property valuation through a \nbayesian deep learning approach. Real Estate Management and Valuation, 28(4), 15-23.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:doi",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "DOI; printed page 15"
+      },
+      "content": "DOI: https://doi.org/10.1515/remav-2020-0028",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:task",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 2,
+        "section_or_table": "Introduction; printed page 16"
+      },
+      "content": "We develop a hedonic pricing \nmodel to predict house prices from house transa ction data.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:dataset",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 4,
+        "section_or_table": "Section 3.2; printed page 18"
+      },
+      "content": "The dataset consists of 488 houses sold between 2011 and 2014. It is divided into 366 training samples \n(75%) and 122 test samples (25%) in a random manner .",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:table1",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "table",
+        "page": 4,
+        "section_or_table": "Table 1; printed page 18"
+      },
+      "content": "Descriptive statistics (n=488) \n Min. Mean Median Max. \nsales prices (million KRW) 45 2,221 1,988 13,000 \nsite area (m2) 7.3 * 239.7 224.6 908.3 \nbuilding area (m2) 65.8 358.6 316.8 2,088.0 \nage (year) 1 24.4 24 42",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:ownership",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "table",
+        "page": 4,
+        "section_or_table": "Table 1 footnote; printed page 18"
+      },
+      "content": "a site where the ownership is shared by two or more owners, indicating that one of the shares was sold.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:inputs",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section 3.2 continuation; printed page 19"
+      },
+      "content": "Explanatory variables are chosen as the following: road width (m), building area (m 2), site area \n(m2), year traded, property age (year), zone, slope, site shape, site bearing, building structure, \nneighborhood characteristics, and each property’s longitude and latitude.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:normalization",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Preprocessing; printed page 19"
+      },
+      "content": "All the explanatory variables are standardized to have zero mean and one \nstandard deviation. Sales prices (unit: million KRW) are normalized by dividing the raw figure by the \nmaximum value of the sales prices.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:table2",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "table",
+        "page": 5,
+        "section_or_table": "Table 2; printed page 19"
+      },
+      "content": "Variable Conversion \nZone Environment preservation →1, …, Commerce→8 \nSlope Sloping →1, Level→2 \nSite shape Irregular →1, Rectangular→2 \nSite bearing North →1, …, South→3 \nBuilding structure Steel pipe →1, …, Reinforced concrete frame→3 \nNeighborhood characteristics Farmland and forest →1, …, Downtown→6",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:architecture",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section 3.3; printed page 19"
+      },
+      "content": "A fully-connected architecture with two hidden layers is adopted. The number of units in each hidden \nlayer is set to be 10, which is between the number of input variables (13) and output variables (1). This \narchitecture produced the best results in most trials and was applied to both ANN and BNN.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:software",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section 3.3; printed page 19"
+      },
+      "content": "Both networks were trained with Keras, one of the widely used deep learning libraries, and BNN is \nimplemented following the approach described in Blundell et al. (2015).",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:appraisers",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Footnote 1; printed page 19"
+      },
+      "content": "Valuation manuals issued by Korea Association of Property Appraisers (KAPA) were taken into account, after \nwhich two field appraisers were consulted for assessing the relevance of this conversion.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:variational",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Section 2.2; printed page 17"
+      },
+      "content": "In this paper, we adopt variational Bayes as an ef ficient way to describe uncertainty over property \nprice predictions.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:fixed-weights",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 3,
+        "section_or_table": "Section 2.2; printed page 17"
+      },
+      "content": "In an ANN approach, there \nare fixed weights and biases that determine how an input is transformed into an output.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:mse-protocol",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "Section 4.1; printed page 19"
+      },
+      "content": "The MSE is calculated from the separately \nreserved test data (122 test samples), and the figure from ANN is calculated as 0.008. As for the figure \nfrom BNN, it is calculated as 0.016, which is a median value of 100 predictive simulations of each of \nthe test data.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:mse",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "table",
+        "page": 5,
+        "section_or_table": "Table 3; printed page 19"
+      },
+      "content": "ANN BNN \nMSE 0.008 0.016",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:uncertainty-scope",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Section 4.2; printed page 20"
+      },
+      "content": "Uncertainty in predictions that arise from the uncertainty in weights is called epistemic uncertainty \n(Kendall & Gal, 2017). This kind of uncertainty can be reduced if we obtain enough data. Thus, \nepistemic uncertainty would be higher in regions of little training data, and lower in regions of \nabundant training data in proper ty valuation tasks. Uncertainty co ming from the inherent noise in \ntraining data is an example of aleatoric uncertainty. It cannot be reduced even if  more training data is \ngiven. Aleatoric uncertainty is covered by the probability distribution used to define the likelihood \nfunction, and we do not discuss this uncertainty in the present study.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:draws",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Section 4.2; printed page 20"
+      },
+      "content": "Figure 3 shows uncertainty of predicted prices from the 122 test samples. The residual on the \nvertical axis is one from ANN. The range (left) and standard deviation (right) on the horizontal axis \nare calculated from 100 predictive simulations of each of the test samples through BNN.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:range-example",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Section 4.2; printed page 20"
+      },
+      "content": "if the predicted prices of the first sample of the test data vary from 0.2 to 0.5 during 100 simulations, \nits range value is 0.3.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:regression-band",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "figure",
+        "page": 7,
+        "section_or_table": "Figure 3 caption note; printed page 21"
+      },
+      "content": "line: linear regression fitting line, shaded area: 95% confidence region of the regression line",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:referral",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Section 4.2; printed page 21"
+      },
+      "content": "predictions with high \nuncertainty may be sent to a human expert for on-site inspection.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:threshold",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 7,
+        "section_or_table": "Conclusions; printed page 21"
+      },
+      "content": "the acceptance criteria may be set to a 6.0 range or 0.75 standard deviation",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:filter",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Conclusions continuation; printed page 22"
+      },
+      "content": "only  the prices which have a range of less than 6.0 or \nstandard deviation less than 0.75 would be provided to the user, reducing prediction error.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:map-flag",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "figure",
+        "page": 8,
+        "section_or_table": "Figure 4 caption note; printed page 22"
+      },
+      "content": "Data points with range > 6.0 are displayed in filled circles.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:application-proposal",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "Conclusions; printed page 22"
+      },
+      "content": "The approach propos ed in this study could be utilized in any area \nwhere describing uncertainty is invariably necessary, and this includes property valuation, prediction \nof credit default risk, medical diagnosis, and coll ision risk assessment in autonomous vehicles.",
+      "verification_status": "entailment_reviewed"
+    },
+    {
+      "id": "evidence:065:generalization",
+      "source_ref": "Papers/065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+      "source_version": "paper-version:065:sha256-e53447c00367",
+      "source_hash": "e53447c00367c89d275bad10b88c0c7ffdf976e25659d54c51cf74e14bdfba19",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Section 4.1; printed page 20"
+      },
+      "content": "it is difficult to generalize \nthe result of this study, especially considering the sample size used (488 ho uses).",
+      "verification_status": "entailment_reviewed"
+    }
+  ],
+  "metric_results": [
+    {
+      "id": "metric:065:ann-mse",
+      "metric": "Mean squared error",
+      "value": 0.008,
+      "unit_or_scale": "Squared normalized sale-price units, not KRW",
+      "direction": "lower_better",
+      "task": "Static house-price regression",
+      "cohort_id": "cohort:065:test",
+      "split_role": "Reserved random test split; 122 house-sale observations",
+      "horizon": "Not applicable: no future-state forecast displacement",
+      "model_version_id": "model:065:ann:paper2020",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": "model:065:bnn:paper2020",
+      "raw_reported_value": "ANN MSE 0.008",
+      "source_evidence_ids": [
+        "evidence:065:mse",
+        "evidence:065:mse-protocol",
+        "evidence:065:normalization"
+      ]
+    },
+    {
+      "id": "metric:065:bnn-mse",
+      "metric": "Mean squared error",
+      "value": 0.016,
+      "unit_or_scale": "Squared normalized sale-price units, not KRW",
+      "direction": "lower_better",
+      "task": "Static house-price regression; aggregation across predictive simulations is ambiguous",
+      "cohort_id": "cohort:065:test",
+      "split_role": "Reserved random test split; 122 house-sale observations",
+      "horizon": "Not applicable: 100 predictive draws are not temporal steps",
+      "model_version_id": "model:065:bnn:paper2020",
+      "uncertainty_status": "not_reported",
+      "uncertainty": null,
+      "baseline_id": "model:065:ann:paper2020",
+      "raw_reported_value": "BNN MSE 0.016",
+      "source_evidence_ids": [
+        "evidence:065:mse",
+        "evidence:065:mse-protocol",
+        "evidence:065:normalization"
+      ]
+    }
+  ],
+  "capability_assessments": [
+    {
+      "subject_id": "model:065:ann:paper2020",
+      "level": "not_world_model",
+      "scope": {
+        "model_version_id": "model:065:ann:paper2020",
+        "evaluation_run_id": "evaluation:065:ann-test",
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_assertion_ids": [
+        "assertion:065:state.persistent",
+        "assertion:065:dynamics.temporal",
+        "assertion:065:rollout.one_step_evaluated",
+        "relation:065:ann-capability"
+      ],
+      "rationale": "Static regression lacks an evolving state, successor prediction and WM-inspired representation evaluation. Ordinary hidden layers do not establish L0."
+    },
+    {
+      "subject_id": "model:065:bnn:paper2020",
+      "level": "not_world_model",
+      "scope": {
+        "model_version_id": "model:065:bnn:paper2020",
+        "evaluation_run_id": "evaluation:065:bnn-test",
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "evidence_assertion_ids": [
+        "assertion:065:state.persistent",
+        "assertion:065:dynamics.temporal",
+        "assertion:065:rollout.one_step_evaluated",
+        "relation:065:bnn-capability"
+      ],
+      "rationale": "Bayesian parameter uncertainty and repeated price draws do not establish a learned world transition, action-conditioned simulation or model-coupled planning."
+    }
+  ],
+  "readiness_assessments": [
+    {
+      "subject_id": "system:065:offline-comparison:paper2020",
+      "facets": [],
+      "environment_kind": "unknown",
+      "scope": {
+        "actual_environment": "Offline evaluation of actual nonclinical property transactions",
+        "environment_vocabulary_limit": "The permitted enum has no exact real-estate-records category; unknown avoids falsely labeling these records clinical or synthetic.",
+        "clinical_readiness_applicability": "Not applicable to the evaluated non-healthcare task.",
+        "R0": "Not a concept-only study.",
+        "R1": "Repeated predictive simulations do not make the transaction dataset synthetic.",
+        "R2": "A property-transaction holdout is not held-out actual human/clinical validation.",
+        "R4": "Appraisers advised preprocessing, not a reported reader/use evaluation of model outputs."
+      },
+      "evidence_ids": [
+        "evidence:065:task",
+        "evidence:065:dataset",
+        "evidence:065:mse-protocol",
+        "evidence:065:appraisers",
+        "evidence:065:application-proposal"
+      ],
+      "legacy_highest_label": null
+    }
+  ],
+  "gate_assessments": [
+    {
+      "gate_id": "G01",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research",
+        "dataset_version_id": "dataset:065:gangnam-transactions:paper2020"
+      },
+      "rationale": "Provenance is incomplete and training-only preprocessing, repeated-property overlap and model-selection/test separation are unestablished. No leakage failure is demonstrated.",
+      "supporting_assertion_ids": [
+        "assertion:065:data.provenance",
+        "assertion:065:data.leakage_control"
+      ]
+    },
+    {
+      "gate_id": "G02",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "rationale": "The scoped method is static regression, not a claimed temporal world model. Static price MSE is not successor-state evidence.",
+      "supporting_assertion_ids": [
+        "assertion:065:state.persistent",
+        "assertion:065:dynamics.temporal",
+        "assertion:065:rollout.one_step_evaluated"
+      ]
+    },
+    {
+      "gate_id": "G03",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "rationale": "No multitime forecast or rollout is intended in the executed configuration.",
+      "supporting_assertion_ids": [
+        "assertion:065:rollout.multistep",
+        "assertion:065:rollout.maximum_horizon"
+      ]
+    },
+    {
+      "gate_id": "G04",
+      "status": "unresolved",
+      "scope": {
+        "model_version_id": "model:065:bnn:paper2020",
+        "intended_use_context_id": "use:065:proposed-screening"
+      },
+      "rationale": "The proposed decision depends on uncertainty, but calibration and accepted tolerance evidence are not reported. Dispersion cutoffs and regression-line confidence bands cannot satisfy this gate.",
+      "supporting_assertion_ids": [
+        "assertion:065:uq.explicit:bnn",
+        "assertion:065:evaluation.E5:bnn",
+        "assertion:065:uq.tolerance_met:bnn"
+      ]
+    },
+    {
+      "gate_id": "G05",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "rationale": "No action-conditioned or alternative-action prediction is queried.",
+      "supporting_assertion_ids": [
+        "assertion:065:action.explicit",
+        "assertion:065:action.comparison"
+      ]
+    },
+    {
+      "gate_id": "G06",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "rationale": "No prediction is interpreted as an identified intervention effect or therapeutic benefit.",
+      "supporting_assertion_ids": [
+        "assertion:065:causal.estimand",
+        "assertion:065:causal.effect_claim_gate"
+      ]
+    },
+    {
+      "gate_id": "G07",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "rationale": "No world-model-coupled planner or learned action policy exists in the assessed implementation.",
+      "supporting_assertion_ids": [
+        "assertion:065:planning.search_policy",
+        "assertion:065:planning.exploitation_test"
+      ]
+    },
+    {
+      "gate_id": "G08",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:065:proposed-screening"
+      },
+      "rationale": "For the proposed high-stakes financial use, operational blocking, abstention, fallback and referral effectiveness are unestablished. This is not evidence that an executed guard failed.",
+      "supporting_assertion_ids": [
+        "assertion:065:safety.hard_guard",
+        "assertion:065:safety.abstention",
+        "assertion:065:safety.human_escalation",
+        "assertion:065:evaluation.E9:proposal"
+      ]
+    },
+    {
+      "gate_id": "G09",
+      "status": "unresolved",
+      "scope": {
+        "intended_use_context_id": "use:065:proposed-screening"
+      },
+      "rationale": "Claims of wider real-world usefulness and possible reuse beyond the sampled transactions lack external, subgroup or composition-transfer evidence. This is not a demonstrated transfer-test failure.",
+      "supporting_assertion_ids": [
+        "assertion:065:evaluation.E11",
+        "assertion:065:data.leakage_control"
+      ]
+    },
+    {
+      "gate_id": "G10",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "rationale": "The scoped empirical component study does not evaluate human usability or sim-to-real utility. Proposed inspection is not a completed human-use claim.",
+      "supporting_assertion_ids": [
+        "assertion:065:evaluation.E10",
+        "assertion:065:evaluation.E13"
+      ]
+    },
+    {
+      "gate_id": "G11",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "rationale": "No live clinical workflow or patient-benefit use is studied.",
+      "supporting_assertion_ids": [
+        "assertion:065:evaluation.E15"
+      ]
+    },
+    {
+      "gate_id": "G12",
+      "status": "not_applicable",
+      "scope": {
+        "intended_use_context_id": "use:065:valuation-research"
+      },
+      "rationale": "This assessment concerns an offline research comparison, not an operational release dossier. Potential financial deployment remains a proposal, and no authorization is inferred.",
+      "supporting_assertion_ids": [
+        "assertion:065:lifecycle.intended_use",
+        "assertion:065:lifecycle.regulatory_evidence"
+      ]
+    }
+  ],
+  "legacy_cells": {
+    "A": "065",
+    "B": "Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach",
+    "C": "Changro Lee; Keith Key-Ho Park",
+    "D": "2020",
+    "E": "real estate management and valuation",
+    "F": "Peer-reviewed journal",
+    "G": "https://doi.org/10.1515/remav-2020-0028",
+    "H": "Papers (numbered 001–099)",
+    "I": "065_2020_Representing Uncertainty in Property Valuation Through a Bayesian Deep Learning Approach.pdf",
+    "J": "Out of scope – non-healthcare",
+    "K": "Not reported",
+    "L": "Exclude",
+    "M": "Not healthcare",
+    "N": "Not reported",
+    "O": "Not reported",
+    "P": "Not reported",
+    "Q": "Not reported",
+    "R": "Not reported",
+    "S": "Not reported",
+    "T": "Not reported",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "Other",
+    "X": "Not a world model",
+    "Y": "Not reported",
+    "Z": "Not a world model",
+    "AA": "Not reported",
+    "AB": "Not reported",
+    "AC": "Not reported",
+    "AD": "Not reported",
+    "AE": "Not reported",
+    "AF": "Not reported",
+    "AG": "Not reported",
+    "AH": "Not reported",
+    "AI": "Not reported",
+    "AJ": "Not reported",
+    "AK": "Not reported",
+    "AL": "Not reported",
+    "AM": "Not reported",
+    "AN": "Not reported",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Not reported",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Not reported",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Not reported",
+    "BC": "Not reported",
+    "BD": "Not reported",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "Not reported",
+    "BJ": "Not reported",
+    "BK": "Not reported",
+    "BL": "Not reported",
+    "BM": "Not reported",
+    "BN": "Not reported",
+    "BO": "Not reported",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Not reported",
+    "BT": "Not reported",
+    "BU": "Not reported",
+    "BV": "Not reported",
+    "BW": "Not reported",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "Not reported",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "Not reported",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Not reported",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Not reported",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "Not reported",
+    "CU": "Not reported",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not reported",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Not reported",
+    "DN": "Not reported",
+    "DO": "Not reported",
+    "DP": "Not reported",
+    "DQ": "Not reported",
+    "DR": "Not reported",
+    "DS": "Not reported",
+    "DT": "Not reported",
+    "DU": "Not reported",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "Not reported",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "Not reported",
+    "FD": "Not reported",
+    "FE": "Not reported",
+    "FF": "Not reported",
+    "FG": "Not reported",
+    "FH": "Not reported",
+    "FI": "Not reported",
+    "FJ": "Not reported",
+    "FK": "Not reported",
+    "FL": "Not reported",
+    "FM": "Not reported",
+    "FN": "Not reported",
+    "FO": "Not reported",
+    "FP": "Not reported",
+    "FQ": "Not reported",
+    "FR": "Not reported",
+    "FS": "Not applicable",
+    "FT": "Not reported",
+    "FU": "Not applicable",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Read the complete extracted PDF text (all 9 PDF pages). Relevant sections inspected: title/byline/abstract (p. 1); introduction and literature review (pp. 1–3); data, cohort and network architecture (pp. 3–5); results and Table 3 (p. 6); uncertainty analysis and Figs. 3–4 (pp. 7–8); conclusions and limitations (p. 8); remaining references (p. 9). Tables 1–3 and figure captions/descriptions were inspected. | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "The paper evaluates static real-estate price prediction and uncertainty estimation, not a healthcare task; its methods/results do not demonstrate a health-state temporal transition. Exclusion is based on the paper itself, not metadata or prior screening notes. Table 1 text layout is imperfectly extracted; no values from that table were used. A:I were left untouched. Evidence QA: 6/6 populated fields had a <=25-word quotation matching extracted PDF text (100%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 6 prior populated fields have a located source quotation; 0 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "This is automated model review, not independent human verification, independent replication or clinical validation.",
+    "The current synthesis read every supplied text page, image-review note and operational feature definition, but received no page-image pixels. Earlier documented API page calls received and reported reviewing every page image and text; this provenance is preserved separately.",
+    "Several page notes contain stale chunk-local statements that other pages were unavailable. They do not negate assembled nine-page coverage and must not be used as the current availability description.",
+    "Source hash, page count, source path and earlier request receipts are supplied provenance, not independently recomputed or checked in this synthesis.",
+    "No filesystem access, external bibliography or repository inspection, executable schema validation, graph rebuild or project-file write was performed.",
+    "Bibliographic details are supported by supplied title-page material. Peer-review status and novelty claims were not independently checked.",
+    "Both models are static nonclinical regressors. Generic feature-adapter, task-readout and uncertainty assertions do not establish complete blueprint modules, healthcare reuse or world-model membership.",
+    "No clinical readiness facet is assigned. Property records are not actual human/clinical validation data, and appraiser encoding consultation is not R4 output evaluation.",
+    "Acquisition source, release identifier, detailed sampling, missingness, repeated-property identities and asset access terms are insufficiently reported.",
+    "Training-only standardization and maximum-price normalization, architecture-selection separation and random-split independence are not established. Leakage is possible but not demonstrated.",
+    "Spatial clustering, potential repeated transactions and a partial-ownership observation limit simple independent whole-property interpretations.",
+    "Intermediate categories are omitted from several ordinal mappings. Alternative encoding sensitivity and the imposed ordering/spacing assumptions are not evaluated.",
+    "Exact priors, likelihood, variational family, activations, optimizer, training duration, seeds and convergence diagnostics are insufficiently specified; cited systems' details are not inherited.",
+    "Equation (2) has an apparent supervised-data evidence-integral notation problem in the supplied text and earlier image review. Its implementation implications remain unknown; it is not silently repaired.",
+    "BNN MSE aggregation is ambiguous. The reported 0.008 and 0.016 are retained without derived ratios, invented significance or confidence intervals.",
+    "ANN residuals require observed prices and are not independently observed uncertainty truth. The transformation producing nonnegative plotted residuals is insufficiently defined.",
+    "Maximum-normalized targets, the illustrative range 0.3 and reported screening thresholds 6.0 and 0.75 are retained. Their scale relationship is unresolved; unbounded Bayesian predictions mean normalization alone does not prove an impossibility.",
+    "Figure 3's 95% band is for the fitted regression line, not individual predictive intervals or calibrated coverage.",
+    "Earlier image notes describe substantial scatter and large errors below proposed cutoffs. These are attributed to earlier automated visual review, not new pixel inspection or a quantified selective-risk experiment.",
+    "Geographic uncertainty patterns do not isolate causal effects of training density or property rarity and do not establish validated OOD detection.",
+    "Aleatoric uncertainty is explicitly outside the reported analysis. This supports absence of separate two-component estimation, not absence of every likelihood-noise contribution.",
+    "No independent threshold-selection set, retention rate, rejection fraction, post-filter error, referral outcome or measured operational benefit supports the screening proposal.",
+    "The relationship between the two cutoffs, equality handling, human availability and fallback behavior are unresolved.",
+    "Algorithm choice, convergence and priors are suggested explanations for BNN underperformance, not experimentally isolated causes.",
+    "The authors' real-world valuation suitability and broader medical applicability claims exceed the demonstrated offline evidence.",
+    "References on pages 8–9 were reviewed as citations, not retrieved studies; their methods, clinical data and capabilities are not attributed to this work.",
+    "Raw legacy cells are preserved, including inaccurate historical locators and earlier extraction claims. Preservation does not endorse their correctness.",
+    "No evidence gate is passed, clinical threshold invented, release authorized or validated composition inferred."
+  ],
+  "notes": "Physical PDF pages are authoritative; printed pages are 15–23. Shared system assertions cover both paper-described regressors where their mechanisms and dispositions coincide. Model-specific uncertainty assertions and a separate proposed-screening context preserve necessary differences. All 128 operational feature IDs are represented; repetitive identical per-model assertions have been consolidated without discarding distinct dispositions. Full operational definitions were supplied and considered in this review, superseding earlier claims that they were unavailable. The erroneous statements that assertions were empty or requested to be empty have been removed."
+}

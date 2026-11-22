@@ -1,0 +1,3225 @@
+{
+  "record_id": "annotation:063:r1",
+  "paper_record_id": "063",
+  "paper_version_id": "paper-version:063:sha256-86a4effb05a4",
+  "annotation_status": "reviewed_with_limits",
+  "model_version_ids": [
+    "model:063:multitask-cvae:v2"
+  ],
+  "system_composition_ids": [],
+  "world_type_ids": [],
+  "profile_ids": [],
+  "entities": [
+    {
+      "id": "paper:063",
+      "class_id": "PaperRecord",
+      "properties": {
+        "local_paper_id": "063",
+        "membership": "excluded_static_tabular_generator",
+        "verified_world_model": false
+      },
+      "provenance_evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ]
+    },
+    {
+      "id": "paper-version:063:sha256-86a4effb05a4",
+      "class_id": "PaperVersion",
+      "properties": {
+        "title": "Multi-Task TabGraphSyn: Graph-Based Synthetic EHR Generation with Improved Quality-Privacy Trade-offs for Opioid Use Disorder Prediction",
+        "version": "medRxiv19May2026",
+        "pdf_sha256": "86a4effb05a47e4288970775acf3977f63b86f3fb6653293d200fda1553ff135"
+      },
+      "provenance_evidence_ids": [
+        "evidence:063:0001"
+      ]
+    },
+    {
+      "id": "model:063:multitask-cvae:v2",
+      "class_id": "ModelVersion",
+      "properties": {
+        "architecture": "GCN conditioned CVAE staticrecord synthesis; labels bootstrapped afterward",
+        "prior_diffusion_alternative": "Notfinalimplementedmodel;replacedwithCVAE",
+        "model_stage": "implementation"
+      },
+      "provenance_evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0006",
+        "evidence:063:0007"
+      ]
+    },
+    {
+      "id": "dataset:063:allofus-oud",
+      "class_id": "DatasetVersion",
+      "properties": {
+        "patients": 11600,
+        "cases": 2746,
+        "controls": 8854,
+        "features": "80+",
+        "case_definition": "OUDICD10F11.1x/F11.2x;highfrequency/cancer/hospiceexcluded",
+        "control": "OpioidexposedwithoutOUD180days",
+        "matching": "3533cases/9793controlsbeforefinaldataqualityfilter;PSMnotcausaltreatmenteffectidentification",
+        "split": "20%test;10%remainingdevelopmentvalidation;4seeds"
+      },
+      "provenance_evidence_ids": [
+        "evidence:063:0002",
+        "evidence:063:0008"
+      ]
+    },
+    {
+      "id": "metric:063:main",
+      "class_id": "MetricResult",
+      "properties": {
+        "subject_id": "model:063:multitask-cvae:v2",
+        "dataset_version_id": "dataset:063:allofus-oud",
+        "evaluation": "Synthetic-trained multioutput logistic regression, heldoutrealtest, macroacross3tasks, fourseeds mean±SD",
+        "TabGraphSyn": {
+          "F1": [
+            0.2321,
+            0.0173
+          ],
+          "AUROC": [
+            0.5278,
+            0.0285
+          ]
+        },
+        "MIIC_SDG": {
+          "F1": [
+            0.284,
+            0.0115
+          ],
+          "AUROC": [
+            0.4932,
+            0.0174
+          ]
+        },
+        "realtrained_reference": {
+          "F1": [
+            0.5724,
+            0.0124
+          ],
+          "AUROC": [
+            0.9234,
+            0.0056
+          ]
+        }
+      },
+      "provenance_evidence_ids": [
+        "evidence:063:0012",
+        "evidence:063:0009",
+        "evidence:063:0008"
+      ]
+    },
+    {
+      "id": "metric:063:privacy",
+      "class_id": "MetricResult",
+      "properties": {
+        "subject_id": "model:063:multitask-cvae:v2",
+        "scope": "Fourseeds;nearestneighboridentifiabilityanddistancebasedmembershipattack;notformalDP",
+        "TabGraphSyn": {
+          "identifiability": [
+            0.0675,
+            0.0197
+          ],
+          "membership_AUC": [
+            0.5039,
+            0.016
+          ],
+          "MetaQPS_AM": [
+            0.0215,
+            0.015
+          ],
+          "MetaQPS_HM": [
+            0.0391,
+            0.0294
+          ]
+        },
+        "MIIC_SDG": {
+          "identifiability": [
+            0.0472,
+            0.014
+          ],
+          "membership_AUC": [
+            0.5082,
+            0.0128
+          ],
+          "MetaQPS_AM": [
+            0.0115,
+            0.0099
+          ],
+          "MetaQPS_HM": [
+            0.0223,
+            0.0207
+          ]
+        },
+        "conflict": "NestedHMshouldnotexceednestedAMfornonnegativeinputs,yetbothreportedHM>AM;retainvaluespendingcode/authorresolution."
+      },
+      "provenance_evidence_ids": [
+        "evidence:063:0010",
+        "evidence:063:0012",
+        "evidence:063:0011"
+      ]
+    },
+    {
+      "id": "metric:063:table1:raw",
+      "class_id": "MetricResult",
+      "properties": {
+        "subject_id": "model:063:multitask-cvae:v2",
+        "table": 1,
+        "raw_reported_values": "Table 1: Headline comparison between MIIC-SDG and Multi-Task TabGraphSyn. Best values are shown in bold. For utility, normalized quality, normalized privacy,\nQPS, and MetaQPS, higher values are better. For distance- and risk-based metrics, lower values are better. Results are reported as mean± standard deviation across\nfour random seeds.\nMetric\nMIIC-SDG Multi-Task TabGraphSyn\nSynthetic\nmulti-task Macro F1↑ 0.2840± 0.0115 0.2321± 0.0173\nSynthetic multi-task Macro ROC-AUC↑ 0.4932± 0.0174 0.5278± 0.0285\nReal-trained multi-task Macro F1↑ 0.5724± 0.0124 0.5724 ± 0.0124\nReal-trained multi-task Macro ROC-AUC↑ 0.9234± 0.0056 0.9234 ± 0.0056\nMutual\ninformation distance↓ 0.0482± 0.0099 0.0540± 0.0038\nCorrelation distance↓ 0.0787± 0.0083 0.0576± 0.0048\nWasserstein distance↓ 7.3740± 0.0174 0.6840± 0.1382\nFeature mean gap↓ 0.0008± 0.0002 0.0034± 0.0008\nFeature standard deviation gap↓ 0.0041± 0.0013 0.0355± 0.0168\nTest reconstruction MSE↓ 1.7707± 0.0114 1.0500± 0.0114\nTest reconstruction MAE↓ 0.3926± 0.0007 0.3350± 0.0029\nIdentifiability\nrisk↓ 0.0472± 0.0140 0.0675± 0.0197\nMembership inference AUC↓ 0.5082± 0.0128 0.5039± 0.0160\nNormalized membership privacy NPmembership↑ 0.0123± 0.0108 0.0223± 0.0156\nNormalized\nMI quality QMI↑ 0.0205± 0.0410 0.0063± 0.0127\nNormalized correlation quality Qcorr↑ 0.0441± 0.0798 0.2261± 0.1420\nNormalized Wasserstein quality QW↑ 0.4030± 0.0060 0.9447± 0.0106\nMetaQPSAM↑\n0.0115± 0.0099 0.0215± 0.0150\nMetaQPSHM↑ 0.0223± 0.0207 0.0391± 0.0294",
+        "scope": "Fourseeds;Table1macroaggregates,Table2per-tasksynthetictrain/realtest;preserveallsourcevaluesandunits."
+      },
+      "provenance_evidence_ids": [
+        "evidence:063:0012",
+        "evidence:063:0009"
+      ]
+    },
+    {
+      "id": "metric:063:table2:raw",
+      "class_id": "MetricResult",
+      "properties": {
+        "subject_id": "model:063:multitask-cvae:v2",
+        "table": 2,
+        "raw_reported_values": "Table 2: Per-task synthetic-train/real-test utility comparison between MIIC-SDG and Multi-Task TabGraphSyn. Best values for each task and metric are shown in\nbold.\nT\nask MIIC-SDG F1 TabGraphSyn F1 MIIC-SDG ROC-AUC TabGraphSyn ROC-AUC\nOpioid\nabuse within 180 days 0.4959± 0.0183 0.4932± 0.0478 0.4743 ± 0.0246 0.5445± 0.0834\nOpioid concept group 0.2097± 0.0186 0.1308± 0.0095 0.5021 ± 0.0316 0.5251± 0.0146\nOpioid source concept group 0.1465± 0.0092 0.0723± 0.0160 0.5033 ± 0.0112 0.5137± 0.0184\n15\nAll rights reserved. No reuse allowed without permission. \nperpetuity. \npreprint (which was not certified by peer review) is the author/funder, who has granted medRxiv a license to display the preprint in \nThe copyright holder for thisthis version posted May 19, 2026. ; https://doi.org/10.64898/2026.04.24.26351704doi: medRxiv preprint ",
+        "scope": "Fourseeds;Table1macroaggregates,Table2per-tasksynthetictrain/realtest;preserveallsourcevaluesandunits."
+      },
+      "provenance_evidence_ids": [
+        "evidence:063:0012",
+        "evidence:063:0009"
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:063:0001",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "data.provenance",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Variable-level provenance: Static aggregatedpreindexEHRfeatures;OMOPsourcesandpreprocessingdescribed, but this exact criterion is notestablished.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0002",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "data.native_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Native observation timestamps: Static aggregatedpreindexEHRfeatures;OMOPsourcesandpreprocessingdescribed, but this exact criterion is notestablished.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0003",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "data.availability_time",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Information-availability time: Static aggregatedpreindexEHRfeatures;OMOPsourcesandpreprocessingdescribed, but this exact criterion is notestablished.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0004",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "data.availability_mask",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Missingness and validity masks: Static aggregatedpreindexEHRfeatures;OMOPsourcesandpreprocessingdescribed, but this exact criterion is notestablished.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0005",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "data.measurement_age",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Measurement freshness: Static aggregatedpreindexEHRfeatures;OMOPsourcesandpreprocessingdescribed, but this exact criterion is notestablished.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0006",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "data.irregular_time_handling",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Irregular-time handling: Static aggregatedpreindexEHRfeatures;OMOPsourcesandpreprocessingdescribed, but this exact criterion is notestablished.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0007",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "data.observation_process",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Observation-process model: Static aggregatedpreindexEHRfeatures;OMOPsourcesandpreprocessingdescribed, but this exact criterion is notestablished.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0008",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "data.clock_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Observation-clock evidence audit: Static aggregatedpreindexEHRfeatures;OMOPsourcesandpreprocessingdescribed, but this exact criterion is notestablished.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0009",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "data.harmonization",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0003",
+        "evidence:063:0002"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "OMOPdomains,RxNormopioidingredients,andonehot/standardizationdescribed;completeunit/conceptmappinglineagenotprovided.",
+      "criteria_met": [
+        "OMOPdomainstructureandprescriptionconceptmappingsdeclared."
+      ],
+      "criteria_missing": [
+        "Variablelevelunitconversionandmappingauditnotreported."
+      ]
+    },
+    {
+      "id": "assertion:063:0010",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "data.leakage_control",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0008",
+        "evidence:063:0009",
+        "evidence:063:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Heldouttestandwithin-splitgraph/generatorproceduredeclared;training-derivedoutofsampleprojectionexists;preprocessingfitboundariesnotexplicitandp10Gtrainincludest rainvalidation.",
+      "criteria_met": [
+        "Explicit20%heldouttestanddevelopmentonlygenerator.",
+        "Outofsamplegraphprojection."
+      ],
+      "criteria_missing": [
+        "Preprocessingfit scopeandfullcohortPSMbefore splittingnotfullyaudited.",
+        "Graphpooltrainversustrainvalidationlanguageinconsistent."
+      ]
+    },
+    {
+      "id": "assertion:063:0011",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "data.federation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Federated learning/data access: Static aggregatedpreindexEHRfeatures;OMOPsourcesandpreprocessingdescribed, but this exact criterion is notestablished.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0012",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "perception.encoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Structuredfeaturesandfourclinicaltextdomains encoded,fusedandPCAcompressed;GCNextractsneighborhoodembeddings."
+    },
+    {
+      "id": "assertion:063:0013",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "perception.foundation_reuse",
+      "assessment_state": "partial",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0003",
+        "evidence:063:0016"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "BioClinicalBERTnamedandmeanpooling768dimsdescribed;checkpointversionunreportedandFigure3saysBioBERTprocedure/labs.",
+      "criteria_met": [
+        "NamedpretrainedclinicalTransformerandpoolingoperation."
+      ],
+      "criteria_missing": [
+        "Checkpoint/versionnotpinned.",
+        "Figure3versusproseencoderidentityunresolved."
+      ]
+    },
+    {
+      "id": "assertion:063:0014",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "perception.latent_prediction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Predictive-latent representation objective: BioClinicalBERT/structuredfeatures→PCA→GCN→CVAE;thisfeature needs separateoperational evidence.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0015",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "perception.collapse_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Representation-collapse prevention: BioClinicalBERT/structuredfeatures→PCA→GCN→CVAE;thisfeature needs separateoperational evidence.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0016",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "perception.reconstruction",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0007"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "CVAEusesfeatureMSEreconstructionplusKL."
+    },
+    {
+      "id": "assertion:063:0017",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "perception.fusion",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Structuredclinical/surveyfeaturesconcatenatedwithclinicalhistorytextembeddingsbeforePCA;explicitcross-sourcefusion."
+    },
+    {
+      "id": "assertion:063:0018",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "perception.availability_aware_fusion",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Availability-aware fusion: BioClinicalBERT/structuredfeatures→PCA→GCN→CVAE;thisfeature needs separateoperational evidence.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0019",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "state.persistent",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Completegeneratoroperatesonstaticencodedrecordandgraphcontext,notstatecarriedthroughclinicaltime."
+    },
+    {
+      "id": "assertion:063:0020",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "state.belief_distribution",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Belief over partially observed state: Staticpatientrecord representation is not persistent evolvingclinicalstate;no sequentialassimilation service.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0021",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "state.propagate_correct",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Propagation/correction separation: Staticpatientrecord representation is not persistent evolvingclinicalstate;no sequentialassimilation service.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0022",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "state.online_assimilation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Assimilation of arriving evidence: Staticpatientrecord representation is not persistent evolvingclinicalstate;no sequentialassimilation service.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0023",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "state.parameter_adaptation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Patient-specific parameter adaptation: Staticpatientrecord representation is not persistent evolvingclinicalstate;no sequentialassimilation service.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0024",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "state.reusable",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Shared state reused across tasks: Staticpatientrecord representation is not persistent evolvingclinicalstate;no sequentialassimilation service.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0025",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "state.sufficiency_test",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "State-sufficiency assessment: Staticpatientrecord representation is not persistent evolvingclinicalstate;no sequentialassimilation service.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0026",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "state.history_conditioning",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0003"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "Preindex180daymedicalhistoryisencodedintopatientfeatures;staticcontextconditioningnotforecasting."
+    },
+    {
+      "id": "assertion:063:0027",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "state.personalization_audit",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Personalization beyond generic priors: Staticpatientrecord representation is not persistent evolvingclinicalstate;no sequentialassimilation service.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0028",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "state.identity_consistency",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Identity/anatomical consistency mechanism: Staticpatientrecord representation is not persistent evolvingclinicalstate;no sequentialassimilation service.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0029",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "state.interpretability",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Inspectable state semantics: Staticpatientrecord representation is not persistent evolvingclinicalstate;no sequentialassimilation service.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0030",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "state.temporal_memory",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "History memory: Staticpatientrecord representation is not persistent evolvingclinicalstate;no sequentialassimilation service.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0031",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "action.explicit",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Explicit action input: OUDoutcome/conceptlabelsare targets, not settable treatmentqueryinputs;opioidexposurecovariates not executableactions."
+    },
+    {
+      "id": "assertion:063:0032",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "action.typed_roles",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Typed action roles/effect channels: OUDoutcome/conceptlabelsare targets, not settable treatmentqueryinputs;opioidexposurecovariates not executableactions."
+    },
+    {
+      "id": "assertion:063:0033",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "action.parameterized",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Action attributes and units: OUDoutcome/conceptlabelsare targets, not settable treatmentqueryinputs;opioidexposurecovariates not executableactions."
+    },
+    {
+      "id": "assertion:063:0034",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "action.schedule",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Time-indexed action schedule: OUDoutcome/conceptlabelsare targets, not settable treatmentqueryinputs;opioidexposurecovariates not executableactions."
+    },
+    {
+      "id": "assertion:063:0035",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "action.bundle",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Coherent treatment-bundle representation: OUDoutcome/conceptlabelsare targets, not settable treatmentqueryinputs;opioidexposurecovariates not executableactions."
+    },
+    {
+      "id": "assertion:063:0036",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "action.constraints",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Action constraints/contraindications: OUDoutcome/conceptlabelsare targets, not settable treatmentqueryinputs;opioidexposurecovariates not executableactions."
+    },
+    {
+      "id": "assertion:063:0037",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "action.grounding",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Executable/semantic action grounding: OUDoutcome/conceptlabelsare targets, not settable treatmentqueryinputs;opioidexposurecovariates not executableactions."
+    },
+    {
+      "id": "assertion:063:0038",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "action.support",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Historical/mechanistic action support: OUDoutcome/conceptlabelsare targets, not settable treatmentqueryinputs;opioidexposurecovariates not executableactions."
+    },
+    {
+      "id": "assertion:063:0039",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "action.comparison",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Matched alternative-action prediction comparison: OUDoutcome/conceptlabelsare targets, not settable treatmentqueryinputs;opioidexposurecovariates not executableactions."
+    },
+    {
+      "id": "assertion:063:0040",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "action.irreversibility",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Action reversibility assessment: OUDoutcome/conceptlabelsare targets, not settable treatmentqueryinputs;opioidexposurecovariates not executableactions."
+    },
+    {
+      "id": "assertion:063:0041",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "dynamics.temporal",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "CVAEdecodesrecordwithoutsuccessorcoordinate;temporal/eventsequencerepresentationsfuturework."
+    },
+    {
+      "id": "assertion:063:0042",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "dynamics.learned_hybrid",
+      "assessment_state": "absent",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "LearnedstaticdistributionandGCNare notlearnedstate-transitionparameters."
+    },
+    {
+      "id": "assertion:063:0043",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "dynamics.action_conditioned",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Action-conditioned transition: CVAEgenerates independentencodedtabularrecords;180daylabel isendpoint,notclinicalworldtransition.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0044",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "dynamics.stochastic",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Stochastic transitions: CVAEgenerates independentencodedtabularrecords;180daylabel isendpoint,notclinicalworldtransition.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0045",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "dynamics.mechanistic_prior",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Mechanistic/structural inductive bias: CVAEgenerates independentencodedtabularrecords;180daylabel isendpoint,notclinicalworldtransition.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0046",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "dynamics.hybrid",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Mechanistic–learned hybrid: CVAEgenerates independentencodedtabularrecords;180daylabel isendpoint,notclinicalworldtransition.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0047",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "dynamics.multibackend_contract",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Interchangeable dynamics behind a common contract: CVAEgenerates independentencodedtabularrecords;180daylabel isendpoint,notclinicalworldtransition.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0048",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "dynamics.multiscale",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Coupled multiscale dynamics: CVAEgenerates independentencodedtabularrecords;180daylabel isendpoint,notclinicalworldtransition.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0049",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "dynamics.multi_step_loss",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Multi-step dynamics training objective: CVAEgenerates independentencodedtabularrecords;180daylabel isendpoint,notclinicalworldtransition.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0050",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "dynamics.temporal_abstraction",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Temporal abstraction/hierarchy: CVAEgenerates independentencodedtabularrecords;180daylabel isendpoint,notclinicalworldtransition.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0051",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "dynamics.observation_decoder",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "CVAEdecoderemitsstaticencodedtabularfeaturesfrom[z;g],notfuturestate."
+    },
+    {
+      "id": "assertion:063:0052",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "dynamics.task_heads",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Typed task/outcome readouts: CVAEgenerates independentencodedtabularrecords;180daylabel isendpoint,notclinicalworldtransition.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0053",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "rollout.one_step_evaluated",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Future-state prediction evaluated: Longitudinalhistoryaggregatedasinput;no generated eventsequence;temporalrepresentationextensionisfutureworkp17."
+    },
+    {
+      "id": "assertion:063:0054",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "rollout.multistep",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Free-running multi-step rollout: Longitudinalhistoryaggregatedasinput;no generated eventsequence;temporalrepresentationextensionisfutureworkp17."
+    },
+    {
+      "id": "assertion:063:0055",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "rollout.teacher_forcing",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Teacher-forced evaluation: Longitudinalhistoryaggregatedasinput;no generated eventsequence;temporalrepresentationextensionisfutureworkp17."
+    },
+    {
+      "id": "assertion:063:0056",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "rollout.reassimilation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Rollout with real-observation re-assimilation: Longitudinalhistoryaggregatedasinput;no generated eventsequence;temporalrepresentationextensionisfutureworkp17."
+    },
+    {
+      "id": "assertion:063:0057",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "rollout.maximum_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Declared maximum evaluated horizon: Longitudinalhistoryaggregatedasinput;no generated eventsequence;temporalrepresentationextensionisfutureworkp17."
+    },
+    {
+      "id": "assertion:063:0058",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "rollout.drift_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Error versus horizon / compounding error: Longitudinalhistoryaggregatedasinput;no generated eventsequence;temporalrepresentationextensionisfutureworkp17."
+    },
+    {
+      "id": "assertion:063:0059",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "rollout.effective_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Empirically justified usable horizon: Longitudinalhistoryaggregatedasinput;no generated eventsequence;temporalrepresentationextensionisfutureworkp17."
+    },
+    {
+      "id": "assertion:063:0060",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "rollout.sampled_futures",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Multiple future trajectories: Longitudinalhistoryaggregatedasinput;no generated eventsequence;temporalrepresentationextensionisfutureworkp17."
+    },
+    {
+      "id": "assertion:063:0061",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "rollout.horizon_enforcement",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Supported-horizon enforcement: Longitudinalhistoryaggregatedasinput;no generated eventsequence;temporalrepresentationextensionisfutureworkp17."
+    },
+    {
+      "id": "assertion:063:0062",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "planning.model_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Predictions used for decisions or policy learning: Syntheticrecordgenerationanddownstreamlogisticclassification arenot modeledconsequenceclinicalplanning/control."
+    },
+    {
+      "id": "assertion:063:0063",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "planning.search_policy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Optimizer or learned policy using the WM: Syntheticrecordgenerationanddownstreamlogisticclassification arenot modeledconsequenceclinicalplanning/control."
+    },
+    {
+      "id": "assertion:063:0064",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "planning.receding_horizon",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Receding-horizon replanning: Syntheticrecordgenerationanddownstreamlogisticclassification arenot modeledconsequenceclinicalplanning/control."
+    },
+    {
+      "id": "assertion:063:0065",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "planning.objective_separation",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Dynamics separated from objectives: Syntheticrecordgenerationanddownstreamlogisticclassification arenot modeledconsequenceclinicalplanning/control."
+    },
+    {
+      "id": "assertion:063:0066",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "planning.uncertainty_use",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Uncertainty affects planning: Syntheticrecordgenerationanddownstreamlogisticclassification arenot modeledconsequenceclinicalplanning/control."
+    },
+    {
+      "id": "assertion:063:0067",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "planning.exploitation_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Planner exploitation stress test: Syntheticrecordgenerationanddownstreamlogisticclassification arenot modeledconsequenceclinicalplanning/control."
+    },
+    {
+      "id": "assertion:063:0068",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "planning.candidate_provenance",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Candidate-set provenance: Syntheticrecordgenerationanddownstreamlogisticclassification arenot modeledconsequenceclinicalplanning/control."
+    },
+    {
+      "id": "assertion:063:0069",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "planning.hierarchical_policy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Hierarchical decision policy: Syntheticrecordgenerationanddownstreamlogisticclassification arenot modeledconsequenceclinicalplanning/control."
+    },
+    {
+      "id": "assertion:063:0070",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "planning.closed_loop_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Closed-loop control evaluated: Syntheticrecordgenerationanddownstreamlogisticclassification arenot modeledconsequenceclinicalplanning/control."
+    },
+    {
+      "id": "assertion:063:0071",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "uq.explicit",
+      "assessment_state": "present",
+      "evidence_stage": "implementation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "CVAEencoderdefinesGaussianposterioroverstaticrecordlatent;nottransitionorclinicalriskcalibration."
+    },
+    {
+      "id": "assertion:063:0072",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "uq.decomposition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Aleatoric/epistemic separation: VAEGaussianlatent and seedvariability are not calibrated patientfuture uncertainty;thiscriterion unreported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0073",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "uq.calibration_evaluated",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Calibration evaluated: VAEGaussianlatent and seedvariability are not calibrated patientfuture uncertainty;thiscriterion unreported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0074",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "uq.trajectory_calibration",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Trajectory-level calibration evaluated: VAEGaussianlatent and seedvariability are not calibrated patientfuture uncertainty;thiscriterion unreported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0075",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "uq.tolerance_met",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Calibration acceptance tolerance met: VAEGaussianlatent and seedvariability are not calibrated patientfuture uncertainty;thiscriterion unreported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0076",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "uq.shift_detector",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "OOD/distribution-shift detector: VAEGaussianlatent and seedvariability are not calibrated patientfuture uncertainty;thiscriterion unreported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0077",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "uq.conformal",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Conformal calibration: VAEGaussianlatent and seedvariability are not calibrated patientfuture uncertainty;thiscriterion unreported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0078",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "causal.estimand",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Declared causal estimand: PSMimprovescase/controlbalance forcohortselection;no causalactionestimand,treatmenteffectidentificationorinterventiontest."
+    },
+    {
+      "id": "assertion:063:0079",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "causal.identification",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Identification strategy: PSMimprovescase/controlbalance forcohortselection;no causalactionestimand,treatmenteffectidentificationorinterventiontest."
+    },
+    {
+      "id": "assertion:063:0080",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "causal.assumptions",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Identification assumptions stated: PSMimprovescase/controlbalance forcohortselection;no causalactionestimand,treatmenteffectidentificationorinterventiontest."
+    },
+    {
+      "id": "assertion:063:0081",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "causal.sensitivity",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Causal sensitivity assessment: PSMimprovescase/controlbalance forcohortselection;no causalactionestimand,treatmenteffectidentificationorinterventiontest."
+    },
+    {
+      "id": "assertion:063:0082",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "causal.ground_truth_test",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Counterfactual validation design: PSMimprovescase/controlbalance forcohortselection;no causalactionestimand,treatmenteffectidentificationorinterventiontest."
+    },
+    {
+      "id": "assertion:063:0083",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "causal.mechanistic_grounding",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Mechanistic intervention semantics: PSMimprovescase/controlbalance forcohortselection;no causalactionestimand,treatmenteffectidentificationorinterventiontest."
+    },
+    {
+      "id": "assertion:063:0084",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "causal.effect_claim_gate",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Causal-effect claim justified for scope: PSMimprovescase/controlbalance forcohortselection;no causalactionestimand,treatmenteffectidentificationorinterventiontest."
+    },
+    {
+      "id": "assertion:063:0085",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "safety.hard_guard",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Hard safety/constraint guard: Empiricalnearestneighborprivacyattacksreported;thisadditionaloperationalprotection notestablished andnoformalDP.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0086",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "safety.abstention",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Abstention/deferral: Empiricalnearestneighborprivacyattacksreported;thisadditionaloperationalprotection notestablished andnoformalDP.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0087",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "safety.human_escalation",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Operational human escalation: Empiricalnearestneighborprivacyattacksreported;thisadditionaloperationalprotection notestablished andnoformalDP.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0088",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "safety.runtime_monitor",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Runtime failure monitor: Empiricalnearestneighborprivacyattacksreported;thisadditionaloperationalprotection notestablished andnoformalDP.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0089",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "safety.kill_switch",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Safe stop and fallback: Empiricalnearestneighborprivacyattacksreported;thisadditionaloperationalprotection notestablished andnoformalDP.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0090",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "safety.threat_model",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "World-model threat model: Empiricalnearestneighborprivacyattacksreported;thisadditionaloperationalprotection notestablished andnoformalDP.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0091",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "safety.red_team",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Adversarial/failure-injection evaluation: Empiricalnearestneighborprivacyattacksreported;thisadditionaloperationalprotection notestablished andnoformalDP.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0092",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "safety.privacy_controls",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Implemented privacy controls: Empiricalnearestneighborprivacyattacksreported;thisadditionaloperationalprotection notestablished andnoformalDP.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0093",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "safety.memorization_audit",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0010"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "confidence": "medium",
+      "rationale": "Entropyweightednearestneighboridentifiabilityanddistancebasedmembershipattackexecuted;risksmixed,noformalprivacyguarantee."
+    },
+    {
+      "id": "assertion:063:0094",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "safety.permissions",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Permissioned external actions: Empiricalnearestneighborprivacyattacksreported;thisadditionaloperationalprotection notestablished andnoformalDP.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0095",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "safety.automation_bias",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Automation-bias mitigation: Empiricalnearestneighborprivacyattacksreported;thisadditionaloperationalprotection notestablished andnoformalDP.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0096",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "lifecycle.intended_use",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Intended use/user specified: OfflineOUDresearchsyntheticsharingpurpose;no clinicaldeployment/releasegovernanceprocess for thiscriterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0097",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "lifecycle.model_card",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Versioned model/system reporting card: OfflineOUDresearchsyntheticsharingpurpose;no clinicaldeployment/releasegovernanceprocess for thiscriterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0098",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "lifecycle.monitoring",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Post-release monitoring plan: OfflineOUDresearchsyntheticsharingpurpose;no clinicaldeployment/releasegovernanceprocess for thiscriterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0099",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "lifecycle.change_control",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Change, revalidation and rollback: OfflineOUDresearchsyntheticsharingpurpose;no clinicaldeployment/releasegovernanceprocess for thiscriterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0100",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "lifecycle.regulatory_mention",
+      "assessment_state": "present",
+      "evidence_stage": "claim",
+      "assertion_basis": "author_claim",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0017"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_tested",
+      "confidence": "medium",
+      "rationale": "GDPRmentionedasmotivation,notcomplianceevidence."
+    },
+    {
+      "id": "assertion:063:0101",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "lifecycle.regulatory_evidence",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Scoped compliance/authorization evidence: OfflineOUDresearchsyntheticsharingpurpose;no clinicaldeployment/releasegovernanceprocess for thiscriterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0102",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "lifecycle.ethics",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Ethics/IRB/informed-consent documentation: OfflineOUDresearchsyntheticsharingpurpose;no clinicaldeployment/releasegovernanceprocess for thiscriterion.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0103",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "agent.role",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Explicit LLM/agent role: GCN/CVAE/logisticclassifiers areordinarymodules,not decisionagentswithcommunicationorautonomousexternalactions."
+    },
+    {
+      "id": "assertion:063:0104",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "agent.multiple",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Interacting multi-agent architecture: GCN/CVAE/logisticclassifiers areordinarymodules,not decisionagentswithcommunicationorautonomousexternalactions."
+    },
+    {
+      "id": "assertion:063:0105",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "agent.reflection",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Agent reflection/refinement loop: GCN/CVAE/logisticclassifiers areordinarymodules,not decisionagentswithcommunicationorautonomousexternalactions."
+    },
+    {
+      "id": "assertion:063:0106",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "agent.external_calls",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "External tool/system calls: GCN/CVAE/logisticclassifiers areordinarymodules,not decisionagentswithcommunicationorautonomousexternalactions."
+    },
+    {
+      "id": "assertion:063:0107",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "agent.autonomy",
+      "assessment_state": "not_applicable",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0004",
+        "evidence:063:0015"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "not_applicable",
+      "confidence": "medium",
+      "applicability_reason": "Autonomy specified for actual environment: GCN/CVAE/logisticclassifiers areordinarymodules,not decisionagentswithcommunicationorautonomousexternalactions."
+    },
+    {
+      "id": "assertion:063:0108",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "release.code",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Code availability: Paperdoesnotidentifyreleasedcode,trainedweights,assetlicensesorindependentreplication.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0109",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "release.weights",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Weight availability: Paperdoesnotidentifyreleasedcode,trainedweights,assetlicensesorindependentreplication.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0110",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "release.license",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "License/access conditions: Paperdoesnotidentifyreleasedcode,trainedweights,assetlicensesorindependentreplication.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0111",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "release.reproduced",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Independent reproduction: Paperdoesnotidentifyreleasedcode,trainedweights,assetlicensesorindependentreplication.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0112",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "evaluation.E1",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "One-step fidelity: Syntheticfidelity/privacy and heldoututilitymeasured;thisspecific worldmodel-orientedtestunreported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0113",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "evaluation.E2",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Multi-step rollout fidelity: Syntheticfidelity/privacy and heldoututilitymeasured;thisspecific worldmodel-orientedtestunreported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0114",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "evaluation.E3",
+      "assessment_state": "present",
+      "evidence_stage": "evaluation",
+      "assertion_basis": "method_description",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0013"
+      ],
+      "verification_status": "entailment_reviewed",
+      "test_outcome": "mixed",
+      "confidence": "medium",
+      "rationale": "GeneratedrecorddistributionscomparedviaMI/correlationandPCAWasserstein,withmarginalgaps;qualifiedstaticdistributionfidelity."
+    },
+    {
+      "id": "assertion:063:0115",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "evaluation.E4",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Physical/clinical plausibility: Syntheticfidelity/privacy and heldoututilitymeasured;thisspecific worldmodel-orientedtestunreported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0116",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "evaluation.E5",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Calibration and uncertainty: Syntheticfidelity/privacy and heldoututilitymeasured;thisspecific worldmodel-orientedtestunreported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0117",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "evaluation.E6",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Action sensitivity: Syntheticfidelity/privacy and heldoututilitymeasured;thisspecific worldmodel-orientedtestunreported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0118",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "evaluation.E7",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Counterfactual/causal validity: Syntheticfidelity/privacy and heldoututilitymeasured;thisspecific worldmodel-orientedtestunreported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0119",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "evaluation.E8",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Personalization evidence: Syntheticfidelity/privacy and heldoututilitymeasured;thisspecific worldmodel-orientedtestunreported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0120",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "evaluation.E9",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Decision quality: Syntheticfidelity/privacy and heldoututilitymeasured;thisspecific worldmodel-orientedtestunreported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0121",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "evaluation.E10",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Sim-to-real agreement: Syntheticfidelity/privacy and heldoututilitymeasured;thisspecific worldmodel-orientedtestunreported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0122",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "evaluation.E11",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Robustness and transfer: Syntheticfidelity/privacy and heldoututilitymeasured;thisspecific worldmodel-orientedtestunreported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0123",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "evaluation.E12",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Observation-process audit: Syntheticfidelity/privacy and heldoututilitymeasured;thisspecific worldmodel-orientedtestunreported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0124",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "evaluation.E13",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Human/expert evaluation: Syntheticfidelity/privacy and heldoututilitymeasured;thisspecific worldmodel-orientedtestunreported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0125",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "evaluation.E14",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Efficiency: Syntheticfidelity/privacy and heldoututilitymeasured;thisspecific worldmodel-orientedtestunreported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0126",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "evaluation.E15",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Clinical/workflow utility: Syntheticfidelity/privacy and heldoututilitymeasured;thisspecific worldmodel-orientedtestunreported.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0127",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "dynamics.latent_transition",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Dynamics computed in internal representation: CVAEgenerates independentencodedtabularrecords;180daylabel isendpoint,notclinicalworldtransition.",
+      "missingness_reason": "paper_silent_after_review"
+    },
+    {
+      "id": "assertion:063:0128",
+      "subject_id": "model:063:multitask-cvae:v2",
+      "feature_id": "dynamics.value_equivalent",
+      "assessment_state": "not_reported",
+      "evidence_stage": "not_established",
+      "assertion_basis": "reviewer_inference",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [],
+      "verification_status": "unreviewed",
+      "test_outcome": "not_reported",
+      "confidence": "not_assessed",
+      "rationale": "Value/reward-equivalent dynamics: CVAEgenerates independentencodedtabularrecords;180daylabel isendpoint,notclinicalworldtransition.",
+      "missingness_reason": "paper_silent_after_review"
+    }
+  ],
+  "relation_assertions": [],
+  "evidence_fragments": [
+    {
+      "id": "evidence:063:0001",
+      "source_ref": "Papers/063_2026_Multi-Task TabGraphSyn Graph-Based Synthetic EHR Generation with Improved Quality-Privacy Trade-offs for Opioid Use Disorder Prediction.pdf",
+      "source_version": "paper-version:063:sha256-86a4effb05a4",
+      "source_hash": "86a4effb05a47e4288970775acf3977f63b86f3fb6653293d200fda1553ff135",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Title/footer"
+      },
+      "content": "[paraphrase]medRxiv version posted19May2026,doi10.64898/2026.04.24.26351704;not certified by peerreview.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:063:0002",
+      "source_ref": "Papers/063_2026_Multi-Task TabGraphSyn Graph-Based Synthetic EHR Generation with Improved Quality-Privacy Trade-offs for Opioid Use Disorder Prediction.pdf",
+      "source_version": "paper-version:063:sha256-86a4effb05a4",
+      "source_hash": "86a4effb05a47e4288970775acf3977f63b86f3fb6653293d200fda1553ff135",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "2.2.5"
+      },
+      "content": "[paraphrase]Final11,600patients:2746cases,8854controls;80+features;all-missinghistoryrowsremoved.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:063:0003",
+      "source_ref": "Papers/063_2026_Multi-Task TabGraphSyn Graph-Based Synthetic EHR Generation with Improved Quality-Privacy Trade-offs for Opioid Use Disorder Prediction.pdf",
+      "source_version": "paper-version:063:sha256-86a4effb05a4",
+      "source_hash": "86a4effb05a47e4288970775acf3977f63b86f3fb6653293d200fda1553ff135",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 5,
+        "section_or_table": "2.3"
+      },
+      "content": "[paraphrase]Structuredclinical/surveyfeaturesconcatenatedwithfour768dimBioClinicalBERTmeanpooleddomainembeddings;PCAcompression;onehotencoding,standardization,imputation.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:063:0004",
+      "source_ref": "Papers/063_2026_Multi-Task TabGraphSyn Graph-Based Synthetic EHR Generation with Improved Quality-Privacy Trade-offs for Opioid Use Disorder Prediction.pdf",
+      "source_version": "paper-version:063:sha256-86a4effb05a4",
+      "source_hash": "86a4effb05a47e4288970775acf3977f63b86f3fb6653293d200fda1553ff135",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "2.5.1–2"
+      },
+      "content": "[paraphrase]kNNtrainingpatientgraph;symmetrizeddegree-normalizedadjacency;twoGCNlayers;CVAEencoderconsumes[x;g],Gaussianlatent,decoder[z;g].",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:063:0005",
+      "source_ref": "Papers/063_2026_Multi-Task TabGraphSyn Graph-Based Synthetic EHR Generation with Improved Quality-Privacy Trade-offs for Opioid Use Disorder Prediction.pdf",
+      "source_version": "paper-version:063:sha256-86a4effb05a4",
+      "source_hash": "86a4effb05a47e4288970775acf3977f63b86f3fb6653293d200fda1553ff135",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 8,
+        "section_or_table": "2.5.3"
+      },
+      "content": "Rather than directly injecting task labels into the decoder as",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:063:0006",
+      "source_ref": "Papers/063_2026_Multi-Task TabGraphSyn Graph-Based Synthetic EHR Generation with Improved Quality-Privacy Trade-offs for Opioid Use Disorder Prediction.pdf",
+      "source_version": "paper-version:063:sha256-86a4effb05a4",
+      "source_hash": "86a4effb05a47e4288970775acf3977f63b86f3fb6653293d200fda1553ff135",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "2.7"
+      },
+      "content": "[paraphrase]Featuresdecodedfromsampledposteriorandgraphembedding;binarythresholding/continuousclipping;labeltuplesbootstrappedfromempiricalYtrainafterfeaturegeneration.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:063:0007",
+      "source_ref": "Papers/063_2026_Multi-Task TabGraphSyn Graph-Based Synthetic EHR Generation with Improved Quality-Privacy Trade-offs for Opioid Use Disorder Prediction.pdf",
+      "source_version": "paper-version:063:sha256-86a4effb05a4",
+      "source_hash": "86a4effb05a47e4288970775acf3977f63b86f3fb6653293d200fda1553ff135",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 9,
+        "section_or_table": "2.6"
+      },
+      "content": "[paraphrase]GCNlossgraphsmoothnesspluspositiveembeddingnormpenalty;separateCVAEreconstructionMSEplusbetaKL;fixedGCNandoutofsampleprojectionforvalidation/test.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:063:0008",
+      "source_ref": "Papers/063_2026_Multi-Task TabGraphSyn Graph-Based Synthetic EHR Generation with Improved Quality-Privacy Trade-offs for Opioid Use Disorder Prediction.pdf",
+      "source_version": "paper-version:063:sha256-86a4effb05a4",
+      "source_hash": "86a4effb05a47e4288970775acf3977f63b86f3fb6653293d200fda1553ff135",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 10,
+        "section_or_table": "3.1"
+      },
+      "content": "[paraphrase]20%realheldouttest;10%remainingdevelopmentforvalidation;stratifiedprimaryoutcome;generatorsdevelopmentonly.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:063:0009",
+      "source_ref": "Papers/063_2026_Multi-Task TabGraphSyn Graph-Based Synthetic EHR Generation with Improved Quality-Privacy Trade-offs for Opioid Use Disorder Prediction.pdf",
+      "source_version": "paper-version:063:sha256-86a4effb05a4",
+      "source_hash": "86a4effb05a47e4288970775acf3977f63b86f3fb6653293d200fda1553ff135",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 11,
+        "section_or_table": "3.1"
+      },
+      "content": "[paraphrase]Fourrandomseeds42–45;MultiOutputClassifier logisticregressionfor3tasks;synthetictrain/realtestagainstrealtrainandrandomtrainreferences.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:063:0010",
+      "source_ref": "Papers/063_2026_Multi-Task TabGraphSyn Graph-Based Synthetic EHR Generation with Improved Quality-Privacy Trade-offs for Opioid Use Disorder Prediction.pdf",
+      "source_version": "paper-version:063:sha256-86a4effb05a4",
+      "source_hash": "86a4effb05a47e4288970775acf3977f63b86f3fb6653293d200fda1553ff135",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 13,
+        "section_or_table": "3.3.4"
+      },
+      "content": "[paraphrase]Inverseentropyweightednearestneighboridentifiabilitywithstrictdistancecriterion;membershipattackusesPCAprojecteddistancetosynthetics,membersvstestnonmembers,ROCAUCandbalancedaccuracy.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:063:0011",
+      "source_ref": "Papers/063_2026_Multi-Task TabGraphSyn Graph-Based Synthetic EHR Generation with Improved Quality-Privacy Trade-offs for Opioid Use Disorder Prediction.pdf",
+      "source_version": "paper-version:063:sha256-86a4effb05a4",
+      "source_hash": "86a4effb05a47e4288970775acf3977f63b86f3fb6653293d200fda1553ff135",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 14,
+        "section_or_table": "Equations41–44"
+      },
+      "content": "[paraphrase]MetaQPSHM first aggregates quality andprivacyinternallyusingharmonicmeans,thenharmonicmeanbetweengroups;AMvariantusesarithmeticinternalmeansp13.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:063:0012",
+      "source_ref": "Papers/063_2026_Multi-Task TabGraphSyn Graph-Based Synthetic EHR Generation with Improved Quality-Privacy Trade-offs for Opioid Use Disorder Prediction.pdf",
+      "source_version": "paper-version:063:sha256-86a4effb05a4",
+      "source_hash": "86a4effb05a47e4288970775acf3977f63b86f3fb6653293d200fda1553ff135",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 15,
+        "section_or_table": "Table1"
+      },
+      "content": "[paraphrase]Table1:TabGraphSynsyntheticmacroF1.2321±.0173,AUROC.5278±.0285;MIIC.2840±.0115/.4932±.0174.Identifiability.0675±.0197vs.0472±.0140;membershipAUC.5039±.0160vs.5082±.0128.MetaQPSAM.0215±.0150vs.0115±.0099;HM.0391±.0294vs.0223±.0207.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:063:0013",
+      "source_ref": "Papers/063_2026_Multi-Task TabGraphSyn Graph-Based Synthetic EHR Generation with Improved Quality-Privacy Trade-offs for Opioid Use Disorder Prediction.pdf",
+      "source_version": "paper-version:063:sha256-86a4effb05a4",
+      "source_hash": "86a4effb05a47e4288970775acf3977f63b86f3fb6653293d200fda1553ff135",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 12,
+        "section_or_table": "3.3.1–2"
+      },
+      "content": "[paraphrase]Real/syntheticcorrelationandmutualinformationmatrixdistances;WassersteinafterPCA;featuremean/stdgaps;proxyrecordpairMSE/MAE.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:063:0014",
+      "source_ref": "Papers/063_2026_Multi-Task TabGraphSyn Graph-Based Synthetic EHR Generation with Improved Quality-Privacy Trade-offs for Opioid Use Disorder Prediction.pdf",
+      "source_version": "paper-version:063:sha256-86a4effb05a4",
+      "source_hash": "86a4effb05a47e4288970775acf3977f63b86f3fb6653293d200fda1553ff135",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 17,
+        "section_or_table": "4.9"
+      },
+      "content": "the privacy analysis relied on\nempirical attack metrics rather than formal privacy guarantees",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:063:0015",
+      "source_ref": "Papers/063_2026_Multi-Task TabGraphSyn Graph-Based Synthetic EHR Generation with Improved Quality-Privacy Trade-offs for Opioid Use Disorder Prediction.pdf",
+      "source_version": "paper-version:063:sha256-86a4effb05a4",
+      "source_hash": "86a4effb05a47e4288970775acf3977f63b86f3fb6653293d200fda1553ff135",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 17,
+        "section_or_table": "4.10"
+      },
+      "content": "richer tem-\nporal or event-sequence representations",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:063:0016",
+      "source_ref": "Papers/063_2026_Multi-Task TabGraphSyn Graph-Based Synthetic EHR Generation with Improved Quality-Privacy Trade-offs for Opioid Use Disorder Prediction.pdf",
+      "source_version": "paper-version:063:sha256-86a4effb05a4",
+      "source_hash": "86a4effb05a47e4288970775acf3977f63b86f3fb6653293d200fda1553ff135",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 6,
+        "section_or_table": "Figure3"
+      },
+      "content": "[paraphrase of visualFigure3]BioClinicalBERTtextencoderandBioBERTprocedure/labencoderappear;prose saysallfourdomainsequencesBioClinicalBERT.",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    },
+    {
+      "id": "evidence:063:0017",
+      "source_ref": "Papers/063_2026_Multi-Task TabGraphSyn Graph-Based Synthetic EHR Generation with Improved Quality-Privacy Trade-offs for Opioid Use Disorder Prediction.pdf",
+      "source_version": "paper-version:063:sha256-86a4effb05a4",
+      "source_hash": "86a4effb05a47e4288970775acf3977f63b86f3fb6653293d200fda1553ff135",
+      "locator": {
+        "kind": "pdf_page",
+        "page": 1,
+        "section_or_table": "Introduction"
+      },
+      "content": "General Data Protection Regulation (GDPR)",
+      "verification_status": "entailment_reviewed",
+      "extractor_or_reviewer": "Codex parallel source review; no independent human review",
+      "review_date": "2026-11-18"
+    }
+  ],
+  "metric_results": [],
+  "capability_assessments": [],
+  "readiness_assessments": [
+    {
+      "subject_id": "model:063:multitask-cvae:v2",
+      "facets": [
+        "R2"
+      ],
+      "environment_kind": "retrospective_human_records",
+      "scope": {
+        "model_version_id": "model:063:multitask-cvae:v2",
+        "environment_kind": "retrospective_human_records",
+        "population": "11,600 All of Us OUD cohort patients; internal real heldout test"
+      },
+      "evidence_ids": [
+        "evidence:063:0008",
+        "evidence:063:0009",
+        "evidence:063:0012"
+      ]
+    }
+  ],
+  "gate_assessments": [],
+  "legacy_cells": {
+    "A": "063",
+    "B": "Multi-Task TabGraphSyn: Graph-Based Synthetic EHR Generation with Improved Quality-Privacy Trade-offs for Opioid Use Disorder Prediction",
+    "C": "Mohammad Arif Ul Alam; Sophia Shalhout",
+    "D": "2026",
+    "E": "medRxiv",
+    "F": "Preprint (arXiv/medRxiv/SSRN/Research Square/Preprints.org)",
+    "G": "https://doi.org/10.64898/2026.04.24.26351704",
+    "H": "Papers (numbered 001–099)",
+    "I": "063_2026_Multi-Task TabGraphSyn Graph-Based Synthetic EHR Generation with Improved Quality-Privacy Trade-offs for Opioid Use Disorder Prediction.pdf",
+    "J": "Primary method – new model",
+    "K": "Not reported",
+    "L": "Exclude",
+    "M": "Static prediction – no state evolution",
+    "N": "Other",
+    "O": "Opioid use disorder (OUD; opioid abuse and dependence)",
+    "P": "Not reported",
+    "Q": "Not reported",
+    "R": "Synthetic data generation",
+    "S": "Whether synthetic EHR records preserve fidelity, privacy, and utility for downstream prediction of 180-day opioid abuse and opioid concept groups.",
+    "T": "NIH All of Us OUD cohort: 11,600 patients, including 2,746 cases and 8,854 matched controls.",
+    "U": "Not reported",
+    "V": "Not reported",
+    "W": "Generative model",
+    "X": "Not a world model",
+    "Y": "Latent generative (VAE / RSSM)",
+    "Z": "Not a world model",
+    "AA": "Not reported",
+    "AB": "Not reported",
+    "AC": "Not reported",
+    "AD": "Not reported",
+    "AE": "Not reported",
+    "AF": "Not reported",
+    "AG": "Not reported",
+    "AH": "Not reported",
+    "AI": "Structured/tabular EHR and survey variables; aggregated clinical-history text sequences for conditions, drug exposures, laboratory measurements, and procedures, embedded with BioClinicalBERT",
+    "AJ": "Graph convolutional encoder (GCN); conditional VAE encoder and decoder implemented as multilayer perceptrons",
+    "AK": "BioClinicalBERT (pretrained clinical transformer)",
+    "AL": "Not reported",
+    "AM": "Concatenation of structured features with four domain-specific BioClinicalBERT embeddings, followed by PCA dimensionality reduction",
+    "AN": "Median imputation for missing values; records with completely missing clinical history were removed",
+    "AO": "Not reported",
+    "AP": "Not reported",
+    "AQ": "Not reported",
+    "AR": "Not reported",
+    "AS": "Not reported",
+    "AT": "Not reported",
+    "AU": "Not reported",
+    "AV": "Not reported",
+    "AW": "Not reported",
+    "AX": "Not reported",
+    "AY": "Not reported",
+    "AZ": "Not reported",
+    "BA": "Not reported",
+    "BB": "Not reported",
+    "BC": "Not reported",
+    "BD": "Not reported",
+    "BE": "Not reported",
+    "BF": "Not reported",
+    "BG": "Not reported",
+    "BH": "Not reported",
+    "BI": "Multi-Task TabGraphSyn",
+    "BJ": "Not reported",
+    "BK": "Not reported",
+    "BL": "Not reported",
+    "BM": "Not reported",
+    "BN": "Not reported",
+    "BO": "Not reported",
+    "BP": "Not reported",
+    "BQ": "Not reported",
+    "BR": "Not reported",
+    "BS": "Synthetic tabular feature vectors decoded from latent vectors conditioned on graph embeddings; task-label tuples appended by bootstrap sampling",
+    "BT": "MultiOutputClassifier with logistic-regression base learners for the three downstream prediction tasks",
+    "BU": "Not reported",
+    "BV": "GCN graph-smoothness loss plus embedding-norm regularization; CVAE reconstruction loss plus KL-divergence regularization",
+    "BW": "Not reported",
+    "BX": "Not reported",
+    "BY": "Not reported",
+    "BZ": "Not reported",
+    "CA": "Not reported",
+    "CB": "Not reported",
+    "CC": "Not reported",
+    "CD": "Not reported",
+    "CE": "Not reported",
+    "CF": "Not reported",
+    "CG": "Not reported",
+    "CH": "Not reported",
+    "CI": "Not reported",
+    "CJ": "Not reported",
+    "CK": "Not reported",
+    "CL": "Not reported",
+    "CM": "Not reported",
+    "CN": "Not reported",
+    "CO": "Not reported",
+    "CP": "Not reported",
+    "CQ": "Not reported",
+    "CR": "Not reported",
+    "CS": "Not reported",
+    "CT": "Not reported",
+    "CU": "Not reported",
+    "CV": "Not reported",
+    "CW": "Not reported",
+    "CX": "Not reported",
+    "CY": "Not reported",
+    "CZ": "Not reported",
+    "DA": "Not reported",
+    "DB": "Not reported",
+    "DC": "Not reported",
+    "DD": "Not reported",
+    "DE": "Not reported",
+    "DF": "Not reported",
+    "DG": "Not reported",
+    "DH": "Not reported",
+    "DI": "Not reported",
+    "DJ": "Not reported",
+    "DK": "Not reported",
+    "DL": "Not reported",
+    "DM": "Not reported",
+    "DN": "Not reported",
+    "DO": "Not reported",
+    "DP": "Not reported",
+    "DQ": "Not reported",
+    "DR": "Not reported",
+    "DS": "Not reported",
+    "DT": "Not reported",
+    "DU": "Not reported",
+    "DV": "Not reported",
+    "DW": "Not reported",
+    "DX": "Not reported",
+    "DY": "Not reported",
+    "DZ": "Not reported",
+    "EA": "Not reported",
+    "EB": "Not reported",
+    "EC": "Not reported",
+    "ED": "Not reported",
+    "EE": "Not reported",
+    "EF": "Not reported",
+    "EG": "Not reported",
+    "EH": "Not reported",
+    "EI": "Not reported",
+    "EJ": "Not reported",
+    "EK": "Not reported",
+    "EL": "Not reported",
+    "EM": "Not reported",
+    "EN": "Not reported",
+    "EO": "Not reported",
+    "EP": "Not reported",
+    "EQ": "Not reported",
+    "ER": "Not reported",
+    "ES": "Not reported",
+    "ET": "Not reported",
+    "EU": "Not reported",
+    "EV": "Not reported",
+    "EW": "Not reported",
+    "EX": "Not reported",
+    "EY": "Not reported",
+    "EZ": "Not reported",
+    "FA": "Not reported",
+    "FB": "Not reported",
+    "FC": "Not reported",
+    "FD": "Not reported",
+    "FE": "Not reported",
+    "FF": "Not reported",
+    "FG": "Not reported",
+    "FH": "Not reported",
+    "FI": "Not reported",
+    "FJ": "Not reported",
+    "FK": "Not reported",
+    "FL": "Not reported",
+    "FM": "Not reported",
+    "FN": "Reported results (source excerpt): Results on the NIH All of Us dataset show that TabGraphSyn achieves a stronger overall utility-privacy balance, outperforming MIIC in most headline metrics, including higher synthetic multi-task ROC-AUC (0.5278 vs 0.4932), MetaQPS (AM: 0.0215 vs 0.0115; HM: 0.0391 vs 0.0223), while slightly underperforming in macro F1 (0.2321 vs 0.2840).",
+    "FO": "Not reported",
+    "FP": "Not reported",
+    "FQ": "Not reported",
+    "FR": "Not reported",
+    "FS": "Not applicable",
+    "FT": "Not reported",
+    "FU": "Not applicable",
+    "FV": "Manus AI (initial extraction); Codex (PDF/schema audit)",
+    "FW": "2026-11-17",
+    "FX": "Complete extracted PDF text, pp. 1–18: title/abstract and introduction (pp. 1–2); methods, cohort, feature engineering, graph/CVAE architecture, training, and generation (pp. 2–10); experiments and metrics (pp. 10–14); results and Tables 1–2 (pp. 14–16); limitations and future directions (p. 17); remaining references (pp. 17–18). | Codex audit: title/byline, abstract/conclusion, targeted methods/results and cross-check of prior quotations against extracted full text. This is a targeted audit, not an independent re-extraction of every negative/unreported field.",
+    "FY": "Medium",
+    "FZ": "A:I were left untouched. The implemented model generates static tabular records; its longitudinal histories are aggregated into feature representations, and temporal/event-sequence modeling is identified as future work, so no state transition or world-model capability is supported. Demonstrated results (Table 1, PDF p. 15) include synthetic macro ROC-AUC 0.5278 ± 0.0285 vs 0.4932 ± 0.0174 for MIIC-SDG, macro F1 0.2321 ± 0.0173 vs 0.2840 ± 0.0115, and MetaQPS-AM 0.0215 ± 0.0150 vs 0.0115 ± 0.0099. These measured metrics are reported separately from the authors’ overall favorable utility-privacy interpretation. Tables 1–2 were text-extracted legibly; no unreadable-table issue noted. Evidence QA: 5/21 populated fields had a <=25-word quotation matching extracted PDF text (23.8%). Confidence is conservative; review this row where exact quote checks were incomplete. Codex audit: 20 prior populated fields have a located source quotation; 1 have quotations not located by normalized text matching. Unlocated quotations are review flags, not proof that the value is false. Companion evidence audit lists affected columns. Reviewer FS/FT/FU mappings are synthesis. Prior unsupported/missing fields remain Not reported; no clinical benefit inferred from offline simulation."
+  },
+  "limitations": [
+    "SingleAllofUsOUDcohort,fourseeds,MIICsolebaseline;noexternalclinicalvalidation.",
+    "ReportedMetaQPSHM>AMforbothmethodscontradictsstatednestednonnegativeharmonic/arithmeticformulas;rawvaluesretained,implementationneeded.",
+    "LabelsappendedbybootstrapfromYtrain;pairingtofeaturesnotdescribed,sofeature-labelconditionalpreservationclaimunresolved.",
+    "GCNsmoothness+positiveembeddingnorm objective admitszeroembeddingminimum;notproofobservedcollapse,butnoncollapseunestablished.",
+    "Figure3BioBERTprocedure/labsversusprosefourBioClinicalBERTdomains;encoderidentityunresolved.",
+    "Figure1conditioning/multiobjectivearrowsconflictwithseparateunsupervisedobjectivesandbootstraplabels;Figure4duplicatedrandombaselineboxes,Figure5schematicratherthanperformancematchedplot.",
+    "Temporalintervalfeaturesincludetimefromprescriptiontodiagnosis;availabilityrelativepredictionindexrequiresleakageaudit,notassumedfutureleakage.",
+    "SyntheticmembershipAUCnear.5onlyfortestedattack;identifiabilityworsethanMIIC;noDPguarantee."
+  ],
+  "notes": "Excluded static tabular generator; reusable encoder/fusion/privacy-evaluation ideas. NoL0–L4. R2limitedtointernalheldoutrealrecordutility ofsynthetictrainedclassifiers,notexternalvalidationorpatientbenefit. FinalmodelGCN+CVAE,notdiffusion. Bootstrappedlabeltuplespreservelabel-labelcooccurrencebutnotdemonstratedfeature-labeldependence. NoformalDP;empiricalattacknear.5notprivacyguarantee."
+}
