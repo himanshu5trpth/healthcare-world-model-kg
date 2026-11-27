@@ -42,10 +42,39 @@ export class ControlsManager {
     this.pathB = null;
     this.searchResults = [];
     this.searchActiveIdx = -1;
+    this._modalRestoreFocus = new Map();
 
     this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     this.bindStaticElements();
     this.renderPresets();
+  }
+
+  openModal(modalId, triggerEl = null) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    if (triggerEl || document.activeElement) {
+      this._modalRestoreFocus.set(modalId, triggerEl || document.activeElement);
+    }
+    modal.classList.remove('hidden');
+    const closeBtn = modal.querySelector('[data-close-modal]:not(.modal-backdrop)') || modal.querySelector('button, [href], [tabindex="0"]');
+    if (closeBtn) {
+      requestAnimationFrame(() => closeBtn.focus());
+    }
+  }
+
+  closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (!modal || modal.classList.contains('hidden')) return;
+    modal.classList.add('hidden');
+    if (modalId === 'modal-pdf') {
+      const frame = document.getElementById('modal-pdf-frame');
+      if (frame) frame.src = 'about:blank';
+    }
+    const prev = this._modalRestoreFocus.get(modalId);
+    this._modalRestoreFocus.delete(modalId);
+    if (prev && typeof prev.focus === 'function' && document.contains(prev)) {
+      prev.focus();
+    }
   }
 
   bindStaticElements() {
@@ -64,11 +93,36 @@ export class ControlsManager {
     btnLeft.addEventListener('click', () => {
       const collapsed = leftPanel.classList.toggle('collapsed');
       btnLeft.setAttribute('aria-expanded', String(!collapsed));
+      if (this.cb.onPanelToggle) this.cb.onPanelToggle('left', collapsed);
     });
     btnRight.addEventListener('click', () => {
       const collapsed = rightPanel.classList.toggle('collapsed');
       btnRight.setAttribute('aria-expanded', String(!collapsed));
+      if (this.cb.onPanelToggle) this.cb.onPanelToggle('right', collapsed);
     });
+    const btnCloseLeft = document.getElementById('btn-close-left');
+    if (btnCloseLeft) {
+      btnCloseLeft.addEventListener('click', () => {
+        leftPanel.classList.add('collapsed');
+        btnLeft.setAttribute('aria-expanded', 'false');
+        if (this.cb.onPanelToggle) this.cb.onPanelToggle('left', true);
+      });
+    }
+    const btnCloseRight = document.getElementById('btn-close-right');
+    if (btnCloseRight) {
+      btnCloseRight.addEventListener('click', () => {
+        rightPanel.classList.add('collapsed');
+        btnRight.setAttribute('aria-expanded', 'false');
+        if (this.cb.onPanelToggle) this.cb.onPanelToggle('right', true);
+      });
+    }
+    for (const panel of [leftPanel, rightPanel]) {
+      panel.addEventListener('transitionend', (e) => {
+        if (e.propertyName === 'width' || e.propertyName === 'flex-basis') {
+          if (this.cb.onPanelResizeEnd) this.cb.onPanelResizeEnd();
+        }
+      });
+    }
 
     // View mode buttons
     const modeBtns = Array.from(document.querySelectorAll('[data-view-mode]'));
@@ -266,35 +320,59 @@ export class ControlsManager {
       }
     });
 
-    // Modals
-    document.getElementById('btn-interpret').addEventListener('click', () => {
-      document.getElementById('modal-interpret').classList.remove('hidden');
-    });
+    // Modals with focus trap & restore
+    const btnInterpret = document.getElementById('btn-interpret');
+    btnInterpret.addEventListener('click', () => this.openModal('modal-interpret', btnInterpret));
     for (const closeEl of document.querySelectorAll('[data-close-modal]')) {
       closeEl.addEventListener('click', () => {
-        const id = closeEl.dataset.closeModal;
-        document.getElementById(id).classList.add('hidden');
-        if (id === 'modal-pdf') {
-          document.getElementById('modal-pdf-frame').src = 'about:blank';
-        }
+        this.closeModal(closeEl.dataset.closeModal);
       });
     }
 
-    // Keyboard shortcuts
+    // Keyboard shortcuts + modal focus trap
     document.addEventListener('keydown', (e) => {
+      const openModal = document.querySelector('.modal:not(.hidden)');
+      if (openModal) {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          this.closeModal(openModal.id);
+          return;
+        }
+        if (e.key === 'Tab') {
+          const focusables = Array.from(
+            openModal.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])')
+          ).filter((elNode) => elNode.offsetParent !== null);
+          if (focusables.length > 0) {
+            const first = focusables[0];
+            const last = focusables[focusables.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+              e.preventDefault();
+              last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+              e.preventDefault();
+              first.focus();
+            }
+          }
+        }
+        return;
+      }
+
       const tag = (e.target && e.target.tagName) || '';
       const inInput = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT';
       if (e.key === '/' && !inInput) {
         e.preventDefault();
         searchInput.focus();
       } else if (e.key === 'Escape') {
-        document.getElementById('modal-interpret').classList.add('hidden');
-        document.getElementById('modal-pdf').classList.add('hidden');
         searchDropdown.classList.add('hidden');
+        searchInput.setAttribute('aria-expanded', 'false');
+        searchInput.removeAttribute('aria-activedescendant');
       } else if (!inInput && (e.key === 'r' || e.key === 'R')) {
         this.cb.onResetCamera && this.cb.onResetCamera();
       } else if (!inInput && (e.key === 'f' || e.key === 'F')) {
         this.cb.onFocusSelected && this.cb.onFocusSelected();
+      } else if (!inInput && (e.key === 'z' || e.key === 'Z')) {
+        this.cb.onToggleZen && this.cb.onToggleZen();
       }
     });
   }
@@ -353,7 +431,9 @@ export class ControlsManager {
     for (const cid of legendClasses) {
       const st = getClassStyle(cid);
       const chip = el('button', { class: 'legend-chip', type: 'button', 'data-legend-class': cid, title: `Toggle ${cid}` });
+      chip.setAttribute('aria-pressed', 'true');
       chip.appendChild(el('span', { class: 'color-dot', style: `background:${st.color}` }));
+      chip.appendChild(el('span', { class: 'legend-state-mark', 'aria-hidden': 'true' }, '✓'));
       chip.appendChild(el('span', {}, st.label));
       chip.addEventListener('click', () => {
         if (this.checkedClasses.has(cid)) this.checkedClasses.delete(cid);
@@ -386,14 +466,20 @@ export class ControlsManager {
 
   syncLegendState() {
     for (const chip of document.querySelectorAll('[data-legend-class]')) {
-      chip.classList.toggle('dimmed', !this.checkedClasses.has(chip.dataset.legendClass));
+      const on = this.checkedClasses.has(chip.dataset.legendClass);
+      chip.classList.toggle('dimmed', !on);
+      chip.setAttribute('aria-pressed', String(on));
+      const mark = chip.querySelector('.legend-state-mark');
+      if (mark) mark.textContent = on ? '✓' : '✕';
     }
   }
 
   setViewMode(mode) {
     this.viewMode = mode;
     for (const b of this._modeBtns) {
-      b.classList.toggle('active', b.dataset.viewMode === mode);
+      const act = b.dataset.viewMode === mode;
+      b.classList.toggle('active', act);
+      b.setAttribute('aria-pressed', String(act));
     }
     this._depthRow.classList.toggle('hidden', mode !== 'neighborhood');
     this.emitFilterChange();
@@ -488,49 +574,81 @@ export class ControlsManager {
     const host = document.getElementById('search-results');
     host.replaceChildren();
 
+    const searchInput = document.getElementById('global-search');
     if (!query) {
       host.classList.add('hidden');
+      if (searchInput) searchInput.setAttribute('aria-expanded', 'false');
       return;
     }
 
     if (results.length === 0) {
       host.appendChild(el('div', { class: 'search-item' }, `No matches for "${query}" across all loaded nodes.`));
       host.classList.remove('hidden');
+      if (searchInput) searchInput.setAttribute('aria-expanded', 'true');
       return;
     }
 
     host.appendChild(
-      el('div', { class: 'search-item', style: 'cursor:default;color:#93abc9;font-size:11px;' },
+      el('div', { class: 'search-header-row' },
         `Showing ${results.length} of ${totalMatches.toLocaleString()} matches (including hidden nodes)`)
     );
 
     results.forEach((item, i) => {
-      const style = getClassStyle(item.class_id);
-      const row = el('div', { class: `search-item ${i === 0 ? 'active' : ''}`, role: 'option', 'data-search-idx': String(i) });
+      const optId = `search-opt-${i}`;
+      const row = el('div', { id: optId, class: `search-item ${i === 0 ? 'active' : ''}`, role: 'option', 'aria-selected': String(i === 0), 'data-search-idx': String(i) });
       const top = el('div', { class: 'search-item-top' });
-      top.appendChild(el('span', { class: 'color-dot', style: `background:${style.color}` }));
-      top.appendChild(el('span', {}, item.label));
-      if (!item.isVisible) {
-        top.appendChild(el('span', { class: 'hidden-tag' }, 'Hidden by filter'));
+      if (item.kind === 'edge') {
+        top.appendChild(el('span', { class: 'color-dot', style: 'background:#22d3ee' }));
+        top.appendChild(el('span', {}, `${item.predicate_id} (${item.id})`));
+        if (!item.isVisible) {
+          top.appendChild(el('span', { class: 'hidden-tag' }, 'Not in current edge view'));
+        }
+        row.appendChild(top);
+        row.appendChild(el('div', { class: 'search-item-sub' }, `Edge · ${item.subject_id} → ${item.object_id} · ${item.source || 'Ontology'}`));
+      } else {
+        const style = getClassStyle(item.class_id);
+        top.appendChild(el('span', { class: 'color-dot', style: `background:${style.color}` }));
+        top.appendChild(el('span', {}, item.label));
+        if (!item.isVisible) {
+          top.appendChild(el('span', { class: 'hidden-tag' }, 'Hidden by filter'));
+        }
+        row.appendChild(top);
+        row.appendChild(el('div', { class: 'search-item-sub' }, `${item.class_id} · ${item.id} · ${item.paperId ? 'Paper ' + item.paperId : (item.source || 'Ontology')}`));
       }
-      row.appendChild(top);
-      row.appendChild(el('div', { class: 'search-item-sub' }, `${item.class_id} · ${item.id}${item.paperId ? ' · Paper ' + item.paperId : ''}`));
       row.addEventListener('click', () => this.pickSearchResult(item));
       host.appendChild(row);
     });
 
     host.classList.remove('hidden');
+    if (searchInput) {
+      searchInput.setAttribute('aria-expanded', 'true');
+      searchInput.setAttribute('aria-activedescendant', 'search-opt-0');
+    }
   }
 
   highlightSearchItem() {
     const rows = document.querySelectorAll('#search-results [data-search-idx]');
+    let activeId = '';
     rows.forEach((r) => {
-      r.classList.toggle('active', Number(r.dataset.searchIdx) === this.searchActiveIdx);
+      const isAct = Number(r.dataset.searchIdx) === this.searchActiveIdx;
+      r.classList.toggle('active', isAct);
+      r.setAttribute('aria-selected', String(isAct));
+      if (isAct) activeId = r.id;
     });
+    const searchInput = document.getElementById('global-search');
+    if (searchInput) {
+      if (activeId) searchInput.setAttribute('aria-activedescendant', activeId);
+      else searchInput.removeAttribute('aria-activedescendant');
+    }
   }
 
   pickSearchResult(item) {
     document.getElementById('search-results').classList.add('hidden');
+    const searchInput = document.getElementById('global-search');
+    if (searchInput) {
+      searchInput.setAttribute('aria-expanded', 'false');
+      searchInput.removeAttribute('aria-activedescendant');
+    }
     if (this.cb.onSelectSearchResult) this.cb.onSelectSearchResult(item);
   }
 
@@ -557,7 +675,7 @@ export class ControlsManager {
     }
 
     box.appendChild(
-      el('div', { style: 'font-weight:600;color:#fde68a;margin-bottom:6px;' },
+      el('div', { class: 'path-result-header' },
         `Graph connectivity path (${result.edges.length} hop${result.edges.length === 1 ? '' : 's'}) — connectivity only, NOT causality.`)
     );
 
@@ -651,7 +769,7 @@ export class ControlsManager {
     notice.classList.remove('hidden');
     frame.src = 'about:blank';
     frame.hidden = true;
-    modal.classList.remove('hidden');
+    this.openModal('modal-pdf', document.activeElement);
   }
 
   /* ---------- Table Fallback View ---------- */
@@ -686,18 +804,31 @@ export class ControlsManager {
     const totalPages = Math.max(1, Math.ceil(data.total / data.pageSize));
     document.getElementById('table-page-info').textContent = `Page ${data.page + 1} / ${totalPages} (${data.total.toLocaleString()} rows)`;
 
+    const makeRowInteractive = (tr, label, onActivate) => {
+      tr.setAttribute('tabindex', '0');
+      tr.setAttribute('role', 'button');
+      tr.setAttribute('aria-label', label);
+      tr.addEventListener('click', onActivate);
+      tr.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onActivate();
+        }
+      });
+    };
+
     const trH = el('tr');
     if (data.tab === 'papers') {
       for (const h of ['Paper ID', 'Year', 'Title', 'Status', 'Pages']) trH.appendChild(el('th', {}, h));
       head.appendChild(trH);
       for (const r of data.rows) {
         const tr = el('tr');
-        tr.appendChild(el('td', {}, r.paper_record_id));
-        tr.appendChild(el('td', {}, r.year || '—'));
+        tr.appendChild(el('td', { class: 'mono-cell' }, r.paper_record_id));
+        tr.appendChild(el('td', { class: 'tabular-num' }, r.year || '—'));
         tr.appendChild(el('td', {}, r.title || '—'));
         tr.appendChild(el('td', {}, r.completion_state || '—'));
-        tr.appendChild(el('td', {}, r.pdf_pages ?? '—'));
-        tr.addEventListener('click', () => {
+        tr.appendChild(el('td', { class: 'tabular-num' }, r.pdf_pages ?? '—'));
+        makeRowInteractive(tr, `Inspect paper ${r.paper_record_id}: ${r.title || ''}`, () => {
           if (r.idx >= 0 && this.cb.onSelectNode) this.cb.onSelectNode(r.idx);
         });
         body.appendChild(tr);
@@ -709,10 +840,10 @@ export class ControlsManager {
         const tr = el('tr');
         tr.appendChild(el('td', {}, r.predicate_id));
         tr.appendChild(el('td', {}, r.isKg ? 'kg: meta' : 'Scientific'));
-        tr.appendChild(el('td', {}, r.subject_id));
-        tr.appendChild(el('td', {}, r.object_id));
+        tr.appendChild(el('td', { class: 'mono-cell' }, r.subject_id));
+        tr.appendChild(el('td', { class: 'mono-cell' }, r.object_id));
         tr.appendChild(el('td', {}, r.source_annotation || 'Ontology'));
-        tr.addEventListener('click', () => {
+        makeRowInteractive(tr, `Inspect edge ${r.predicate_id} from ${r.subject_id} to ${r.object_id}`, () => {
           if (this.cb.onSelectEdge) this.cb.onSelectEdge(r.edgeIdx);
         });
         body.appendChild(tr);
@@ -724,11 +855,11 @@ export class ControlsManager {
         const tr = el('tr');
         tr.appendChild(el('td', {}, r.class_id));
         tr.appendChild(el('td', {}, r.label));
-        tr.appendChild(el('td', {}, r.id));
-        tr.appendChild(el('td', {}, r.paperId));
+        tr.appendChild(el('td', { class: 'mono-cell' }, r.id));
+        tr.appendChild(el('td', { class: 'mono-cell' }, r.paperId));
         tr.appendChild(el('td', {}, r.state));
         tr.appendChild(el('td', {}, r.stage));
-        tr.addEventListener('click', () => {
+        makeRowInteractive(tr, `Inspect ${r.class_id} ${r.label || r.id}`, () => {
           if (this.cb.onSelectNode) this.cb.onSelectNode(r.idx);
         });
         body.appendChild(tr);

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Healthcare World Model KG — Interactive 3D Sphere Explorer</title>
-  <link rel="stylesheet" href="./css/styles.css?v=public1" />
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="./vendor/katex/katex.min.css" />
+  <link rel="stylesheet" href="./css/styles.css?v=academic3" />
   <script type="importmap">
     {
       "imports": {
@@ -16,10 +18,13 @@
 </head>
 <body>
   <div id="app" class="app-shell">
+    <!-- Polite screen-reader announcements -->
+    <div id="a11y-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
     <!-- Top Bar -->
     <header class="top-bar" role="banner">
       <div class="top-brand">
-        <button id="btn-toggle-left" class="icon-btn" title="Toggle Filters Panel" aria-label="Toggle Filters Panel" aria-expanded="true">☰</button>
+        <button id="btn-toggle-left" class="icon-btn" type="button" title="Toggle Filters Panel" aria-label="Toggle Filters Panel" aria-expanded="true" aria-controls="left-panel">☰</button>
         <div class="brand-text">
           <h1>Healthcare World Model KG</h1>
           <span id="snapshot-meta" class="meta-pill">Loading snapshot…</span>
@@ -27,17 +32,45 @@
       </div>
 
       <div class="top-search" role="search">
-        <label for="global-search" class="sr-only">Search graph nodes</label>
-        <input id="global-search" type="search" placeholder="Search 40,000+ nodes: paper ID (B016, A20, 091), title, model, feature, evidence… (/)" autocomplete="off" />
+        <label for="global-search" class="sr-only">Search graph nodes and edges</label>
+        <input
+          id="global-search"
+          type="search"
+          role="combobox"
+          aria-expanded="false"
+          aria-controls="search-results"
+          aria-autocomplete="list"
+          placeholder="Search 40,324 nodes &amp; 100,905 edges: paper ID (B016, A20, 091), feature, edge ID… (/)"
+          autocomplete="off"
+        />
         <div id="search-results" class="search-dropdown hidden" role="listbox" aria-label="Search results"></div>
       </div>
 
       <div class="top-actions">
         <div id="loading-pill" class="status-pill status-loading" aria-live="polite">Initializing…</div>
         <div id="header-counts" class="counts-pill" title="Loaded graph totals">—</div>
-        <button id="btn-table-mode" class="btn btn-ghost" title="Switch between 3D Sphere and Searchable Table">Table View</button>
-        <button id="btn-interpret" class="btn btn-accent" title="Scientific interpretation safeguards">How to Interpret</button>
-        <button id="btn-toggle-right" class="icon-btn" title="Toggle Inspector Panel" aria-label="Toggle Inspector Panel" aria-expanded="true">◨</button>
+        <button id="btn-theme-toggle" class="btn btn-ghost" type="button" aria-pressed="false" title="Toggle between Academic Light and Dark Lab theme">
+          <span id="theme-icon" aria-hidden="true">☾</span>
+          <span id="theme-label" class="hide-lg">Dark Lab</span>
+        </button>
+        <button id="btn-zen-globe" class="btn btn-ghost" type="button" aria-pressed="false" title="Collapse all panels to inspect the 3D globe (Z)">
+          <svg class="btn-icon-svg show-md" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4"/></svg>
+          <span class="hide-md">Full Globe</span>
+        </button>
+        <button id="btn-reset-layout" class="btn btn-ghost" type="button" title="Restore default panels, diagram split, and camera">
+          <svg class="btn-icon-svg show-lg" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8a5.5 5.5 0 1 0 1.4-3.7L2 6"/><path d="M2 2.5V6h3.5"/></svg>
+          <span class="hide-lg">Reset Layout</span>
+        </button>
+        <button id="btn-copy-permalink" class="btn btn-ghost" type="button" title="Copy shareable link to current view">
+          <svg class="btn-icon-svg show-lg" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 9.5a3.2 3.2 0 0 0 4.5 0l2-2a3.2 3.2 0 0 0-4.5-4.5l-1 1"/><path d="M9.5 6.5a3.2 3.2 0 0 0-4.5 0l-2 2a3.2 3.2 0 0 0 4.5 4.5l1-1"/></svg>
+          <span class="hide-lg">Copy Link</span>
+        </button>
+        <button id="btn-table-mode" class="btn btn-ghost" type="button" title="Switch between 3D Sphere and Searchable Table">Table View</button>
+        <button id="btn-interpret" class="btn btn-accent" type="button" title="Scientific interpretation safeguards" aria-label="How to Interpret">
+          <span class="hide-xs">How to Interpret</span>
+          <span class="show-xs" aria-hidden="true">?</span>
+        </button>
+        <button id="btn-toggle-right" class="icon-btn" type="button" title="Toggle Inspector Panel" aria-label="Toggle Inspector Panel" aria-expanded="true" aria-controls="right-panel">◨</button>
       </div>
     </header>
 
@@ -45,15 +78,19 @@
     <div class="workspace">
       <!-- Left Collapsible Panel: Filters & Controls -->
       <aside id="left-panel" class="side-panel left-panel" aria-label="Filters and Display Controls">
+        <div class="mobile-drawer-bar">
+          <span class="mobile-drawer-title">Filters &amp; Controls</span>
+          <button id="btn-close-left" class="btn btn-xs btn-ghost" type="button" aria-label="Close Filters Panel">✕ Close</button>
+        </div>
         <div class="panel-scroll">
           <!-- View Mode -->
           <section class="control-section">
             <h2 class="section-title">View Mode</h2>
             <div class="segmented-grid" role="group" aria-label="Layout view mode">
-              <button class="seg-btn active" data-view-mode="full">Full Sphere</button>
-              <button class="seg-btn" data-view-mode="paper">Paper-Centered</button>
-              <button class="seg-btn" data-view-mode="architecture">Architecture</button>
-              <button class="seg-btn" data-view-mode="neighborhood">Neighborhood</button>
+              <button class="seg-btn active" type="button" data-view-mode="full" aria-pressed="true">Full Sphere</button>
+              <button class="seg-btn" type="button" data-view-mode="paper" aria-pressed="false">Paper-Centered</button>
+              <button class="seg-btn" type="button" data-view-mode="architecture" aria-pressed="false">Architecture</button>
+              <button class="seg-btn" type="button" data-view-mode="neighborhood" aria-pressed="false">Neighborhood</button>
             </div>
             <div id="neighborhood-depth-row" class="inline-row hidden">
               <label for="hop-depth">Expansion depth:</label>
@@ -71,7 +108,7 @@
           <section class="control-section">
             <div class="section-header-row">
               <h2 class="section-title">Filters</h2>
-              <button id="btn-reset-filters" class="btn-link">Reset all</button>
+              <button id="btn-reset-filters" class="btn-link" type="button">Reset all</button>
             </div>
 
             <div class="filter-group">
@@ -122,10 +159,10 @@
 
             <div class="filter-group">
               <div class="section-header-row">
-                <label>Entity Classes</label>
+                <span class="filter-group-label">Entity Classes</span>
                 <span class="mini-actions">
-                  <button id="btn-classes-all" class="btn-link">All</button> ·
-                  <button id="btn-classes-core" class="btn-link">Core</button>
+                  <button id="btn-classes-all" class="btn-link" type="button">All</button> ·
+                  <button id="btn-classes-core" class="btn-link" type="button">Core</button>
                 </span>
               </div>
               <div id="class-filter-list" class="checkbox-list"></div>
@@ -144,15 +181,24 @@
               <span>Include <code>kg:</code> serialization links</span>
             </label>
             <div class="slider-row">
-              <div class="slider-head"><span>Edge density</span><span id="val-edge-density">35%</span></div>
+              <div class="slider-head">
+                <label for="rng-edge-density">Edge density</label>
+                <span id="val-edge-density" class="tabular-num">35%</span>
+              </div>
               <input id="rng-edge-density" type="range" min="5" max="100" step="5" value="35" />
             </div>
             <div class="slider-row">
-              <div class="slider-head"><span>Edge opacity</span><span id="val-edge-opacity">0.28</span></div>
+              <div class="slider-head">
+                <label for="rng-edge-opacity">Edge opacity</label>
+                <span id="val-edge-opacity" class="tabular-num">0.28</span>
+              </div>
               <input id="rng-edge-opacity" type="range" min="0.05" max="1" step="0.05" value="0.28" />
             </div>
             <div class="slider-row">
-              <div class="slider-head"><span>Node size</span><span id="val-node-size">1.0×</span></div>
+              <div class="slider-head">
+                <label for="rng-node-size">Node size</label>
+                <span id="val-node-size" class="tabular-num">1.0×</span>
+              </div>
               <input id="rng-node-size" type="range" min="0.5" max="2.5" step="0.1" value="1.0" />
             </div>
             <label class="toggle-row">
@@ -164,7 +210,7 @@
               <span>Auto-rotate sphere</span>
             </label>
             <div class="btn-row">
-              <button id="btn-clear-cache" class="btn btn-sm btn-ghost">Clear Worker Cache</button>
+              <button id="btn-clear-cache" class="btn btn-sm btn-ghost" type="button">Clear Worker Cache</button>
             </div>
           </section>
 
@@ -175,16 +221,16 @@
             <div class="path-slot">
               <span class="slot-label">From (A):</span>
               <span id="path-node-a" class="slot-val">None</span>
-              <button id="btn-set-path-a" class="btn btn-xs btn-ghost">Use Selected</button>
+              <button id="btn-set-path-a" class="btn btn-xs btn-ghost" type="button">Use Selected</button>
             </div>
             <div class="path-slot">
               <span class="slot-label">To (B):</span>
               <span id="path-node-b" class="slot-val">None</span>
-              <button id="btn-set-path-b" class="btn btn-xs btn-ghost">Use Selected</button>
+              <button id="btn-set-path-b" class="btn btn-xs btn-ghost" type="button">Use Selected</button>
             </div>
             <div class="btn-row">
-              <button id="btn-find-path" class="btn btn-sm btn-accent">Find Path</button>
-              <button id="btn-clear-path" class="btn btn-sm btn-ghost">Clear</button>
+              <button id="btn-find-path" class="btn btn-sm btn-accent" type="button">Find Path</button>
+              <button id="btn-clear-path" class="btn btn-sm btn-ghost" type="button">Clear</button>
             </div>
             <div id="path-result" class="path-result hidden"></div>
           </section>
@@ -194,12 +240,12 @@
             <h2 class="section-title">Saved Views &amp; Export</h2>
             <div class="inline-form">
               <input id="preset-name" type="text" placeholder="Preset name…" aria-label="Preset name" />
-              <button id="btn-save-preset" class="btn btn-sm btn-ghost">Save</button>
+              <button id="btn-save-preset" class="btn btn-sm btn-ghost" type="button">Save</button>
             </div>
             <div id="preset-list" class="preset-list"></div>
             <div class="btn-row">
-              <button id="btn-export-png" class="btn btn-sm btn-ghost">Export PNG</button>
-              <button id="btn-export-json" class="btn btn-sm btn-ghost">Export Subgraph JSON</button>
+              <button id="btn-export-png" class="btn btn-sm btn-ghost" type="button">Export PNG</button>
+              <button id="btn-export-json" class="btn btn-sm btn-ghost" type="button">Export Subgraph JSON</button>
             </div>
           </section>
         </div>
@@ -207,14 +253,133 @@
 
       <!-- Center Viewport -->
       <main id="viewport" class="viewport" role="main">
+        <!-- Workspace Mode Tabs -->
+        <div class="workspace-tabs" role="tablist" aria-label="Explorer Workspace Views">
+          <button class="tab-btn active" type="button" data-workspace-tab="graph" role="tab" aria-selected="true">Graph</button>
+          <button class="tab-btn" type="button" data-workspace-tab="architecture" role="tab" aria-selected="false">Architecture</button>
+          <button class="tab-btn" type="button" data-workspace-tab="tour" role="tab" aria-selected="false">Coverage Tour</button>
+        </div>
+
+        <!-- Architecture Evidence Pane -->
+        <section id="arch-pane" class="arch-pane hidden" aria-label="Architecture Evidence Diagram">
+          <div class="arch-toolbar">
+            <div class="arch-toolbar-left">
+              <div class="arch-layout-presets" role="group" aria-label="Architecture layout presets">
+                <button class="seg-btn active" type="button" data-arch-layout="split" aria-pressed="true" title="Balanced view: large readable diagram above live 3D globe">Balanced Split</button>
+                <button class="seg-btn" type="button" data-arch-layout="diagram" aria-pressed="false" title="Expand diagram for comfortable reading of every label">Focus Diagram</button>
+                <button class="seg-btn" type="button" data-arch-layout="globe" aria-pressed="false" title="Collapse panels and diagram to inspect the 3D globe">Full Globe</button>
+              </div>
+              <div class="btn-row btn-row-inline">
+                <button id="btn-arch-focus" class="btn btn-xs btn-accent" type="button" disabled>Focus evidence</button>
+                <button id="btn-arch-clear" class="btn btn-xs btn-ghost" type="button" disabled>Clear pin</button>
+                <button id="btn-arch-enlarge" class="btn btn-xs btn-ghost" type="button">Fullscreen</button>
+                <button id="btn-arch-show-graph" class="btn btn-xs btn-ghost arch-mobile-only" type="button">Show in graph</button>
+              </div>
+            </div>
+            <span class="hint-note hint-inline">Hover/focus to preview · Click/Enter to pin · Esc to clear</span>
+          </div>
+          <div id="arch-status-banner" class="notice-banner hidden"></div>
+          <div class="arch-figure-stage">
+            <div class="arch-figure-wrap">
+              <img id="arch-figure-img" class="arch-figure-img" alt="Healthcare World Model Architecture Diagram" />
+              <svg id="arch-hotspot-svg" class="arch-hotspot-svg" preserveAspectRatio="xMidYMid meet"></svg>
+            </div>
+          </div>
+        </section>
+
+        <!-- Resizable Horizontal Splitter between Architecture Diagram and 3D Globe -->
+        <div
+          id="arch-splitter"
+          class="arch-splitter hidden"
+          role="separator"
+          aria-orientation="horizontal"
+          aria-label="Resize architecture diagram and 3D globe"
+          aria-valuemin="28"
+          aria-valuemax="82"
+          aria-valuenow="58"
+          tabindex="0"
+          title="Drag or use Up/Down arrow keys to resize diagram and 3D globe"
+        >
+          <span class="splitter-grip" aria-hidden="true"></span>
+        </div>
+
+        <!-- Coverage Tour Pane -->
+        <section id="tour-pane" class="tour-pane hidden" aria-label="Full Graph Coverage Tour">
+          <div class="tour-toolbar">
+            <div class="tour-controls">
+              <button id="btn-tour-start" class="btn btn-xs btn-accent" type="button" aria-pressed="false">Start</button>
+              <button id="btn-tour-prev" class="btn btn-xs btn-ghost" type="button">Previous</button>
+              <button id="btn-tour-next" class="btn btn-xs btn-ghost" type="button">Next</button>
+              <button id="btn-tour-restart" class="btn btn-xs btn-ghost" type="button">Restart</button>
+              <button id="btn-tour-focus" class="btn btn-xs btn-ghost" type="button" disabled>Focus batch</button>
+              <button id="btn-tour-sweep" class="btn btn-xs btn-accent" type="button" title="Highlight all 40,324 nodes and 100,905 edges on the 3D sphere and verify 100% coverage">Verify 100% Sweep</button>
+              <button id="btn-tour-crosscut" class="btn btn-xs btn-ghost" type="button" title="Highlight cross-cutting KG entities not scoped to a single architecture module">Cross-Cutting</button>
+              <button id="btn-tour-export-json" class="btn btn-xs btn-ghost" type="button" title="Export coverage audit receipt as JSON">Export JSON</button>
+              <button id="btn-tour-export-csv" class="btn btn-xs btn-ghost" type="button" title="Export coverage audit ledger as CSV">Export CSV</button>
+            </div>
+            <div class="tour-settings">
+              <label>Phase
+                <select id="tour-phase">
+                  <option value="nodes" selected>Nodes</option>
+                  <option value="edges">Edges</option>
+                </select>
+              </label>
+              <label>Batch
+                <select id="tour-batch-size">
+                  <option value="100">100</option>
+                  <option value="250">250</option>
+                  <option value="500" selected>500</option>
+                  <option value="1000">1000</option>
+                </select>
+              </label>
+              <label>Speed
+                <select id="tour-speed">
+                  <option value="500">0.5s</option>
+                  <option value="1000" selected>1.0s</option>
+                  <option value="2000">2.0s</option>
+                  <option value="3000">3.0s</option>
+                </select>
+              </label>
+            </div>
+          </div>
+          <div id="tour-reduced-notice" class="notice-banner hidden">Reduced motion is enabled — tour starts paused. Use Next/Previous or press Start when ready.</div>
+          <div id="tour-ledger-strip" class="tour-ledger-strip tabular-num">
+            <span>Loading full graph coverage audit…</span>
+          </div>
+          <div class="tour-progress-grid">
+            <div class="tour-progress-item">
+              <div id="tour-nodes-text" class="tour-progress-text tabular-num">Nodes: 0 / 81 batches (0 / 40,324)</div>
+              <div class="progress-track"><div id="tour-nodes-bar" class="progress-fill" style="width:0%"></div></div>
+            </div>
+            <div class="tour-progress-item">
+              <div id="tour-edges-text" class="tour-progress-text tabular-num">Edges: 0 / 202 batches (0 / 100,905)</div>
+              <div class="progress-track"><div id="tour-edges-bar" class="progress-fill" style="width:0%"></div></div>
+            </div>
+          </div>
+          <div id="tour-batch-summary" class="tour-batch-summary tabular-num">Current: NODES batch 1</div>
+          <div class="tour-table-scroll">
+            <table class="data-table">
+              <thead id="tour-table-head"></thead>
+              <tbody id="tour-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+
         <div id="canvas-host" class="canvas-host">
           <canvas id="sphere-canvas" tabindex="0" aria-label="Interactive 3D Healthcare World Model Knowledge Graph Sphere"></canvas>
           <div id="hover-label" class="floating-label hidden" aria-hidden="true"></div>
           <div id="selected-label" class="floating-label selected-label hidden" aria-hidden="true"></div>
 
+          <!-- Floating Restore Bar when in Full Globe (Zen) mode -->
+          <div id="zen-restore-bar" class="zen-restore-bar hidden" role="region" aria-label="Full Globe controls">
+            <span id="zen-context-chip" class="badge hidden"></span>
+            <button id="btn-zen-exit" class="btn btn-sm btn-accent" type="button">Exit Full Globe (Z)</button>
+            <button id="btn-zen-reset" class="btn btn-sm btn-ghost" type="button">Reset Layout</button>
+          </div>
+
           <!-- Controls Hint -->
           <div class="nav-hint" aria-hidden="true">
-            Drag: Rotate · Right-drag / Shift-drag: Pan · Scroll: Zoom · Click: Inspect · Double-click: Focus
+            Drag: Rotate · Right-drag / Shift-drag: Pan · Scroll: Zoom · Click: Inspect · Double-click: Focus · Z: Full Globe
           </div>
         </div>
 
@@ -222,15 +387,15 @@
         <div id="table-view" class="table-view hidden" aria-label="Searchable Graph Table View">
           <div class="table-toolbar">
             <div class="table-tabs" role="tablist">
-              <button class="tab-btn active" data-table-tab="nodes" role="tab" aria-selected="true">Nodes</button>
-              <button class="tab-btn" data-table-tab="edges" role="tab" aria-selected="false">Relationships</button>
-              <button class="tab-btn" data-table-tab="papers" role="tab" aria-selected="false">211 Papers</button>
+              <button class="tab-btn active" type="button" data-table-tab="nodes" role="tab" aria-selected="true">Nodes</button>
+              <button class="tab-btn" type="button" data-table-tab="edges" role="tab" aria-selected="false">Relationships</button>
+              <button class="tab-btn" type="button" data-table-tab="papers" role="tab" aria-selected="false">211 Papers</button>
             </div>
             <div id="table-status" class="table-status"></div>
             <div class="table-pager">
-              <button id="btn-table-prev" class="btn btn-xs btn-ghost">← Prev</button>
-              <span id="table-page-info">Page 1</span>
-              <button id="btn-table-next" class="btn btn-xs btn-ghost">Next →</button>
+              <button id="btn-table-prev" class="btn btn-xs btn-ghost" type="button">← Prev</button>
+              <span id="table-page-info" class="tabular-num">Page 1</span>
+              <button id="btn-table-next" class="btn btn-xs btn-ghost" type="button">Next →</button>
             </div>
           </div>
           <div class="table-scroll">
@@ -253,27 +418,48 @@
         </div>
       </main>
 
+      <!-- Floating Equation Symbol & Interpretation Side Drawer -->
+      <aside id="symbol-drawer" class="symbol-drawer hidden" role="dialog" aria-modal="false" aria-labelledby="symbol-drawer-title">
+        <div class="symbol-drawer-head">
+          <div>
+            <span id="symbol-drawer-badge" class="badge badge-symbolic">Equation Guide</span>
+            <h2 id="symbol-drawer-title" class="symbol-drawer-title">Symbols &amp; Interpretation</h2>
+          </div>
+          <button id="btn-close-symbol-drawer" class="icon-btn" type="button" aria-label="Close Symbols & Interpretation box">✕</button>
+        </div>
+        <div id="symbol-drawer-body" class="panel-scroll symbol-drawer-body"></div>
+      </aside>
+
       <!-- Right Inspector Drawer -->
       <aside id="right-panel" class="side-panel right-panel" aria-label="Entity and Relationship Inspector">
-        <div class="inspector-header">
+        <div class="mobile-drawer-bar">
+          <span class="mobile-drawer-title">Inspector</span>
+          <button id="btn-close-right" class="btn btn-xs btn-ghost" type="button" aria-label="Close Inspector Panel">✕ Close</button>
+        </div>
+        <div id="inspector-header" class="inspector-header">
           <div id="inspector-badge-row" class="badge-row"></div>
           <h2 id="inspector-title" class="inspector-title">Select a node or edge</h2>
           <div id="inspector-subtitle" class="inspector-subtitle">Click any point or relationship on the sphere, or search above.</div>
           <div id="inspector-quick-actions" class="btn-row hidden">
-            <button id="btn-insp-focus" class="btn btn-xs btn-accent">Focus</button>
-            <button id="btn-insp-1hop" class="btn btn-xs btn-ghost">1-Hop</button>
-            <button id="btn-insp-2hop" class="btn btn-xs btn-ghost">2-Hop</button>
-            <button id="btn-insp-paper-view" class="btn btn-xs btn-ghost hidden">Center Paper</button>
+            <button id="btn-insp-focus" class="btn btn-xs btn-accent" type="button">Focus</button>
+            <button id="btn-insp-1hop" class="btn btn-xs btn-ghost" type="button">1-Hop</button>
+            <button id="btn-insp-2hop" class="btn btn-xs btn-ghost" type="button">2-Hop</button>
+            <button id="btn-insp-paper-view" class="btn btn-xs btn-ghost hidden" type="button">Center Paper</button>
+            <button id="btn-insp-permalink" class="btn btn-xs btn-ghost" type="button" title="Copy direct link to this entity">Copy Link</button>
           </div>
         </div>
 
-        <div class="inspector-tabs" role="tablist">
-          <button class="tab-btn active" data-insp-tab="details" role="tab" aria-selected="true">Details</button>
-          <button class="tab-btn" data-insp-tab="connections" role="tab" aria-selected="false">Connections</button>
-          <button class="tab-btn" data-insp-tab="paper" role="tab" aria-selected="false">Paper Dossier</button>
-          <button class="tab-btn" data-insp-tab="raw" role="tab" aria-selected="false">Raw JSON</button>
+        <div id="inspector-tabs" class="inspector-tabs" role="tablist">
+          <button class="tab-btn active" type="button" data-insp-tab="details" role="tab" aria-selected="true">Details</button>
+          <button class="tab-btn" type="button" data-insp-tab="connections" role="tab" aria-selected="false">Connections</button>
+          <button class="tab-btn" type="button" data-insp-tab="paper" role="tab" aria-selected="false">Paper Dossier</button>
+          <button class="tab-btn" type="button" data-insp-tab="raw" role="tab" aria-selected="false">Raw JSON</button>
         </div>
 
+        <div id="arch-inspector-bar" class="arch-inspector-bar hidden">
+          <button id="btn-arch-back" class="btn btn-xs btn-ghost hidden" type="button">← Back to Component Evidence</button>
+        </div>
+        <div id="arch-inspector" class="panel-scroll inspector-body hidden"></div>
         <div id="inspector-body" class="panel-scroll inspector-body">
           <div class="empty-inspector">
             <p>Explore the complete Healthcare World Model Knowledge Graph:</p>
@@ -292,10 +478,10 @@
     <footer class="bottom-bar" role="contentinfo">
       <div id="legend-strip" class="legend-strip" aria-label="Entity class legend"></div>
       <div class="bottom-right">
-        <span id="visible-counts" class="visible-counts">Visible: —</span>
-        <button id="btn-reset-camera" class="btn btn-xs btn-ghost" title="Reset Camera (R)">Reset Camera</button>
-        <button id="btn-focus-selected" class="btn btn-xs btn-ghost" title="Focus Selection (F)">Focus</button>
-        <button id="btn-clear-selection" class="btn btn-xs btn-ghost" title="Clear Selection (Esc)">Clear</button>
+        <span id="visible-counts" class="visible-counts tabular-num">Visible: —</span>
+        <button id="btn-reset-camera" class="btn btn-xs btn-ghost" type="button" title="Reset Camera (R)">Reset Camera</button>
+        <button id="btn-focus-selected" class="btn btn-xs btn-ghost" type="button" title="Focus Selection (F)">Focus</button>
+        <button id="btn-clear-selection" class="btn btn-xs btn-ghost" type="button" title="Clear Selection (Esc)">Clear</button>
       </div>
     </footer>
   </div>
@@ -306,7 +492,7 @@
     <div class="modal-card modal-lg">
       <div class="modal-head">
         <h2 id="modal-interpret-title">How to Interpret This Knowledge Graph</h2>
-        <button class="icon-btn" data-close-modal="modal-interpret" aria-label="Close">✕</button>
+        <button class="icon-btn" type="button" data-close-modal="modal-interpret" aria-label="Close">✕</button>
       </div>
       <div class="modal-body">
         <div class="safeguard-grid">
@@ -360,9 +546,9 @@
           <h2 id="modal-pdf-title">Source PDF Viewer</h2>
           <div id="modal-pdf-subtitle" class="inspector-subtitle"></div>
         </div>
-        <div class="btn-row">
-          <a id="modal-pdf-newtab" class="btn btn-sm btn-accent" href="#" target="_blank" rel="noopener">Open in New Tab</a>
-          <button class="icon-btn" data-close-modal="modal-pdf" aria-label="Close">✕</button>
+        <div class="btn-row btn-row-inline">
+          <a id="modal-pdf-newtab" class="btn btn-sm btn-accent" href="#" target="_blank" rel="noopener noreferrer">Open in New Tab</a>
+          <button class="icon-btn" type="button" data-close-modal="modal-pdf" aria-label="Close">✕</button>
         </div>
       </div>
       <div class="modal-body modal-pdf-body">
@@ -372,6 +558,24 @@
     </div>
   </div>
 
-  <script type="module" src="./js/app.js"></script>
+  <!-- Modal: Large Architecture Diagram -->
+  <div id="modal-arch-figure" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-arch-title">
+    <div class="modal-backdrop" data-close-modal="modal-arch-figure"></div>
+    <div class="modal-card modal-xl">
+      <div class="modal-head">
+        <h2 id="modal-arch-title">Healthcare World Model Architecture</h2>
+        <button class="icon-btn" type="button" data-close-modal="modal-arch-figure" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="arch-figure-wrap arch-figure-wrap-lg">
+          <img id="modal-arch-img" class="arch-figure-img" alt="Healthcare World Model Architecture Diagram (Large View)" />
+          <svg id="modal-arch-svg" class="arch-hotspot-svg" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./vendor/katex/katex.min.js"></script>
+  <script type="module" src="./js/app.js?v=academic3"></script>
 </body>
 </html>

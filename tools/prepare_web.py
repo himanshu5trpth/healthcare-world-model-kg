@@ -5,6 +5,7 @@ import json
 import re
 import shutil
 import urllib.parse
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -26,10 +27,80 @@ def validate_graph(nodes, edges):
     ids = [n['id'] for n in nodes]
     known = set(ids)
     if len(ids) != len(known):
-        raise ValueError('Duplicate graph IDs')
+        raise ValueError('Duplicate graph node IDs')
+    edge_ids = [e['id'] for e in edges if 'id' in e]
+    if len(edge_ids) != len(set(edge_ids)):
+        raise ValueError('Duplicate graph edge IDs')
     for edge in edges:
         if edge['subject_id'] not in known or edge['object_id'] not in known:
             raise ValueError('Unresolved graph endpoint: ' + edge.get('id', '?'))
+
+
+def validate_architecture_svg(svg_path):
+    if not svg_path.exists():
+        raise ValueError(f'Missing architecture SVG: {svg_path}')
+    raw = svg_path.read_text(encoding='utf-8')
+    m_open = re.search(r'<svg\b[^>]*>', raw)
+    if not m_open:
+        raise ValueError('Architecture SVG missing <svg> root element')
+    open_tag = raw[m_open.start():m_open.end()]
+    body = raw[m_open.end():]
+    if 'color-scheme: light dark' in open_tag or 'color-scheme:light dark' in open_tag:
+        raise ValueError('Architecture SVG contains color-scheme: light dark inversion bug')
+    if 'color-scheme: light' not in open_tag:
+        raise ValueError('Architecture SVG must explicitly lock color-scheme: light')
+    if 'light-dark(' in body:
+        raise ValueError('Architecture SVG rendered body contains unresolved light-dark() CSS functions')
+    root = ET.fromstring(raw)
+    if root.attrib.get('viewBox') != '0 0 1177 465':
+        raise ValueError(f"Unexpected architecture SVG viewBox: {root.attrib.get('viewBox')!r}")
+    if '#FFFFFF' not in open_tag.upper() and 'FILL="#FFFFFF"' not in body.upper():
+        raise ValueError('Architecture SVG must define a crisp #FFFFFF light canvas background')
+
+
+def validate_architecture_evidence(evidence_path, nodes, edges, snapshot_hash):
+    if not evidence_path.exists():
+        return
+    evidence = json.loads(evidence_path.read_text(encoding='utf-8'))
+    if evidence.get('graph_snapshot_hash') != snapshot_hash:
+        raise ValueError(
+            f"Architecture evidence hash {evidence.get('graph_snapshot_hash')!r} "
+            f"does not match snapshot {snapshot_hash!r}"
+        )
+    known_nodes = {n['id'] for n in nodes}
+    edges_by_id = {e['id']: e for e in edges if 'id' in e}
+    formulas = evidence.get('formulas') or {}
+    view_box = (evidence.get('figure') or {}).get('view_box')
+    for comp in evidence.get('components', []):
+        if view_box and comp.get('hotspot'):
+            vb_x, vb_y, vb_w, vb_h = view_box
+            h = comp['hotspot']
+            if h['x'] < vb_x or h['y'] < vb_y or (h['x'] + h['width']) > (vb_x + vb_w) or (h['y'] + h['height']) > (vb_y + vb_h):
+                raise ValueError(f"Hotspot out of viewBox bounds for component {comp.get('id')!r}")
+        if formulas:
+            for fid in comp.get('formula_ids', []):
+                if fid not in formulas:
+                    raise ValueError(f"Unresolved architecture formula ID: {fid}")
+        for ep in comp.get('evidence_paths', []):
+            node_ids = ep.get('node_ids', [])
+            for nid in node_ids:
+                if nid not in known_nodes:
+                    raise ValueError(f"Unresolved architecture evidence node ID: {nid}")
+            ep_edges = ep.get('edges', [])
+            for idx_e, ed in enumerate(ep_edges):
+                eid = ed.get('id') if isinstance(ed, dict) else ed
+                if eid not in edges_by_id:
+                    raise ValueError(f"Unresolved architecture evidence edge ID: {eid}")
+                if len(node_ids) == len(ep_edges) + 1:
+                    edge_rec = edges_by_id[eid]
+                    u, v = node_ids[idx_e], node_ids[idx_e + 1]
+                    if not (
+                        (edge_rec['subject_id'] == u and edge_rec['object_id'] == v)
+                        or (edge_rec['subject_id'] == v and edge_rec['object_id'] == u)
+                    ):
+                        raise ValueError(
+                            f"Discontinuous architecture evidence edge {eid} between {u} and {v}"
+                        )
 
 
 def jsonl(path):
@@ -41,7 +112,13 @@ def build():
     for name in ('js', 'css', 'vendor'):
         shutil.copytree(LOCAL / name, DEST / name, dirs_exist_ok=True)
     shutil.copy2(LOCAL / 'index.html', DEST / 'index.html')
+    # Preserve static architecture assets if already present in DEST; copy from LOCAL only if missing.
+    dest_arch_assets = DEST / 'assets' / 'architecture'
+    local_arch_assets = LOCAL / 'assets' / 'architecture'
+    if not dest_arch_assets.exists() and local_arch_assets.exists():
+        shutil.copytree(local_arch_assets, dest_arch_assets, dirs_exist_ok=True)
     # Copy only research data, never PDFs, page scans, private project memory, or run credentials.
+    # Existing site/data/architecture-evidence.json is preserved and validated below.
     data = DEST / 'data'
     for name in ('graph', 'annotations', 'coverage', 'reviews', 'audit'):
         shutil.copytree(LOCAL / 'data' / name, data / name, dirs_exist_ok=True)
@@ -124,9 +201,10 @@ def build():
     if (!res.ok) throw new Error(`HTTP ${res.status} loading ${url}`);
     text = await res.text();
   }'''
-    if old not in text:
-        raise ValueError('Viewer parser changed; inspect before patching')
-    worker.write_text(text.replace(old, new), encoding='utf-8')
+    if 'DecompressionStream' not in text:
+        if old not in text:
+            raise ValueError('Viewer parser changed; inspect before patching')
+        worker.write_text(text.replace(old, new), encoding='utf-8')
 
     # Small screens use drawers so panels cannot squeeze the graph to a narrow strip.
     css = DEST / 'css/styles.css'
@@ -190,10 +268,14 @@ def build():
     manifest['counts']['edges'] = len(edges)
     manifest['files'] = {}
     for path in sorted(data.rglob('*')):
-        if path.is_file() and path.name != 'snapshot-manifest.json':
+        if path.is_file() and path.name not in ('snapshot-manifest.json', 'architecture-evidence.json'):
             manifest['files'][path.relative_to(DEST).as_posix()] = {
                 'size': path.stat().st_size, 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
     manifest['snapshot_hash'] = hashlib.sha256(json.dumps(manifest['files'], sort_keys=True).encode()).hexdigest()[:16] + '-web1'
+    arch_svg = DEST / 'assets' / 'architecture' / 'healthcare_world_model_architecture.svg'
+    if arch_svg.exists():
+        validate_architecture_svg(arch_svg)
+    validate_architecture_evidence(data / 'architecture-evidence.json', nodes + catalog, edges, manifest['snapshot_hash'])
     (data / 'snapshot-manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding='utf-8')
     (DEST / '.nojekyll').write_text('', encoding='utf-8')
     assert not list(DEST.rglob('*.pdf'))

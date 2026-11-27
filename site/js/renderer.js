@@ -33,6 +33,7 @@ const VERTEX_SHADER = `
 `;
 
 const FRAGMENT_SHADER = `
+  uniform float uLightMode;
   varying vec3 vColor;
   varying float vState;
 
@@ -42,11 +43,18 @@ const FRAGMENT_SHADER = `
     float d = length(uv);
     if (d > 0.5) discard;
 
+    // Deepen bright pastel palette colors in Academic Light mode for crisp contrast on white paper
+    vec3 baseCol = (uLightMode > 0.5)
+      ? pow(max(vColor, vec3(0.001)), vec3(1.65)) * 0.84
+      : vColor;
+
     // Bright selection ring for selected / path nodes
     if (vState > 3.5) {
       float ring = smoothstep(0.32, 0.37, d) * (1.0 - smoothstep(0.45, 0.50, d));
       float core = 1.0 - smoothstep(0.26, 0.34, d);
-      vec3 col = mix(vColor * 1.25, vec3(1.0, 0.98, 0.85), ring);
+      vec3 ringCol = (uLightMode > 0.5) ? vec3(0.09, 0.13, 0.18) : vec3(1.0, 0.98, 0.85);
+      vec3 coreCol = (uLightMode > 0.5) ? mix(baseCol, vec3(0.78, 0.26, 0.07), 0.35) : baseCol * 1.25;
+      vec3 col = mix(coreCol, ringCol, ring);
       float alpha = clamp(core + ring, 0.0, 1.0);
       gl_FragColor = vec4(col, alpha);
       return;
@@ -56,20 +64,23 @@ const FRAGMENT_SHADER = `
     if (vState > 2.5) {
       float edge = smoothstep(0.35, 0.42, d) * (1.0 - smoothstep(0.46, 0.50, d));
       float core = 1.0 - smoothstep(0.34, 0.48, d);
-      vec3 col = mix(vColor * 1.15, vec3(0.75, 0.94, 1.0), edge * 0.8);
+      vec3 edgeCol = (uLightMode > 0.5) ? vec3(0.17, 0.35, 0.64) : vec3(0.75, 0.94, 1.0);
+      vec3 col = mix(baseCol * (uLightMode > 0.5 ? 1.0 : 1.15), edgeCol, edge * 0.8);
       gl_FragColor = vec4(col, clamp(core + edge * 0.85, 0.0, 0.98));
       return;
     }
 
-    // Dimmed background nodes when a selection is active
+    // Dimmed background nodes when a selection or overlay is active
     float alpha = 1.0 - smoothstep(0.32, 0.50, d);
     if (vState > 1.5 && vState < 2.5) {
-      gl_FragColor = vec4(vColor * 0.55, alpha * 0.16);
+      vec3 dimCol = (uLightMode > 0.5) ? vec3(0.55, 0.61, 0.70) : (vColor * 0.55);
+      float dimAlpha = (uLightMode > 0.5) ? (alpha * 0.14) : (alpha * 0.16);
+      gl_FragColor = vec4(dimCol, dimAlpha);
       return;
     }
 
     // Normal visible node
-    gl_FragColor = vec4(vColor, alpha * 0.92);
+    gl_FragColor = vec4(baseCol, alpha * (uLightMode > 0.5 ? 0.94 : 0.92));
   }
 `;
 
@@ -85,6 +96,26 @@ export class SphereRenderer {
     this.edgesMesh = null;
     this.highlightLines = null;
     this.guideGroup = null;
+    this.outerGuideMat = null;
+    this.coreGuideMat = null;
+    this.lightMode = true;
+    this.overlayActive = false;
+    this._lastOverlayTheme = 'tour';
+    this.overlayGroup = null;
+    this.overlayPoints = null;
+    this.overlayLines = null;
+    this.overlaySelfLoops = null;
+    this._overlayPointCap = 0;
+    this._overlayLineCap = 0;
+    this._overlayLoopCap = 0;
+
+    this.secondaryGroup = null;
+    this.secondaryPoints = null;
+    this.secondaryLines = null;
+    this.secondarySelfLoops = null;
+    this._secPointCap = 0;
+    this._secLineCap = 0;
+    this._secLoopCap = 0;
 
     this.nodeCount = 0;
     this.positions = null;
@@ -159,22 +190,302 @@ export class SphereRenderer {
     });
 
     this.buildSphereGuides();
+    this.buildOverlayMeshes();
     this.bindEvents();
     this.startLoop();
     return true;
+  }
+
+  buildOverlayMeshes() {
+    this.overlayGroup = new THREE.Group();
+    this.overlayGroup.renderOrder = 10;
+
+    const ptVert = `
+      uniform float uPixelRatio;
+      uniform float uPointSize;
+      void main() {
+        vec4 mvPos = modelViewMatrix * vec4(position, 1.0);
+        float dist = max(20.0, -mvPos.z);
+        gl_PointSize = clamp(uPointSize * (260.0 / dist) * uPixelRatio, 4.0 * uPixelRatio, 36.0 * uPixelRatio);
+        gl_Position = projectionMatrix * mvPos;
+      }
+    `;
+    const ptFrag = `
+      uniform vec3 uColor;
+      uniform float uRing;
+      uniform float uAlpha;
+      void main() {
+        vec2 uv = gl_PointCoord - vec2(0.5);
+        float d = length(uv);
+        if (d > 0.5) discard;
+        if (uRing > 0.5) {
+          float ring = smoothstep(0.24, 0.30, d) * (1.0 - smoothstep(0.42, 0.50, d));
+          if (ring < 0.05) discard;
+          gl_FragColor = vec4(uColor, ring * 0.98 * uAlpha);
+        } else {
+          float ring = smoothstep(0.30, 0.36, d) * (1.0 - smoothstep(0.45, 0.50, d));
+          float core = 1.0 - smoothstep(0.22, 0.32, d);
+          vec3 col = mix(uColor, vec3(1.0, 1.0, 1.0), ring * 0.55);
+          gl_FragColor = vec4(col, clamp(core + ring, 0.0, 1.0) * uAlpha);
+        }
+      }
+    `;
+
+    const makePointLayer = (cap, ptSize, hexColor, isRing, alpha) => {
+      const geom = new THREE.BufferGeometry();
+      geom.setAttribute('position', new THREE.BufferAttribute(new Float32Array(cap * 3), 3));
+      geom.setDrawRange(0, 0);
+      const mat = new THREE.ShaderMaterial({
+        vertexShader: ptVert,
+        fragmentShader: ptFrag,
+        transparent: true,
+        depthWrite: false,
+        depthTest: false,
+        uniforms: {
+          uPixelRatio: { value: Math.min(window.devicePixelRatio || 1, 2) },
+          uPointSize: { value: ptSize },
+          uColor: { value: new THREE.Color(hexColor) },
+          uRing: { value: isRing ? 1.0 : 0.0 },
+          uAlpha: { value: alpha },
+        },
+      });
+      const mesh = new THREE.Points(geom, mat);
+      mesh.frustumCulled = false;
+      mesh.visible = false;
+      return mesh;
+    };
+
+    const makeLineLayer = (cap, hexColor, opacity) => {
+      const geom = new THREE.BufferGeometry();
+      geom.setAttribute('position', new THREE.BufferAttribute(new Float32Array(cap * 6), 3));
+      geom.setDrawRange(0, 0);
+      const mat = new THREE.LineBasicMaterial({
+        color: hexColor,
+        transparent: true,
+        opacity,
+        depthWrite: false,
+        depthTest: false,
+      });
+      const mesh = new THREE.LineSegments(geom, mat);
+      mesh.frustumCulled = false;
+      mesh.visible = false;
+      return mesh;
+    };
+
+    // Secondary layer (full mapped component KG footprint) — rendered under primary curated paths
+    this.secondaryGroup = new THREE.Group();
+    this.secondaryGroup.renderOrder = 8;
+    this._secPointCap = 4096;
+    this._secLineCap = 8192;
+    this._secLoopCap = 512;
+    this.secondaryPoints = makePointLayer(this._secPointCap, 6.2, 0x0f766e, false, 0.72);
+    this.secondaryLines = makeLineLayer(this._secLineCap, 0x0d9488, 0.36);
+    this.secondarySelfLoops = makePointLayer(this._secLoopCap, 13.5, 0x0f766e, true, 0.72);
+    this.secondaryGroup.add(this.secondaryLines);
+    this.secondaryGroup.add(this.secondaryPoints);
+    this.secondaryGroup.add(this.secondarySelfLoops);
+    this.scene.add(this.secondaryGroup);
+
+    // Primary layer (curated evidence paths / coverage batch / selection)
+    this._overlayPointCap = 2048;
+    this._overlayLineCap = 2048;
+    this._overlayLoopCap = 512;
+    this.overlayPoints = makePointLayer(this._overlayPointCap, 10.5, 0x047857, false, 1.0);
+    this.overlayLines = makeLineLayer(this._overlayLineCap, 0x1d4ed8, 0.94);
+    this.overlaySelfLoops = makePointLayer(this._overlayLoopCap, 18.0, 0xbe185d, true, 1.0);
+    this.overlayGroup.add(this.overlayLines);
+    this.overlayGroup.add(this.overlayPoints);
+    this.overlayGroup.add(this.overlaySelfLoops);
+
+    this.scene.add(this.overlayGroup);
+  }
+
+  _updateReusableBuffer(mesh, currentCap, neededCount, stride, data) {
+    if (!mesh) return currentCap;
+    if (!data || neededCount <= 0) {
+      mesh.geometry.setDrawRange(0, 0);
+      mesh.visible = false;
+      return currentCap;
+    }
+    let cap = currentCap;
+    if (neededCount > cap) {
+      cap = Math.max(neededCount, cap * 2);
+      mesh.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(cap * stride), 3));
+    }
+    const attr = mesh.geometry.getAttribute('position');
+    attr.array.set(data.subarray(0, neededCount * stride));
+    attr.needsUpdate = true;
+    mesh.geometry.setDrawRange(0, stride === 6 ? neededCount * 2 : neededCount);
+    mesh.visible = true;
+    return cap;
+  }
+
+  _getOverlayPalette(theme) {
+    if (this.lightMode) {
+      const lightThemes = {
+        tour: { pt: 0x047857, ln: 0x1d4ed8, lp: 0xbe185d, secPt: 0x0f766e, secLn: 0x0d9488, secLp: 0xbe185d },
+        architecture: { pt: 0xc84312, ln: 0xc84312, lp: 0xbe185d, secPt: 0x0f766e, secLn: 0x0d9488, secLp: 0x0f766e },
+        selection: { pt: 0xc84312, ln: 0x2b59a2, lp: 0xbe185d, secPt: 0x0f766e, secLn: 0x0d9488, secLp: 0x0f766e },
+      };
+      return lightThemes[theme] || lightThemes.tour;
+    }
+    const darkThemes = {
+      tour: { pt: 0x34d399, ln: 0x38bdf8, lp: 0xf472b6, secPt: 0x2dd4bf, secLn: 0x14b8a6, secLp: 0xf472b6 },
+      architecture: { pt: 0xfb923c, ln: 0xfb923c, lp: 0xf43f5e, secPt: 0x2dd4bf, secLn: 0x14b8a6, secLp: 0x5eead4 },
+      selection: { pt: 0xfef08a, ln: 0xfbbf24, lp: 0xf472b6, secPt: 0x2dd4bf, secLn: 0x14b8a6, secLp: 0x5eead4 },
+    };
+    return darkThemes[theme] || darkThemes.tour;
+  }
+
+  setTheme(theme) {
+    this.lightMode = theme !== 'dark';
+    if (this.points && this.points.material?.uniforms?.uLightMode) {
+      this.points.material.uniforms.uLightMode.value = this.lightMode ? 1.0 : 0.0;
+    }
+    if (this.outerGuideMat) {
+      this.outerGuideMat.color.setHex(this.lightMode ? 0x94a3b8 : 0x1e3a5f);
+      this.outerGuideMat.opacity = this.lightMode ? 0.28 : 0.16;
+    }
+    if (this.coreGuideMat) {
+      this.coreGuideMat.color.setHex(this.lightMode ? 0xb45309 : 0x92400e);
+      this.coreGuideMat.opacity = this.lightMode ? 0.22 : 0.18;
+    }
+    if (this.overlayGroup) {
+      const pal = this._getOverlayPalette(this._lastOverlayTheme);
+      this.overlayPoints.material.uniforms.uColor.value.setHex(pal.pt);
+      this.overlayLines.material.color.setHex(pal.ln);
+      this.overlaySelfLoops.material.uniforms.uColor.value.setHex(pal.lp);
+      if (this.secondaryGroup) {
+        this.secondaryPoints.material.uniforms.uColor.value.setHex(pal.secPt);
+        this.secondaryLines.material.color.setHex(pal.secLn);
+        this.secondaryLines.material.opacity = this.lightMode ? 0.34 : 0.42;
+        this.secondarySelfLoops.material.uniforms.uColor.value.setHex(pal.secLp);
+      }
+    }
+    this._applyEdgeOpacity();
+    this.requestRender();
+  }
+
+  _applyEdgeOpacity() {
+    if (!this.edgesMesh) return;
+    const base = this._edgeOpacity ?? 0.28;
+    this.edgesMesh.material.opacity = this.overlayActive ? Math.min(base, 0.06) : base;
+  }
+
+  setOverlay({
+    nodePositions = null,
+    edgePositions = null,
+    selfLoopPositions = null,
+    secondaryNodePositions = null,
+    secondaryEdgePositions = null,
+    secondarySelfLoopPositions = null,
+    theme = 'tour',
+    dimBackground = true,
+  } = {}) {
+    if (!this.overlayGroup) return;
+    this._lastOverlayTheme = theme;
+    const pal = this._getOverlayPalette(theme);
+    this.overlayPoints.material.uniforms.uColor.value.setHex(pal.pt);
+    this.overlayLines.material.color.setHex(pal.ln);
+    this.overlaySelfLoops.material.uniforms.uColor.value.setHex(pal.lp);
+
+    const ptCount = nodePositions ? Math.floor(nodePositions.length / 3) : 0;
+    const lnCount = edgePositions ? Math.floor(edgePositions.length / 6) : 0;
+    const lpCount = selfLoopPositions ? Math.floor(selfLoopPositions.length / 3) : 0;
+
+    this._overlayPointCap = this._updateReusableBuffer(this.overlayPoints, this._overlayPointCap, ptCount, 3, nodePositions);
+    this._overlayLineCap = this._updateReusableBuffer(this.overlayLines, this._overlayLineCap, lnCount, 6, edgePositions);
+    this._overlayLoopCap = this._updateReusableBuffer(this.overlaySelfLoops, this._overlayLoopCap, lpCount, 3, selfLoopPositions);
+
+    let secPtCount = 0;
+    let secLnCount = 0;
+    let secLpCount = 0;
+    if (this.secondaryGroup) {
+      this.secondaryPoints.material.uniforms.uColor.value.setHex(pal.secPt);
+      this.secondaryLines.material.color.setHex(pal.secLn);
+      this.secondaryLines.material.opacity = this.lightMode ? 0.34 : 0.42;
+      this.secondarySelfLoops.material.uniforms.uColor.value.setHex(pal.secLp);
+
+      secPtCount = secondaryNodePositions ? Math.floor(secondaryNodePositions.length / 3) : 0;
+      secLnCount = secondaryEdgePositions ? Math.floor(secondaryEdgePositions.length / 6) : 0;
+      secLpCount = secondarySelfLoopPositions ? Math.floor(secondarySelfLoopPositions.length / 3) : 0;
+
+      this._secPointCap = this._updateReusableBuffer(this.secondaryPoints, this._secPointCap, secPtCount, 3, secondaryNodePositions);
+      this._secLineCap = this._updateReusableBuffer(this.secondaryLines, this._secLineCap, secLnCount, 6, secondaryEdgePositions);
+      this._secLoopCap = this._updateReusableBuffer(this.secondarySelfLoops, this._secLoopCap, secLpCount, 3, secondarySelfLoopPositions);
+    }
+
+    const hasAny = (ptCount + lnCount + lpCount + secPtCount + secLnCount + secLpCount) > 0;
+    this.overlayActive = dimBackground && hasAny;
+    this.recomputeNodeStates();
+    this._applyEdgeOpacity();
+    this.requestRender();
+  }
+
+  clearOverlay() {
+    if (!this.overlayGroup) return;
+    for (const m of [
+      this.overlayPoints,
+      this.overlayLines,
+      this.overlaySelfLoops,
+      this.secondaryPoints,
+      this.secondaryLines,
+      this.secondarySelfLoops,
+    ]) {
+      if (!m) continue;
+      m.visible = false;
+      m.geometry.setDrawRange(0, 0);
+    }
+    this.overlayActive = false;
+    this.recomputeNodeStates();
+    this._applyEdgeOpacity();
+    this.requestRender();
+  }
+
+  focusOnPositions(positions) {
+    if (!positions || positions.length < 3 || !this.camera || !this.controls) return;
+    const count = Math.floor(positions.length / 3);
+    let cx = 0, cy = 0, cz = 0;
+    for (let i = 0; i < count; i++) {
+      cx += positions[i * 3];
+      cy += positions[i * 3 + 1];
+      cz += positions[i * 3 + 2];
+    }
+    cx /= count; cy /= count; cz /= count;
+    const centroid = new THREE.Vector3(cx, cy, cz);
+    let maxR = 12;
+    for (let i = 0; i < count; i++) {
+      const dx = positions[i * 3] - cx;
+      const dy = positions[i * 3 + 1] - cy;
+      const dz = positions[i * 3 + 2] - cz;
+      const d = Math.hypot(dx, dy, dz);
+      if (d > maxR) maxR = d;
+    }
+    const dist = Math.min(820, Math.max(70, maxR * 2.2 + 48));
+    const dir = centroid.lengthSq() > 0.01 ? centroid.clone().normalize() : new THREE.Vector3(0, 0.25, 1).normalize();
+    const camPos = centroid.clone().addScaledVector(dir, dist);
+    this.animateCameraTo(camPos, centroid);
   }
 
   buildSphereGuides() {
     this.guideGroup = new THREE.Group();
     const outerGeo = new THREE.SphereGeometry(120, 36, 20);
     const outerWire = new THREE.WireframeGeometry(outerGeo);
-    const outerMat = new THREE.LineBasicMaterial({ color: 0x1e3a5f, transparent: true, opacity: 0.14 });
-    this.guideGroup.add(new THREE.LineSegments(outerWire, outerMat));
+    this.outerGuideMat = new THREE.LineBasicMaterial({
+      color: this.lightMode ? 0x94a3b8 : 0x1e3a5f,
+      transparent: true,
+      opacity: this.lightMode ? 0.28 : 0.16,
+    });
+    this.guideGroup.add(new THREE.LineSegments(outerWire, this.outerGuideMat));
 
     const coreGeo = new THREE.SphereGeometry(48, 24, 14);
     const coreWire = new THREE.WireframeGeometry(coreGeo);
-    const coreMat = new THREE.LineBasicMaterial({ color: 0x92400e, transparent: true, opacity: 0.16 });
-    this.guideGroup.add(new THREE.LineSegments(coreWire, coreMat));
+    this.coreGuideMat = new THREE.LineBasicMaterial({
+      color: this.lightMode ? 0xb45309 : 0x92400e,
+      transparent: true,
+      opacity: this.lightMode ? 0.22 : 0.18,
+    });
+    this.guideGroup.add(new THREE.LineSegments(coreWire, this.coreGuideMat));
 
     this.scene.add(this.guideGroup);
   }
@@ -209,6 +520,7 @@ export class SphereRenderer {
       uniforms: {
         uSizeScale: { value: 1.0 },
         uPixelRatio: { value: Math.min(window.devicePixelRatio || 1, 2) },
+        uLightMode: { value: this.lightMode ? 1.0 : 0.0 },
       },
     });
 
@@ -257,6 +569,7 @@ export class SphereRenderer {
       this.edgesMesh = new THREE.LineSegments(geom, mat);
       this.edgesMesh.frustumCulled = false;
       this.scene.add(this.edgesMesh);
+      this._applyEdgeOpacity();
     }
 
     this.requestRender();
@@ -320,7 +633,7 @@ export class SphereRenderer {
 
   recomputeNodeStates() {
     if (!this.nodeStates || !this.nodeVis) return;
-    const hasFocus = this.selectedIdx >= 0 || this.pathNodeSet.size > 0;
+    const hasFocus = this.selectedIdx >= 0 || this.pathNodeSet.size > 0 || this.overlayActive;
     for (let i = 0; i < this.nodeCount; i++) {
       if (!this.nodeVis[i]) {
         this.nodeStates[i] = 0;
@@ -342,7 +655,7 @@ export class SphereRenderer {
   setEdgeOpacity(val) {
     this._edgeOpacity = val;
     if (this.edgesMesh) {
-      this.edgesMesh.material.opacity = val;
+      this._applyEdgeOpacity();
       this.requestRender();
     }
   }

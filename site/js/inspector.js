@@ -24,8 +24,11 @@ function el(tag, attrs = {}, text = null) {
   for (const [k, v] of Object.entries(attrs)) {
     if (k === 'class') node.className = v;
     else if (k === 'style') node.setAttribute('style', v);
-    else if (k.startsWith('data-')) node.setAttribute(k, v);
-    else node[k] = v;
+    else if (k.startsWith('data-') || k.startsWith('aria-') || k === 'role' || k === 'tabindex') {
+      node.setAttribute(k, String(v));
+    } else {
+      node[k] = v;
+    }
   }
   if (text !== null && text !== undefined) node.textContent = String(text);
   return node;
@@ -69,6 +72,7 @@ export class Inspector {
     this.cb = callbacks || {};
     this.activeTab = 'details';
     this.currentSelection = null; // { kind: 'node'|'edge', data }
+    this.archContext = null;      // { componentId, componentLabel, status, explanation, bridgeNodePositions }
     this.manifest = null;
     this.paperCache = new Map();
 
@@ -93,6 +97,13 @@ export class Inspector {
 
   setManifest(manifest) {
     this.manifest = manifest;
+  }
+
+  setArchContext(ctx) {
+    this.archContext = ctx || null;
+    if (this.currentSelection && this.activeTab === 'details') {
+      this.renderActiveTab();
+    }
   }
 
   updateTabButtons() {
@@ -278,9 +289,235 @@ export class Inspector {
     return card;
   }
 
+  renderArchContributionCard() {
+    const ctx = this.archContext;
+    if (!ctx) return null;
+
+    const card = el('div', { class: 'insp-card arch-contrib-card' });
+    const head = el('div', { class: 'arch-contrib-head' });
+    head.appendChild(el('h3', {}, `How this connects to ${ctx.componentLabel}`));
+
+    if (ctx.status === 'loading') {
+      card.appendChild(head);
+      card.appendChild(el('div', { class: 'hint-note' }, 'Tracing provenance path to architecture component…'));
+      return card;
+    }
+
+    const exp = ctx.explanation;
+    if (!exp) return null;
+
+    const badgeRow = el('div', { class: 'badge-row' });
+    if (exp.isCurated) {
+      badgeRow.appendChild(makeBadge('★ Curated Evidence Path', 'badge-present'));
+    } else if (exp.inComponent) {
+      badgeRow.appendChild(makeBadge('✓ Mapped to Component', 'badge-sci'));
+    } else if (exp.connectedToActive) {
+      badgeRow.appendChild(makeBadge('Connected via Full KG', 'badge-sci'));
+    } else if (exp.bridgeToOtherComponent) {
+      badgeRow.appendChild(makeBadge(`Informs ${exp.bridgeToOtherComponent.label}`, 'badge-sci'));
+    } else {
+      badgeRow.appendChild(makeBadge('Cross-Cutting Ontology Entity', 'badge-kg'));
+    }
+    if (exp.steps && exp.steps.length > 1) {
+      const hops = exp.steps.length - 1;
+      badgeRow.appendChild(makeBadge(`${hops} hop${hops === 1 ? '' : 's'} to anchor`, ''));
+    }
+    head.appendChild(badgeRow);
+    card.appendChild(head);
+
+    card.appendChild(el('p', { class: 'arch-contrib-summary' }, exp.summary));
+
+    if (exp.curatedMatches && exp.curatedMatches.length > 0) {
+      for (const m of exp.curatedMatches.slice(0, 3)) {
+        const box = el('div', { class: 'arch-contrib-curated' });
+        const meta = el('div', { class: 'evidence-meta' });
+        meta.appendChild(
+          makeBadge(
+            m.role === 'supports_design' ? 'Supports Design' : 'Documents Gap',
+            m.role === 'supports_design' ? 'badge-present' : 'badge-warn'
+          )
+        );
+        if (m.feature_id) meta.appendChild(makeBadge(m.feature_id, ''));
+        if (m.paper_id) meta.appendChild(el('span', {}, `Paper ${m.paper_id}${m.page ? `, p. ${m.page}` : ''}`));
+        box.appendChild(meta);
+        if (m.rationale) {
+          box.appendChild(el('div', { class: 'arch-contrib-rationale' }, m.rationale));
+        }
+        card.appendChild(box);
+      }
+    }
+
+    if (exp.steps && exp.steps.length > 0) {
+      const chainTitle = (exp.inComponent || exp.connectedToActive)
+        ? `Provenance Chain to ${ctx.componentLabel}`
+        : (exp.bridgeToOtherComponent
+          ? `Provenance Chain to ${exp.bridgeToOtherComponent.label}`
+          : 'Ontology Connection in KG');
+      card.appendChild(el('div', { class: 'arch-contrib-subhead' }, chainTitle));
+      const chain = el('div', { class: 'arch-bridge-chain' });
+      exp.steps.forEach((step, i) => {
+        const stepBtn = el('button', {
+          class: `arch-bridge-step ${i === 0 ? 'is-origin' : ''} ${step.isAnchor ? 'is-anchor' : ''}`.trim(),
+          type: 'button',
+          title: `${step.class_id}: ${step.id}`,
+        });
+        stepBtn.appendChild(el('span', { class: 'arch-node-cls' }, step.class_id));
+        stepBtn.appendChild(el('span', { class: 'arch-bridge-lbl' }, step.label || step.id));
+        stepBtn.addEventListener('click', () => {
+          if (this.cb.onSelectNode) this.cb.onSelectNode(step.idx);
+        });
+        chain.appendChild(stepBtn);
+
+        if (i < (exp.links || []).length) {
+          const lk = exp.links[i];
+          const arrow = lk.direction === 'reverse' ? '←' : '→';
+          const edgeBtn = el('button', {
+            class: `arch-bridge-edge ${lk.isKg ? 'is-kg' : 'is-sci'}`,
+            type: 'button',
+            title: `${lk.isKg ? 'kg: provenance / ontology link' : 'Scientific ontology relation'} (${lk.id})`,
+          }, `${arrow} ${lk.predicate_id}`);
+          edgeBtn.addEventListener('click', () => {
+            if (this.cb.onSelectEdge) this.cb.onSelectEdge(lk.edgeIdx);
+          });
+          chain.appendChild(edgeBtn);
+        }
+      });
+      card.appendChild(chain);
+      card.appendChild(
+        el('div', { class: 'hint-note' }, 'Links labeled kg: indicate graph provenance or ontology module membership — not causal claims.')
+      );
+    }
+
+    const actions = el('div', { class: 'btn-row' });
+    if (ctx.bridgeNodePositions && ctx.bridgeNodePositions.length > 0 && this.cb.onFocusPositions) {
+      const btnFocus = el('button', { class: 'btn btn-xs btn-accent', type: 'button' }, 'Focus Path on Globe');
+      btnFocus.addEventListener('click', () => this.cb.onFocusPositions(ctx.bridgeNodePositions));
+      actions.appendChild(btnFocus);
+    }
+    if (this.cb.onBackToComponent) {
+      const btnBack = el('button', { class: 'btn btn-xs btn-ghost', type: 'button' }, `Back to ${ctx.componentLabel}`);
+      btnBack.addEventListener('click', () => this.cb.onBackToComponent());
+      actions.appendChild(btnBack);
+    }
+    if (actions.childElementCount > 0) card.appendChild(actions);
+
+    if (exp.otherComponents && exp.otherComponents.length > 0) {
+      const otherWrap = el('div', { class: 'arch-other-comps' });
+      otherWrap.appendChild(el('span', { class: 'hint-note', style: 'margin:0' }, exp.inComponent ? 'Also informs:' : 'Informs instead:'));
+      for (const oc of exp.otherComponents) {
+        const chip = el('button', { class: 'arch-node-pill', type: 'button' }, oc.label);
+        chip.addEventListener('click', () => {
+          if (this.cb.onJumpToComponent) this.cb.onJumpToComponent(oc.id);
+        });
+        otherWrap.appendChild(chip);
+      }
+      card.appendChild(otherWrap);
+    }
+
+    return card;
+  }
+
+  renderOntologyCardForNode(details) {
+    const n = details.node;
+    const meta = details.ontologyMeta;
+    if (!meta) return null;
+
+    const card = el('div', { class: 'insp-card ont-spec-card' });
+    const head = el('div', { class: 'ont-spec-head' });
+    head.appendChild(el('h3', {}, 'Ontology Classification (HWM-AEO v1.0.1)'));
+    const badges = el('div', { class: 'badge-row' });
+    const clsBadge = el('span', { class: 'badge badge-sci' });
+    clsBadge.appendChild(el('span', { class: 'color-dot', style: `background:${meta.color || '#6C8EBF'}` }));
+    clsBadge.appendChild(document.createTextNode(`${meta.label || n.class_id} (${n.class_id})`));
+    badges.appendChild(clsBadge);
+    if (meta.group) badges.appendChild(makeBadge(`Group: ${meta.group}`, ''));
+    badges.appendChild(makeBadge(`urn:hwm-ontology:${n.class_id}`, 'mono-cell'));
+    head.appendChild(badges);
+    card.appendChild(head);
+
+    if (meta.definition) {
+      card.appendChild(el('p', { class: 'ont-spec-def' }, meta.definition));
+    }
+
+    const rows = [];
+    if (meta.contributionRole) rows.push(['KG / Architecture Role', meta.contributionRole]);
+    if (meta.considerWhen) rows.push(['Applies When', meta.considerWhen]);
+    if (meta.cautionWhen) rows.push(['Interpretation Caution', meta.cautionWhen]);
+    if (rows.length) {
+      const grid = el('div', { class: 'kv-grid' });
+      for (const [k, v] of rows) {
+        grid.appendChild(el('div', { class: 'kv-key' }, k));
+        grid.appendChild(el('div', { class: 'kv-val' }, v));
+      }
+      card.appendChild(grid);
+    }
+
+    if (typeof details.classDefIdx === 'number' && details.classDefIdx >= 0) {
+      const act = el('div', { class: 'btn-row' });
+      const btn = el('button', { class: 'btn btn-xs btn-ghost', type: 'button' }, `Inspect Schema: ClassDefinition (${n.class_id})`);
+      btn.addEventListener('click', () => this.cb.onSelectNode && this.cb.onSelectNode(details.classDefIdx));
+      act.appendChild(btn);
+      card.appendChild(act);
+    }
+    return card;
+  }
+
+  renderOntologyCardForEdge(details) {
+    const ed = details.edge;
+    const rel = details.ontologyRelation;
+    const card = el('div', { class: 'insp-card ont-spec-card' });
+    const head = el('div', { class: 'ont-spec-head' });
+    head.appendChild(el('h3', {}, 'Ontology Relation Specification (HWM-AEO v1.0.1)'));
+    const badges = el('div', { class: 'badge-row' });
+    badges.appendChild(
+      details.isKg
+        ? makeBadge('kg: Property-Graph Provenance / Serialization Link', 'badge-kg')
+        : makeBadge('Scientific Ontology Relation', 'badge-sci')
+    );
+    badges.appendChild(makeBadge(`urn:hwm-ontology:${ed.predicate_id}`, 'mono-cell'));
+    head.appendChild(badges);
+    card.appendChild(head);
+
+    if (rel) {
+      const grid = el('div', { class: 'kv-grid' });
+      grid.appendChild(el('div', { class: 'kv-key' }, 'Typed Domain → Range'));
+      grid.appendChild(el('div', { class: 'kv-val mono-cell' }, `${rel.domain} → ${rel.range}`));
+      if (rel.assertWhen) {
+        grid.appendChild(el('div', { class: 'kv-key' }, 'Assert When'));
+        grid.appendChild(el('div', { class: 'kv-val' }, rel.assertWhen));
+      }
+      if (rel.doNotAssertWhen) {
+        grid.appendChild(el('div', { class: 'kv-key' }, 'Do Not Assert When'));
+        grid.appendChild(el('div', { class: 'kv-val' }, rel.doNotAssertWhen));
+      }
+      grid.appendChild(el('div', { class: 'kv-key' }, 'Qualification Rule'));
+      grid.appendChild(el('div', { class: 'kv-val' }, 'Every empirical relation is backed by a qualified Assertion carrying evidence stage, status, provenance, and scope.'));
+      card.appendChild(grid);
+    } else {
+      const kgExplain = KG_PREDICATE_DOCS[ed.predicate_id]
+        || 'Property-graph export / provenance link (kg: namespace), connecting assertions, evidence fragments, catalog definitions, and source versions without asserting causality.';
+      card.appendChild(el('p', { class: 'ont-spec-def' }, kgExplain));
+    }
+
+    if (typeof details.relDefIdx === 'number' && details.relDefIdx >= 0) {
+      const act = el('div', { class: 'btn-row' });
+      const btn = el('button', { class: 'btn btn-xs btn-ghost', type: 'button' }, `Inspect Schema: RelationDefinition (${ed.predicate_id})`);
+      btn.addEventListener('click', () => this.cb.onSelectNode && this.cb.onSelectNode(details.relDefIdx));
+      act.appendChild(btn);
+      card.appendChild(act);
+    }
+    return card;
+  }
+
   renderNodeDetails(details) {
     const n = details.node;
     const p = n.properties || {};
+
+    const archCard = this.renderArchContributionCard();
+    if (archCard) this.els.body.appendChild(archCard);
+
+    const ontCard = this.renderOntologyCardForNode(details);
+    if (ontCard) this.els.body.appendChild(ontCard);
 
     // Special A20 notice
     if (details.paperId === 'A20') {
@@ -298,7 +535,7 @@ export class Inspector {
       const r = details.registry;
       const bar = el('div', { class: 'insp-card' });
       bar.appendChild(el('h3', {}, `Owning Paper: ${details.paperId}`));
-      bar.appendChild(el('div', { style: 'font-weight:600;margin-bottom:6px;' }, `${r.title} (${r.year || 'n.d.'})`));
+      bar.appendChild(el('div', { class: 'insp-paper-title' }, `${r.title} (${r.year || 'n.d.'})`));
       const row = el('div', { class: 'btn-row' });
       const btnPdf = el('button', { class: 'btn btn-xs btn-accent', type: 'button' }, `Open Source (${r.pdf_pages || '?'} pp.)`);
       btnPdf.addEventListener('click', () => this.cb.onOpenPdf && this.cb.onOpenPdf(details.paperId, null));
@@ -312,8 +549,20 @@ export class Inspector {
       });
       row.appendChild(btnDossier);
 
-      const annLink = el('a', { class: 'btn btn-xs btn-ghost', href: `./data/annotations/${details.paperId}.json`, target: '_blank', rel: 'noopener' }, 'Annotation JSON');
+      const annLink = el('a', { class: 'btn btn-xs btn-ghost', href: `./data/annotations/${details.paperId}.json`, target: '_blank', rel: 'noopener noreferrer' }, 'Annotation JSON');
       row.appendChild(annLink);
+
+      if (this.cb.onCopyCitation) {
+        const citeInfo = { paperId: details.paperId, title: r.title, year: r.year, doiOrUrl: r.doi_or_url };
+        const btnBib = el('button', { class: 'btn btn-xs btn-ghost', type: 'button', title: 'Copy BibTeX citation' }, 'Copy BibTeX');
+        btnBib.addEventListener('click', () => this.cb.onCopyCitation('bibtex', citeInfo, btnBib));
+        row.appendChild(btnBib);
+
+        const btnApa = el('button', { class: 'btn btn-xs btn-ghost', type: 'button', title: 'Copy APA citation' }, 'Copy APA');
+        btnApa.addEventListener('click', () => this.cb.onCopyCitation('apa', citeInfo, btnApa));
+        row.appendChild(btnApa);
+      }
+
       bar.appendChild(row);
       this.els.body.appendChild(bar);
     }
@@ -375,6 +624,12 @@ export class Inspector {
 
   renderEdgeDetails(details) {
     const ed = details.edge;
+    const archCard = this.renderArchContributionCard();
+    if (archCard) this.els.body.appendChild(archCard);
+
+    const ontCard = this.renderOntologyCardForEdge(details);
+    if (ontCard) this.els.body.appendChild(ontCard);
+
     const explain = KG_PREDICATE_DOCS[ed.predicate_id]
       || (details.isKg
         ? 'Property-graph serialization/provenance link (kg: namespace), not a scientific ontology predicate.'
@@ -402,7 +657,15 @@ export class Inspector {
         rows.push([k, v]);
       }
     }
-    this.els.body.appendChild(this.makeKvCard('Relationship Details', rows));
+    const card = this.makeKvCard('Relationship Details', rows);
+    if (this.cb.onCopyPermalink) {
+      const act = el('div', { class: 'btn-row' });
+      const btnLink = el('button', { class: 'btn btn-xs btn-ghost', type: 'button', title: 'Copy direct link to this edge' }, 'Copy Edge Link');
+      btnLink.addEventListener('click', () => this.cb.onCopyPermalink(btnLink));
+      act.appendChild(btnLink);
+      card.appendChild(act);
+    }
+    this.els.body.appendChild(card);
   }
 
   renderNodeConnections(details) {
@@ -505,8 +768,24 @@ export class Inspector {
     const btnPdf = el('button', { class: 'btn btn-xs btn-accent', type: 'button' }, 'Open Paper Source');
     btnPdf.addEventListener('click', () => this.cb.onOpenPdf && this.cb.onOpenPdf(paperId, null));
     linkRow.appendChild(btnPdf);
-    linkRow.appendChild(el('a', { class: 'btn btn-xs btn-ghost', href: `./data/annotations/${paperId}.json`, target: '_blank', rel: 'noopener' }, 'Open Annotation JSON'));
-    linkRow.appendChild(el('a', { class: 'btn btn-xs btn-ghost', href: `./data/coverage/${paperId}.json`, target: '_blank', rel: 'noopener' }, 'Coverage JSON'));
+    linkRow.appendChild(el('a', { class: 'btn btn-xs btn-ghost', href: `./data/annotations/${paperId}.json`, target: '_blank', rel: 'noopener noreferrer' }, 'Open Annotation JSON'));
+    linkRow.appendChild(el('a', { class: 'btn btn-xs btn-ghost', href: `./data/coverage/${paperId}.json`, target: '_blank', rel: 'noopener noreferrer' }, 'Coverage JSON'));
+    if (this.cb.onCopyCitation) {
+      const citeInfo = {
+        paperId,
+        title: reg?.title,
+        year: reg?.year,
+        doiOrUrl: reg?.doi_or_url,
+        versionId: annotation.paper_version_id,
+      };
+      const btnBib = el('button', { class: 'btn btn-xs btn-ghost', type: 'button', title: 'Copy BibTeX citation' }, 'Copy BibTeX');
+      btnBib.addEventListener('click', () => this.cb.onCopyCitation('bibtex', citeInfo, btnBib));
+      linkRow.appendChild(btnBib);
+
+      const btnApa = el('button', { class: 'btn btn-xs btn-ghost', type: 'button', title: 'Copy APA citation' }, 'Copy APA');
+      btnApa.addEventListener('click', () => this.cb.onCopyCitation('apa', citeInfo, btnApa));
+      linkRow.appendChild(btnApa);
+    }
     idCard.appendChild(linkRow);
     this.els.body.appendChild(idCard);
 
@@ -535,10 +814,10 @@ export class Inspector {
     limCard.appendChild(el('h3', {}, `Canonical Limitations & Coverage (${lims.length})`));
     limCard.appendChild(el('p', { class: 'hint-note' }, 'Sourced from canonical annotation and coverage sidecar (supersedes older registry strings or prior audits).'));
     if (lims.length === 0) {
-      limCard.appendChild(el('div', { style: 'margin-top:6px;' }, 'No limitations recorded in canonical annotation.'));
+      limCard.appendChild(el('div', { class: 'insp-subtext' }, 'No limitations recorded in canonical annotation.'));
     } else {
-      const ul = el('ul', { style: 'padding-left:18px;margin:6px 0 0 0;' });
-      for (const l of lims) ul.appendChild(el('li', { style: 'margin-bottom:4px;' }, typeof l === 'string' ? l : JSON.stringify(l)));
+      const ul = el('ul', { class: 'insp-list' });
+      for (const l of lims) ul.appendChild(el('li', {}, typeof l === 'string' ? l : JSON.stringify(l)));
       limCard.appendChild(ul);
     }
     if (coverage) {
@@ -547,7 +826,7 @@ export class Inspector {
       if (coverage.unassessed_count !== undefined) covSummary.push(`Unassessed: ${coverage.unassessed_count}`);
       if (coverage.pages_inspected) covSummary.push(`Pages inspected: ${JSON.stringify(coverage.pages_inspected)}`);
       if (covSummary.length) {
-        limCard.appendChild(el('div', { class: 'hint-note', style: 'margin-top:6px;color:#cbd5e1;' }, covSummary.join(' · ')));
+        limCard.appendChild(el('div', { class: 'insp-subtext' }, covSummary.join(' · ')));
       }
     }
     this.els.body.appendChild(limCard);
@@ -560,25 +839,25 @@ export class Inspector {
       crCard.appendChild(el('h3', {}, `Scoped Capability (${caps.length}) & Readiness (${reads.length})`));
       crCard.appendChild(el('p', { class: 'hint-note' }, 'Each assessment is scoped to its specific model, configuration, or study. Differing configurations are not collapsed.'));
       for (const c of caps) {
-        const box = el('div', { class: 'evidence-card', style: 'margin-top:6px;' });
+        const box = el('div', { class: 'evidence-card' });
         const meta = el('div', { class: 'evidence-meta' });
         meta.appendChild(makeBadge(`Capability ${c.level_id || c.capability_level_id || '?'}`, 'badge-sci'));
         if (c.assessment_state) meta.appendChild(makeStateBadge(c.assessment_state));
         if (c.evidence_stage) meta.appendChild(makeBadge(c.evidence_stage, ''));
         box.appendChild(meta);
-        box.appendChild(el('div', { style: 'font-size:11.5px;margin-top:4px;' }, `Scope: ${c.subject_id || '—'}`));
-        if (c.rationale) box.appendChild(el('div', { class: 'hint-note', style: 'color:#cbd5e1;' }, c.rationale));
+        box.appendChild(el('div', { class: 'insp-scope-line' }, `Scope: ${c.subject_id || '—'}`));
+        if (c.rationale) box.appendChild(el('div', { class: 'insp-subtext' }, c.rationale));
         crCard.appendChild(box);
       }
       for (const r of reads) {
-        const box = el('div', { class: 'evidence-card', style: 'margin-top:6px;border-left-color:#f59e0b;' });
+        const box = el('div', { class: 'evidence-card evidence-readiness' });
         const meta = el('div', { class: 'evidence-meta' });
         meta.appendChild(makeBadge(`Readiness ${r.facet_id || r.readiness_facet_id || '?'}`, 'badge-warn'));
         if (r.assessment_state) meta.appendChild(makeStateBadge(r.assessment_state));
         if (r.evidence_stage) meta.appendChild(makeBadge(r.evidence_stage, ''));
         box.appendChild(meta);
-        box.appendChild(el('div', { style: 'font-size:11.5px;margin-top:4px;' }, `Scope: ${r.subject_id || '—'}`));
-        if (r.rationale) box.appendChild(el('div', { class: 'hint-note', style: 'color:#cbd5e1;' }, r.rationale));
+        box.appendChild(el('div', { class: 'insp-scope-line' }, `Scope: ${r.subject_id || '—'}`));
+        if (r.rationale) box.appendChild(el('div', { class: 'insp-subtext' }, r.rationale));
         crCard.appendChild(box);
       }
       this.els.body.appendChild(crCard);
@@ -591,21 +870,21 @@ export class Inspector {
       const entCard = el('div', { class: 'insp-card' });
       entCard.appendChild(el('h3', {}, `Entities (${entities.length}) & Metric Results (${metrics.length})`));
       for (const ent of entities.slice(0, 40)) {
-        const row = el('div', { class: 'conn-item' });
+        const row = el('button', { class: 'conn-item', type: 'button' });
         const top = el('div', { class: 'evidence-meta' });
         top.appendChild(makeBadge(ent.class_id || 'Entity', ''));
-        top.appendChild(el('span', {}, ent.id));
+        top.appendChild(el('span', { class: 'mono-cell' }, ent.id));
         row.appendChild(top);
         const nm = ent.properties?.name || ent.properties?.study_design || ent.properties?.title || '';
-        if (nm) row.appendChild(el('div', { style: 'font-size:11.5px;color:#cbd5e1;' }, nm));
+        if (nm) row.appendChild(el('div', { class: 'insp-subtext' }, nm));
         row.addEventListener('click', () => this.cb.onSelectNodeById && this.cb.onSelectNodeById(ent.id));
         entCard.appendChild(row);
       }
       if (metrics.length) {
-        entCard.appendChild(el('h3', { style: 'margin-top:10px;' }, `Metric Results (showing ${Math.min(metrics.length, 25)} of ${metrics.length})`));
+        entCard.appendChild(el('h3', { class: 'insp-subhead' }, `Metric Results (showing ${Math.min(metrics.length, 25)} of ${metrics.length})`));
         for (const m of metrics.slice(0, 25)) {
-          const row = el('div', { class: 'conn-item' });
-          row.appendChild(el('div', { style: 'font-weight:600;font-size:11.5px;' }, `${m.metric || m.id}: ${m.value ?? '—'} ${m.unit_or_scale || ''}`));
+          const row = el('button', { class: 'conn-item', type: 'button' });
+          row.appendChild(el('div', { class: 'insp-metric-val' }, `${m.metric || m.id}: ${m.value ?? '—'} ${m.unit_or_scale || ''}`));
           row.appendChild(el('div', { class: 'hint-note' }, `Model: ${m.model_version_id || '—'} · Task: ${m.task || '—'} · Split: ${m.split_role || '—'}`));
           row.addEventListener('click', () => this.cb.onSelectNodeById && this.cb.onSelectNodeById(m.id));
           entCard.appendChild(row);
@@ -619,8 +898,8 @@ export class Inspector {
     const featCard = el('div', { class: 'insp-card' });
     featCard.appendChild(el('h3', {}, `Feature Assessments (${assertions.length})`));
     const filterBar = el('div', { class: 'dossier-filter-bar' });
-    const searchIn = el('input', { type: 'search', placeholder: 'Filter features / rationale…' });
-    const stateSel = el('select');
+    const searchIn = el('input', { type: 'search', placeholder: 'Filter features / rationale…', 'aria-label': 'Filter feature assessments' });
+    const stateSel = el('select', { 'aria-label': 'Filter by assessment state' });
     stateSel.appendChild(el('option', { value: '' }, 'All states'));
     for (const st of ['present', 'partial', 'absent', 'unknown', 'not_reported', 'not_applicable', 'not_assessed', 'conflicting']) {
       stateSel.appendChild(el('option', { value: st }, st));
@@ -644,14 +923,14 @@ export class Inspector {
       });
       listHost.appendChild(el('div', { class: 'hint-note', style: 'margin-bottom:6px;' }, `Showing ${Math.min(filtered.length, 150)} of ${filtered.length} assertions`));
       for (const a of filtered.slice(0, 150)) {
-        const item = el('div', { class: 'conn-item' });
+        const item = el('button', { class: 'conn-item', type: 'button' });
         const top = el('div', { class: 'evidence-meta' });
         top.appendChild(el('strong', {}, a.feature_id || a.id));
         top.appendChild(makeStateBadge(a.assessment_state));
         if (a.evidence_stage) top.appendChild(makeBadge(a.evidence_stage, ''));
         item.appendChild(top);
         if (a.subject_id) item.appendChild(el('div', { class: 'hint-note' }, `Scope: ${a.subject_id}`));
-        if (a.rationale) item.appendChild(el('div', { style: 'font-size:11.5px;color:#cbd5e1;margin-top:2px;' }, a.rationale));
+        if (a.rationale) item.appendChild(el('div', { class: 'insp-subtext' }, a.rationale));
         item.addEventListener('click', () => this.cb.onSelectNodeById && this.cb.onSelectNodeById(a.id));
         listHost.appendChild(item);
       }
@@ -669,8 +948,8 @@ export class Inspector {
       const legCard = el('div', { class: 'insp-card' });
       legCard.appendChild(el('h3', {}, `Legacy Workbook Cells (${legacyEntries.length})`));
       const detailsEl = el('details');
-      detailsEl.appendChild(el('summary', { style: 'cursor:pointer;color:#38bdf8;font-size:12px;' }, 'Expand legacy-cell values & review status'));
-      const pre = el('pre', { class: 'raw-json', style: 'margin-top:6px;max-height:260px;overflow:auto;' });
+      detailsEl.appendChild(el('summary', { class: 'insp-summary-toggle' }, 'Expand legacy-cell values & review status'));
+      const pre = el('pre', { class: 'raw-json raw-json-scroll' });
       pre.textContent = JSON.stringify(legacy, null, 2);
       detailsEl.appendChild(pre);
       legCard.appendChild(detailsEl);
@@ -682,8 +961,8 @@ export class Inspector {
       const revCard = el('div', { class: 'insp-card' });
       revCard.appendChild(el('h3', {}, 'Review Notes'));
       const detailsEl = el('details');
-      detailsEl.appendChild(el('summary', { style: 'cursor:pointer;color:#38bdf8;font-size:12px;' }, `Expand reviews/${paperId}.md`));
-      const pre = el('pre', { class: 'raw-json', style: 'margin-top:6px;max-height:320px;overflow:auto;' });
+      detailsEl.appendChild(el('summary', { class: 'insp-summary-toggle' }, `Expand reviews/${paperId}.md`));
+      const pre = el('pre', { class: 'raw-json raw-json-scroll' });
       pre.textContent = reviewMd;
       detailsEl.appendChild(pre);
       revCard.appendChild(detailsEl);
